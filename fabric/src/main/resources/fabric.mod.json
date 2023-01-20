@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "scriptor",
+  "version": "${version}",
+  "name": "Scriptor",
+  "description": "Knowledge is power!",
+  "authors": [
+    "SSBlur"
+  ],
+  "contact": {
+    "homepage": "https://ssblur.com/mods/scriptor",
+    "sources": "https://github.com/ssblur/scriptor"
+  },
+  "license": "WTFPL",
+  "icon": "assets/scriptor/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.ssblur.scriptor.fabric.ScriptorModFabric"
+    ]
+  },
+  "depends": {
+    "fabric": "*",
+    "minecraft": ">=1.19.2",
+    "architectury": ">=6.2.43"
+  }
+}

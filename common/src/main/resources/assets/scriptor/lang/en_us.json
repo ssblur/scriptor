@@ -1,0 +1,9 @@
+{
+  "item.scriptor.spellbook_binder": "Spellbook Binder",
+  "item.scriptor.leather_binder": "Mundane Leather Binder",
+  "item.scriptor.spellbook": "Spellbook",
+  "item.scriptor.tome": "Ancient Tome",
+  "extra.scriptor.tome_use": "You dust off the Ancient Tome...",
+  "extra.scriptor.spell_get": "The cover reads {0}",
+  "itemGroup.scriptor.scriptor_tab": "Scriptor Magicae"
+}
