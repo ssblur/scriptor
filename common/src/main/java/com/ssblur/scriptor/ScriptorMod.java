@@ -21,11 +21,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.function.Supplier;
 
 public class ScriptorMod {
   public static final String MOD_ID = "scriptor";
+  public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
   // We can use this if we don't want to use DeferredRegister
   public static final Supplier<Registries> REGISTRIES = Suppliers.memoize(() -> Registries.get(MOD_ID));
   // Registering a new creative tab
