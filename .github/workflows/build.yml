@@ -1,0 +1,56 @@
+name: build
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+      - name: Build Forge
+        run: bash ./gradlew forge:build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_USER: 'ssblur'
+      - name: Build Fabric
+        run: bash ./gradlew fabric:build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_USER: 'ssblur'
+      - name: Build Quilt
+        run: bash ./gradlew quilt:build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_USER: 'ssblur'
+      - name: Cleanup
+        run: |
+          rm */build/libs/scriptor-*-dev-shadow.jar
+          bash -c 'for file in fabric/build/libs/*.jar; do mv "$file" "${file%.jar}-fabric.jar"; done'
+          bash -c 'for file in quilt/build/libs/*.jar; do mv "$file" "${file%.jar}-quilt.jar"; done'
+          bash -c 'for file in forge/build/libs/*.jar; do mv "$file" "${file%.jar}-forge.jar"; done'
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: Release
+          path: |
+            fabric/build/libs/scriptor-*.jar
+            forge/build/libs/scriptor-*.jar
+            quilt/build/libs/scriptor-*.jar
+      - name: "Release"
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          files: |
+            fabric/build/libs/scriptor-*.jar
+            forge/build/libs/scriptor-*.jar
+            quilt/build/libs/scriptor-*.jar
+
