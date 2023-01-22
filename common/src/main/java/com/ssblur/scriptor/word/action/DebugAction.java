@@ -10,7 +10,6 @@ public class DebugAction extends Action {
     System.out.println(caster + " cast debug on " + targetable + " with " + descriptors.length + " descriptors.");
   }
   @Override
-  public int cost() {
-    return 0;
-  }
+  public Cost cost() { return new Cost(0, COSTTYPE.ADDITIVE); }
+
 }

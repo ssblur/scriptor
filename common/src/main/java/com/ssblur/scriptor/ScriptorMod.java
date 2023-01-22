@@ -11,11 +11,13 @@ import com.ssblur.scriptor.registry.WordRegistry;
 import com.ssblur.scriptor.word.action.Action;
 import com.ssblur.scriptor.word.action.HealAction;
 import com.ssblur.scriptor.word.action.InflameAction;
+import com.ssblur.scriptor.word.action.SmiteAction;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
 import com.ssblur.scriptor.word.descriptor.DurationDescriptor;
 import com.ssblur.scriptor.word.descriptor.ElementalDescriptor;
 import com.ssblur.scriptor.word.descriptor.ExtensionDescriptor;
 import com.ssblur.scriptor.word.subject.SelfSubject;
+import com.ssblur.scriptor.word.subject.StormSubject;
 import com.ssblur.scriptor.word.subject.Subject;
 import com.ssblur.scriptor.word.subject.TouchSubject;
 import dev.architectury.event.events.common.ChatEvent;
@@ -68,18 +70,20 @@ public class ScriptorMod {
 
   public static final Subject SELF = WORDS.register("self", new SelfSubject());
   public static final Subject TOUCH = WORDS.register("touch", new TouchSubject());
+  public static final Subject STORM = WORDS.register("storm", new StormSubject());
 
   public static final Descriptor LONG = WORDS.register("long", new DurationDescriptor());
   public static final Descriptor SLOW = WORDS.register("slow", new DurationDescriptor());
   public static final Descriptor STRONG = WORDS.register("strong", new ExtensionDescriptor());
-  public static final Descriptor WOOD = WORDS.register("wood", new ElementalDescriptor());
-  public static final Descriptor FIRE = WORDS.register("fire", new ElementalDescriptor());
-  public static final Descriptor EARTH = WORDS.register("earth", new ElementalDescriptor());
-  public static final Descriptor GOLD = WORDS.register("gold", new ElementalDescriptor());
-  public static final Descriptor WATER = WORDS.register("water", new ElementalDescriptor());
+//  public static final Descriptor WOOD = WORDS.register("wood", new ElementalDescriptor());
+//  public static final Descriptor FIRE = WORDS.register("fire", new ElementalDescriptor());
+//  public static final Descriptor EARTH = WORDS.register("earth", new ElementalDescriptor());
+//  public static final Descriptor GOLD = WORDS.register("gold", new ElementalDescriptor());
+//  public static final Descriptor WATER = WORDS.register("water", new ElementalDescriptor());
 
   public static final Action INFLAME = WORDS.register("inflame", new InflameAction());
   public static final Action HEAL = WORDS.register("heal", new HealAction());
+  public static final Action SMITE = WORDS.register("smite", new SmiteAction());
 
   public static final ResourceLocation GET_TOUCH_DATA = new ResourceLocation(MOD_ID, "get_touch_data");
   public static final ResourceLocation RETURN_TOUCH_DATA = new ResourceLocation(MOD_ID, "return_touch_data");

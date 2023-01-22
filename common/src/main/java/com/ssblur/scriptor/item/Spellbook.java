@@ -14,6 +14,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 public class Spellbook extends Item {
   public Spellbook(Properties properties) {
@@ -34,7 +35,7 @@ public class Spellbook extends Item {
   }
 
   @Override
-  public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
+  public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand interactionHand) {
     var result = super.use(level, player, interactionHand);
 
     Tag tag = player.getItemInHand(interactionHand).getTag();
@@ -43,7 +44,7 @@ public class Spellbook extends Item {
       Spell spell = DictionarySavedData.computeIfAbsent(server).parse(LimitedBookSerializer.decodeText(text));
       if(spell != null) {
         spell.cast(player);
-        player.getCooldowns().addCooldown(this, spell.cost() * 10);
+        player.getCooldowns().addCooldown(this, (int) Math.round(spell.cost() * 7));
       }
     }
 

@@ -24,7 +24,5 @@ public class HealAction extends Action {
     }
   }
   @Override
-  public int cost() {
-    return 2;
-  }
+  public Cost cost() { return new Cost(3, COSTTYPE.ADDITIVE); }
 }

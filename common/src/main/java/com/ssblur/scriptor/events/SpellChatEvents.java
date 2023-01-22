@@ -18,11 +18,16 @@ public class SpellChatEvents implements ChatEvent.Received {
     if(player != null && player.level instanceof ServerLevel server) {
       Spell spell = DictionarySavedData.computeIfAbsent(server).parse(sentence);
       if (spell != null) {
-        if(player.hasEffect(ScriptorMod.HOARSE.get()) || player.hasEffect(ScriptorMod.MUTE.get()))
+        if(player.hasEffect(ScriptorMod.HOARSE.get())) {
+          player.sendSystemMessage(Component.translatable("extra.scriptor.hoarse"));
           return EventResult.interruptFalse();
+        } else if(player.hasEffect(ScriptorMod.MUTE.get())) {
+          player.sendSystemMessage(Component.translatable("extra.scriptor.mute"));
+          return EventResult.interruptFalse();
+        }
         spell.cast(player);
 
-        int cost = spell.cost() * 30;
+        int cost = (int) Math.round(spell.cost() * 30);
         MobEffectInstance instance = new MobEffectInstance(ScriptorMod.HOARSE.get(), cost);
         player.addEffect(instance);
 

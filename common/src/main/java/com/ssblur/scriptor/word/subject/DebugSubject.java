@@ -8,5 +8,5 @@ public class DebugSubject extends Subject{
   public void cast(Entity caster, Spell spell) {}
 
   @Override
-  public int cost() { return 1; }
+  public Cost cost() { return new Cost(1, COSTTYPE.ADDITIVE); }
 }
