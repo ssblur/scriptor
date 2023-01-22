@@ -1,0 +1,11 @@
+{
+  "name": "Healing Hands",
+  "author": "§iThe name is faded...",
+  "spell": {
+    "action": "heal",
+    "subject": "touch",
+    "descriptors": [
+      "strong"
+    ]
+  }
+}

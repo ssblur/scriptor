@@ -1,0 +1,12 @@
+{
+  "name": "Wildfire",
+  "author": "§iThe name is faded...",
+  "spell": {
+    "action": "inflame",
+    "subject": "storm",
+    "descriptors": [
+      "long",
+      "slow"
+    ]
+  }
+}

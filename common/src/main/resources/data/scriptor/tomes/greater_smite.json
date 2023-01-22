@@ -1,0 +1,11 @@
+{
+  "name": "Greater Smite",
+  "author": "§iThe name is faded...",
+  "spell": {
+    "action": "smite",
+    "subject": "storm",
+    "descriptors": [
+      "strong"
+    ]
+  }
+}
