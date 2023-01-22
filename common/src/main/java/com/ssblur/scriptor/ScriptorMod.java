@@ -2,6 +2,7 @@ package com.ssblur.scriptor;
 
 import com.google.common.base.Suppliers;
 import com.ssblur.scriptor.effect.MuteStatusEffect;
+import com.ssblur.scriptor.events.AddLootEvent;
 import com.ssblur.scriptor.events.SpellChatEvents;
 import com.ssblur.scriptor.item.AncientSpellbook;
 import com.ssblur.scriptor.item.Spellbook;
@@ -18,6 +19,7 @@ import com.ssblur.scriptor.word.subject.SelfSubject;
 import com.ssblur.scriptor.word.subject.Subject;
 import com.ssblur.scriptor.word.subject.TouchSubject;
 import dev.architectury.event.events.common.ChatEvent;
+import dev.architectury.event.events.common.LootEvent;
 import dev.architectury.networking.NetworkChannel;
 import dev.architectury.networking.NetworkManager;
 import dev.architectury.platform.Platform;
@@ -32,6 +34,8 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
+import net.minecraft.world.level.storage.loot.entries.LootTableReference;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -63,7 +67,7 @@ public class ScriptorMod {
   public static final WordRegistry WORDS = new WordRegistry();
 
   public static final Subject SELF = WORDS.register("self", new SelfSubject());
-  public static final TouchSubject TOUCH = (TouchSubject) WORDS.register("touch", new TouchSubject());
+  public static final Subject TOUCH = WORDS.register("touch", new TouchSubject());
 
   public static final Descriptor LONG = WORDS.register("long", new DurationDescriptor());
   public static final Descriptor SLOW = WORDS.register("slow", new DurationDescriptor());
@@ -83,6 +87,7 @@ public class ScriptorMod {
 
   public static void registerHandlers() {
     ChatEvent.RECEIVED.register(new SpellChatEvents());
+    LootEvent.MODIFY_LOOT_TABLE.register(new AddLootEvent());
 
     if(Platform.getEnv() == EnvType.CLIENT)
       NetworkManager.registerReceiver(NetworkManager.Side.S2C, GET_TOUCH_DATA, TouchNetwork::getTouchData);
