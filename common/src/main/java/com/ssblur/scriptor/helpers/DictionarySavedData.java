@@ -15,6 +15,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
 import org.jetbrains.annotations.NotNull;
+import com.ssblur.scriptor.ScriptorMod;
 
 import java.util.*;
 
@@ -78,6 +79,7 @@ public class DictionarySavedData extends SavedData {
       ARTICLEPOSITION.valueOf(subjectArticlePosition),
       words
     );
+    ScriptorMod.LOGGER.debug(this);
   }
 
   /**
@@ -422,7 +424,9 @@ public class DictionarySavedData extends SavedData {
 
       if (action != null && subject != null)
         return new Spell(action, subject, descriptors.toArray(new Descriptor[0]));
-    } catch (Exception e) {}
+    } catch (Exception e) {
+      ScriptorMod.LOGGER.debug(e);
+    }
     return null;
   }
 
@@ -452,18 +456,18 @@ public class DictionarySavedData extends SavedData {
     for(Descriptor descriptor: spell.descriptors()) {
       WordData descriptorData = getWord(descriptor);
       if(descriptorArticlePosition == ARTICLEPOSITION.BEFORE)
-        descriptorBuilder.append(" " + descriptorGenderedArticles.get(descriptorData.gender) + " " + descriptorData.word);
+        descriptorBuilder.append(" ").append(descriptorGenderedArticles.get(descriptorData.gender)).append(" ").append(descriptorData.word);
       else if (descriptorArticlePosition == ARTICLEPOSITION.AFTER)
-        descriptorBuilder.append(" " + descriptorData.word + " " + descriptorGenderedArticles.get(descriptorData.gender));
-      else descriptorBuilder.append(" " + descriptorData.word);
+        descriptorBuilder.append(" ").append(descriptorData.word).append(" ").append(descriptorGenderedArticles.get(descriptorData.gender));
+      else descriptorBuilder.append(" ").append(descriptorData.word);
     }
 
     StringBuilder builder = new StringBuilder();
     for(WORD w: spellStructure) {
       if(w == WORD.ACTION)
-        builder.append(" " + actionString);
+        builder.append(" ").append(actionString);
       else if(w == WORD.SUBJECT)
-        builder.append(" " + subjectString);
+        builder.append(" ").append(subjectString);
       else if(w == WORD.DESCRIPTOR)
         builder.append(descriptorBuilder);
     }
@@ -490,11 +494,12 @@ public class DictionarySavedData extends SavedData {
 
   /**
    * A helper for calling computeIfAbsent for this class from the Overworld
-   * @param level
-   * @return
+   * @param level Any ServerLevel
+   * @return The DictionarySavedData for this world
    */
   public static DictionarySavedData computeIfAbsent(ServerLevel level) {
     ServerLevel server = level.getServer().getLevel(Level.OVERWORLD);
+    Objects.requireNonNull(server);
     return server.getDataStorage().computeIfAbsent(DictionarySavedData::load, DictionarySavedData::new, "scriptor_dictionary");
   }
 
@@ -503,28 +508,28 @@ public class DictionarySavedData extends SavedData {
     var builder = new StringBuilder();
 
     for(var w: spellStructure)
-      builder.append(w + " ");
+      builder.append(w).append(" ");
     builder.append("\n\n");
 
     builder.append("Words:\n");
     for(var w: words) {
-      builder.append('"' + w.key + '"');
+      builder.append('"').append(w.key).append('"');
       builder.append(" : ");
       builder.append(w.word);
-      builder.append(" (" + w.gender + ")\n");
+      builder.append(" (").append(w.gender).append(")\n");
     }
 
     builder.append("\nAction Articles:\n");
     for(var w: actionGenderedArticles)
-      builder.append(w + "\n");
+      builder.append(w).append("\n");
 
     builder.append("\nSubject Articles:\n");
     for(var w: subjectGenderedArticles)
-      builder.append(w + "\n");
+      builder.append(w).append("\n");
 
     builder.append("\nDescriptor Articles:\n");
     for(var w: descriptorGenderedArticles)
-      builder.append(w + "\n");
+      builder.append(w).append("\n");
 
     return builder.toString();
   }
