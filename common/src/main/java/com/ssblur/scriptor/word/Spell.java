@@ -28,10 +28,29 @@ public record Spell(
    * The cost for this spell, generally affects cooldowns / material cost.
    * @return A number representing cost.
    */
-  public int cost() {
-    int sum = 0;
-    for(var d: descriptors)
-      sum += d.cost();
-    return action.cost() + subject().cost() + sum;
+  public double cost() {
+    double sum = 0;
+    double scalar = 1;
+    for(var d: descriptors) {
+      var cost = d.cost();
+      switch (cost.type()){
+        case ADDITIVE -> sum += cost.cost();
+        case MULTIPLICATIVE -> scalar += cost.cost();
+      }
+    }
+
+    var cost = action.cost();
+    switch (cost.type()){
+      case ADDITIVE -> sum += cost.cost();
+      case MULTIPLICATIVE -> scalar += cost.cost();
+    }
+
+    cost = subject.cost();
+    switch (cost.type()){
+      case ADDITIVE -> sum += cost.cost();
+      case MULTIPLICATIVE -> scalar += cost.cost();
+    }
+
+    return sum * scalar;
   }
 }

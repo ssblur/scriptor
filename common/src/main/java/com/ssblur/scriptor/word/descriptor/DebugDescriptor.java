@@ -2,7 +2,5 @@ package com.ssblur.scriptor.word.descriptor;
 
 public class DebugDescriptor extends Descriptor {
   @Override
-  public int cost() {
-    return 0;
-  }
+  public Cost cost() { return new Cost(0, COSTTYPE.ADDITIVE); }
 }

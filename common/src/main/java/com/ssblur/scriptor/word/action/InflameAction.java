@@ -45,7 +45,6 @@ public class InflameAction extends Action {
   }
 
   @Override
-  public int cost() {
-    return 1;
-  }
+  public Cost cost() { return new Cost(2, COSTTYPE.ADDITIVE); }
+
 }

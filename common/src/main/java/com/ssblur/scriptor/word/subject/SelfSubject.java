@@ -11,5 +11,5 @@ public class SelfSubject extends Subject{
   }
 
   @Override
-  public int cost() { return 0; }
+  public Cost cost() { return new Cost(1, COSTTYPE.ADDITIVE); }
 }
