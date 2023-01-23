@@ -22,11 +22,6 @@ public class TouchSubject extends Subject{
       UUID uuid = UUID.randomUUID();
       touchQueue.put(uuid, new TouchQueue(player, spell));
       TouchNetwork.requestTouchData(player, uuid);
-    } else {
-      // TODO: If cast from a lectern, get block or bounding box next to lectern.
-      EntityHitResult result = null;
-      if (result != null && result.getEntity() instanceof LivingEntity living)
-        spell.action().apply(caster, new EntityTargetable(living), spell.deduplicatedDescriptors());
     }
   }
 
