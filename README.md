@@ -1,7 +1,13 @@
 # Scriptor Magicae
 *Knowledge is power!*
 
+![Icon of a Purple Book with a cursive SM printed on the cover](https://cdn.modrinth.com/data/JyJgaOrk/6b689deb170511e4c64c75e5a66dee284dad2160.png)
+
 Welcome to Scriptor, the mod which gives words power.
+This Vanilla-style mod adds various kinds of magic spell to the world
+with the aim of making discovery and spellcrafting simple, interesting,
+and reasonable when compared to Vanilla gear and capabilities.
+
 In this mod, spells are constructed much like sentences, with a catch:
 
 **The words and sentence structure used are random in every world!**
@@ -26,7 +32,7 @@ a Written Book in a Smithing Table.
 Ancient Tomes can be found in libraries in the world, as well as given out
 by Librarians as a reward for saving villages.
 
-When dusted off (right click), these reveal Books or Spellbooks containing
+When dusted off (right clicked), these reveal Books or Spellbooks containing
 Spells created in times long past.
 
 ### Spellbook Binder
@@ -34,7 +40,7 @@ Spells created in times long past.
 Spellbook Binders can be crafted and placed onto any Written Book at a 
 Smithing Table to create a **[Spellbook](#spellbook)**. 
 
-*Crafting Recipe TBA*
+![Spellbook Binder Crafting Recipe](https://cdn.modrinth.com/data/JyJgaOrk/images/8d76ec434a806d09ae4efb081ba100922eb35e67.png)
 
 ### Mundane Leather Binder
 
@@ -42,7 +48,7 @@ Leather Binders can be crafted and placed onto any **[Spellbook](#spellbook)**
 to turn it into a Written Book. 
 This can be used to copy books or reveal their contents.
 
-*Crafting Recipe TBA*
+![Leather Binder Crafting Recipe](https://cdn.modrinth.com/data/JyJgaOrk/images/8f58de26bf8a76ceb6ef0f59629e7f1e79e24e51.png)
 
 ## Casting
 
@@ -62,15 +68,19 @@ If you're ever in doubt, remember the 3 H's.
 ### Hoarse
 
 A hoarse throat is not uncommon when casting spells.
-Thankfully, this is easily remedied by drinking a tall glass of milk!
+When your throat isn't in peak condition, it may be hard to cast
+any additional spells.
+Thankfully, this is easily remedied by drinking a tall glass of 
+milk or waiting a moment.
 
-### Hunger
+### Hungry
 
 Higher-level spells may drain your life slightly, only enough to make 
 you peckish. 
-This *is* an indicator that you may be approaching your limits, however.
+This *is* an indicator that you may be approaching your limits, however,
+so you should be careful if you notice this.
 
-### Harm
+### Hurt
 
 When approaching the heights of humanly achievable sorcery, spells may 
 begin harming you directly.
