@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "scriptor:spellbook"
+  },
+  "addition": {
+    "item": "scriptor:leather_binder"
+  },
+  "result": {
+    "item": "minecraft:written_book"
+  }
+}

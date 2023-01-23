@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "quilt_loader": {
+    "group": "${group}",
+    "id": "scriptor",
+    "version": "${version}",
+    "name": "Scriptor",
+    "description": "Knowledge is power!",
+    "authors": ["SSBlur"],
+    "contact": {
+      "sources": "https://github.com/architectury/architectury-templates"
+    },
+    "license": "WTFPL",
+    "icon": "assets/scriptor/icon.png",
+    "intermediate_mappings": "net.fabricmc:intermediary",
+    "environment": "*",
+    "entrypoints": {
+      "init": [
+        "com.ssblur.scriptor.quilt.ScriptorModQuilt"
+      ]
+    },
+    "depends": [
+      {
+        "id": "quilt_loader",
+        "version": "*"
+      },
+      {
+        "id": "quilt_base",
+        "version": "*"
+      },
+      {
+        "id": "minecraft",
+        "version": ">=1.19.2"
+      },
+      {
+        "id": "architectury",
+        "version": ">=6.2.43"
+      }
+    ]
+  }
+}
