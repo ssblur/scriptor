@@ -1,0 +1,13 @@
+{
+  "name": "Disabled Tome",
+  "disabled": true,
+  "author": "This tome is an example of how to disable existing tomes.",
+  "spell": {
+    "action": "inflame",
+    "subject": "storm",
+    "descriptors": [
+      "long",
+      "slow"
+    ]
+  }
+}

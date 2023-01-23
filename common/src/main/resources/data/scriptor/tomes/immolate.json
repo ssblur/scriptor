@@ -1,0 +1,9 @@
+{
+  "name": "Immolate",
+  "author": "Arnold the Unwise",
+  "spell": {
+    "action": "inflame",
+    "subject": "self",
+    "descriptors": []
+  }
+}
