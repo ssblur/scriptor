@@ -1,6 +1,7 @@
 package com.ssblur.scriptor.events;
 
 import com.ssblur.scriptor.ScriptorMod;
+import com.ssblur.scriptor.damage.OverloadDamageSource;
 import com.ssblur.scriptor.helpers.DictionarySavedData;
 import com.ssblur.scriptor.word.Spell;
 import dev.architectury.event.EventResult;
@@ -8,7 +9,9 @@ import dev.architectury.event.events.common.ChatEvent;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import org.jetbrains.annotations.Nullable;
 
 public class SpellChatEvents implements ChatEvent.Received {
@@ -28,8 +31,12 @@ public class SpellChatEvents implements ChatEvent.Received {
         spell.cast(player);
 
         int cost = (int) Math.round(spell.cost() * 30);
-        MobEffectInstance instance = new MobEffectInstance(ScriptorMod.HOARSE.get(), cost);
-        player.addEffect(instance);
+
+        player.addEffect(new MobEffectInstance(ScriptorMod.HOARSE.get(), cost));
+        if(cost > 400)
+          player.addEffect(new MobEffectInstance(MobEffects.HUNGER, cost - 300));
+        if(cost > 1200)
+          player.hurt(new OverloadDamageSource(), ((float) (cost - 800)) / 100f);
 
         return EventResult.interruptFalse();
       }

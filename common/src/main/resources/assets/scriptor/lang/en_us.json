@@ -7,6 +7,9 @@
   "effect.scriptor.hoarse": "Hoarse",
   "effect.scriptor.mute": "Mute",
 
+  "death.attack.overload": "%1$s was overwhelmed by magical forces.",
+  "death.attack.overload.player": "%1$s was overwhelmed by magical forces.",
+
   "type.scriptor.action": "Action",
   "type.scriptor.subject": "Subject",
   "type.scriptor.descriptor": "Descriptor",
@@ -28,7 +31,7 @@
   "action.scriptor.smite": "Smite, pierce",
 
   "extra.scriptor.tome_use": "You dust off the Ancient Tome...",
-  "extra.scriptor.spell_get": "The cover reads {0}",
+  "extra.scriptor.spell_get": "The cover reads %1$s",
   "extra.scriptor.hoarse": "The residue of your last spell still burns in your throat. You must recover before speaking more spells.",
   "extra.scriptor.mute": "Magic wells up in your chest, but you have been muted...",
 

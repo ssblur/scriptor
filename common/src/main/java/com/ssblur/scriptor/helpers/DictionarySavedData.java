@@ -60,7 +60,6 @@ public class DictionarySavedData extends SavedData {
 
     generateMissingWords();
     setDirty();
-    ScriptorMod.LOGGER.info(this);
   }
 
   public DictionarySavedData(
@@ -386,7 +385,6 @@ public class DictionarySavedData extends SavedData {
 
       while (position < spellStructure.size()) {
         WORD word = spellStructure.get(position);
-        System.out.println(word);
         WordData wordData;
         switch(word) {
           case PREFIXARTICLE:
