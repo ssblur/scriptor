@@ -3,7 +3,30 @@
   "item.scriptor.leather_binder": "Mundane Leather Binder",
   "item.scriptor.spellbook": "Spellbook",
   "item.scriptor.tome": "Ancient Tome",
+
+  "effect.scriptor.hoarse": "Hoarse",
+  "effect.scriptor.mute": "Mute",
+
+  "type.scriptor.action": "Action",
+  "type.scriptor.subject": "Subject",
+  "type.scriptor.descriptor": "Descriptor",
+
+  "subject.scriptor.self": "Me, myself",
+  "subject.scriptor.touch": "Touch, close",
+
+  "descriptor.scriptor.long": "Long, more time",
+  "descriptor.scriptor.strong": "Strong, more powerful",
+  "descriptor.scriptor.wood": "Wood, growth",
+  "descriptor.scriptor.fire": "Fire, activity",
+  "descriptor.scriptor.earth": "Earth, transmutation",
+  "descriptor.scriptor.metal": "Gold, gravity",
+  "descriptor.scriptor.water": "Water, life",
+
+  "action.scriptor.inflame": "Inflame, envelop",
+  "action.scriptor.heal": "Heal, soothe",
+
   "extra.scriptor.tome_use": "You dust off the Ancient Tome...",
   "extra.scriptor.spell_get": "The cover reads {0}",
+
   "itemGroup.scriptor.scriptor_tab": "Scriptor Magicae"
 }

@@ -7,17 +7,17 @@ import com.ssblur.scriptor.word.subject.Subject;
 import java.util.HashMap;
 
 public class WordRegistry {
-  public static HashMap<String, Action> actionRegistry = new HashMap<String, Action>();
-  public static HashMap<String, Descriptor> descriptorRegistry = new HashMap<String, Descriptor>();
-  public static HashMap<String, Subject> subjectRegistry = new HashMap<String, Subject>();
+  public HashMap<String, Action> actionRegistry = new HashMap<>();
+  public HashMap<String, Descriptor> descriptorRegistry = new HashMap<>();
+  public HashMap<String, Subject> subjectRegistry = new HashMap<>();
 
   /**
    * Register a new Action.
    * @param key The key at which to register this word
    * @param action The word to register
    */
-  public static void register(String key, Action action) {
-    actionRegistry.put(key, action);
+  public Action register(String key, Action action) {
+    return actionRegistry.put(key, action);
   }
 
   /**
@@ -25,8 +25,8 @@ public class WordRegistry {
    * @param key The key at which to register this word
    * @param descriptor The word to register
    */
-  public static void register(String key, Descriptor descriptor) {
-    descriptorRegistry.put(key, descriptor);
+  public Descriptor register(String key, Descriptor descriptor) {
+    return descriptorRegistry.put(key, descriptor);
   }
 
   /**
@@ -34,7 +34,7 @@ public class WordRegistry {
    * @param key The key at which to register this word
    * @param subject The word to register
    */
-  public static void register(String key, Subject subject) {
-    subjectRegistry.put(key, subject);
+  public Subject register(String key, Subject subject) {
+    return subjectRegistry.put(key, subject);
   }
 }

@@ -29,7 +29,7 @@ public class DictionarySavedData extends SavedData {
   ARTICLEPOSITION subjectArticlePosition;
   List<WordData> words;
   /**
-   * A record class for storing language data for a given world.
+   * A class for storing language data for a given world.
    * @param spellStructure The structure of spells for this world.
    * @param actionGenderedArticles All gendered articles which exist for actions in this world.
    * @param actionArticlePosition Position and presence of an article for the action a spell describes.
@@ -56,7 +56,11 @@ public class DictionarySavedData extends SavedData {
     this.descriptorArticlePosition = descriptorArticlePosition;
     this.subjectGenderedArticles = subjectGenderedArticles;
     this.subjectArticlePosition = subjectArticlePosition;
-    this.words = words;
+    this.words = new ArrayList<>(words);
+
+    generateMissingWords();
+    setDirty();
+    ScriptorMod.LOGGER.info(this);
   }
 
   public DictionarySavedData(
@@ -79,7 +83,6 @@ public class DictionarySavedData extends SavedData {
       ARTICLEPOSITION.valueOf(subjectArticlePosition),
       words
     );
-    ScriptorMod.LOGGER.debug(this);
   }
 
   /**
@@ -131,6 +134,70 @@ public class DictionarySavedData extends SavedData {
     wordCodec.listOf().fieldOf("words").forGetter(worldData -> worldData.words.stream().toList())
   ).apply(instance, DictionarySavedData::new));
 
+  boolean containsKey(String key) {
+    for(var word: words)
+      if(word.key.equalsIgnoreCase(key))
+        return true;
+    return false;
+  }
+
+  boolean containsWord(String string) {
+    for(var word: words)
+      if(word.word.equalsIgnoreCase(string))
+        return true;
+    return false;
+  }
+
+  void generateMissingWords() {
+    TokenGenerator generator = DefaultTokenGenerators.angGenerator;
+    String token;
+    int genders = actionGenderedArticles.size();
+    Random random = new Random();
+
+    for(var word: ScriptorMod.WORDS.actionRegistry.keySet()) {
+      if(containsKey("action:" + word))
+        continue;
+
+      do {
+        token = generator.generateToken();
+      } while (containsWord(token));
+
+      words.add(new WordData(
+        generator.generateToken(),
+        "action:" + word,
+        random.nextInt(genders)
+      ));
+    }
+
+    for(var word: ScriptorMod.WORDS.descriptorRegistry.keySet()) {
+      if(containsKey("descriptor:" + word))
+        continue;
+
+      do {
+        token = generator.generateToken();
+      } while (containsWord(token));
+
+      words.add(new WordData(
+        generator.generateToken(),
+        "descriptor:" + word,
+        random.nextInt(genders)
+      ));
+    }
+    for(var word: ScriptorMod.WORDS.subjectRegistry.keySet()) {
+      if(containsKey("subject:" + word))
+        continue;
+
+      do {
+        token = generator.generateToken();
+      } while (containsWord(token));
+
+      words.add(new WordData(
+        generator.generateToken(),
+        "subject:" + word,
+        random.nextInt(genders)
+      ));
+    }
+  }
 
   public DictionarySavedData() {
     WORD[] basicStructure = new WORD[]{WORD.ACTION, WORD.DESCRIPTOR, WORD.SUBJECT};
@@ -139,7 +206,6 @@ public class DictionarySavedData extends SavedData {
 
     String token;
     Random random = new Random();
-    TokenGenerator generator = DefaultTokenGenerators.angGenerator;
     TokenGenerator shortGenerator = DefaultTokenGenerators.shortAngGenerator;
     int genders = random.nextInt(3) + 1;
 
@@ -195,66 +261,7 @@ public class DictionarySavedData extends SavedData {
     }
 
     words = new ArrayList<>();
-    for(var word: WordRegistry.actionRegistry.keySet()) {
-      while(true) {
-        token = generator.generateToken();
-
-        boolean match = false;
-        for(var w: words)
-          if (w.word.equalsIgnoreCase(token)) {
-            match = true;
-            break;
-          }
-        if(match)
-          break;
-      }
-
-      words.add(new WordData(
-        generator.generateToken(),
-        "action:" + word,
-        random.nextInt(genders)
-      ));
-    }
-    for(var word: WordRegistry.descriptorRegistry.keySet()) {
-      while(true) {
-        token = generator.generateToken();
-
-        boolean match = false;
-        for(var w: words)
-          if (w.word.equalsIgnoreCase(token)) {
-            match = true;
-            break;
-          }
-        if(match)
-          break;
-      }
-
-      words.add(new WordData(
-        generator.generateToken(),
-        "descriptor:" + word,
-        random.nextInt(genders)
-      ));
-    }
-    for(var word: WordRegistry.subjectRegistry.keySet()) {
-      while(true) {
-        token = generator.generateToken();
-
-        boolean match = false;
-        for(var w: words)
-          if (w.word.equalsIgnoreCase(token)) {
-            match = true;
-            break;
-          }
-        if(match)
-          break;
-      }
-
-      words.add(new WordData(
-        generator.generateToken(),
-        "subject:" + word,
-        random.nextInt(genders)
-      ));
-    }
+    generateMissingWords();
 
     setDirty();
   }
@@ -292,8 +299,8 @@ public class DictionarySavedData extends SavedData {
    * null if no matches
    */
   public WordData getWord(Action action) {
-    for(String key: WordRegistry.actionRegistry.keySet()) {
-      if(action == WordRegistry.actionRegistry.get(key))
+    for(String key: ScriptorMod.WORDS.actionRegistry.keySet()) {
+      if(action == ScriptorMod.WORDS.actionRegistry.get(key))
         return getWord("action:" + key);
     }
     return null;
@@ -306,8 +313,8 @@ public class DictionarySavedData extends SavedData {
    * null if no matches
    */
   public WordData getWord(Descriptor descriptor) {
-    for(String key: WordRegistry.descriptorRegistry.keySet()) {
-      if(descriptor == WordRegistry.descriptorRegistry.get(key))
+    for(String key: ScriptorMod.WORDS.descriptorRegistry.keySet()) {
+      if(descriptor == ScriptorMod.WORDS.descriptorRegistry.get(key))
         return getWord("descriptor:" + key);
     }
     return null;
@@ -320,8 +327,8 @@ public class DictionarySavedData extends SavedData {
    * null if no matches
    */
   public WordData getWord(Subject subject) {
-    for(String key: WordRegistry.subjectRegistry.keySet()) {
-      if(subject == WordRegistry.subjectRegistry.get(key))
+    for(String key: ScriptorMod.WORDS.subjectRegistry.keySet()) {
+      if(subject == ScriptorMod.WORDS.subjectRegistry.get(key))
         return getWord("subject:" + key);
     }
     return null;
@@ -380,6 +387,10 @@ public class DictionarySavedData extends SavedData {
       while (position < spellStructure.size()) {
         WORD word = spellStructure.get(position);
         if (word == WORD.PREFIXARTICLE) {
+          if(spellStructure.get(position + 1) == WORD.DESCRIPTOR && !parseWord(tokens[tokenPosition + 1]).key.startsWith("descriptor")) {
+            position += 2;
+            continue;
+          }
           if (parseArticle(spellStructure.get(position + 1), tokens[tokenPosition]) != parseWord(tokens[tokenPosition + 1]).gender)
             return null;
         } else if (word == WORD.SUFFIXARTICLE) {
@@ -389,9 +400,9 @@ public class DictionarySavedData extends SavedData {
           WordData wordData = parseWord(tokens[tokenPosition]);
 
           if (word == WORD.ACTION)
-            action = WordRegistry.actionRegistry.get(wordData.key.substring(7));
+            action = ScriptorMod.WORDS.actionRegistry.get(wordData.key.substring(7));
           else if (word == WORD.DESCRIPTOR) {
-            Descriptor descriptor = WordRegistry.descriptorRegistry.get(wordData.key.substring(11));
+            Descriptor descriptor = ScriptorMod.WORDS.descriptorRegistry.get(wordData.key.substring(11));
             // Descriptors aren't required. If there is none, roll forward as necessary and continue.
             if (descriptor == null) {
               position++;
@@ -415,7 +426,7 @@ public class DictionarySavedData extends SavedData {
                 position -= 2;
               }
           } else if (word == WORD.SUBJECT)
-            subject = WordRegistry.subjectRegistry.get(wordData.key.substring(8));
+            subject = ScriptorMod.WORDS.subjectRegistry.get(wordData.key.substring(8));
         }
 
         position++;
