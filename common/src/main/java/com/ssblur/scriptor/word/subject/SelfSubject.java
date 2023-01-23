@@ -7,7 +7,7 @@ import net.minecraft.world.entity.Entity;
 public class SelfSubject extends Subject{
   @Override
   public void cast(Entity caster, Spell spell) {
-    spell.action().apply(caster, new EntityTargetable(caster), spell.descriptors());
+    spell.action().apply(caster, new EntityTargetable(caster), spell.deduplicatedDescriptors());
   }
 
   @Override

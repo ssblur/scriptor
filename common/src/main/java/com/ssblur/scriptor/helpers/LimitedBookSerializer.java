@@ -2,15 +2,19 @@ package com.ssblur.scriptor.helpers;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
+import com.ssblur.scriptor.ScriptorMod;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.nbt.StringTag;
+import net.minecraft.world.item.ItemStack;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LimitedBookSerializer {
+  static Type PAGE_TYPE = new TypeToken<Page>() {}.getType();
   static class Page {
     String text;
     public Page(String text) {
@@ -25,10 +29,9 @@ public class LimitedBookSerializer {
    */
   public static String decodeText(ListTag text) {
     Gson gson = new Gson();
-    Type type = new TypeToken<Page>() {}.getType();
     StringBuilder builder = new StringBuilder();
     for(Tag tag: text) {
-      Page page = gson.fromJson(tag.getAsString(), type);
+      Page page = gson.fromJson(tag.getAsString(), PAGE_TYPE);
       builder.append(page.text.strip());
     }
     return builder.toString();
@@ -55,5 +58,17 @@ public class LimitedBookSerializer {
       tag.add(StringTag.valueOf(gson.toJson(page)));
 
     return tag;
+  }
+
+  public static ItemStack createSpellbook(String author, String title, String text) {
+    CompoundTag tag = new CompoundTag();
+    tag.putString("author", author);
+    tag.putString("title", title);
+    tag.put("pages", encodeText(text));
+
+    ItemStack itemStack = new ItemStack(ScriptorMod.SPELLBOOK.get());
+    itemStack.setCount(1);
+    itemStack.setTag(tag);
+    return itemStack;
   }
 }

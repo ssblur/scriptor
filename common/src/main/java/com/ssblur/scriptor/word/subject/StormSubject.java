@@ -51,9 +51,9 @@ public class StormSubject extends Subject{
 
       if(entities.size() > 0)
         for(var entity: entities)
-          spell.action().apply(caster, new EntityTargetable(entity), spell.descriptors());
+          spell.action().apply(caster, new EntityTargetable(entity), spell.deduplicatedDescriptors());
       else
-        spell.action().apply(caster, new Targetable(pos), spell.descriptors());
+        spell.action().apply(caster, new Targetable(pos), spell.deduplicatedDescriptors());
     }
   }
 

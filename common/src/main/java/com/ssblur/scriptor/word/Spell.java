@@ -5,6 +5,9 @@ import com.ssblur.scriptor.word.descriptor.Descriptor;
 import com.ssblur.scriptor.word.subject.Subject;
 import net.minecraft.world.entity.Entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A record used to represent a complete spell.
  * @param action The active component of a spell
@@ -31,7 +34,7 @@ public record Spell(
   public double cost() {
     double sum = 0;
     double scalar = 1;
-    for(var d: descriptors) {
+    for(var d: deduplicatedDescriptors()) {
       var cost = d.cost();
       switch (cost.type()){
         case ADDITIVE -> sum += cost.cost();
@@ -52,5 +55,14 @@ public record Spell(
     }
 
     return sum * scalar;
+  }
+
+  public Descriptor[] deduplicatedDescriptors() {
+    ArrayList<Descriptor> out = new ArrayList<>();
+    for(var descriptor: descriptors) {
+      if(descriptor.allowsDuplicates() || !out.contains(descriptor))
+        out.add(descriptor);
+    }
+    return out.toArray(Descriptor[]::new);
   }
 }
