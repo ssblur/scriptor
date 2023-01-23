@@ -11,6 +11,23 @@ architectury {
     loader("quilt")
 }
 
+modrinth {
+    token = System.getenv("MODRINTH_TOKEN")
+    projectId = "scriptor-magicae"
+    versionNumber = version
+    versionName = version + "-QUILT"
+    versionType = "beta"
+    uploadFile = jar
+    gameVersions = ["1.19,2"]
+    loaders = ["quilt"]
+    dependencies {
+        required.project "architectury-api"
+        required.project "qsl"
+    }
+    syncBodyFrom = rootProject.file("README.md").text
+}
+tasks.modrinth.dependsOn(tasks.modrinthSyncBody)
+
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
 }

@@ -7,6 +7,21 @@ architectury {
     fabric()
 }
 
+modrinth {
+    token = System.getenv("MODRINTH_TOKEN")
+    projectId = "scriptor-magicae"
+    versionNumber = version
+    versionName = version + "-FABRIC"
+    versionType = "beta"
+    uploadFile = jar
+    gameVersions = ["1.19,2"]
+    loaders = ["fabric"]
+    dependencies {
+        required.project "architectury-api"
+        required.project "fabric-api"
+    }
+}
+
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
 }

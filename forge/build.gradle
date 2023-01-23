@@ -7,6 +7,20 @@ architectury {
     forge()
 }
 
+modrinth {
+    token = System.getenv("MODRINTH_TOKEN")
+    projectId = "scriptor-magicae"
+    versionNumber = version
+    versionName = version + "-FORGE"
+    versionType = "beta"
+    uploadFile = jar
+    gameVersions = ["1.19,2"]
+    loaders = ["forge"]
+    dependencies {
+        required.project "architectury-api"
+    }
+}
+
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
 
