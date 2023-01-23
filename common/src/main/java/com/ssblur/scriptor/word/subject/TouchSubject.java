@@ -44,7 +44,7 @@ public class TouchSubject extends Subject{
   }
 
   public static boolean isPlayerInvalid(UUID uuid, Player player) {
-    return touchQueue.get(uuid).caster == player;
+    return !touchQueue.get(uuid).caster.getUUID().equals(player.getUUID());
   }
 
   @Override

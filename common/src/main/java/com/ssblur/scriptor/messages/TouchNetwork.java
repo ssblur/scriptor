@@ -7,7 +7,6 @@ import com.ssblur.scriptor.word.subject.TouchSubject;
 import dev.architectury.networking.NetworkManager;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -32,7 +31,7 @@ public class TouchNetwork {
     NetworkManager.sendToPlayer((ServerPlayer) player, ScriptorMod.GET_TOUCH_DATA, out);
   }
 
-  public static void getTouchData(FriendlyByteBuf buf, NetworkManager.PacketContext context) {
+  public static void getTouchData(FriendlyByteBuf buf, NetworkManager.PacketContext ignoredContext) {
     Minecraft client = Minecraft.getInstance();
     HitResult hit = client.hitResult;
     FriendlyByteBuf out = new FriendlyByteBuf(Unpooled.buffer());
