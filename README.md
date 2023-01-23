@@ -18,7 +18,7 @@ These books will cast any valid spell contained within, and have a shorter
 cooldown (70% of the duration by default) than spoken spells. In addition,
 tools such as Spellbooks won't generally negatively affect their user.
 
-They can be crafted by placing a **[Spellbook Binder](#Spellbook Binder)** on
+They can be crafted by placing a **[Spellbook Binder](#spellbook-binder)** on
 a Written Book in a Smithing Table.
 
 ### Ancient Tomes
@@ -32,13 +32,13 @@ Spells created in times long past.
 ### Spellbook Binder
 
 Spellbook Binders can be crafted and placed onto any Written Book at a 
-Smithing Table to create a **[Spellbook](#Spellbook)**. 
+Smithing Table to create a **[Spellbook](#spellbook)**. 
 
 *Crafting Recipe TBA*
 
 ### Mundane Leather Binder
 
-Leather Binders can be crafted and placed onto any **[Spellbook](#Spellbook)**
+Leather Binders can be crafted and placed onto any **[Spellbook](#spellbook)**
 to turn it into a Written Book. 
 This can be used to copy books or reveal their contents.
 
@@ -46,7 +46,7 @@ This can be used to copy books or reveal their contents.
 
 ## Casting
 
-In addition to casting Spells from a **[Spellbook](#Spellbook)**, you 
+In addition to casting Spells from a **[Spellbook](#spellbook)**, you 
 may also speak a Spell aloud in order to either test it or construct
 new Spells on the fly.
 
@@ -84,7 +84,7 @@ to writing your own spells.
 The structure of sentences and the words you need to use to create spells 
 will differ based on the world (server/save) you are in.
 
-I can advise you search out [Ancient Tomes](#Ancient Tomes), and compare
+I can advise you search out [Ancient Tomes](#ancient-tomes), and compare
 the effects of the spells within in order to learn more about the words
 that make up Spells in your world. 
 Pay attention to words they may have in common, as well as the placement
