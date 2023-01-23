@@ -15,7 +15,7 @@ modrinth {
     versionName = version + "-FORGE"
     versionType = "beta"
     uploadFile = jar
-    gameVersions = ["1.19,2"]
+    gameVersions = ["1.19.2"]
     loaders = ["forge"]
     dependencies {
         required.project "architectury-api"
