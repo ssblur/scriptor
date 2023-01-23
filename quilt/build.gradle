@@ -26,7 +26,6 @@ modrinth {
     }
     syncBodyFrom = rootProject.file("README.md").text
 }
-tasks.modrinth.dependsOn(tasks.modrinthSyncBody)
 
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath

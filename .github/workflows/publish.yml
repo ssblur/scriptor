@@ -16,6 +16,10 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '17'
+      - name: Sync Body
+        run: bash ./gradlew quilt:modrinthSyncBody
+        env:
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
       - name: Publish Quilt
         run: bash ./gradlew quilt:modrinth
         env:
