@@ -154,7 +154,7 @@ public class DictionarySavedData extends SavedData {
     int genders = actionGenderedArticles.size();
     Random random = new Random();
 
-    for(var word: ScriptorMod.WORDS.actionRegistry.keySet()) {
+    for(var word: WordRegistry.INSTANCE.actionRegistry.keySet()) {
       if(containsKey("action:" + word))
         continue;
 
@@ -169,7 +169,7 @@ public class DictionarySavedData extends SavedData {
       ));
     }
 
-    for(var word: ScriptorMod.WORDS.descriptorRegistry.keySet()) {
+    for(var word: WordRegistry.INSTANCE.descriptorRegistry.keySet()) {
       if(containsKey("descriptor:" + word))
         continue;
 
@@ -183,7 +183,7 @@ public class DictionarySavedData extends SavedData {
         random.nextInt(genders)
       ));
     }
-    for(var word: ScriptorMod.WORDS.subjectRegistry.keySet()) {
+    for(var word: WordRegistry.INSTANCE.subjectRegistry.keySet()) {
       if(containsKey("subject:" + word))
         continue;
 
@@ -299,8 +299,8 @@ public class DictionarySavedData extends SavedData {
    * null if no matches
    */
   public WordData getWord(Action action) {
-    for(String key: ScriptorMod.WORDS.actionRegistry.keySet()) {
-      if(action == ScriptorMod.WORDS.actionRegistry.get(key))
+    for(String key: WordRegistry.INSTANCE.actionRegistry.keySet()) {
+      if(action == WordRegistry.INSTANCE.actionRegistry.get(key))
         return getWord("action:" + key);
     }
     return null;
@@ -313,8 +313,8 @@ public class DictionarySavedData extends SavedData {
    * null if no matches
    */
   public WordData getWord(Descriptor descriptor) {
-    for(String key: ScriptorMod.WORDS.descriptorRegistry.keySet()) {
-      if(descriptor == ScriptorMod.WORDS.descriptorRegistry.get(key))
+    for(String key: WordRegistry.INSTANCE.descriptorRegistry.keySet()) {
+      if(descriptor == WordRegistry.INSTANCE.descriptorRegistry.get(key))
         return getWord("descriptor:" + key);
     }
     return null;
@@ -327,8 +327,8 @@ public class DictionarySavedData extends SavedData {
    * null if no matches
    */
   public WordData getWord(Subject subject) {
-    for(String key: ScriptorMod.WORDS.subjectRegistry.keySet()) {
-      if(subject == ScriptorMod.WORDS.subjectRegistry.get(key))
+    for(String key: WordRegistry.INSTANCE.subjectRegistry.keySet()) {
+      if(subject == WordRegistry.INSTANCE.subjectRegistry.get(key))
         return getWord("subject:" + key);
     }
     return null;
@@ -386,28 +386,37 @@ public class DictionarySavedData extends SavedData {
 
       while (position < spellStructure.size()) {
         WORD word = spellStructure.get(position);
-        if (word == WORD.PREFIXARTICLE) {
-          if(spellStructure.get(position + 1) == WORD.DESCRIPTOR && !parseWord(tokens[tokenPosition + 1]).key.startsWith("descriptor")) {
-            position += 2;
-            continue;
-          }
-          if (parseArticle(spellStructure.get(position + 1), tokens[tokenPosition]) != parseWord(tokens[tokenPosition + 1]).gender)
-            return null;
-        } else if (word == WORD.SUFFIXARTICLE) {
-          if (parseArticle(spellStructure.get(position - 1), tokens[tokenPosition]) != parseWord(tokens[tokenPosition - 1]).gender)
-            return null;
-        } else {
-          WordData wordData = parseWord(tokens[tokenPosition]);
-
-          if (word == WORD.ACTION)
-            action = ScriptorMod.WORDS.actionRegistry.get(wordData.key.substring(7));
-          else if (word == WORD.DESCRIPTOR) {
-            Descriptor descriptor = ScriptorMod.WORDS.descriptorRegistry.get(wordData.key.substring(11));
+        System.out.println(word);
+        WordData wordData;
+        switch(word) {
+          case PREFIXARTICLE:
+            if(spellStructure.get(position + 1) == WORD.DESCRIPTOR && !parseWord(tokens[tokenPosition + 1]).key.startsWith("descriptor")) {
+              position++;
+              continue;
+            }
+            if (parseArticle(spellStructure.get(position + 1), tokens[tokenPosition]) != parseWord(tokens[tokenPosition + 1]).gender)
+              return null;
+            break;
+          case SUFFIXARTICLE:
+            if (parseArticle(spellStructure.get(position - 1), tokens[tokenPosition]) != parseWord(tokens[tokenPosition - 1]).gender)
+              return null;
+            break;
+          case ACTION:
+            wordData = parseWord(tokens[tokenPosition]);
+            action = WordRegistry.INSTANCE.actionRegistry.get(wordData.key.substring(7));
+            break;
+          case DESCRIPTOR:
+            wordData = parseWord(tokens[tokenPosition]);
             // Descriptors aren't required. If there is none, roll forward as necessary and continue.
+            if (wordData == null) {
+              position++;
+              if(descriptorArticlePosition == ARTICLEPOSITION.AFTER)
+                position++;
+              continue;
+            }
+            Descriptor descriptor = WordRegistry.INSTANCE.descriptorRegistry.get(wordData.key.substring(11));
             if (descriptor == null) {
               position++;
-              if (descriptorArticlePosition == ARTICLEPOSITION.AFTER)
-                position++;
               continue;
             }
             descriptors.add(descriptor);
@@ -425,8 +434,11 @@ public class DictionarySavedData extends SavedData {
                   return null;
                 position -= 2;
               }
-          } else if (word == WORD.SUBJECT)
-            subject = ScriptorMod.WORDS.subjectRegistry.get(wordData.key.substring(8));
+            break;
+          case SUBJECT:
+            wordData = parseWord(tokens[tokenPosition]);
+            subject = WordRegistry.INSTANCE.subjectRegistry.get(wordData.key.substring(8));
+            break;
         }
 
         position++;
@@ -434,9 +446,9 @@ public class DictionarySavedData extends SavedData {
       }
 
       if (action != null && subject != null)
-        return new Spell(action, subject, descriptors.toArray(new Descriptor[0]));
+        return new Spell(action, subject, descriptors.toArray(Descriptor[]::new));
     } catch (Exception e) {
-      ScriptorMod.LOGGER.debug(e);
+      e.printStackTrace();
     }
     return null;
   }

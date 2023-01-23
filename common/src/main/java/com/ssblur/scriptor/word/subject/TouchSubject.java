@@ -26,7 +26,7 @@ public class TouchSubject extends Subject{
       // TODO: If cast from a lectern, get block or bounding box next to lectern.
       EntityHitResult result = null;
       if (result != null && result.getEntity() instanceof LivingEntity living)
-        spell.action().apply(caster, new EntityTargetable(living), spell.descriptors());
+        spell.action().apply(caster, new EntityTargetable(living), spell.deduplicatedDescriptors());
     }
   }
 
@@ -34,7 +34,7 @@ public class TouchSubject extends Subject{
     if(isPlayerInvalid(uuid, player)) return;
     var spell = touchQueue.get(uuid);
     touchQueue.remove(uuid);
-    spell.spell.action().apply(spell.caster(), targetable, spell.spell().descriptors());
+    spell.spell.action().apply(spell.caster(), targetable, spell.spell().deduplicatedDescriptors());
   }
 
   public static void dropFromQueue(UUID uuid, Player player) {
