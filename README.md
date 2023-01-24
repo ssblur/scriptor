@@ -16,6 +16,11 @@ For the average player, plenty of spells can be obtained in each world,
 but for anyone dedicated enough, you can reverse engineer these spells
 and learn how to draft even more powerful spells yourself.
 
+## Special Thanks
+
+ * [Kasualix](https://github.com/Kasualix)
+   for the Simplified Chinese (zh_CN) translation. 
+
 ## Items
 
 ### Spellbook
