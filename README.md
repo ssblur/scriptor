@@ -1,6 +1,12 @@
 # Scriptor Magicae
 *Knowledge is power!*
 
+If you notice any bugs or have a suggestion, please feel free to open an
+[Issue](https://github.com/ssblur/scriptor/issues).
+
+You can join [My Discord](http://dc.blur.lol) to be notified about
+mod updates, new mods, and other things I do.
+
 ![Icon of a Purple Book with a cursive SM printed on the cover](https://cdn.modrinth.com/data/JyJgaOrk/6b689deb170511e4c64c75e5a66dee284dad2160.png)
 
 Welcome to Scriptor, the mod which gives words power.
@@ -19,7 +25,7 @@ and learn how to draft even more powerful spells yourself.
 ## Special Thanks
 
  * [Kasualix](https://github.com/Kasualix)
-   for the Simplified Chinese (zh_CN) translation. 
+   for the Simplified Chinese (zh_CN) translation.
 
 ## Items
 
