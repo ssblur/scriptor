@@ -31,7 +31,7 @@
   "action.scriptor.smite": "Smite, pierce",
 
   "extra.scriptor.tome_use": "You dust off the Ancient Tome...",
-  "extra.scriptor.spell_get": "The cover reads %1$s",
+  "extra.scriptor.spell_get": "The cover reads \"%1$s\".",
   "extra.scriptor.hoarse": "The residue of your last spell still burns in your throat. You must recover before speaking more spells.",
   "extra.scriptor.mute": "Magic wells up in your chest, but you have been muted...",
 

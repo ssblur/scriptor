@@ -34,6 +34,7 @@ public class AncientSpellbook extends Item {
       Spell spell = resource.getSpell();
       String sentence = DictionarySavedData.computeIfAbsent(server).generate(spell);
       player.setItemInHand(interactionHand, LimitedBookSerializer.createSpellbook(resource.getAuthor(), resource.getName(), sentence));
+      player.sendSystemMessage(Component.translatable("extra.scriptor.spell_get", resource.getName()));
       return InteractionResultHolder.consume(player.getItemInHand(interactionHand));
     }
 
