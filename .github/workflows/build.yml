@@ -59,9 +59,7 @@ jobs:
         with:
           file_path: quilt/build/libs/scriptor-*.jar
           game_endpoint: "minecraft"
-          relations:
-            - "qsl:requiredDependency"
-            - "architectury-api:requiredDependency"
+          relations: "qsl:requiredDependency,architectury-api:requiredDependency"
           game_versions: "Minecraft 1.19:1.19.2,Java 17,Java 18,Quilt,Client,Server"
           project_id: "817436"
           token: "${{ secrets.CURSEFORGE_TOKEN }}"
@@ -70,9 +68,7 @@ jobs:
         with:
           file_path: fabric/build/libs/scriptor-*.jar
           game_endpoint: "minecraft"
-          relations:
-            - "fabric-api:requiredDependency"
-            - "architectury-api:requiredDependency"
+          relations: "fabric-api:requiredDependency,architectury-api:requiredDependency"
           game_versions: "Minecraft 1.19:1.19.2,Java 17,Java 18,Fabric,Client,Server"
           project_id: "817436"
           token: "${{ secrets.CURSEFORGE_TOKEN }}"
@@ -81,8 +77,7 @@ jobs:
         with:
           file_path: forge/build/libs/scriptor-*.jar
           game_endpoint: "minecraft"
-          relations:
-            - "architectury-api:requiredDependency"
+          relations: "architectury-api:requiredDependency"
           game_versions: "Minecraft 1.19:1.19.2,Java 17,Java 18,Forge,Client,Server"
           project_id: "817436"
           token: "${{ secrets.CURSEFORGE_TOKEN }}"
