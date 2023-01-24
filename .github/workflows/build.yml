@@ -54,10 +54,13 @@ jobs:
             fabric/build/libs/scriptor-*.jar
             forge/build/libs/scriptor-*.jar
             quilt/build/libs/scriptor-*.jar
+      - name: Extract Tag Version
+        id: tag
+        run: echo "version=${GITHUB_REF#refs/*/:1}" >> $GITHUB_OUTPUT
       - name: "Upload Quilt to CurseForge"
         uses: itsmeow/curseforge-upload@v3
         with:
-          file_path: quilt/build/libs/scriptor-*.jar
+          file_path: quilt/build/libs/scriptor-${{ steps.tag.outputs.version }}-quilt.jar
           game_endpoint: "minecraft"
           relations: "qsl:requiredDependency,architectury-api:requiredDependency"
           game_versions: "Minecraft 1.19:1.19.2,Java 17,Java 18,Quilt,Client,Server"
@@ -66,7 +69,7 @@ jobs:
       - name: "Upload Fabric to CurseForge"
         uses: itsmeow/curseforge-upload@v3
         with:
-          file_path: fabric/build/libs/scriptor-*.jar
+          file_path: fabric/build/libs/scriptor-${{ steps.tag.outputs.version }}-fabric.jar
           game_endpoint: "minecraft"
           relations: "fabric-api:requiredDependency,architectury-api:requiredDependency"
           game_versions: "Minecraft 1.19:1.19.2,Java 17,Java 18,Fabric,Client,Server"
@@ -75,7 +78,7 @@ jobs:
       - name: "Upload Forge to CurseForge"
         uses: itsmeow/curseforge-upload@v3
         with:
-          file_path: forge/build/libs/scriptor-*.jar
+          file_path: forge/build/libs/scriptor-${{ steps.tag.outputs.version }}-forge.jar
           game_endpoint: "minecraft"
           relations: "architectury-api:requiredDependency"
           game_versions: "Minecraft 1.19:1.19.2,Java 17,Java 18,Forge,Client,Server"
