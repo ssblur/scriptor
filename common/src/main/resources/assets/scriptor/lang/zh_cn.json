@@ -1,6 +1,6 @@
 {
-  "item.scriptor.spellbook_binder": "法术书册",
-  "item.scriptor.leather_binder": "普通皮革书册",
+  "item.scriptor.spellbook_binder": "法术书活页夹",
+  "item.scriptor.leather_binder": "普通皮革活页夹",
   "item.scriptor.spellbook": "法术书",
   "item.scriptor.tome": "古书",
   "effect.scriptor.hoarse": "嘶哑",
@@ -10,7 +10,7 @@
   "type.scriptor.action": "行动",
   "type.scriptor.subject": "主题",
   "type.scriptor.descriptor": "描述符",
-  "subject.scriptor.self": "我，自我",
+  "subject.scriptor.self": "我，施于自我",
   "subject.scriptor.touch": "触摸，施于接触物",
   "subject.scriptor.storm": "风暴，施于临近生物",
   "descriptor.scriptor.long": "长，更加耗时",
