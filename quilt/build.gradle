@@ -18,7 +18,7 @@ modrinth {
     versionNumber = version
     versionName = version + "-QUILT"
     versionType = "beta"
-    uploadFile = jar
+    uploadFile = remapJar
     gameVersions = ["1.19.2"]
     loaders = ["quilt"]
     dependencies {
