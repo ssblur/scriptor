@@ -27,5 +27,5 @@
   "extra.scriptor.spell_get": "封面上写着“%1$s”。",
   "extra.scriptor.hoarse": "你试图说出咒语的最后一个音节，但你的喉咙开始燃烧。在继续之前，你得先缓缓。",
   "extra.scriptor.mute": "魔力在你的胸腔中涌动，但你已经失语，无法念咒了……",
-  "itemGroup.scriptor.scriptor_tab": "脚本魔法师"
+  "itemGroup.scriptor.scriptor_tab": "字符魔法师"
 }
