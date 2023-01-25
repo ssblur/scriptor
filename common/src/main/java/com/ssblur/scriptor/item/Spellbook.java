@@ -44,7 +44,8 @@ public class Spellbook extends Item {
       Spell spell = DictionarySavedData.computeIfAbsent(server).parse(LimitedBookSerializer.decodeText(text));
       if(spell != null) {
         spell.cast(player);
-        player.getCooldowns().addCooldown(this, (int) Math.round(spell.cost() * 7));
+        if(!player.isCreative())
+          player.getCooldowns().addCooldown(this, (int) Math.round(spell.cost() * 7));
       }
     }
 
