@@ -25,6 +25,8 @@ and learn how to draft even more powerful spells yourself.
 ## Special Thanks
 
  * [Kasualix](https://github.com/Kasualix)
+   and
+   [Rivmun](https://github.com/Rivmun)
    for the Simplified Chinese (zh_CN) translation.
 
 ## Items
