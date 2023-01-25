@@ -11,11 +11,18 @@ import net.minecraft.world.phys.Vec3;
 import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CompletableFuture;
 
 public class StormSubject extends Subject{
+
   @Override
-  public void cast(Entity caster, Spell spell) {
+  public Cost cost() { return new Cost(8, COSTTYPE.MULTIPLICATIVE); }
+
+  @Override
+  public CompletableFuture<List<Targetable>> getTargets(Entity caster, Spell spell) {
+    ArrayList<Targetable> targets = new ArrayList<>();
     Random random = new Random();
     int radius = 4;
     int limit = 12;
@@ -43,20 +50,21 @@ public class StormSubject extends Subject{
             pos.getY(),
             pos.getZ()
           ),
-        1,
-        1,
-        1
+          1,
+          1,
+          1
         )
       );
 
       if(entities.size() > 0)
         for(var entity: entities)
-          spell.action().apply(caster, new EntityTargetable(entity), spell.deduplicatedDescriptors());
+          targets.add(new EntityTargetable(entity));
       else
-        spell.action().apply(caster, new Targetable(pos), spell.deduplicatedDescriptors());
+        targets.add(new Targetable(pos));
     }
-  }
 
-  @Override
-  public Cost cost() { return new Cost(8, COSTTYPE.MULTIPLICATIVE); }
+    var result = new CompletableFuture<List<Targetable>>();
+    result.complete(targets);
+    return result;
+  }
 }

@@ -10,26 +10,32 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.EntityHitResult;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 public class TouchSubject extends Subject{
-  record TouchQueue(Entity caster, Spell spell){}
+  record TouchQueue(Entity caster, CompletableFuture<List<Targetable>> future){}
   static HashMap<UUID, TouchQueue> touchQueue = new HashMap<>();
 
   @Override
-  public void cast(Entity caster, Spell spell) {
+  public CompletableFuture<List<Targetable>> getTargets(Entity caster, Spell spell) {
+    var result = new CompletableFuture<List<Targetable>>();
     if(caster instanceof Player player) {
       UUID uuid = UUID.randomUUID();
-      touchQueue.put(uuid, new TouchQueue(player, spell));
+      touchQueue.put(uuid, new TouchQueue(player, result));
       TouchNetwork.requestTouchData(player, uuid);
+    } else {
+      result.complete(List.of());
     }
+    return result;
   }
 
   public static void castFromQueue(UUID uuid, Targetable targetable, Player player) {
     if(isPlayerInvalid(uuid, player)) return;
     var spell = touchQueue.get(uuid);
     touchQueue.remove(uuid);
-    spell.spell.action().apply(spell.caster(), targetable, spell.spell().deduplicatedDescriptors());
+    spell.future().complete(List.of(targetable));
   }
 
   public static void dropFromQueue(UUID uuid, Player player) {
