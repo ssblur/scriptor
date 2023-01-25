@@ -31,9 +31,6 @@ public class TouchSubject extends Subject{
     return result;
   }
 
-  public void cast(Entity caster, Spell spell) {
-  }
-
   public static void castFromQueue(UUID uuid, Targetable targetable, Player player) {
     if(isPlayerInvalid(uuid, player)) return;
     var spell = touchQueue.get(uuid);
