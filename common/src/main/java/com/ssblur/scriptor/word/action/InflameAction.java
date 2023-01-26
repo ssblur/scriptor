@@ -19,14 +19,14 @@ import net.minecraft.world.level.block.state.BlockState;
 public class InflameAction extends Action {
   @Override
   public void apply(Entity caster, Targetable targetable, Descriptor[] descriptors) {
-    int seconds = 2;
+    double seconds = 2;
     for(var d: descriptors) {
-      if(d instanceof DurationDescriptor)
-        seconds++;
+      if(d instanceof DurationDescriptor durationDescriptor)
+        seconds += durationDescriptor.durationModifier();
     }
 
     if(targetable instanceof EntityTargetable entityTargetable) {
-      entityTargetable.getTargetEntity().setSecondsOnFire(seconds);
+      entityTargetable.getTargetEntity().setSecondsOnFire((int) Math.round(seconds));
     } else {
       BlockPos pos = targetable.getTargetBlockPos();
       Level level = caster.level;
