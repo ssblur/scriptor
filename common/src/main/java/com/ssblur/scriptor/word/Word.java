@@ -3,7 +3,8 @@ package com.ssblur.scriptor.word;
 public abstract class Word {
   public enum COSTTYPE {
     ADDITIVE,
-    MULTIPLICATIVE
+    MULTIPLICATIVE,
+    MULTIPLICATIVE_POST
   }
   public record Cost(double cost, COSTTYPE type) {}
   /**
