@@ -383,7 +383,7 @@ public class DictionarySavedData extends SavedData {
       List<Descriptor> descriptors = new ArrayList<>();
       Subject subject = null;
 
-      while (position < spellStructure.size()) {
+      while (position < spellStructure.size() && tokenPosition < tokens.length) {
         WORD word = spellStructure.get(position);
         WordData wordData;
         switch(word) {
