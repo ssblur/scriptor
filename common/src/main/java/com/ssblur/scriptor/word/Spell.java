@@ -5,6 +5,7 @@ import com.ssblur.scriptor.word.action.Action;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
 import com.ssblur.scriptor.word.subject.Subject;
 import net.minecraft.world.entity.Entity;
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,11 +57,14 @@ public record Spell(
   public double cost() {
     double sum = 0;
     double scalar = 1;
+    ArrayList<Double> discounts = new ArrayList<>();
+
     for(var d: deduplicatedDescriptors()) {
       var cost = d.cost();
       switch (cost.type()){
         case ADDITIVE -> sum += cost.cost();
         case MULTIPLICATIVE -> scalar += cost.cost();
+        case MULTIPLICATIVE_POST -> discounts.add(cost.cost());
       }
     }
 
@@ -68,15 +72,20 @@ public record Spell(
     switch (cost.type()){
       case ADDITIVE -> sum += cost.cost();
       case MULTIPLICATIVE -> scalar += cost.cost();
+      case MULTIPLICATIVE_POST -> discounts.add(cost.cost());
     }
 
     cost = subject.cost();
     switch (cost.type()){
       case ADDITIVE -> sum += cost.cost();
       case MULTIPLICATIVE -> scalar += cost.cost();
+      case MULTIPLICATIVE_POST -> discounts.add(cost.cost());
     }
 
-    return sum * scalar;
+    var out = sum * scalar;
+    for(double discount: discounts)
+      out *= discount;
+    return out;
   }
 
   public Descriptor[] deduplicatedDescriptors() {

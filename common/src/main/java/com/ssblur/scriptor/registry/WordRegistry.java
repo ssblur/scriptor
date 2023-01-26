@@ -5,8 +5,8 @@ import com.ssblur.scriptor.word.action.HealAction;
 import com.ssblur.scriptor.word.action.InflameAction;
 import com.ssblur.scriptor.word.action.SmiteAction;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
-import com.ssblur.scriptor.word.descriptor.DurationDescriptor;
-import com.ssblur.scriptor.word.descriptor.ExtensionDescriptor;
+import com.ssblur.scriptor.word.descriptor.SimpleDurationDescriptor;
+import com.ssblur.scriptor.word.descriptor.SimpleStrengthDescriptor;
 import com.ssblur.scriptor.word.subject.SelfSubject;
 import com.ssblur.scriptor.word.subject.StormSubject;
 import com.ssblur.scriptor.word.subject.Subject;
@@ -21,14 +21,9 @@ public class WordRegistry {
   public static final Subject TOUCH = INSTANCE.register("touch", new TouchSubject());
   public static final Subject STORM = INSTANCE.register("storm", new StormSubject());
 
-  public static final Descriptor LONG = INSTANCE.register("long", new DurationDescriptor());
-  public static final Descriptor SLOW = INSTANCE.register("slow", new DurationDescriptor());
-  public static final Descriptor STRONG = INSTANCE.register("strong", new ExtensionDescriptor());
-//  public static final Descriptor WOOD = WORDS.register("wood", new ElementalDescriptor());
-//  public static final Descriptor FIRE = WORDS.register("fire", new ElementalDescriptor());
-//  public static final Descriptor EARTH = WORDS.register("earth", new ElementalDescriptor());
-//  public static final Descriptor GOLD = WORDS.register("gold", new ElementalDescriptor());
-//  public static final Descriptor WATER = WORDS.register("water", new ElementalDescriptor());
+  public static final Descriptor LONG = INSTANCE.register("long", new SimpleDurationDescriptor(3, 7));
+  public static final Descriptor SLOW = INSTANCE.register("slow", new SimpleDurationDescriptor(2, 4));
+  public static final Descriptor STRONG = INSTANCE.register("strong", new SimpleStrengthDescriptor(2, 1));
 
   public static final Action INFLAME = INSTANCE.register("inflame", new InflameAction());
   public static final Action HEAL = INSTANCE.register("heal", new HealAction());

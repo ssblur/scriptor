@@ -11,5 +11,4 @@ public class DebugAction extends Action {
   }
   @Override
   public Cost cost() { return new Cost(0, COSTTYPE.ADDITIVE); }
-
 }
