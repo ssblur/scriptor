@@ -4,6 +4,7 @@ import com.ssblur.scriptor.word.action.Action;
 import com.ssblur.scriptor.word.action.HealAction;
 import com.ssblur.scriptor.word.action.InflameAction;
 import com.ssblur.scriptor.word.action.SmiteAction;
+import com.ssblur.scriptor.word.descriptor.ColorDescriptor;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
 import com.ssblur.scriptor.word.descriptor.SimpleDurationDescriptor;
 import com.ssblur.scriptor.word.descriptor.SimpleStrengthDescriptor;
@@ -22,6 +23,23 @@ public class WordRegistry {
   public static final Descriptor LONG = INSTANCE.register("long", new SimpleDurationDescriptor(3, 7));
   public static final Descriptor SLOW = INSTANCE.register("slow", new SimpleDurationDescriptor(2, 4));
   public static final Descriptor STRONG = INSTANCE.register("strong", new SimpleStrengthDescriptor(2, 1));
+
+  public static final Descriptor WHITE = INSTANCE.register("black", new ColorDescriptor(0xe4e4e4));
+  public static final Descriptor LIGHT_GRAY = INSTANCE.register("light_gray", new ColorDescriptor(0xa0a7a7));
+  public static final Descriptor DARK_GRAY = INSTANCE.register("dark_gray", new ColorDescriptor(0x414141));
+  public static final Descriptor BLACK = INSTANCE.register("black", new ColorDescriptor(0x181414));
+  public static final Descriptor RED = INSTANCE.register("red", new ColorDescriptor(0x9e2b27));
+  public static final Descriptor ORANGE = INSTANCE.register("orange", new ColorDescriptor(0xea7e35));
+  public static final Descriptor YELLOW = INSTANCE.register("yellow", new ColorDescriptor(0xc2b51c));
+  public static final Descriptor LIME_GREEN = INSTANCE.register("lime_green", new ColorDescriptor(0x39ba2e));
+  public static final Descriptor GREEN = INSTANCE.register("green", new ColorDescriptor(0x364b18));
+  public static final Descriptor LIGHT_BLUE = INSTANCE.register("light_blue", new ColorDescriptor(0x6387d2));
+  public static final Descriptor CYAN = INSTANCE.register("cyan", new ColorDescriptor(0x267191));
+  public static final Descriptor BLUE = INSTANCE.register("blue", new ColorDescriptor(0x253193));
+  public static final Descriptor PURPLE = INSTANCE.register("purple", new ColorDescriptor(0x7e34bf));
+  public static final Descriptor MAGENTA = INSTANCE.register("magenta", new ColorDescriptor(0xbe49c9));
+  public static final Descriptor PINK = INSTANCE.register("pink", new ColorDescriptor(0xd98199));
+  public static final Descriptor BROWN = INSTANCE.register("brown", new ColorDescriptor(0x56331c));
 
   public static final Action INFLAME = INSTANCE.register("inflame", new InflameAction());
   public static final Action HEAL = INSTANCE.register("heal", new HealAction());

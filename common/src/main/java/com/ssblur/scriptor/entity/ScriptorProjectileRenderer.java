@@ -30,9 +30,9 @@ public class ScriptorProjectileRenderer extends EntityRenderer<ScriptorProjectil
     super.render(entity, yaw, tickDelta, poseStack, multiBufferSource, lightLevel);
 
     int c = entity.getColor();
-    int r = c & 0xff0000;
-    int g = c & 0x00ff00;
-    int b = c & 0x0000ff;
+    float r = ((float) ((c & 0xff0000) >> 16)) / 255;
+    float g = ((float) ((c & 0x00ff00) >> 8)) / 255;
+    float b = ((float) (c & 0x0000ff)) / 255;
     Vector3f color = new Vector3f(r, g, b);
 
     Vec3 d = entity.getDeltaMovement();

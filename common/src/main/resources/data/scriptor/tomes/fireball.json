@@ -6,7 +6,8 @@
     "subject": "projectile",
     "descriptors": [
       "long",
-      "slow"
+      "slow",
+      "orange"
     ]
   }
 }
