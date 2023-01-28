@@ -1,6 +1,8 @@
 package com.ssblur.scriptor;
 
 import com.google.common.base.Suppliers;
+import com.ssblur.scriptor.commands.DumpDictionaryCommand;
+import com.ssblur.scriptor.commands.DumpWordCommand;
 import com.ssblur.scriptor.effect.MuteStatusEffect;
 import com.ssblur.scriptor.entity.ScriptorProjectile;
 import com.ssblur.scriptor.entity.ScriptorProjectileRenderer;
@@ -11,6 +13,7 @@ import com.ssblur.scriptor.item.AncientSpellbook;
 import com.ssblur.scriptor.item.Spellbook;
 import com.ssblur.scriptor.messages.TouchNetwork;
 import dev.architectury.event.events.common.ChatEvent;
+import dev.architectury.event.events.common.CommandRegistrationEvent;
 import dev.architectury.event.events.common.LootEvent;
 import dev.architectury.networking.NetworkChannel;
 import dev.architectury.networking.NetworkManager;
@@ -91,6 +94,11 @@ public class ScriptorMod {
       EntityRendererRegistry.register(PROJECTILE_TYPE, ScriptorProjectileRenderer::new);
   }
 
+  public static void registerCommands() {
+    CommandRegistrationEvent.EVENT.register(DumpDictionaryCommand::register);
+    CommandRegistrationEvent.EVENT.register(DumpWordCommand::register);
+  }
+
   public static void init() {
     ITEMS.register();
     EFFECTS.register();
@@ -98,5 +106,6 @@ public class ScriptorMod {
 
     registerHandlers();
     registerRenderers();
+    registerCommands();
   }
 }

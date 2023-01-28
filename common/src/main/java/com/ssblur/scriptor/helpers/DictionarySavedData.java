@@ -20,14 +20,14 @@ import com.ssblur.scriptor.ScriptorMod;
 import java.util.*;
 
 public class DictionarySavedData extends SavedData {
-  List<WORD> spellStructure;
-  List<String> actionGenderedArticles;
-  ARTICLEPOSITION actionArticlePosition;
-  List<String> descriptorGenderedArticles;
-  ARTICLEPOSITION descriptorArticlePosition;
-  List<String> subjectGenderedArticles;
-  ARTICLEPOSITION subjectArticlePosition;
-  List<WordData> words;
+  public List<WORD> spellStructure;
+  public List<String> actionGenderedArticles;
+  public ARTICLEPOSITION actionArticlePosition;
+  public List<String> descriptorGenderedArticles;
+  public ARTICLEPOSITION descriptorArticlePosition;
+  public List<String> subjectGenderedArticles;
+  public ARTICLEPOSITION subjectArticlePosition;
+  public List<WordData> words;
   /**
    * A class for storing language data for a given world.
    * @param spellStructure The structure of spells for this world.
@@ -87,7 +87,7 @@ public class DictionarySavedData extends SavedData {
   /**
    * An enum representing types of words used in Spells.
    */
-  enum WORD {
+  public enum WORD {
     PREFIXARTICLE,
     SUFFIXARTICLE,
     ACTION,
@@ -98,7 +98,7 @@ public class DictionarySavedData extends SavedData {
   /**
    * An enum representing the positions of an article relative to a Word.
    */
-  enum ARTICLEPOSITION {
+  public enum ARTICLEPOSITION {
     NONE,
     BEFORE,
     AFTER
@@ -110,7 +110,7 @@ public class DictionarySavedData extends SavedData {
    * @param key The key representing the original word
    * @param gender The gender associated with this word
    */
-  record WordData(
+  public record WordData(
     String word,
     String key,
     int gender
