@@ -7,10 +7,7 @@ import com.ssblur.scriptor.word.action.SmiteAction;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
 import com.ssblur.scriptor.word.descriptor.SimpleDurationDescriptor;
 import com.ssblur.scriptor.word.descriptor.SimpleStrengthDescriptor;
-import com.ssblur.scriptor.word.subject.SelfSubject;
-import com.ssblur.scriptor.word.subject.StormSubject;
-import com.ssblur.scriptor.word.subject.Subject;
-import com.ssblur.scriptor.word.subject.TouchSubject;
+import com.ssblur.scriptor.word.subject.*;
 
 import java.util.HashMap;
 
@@ -19,6 +16,7 @@ public class WordRegistry {
 
   public static final Subject SELF = INSTANCE.register("self", new SelfSubject());
   public static final Subject TOUCH = INSTANCE.register("touch", new TouchSubject());
+  public static final Subject PROJECTILE = INSTANCE.register("projectile", new ProjectileSubject());
   public static final Subject STORM = INSTANCE.register("storm", new StormSubject());
 
   public static final Descriptor LONG = INSTANCE.register("long", new SimpleDurationDescriptor(3, 7));
