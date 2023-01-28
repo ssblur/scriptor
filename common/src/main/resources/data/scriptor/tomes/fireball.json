@@ -1,12 +1,13 @@
 {
-  "name": "Wildfire",
+  "name": "Fireball",
   "author": "§iThe name is faded...",
   "spell": {
     "action": "inflame",
-    "subject": "storm",
+    "subject": "projectile",
     "descriptors": [
       "long",
-      "slow"
+      "slow",
+      "orange"
     ]
   }
 }

@@ -2,6 +2,8 @@ package com.ssblur.scriptor;
 
 import com.google.common.base.Suppliers;
 import com.ssblur.scriptor.effect.MuteStatusEffect;
+import com.ssblur.scriptor.entity.ScriptorProjectile;
+import com.ssblur.scriptor.entity.ScriptorProjectileRenderer;
 import com.ssblur.scriptor.events.AddLootEvent;
 import com.ssblur.scriptor.events.SpellChatEvents;
 import com.ssblur.scriptor.events.TomeReloadListener;
@@ -15,6 +17,7 @@ import dev.architectury.networking.NetworkManager;
 import dev.architectury.platform.Platform;
 import dev.architectury.registry.CreativeTabRegistry;
 import dev.architectury.registry.ReloadListenerRegistry;
+import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.Registries;
 import dev.architectury.registry.registries.RegistrySupplier;
@@ -23,6 +26,8 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -58,6 +63,19 @@ public class ScriptorMod {
   public static final ResourceLocation RETURN_TOUCH_DATA = new ResourceLocation(MOD_ID, "return_touch_data");
   public static final NetworkChannel MESSAGES = NetworkChannel.create(new ResourceLocation(MOD_ID, "messages"));
 
+  public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(MOD_ID, Registry.ENTITY_TYPE_REGISTRY);
+  public static final RegistrySupplier<EntityType<ScriptorProjectile>> PROJECTILE_TYPE =
+    ENTITY_TYPES.register(
+      "projectile",
+      () -> EntityType.Builder.of(
+        ScriptorProjectile::new,
+        MobCategory.MISC
+      )
+        .clientTrackingRange(8)
+        .sized(0.25F, 0.25F)
+        .build("projectile")
+    );
+
   public static void registerHandlers() {
     ChatEvent.RECEIVED.register(new SpellChatEvents());
     LootEvent.MODIFY_LOOT_TABLE.register(new AddLootEvent());
@@ -68,10 +86,17 @@ public class ScriptorMod {
     NetworkManager.registerReceiver(NetworkManager.Side.C2S, RETURN_TOUCH_DATA, TouchNetwork::returnTouchData);
   }
 
+  public static void registerRenderers() {
+    if(Platform.getEnv() == EnvType.CLIENT)
+      EntityRendererRegistry.register(PROJECTILE_TYPE, ScriptorProjectileRenderer::new);
+  }
+
   public static void init() {
     ITEMS.register();
     EFFECTS.register();
+    ENTITY_TYPES.register();
 
     registerHandlers();
+    registerRenderers();
   }
 }
