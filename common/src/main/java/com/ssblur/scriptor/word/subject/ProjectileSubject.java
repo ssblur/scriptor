@@ -6,6 +6,8 @@ import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.Spell;
 import com.ssblur.scriptor.word.descriptor.ColorDescriptor;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
+import com.ssblur.scriptor.word.descriptor.DurationDescriptor;
+import com.ssblur.scriptor.word.descriptor.SpeedDescriptor;
 import net.minecraft.world.entity.Entity;
 
 import java.util.List;
@@ -22,16 +24,23 @@ public class ProjectileSubject extends Subject {
     CompletableFuture<List<Targetable>> future = new CompletableFuture<>();
 
     int color = 0xa020f0;
-    for(Descriptor d: spell.descriptors())
+    double duration = 12;
+    double speed = 1;
+    for(Descriptor d: spell.descriptors()) {
       if(d instanceof ColorDescriptor descriptor)
         color = descriptor.getColor();
+      if(d instanceof DurationDescriptor descriptor)
+        duration += descriptor.durationModifier();
+      if(d instanceof SpeedDescriptor descriptor)
+        speed *= descriptor.speedModifier();
+    }
 
     var projectile = ScriptorMod.PROJECTILE_TYPE.get().create(caster.level);
     assert projectile != null;
     projectile.setPos(caster.getEyePosition());
-    projectile.setDeltaMovement(caster.getLookAngle());
+    projectile.setDeltaMovement(caster.getLookAngle().scale(speed));
     projectile.setOwner(caster);
-    projectile.setDuration(240);
+    projectile.setDuration((int) Math.round(10 * duration));
     projectile.setColor(color);
     projectile.setCompletable(future);
     caster.level.addFreshEntity(projectile);

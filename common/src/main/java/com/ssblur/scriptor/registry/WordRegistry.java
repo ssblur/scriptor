@@ -4,10 +4,7 @@ import com.ssblur.scriptor.word.action.Action;
 import com.ssblur.scriptor.word.action.HealAction;
 import com.ssblur.scriptor.word.action.InflameAction;
 import com.ssblur.scriptor.word.action.SmiteAction;
-import com.ssblur.scriptor.word.descriptor.ColorDescriptor;
-import com.ssblur.scriptor.word.descriptor.Descriptor;
-import com.ssblur.scriptor.word.descriptor.SimpleDurationDescriptor;
-import com.ssblur.scriptor.word.descriptor.SimpleStrengthDescriptor;
+import com.ssblur.scriptor.word.descriptor.*;
 import com.ssblur.scriptor.word.subject.*;
 
 import java.util.HashMap;
@@ -21,7 +18,8 @@ public class WordRegistry {
   public static final Subject STORM = INSTANCE.register("storm", new StormSubject());
 
   public static final Descriptor LONG = INSTANCE.register("long", new SimpleDurationDescriptor(3, 7));
-  public static final Descriptor SLOW = INSTANCE.register("slow", new SimpleDurationDescriptor(2, 4));
+  public static final Descriptor SLOW = INSTANCE.register("slow", new SpeedDurationDescriptor(2, 4, .75));
+  public static final Descriptor FAST = INSTANCE.register("fast", new SpeedDurationDescriptor(2, -4, 1.25));
   public static final Descriptor STRONG = INSTANCE.register("strong", new SimpleStrengthDescriptor(2, 1));
 
   public static final Descriptor WHITE = INSTANCE.register("black", new ColorDescriptor(0xe4e4e4));
