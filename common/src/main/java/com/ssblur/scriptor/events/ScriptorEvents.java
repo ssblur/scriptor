@@ -3,6 +3,7 @@ package com.ssblur.scriptor.events;
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.messages.TraceNetwork;
 import dev.architectury.event.events.common.ChatEvent;
+import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.event.events.common.LootEvent;
 import dev.architectury.networking.NetworkManager;
 import dev.architectury.platform.Platform;
@@ -18,6 +19,7 @@ public class ScriptorEvents {
   public static void register() {
     ChatEvent.RECEIVED.register(new SpellChatEvents());
     LootEvent.MODIFY_LOOT_TABLE.register(new AddLootEvent());
+    LifecycleEvent.SERVER_LEVEL_LOAD.register(new PreloadDictionary());
     ReloadListenerRegistry.register(PackType.SERVER_DATA, TomeReloadListener.INSTANCE);
 
     if(Platform.getEnv() == EnvType.CLIENT)
