@@ -1,6 +1,8 @@
 package com.ssblur.scriptor;
 
 import com.google.common.base.Suppliers;
+import com.ssblur.scriptor.block.ScriptorBlocks;
+import com.ssblur.scriptor.blockentity.ScriptorBlockEntities;
 import com.ssblur.scriptor.effect.ScriptorEffects;
 import com.ssblur.scriptor.entity.ScriptorEntities;
 import com.ssblur.scriptor.events.ScriptorEvents;
@@ -23,6 +25,8 @@ public class ScriptorMod {
           new ItemStack(ScriptorItems.SPELLBOOK.get()));
 
   public static void init() {
+    ScriptorBlocks.register();
+    ScriptorBlockEntities.register();
     ScriptorItems.register();
     ScriptorEntities.register();
     ScriptorEvents.register();

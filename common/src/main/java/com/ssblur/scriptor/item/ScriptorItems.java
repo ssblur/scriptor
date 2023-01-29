@@ -1,9 +1,11 @@
 package com.ssblur.scriptor.item;
 
 import com.ssblur.scriptor.ScriptorMod;
+import com.ssblur.scriptor.block.ScriptorBlocks;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.Registry;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 
 public class ScriptorItems {
@@ -16,6 +18,9 @@ public class ScriptorItems {
     new Item(new Item.Properties().tab(ScriptorMod.SCRIPTOR_TAB)));
   public static final RegistrySupplier<Item> TOME = ITEMS.register("tome", () ->
     new AncientSpellbook(new Item.Properties().tab(ScriptorMod.SCRIPTOR_TAB)));
+
+  public static final RegistrySupplier<Item> RUNE = ITEMS.register("rune", () ->
+    new BlockItem(ScriptorBlocks.RUNE.get(), new Item.Properties().tab(ScriptorMod.SCRIPTOR_TAB)));
 
   public static void register() {
     ITEMS.register();

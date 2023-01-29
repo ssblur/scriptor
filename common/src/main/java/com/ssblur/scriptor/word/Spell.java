@@ -9,6 +9,7 @@ import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -26,6 +27,18 @@ public record Spell(
     for(var target: targets) {
       action.apply(caster, target, deduplicatedDescriptors());
     }
+  }
+
+  public CompletableFuture<List<Targetable>> createFuture(Entity caster) {
+    var targetFuture = new CompletableFuture<List<Targetable>>();
+    targetFuture.whenComplete((targets, throwable) -> {
+      if(throwable != null)
+        throwable.printStackTrace();
+      else
+        castOnTargets(caster, targets);
+    });
+
+    return targetFuture;
   }
 
   /**
