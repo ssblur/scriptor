@@ -39,25 +39,25 @@ public class RuneBlock extends Block implements EntityBlock {
 
   @SuppressWarnings("deprecation")
   @Override
-  public VoxelShape getShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
+  public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
     return Shapes.box(0, 0, 0, 1, 0.0625, 1);
   }
 
   @Nullable
   @Override
-  public BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
+  public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
     return new RuneBlockEntity(blockPos, blockState);
   }
 
   @Nullable
   @Override
-  public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState blockState, @NotNull BlockEntityType<T> blockEntityType) {
+  public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
     return RuneBlockEntity::tick;
   }
 
   @Nullable
   @Override
-  public <T extends BlockEntity> GameEventListener getListener(@NotNull ServerLevel serverLevel, @NotNull T blockEntity) {
+  public <T extends BlockEntity> GameEventListener getListener(ServerLevel serverLevel, T blockEntity) {
     return EntityBlock.super.getListener(serverLevel, blockEntity);
   }
 }

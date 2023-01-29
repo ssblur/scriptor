@@ -11,5 +11,5 @@ public class MuteStatusEffect extends MobEffect {
   }
 
   @Override
-  public void applyEffectTick(@NotNull LivingEntity entity, int amplifier) {}
+  public void applyEffectTick(LivingEntity entity, int amplifier) {}
 }

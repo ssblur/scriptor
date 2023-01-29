@@ -1,8 +1,9 @@
-package com.ssblur.scriptor.entity;
+package com.ssblur.scriptor.entity.renderers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.ssblur.scriptor.ScriptorMod;
+import com.ssblur.scriptor.entity.ScriptorProjectile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.MultiBufferSource;

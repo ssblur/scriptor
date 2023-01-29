@@ -497,13 +497,13 @@ public class DictionarySavedData extends SavedData {
   }
 
   @Override
-  public CompoundTag save(@NotNull CompoundTag tag) {
+  public CompoundTag save(CompoundTag tag) {
     var result = worldCodec.encodeStart(NbtOps.INSTANCE, this).get().left();
     result.ifPresent(value -> tag.put("scriptor:dictionary", value));
     return tag;
   }
 
-  public static DictionarySavedData load(@NotNull CompoundTag tag) {
+  public static DictionarySavedData load(CompoundTag tag) {
     var input = tag.get("scriptor:dictionary");
     if(input != null) {
       var result = worldCodec.decode(NbtOps.INSTANCE, input).get().left();

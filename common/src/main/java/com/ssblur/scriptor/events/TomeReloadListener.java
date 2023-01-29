@@ -32,7 +32,7 @@ public class TomeReloadListener extends SimpleJsonResourceReloadListener {
   }
 
   @Override
-  protected void apply(Map<ResourceLocation, JsonElement> object, @NotNull ResourceManager resourceManager, @NotNull ProfilerFiller profilerFiller) {
+  protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
     tomes = new HashMap<>();
     keys = new ArrayList<>();
     object.forEach((resourceLocation, jsonElement) -> {

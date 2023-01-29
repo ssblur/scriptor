@@ -11,6 +11,8 @@ import net.minecraft.util.StringUtil;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ClickAction;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -35,7 +37,7 @@ public class Spellbook extends Item {
   }
 
   @Override
-  public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand interactionHand) {
+  public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
     var result = super.use(level, player, interactionHand);
 
     Tag tag = player.getItemInHand(interactionHand).getTag();
@@ -50,5 +52,14 @@ public class Spellbook extends Item {
     }
 
     return result;
+  }
+
+  public boolean overrideStackedOnOther(ItemStack itemStack, Slot slot, ClickAction clickAction, Player player) {
+    if (clickAction != ClickAction.SECONDARY) {
+      return false;
+    } else {
+
+    }
+    return false;
   }
 }

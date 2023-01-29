@@ -1,6 +1,7 @@
 package com.ssblur.scriptor.entity;
 
 import com.ssblur.scriptor.ScriptorMod;
+import com.ssblur.scriptor.entity.renderers.ScriptorProjectileRenderer;
 import dev.architectury.platform.Platform;
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
