@@ -1,6 +1,5 @@
 package com.ssblur.scriptor.messages;
 
-import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.events.ScriptorEvents;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
@@ -16,23 +15,46 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.Callable;
 
-public class TouchNetwork {
-  enum TOUCHTYPE {
+public class TraceNetwork {
+  enum TYPE {
     BLOCK,
     ENTITY,
     MISS
   }
 
-  public static void requestTouchData(Player player, UUID uuid) {
-    FriendlyByteBuf out = new FriendlyByteBuf(Unpooled.buffer());
-    out.writeUUID(uuid);
-    NetworkManager.sendToPlayer((ServerPlayer) player, ScriptorEvents.GET_TOUCH_DATA, out);
+  public interface TraceCallback {
+    void run(Targetable target);
   }
 
-  public static void getTouchData(FriendlyByteBuf buf, NetworkManager.PacketContext ignoredContext) {
+  record TraceQueue(Player player, TraceCallback callback) {}
+
+  static HashMap<UUID, TraceQueue> queue = new HashMap<>();
+
+  public static void requestTraceData(Player player, UUID uuid, TraceCallback callback) {
+    FriendlyByteBuf out = new FriendlyByteBuf(Unpooled.buffer());
+    out.writeUUID(uuid);
+    queue.put(uuid, new TraceQueue(player, callback));
+    NetworkManager.sendToPlayer((ServerPlayer) player, ScriptorEvents.GET_TRACE_DATA, out);
+  }
+
+  public static void validateAndRun(UUID uuid, Player player, Targetable targetable) {
+    var queueItem = queue.get(uuid);
+    if(queueItem.player == player)
+      queueItem.callback.run(targetable);
+  }
+
+  public static void validateAndDrop(UUID uuid, Player player) {
+    var queueItem = queue.get(uuid);
+    if(queueItem.player == player)
+      queue.remove(uuid);
+  }
+
+  public static void getTraceData(FriendlyByteBuf buf, NetworkManager.PacketContext ignoredContext) {
     Minecraft client = Minecraft.getInstance();
     HitResult hit = client.hitResult;
     FriendlyByteBuf out = new FriendlyByteBuf(Unpooled.buffer());
@@ -41,44 +63,44 @@ public class TouchNetwork {
     switch (Objects.requireNonNull(hit).getType()) {
       case BLOCK -> {
         BlockHitResult blockHit = (BlockHitResult) hit;
-        out.writeEnum(TOUCHTYPE.BLOCK);
+        out.writeEnum(TYPE.BLOCK);
         out.writeBlockHitResult(blockHit);
       }
       case ENTITY -> {
         EntityHitResult entityHit = (EntityHitResult) hit;
         Entity entity = entityHit.getEntity();
-        out.writeEnum(TOUCHTYPE.ENTITY);
+        out.writeEnum(TYPE.ENTITY);
         out.writeInt(entity.getId());
         out.writeUUID(entity.getUUID());
       }
-      default -> out.writeEnum(TOUCHTYPE.MISS);
+      default -> out.writeEnum(TYPE.MISS);
     }
-    NetworkManager.sendToServer(ScriptorEvents.RETURN_TOUCH_DATA, out);
+    NetworkManager.sendToServer(ScriptorEvents.RETURN_TRACE_DATA, out);
   }
 
-  public static void returnTouchData(FriendlyByteBuf buf, NetworkManager.PacketContext context) {
+  public static void returnTraceData(FriendlyByteBuf buf, NetworkManager.PacketContext context) {
     UUID uuid = buf.readUUID();
     Player player = context.getPlayer();
 
-    TOUCHTYPE type = buf.readEnum(TOUCHTYPE.class);
+    TYPE type = buf.readEnum(TYPE.class);
     switch (type){
       case BLOCK -> {
         var result = buf.readBlockHitResult();
         var pos = result.getBlockPos().relative(result.getDirection());
         var targetable = new Targetable(pos);
 
-        context.queue(() -> TouchSubject.castFromQueue(uuid, targetable, player));
+        context.queue(() -> validateAndRun(uuid, player, targetable));
       }
       case ENTITY -> {
         int entityId = buf.readInt();
         var entityUUID = buf.readUUID();
         var entity = player.level.getEntity(entityId);
         if(entity != null && entity.getUUID().equals(entityUUID))
-          context.queue(() -> TouchSubject.castFromQueue(uuid, new EntityTargetable(entity), player));
+          context.queue(() -> validateAndRun(uuid, player, new EntityTargetable(entity)));
         else
-          context.queue(() -> TouchSubject.dropFromQueue(uuid, player));
+          context.queue(() -> validateAndDrop(uuid, player));
       }
-      default -> context.queue(() -> TouchSubject.dropFromQueue(uuid, player));
+      default -> context.queue(() -> validateAndDrop(uuid, player));
     }
   }
 }
