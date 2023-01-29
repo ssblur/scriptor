@@ -1,0 +1,11 @@
+{
+  "name": "Drew's Carrier Bolt",
+  "author": "And Drew",
+  "spell": {
+    "action": "goto",
+    "subject": "projectile",
+    "descriptors": [
+      "light_blue"
+    ]
+  }
+}
