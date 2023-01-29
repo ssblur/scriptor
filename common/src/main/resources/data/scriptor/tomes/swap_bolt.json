@@ -1,0 +1,11 @@
+{
+  "name": "Faurash's Freaky Missile",
+  "author": "Faurash",
+  "spell": {
+    "action": "swap",
+    "subject": "projectile",
+    "descriptors": [
+      "red"
+    ]
+  }
+}
