@@ -60,7 +60,7 @@ public class StormSubject extends Subject{
         for(var entity: entities)
           targets.add(new EntityTargetable(entity));
       else
-        targets.add(new Targetable(pos));
+        targets.add(new Targetable(caster.level, pos));
     }
 
     var result = new CompletableFuture<List<Targetable>>();

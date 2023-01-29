@@ -21,7 +21,7 @@ public class AncientSpellbook extends Item {
   }
 
   @Override
-  public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand interactionHand) {
+  public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
     var result = super.use(level, player, interactionHand);
 
     if(!level.isClientSide) {

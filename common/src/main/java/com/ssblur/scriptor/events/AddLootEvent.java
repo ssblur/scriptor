@@ -1,6 +1,7 @@
 package com.ssblur.scriptor.events;
 
 import com.ssblur.scriptor.ScriptorMod;
+import com.ssblur.scriptor.item.ScriptorItems;
 import dev.architectury.event.events.common.LootEvent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -22,7 +23,7 @@ public class AddLootEvent implements LootEvent.ModifyLootTable {
       for(var i: tomePools)
         if(id.equals(i)) {
           LootPool.Builder builder = LootPool.lootPool();
-          builder.add(LootItem.lootTableItem(ScriptorMod.TOME.get()));
+          builder.add(LootItem.lootTableItem(ScriptorItems.TOME.get()));
           context.addPool(builder);
         }
     }

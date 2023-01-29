@@ -3,6 +3,7 @@ package com.ssblur.scriptor.helpers;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.ssblur.scriptor.ScriptorMod;
+import com.ssblur.scriptor.item.ScriptorItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -66,7 +67,7 @@ public class LimitedBookSerializer {
     tag.putString("title", title);
     tag.put("pages", encodeText(text));
 
-    ItemStack itemStack = new ItemStack(ScriptorMod.SPELLBOOK.get());
+    ItemStack itemStack = new ItemStack(ScriptorItems.SPELLBOOK.get());
     itemStack.setCount(1);
     itemStack.setTag(tag);
     return itemStack;

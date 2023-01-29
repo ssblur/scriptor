@@ -1,9 +1,6 @@
 package com.ssblur.scriptor.registry;
 
-import com.ssblur.scriptor.word.action.Action;
-import com.ssblur.scriptor.word.action.HealAction;
-import com.ssblur.scriptor.word.action.InflameAction;
-import com.ssblur.scriptor.word.action.SmiteAction;
+import com.ssblur.scriptor.word.action.*;
 import com.ssblur.scriptor.word.descriptor.*;
 import com.ssblur.scriptor.word.subject.*;
 
@@ -16,6 +13,7 @@ public class WordRegistry {
   public static final Subject TOUCH = INSTANCE.register("touch", new TouchSubject());
   public static final Subject PROJECTILE = INSTANCE.register("projectile", new ProjectileSubject());
   public static final Subject STORM = INSTANCE.register("storm", new StormSubject());
+  public static final Subject RUNE = INSTANCE.register("rune", new RuneSubject());
 
   public static final Descriptor LONG = INSTANCE.register("long", new SimpleDurationDescriptor(3, 7));
   public static final Descriptor SLOW = INSTANCE.register("slow", new SpeedDurationDescriptor(2, 4, .75));
@@ -42,6 +40,7 @@ public class WordRegistry {
   public static final Action INFLAME = INSTANCE.register("inflame", new InflameAction());
   public static final Action HEAL = INSTANCE.register("heal", new HealAction());
   public static final Action SMITE = INSTANCE.register("smite", new SmiteAction());
+  public static final Action EXPLOSION = INSTANCE.register("explosion", new ExplosionAction());
 
   public HashMap<String, Action> actionRegistry = new HashMap<>();
   public HashMap<String, Descriptor> descriptorRegistry = new HashMap<>();

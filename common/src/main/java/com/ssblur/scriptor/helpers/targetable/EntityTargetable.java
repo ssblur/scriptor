@@ -6,7 +6,7 @@ public class EntityTargetable extends Targetable {
   Entity targetEntity;
 
   public EntityTargetable(Entity entity) {
-    super(entity.position());
+    super(entity.level, entity.position());
     targetEntity = entity;
   }
 

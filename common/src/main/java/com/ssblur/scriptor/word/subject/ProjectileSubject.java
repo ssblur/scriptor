@@ -1,6 +1,7 @@
 package com.ssblur.scriptor.word.subject;
 
 import com.ssblur.scriptor.ScriptorMod;
+import com.ssblur.scriptor.entity.ScriptorEntities;
 import com.ssblur.scriptor.entity.ScriptorProjectile;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.Spell;
@@ -35,7 +36,7 @@ public class ProjectileSubject extends Subject {
         speed *= descriptor.speedModifier();
     }
 
-    var projectile = ScriptorMod.PROJECTILE_TYPE.get().create(caster.level);
+    var projectile = ScriptorEntities.PROJECTILE_TYPE.get().create(caster.level);
     assert projectile != null;
     projectile.setPos(caster.getEyePosition());
     projectile.setDeltaMovement(caster.getLookAngle().scale(speed));

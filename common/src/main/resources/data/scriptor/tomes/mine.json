@@ -1,0 +1,11 @@
+{
+  "name": "Journeyman's Rudimentary Mine",
+  "author": "§iNiter",
+  "spell": {
+    "action": "explosion",
+    "subject": "rune",
+    "descriptors": [
+      "red"
+    ]
+  }
+}

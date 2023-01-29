@@ -29,7 +29,7 @@ public class InflameAction extends Action {
       entityTargetable.getTargetEntity().setSecondsOnFire((int) Math.round(seconds));
     } else {
       BlockPos pos = targetable.getTargetBlockPos();
-      Level level = caster.level;
+      Level level = targetable.getLevel();
 
       if(!level.getBlockState(pos).getMaterial().isReplaceable())
         return;
