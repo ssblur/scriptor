@@ -1,3 +1,5 @@
+![Banner with Title Scriptor Magicae](banner.png)
+
 # Scriptor Magicae
 *Knowledge is power!*
 
@@ -6,8 +8,6 @@ If you notice any bugs or have a suggestion, please feel free to open an
 
 You can join [My Discord](http://dc.blur.lol) to be notified about
 mod updates, new mods, and other things I do.
-
-![Icon of a Purple Book with a cursive SM printed on the cover](https://cdn.modrinth.com/data/JyJgaOrk/6b689deb170511e4c64c75e5a66dee284dad2160.png)
 
 Welcome to Scriptor, the mod which gives words power.
 This Vanilla-style mod adds various kinds of magic spell to the world
