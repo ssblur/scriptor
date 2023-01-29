@@ -43,6 +43,7 @@ public class WordRegistry {
   public static final Action EXPLOSION = INSTANCE.register("explosion", new ExplosionAction());
   public static final Action GOTO = INSTANCE.register("goto", new GotoAction());
   public static final Action SWAP = INSTANCE.register("swap", new SwapAction());
+  public static final Action BRING = INSTANCE.register("bring", new BringAction());
 
   public HashMap<String, Action> actionRegistry = new HashMap<>();
   public HashMap<String, Descriptor> descriptorRegistry = new HashMap<>();

@@ -1,0 +1,11 @@
+{
+  "name": "Scorpion's Ethereal Lead",
+  "author": "The Scorpion",
+  "spell": {
+    "action": "bring",
+    "subject": "projectile",
+    "descriptors": [
+      "purple"
+    ]
+  }
+}

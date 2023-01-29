@@ -7,7 +7,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 
-public class SwapAction extends Action {
+public class BringAction extends Action {
   @Override
   public void apply(Entity caster, Targetable targetable, Descriptor[] descriptors) {
     if(targetable.getLevel().isClientSide) return;
@@ -15,12 +15,7 @@ public class SwapAction extends Action {
     ServerLevel level = (ServerLevel) targetable.getLevel();
     var pos = targetable.getTargetPos();
     if(caster != null) {
-      if (caster.level != level)
-        caster.changeDimension(level);
       var casterPos = caster.position();
-      caster.teleportTo(pos.x, pos.y, pos.z);
-      caster.setDeltaMovement(0, 0, 0);
-      caster.resetFallDistance();
       if(targetable instanceof EntityTargetable entityTargetable)
         if(entityTargetable.getTargetEntity() instanceof LivingEntity living) {
           if(caster.level != level)
