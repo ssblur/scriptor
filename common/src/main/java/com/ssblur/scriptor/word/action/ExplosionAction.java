@@ -15,7 +15,7 @@ public class ExplosionAction extends Action {
   @Override
   public void apply(Entity caster, Targetable targetable, Descriptor[] descriptors) {
     if(caster.level.isClientSide) return;
-    int strength = 3;
+    int strength = 2;
     for(var d: descriptors) {
       if(d instanceof StrengthDescriptor strengthDescriptor)
         strength += strengthDescriptor.strengthModifier();
@@ -23,7 +23,7 @@ public class ExplosionAction extends Action {
 
     ServerLevel level = (ServerLevel) caster.level;
     var pos = targetable.getTargetPos();
-    level.explode(caster, pos.x, pos.y, pos.z, strength, Explosion.BlockInteraction.DESTROY);
+    level.explode(null, pos.x, pos.y + .25, pos.z, strength, Explosion.BlockInteraction.DESTROY);
   }
 
   @Override
