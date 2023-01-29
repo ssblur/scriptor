@@ -2,6 +2,7 @@ package com.ssblur.scriptor.events;
 
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.damage.OverloadDamageSource;
+import com.ssblur.scriptor.effect.ScriptorEffects;
 import com.ssblur.scriptor.helpers.DictionarySavedData;
 import com.ssblur.scriptor.word.Spell;
 import dev.architectury.event.EventResult;
@@ -21,10 +22,10 @@ public class SpellChatEvents implements ChatEvent.Received {
     if(player != null && player.level instanceof ServerLevel server) {
       Spell spell = DictionarySavedData.computeIfAbsent(server).parse(sentence);
       if (spell != null) {
-        if(player.hasEffect(ScriptorMod.HOARSE.get())) {
+        if(player.hasEffect(ScriptorEffects.HOARSE.get())) {
           player.sendSystemMessage(Component.translatable("extra.scriptor.hoarse"));
           return EventResult.interruptFalse();
-        } else if(player.hasEffect(ScriptorMod.MUTE.get())) {
+        } else if(player.hasEffect(ScriptorEffects.MUTE.get())) {
           player.sendSystemMessage(Component.translatable("extra.scriptor.mute"));
           return EventResult.interruptFalse();
         }
@@ -32,7 +33,7 @@ public class SpellChatEvents implements ChatEvent.Received {
 
         int cost = (int) Math.round(spell.cost() * 30);
 
-        player.addEffect(new MobEffectInstance(ScriptorMod.HOARSE.get(), cost));
+        player.addEffect(new MobEffectInstance(ScriptorEffects.HOARSE.get(), cost));
         if(cost > 400)
           player.addEffect(new MobEffectInstance(MobEffects.HUNGER, cost - 300));
         if(cost > 1200)

@@ -1,6 +1,7 @@
 package com.ssblur.scriptor.messages;
 
 import com.ssblur.scriptor.ScriptorMod;
+import com.ssblur.scriptor.events.ScriptorEvents;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.subject.TouchSubject;
@@ -28,7 +29,7 @@ public class TouchNetwork {
   public static void requestTouchData(Player player, UUID uuid) {
     FriendlyByteBuf out = new FriendlyByteBuf(Unpooled.buffer());
     out.writeUUID(uuid);
-    NetworkManager.sendToPlayer((ServerPlayer) player, ScriptorMod.GET_TOUCH_DATA, out);
+    NetworkManager.sendToPlayer((ServerPlayer) player, ScriptorEvents.GET_TOUCH_DATA, out);
   }
 
   public static void getTouchData(FriendlyByteBuf buf, NetworkManager.PacketContext ignoredContext) {
@@ -52,7 +53,7 @@ public class TouchNetwork {
       }
       default -> out.writeEnum(TOUCHTYPE.MISS);
     }
-    NetworkManager.sendToServer(ScriptorMod.RETURN_TOUCH_DATA, out);
+    NetworkManager.sendToServer(ScriptorEvents.RETURN_TOUCH_DATA, out);
   }
 
   public static void returnTouchData(FriendlyByteBuf buf, NetworkManager.PacketContext context) {
