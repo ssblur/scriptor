@@ -88,7 +88,7 @@ public class TraceNetwork {
       case BLOCK -> {
         var result = buf.readBlockHitResult();
         var pos = result.getBlockPos().relative(result.getDirection());
-        var targetable = new Targetable(pos);
+        var targetable = new Targetable(player.level, pos);
 
         context.queue(() -> validateAndRun(uuid, player, targetable));
       }

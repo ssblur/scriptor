@@ -14,14 +14,14 @@ import net.minecraft.world.level.Explosion;
 public class ExplosionAction extends Action {
   @Override
   public void apply(Entity caster, Targetable targetable, Descriptor[] descriptors) {
-    if(caster.level.isClientSide) return;
+    if(targetable.getLevel().isClientSide) return;
     int strength = 2;
     for(var d: descriptors) {
       if(d instanceof StrengthDescriptor strengthDescriptor)
         strength += strengthDescriptor.strengthModifier();
     }
 
-    ServerLevel level = (ServerLevel) caster.level;
+    ServerLevel level = (ServerLevel) targetable.getLevel();
     var pos = targetable.getTargetPos();
     level.explode(null, pos.x, pos.y + .25, pos.z, strength, Explosion.BlockInteraction.DESTROY);
   }

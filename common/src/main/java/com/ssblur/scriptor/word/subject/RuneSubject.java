@@ -5,6 +5,10 @@ import com.ssblur.scriptor.blockentity.RuneBlockEntity;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.messages.TraceNetwork;
 import com.ssblur.scriptor.word.Spell;
+import com.ssblur.scriptor.word.descriptor.ColorDescriptor;
+import com.ssblur.scriptor.word.descriptor.Descriptor;
+import com.ssblur.scriptor.word.descriptor.DurationDescriptor;
+import com.ssblur.scriptor.word.descriptor.SpeedDescriptor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -21,6 +25,12 @@ public class RuneSubject extends Subject{
     var result = new CompletableFuture<List<Targetable>>();
     if(caster instanceof Player player) {
       TraceNetwork.requestTraceData(player, target -> {
+
+        int color = 0xa020f0;
+        for(Descriptor d: spell.descriptors())
+          if(d instanceof ColorDescriptor descriptor)
+            color = descriptor.getColor();
+
         BlockPos pos = target.getTargetBlockPos();
         Level level = caster.level;
 
@@ -33,6 +43,8 @@ public class RuneSubject extends Subject{
           runeBlockEntity.owner = caster;
           runeBlockEntity.future = result;
           runeBlockEntity.spell = spell;
+          runeBlockEntity.color = color;
+          runeBlockEntity.setChanged();
         }
       });
     } else {

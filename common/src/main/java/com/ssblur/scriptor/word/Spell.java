@@ -31,6 +31,7 @@ public record Spell(
 
   public CompletableFuture<List<Targetable>> createFuture(Entity caster) {
     var targetFuture = new CompletableFuture<List<Targetable>>();
+
     targetFuture.whenComplete((targets, throwable) -> {
       if(throwable != null)
         throwable.printStackTrace();

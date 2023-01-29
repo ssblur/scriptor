@@ -20,9 +20,9 @@ import net.minecraft.world.level.block.state.BlockState;
 public class SmiteAction extends Action {
   @Override
   public void apply(Entity caster, Targetable targetable, Descriptor[] descriptors) {
-    if(caster.level.isClientSide) return;
+    if(targetable.getLevel().isClientSide) return;
 
-    ServerLevel level = (ServerLevel) caster.level;
+    ServerLevel level = (ServerLevel) targetable.getLevel();
     LightningBolt bolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
     if(caster instanceof ServerPlayer player)
       bolt.setCause(player);

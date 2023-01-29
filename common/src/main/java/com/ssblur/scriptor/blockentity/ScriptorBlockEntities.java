@@ -3,6 +3,8 @@ package com.ssblur.scriptor.blockentity;
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.block.RuneBlock;
 import com.ssblur.scriptor.block.ScriptorBlocks;
+import com.ssblur.scriptor.blockentity.renderers.RuneBlockEntityRenderer;
+import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.Registries;
 import dev.architectury.registry.registries.RegistrySupplier;
@@ -19,5 +21,6 @@ public class ScriptorBlockEntities {
 
   public static void register() {
     BLOCK_ENTITIES.register();
+    BlockEntityRendererRegistry.register(RUNE.get(), RuneBlockEntityRenderer::new);
   }
 }
