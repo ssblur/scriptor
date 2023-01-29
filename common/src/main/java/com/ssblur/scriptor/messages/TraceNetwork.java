@@ -35,7 +35,8 @@ public class TraceNetwork {
 
   static HashMap<UUID, TraceQueue> queue = new HashMap<>();
 
-  public static void requestTraceData(Player player, UUID uuid, TraceCallback callback) {
+  public static void requestTraceData(Player player, TraceCallback callback) {
+    UUID uuid = UUID.randomUUID();
     FriendlyByteBuf out = new FriendlyByteBuf(Unpooled.buffer());
     out.writeUUID(uuid);
     queue.put(uuid, new TraceQueue(player, callback));

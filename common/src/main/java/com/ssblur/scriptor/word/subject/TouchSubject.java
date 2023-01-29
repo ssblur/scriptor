@@ -17,8 +17,7 @@ public class TouchSubject extends Subject{
   public CompletableFuture<List<Targetable>> getTargets(Entity caster, Spell spell) {
     var result = new CompletableFuture<List<Targetable>>();
     if(caster instanceof Player player) {
-      UUID uuid = UUID.randomUUID();
-      TraceNetwork.requestTraceData(player, uuid, target -> result.complete(List.of(target)));
+      TraceNetwork.requestTraceData(player, target -> result.complete(List.of(target)));
     } else {
       result.complete(List.of());
     }
