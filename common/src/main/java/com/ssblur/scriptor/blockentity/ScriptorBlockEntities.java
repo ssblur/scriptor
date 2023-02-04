@@ -4,6 +4,7 @@ import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.block.RuneBlock;
 import com.ssblur.scriptor.block.ScriptorBlocks;
 import com.ssblur.scriptor.blockentity.renderers.RuneBlockEntityRenderer;
+import dev.architectury.platform.Platform;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.Registries;
@@ -21,6 +22,12 @@ public class ScriptorBlockEntities {
 
   public static void register() {
     BLOCK_ENTITIES.register();
+
+    if(!Platform.isForge()) registerRenderers();
+  }
+
+  public static void registerRenderers() {
     BlockEntityRendererRegistry.register(RUNE.get(), RuneBlockEntityRenderer::new);
   }
+
 }
