@@ -1,4 +1,4 @@
-![Banner with Title Scriptor Magicae](banner.png)
+![Banner with Title Scriptor Magicae](https://github.com/ssblur/scriptor/raw/main/banner.png)
 
 # Scriptor Magicae
 *Knowledge is power!*

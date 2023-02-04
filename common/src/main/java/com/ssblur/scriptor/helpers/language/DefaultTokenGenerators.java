@@ -2,7 +2,7 @@ package com.ssblur.scriptor.helpers.language;
 
 public class DefaultTokenGenerators {
   public static CharacterClass angConsonants =
-    new CharacterClass(3, "b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "x", "z");
+    new CharacterClass(2, "b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "x", "z");
   public static CharacterClass angWeirdConsonants =
     new CharacterClass(1, "w", "y");
   public static CharacterClass angVowels =
@@ -14,11 +14,11 @@ public class DefaultTokenGenerators {
    * The first generator, built just to have something functional.
    */
   public static TokenGenerator angGenerator =
-    new TokenGenerator(3, 11, false, angVowels, angConsonants, angWeirdConsonants);
+    new TokenGenerator(3, 7, false, angVowels, angConsonants/*, angWeirdConsonants*/);
   /***
    * A simple generator for articles based on the classes
    * assembled for angGenerator.
    */
   public static TokenGenerator shortAngGenerator =
-    new TokenGenerator(1, 3, true, angVowels, angConsonants);
+    new TokenGenerator(2, 3, true, angVowels, angConsonants);
 }
