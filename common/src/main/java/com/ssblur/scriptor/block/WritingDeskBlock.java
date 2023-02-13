@@ -1,24 +1,19 @@
 package com.ssblur.scriptor.block;
 
-import com.ssblur.scriptor.blockentity.RuneBlockEntity;
+import com.ssblur.scriptor.block.blockstates.HorizontalFacing;
 import com.ssblur.scriptor.blockentity.WritingDeskBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.FurnaceBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.gameevent.GameEventListener;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -49,14 +44,14 @@ public class WritingDeskBlock extends Block implements EntityBlock {
     this.registerDefaultState(
         this.defaultBlockState()
           .setValue(BinderColorProperty, BinderColor.BROWN)
-          .setValue(ScriptorBlocks.HorizontalProperty, ScriptorBlocks.HorizontalFacing.NORTH)
+          .setValue(ScriptorBlocks.HorizontalProperty, HorizontalFacing.NORTH)
     );
   }
 
   public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
     return this.defaultBlockState().setValue(
       ScriptorBlocks.HorizontalProperty,
-      ScriptorBlocks.HorizontalFacing.of(blockPlaceContext.getHorizontalDirection().getOpposite())
+      HorizontalFacing.forFacing(blockPlaceContext)
     );
   }
 
