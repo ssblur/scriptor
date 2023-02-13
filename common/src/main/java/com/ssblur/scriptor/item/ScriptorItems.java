@@ -19,6 +19,9 @@ public class ScriptorItems {
   public static final RegistrySupplier<Item> TOME = ITEMS.register("tome", () ->
     new AncientSpellbook(new Item.Properties().tab(ScriptorMod.SCRIPTOR_TAB)));
 
+  public static final RegistrySupplier<Item> WRITING_DESK = ITEMS.register("writing_desk", () ->
+    new BlockItem(ScriptorBlocks.WRITING_DESK.get(), new Item.Properties().tab(ScriptorMod.SCRIPTOR_TAB)));
+
   public static void register() {
     ITEMS.register();
   }
