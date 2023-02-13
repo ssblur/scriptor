@@ -19,6 +19,10 @@ public class ScriptorBlockEntities {
     "rune",
     () -> BlockEntityType.Builder.of(RuneBlockEntity::new, ScriptorBlocks.RUNE.get()).build(null)
   );
+  public static final RegistrySupplier<BlockEntityType<WritingDeskBlockEntity>> WRITING_DESK = BLOCK_ENTITIES.register(
+    "writing_desk",
+    () -> BlockEntityType.Builder.of(WritingDeskBlockEntity::new, ScriptorBlocks.WRITING_DESK.get()).build(null)
+  );
 
   public static void register() {
     BLOCK_ENTITIES.register();
