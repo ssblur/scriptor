@@ -1,17 +1,24 @@
 package com.ssblur.scriptor.blockentity;
 
+import com.ssblur.scriptor.container.WritingDeskContainer;
 import com.ssblur.scriptor.helpers.DictionarySavedData;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.Spell;
+import dev.architectury.registry.menu.ExtendedMenuProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -26,7 +33,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
-public class WritingDeskBlockEntity extends BlockEntity {
+public class WritingDeskBlockEntity extends BlockEntity implements ExtendedMenuProvider {
   ItemStack ink;
   ItemStack paper;
   ItemStack binder;
@@ -94,5 +101,21 @@ public class WritingDeskBlockEntity extends BlockEntity {
       output.save(itemTag);
       tag.put("output", itemTag);
     }
+  }
+
+  @Override
+  public void saveExtraData(FriendlyByteBuf buf) {
+
+  }
+
+  @Override
+  public Component getDisplayName() {
+    return Component.literal("Writing Desk");
+  }
+
+  @Nullable
+  @Override
+  public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
+    return new WritingDeskContainer(i, inventory);
   }
 }

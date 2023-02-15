@@ -16,14 +16,16 @@ public class ScriptorEvents {
   public static final ResourceLocation GET_TRACE_DATA = new ResourceLocation(ScriptorMod.MOD_ID, "get_touch_data");
   public static final ResourceLocation RETURN_TRACE_DATA = new ResourceLocation(ScriptorMod.MOD_ID, "return_touch_data");
 
+
   public static void register() {
     ChatEvent.RECEIVED.register(new SpellChatEvents());
     LootEvent.MODIFY_LOOT_TABLE.register(new AddLootEvent());
     LifecycleEvent.SERVER_LEVEL_LOAD.register(new PreloadDictionary());
     ReloadListenerRegistry.register(PackType.SERVER_DATA, TomeReloadListener.INSTANCE);
 
-    if(Platform.getEnv() == EnvType.CLIENT)
+    if(Platform.getEnv() == EnvType.CLIENT) {
       NetworkManager.registerReceiver(NetworkManager.Side.S2C, GET_TRACE_DATA, TraceNetwork::getTraceData);
+    }
     NetworkManager.registerReceiver(NetworkManager.Side.C2S, RETURN_TRACE_DATA, TraceNetwork::returnTraceData);
   }
 }

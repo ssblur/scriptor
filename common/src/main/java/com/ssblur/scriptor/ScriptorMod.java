@@ -5,11 +5,13 @@ import com.ssblur.scriptor.block.ScriptorBlocks;
 import com.ssblur.scriptor.blockentity.ScriptorBlockEntities;
 import com.ssblur.scriptor.commands.DumpDictionaryCommand;
 import com.ssblur.scriptor.commands.DumpWordCommand;
+import com.ssblur.scriptor.container.ScriptorContainers;
 import com.ssblur.scriptor.effect.ScriptorEffects;
 import com.ssblur.scriptor.entity.ScriptorEntities;
 import com.ssblur.scriptor.events.ScriptorEvents;
 import com.ssblur.scriptor.item.ScriptorItems;
 import dev.architectury.event.events.common.CommandRegistrationEvent;
+import dev.architectury.networking.NetworkManager;
 import dev.architectury.registry.CreativeTabRegistry;
 import dev.architectury.registry.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -39,6 +41,7 @@ public class ScriptorMod {
     ScriptorEntities.register();
     ScriptorEvents.register();
     ScriptorEffects.register();
+    ScriptorContainers.register();
 
     registerCommands();
   }

@@ -1,9 +1,9 @@
 {
-	"credit": "Made with Blockbench",
+  "credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
 		"0": "scriptor:block/page",
-		"1": "scriptor:block/binder_brown",
+		"1": "scriptor:block/binder_purple",
 		"particle": "scriptor:block/page"
 	},
 	"elements": [
