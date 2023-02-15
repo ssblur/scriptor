@@ -1,0 +1,9 @@
+{
+    "parent": "scriptor:block/open_book_flat",
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "scriptor:block/page",
+		"1": "scriptor:block/binder_brown",
+		"particle": "scriptor:block/page"
+	}
+}

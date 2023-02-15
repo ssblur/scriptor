@@ -11,11 +11,51 @@
     },
     {
       "apply": {
+        "model": "scriptor:block/open_book_flat_brown",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "binder": "brown"
+      }
+    },
+    {
+      "apply": {
+        "model": "scriptor:block/open_book_flat_purple",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "binder": "purple"
+      }
+    },
+    {
+      "apply": {
         "model": "scriptor:block/writing_desk",
         "y": 0
       },
       "when": {
         "facing": "south"
+      }
+    },
+    {
+      "apply": {
+        "model": "scriptor:block/open_book_flat_brown",
+        "y": 0
+      },
+      "when": {
+        "facing": "south",
+        "binder": "brown"
+      }
+    },
+    {
+      "apply": {
+        "model": "scriptor:block/open_book_flat_purple",
+        "y": 0
+      },
+      "when": {
+        "facing": "south",
+        "binder": "purple"
       }
     },
     {
@@ -29,11 +69,51 @@
     },
     {
       "apply": {
+        "model": "scriptor:block/open_book_flat_brown",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "binder": "brown"
+      }
+    },
+    {
+      "apply": {
+        "model": "scriptor:block/open_book_flat_purple",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "binder": "purple"
+      }
+    },
+    {
+      "apply": {
         "model": "scriptor:block/writing_desk",
         "y": 90
       },
       "when": {
         "facing": "west"
+      }
+    },
+    {
+      "apply": {
+        "model": "scriptor:block/open_book_flat_brown",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "binder": "brown"
+      }
+    },
+    {
+      "apply": {
+        "model": "scriptor:block/open_book_flat_purple",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "binder": "purple"
       }
     }
   ]

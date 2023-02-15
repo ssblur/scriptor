@@ -23,6 +23,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class WritingDeskBlock extends Block implements EntityBlock {
   public enum BinderColor implements StringRepresentable {
+    NONE,
     BROWN,
     PURPLE;
 
