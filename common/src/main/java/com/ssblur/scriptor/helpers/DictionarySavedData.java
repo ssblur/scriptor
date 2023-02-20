@@ -392,7 +392,9 @@ public class DictionarySavedData extends SavedData {
               position++;
               continue;
             }
-            if (parseArticle(spellStructure.get(position + 1), tokens[tokenPosition]) != parseWord(tokens[tokenPosition + 1]).gender)
+            if (
+              (position + 1) > spellStructure.size()
+                || parseArticle(spellStructure.get(position + 1), tokens[tokenPosition]) != parseWord(tokens[tokenPosition + 1]).gender)
               return null;
             break;
           case SUFFIXARTICLE:
