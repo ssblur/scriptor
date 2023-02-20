@@ -393,7 +393,7 @@ public class DictionarySavedData extends SavedData {
               continue;
             }
             if (
-              (position + 1) < spellStructure.size()
+              (position + 1) > spellStructure.size()
                 || parseArticle(spellStructure.get(position + 1), tokens[tokenPosition]) != parseWord(tokens[tokenPosition + 1]).gender)
               return null;
             break;
