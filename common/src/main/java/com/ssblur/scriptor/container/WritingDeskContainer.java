@@ -38,10 +38,10 @@ public class WritingDeskContainer extends AbstractContainerMenu {
       this.addSlot(new Slot(inventory, j, 8 + j * 18, 142));
     }
 
-    for(j = 0; j < 4; ++j) {
-      this.addSlot(new Slot(container, j, j * 18, 48));
-    }
-
+    this.addSlot(new Slot(container, 0, 8, 30));
+    this.addSlot(new Slot(container, 1, 8, 48));
+    this.addSlot(new Slot(container, 2, 26, 30));
+    this.addSlot(new Slot(container, 3, 26, 48));
   }
 
   @Override

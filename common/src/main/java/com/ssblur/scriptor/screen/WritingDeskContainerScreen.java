@@ -45,8 +45,9 @@ public class WritingDeskContainerScreen extends AbstractContainerScreen<WritingD
     k = (width - tablessWidth) / 2 + 19;
     l = (height - imageHeight) / 2 + 6;
 
-    for(var slot: container.slots) {
-      blit(matrix, k + slot.x, l + slot.y, 0, 218, 18, 18);
+    for(int s = 0; s < container.slots.size(); s++) {
+      var slot = container.slots.get(s);
+      blit(matrix, k + slot.x, l + slot.y, 18 * Math.max(0, s - 35), 218, 18, 18);
     }
 
     matrix.popPose();
