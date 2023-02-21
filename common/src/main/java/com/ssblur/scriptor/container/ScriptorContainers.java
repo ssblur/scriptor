@@ -2,6 +2,7 @@ package com.ssblur.scriptor.container;
 
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.block.ScriptorBlocks;
+import com.ssblur.scriptor.blockentity.WritingDeskBlockEntity;
 import com.ssblur.scriptor.screen.WritingDeskContainerScreen;
 import dev.architectury.platform.Platform;
 import dev.architectury.registry.menu.MenuRegistry;
@@ -20,7 +21,11 @@ public class ScriptorContainers {
   public static final RegistrySupplier<MenuType<WritingDeskContainer>> WRITING_DESK_CONTAINER =
     CONTAINERS.register(
       WRITING_DESK_CONTAINER_ID,
-      () -> MenuRegistry.ofExtended((id, inv, buffer) -> new WritingDeskContainer(id, inv))
+      () -> MenuRegistry.ofExtended((id, inv, buffer) -> new WritingDeskContainer(
+        id,
+        inv,
+        (WritingDeskBlockEntity) inv.player.level.getBlockEntity(buffer.readBlockPos()))
+      )
     );
 
   public static void register() {

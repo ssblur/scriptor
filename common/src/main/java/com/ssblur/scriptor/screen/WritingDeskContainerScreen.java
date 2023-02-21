@@ -22,12 +22,13 @@ public class WritingDeskContainerScreen extends AbstractContainerScreen<WritingD
   int imageHeight = 360 / 2;
   int tabWidth = 51 / 2;
   int tablessWidth = imageWidth - tabWidth;
+  WritingDeskContainer container;
 
   public WritingDeskContainerScreen(WritingDeskContainer container, Inventory inventory, Component component) {
     super(container, inventory, component);
+
+    this.container = container;
   }
-
-
 
   @Override
   protected void renderBg(PoseStack matrix, float f, int i, int j) {
@@ -40,6 +41,13 @@ public class WritingDeskContainerScreen extends AbstractContainerScreen<WritingD
     int k = ((width - tablessWidth) / 2) - tabWidth;
     int l = (height - imageHeight) / 2;
     blit(matrix, k, l, 0, 0, imageWidth, imageHeight);
+
+    k = (width - tablessWidth) / 2 + 19;
+    l = (height - imageHeight) / 2 + 6;
+
+    for(var slot: container.slots) {
+      blit(matrix, k + slot.x, l + slot.y, 0, 218, 18, 18);
+    }
 
     matrix.popPose();
   }
