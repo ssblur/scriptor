@@ -12,6 +12,5 @@ public class ScriptorModClientEvents {
   @SubscribeEvent
   public static void register(EntityRenderersEvent.RegisterRenderers event) {
     ScriptorBlockEntities.registerRenderers();
-    System.out.println("registering renderers");
   }
 }

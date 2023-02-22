@@ -6,6 +6,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.container.WritingDeskContainer;
+import com.ssblur.scriptor.screen.widget.WritingDeskCraftWidget;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -28,6 +30,20 @@ public class WritingDeskContainerScreen extends AbstractContainerScreen<WritingD
     super(container, inventory, component);
 
     this.container = container;
+  }
+
+  @Override
+  protected void init() {
+    super.init();
+
+    int k = width / 2;
+    int l = height / 2;
+    addRenderableWidget(new WritingDeskCraftWidget(k, l - 45));
+  }
+
+  @Override
+  public void render(PoseStack poseStack, int i, int j, float f) {
+    super.render(poseStack, i, j, f);
   }
 
   @Override

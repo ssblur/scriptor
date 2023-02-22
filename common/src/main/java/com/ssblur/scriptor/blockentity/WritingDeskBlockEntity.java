@@ -41,15 +41,16 @@ import java.util.concurrent.CompletableFuture;
 
 public class WritingDeskBlockEntity extends BlockEntity implements ExtendedMenuProvider, WorldlyContainer {
   public static final int INK_SLOT = 0;
-  public static final int PAPER_SLOT = 1;
-  public static final int BINDER_SLOT = 2;
-  public static final int OUTPUT_SLOT = 3;
+  public static final int INK_RETURN_SLOT = 1;
+  public static final int PAPER_SLOT = 2;
+  public static final int BINDER_SLOT = 3;
+  public static final int OUTPUT_SLOT = 4;
 
   NonNullList<ItemStack> items;
 
   public WritingDeskBlockEntity(BlockPos blockPos, BlockState blockState) {
     super(ScriptorBlockEntities.WRITING_DESK.get(), blockPos, blockState);
-    items = NonNullList.withSize(4, ItemStack.EMPTY);
+    items = NonNullList.withSize(5, ItemStack.EMPTY);
   }
 
   @Nullable
@@ -134,7 +135,7 @@ public class WritingDeskBlockEntity extends BlockEntity implements ExtendedMenuP
   @Override
   public int[] getSlotsForFace(Direction direction) {
     if(direction == Direction.DOWN)
-      return new int[] {3};
+      return new int[] {1, 4};
     return new int[] {};
   }
 
