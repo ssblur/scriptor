@@ -9,6 +9,7 @@ import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.Registries;
 import dev.architectury.registry.registries.RegistrySupplier;
+import net.fabricmc.api.EnvType;
 import net.minecraft.core.Registry;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
@@ -23,7 +24,7 @@ public class ScriptorBlockEntities {
   public static void register() {
     BLOCK_ENTITIES.register();
 
-    if(!Platform.isForge()) registerRenderers();
+    if(!Platform.isForge() && Platform.getEnv() == EnvType.CLIENT) registerRenderers();
   }
 
   public static void registerRenderers() {
