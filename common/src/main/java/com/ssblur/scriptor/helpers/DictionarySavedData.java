@@ -403,6 +403,8 @@ public class DictionarySavedData extends SavedData {
             break;
           case ACTION:
             wordData = parseWord(tokens[tokenPosition]);
+            if(wordData == null)
+              return null;
             action = WordRegistry.INSTANCE.actionRegistry.get(wordData.key.substring(7));
             break;
           case DESCRIPTOR:
@@ -437,6 +439,8 @@ public class DictionarySavedData extends SavedData {
             break;
           case SUBJECT:
             wordData = parseWord(tokens[tokenPosition]);
+            if(wordData == null)
+              return null;
             subject = WordRegistry.INSTANCE.subjectRegistry.get(wordData.key.substring(8));
             break;
         }
