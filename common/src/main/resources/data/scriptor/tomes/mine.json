@@ -1,6 +1,7 @@
 {
   "name": "Journeyman's Rudimentary Mine",
   "author": "§iNiter",
+  "tier": 2,
   "spell": {
     "action": "explosion",
     "subject": "rune",

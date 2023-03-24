@@ -2,7 +2,10 @@
   "item.scriptor.spellbook_binder": "Spellbook Binder",
   "item.scriptor.leather_binder": "Mundane Leather Binder",
   "item.scriptor.spellbook": "Spellbook",
-  "item.scriptor.tome": "Ancient Tome",
+  "item.scriptor.tome_tier1": "Worn Spell Tome",
+  "item.scriptor.tome_tier2": "Embossed Tome",
+  "item.scriptor.tome_tier3": "Ancient Tome",
+  "item.scriptor.tome_tier4": "Exquisite Tome",
 
   "effect.scriptor.hoarse": "Hoarse",
   "effect.scriptor.mute": "Mute",
@@ -30,7 +33,9 @@
   "action.scriptor.heal": "Heal, soothe",
   "action.scriptor.smite": "Smite, pierce",
 
-  "extra.scriptor.tome_use": "You dust off the Ancient Tome...",
+  "extra.scriptor.tome_use": "You dust off the tome...",
+  "extra.scriptor.tome_description": "Right click to uncover a spell.",
+  "extra.scriptor.tome_tier": "Tier %1$s",
   "extra.scriptor.spell_get": "The cover reads \"%1$s\".",
   "extra.scriptor.hoarse": "The residue of your last spell still burns in your throat. You must recover before speaking more spells.",
   "extra.scriptor.mute": "Magic wells up in your chest, but you have been muted...",

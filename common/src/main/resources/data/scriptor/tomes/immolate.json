@@ -1,6 +1,7 @@
 {
   "name": "Immolate",
   "author": "Arnold the Unwise",
+  "tier": 1,
   "spell": {
     "action": "inflame",
     "subject": "self",

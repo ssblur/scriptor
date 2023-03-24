@@ -1,12 +1,12 @@
 {
-  "name": "Hot Hands",
-  "author": "Jaurice",
-  "tier": 1,
+  "name": "A Cheap Trick",
+  "author": "Niz",
+  "tier": 4,
   "spell": {
     "action": "inflame",
     "subject": "touch",
     "descriptors": [
-      "long"
+      "cheap"
     ]
   }
 }

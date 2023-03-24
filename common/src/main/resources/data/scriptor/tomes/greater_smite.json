@@ -1,6 +1,7 @@
 {
   "name": "Greater Smite",
-  "author": "§iThe name is faded...",
+  "author": "Danny the Vito",
+  "tier": 3,
   "spell": {
     "action": "smite",
     "subject": "storm",

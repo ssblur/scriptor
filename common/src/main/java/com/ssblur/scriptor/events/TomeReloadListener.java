@@ -19,12 +19,13 @@ import java.util.Random;
 
 public class TomeReloadListener extends SimpleJsonResourceReloadListener {
   static ResourceLocation TOMES = new ResourceLocation("data/tomes");
+  @SuppressWarnings("UnstableApiUsage")
   static Type TOME_TYPE = new TypeToken<TomeResource>() {}.getType();
   static Gson GSON = new Gson();
   static Random RANDOM = new Random();
   public static final TomeReloadListener INSTANCE = new TomeReloadListener();
 
-  HashMap<ResourceLocation, TomeResource> tomes;
+  HashMap<Integer, HashMap<ResourceLocation, TomeResource>> tomes;
   ArrayList<ResourceLocation> keys;
 
   TomeReloadListener() {
@@ -37,14 +38,16 @@ public class TomeReloadListener extends SimpleJsonResourceReloadListener {
     keys = new ArrayList<>();
     object.forEach((resourceLocation, jsonElement) -> {
       TomeResource resource = GSON.fromJson(jsonElement, TOME_TYPE);
+      if(!tomes.containsKey(resource.getTier()))
+        tomes.put(resource.getTier(), new HashMap<>());
       if(!resource.isDisabled()) {
         keys.add(resourceLocation);
-        tomes.put(resourceLocation, resource);
+        tomes.get(resource.getTier()).put(resourceLocation, resource);
       }
     });
   }
 
-  public TomeResource getRandomTome() {
-    return tomes.get(keys.get(RANDOM.nextInt(keys.size())));
+  public TomeResource getRandomTome(int tier) {
+    return tomes.get(tier).get(keys.get(RANDOM.nextInt(keys.size())));
   }
 }

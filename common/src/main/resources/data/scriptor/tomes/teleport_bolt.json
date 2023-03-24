@@ -1,6 +1,7 @@
 {
-  "name": "Drew's Carrier Bolt",
+  "name": "Train Bullet",
   "author": "And Drew",
+  "tier": 1,
   "spell": {
     "action": "goto",
     "subject": "projectile",

@@ -1,6 +1,7 @@
 {
   "name": "Heal Self",
-  "author": "§iThe name is faded...",
+  "author": "Bert the Healer",
+  "tier": 1,
   "spell": {
     "action": "heal",
     "subject": "self",

@@ -27,6 +27,7 @@ public class TomeResource {
   boolean disabled = false;
   String author;
   SpellResource spell;
+  int tier;
 
   public boolean isDisabled() {
     return disabled;
@@ -39,6 +40,7 @@ public class TomeResource {
   public String getName() {
     return name;
   }
+  public int getTier() { return tier; }
 
   public Spell getSpell() {
     Action action = WordRegistry.INSTANCE.actionRegistry.get(spell.action);
