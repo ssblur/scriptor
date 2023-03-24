@@ -1,7 +1,7 @@
 {
   "name": "Greater Smite",
   "author": "Danny the Vito",
-  "tier": 2,
+  "tier": 3,
   "spell": {
     "action": "smite",
     "subject": "storm",
