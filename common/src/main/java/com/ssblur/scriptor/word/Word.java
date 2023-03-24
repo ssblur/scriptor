@@ -4,7 +4,7 @@ public abstract class Word {
   public enum COSTTYPE {
     ADDITIVE,
     MULTIPLICATIVE,
-    MULTIPLICATIVE_POST
+    ADDITIVE_POST
   }
   public record Cost(double cost, COSTTYPE type) {}
   /**

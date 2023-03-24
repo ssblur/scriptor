@@ -77,28 +77,28 @@ public record Spell(
       var cost = d.cost();
       switch (cost.type()){
         case ADDITIVE -> sum += cost.cost();
-        case MULTIPLICATIVE -> scalar += cost.cost();
-        case MULTIPLICATIVE_POST -> discounts.add(cost.cost());
+        case MULTIPLICATIVE -> scalar *= cost.cost();
+        case ADDITIVE_POST -> discounts.add(cost.cost());
       }
     }
 
     var cost = action.cost();
     switch (cost.type()){
       case ADDITIVE -> sum += cost.cost();
-      case MULTIPLICATIVE -> scalar += cost.cost();
-      case MULTIPLICATIVE_POST -> discounts.add(cost.cost());
+      case MULTIPLICATIVE -> scalar *= cost.cost();
+      case ADDITIVE_POST -> discounts.add(cost.cost());
     }
 
     cost = subject.cost();
     switch (cost.type()){
       case ADDITIVE -> sum += cost.cost();
-      case MULTIPLICATIVE -> scalar += cost.cost();
-      case MULTIPLICATIVE_POST -> discounts.add(cost.cost());
+      case MULTIPLICATIVE -> scalar *= cost.cost();
+      case ADDITIVE_POST -> discounts.add(cost.cost());
     }
 
     var out = sum * scalar;
     for(double discount: discounts)
-      out *= discount;
+      out += discount;
     return out;
   }
 
