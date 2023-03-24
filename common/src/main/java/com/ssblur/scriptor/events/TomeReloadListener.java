@@ -48,6 +48,7 @@ public class TomeReloadListener extends SimpleJsonResourceReloadListener {
   }
 
   public TomeResource getRandomTome(int tier) {
-    return tomes.get(tier).get(keys.get(RANDOM.nextInt(keys.size())));
+    var keys = tomes.get(tier).keySet();
+    return tomes.get(tier).get(keys.toArray(new ResourceLocation[]{})[RANDOM.nextInt(keys.size())]);
   }
 }

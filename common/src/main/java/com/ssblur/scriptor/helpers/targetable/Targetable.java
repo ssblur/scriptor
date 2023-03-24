@@ -2,13 +2,17 @@ package com.ssblur.scriptor.helpers.targetable;
 
 import com.mojang.math.Vector3f;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
+import javax.annotation.Nullable;
+
 public class Targetable {
   Vec3 targetPos;
   Level level;
+  Direction direction = null;
 
   /**
    * A class describing anything that can be targeted by a spell
@@ -39,4 +43,20 @@ public class Targetable {
   }
 
   public Level getLevel() { return level; }
+
+  @Nullable
+  public Direction getFacing() {
+    return direction;
+  }
+
+  public Targetable setFacing(@Nullable Direction direction) {
+    this.direction = direction;
+    return this;
+  }
+
+  public BlockPos getOffsetBlockPos() {
+    if(direction != null)
+      return getTargetBlockPos().relative(direction.getOpposite());
+    return getTargetBlockPos();
+  }
 }

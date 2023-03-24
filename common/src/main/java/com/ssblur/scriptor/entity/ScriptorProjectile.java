@@ -117,7 +117,10 @@ public class ScriptorProjectile extends Entity {
     if (entityHitResult != null && entityHitResult.getEntity() instanceof LivingEntity entity && entity != owner)
       completable.complete(List.of(new EntityTargetable(entity)));
     else if(blockHitResult.getType() != HitResult.Type.MISS)
-      completable.complete(List.of(new Targetable(this.level, blockHitResult.getBlockPos().offset(blockHitResult.getDirection().getNormal()))));
+      completable.complete(List.of(
+        new Targetable(this.level, blockHitResult.getBlockPos().offset(blockHitResult.getDirection().getNormal()))
+          .setFacing(blockHitResult.getDirection())
+      ));
 
     setDeltaMovement(getDeltaMovement().x, getDeltaMovement().y, getDeltaMovement().z);
     setPos(position().add(getDeltaMovement()));
