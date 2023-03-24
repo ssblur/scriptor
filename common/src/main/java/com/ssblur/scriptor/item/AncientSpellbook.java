@@ -12,12 +12,25 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class AncientSpellbook extends Item {
-  public AncientSpellbook(Properties properties) {
+  int tier;
+  public AncientSpellbook(Properties properties, int tier) {
     super(properties.stacksTo(1));
+    this.tier = tier;
+  }
+
+  @Override
+  public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> list, TooltipFlag tooltipFlag) {
+    super.appendHoverText(itemStack, level, list, tooltipFlag);
+    list.add(Component.translatable("extra.scriptor.tome_description"));
+    list.add(Component.translatable("extra.scriptor.tome_tier", tier));
   }
 
   @Override
@@ -30,7 +43,8 @@ public class AncientSpellbook extends Item {
       player.sendSystemMessage(Component.translatable("extra.scriptor.tome_use"));
       player.getCooldowns().addCooldown(this, 20);
 
-      var resource = TomeReloadListener.INSTANCE.getRandomTome();
+      var resource = TomeReloadListener.INSTANCE.getRandomTome(tier);
+      System.out.println(resource);
       Spell spell = resource.getSpell();
       String sentence = DictionarySavedData.computeIfAbsent(server).generate(spell);
       player.setItemInHand(interactionHand, LimitedBookSerializer.createSpellbook(resource.getAuthor(), resource.getName(), sentence));

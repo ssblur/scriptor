@@ -1,6 +1,7 @@
 {
   "name": "Hot Hands",
-  "author": "§iThe name is faded...",
+  "author": "Jaurice",
+  "tier": 1,
   "spell": {
     "action": "inflame",
     "subject": "touch",

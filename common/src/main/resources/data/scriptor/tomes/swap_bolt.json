@@ -1,6 +1,7 @@
 {
   "name": "Faurash's Freaky Missile",
   "author": "Faurash",
+  "tier": 1,
   "spell": {
     "action": "swap",
     "subject": "projectile",

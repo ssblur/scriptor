@@ -1,6 +1,7 @@
 {
   "name": "Fireball",
-  "author": "§iThe name is faded...",
+  "author": "Pyrus the Plain",
+  "tier": 1,
   "spell": {
     "action": "inflame",
     "subject": "projectile",

@@ -1,6 +1,7 @@
 {
-  "name": "Scorpion's Ethereal Lead",
+  "name": "Scorpion's Chain",
   "author": "The Scorpion",
+  "tier": 1,
   "spell": {
     "action": "bring",
     "subject": "projectile",
