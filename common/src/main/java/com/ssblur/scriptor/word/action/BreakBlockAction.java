@@ -44,5 +44,5 @@ public class BreakBlockAction extends Action {
       level.destroyBlock(pos, true, caster, (int) Math.round(strength));
   }
   @Override
-  public Cost cost() { return new Cost(3, COSTTYPE.ADDITIVE); }
+  public Cost cost() { return new Cost(1, COSTTYPE.ADDITIVE); }
 }
