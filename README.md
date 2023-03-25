@@ -33,3 +33,5 @@ you.
    and
    [Rivmun](https://github.com/Rivmun)
    for the Simplified Chinese (zh_CN) translation.
+ * Regulars of the [Discord Server](http://dc.blur.lol) who 
+   regularly suggest improvements and get spells named after them.
