@@ -1,0 +1,12 @@
+{
+  "name": "Remote Ouch",
+  "author": "Hall",
+  "tier": 1,
+  "spell": {
+    "action": "harm",
+    "subject": "projectile",
+    "descriptors": [
+      "pink"
+    ]
+  }
+}
