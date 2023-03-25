@@ -41,7 +41,7 @@
   "extra.scriptor.spell_get": "The cover reads \"%1$s\".",
   "extra.scriptor.hoarse": "The residue of your last spell still burns in your throat. You must recover before speaking more spells.",
   "extra.scriptor.mute": "Magic wells up in your chest, but you have been muted...",
-  "extra.scriptor.enchant_wrong": "There is a note tucked inside which reads \"cast from inventory.\"",
+  "extra.scriptor.enchant_wrong": "Energy wells up and immediately dissipates. Maybe I should use this spell elsewhere...",
 
   "itemGroup.scriptor.scriptor_tab": "Scriptor Magicae"
 }
