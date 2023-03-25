@@ -13,6 +13,7 @@ modrinth {
     projectId = "scriptor-magicae"
     versionNumber = version
     versionName = version + "-FABRIC"
+    changelog = System.getenv('CHANGELOG')
     versionType = "beta"
     uploadFile = remapJar
     gameVersions = ["1.19.2"]

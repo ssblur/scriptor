@@ -58,7 +58,6 @@ public class AddLootEvent implements LootEvent.ModifyLootTable {
 
   @Override
   public void modifyLootTable(LootTables lootTables, ResourceLocation id, LootEvent.LootTableModificationContext context, boolean builtin) {
-    System.out.println(id);
     if(builtin) {
       for(var i: tomePoolsTier1)
         if(id.equals(i.location)) {

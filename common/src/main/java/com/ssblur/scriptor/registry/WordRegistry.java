@@ -20,6 +20,8 @@ public class WordRegistry {
   public static final Descriptor FAST = INSTANCE.register("fast", new SpeedDurationDescriptor(2, -4, 1.25));
   public static final Descriptor STRONG = INSTANCE.register("strong", new SimpleStrengthDescriptor(2, 1));
   public static final Descriptor CHEAP = INSTANCE.register("cheap", new CheapDescriptor());
+  public static final Descriptor BLOOD_POWER = INSTANCE.register("blood_power", new BloodPowerDescriptor());
+  public static final Descriptor BLOOD_COST = INSTANCE.register("blood_cost", new BloodCostDescriptor());
 
   public static final Descriptor WHITE = INSTANCE.register("black", new ColorDescriptor(0xe4e4e4));
   public static final Descriptor LIGHT_GRAY = INSTANCE.register("light_gray", new ColorDescriptor(0xa0a7a7));
@@ -45,6 +47,8 @@ public class WordRegistry {
   public static final Action GOTO = INSTANCE.register("goto", new GotoAction());
   public static final Action SWAP = INSTANCE.register("swap", new SwapAction());
   public static final Action BRING = INSTANCE.register("bring", new BringAction());
+  public static final Action BREAK = INSTANCE.register("break", new BreakBlockAction());
+  public static final Action HARM = INSTANCE.register("harm", new HarmAction());
 
   public HashMap<String, Action> actionRegistry = new HashMap<>();
   public HashMap<String, Descriptor> descriptorRegistry = new HashMap<>();
