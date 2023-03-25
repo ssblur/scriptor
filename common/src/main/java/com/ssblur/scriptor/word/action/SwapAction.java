@@ -10,26 +10,28 @@ import net.minecraft.world.entity.LivingEntity;
 public class SwapAction extends Action {
   @Override
   public void apply(Entity caster, Targetable targetable, Descriptor[] descriptors) {
-    if(targetable.getLevel().isClientSide) return;
+    if(targetable.getLevel().isClientSide
+        || caster == null
+        || caster.level == null
+        || targetable.getLevel() == null) return;
 
-    ServerLevel level = (ServerLevel) targetable.getLevel();
+    var level = (ServerLevel) targetable.getLevel();
+    var casterLevel = (ServerLevel) caster.level;
     var pos = targetable.getTargetPos();
-    if(caster != null) {
-      if (caster.level != level)
-        caster.changeDimension(level);
-      var casterPos = caster.position();
-      caster.teleportTo(pos.x, pos.y, pos.z);
-      caster.setDeltaMovement(0, 0, 0);
-      caster.resetFallDistance();
-      if(targetable instanceof EntityTargetable entityTargetable)
-        if(entityTargetable.getTargetEntity() instanceof LivingEntity living) {
-          if(caster.level != level)
-            living.changeDimension((ServerLevel) caster.level);
-          living.teleportTo(casterPos.x, casterPos.y, casterPos.z);
-          living.setDeltaMovement(0, 0, 0);
-          living.resetFallDistance();
-        }
-    }
+    var casterPos = caster.position();
+    if(caster.level != level)
+      caster.changeDimension(level);
+    caster.teleportTo(pos.x, pos.y, pos.z);
+    caster.setDeltaMovement(0, 0, 0);
+    caster.resetFallDistance();
+    if(targetable instanceof EntityTargetable entityTargetable)
+      if (entityTargetable.getTargetEntity() instanceof LivingEntity living) {
+        if(living.level != casterLevel)
+          living.changeDimension(casterLevel);
+        living.teleportTo(casterPos.x, casterPos.y, casterPos.z);
+        living.setDeltaMovement(0, 0, 0);
+        living.resetFallDistance();
+      }
   }
 
   @Override
