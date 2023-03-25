@@ -2,6 +2,7 @@ package com.ssblur.scriptor.item;
 
 import com.ssblur.scriptor.helpers.DictionarySavedData;
 import com.ssblur.scriptor.helpers.LimitedBookSerializer;
+import com.ssblur.scriptor.registry.WordRegistry;
 import com.ssblur.scriptor.word.Spell;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -55,10 +56,18 @@ public class Spellbook extends Item {
   }
 
   public boolean overrideStackedOnOther(ItemStack itemStack, Slot slot, ClickAction clickAction, Player player) {
-    if (clickAction != ClickAction.SECONDARY) {
-      return false;
-    } else {
-
+    if (clickAction == ClickAction.SECONDARY) {
+      if(player.getCooldowns().isOnCooldown(this)) return false;
+      Tag tag = itemStack.getTag();
+      if(tag instanceof CompoundTag compound && player.level instanceof ServerLevel server) {
+        var text = compound.getList("pages", Tag.TAG_STRING);
+        Spell spell = DictionarySavedData.computeIfAbsent(server).parse(LimitedBookSerializer.decodeText(text));
+        if(spell != null && spell.subject() == WordRegistry.ENCHANT) {
+          spell.cast(player);
+          if(!player.isCreative())
+            player.getCooldowns().addCooldown(this, (int) Math.round(spell.cost() * 7));
+        }
+      }
     }
     return false;
   }
