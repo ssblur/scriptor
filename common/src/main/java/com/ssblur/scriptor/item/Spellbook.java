@@ -45,9 +45,9 @@ public class Spellbook extends Item {
       var text = compound.getList("pages", Tag.TAG_STRING);
       Spell spell = DictionarySavedData.computeIfAbsent(server).parse(LimitedBookSerializer.decodeText(text));
       if(spell != null) {
-        if(spell.cost() > 20) {
+        if(spell.cost() > 120) {
           player.sendSystemMessage(Component.translatable("extra.scriptor.fizzle"));
-          player.getCooldowns().addCooldown(this, 140);
+          player.getCooldowns().addCooldown(this, 840);
         }
         spell.cast(player);
         if(!player.isCreative())
