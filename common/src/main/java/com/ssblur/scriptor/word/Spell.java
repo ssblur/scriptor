@@ -2,6 +2,7 @@ package com.ssblur.scriptor.word;
 
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.action.Action;
+import com.ssblur.scriptor.word.descriptor.CastDescriptor;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
 import com.ssblur.scriptor.word.subject.Subject;
 import net.minecraft.world.entity.Entity;
@@ -47,6 +48,10 @@ public record Spell(
    * @param caster The entity which cast this spell.
    */
   public void cast(Entity caster) {
+    for(var descriptor: descriptors)
+      if(descriptor instanceof CastDescriptor cast)
+        if(!cast.onCast(caster)) return;
+
     var targetFuture = subject.getTargets(caster, this);
     if(targetFuture.isDone()) {
       try {
