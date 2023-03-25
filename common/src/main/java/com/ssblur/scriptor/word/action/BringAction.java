@@ -28,6 +28,6 @@ public class BringAction extends Action {
   }
 
   @Override
-  public Cost cost() { return new Cost(8, COSTTYPE.ADDITIVE); }
+  public Cost cost() { return new Cost(6, COSTTYPE.ADDITIVE); }
 
 }
