@@ -12,8 +12,15 @@ jobs:
     environment: publish
     steps:
       - uses: actions/checkout@v2
+          with:
+            fetch-depth: 0
       - name: Generate Changelog
-        run: echo "CHANGELOG=$(git log --pretty=tformat:%s HEAD...$(git describe --tags $(git rev-list --tags --skip=1 --max-count=1))) >> $GITHUB_ENV"
+          id: changelog
+          run: |
+            EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+            echo "CHANGELOG<<$EOF" >> $GITHUB_ENV
+            git log --no-merges --pretty=tformat:%s HEAD...$(git describe --tags $(git rev-list --tags --skip=1 --max-count=1)) >> $GITHUB_ENV
+            echo "$EOF" >> $GITHUB_ENV
       - uses: actions/setup-java@v3
         with:
           distribution: 'adopt'
@@ -26,12 +33,15 @@ jobs:
         run: bash ./gradlew quilt:modrinth
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+          CHANGELOG: ${{ steps.changelog.outputs.CHANGELOG }}
       - name: Publish Forge
         run: bash ./gradlew forge:modrinth
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+          CHANGELOG: ${{ steps.changelog.outputs.CHANGELOG }}
       - name: Publish Fabric
         run: bash ./gradlew fabric:modrinth
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+          CHANGELOG: ${{ steps.changelog.outputs.CHANGELOG }}
 

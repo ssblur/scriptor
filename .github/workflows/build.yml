@@ -12,8 +12,15 @@ jobs:
     environment: publish
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Generate Changelog
-        run: echo "CHANGELOG=$(git log --pretty=tformat:%s HEAD...$(git describe --tags $(git rev-list --tags --skip=1 --max-count=1))) >> $GITHUB_ENV"
+          id: changelog
+          run: |
+            EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+            echo "CHANGELOG<<$EOF" >> $GITHUB_ENV
+            git log --no-merges --pretty=tformat:%s HEAD...$(git describe --tags $(git rev-list --tags --skip=1 --max-count=1)) >> $GITHUB_ENV
+            echo "$EOF" >> $GITHUB_ENV
       - uses: actions/setup-java@v3
         with:
           distribution: 'adopt'
@@ -68,7 +75,7 @@ jobs:
           game_versions: "Minecraft 1.19:1.19.2,Java 17,Java 18,Quilt,Client,Server"
           project_id: "817436"
           token: "${{ secrets.CURSEFORGE_TOKEN }}"
-          changelog: "CHANGELOG"
+          changelog: "${{ steps.changelog.outputs.CHANGELOG }}"
       - name: "Upload Fabric to CurseForge"
         uses: itsmeow/curseforge-upload@v3
         with:
@@ -78,7 +85,7 @@ jobs:
           game_versions: "Minecraft 1.19:1.19.2,Java 17,Java 18,Fabric,Client,Server"
           project_id: "817436"
           token: "${{ secrets.CURSEFORGE_TOKEN }}"
-          changelog: "CHANGELOG"
+          changelog: "${{ steps.changelog.outputs.CHANGELOG }}"
       - name: "Upload Forge to CurseForge"
         uses: itsmeow/curseforge-upload@v3
         with:
@@ -88,5 +95,4 @@ jobs:
           game_versions: "Minecraft 1.19:1.19.2,Java 17,Java 18,Forge,Client,Server"
           project_id: "817436"
           token: "${{ secrets.CURSEFORGE_TOKEN }}"
-          changelog: "CHANGELOG"
-
+          changelog: "${{ steps.changelog.outputs.CHANGELOG }}"
