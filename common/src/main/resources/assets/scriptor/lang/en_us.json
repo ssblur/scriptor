@@ -35,6 +35,7 @@
   "action.scriptor.heal": "Heal, soothe",
   "action.scriptor.smite": "Smite, pierce",
 
+  "extra.scriptor.fizzle": "The tome starts to warm in your hand, then fizzles.",
   "extra.scriptor.tome_use": "You dust off the tome...",
   "extra.scriptor.tome_description": "Right click to uncover a spell.",
   "extra.scriptor.tome_tier": "Tier %1$s",
