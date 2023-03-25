@@ -12,6 +12,8 @@ jobs:
     environment: publish
     steps:
       - uses: actions/checkout@v2
+      - name: Generate Changelog
+        run: echo "CHANGELOG=$(git log --pretty=tformat:%s HEAD...$(git describe --tags $(git rev-list --tags --skip=1 --max-count=1))) >> $GITHUB_ENV"
       - uses: actions/setup-java@v3
         with:
           distribution: 'adopt'
