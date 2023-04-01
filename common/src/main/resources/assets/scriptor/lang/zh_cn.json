@@ -2,17 +2,29 @@
   "item.scriptor.spellbook_binder": "法术书活页夹",
   "item.scriptor.leather_binder": "普通皮革活页夹",
   "item.scriptor.spellbook": "法术书",
-  "item.scriptor.tome": "古书",
+  "item.scriptor.tome_tier1": "破损的宝典",
+  "item.scriptor.tome_tier2": "饰有浮雕的宝典",
+  "item.scriptor.tome_tier3": "古老的宝典",
+  "item.scriptor.tome_tier4": "精美的宝典",
+  
   "effect.scriptor.hoarse": "嘶哑",
   "effect.scriptor.mute": "失语",
+  
   "death.attack.overload": "%1$s被魔力压垮了。",
   "death.attack.overload.player": "%1$s被魔力压垮了。",
+  "death.attack.sacrifice": "%1$s牺牲了太多。",
+  "death.attack.sacrifice.player": "%1$s牺牲了太多……",
+  
+  "enchantment.scriptor.charged": "充能",
+  
   "type.scriptor.action": "行动",
   "type.scriptor.subject": "主题",
   "type.scriptor.descriptor": "描述符",
+  
   "subject.scriptor.self": "我，施于自我",
   "subject.scriptor.touch": "触摸，施于接触物",
   "subject.scriptor.storm": "风暴，施于临近生物",
+  
   "descriptor.scriptor.long": "长，更加耗时",
   "descriptor.scriptor.strong": "强大，更加有力",
   "descriptor.scriptor.wood": "木，会生长",
@@ -20,12 +32,19 @@
   "descriptor.scriptor.earth": "土，不断演变",
   "descriptor.scriptor.metal": "金，沉重",
   "descriptor.scriptor.water": "水，生命之源",
+  
   "action.scriptor.inflame": "激化，包裹",
   "action.scriptor.heal": "治愈，抚慰",
   "action.scriptor.smite": "猛刺，捅破",
+  
+  "extra.scriptor.fizzle": "这本宝典在你手中开始变暖，然后消失了。",
   "extra.scriptor.tome_use": "你拍落了古书上的灰尘……",
+  "extra.scriptor.tome_description": "右击以揭示一个咒语。",
+  "extra.scriptor.tome_tier": "等级：%1$s",
   "extra.scriptor.spell_get": "封面上写着“%1$s”。",
   "extra.scriptor.hoarse": "你试图说出咒语的最后一个音节，但你的喉咙开始燃烧。在继续之前，你得先缓缓。",
   "extra.scriptor.mute": "魔力在你的胸腔中涌动，但你已经失语，无法念咒了……",
+  "extra.scriptor.enchant_wrong": "能量涌现却又立即消散。也许我应该在其他地方使用这个法术……",
+  
   "itemGroup.scriptor.scriptor_tab": "字符魔法师"
 }
