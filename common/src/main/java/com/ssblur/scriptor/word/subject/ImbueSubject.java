@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
 public class ImbueSubject extends Subject implements InventorySubject {
   @Override
   public Cost cost() {
-    return new Cost(40, COSTTYPE.MULTIPLICATIVE);
+    return new Cost(10, COSTTYPE.MULTIPLICATIVE);
   }
 
   @Override
