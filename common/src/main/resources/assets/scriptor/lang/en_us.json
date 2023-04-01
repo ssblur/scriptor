@@ -13,7 +13,9 @@
   "death.attack.overload": "%1$s was overwhelmed by magical forces.",
   "death.attack.overload.player": "%1$s was overwhelmed by magical forces.",
   "death.attack.sacrifice": "%1$s sacrificed too much.",
-  "death.attack.sacrifice.player": "%1$s sacrificed too much..",
+  "death.attack.sacrifice.player": "%1$s sacrificed too much...",
+
+  "enchantment.scriptor.charged": "Charged",
 
   "type.scriptor.action": "Action",
   "type.scriptor.subject": "Subject",

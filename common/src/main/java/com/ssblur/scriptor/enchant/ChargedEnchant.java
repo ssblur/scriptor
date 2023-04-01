@@ -29,7 +29,6 @@ public class ChargedEnchant extends Enchantment {
 
   @Override
   public void doPostAttack(LivingEntity owner, Entity entity, int i) {
-    System.out.println(i);
     chargeItem(owner.getMainHandItem(), i - 1);
   }
 
