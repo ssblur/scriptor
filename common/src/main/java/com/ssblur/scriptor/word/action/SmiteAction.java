@@ -1,9 +1,12 @@
 package com.ssblur.scriptor.word.action;
 
+import com.ssblur.scriptor.enchant.ChargedEnchant;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
+import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
 import com.ssblur.scriptor.word.descriptor.DurationDescriptor;
+import com.ssblur.scriptor.word.descriptor.StrengthDescriptor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -21,6 +24,17 @@ public class SmiteAction extends Action {
   @Override
   public void apply(Entity caster, Targetable targetable, Descriptor[] descriptors) {
     if(targetable.getLevel().isClientSide) return;
+    int strength = 2;
+    for(var d: descriptors) {
+      if(d instanceof StrengthDescriptor strengthDescriptor)
+        strength += strengthDescriptor.strengthModifier();
+    }
+
+    if(targetable instanceof ItemTargetable itemTargetable) {
+      if(itemTargetable.getTargetItem() != null && !itemTargetable.getTargetItem().isEmpty())
+        ChargedEnchant.chargeItem(itemTargetable.getTargetItem(), strength);
+      return;
+    }
 
     ServerLevel level = (ServerLevel) targetable.getLevel();
     LightningBolt bolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
