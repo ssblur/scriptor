@@ -14,6 +14,7 @@ public class WordRegistry {
   public static final Subject PROJECTILE = INSTANCE.register("projectile", new ProjectileSubject());
   public static final Subject STORM = INSTANCE.register("storm", new StormSubject());
   public static final Subject RUNE = INSTANCE.register("rune", new RuneSubject());
+  public static final Subject ENCHANT = INSTANCE.register("enchant", new ImbueSubject());
 
   public static final Descriptor LONG = INSTANCE.register("long", new SimpleDurationDescriptor(3, 7));
   public static final Descriptor SLOW = INSTANCE.register("slow", new SpeedDurationDescriptor(2, 4, .75));

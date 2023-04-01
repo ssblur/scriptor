@@ -1,10 +1,17 @@
 package com.ssblur.scriptor.item;
 
+import com.ssblur.scriptor.events.ScriptorEvents;
 import com.ssblur.scriptor.helpers.DictionarySavedData;
 import com.ssblur.scriptor.helpers.LimitedBookSerializer;
+import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
+import com.ssblur.scriptor.messages.EnchantNetwork;
+import com.ssblur.scriptor.registry.WordRegistry;
 import com.ssblur.scriptor.word.Spell;
+import dev.architectury.networking.NetworkManager;
+import io.netty.buffer.Unpooled;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.StringUtil;
@@ -13,8 +20,10 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.BundleItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
@@ -59,10 +68,11 @@ public class Spellbook extends Item {
   }
 
   public boolean overrideStackedOnOther(ItemStack itemStack, Slot slot, ClickAction clickAction, Player player) {
-    if (clickAction != ClickAction.SECONDARY) {
-      return false;
-    } else {
-
+    int i = 0;
+    if (clickAction == ClickAction.SECONDARY) {
+      if(player.getCooldowns().isOnCooldown(this)) return false;
+      EnchantNetwork.clientUseBook(slot.index);
+      return true;
     }
     return false;
   }

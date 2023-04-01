@@ -1,18 +1,25 @@
 package com.ssblur.scriptor.word.action;
 
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
+import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
 import com.ssblur.scriptor.word.descriptor.DurationDescriptor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.FlintAndSteelItem;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.FireBlock;
+import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -23,6 +30,22 @@ public class InflameAction extends Action {
     for(var d: descriptors) {
       if(d instanceof DurationDescriptor durationDescriptor)
         seconds += durationDescriptor.durationModifier();
+    }
+
+    if(targetable instanceof ItemTargetable itemTargetable) {
+      var check = RecipeManager.createCheck(RecipeType.SMELTING);
+      var container = new SimpleContainer(1);
+      container.addItem(itemTargetable.getTargetItem());
+      var recipe = check.getRecipeFor(container, itemTargetable.getLevel());
+      if(recipe.isPresent() && recipe.get().getIngredients().size() > 0 && recipe.get().getIngredients().get(0).getItems().length > 0) {
+        int count = recipe.get().getIngredients().get(0).getItems()[0].getCount();
+        itemTargetable.getTargetItem().shrink(count);
+
+        var pos = itemTargetable.getTargetPos();
+        ItemEntity entity = new ItemEntity(itemTargetable.getLevel(), pos.x(), pos.y() + 1, pos.z(), recipe.get().getResultItem());
+        caster.level.addFreshEntity(entity);
+      }
+      return;
     }
 
     if(targetable instanceof EntityTargetable entityTargetable) {

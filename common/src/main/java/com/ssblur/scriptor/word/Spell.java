@@ -9,6 +9,7 @@ import net.minecraft.world.entity.Entity;
 import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -67,6 +68,18 @@ public record Spell(
           castOnTargets(caster, targets);
       });
     }
+  }
+
+  /**
+   * Casts this spell with a specified list of Targetables.
+   * @param caster The entity which cast this spell.
+   */
+  public void cast(Entity caster, Targetable... targetables) {
+    for(var descriptor: descriptors)
+      if(descriptor instanceof CastDescriptor cast)
+        if(!cast.onCast(caster)) return;
+
+    castOnTargets(caster, Arrays.stream(targetables).toList());
   }
 
   /**

@@ -13,7 +13,9 @@
   "death.attack.overload": "%1$s was overwhelmed by magical forces.",
   "death.attack.overload.player": "%1$s was overwhelmed by magical forces.",
   "death.attack.sacrifice": "%1$s sacrificed too much.",
-  "death.attack.sacrifice.player": "%1$s sacrificed too much..",
+  "death.attack.sacrifice.player": "%1$s sacrificed too much...",
+
+  "enchantment.scriptor.charged": "Charged",
 
   "type.scriptor.action": "Action",
   "type.scriptor.subject": "Subject",
@@ -42,6 +44,7 @@
   "extra.scriptor.spell_get": "The cover reads \"%1$s\".",
   "extra.scriptor.hoarse": "The residue of your last spell still burns in your throat. You must recover before speaking more spells.",
   "extra.scriptor.mute": "Magic wells up in your chest, but you have been muted...",
+  "extra.scriptor.enchant_wrong": "Energy wells up and immediately dissipates. Maybe I should use this spell elsewhere...",
 
   "itemGroup.scriptor.scriptor_tab": "Scriptor Magicae"
 }

@@ -1,6 +1,7 @@
 package com.ssblur.scriptor.word.action;
 
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
+import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
 import com.ssblur.scriptor.word.descriptor.StrengthDescriptor;
@@ -27,6 +28,16 @@ public class BreakBlockAction extends Action {
     for(var d: descriptors) {
       if(d instanceof StrengthDescriptor strengthDescriptor)
         strength += strengthDescriptor.strengthModifier();
+    }
+
+    if(targetable instanceof ItemTargetable itemTargetable) {
+      var item = itemTargetable.getTargetItem();
+      if(item != null && !item.isEmpty()) {
+        if(item.isDamageableItem()) {
+          item.setDamageValue(item.getDamageValue() + (int) Math.round(strength * 2));
+          return;
+        }
+      }
     }
 
     var pos = targetable.getOffsetBlockPos();

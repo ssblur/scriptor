@@ -6,6 +6,7 @@ import com.ssblur.scriptor.blockentity.ScriptorBlockEntities;
 import com.ssblur.scriptor.commands.DumpDictionaryCommand;
 import com.ssblur.scriptor.commands.DumpWordCommand;
 import com.ssblur.scriptor.effect.ScriptorEffects;
+import com.ssblur.scriptor.enchant.ScriptorEnchantments;
 import com.ssblur.scriptor.entity.ScriptorEntities;
 import com.ssblur.scriptor.events.ScriptorEvents;
 import com.ssblur.scriptor.item.ScriptorItems;
@@ -39,6 +40,7 @@ public class ScriptorMod {
     ScriptorEntities.register();
     ScriptorEvents.register();
     ScriptorEffects.register();
+    ScriptorEnchantments.register();
 
     registerCommands();
   }
