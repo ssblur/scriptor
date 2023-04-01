@@ -29,7 +29,14 @@ public class ChargedEnchant extends Enchantment {
 
   @Override
   public void doPostAttack(LivingEntity owner, Entity entity, int i) {
-    chargeItem(owner.getMainHandItem(), i - 1);
+    if(owner.level.isClientSide) return;
+
+    var tag = owner.getMainHandItem().getOrCreateTagElement("scriptor");
+    long lastDrained = tag.getLong("chargeLastDrained");
+    if(lastDrained < owner.level.getGameTime()) {
+      tag.putLong("chargeLastDrained", owner.level.getGameTime());
+      chargeItem(owner.getMainHandItem(), i - 1);
+    }
   }
 
   public static void chargeItem(ItemStack stack, int strength) {
