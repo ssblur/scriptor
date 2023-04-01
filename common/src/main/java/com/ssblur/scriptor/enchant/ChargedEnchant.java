@@ -66,4 +66,8 @@ public class ChargedEnchant extends Enchantment {
     if(tag != null && tag.size() == 0)
       stack.setTag(null);
   }
+
+  public boolean isTreasureOnly() {
+    return true;
+  }
 }
