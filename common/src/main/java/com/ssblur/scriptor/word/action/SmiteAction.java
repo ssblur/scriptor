@@ -24,7 +24,7 @@ public class SmiteAction extends Action {
   @Override
   public void apply(Entity caster, Targetable targetable, Descriptor[] descriptors) {
     if(targetable.getLevel().isClientSide) return;
-    int strength = 2;
+    int strength = 1;
     for(var d: descriptors) {
       if(d instanceof StrengthDescriptor strengthDescriptor)
         strength += strengthDescriptor.strengthModifier();
