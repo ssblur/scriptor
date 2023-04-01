@@ -458,6 +458,93 @@ public class DictionarySavedData extends SavedData {
   }
 
   /**
+   * Attempt to parse a String into lists of components
+   * @param text The String to parse
+   * @return The associated Spell
+   * null if invalid
+   */
+  public List<String> parseComponents(String text) {
+    try {
+      int position = 0;
+      int tokenPosition = 0;
+      String[] tokens = text.split("\s");
+
+      List<String> words = new ArrayList<>();
+
+      while (position < spellStructure.size() && tokenPosition < tokens.length) {
+        WORD word = spellStructure.get(position);
+        WordData wordData;
+        switch(word) {
+          case PREFIXARTICLE:
+            if(spellStructure.get(position + 1) == WORD.DESCRIPTOR && !parseWord(tokens[tokenPosition + 1]).key.startsWith("descriptor")) {
+              position++;
+              continue;
+            }
+            if (
+              (position + 1) > spellStructure.size()
+                || parseArticle(spellStructure.get(position + 1), tokens[tokenPosition]) != parseWord(tokens[tokenPosition + 1]).gender)
+              return null;
+            break;
+          case SUFFIXARTICLE:
+            if (parseArticle(spellStructure.get(position - 1), tokens[tokenPosition]) != parseWord(tokens[tokenPosition - 1]).gender)
+              return null;
+            break;
+          case ACTION:
+            wordData = parseWord(tokens[tokenPosition]);
+            if(wordData == null)
+              return null;
+            words.add(wordData.key);
+            break;
+          case DESCRIPTOR:
+            wordData = parseWord(tokens[tokenPosition]);
+            // Descriptors aren't required. If there is none, roll forward as necessary and continue.
+            if (wordData == null) {
+              position++;
+              if(descriptorArticlePosition == ARTICLEPOSITION.AFTER)
+                position++;
+              continue;
+            }
+            Descriptor descriptor = WordRegistry.INSTANCE.descriptorRegistry.get(wordData.key.substring(11));
+            if (descriptor == null) {
+              position++;
+              continue;
+            }
+            words.add(wordData.key);
+
+            // If there are enough tokens to have more descriptors, process descriptors again.
+            if ((tokens.length - tokenPosition) > (spellStructure.size() - position))
+              if (descriptorArticlePosition == ARTICLEPOSITION.NONE)
+                position--;
+              else if (descriptorArticlePosition == ARTICLEPOSITION.BEFORE)
+                position -= 2;
+              else {
+                position++;
+                tokenPosition++;
+                if (parseArticle(spellStructure.get(position - 1), tokens[tokenPosition]) != parseWord(tokens[tokenPosition - 1]).gender)
+                  return null;
+                position -= 2;
+              }
+            break;
+          case SUBJECT:
+            wordData = parseWord(tokens[tokenPosition]);
+            if(wordData == null)
+              return null;
+            words.add(wordData.key);
+            break;
+        }
+
+        position++;
+        tokenPosition++;
+      }
+      return words;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+
+  /**
    * A helper for generating a String to describe a spell.
    * @param spell The Spell to generate text for.
    * @return A String to describe a spell
