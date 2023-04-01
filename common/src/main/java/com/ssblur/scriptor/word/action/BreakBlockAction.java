@@ -34,7 +34,8 @@ public class BreakBlockAction extends Action {
       var item = itemTargetable.getTargetItem();
       if(item != null && !item.isEmpty()) {
         if(item.isDamageableItem()) {
-          item.setDamageValue(item.getDamageValue() - (int) Math.round(strength * 2));
+          item.setDamageValue(item.getDamageValue() + (int) Math.round(strength * 2));
+          System.out.println(item);
           return;
         }
       }
