@@ -47,9 +47,23 @@ public class ChargedEnchant extends Enchantment {
           list.add(tag);
       }
     }
-    stack.getOrCreateTag().put("Enchantments", list);
+
+    CompoundTag tag = stack.getTag();
+    if(list.size() > 0)
+      stack.getOrCreateTag().put("Enchantments", list);
+    else if(tag != null)
+      tag.remove("Enchantments");
 
     if(strength > 0)
       stack.enchant(ScriptorEnchantments.CHARGED.get(), strength);
+    else if(tag != null && tag.contains("scriptor") && tag.getCompound("scriptor").contains("chargeLastDrained")) {
+      CompoundTag scriptor = tag.getCompound("scriptor");
+      scriptor.remove("chargeLastDrained");
+      if(scriptor.size() == 0)
+        tag.remove("scriptor");
+    }
+
+    if(tag != null && tag.size() == 0)
+      stack.setTag(null);
   }
 }
