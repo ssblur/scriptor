@@ -27,7 +27,7 @@ public class EnchantNetwork {
     var slot = buf.readInt();
     var item = player.containerMenu.getItems().get(slot);
     var level = player.level;
-    var carried = player.inventoryMenu.getCarried();
+    var carried = player.containerMenu.getCarried();
 
     if(carried == null || carried.isEmpty()) return;
 
@@ -35,6 +35,7 @@ public class EnchantNetwork {
     if(tag != null && level instanceof ServerLevel server) {
       var text = tag.getList("pages", Tag.TAG_STRING);
       Spell spell = DictionarySavedData.computeIfAbsent(server).parse(LimitedBookSerializer.decodeText(text));
+      if(spell == null) return;
       if(spell.subject() instanceof InventorySubject subject) {
         subject.castOnItem(spell, player, item);
         player.getCooldowns().addCooldown(carried.getItem(), (int) Math.round(spell.cost() * 7));
