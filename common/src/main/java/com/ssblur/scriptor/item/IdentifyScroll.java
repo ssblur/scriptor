@@ -20,7 +20,7 @@ public class IdentifyScroll extends Item {
   }
 
   public boolean overrideStackedOnOther(ItemStack itemStack, Slot slot, ClickAction clickAction, Player player) {
-    if (clickAction == ClickAction.SECONDARY) {
+    if (clickAction == ClickAction.SECONDARY && !slot.getItem().isEmpty() && slot.getItem().getItem() instanceof Spellbook) {
       if(player.getCooldowns().isOnCooldown(this)) return true;
       IdentifyNetwork.clientUseScroll(slot.index);
       return true;

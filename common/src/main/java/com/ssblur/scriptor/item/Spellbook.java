@@ -74,7 +74,7 @@ public class Spellbook extends Item {
 
   public boolean overrideStackedOnOther(ItemStack itemStack, Slot slot, ClickAction clickAction, Player player) {
     int i = 0;
-    if (clickAction == ClickAction.SECONDARY) {
+    if (clickAction == ClickAction.SECONDARY && !slot.getItem().isEmpty()) {
       if(player.getCooldowns().isOnCooldown(this)) return true;
       EnchantNetwork.clientUseBook(slot.index);
       return true;
