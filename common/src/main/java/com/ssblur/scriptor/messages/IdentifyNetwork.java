@@ -7,10 +7,15 @@ import com.ssblur.scriptor.word.Spell;
 import com.ssblur.scriptor.word.subject.InventorySubject;
 import dev.architectury.networking.NetworkManager;
 import io.netty.buffer.Unpooled;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
+import org.checkerframework.checker.units.qual.C;
 
 import java.util.List;
 import java.util.Random;
@@ -27,24 +32,20 @@ public class IdentifyNetwork {
 
     CompoundTag tag = item.getTag();
     if(tag != null && level instanceof ServerLevel server) {
-      System.out.println(1);
       var text = tag.getList("pages", Tag.TAG_STRING);
       List<String> tokens = DictionarySavedData.computeIfAbsent(server).parseComponents(LimitedBookSerializer.decodeText(text));
       if(tokens == null) return;
-      System.out.println(2);
 
       var scriptor = item.getOrCreateTagElement("scriptor");
       if(!scriptor.contains("identified"))
         scriptor.put("identified", new CompoundTag());
       var identified = scriptor.getCompound("identified");
-      System.out.println(3);
 
       Random random = new Random();
       int firstPick = random.nextInt(tokens.size());
       int secondPick = random.nextInt(tokens.size());
       while(secondPick == firstPick)
         secondPick = random.nextInt(tokens.size());
-      System.out.println(4);
 
       identified.putBoolean(tokens.get(firstPick), true);
       identified.putBoolean(tokens.get(secondPick), true);
@@ -59,14 +60,51 @@ public class IdentifyNetwork {
     NetworkManager.sendToServer(ScriptorEvents.CURSOR_USE_SCROLL, out);
   }
 
-  public static void useScrollCreative(FriendlyByteBuf buf, NetworkManager.PacketContext context) {
-    // Creative users manage slots differently and don't sync their cursor.
-    // So, they manage this differently.
-    // Could potentially cause some spells cast this way not to work in creative mode.
+  public static void receiveDataCreative(FriendlyByteBuf buf, NetworkManager.PacketContext context) {
+    int slot = buf.readInt();
+    CompoundTag tag = buf.readAnySizeNbt();
+
+    assert Minecraft.getInstance().player != null;
+    Minecraft.getInstance().player.containerMenu.getSlot(slot).getItem().setTag(tag);
   }
 
-  public static void clientUseScrollCreative() {
-    // This is necessary because dictionary data is stored on the server.
-    // Gives the item since slot numbers aren't consistent.
+  public static void useScrollCreative(FriendlyByteBuf buf, NetworkManager.PacketContext context) {
+    var level = context.getPlayer().level;
+    int slot = buf.readInt();
+    CompoundTag tag = buf.readAnySizeNbt();
+
+    if(tag != null && level instanceof ServerLevel server) {
+      var text = tag.getList("pages", Tag.TAG_STRING);
+      List<String> tokens = DictionarySavedData.computeIfAbsent(server).parseComponents(LimitedBookSerializer.decodeText(text));
+      if(tokens == null) return;
+
+      if(!tag.contains("scriptor"))
+        tag.put("scriptor", new CompoundTag());
+      var scriptor = tag.getCompound("scriptor");
+      if(!scriptor.contains("identified"))
+        scriptor.put("identified", new CompoundTag());
+      var identified = scriptor.getCompound("identified");
+
+      Random random = new Random();
+      int firstPick = random.nextInt(tokens.size());
+      int secondPick = random.nextInt(tokens.size());
+      while(secondPick == firstPick)
+        secondPick = random.nextInt(tokens.size());
+
+      identified.putBoolean(tokens.get(firstPick), true);
+      identified.putBoolean(tokens.get(secondPick), true);
+
+      FriendlyByteBuf out = new FriendlyByteBuf(Unpooled.buffer());
+      out.writeInt(slot);
+      out.writeNbt(tag);
+      NetworkManager.sendToPlayer((ServerPlayer) context.getPlayer(), ScriptorEvents.CURSOR_RETURN_SCROLLC, out);
+    }
+  }
+
+  public static void clientUseScrollCreative(ItemStack book, int slot) {
+    FriendlyByteBuf out = new FriendlyByteBuf(Unpooled.buffer());
+    out.writeInt(slot);
+    out.writeNbt(book.getTag());
+    NetworkManager.sendToServer(ScriptorEvents.CURSOR_USE_SCROLLC, out);
   }
 }
