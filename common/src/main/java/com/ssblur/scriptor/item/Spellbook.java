@@ -9,6 +9,7 @@ import com.ssblur.scriptor.registry.WordRegistry;
 import com.ssblur.scriptor.word.Spell;
 import dev.architectury.networking.NetworkManager;
 import io.netty.buffer.Unpooled;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -23,9 +24,13 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.BundleItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class Spellbook extends Item {
   public Spellbook(Properties properties) {
@@ -70,10 +75,28 @@ public class Spellbook extends Item {
   public boolean overrideStackedOnOther(ItemStack itemStack, Slot slot, ClickAction clickAction, Player player) {
     int i = 0;
     if (clickAction == ClickAction.SECONDARY) {
-      if(player.getCooldowns().isOnCooldown(this)) return false;
+      if(player.getCooldowns().isOnCooldown(this)) return true;
       EnchantNetwork.clientUseBook(slot.index);
       return true;
     }
     return false;
+  }
+
+  @Override
+  public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> list, TooltipFlag tooltipFlag) {
+    super.appendHoverText(itemStack, level, list, tooltipFlag);
+
+    if(itemStack.getTag() != null && itemStack.getTag().getCompound("scriptor") != null) {
+      var scriptor = itemStack.getTag().getCompound("scriptor");
+      if(scriptor.contains("identified")) {
+        if(Screen.hasShiftDown())
+          for(var key: scriptor.getCompound("identified").getAllKeys()) {
+            String[] parts = key.split(":", 2);
+            list.add(Component.translatable(parts[0] + ".scriptor." + parts[1]));
+          }
+        else
+          list.add(Component.translatable("extra.scriptor.tome_identified"));
+      }
+    }
   }
 }
