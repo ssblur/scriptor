@@ -76,7 +76,10 @@ public class Spellbook extends Item {
     int i = 0;
     if (clickAction == ClickAction.SECONDARY && !slot.getItem().isEmpty()) {
       if(player.getCooldowns().isOnCooldown(this)) return true;
-      EnchantNetwork.clientUseBook(slot.index);
+      if(player.isCreative())
+        EnchantNetwork.clientUseBookCreative();
+      else
+        EnchantNetwork.clientUseBook(slot.index);
       return true;
     }
     return false;
