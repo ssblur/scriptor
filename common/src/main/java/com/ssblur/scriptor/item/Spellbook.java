@@ -1,18 +1,17 @@
 package com.ssblur.scriptor.item;
 
-import com.ssblur.scriptor.events.ScriptorEvents;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.ssblur.scriptor.helpers.DictionarySavedData;
 import com.ssblur.scriptor.helpers.LimitedBookSerializer;
-import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
+import com.ssblur.scriptor.item.interfaces.ItemWithCustomRenderer;
 import com.ssblur.scriptor.messages.EnchantNetwork;
-import com.ssblur.scriptor.registry.WordRegistry;
 import com.ssblur.scriptor.word.Spell;
-import dev.architectury.networking.NetworkManager;
-import io.netty.buffer.Unpooled;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.StringUtil;
@@ -21,18 +20,13 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.BundleItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class Spellbook extends Item {
+public class Spellbook extends Item implements ItemWithCustomRenderer {
   public Spellbook(Properties properties) {
     super(properties);
   }
@@ -46,7 +40,6 @@ public class Spellbook extends Item {
         return Component.literal(string);
       }
     }
-
     return super.getName(itemStack);
   }
 
@@ -90,7 +83,15 @@ public class Spellbook extends Item {
     super.appendHoverText(itemStack, level, list, tooltipFlag);
 
     if(itemStack.getTag() != null && itemStack.getTag().getCompound("scriptor") != null) {
-      var scriptor = itemStack.getTag().getCompound("scriptor");
+      CompoundTag tag = itemStack.getTag();
+
+      String string = tag.getString("author");
+      if (string != null && !string.isEmpty())
+        list.add(Component.translatable("book.byAuthor", string).withStyle(ChatFormatting.GRAY));
+
+      list.add(Component.translatable("book.generation." + tag.getInt("generation")).withStyle(ChatFormatting.GRAY));
+
+      var scriptor = tag.getCompound("scriptor");
       if(scriptor.contains("identified")) {
         if(Screen.hasShiftDown())
           for(var key: scriptor.getCompound("identified").getAllKeys()) {
@@ -101,5 +102,11 @@ public class Spellbook extends Item {
           list.add(Component.translatable("extra.scriptor.tome_identified"));
       }
     }
+  }
+
+
+  @Override
+  public boolean render(AbstractClientPlayer player, float i, float pitch, InteractionHand hand, float swingProgress, ItemStack itemStack, float readyProgress, PoseStack matrix, MultiBufferSource buffer, int lightLevel) {
+    return true;
   }
 }

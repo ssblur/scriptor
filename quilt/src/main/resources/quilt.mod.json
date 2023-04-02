@@ -10,7 +10,7 @@
     "contact": {
       "sources": "https://github.com/architectury/architectury-templates"
     },
-    "license": "WTFPL",
+    "license": "GPL",
     "icon": "assets/scriptor/icon.png",
     "intermediate_mappings": "net.fabricmc:intermediary",
     "environment": "*",
@@ -37,5 +37,8 @@
         "version": ">=6.2.43"
       }
     ]
-  }
+  },
+  "mixin": [
+    "scriptor.mixins.json"
+  ]
 }

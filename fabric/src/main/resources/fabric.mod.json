@@ -11,7 +11,7 @@
     "homepage": "https://ssblur.com/mods/scriptor",
     "sources": "https://github.com/ssblur/scriptor"
   },
-  "license": "WTFPL",
+  "license": "GPL",
   "icon": "assets/scriptor/icon.png",
   "environment": "*",
   "entrypoints": {
@@ -23,5 +23,8 @@
     "fabric": "*",
     "minecraft": ">=1.19.2",
     "architectury": ">=6.2.43"
-  }
+  },
+  "mixins": [
+    "scriptor.mixins.json"
+  ]
 }
