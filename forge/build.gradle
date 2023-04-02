@@ -13,7 +13,7 @@ modrinth {
     projectId = "scriptor-magicae"
     versionNumber = version
     versionName = version + "-FORGE"
-    changelog = System.getenv("CHANGELOG")
+    changelog = System.getenv("CHANGELOG") ?: "Could not load changelog"
     versionType = "beta"
     uploadFile = remapJar
     gameVersions = ["1.19.2"]
