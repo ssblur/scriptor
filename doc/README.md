@@ -11,5 +11,7 @@ mechanics surrounding magic.
 For more information on the mechanics of spellcrafting and 
 spellcasting, check out the [Mechanics](mechanics/README.md) section.
 
+## Items
+
 To learn about items added by this mod, checkout the 
 [Items](items/README.md) section.

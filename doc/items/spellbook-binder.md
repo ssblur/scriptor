@@ -1,5 +1,8 @@
 # Spellbook Binder
 
+![Spellbook Binder Icon](../../common/src/main/resources/assets/scriptor/textures/item/spellbook_binder.png)
+*A Spellbook Binder*
+
 Spellbook Binders can be crafted and placed onto any Written Book at a
 Smithing Table to create a **[Spellbook](spellbook.md)**.
 

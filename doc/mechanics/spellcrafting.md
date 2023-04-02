@@ -10,3 +10,7 @@ the effects of the spells within in order to learn more about the words
 that make up Spells in your world.
 Pay attention to words they may have in common, as well as the placement
 of specific types of words within them.
+
+If you are having trouble figuring out what a certain spell does,
+it may be worth using an [Identify Scroll](../items/identify-scroll.md)
+on them.
