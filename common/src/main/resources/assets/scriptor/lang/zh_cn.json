@@ -6,45 +6,70 @@
   "item.scriptor.tome_tier2": "饰有浮雕的宝典",
   "item.scriptor.tome_tier3": "古老的宝典",
   "item.scriptor.tome_tier4": "精美的宝典",
-  
+  "item.scriptor.identify_scroll": "鉴定卷轴",
+
   "effect.scriptor.hoarse": "嘶哑",
   "effect.scriptor.mute": "失语",
-  
-  "death.attack.overload": "%1$s被魔力压垮了。",
-  "death.attack.overload.player": "%1$s被魔力压垮了。",
+
+  "death.attack.overload": "%1$s被魔力压垮了",
+  "death.attack.overload.player": "%1$s被魔力压垮了",
   "death.attack.sacrifice": "%1$s牺牲了太多。",
   "death.attack.sacrifice.player": "%1$s牺牲了太多……",
-  
+
   "enchantment.scriptor.charged": "充能",
-  
-  "type.scriptor.action": "行动",
-  "type.scriptor.subject": "主题",
-  "type.scriptor.descriptor": "描述符",
-  
-  "subject.scriptor.self": "我，施于自我",
-  "subject.scriptor.touch": "触摸，施于接触物",
-  "subject.scriptor.storm": "风暴，施于临近生物",
-  
-  "descriptor.scriptor.long": "长，更加耗时",
-  "descriptor.scriptor.strong": "强大，更加有力",
-  "descriptor.scriptor.wood": "木，会生长",
-  "descriptor.scriptor.fire": "火，活跃地跳动",
-  "descriptor.scriptor.earth": "土，不断演变",
-  "descriptor.scriptor.metal": "金，沉重",
-  "descriptor.scriptor.water": "水，生命之源",
-  
-  "action.scriptor.inflame": "激化，包裹",
-  "action.scriptor.heal": "治愈，抚慰",
-  "action.scriptor.smite": "猛刺，捅破",
-  
+
+  "subject.scriptor.self": "这个法术似乎以施法者为目标。",
+  "subject.scriptor.touch": "这个法术似乎以任何施法者接触到的物体为目标。",
+  "subject.scriptor.storm": "这个法术似乎以施法者为中心在周围施展了无数次。",
+  "subject.scriptor.projectile": "这个法术会发射一个弹射物，击中即施法。",
+  "subject.scriptor.rune": "这个法术会放置一个符文，被接触即施法。",
+  "subject.scriptor.enchant": "这个法术似乎以物品栏中的其它物品为目标。",
+
+  "descriptor.scriptor.long": "这个法术中的某些东西使效果持续时间更长。",
+  "descriptor.scriptor.strong": "这个法术似乎以某种方式得到了加强。",
+  "descriptor.scriptor.fast": "这个法术似乎比一般法术快。",
+  "descriptor.scriptor.slow": "这个法术似乎比一般法术慢。",
+  "descriptor.scriptor.cheap": "出于某种原因，这个法术的成本比大多数法术要低。",
+  "descriptor.scriptor.blood_power": "你在这个法术中感觉到一种邪恶的力量。\n使用时可能会受伤。",
+  "descriptor.scriptor.blood_cost": "你在这个法术中感受到一种残暴的效率。\n使用时可能会受伤。",
+
+  "descriptor.scriptor.white": "封面上的文字发出白色的光芒。",
+  "descriptor.scriptor.light_gray": "封面上有不引人注目的浅灰色文字。",
+  "descriptor.scriptor.dark_gray": "封面上的文字是一种灰暗的深灰色。",
+  "descriptor.scriptor.black": "封面上的文字是普通的黑色。",
+  "descriptor.scriptor.red": "封面上的文字拥有火红色的光泽。",
+  "descriptor.scriptor.orange": "封面上的文字闪耀着温暖的橙色。",
+  "descriptor.scriptor.yellow": "封面上的文字是闪闪发光的黄色。",
+  "descriptor.scriptor.lime_green": "封面上的字在黄绿色中显得非常突出。",
+  "descriptor.scriptor.green": "绿色的文字在封面上爬行。",
+  "descriptor.scriptor.light_blue": "浅蓝色的文字在封面上流动。",
+  "descriptor.scriptor.cyan": "封面上的文字是一种干净的青色。",
+  "descriptor.scriptor.blue": "深蓝色的字在封面上汇集起来。",
+  "descriptor.scriptor.purple": "一种皇室风格的紫色标题装饰着封面。",
+  "descriptor.scriptor.magenta": "封面由艳丽的品红色装饰。",
+  "descriptor.scriptor.pink": "封面上的文字被染成了花粉色。",
+  "descriptor.scriptor.brown": "一抹不起眼的棕色被泼洒在封面。",
+
+  "action.scriptor.inflame": "这个法术能加热或点燃目标。",
+  "action.scriptor.heal": "这个法术可以治疗或修复目标。",
+  "action.scriptor.smite": "这个法术使目标被电击。",
+  "action.scriptor.explosion": "这个法术会在目标位置产生爆炸",
+  "action.scriptor.goto": "这个法术能将施法者带到目标处。",
+  "action.scriptor.swap": "这个法术可以调换施法者和目标的位置。",
+  "action.scriptor.bring": "这个法术可以将目标带到施法者身边。",
+  "action.scriptor.break": "这个法术可以破坏物品和方块。",
+  "action.scriptor.harm": "这个法术会伤害目标。",
+
   "extra.scriptor.fizzle": "这本宝典在你手中开始变暖，然后消失了。",
-  "extra.scriptor.tome_use": "你拍落了古书上的灰尘……",
+  "extra.scriptor.tome_use": "你掸去了宝典上的灰尘……",
   "extra.scriptor.tome_description": "右击以揭示一个咒语。",
-  "extra.scriptor.tome_tier": "等级：%1$s",
+  "extra.scriptor.tome_tier": "等级%1$s",
   "extra.scriptor.spell_get": "封面上写着“%1$s”。",
-  "extra.scriptor.hoarse": "你试图说出咒语的最后一个音节，但你的喉咙开始燃烧。在继续之前，你得先缓缓。",
-  "extra.scriptor.mute": "魔力在你的胸腔中涌动，但你已经失语，无法念咒了……",
+  "extra.scriptor.hoarse": "你上次施法的残余物仍在你的喉咙里燃烧。在说出更多的咒语之前，你得先缓一缓。",
+  "extra.scriptor.mute": "魔力在你的胸中涌动，但你已经失语了……",
   "extra.scriptor.enchant_wrong": "能量涌现却又立即消散。也许我应该在其他地方使用这个法术……",
-  
+  "extra.scriptor.use_identify": "在魔法书上右击这个以获取更多信息。",
+  "extra.scriptor.tome_identified": "§a已鉴定§7。按住潜行键获取更多信息。",
+
   "itemGroup.scriptor.scriptor_tab": "字符魔法师"
 }
