@@ -11,8 +11,8 @@
   "effect.scriptor.hoarse": "嘶哑",
   "effect.scriptor.mute": "失语",
 
-  "death.attack.overload": "%1$s被魔力压垮了",
-  "death.attack.overload.player": "%1$s被魔力压垮了",
+  "death.attack.overload": "%1$s被魔力压垮了。",
+  "death.attack.overload.player": "%1$s被魔力压垮了。",
   "death.attack.sacrifice": "%1$s牺牲了太多。",
   "death.attack.sacrifice.player": "%1$s牺牲了太多……",
 
@@ -61,12 +61,12 @@
   "action.scriptor.harm": "这个法术会伤害目标。",
 
   "extra.scriptor.fizzle": "这本宝典在你手中开始变暖，然后消失了。",
-  "extra.scriptor.tome_use": "你掸去了宝典上的灰尘……",
+  "extra.scriptor.tome_use": "你拍落了古书上的灰尘……",
   "extra.scriptor.tome_description": "右击以揭示一个咒语。",
-  "extra.scriptor.tome_tier": "等级%1$s",
+  "extra.scriptor.tome_tier": "等级：%1$s",
   "extra.scriptor.spell_get": "封面上写着“%1$s”。",
-  "extra.scriptor.hoarse": "你上次施法的残余物仍在你的喉咙里燃烧。在说出更多的咒语之前，你得先缓一缓。",
-  "extra.scriptor.mute": "魔力在你的胸中涌动，但你已经失语了……",
+  "extra.scriptor.hoarse": "上次施法的残余物仍在你的喉咙里燃烧。在说出更多的咒语之前，你得先缓一缓。",
+  "extra.scriptor.mute": "魔力在你的胸中涌动，但你已经失语，无法念咒了……",
   "extra.scriptor.enchant_wrong": "能量涌现却又立即消散。也许我应该在其他地方使用这个法术……",
   "extra.scriptor.use_identify": "在魔法书上右击这个以获取更多信息。",
   "extra.scriptor.tome_identified": "§a已鉴定§7。按住潜行键获取更多信息。",
