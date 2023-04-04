@@ -39,6 +39,7 @@ import net.minecraft.world.level.Level;
 import org.apache.logging.log4j.core.pattern.TextRenderer;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Spellbook extends Item implements ItemWithCustomRenderer {
@@ -212,20 +213,19 @@ public class Spellbook extends Item implements ItemWithCustomRenderer {
     var tag = itemStack.getTag();
     if(tag != null && tag.contains("pages")) {
       var pages = tag.getList("pages", Tag.TAG_STRING);
-      List<FormattedCharSequence> sequence;
-      if(page >= pages.size())
-        if(tag.getString("title") != null)
-          sequence = font.split(FormattedText.of(tag.getString("title")), 80);
-        else
-          sequence = List.of(FormattedCharSequence.EMPTY);
-//        sequence = font.split(FormattedText.of("This page left intentionally blank"), 80);
-      else
+      List<FormattedCharSequence> sequence = new ArrayList<>();
+      if (page >= pages.size()) {
+        if (tag.contains("title"))
+          sequence.addAll(font.split(FormattedText.of(tag.getString("title")), 80));
+        if (tag.contains("author"))
+          sequence.addAll(font.split(FormattedText.of("By " + tag.getString("author")), 80));
+      } else
         sequence = font.split(FormattedText.of(LimitedBookSerializer.decodeText(pages.getString(page))), 80);
       for (int iter = 0; iter < sequence.size(); iter++)
         Minecraft.getInstance().font.drawInBatch(
           sequence.get(iter),
           -17,
-          -45 + 7 * iter,
+          -45 + 8 * iter,
           0x000000,
           false,
           matrix.last().pose(),
