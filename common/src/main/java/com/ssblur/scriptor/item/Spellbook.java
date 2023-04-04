@@ -142,7 +142,7 @@ public class Spellbook extends Item implements ItemWithCustomRenderer {
     matrix.mulPose(Vector3f.XP.rotationDegrees(h * -80.0f));
     matrix.mulPose(Vector3f.YP.rotationDegrees(i * -45.0f));
 
-    if(hand == InteractionHand.MAIN_HAND){
+    if(hand == InteractionHand.MAIN_HAND) {
       {
         matrix.pushPose(); // Right hand, left page
 
@@ -171,6 +171,36 @@ public class Spellbook extends Item implements ItemWithCustomRenderer {
 
         matrix.popPose();
       }
+    } else {
+      matrix.translate(0.40f, 0.0f, 0);
+      {
+        matrix.pushPose(); // Right hand, left page
+
+        matrix.translate(-0.31f, 0.4f, 0.05);
+        matrix.scale(0.003f, 0.003f, 0.003f);
+        matrix.mulPose(Vector3f.ZP.rotationDegrees(180f));
+        matrix.mulPose(Vector3f.YP.rotationDegrees(180));
+        matrix.mulPose(Vector3f.XP.rotationDegrees(-48.5f));
+        matrix.mulPose(Vector3f.YP.rotationDegrees(-25f));
+
+        drawPage(itemStack, 0, matrix, buffer, lightLevel);
+
+        matrix.popPose();
+      }
+      {
+        matrix.pushPose(); // Right hand, left page
+
+        matrix.translate(-0.07f, 0.38f, 0);
+        matrix.scale(0.003f, 0.003f, 0.003f);
+        matrix.mulPose(Vector3f.ZP.rotationDegrees(183f));
+        matrix.mulPose(Vector3f.YP.rotationDegrees(180));
+        matrix.mulPose(Vector3f.XP.rotationDegrees(-49.75f));
+        matrix.mulPose(Vector3f.YP.rotationDegrees(20f));
+
+        drawPage(itemStack, 1, matrix, buffer, lightLevel);
+
+        matrix.popPose();
+      }
     }
 
     matrix.popPose();
@@ -179,25 +209,15 @@ public class Spellbook extends Item implements ItemWithCustomRenderer {
 
   public void drawPage(ItemStack itemStack, int page, PoseStack matrix, MultiBufferSource buffer, int lightLevel) {
     var font = Minecraft.getInstance().font;
-    for (int iter = 0; iter < 20; iter++)
-      Minecraft.getInstance().font.drawInBatch(
-        Component.literal("                    ").withStyle(ChatFormatting.BLACK),
-        -17,
-        -45 + 7 * iter,
-        0x000000,
-        false,
-        matrix.last().pose(),
-        buffer,
-        false,
-        0xffffffff,
-        lightLevel
-      );
     var tag = itemStack.getTag();
     if(tag != null && tag.contains("pages")) {
       var pages = tag.getList("pages", Tag.TAG_STRING);
       List<FormattedCharSequence> sequence;
       if(page >= pages.size())
-        sequence = List.of(FormattedCharSequence.EMPTY);
+        if(tag.getString("title") != null)
+          sequence = font.split(FormattedText.of(tag.getString("title")), 80);
+        else
+          sequence = List.of(FormattedCharSequence.EMPTY);
 //        sequence = font.split(FormattedText.of("This page left intentionally blank"), 80);
       else
         sequence = font.split(FormattedText.of(LimitedBookSerializer.decodeText(pages.getString(page))), 80);
@@ -211,7 +231,7 @@ public class Spellbook extends Item implements ItemWithCustomRenderer {
           matrix.last().pose(),
           buffer,
           false,
-          0xffffffff,
+          0x0,
           lightLevel
         );
     }
