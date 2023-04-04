@@ -4,9 +4,11 @@ import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.block.ScriptorBlocks;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
+import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.core.Registry;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 
 public class ScriptorItems {
   public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ScriptorMod.MOD_ID, Registry.ITEM_REGISTRY);

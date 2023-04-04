@@ -11,6 +11,7 @@ import dev.architectury.networking.NetworkManager;
 import dev.architectury.platform.Platform;
 import dev.architectury.registry.ReloadListenerRegistry;
 import net.fabricmc.api.EnvType;
+import net.minecraft.client.model.Model;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 
