@@ -235,6 +235,5 @@ public class Spellbook extends Item implements ItemWithCustomRenderer {
           lightLevel
         );
     }
-      //{author:"Steve",pages:['{"text":"ihi t upi jwesrvusi"}'],scriptor:{identified:{"action:break":1b,"subject:touch":1b}},title:"Break Block"}
   }
 }
