@@ -175,7 +175,7 @@ public class Spellbook extends Item implements ItemWithCustomRenderer {
     } else {
       matrix.translate(0.40f, 0.0f, 0);
       {
-        matrix.pushPose(); // Right hand, left page
+        matrix.pushPose(); // Left hand, left page
 
         matrix.translate(-0.31f, 0.4f, 0.05);
         matrix.scale(0.003f, 0.003f, 0.003f);
@@ -189,7 +189,7 @@ public class Spellbook extends Item implements ItemWithCustomRenderer {
         matrix.popPose();
       }
       {
-        matrix.pushPose(); // Right hand, left page
+        matrix.pushPose(); // Left hand, left page
 
         matrix.translate(-0.07f, 0.38f, 0);
         matrix.scale(0.003f, 0.003f, 0.003f);
