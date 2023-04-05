@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "scriptor:item/tome"
+    "layer0": "scriptor:item/tome_t3"
   },
   "display": {
     "thirdperson_righthand": {

@@ -2,9 +2,9 @@
   "item.scriptor.spellbook_binder": "Spellbook Binder",
   "item.scriptor.leather_binder": "Mundane Leather Binder",
   "item.scriptor.spellbook": "Spellbook",
-  "item.scriptor.tome_tier1": "Worn Spell Tome",
-  "item.scriptor.tome_tier2": "Embossed Tome",
-  "item.scriptor.tome_tier3": "Ancient Tome",
+  "item.scriptor.tome_tier1": "Worn Tome",
+  "item.scriptor.tome_tier2": "Ancient Tome",
+  "item.scriptor.tome_tier3": "Well-Preserved Tome",
   "item.scriptor.tome_tier4": "Exquisite Tome",
   "item.scriptor.identify_scroll": "Identify Scroll",
 
