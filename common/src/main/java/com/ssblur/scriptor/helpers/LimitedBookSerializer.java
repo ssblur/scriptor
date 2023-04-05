@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LimitedBookSerializer {
+  @SuppressWarnings("UnstableApiUsage")
   static Type PAGE_TYPE = new TypeToken<Page>() {}.getType();
   static class Page {
     String text;
@@ -36,6 +37,12 @@ public class LimitedBookSerializer {
       builder.append(page.text.strip());
     }
     return builder.toString();
+  }
+
+  public static String decodeText(String text) {
+    Gson gson = new Gson();
+    Page page = gson.fromJson(text, PAGE_TYPE);
+    return page.text.strip();
   }
 
   /**

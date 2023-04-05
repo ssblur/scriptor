@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "com.ssblur.scriptor.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+  ],
+  "client": [
+    "ItemWithCustomRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.1"
+}

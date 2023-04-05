@@ -27,7 +27,7 @@ public class ScriptorMod {
   public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
   public static final Supplier<Registries> REGISTRIES = Suppliers.memoize(() -> Registries.get(MOD_ID));
   public static final CreativeModeTab SCRIPTOR_TAB = CreativeTabRegistry.create(new ResourceLocation(MOD_ID, "scriptor_tab"), () ->
-    new ItemStack(ScriptorItems.SPELLBOOK.get()));
+    new ItemStack(ScriptorItems.TOME_TIER4.get()));
 
   public static void registerCommands() {
     CommandRegistrationEvent.EVENT.register(DumpDictionaryCommand::register);
