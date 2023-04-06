@@ -11,28 +11,28 @@ import net.minecraft.world.entity.item.ItemEntity;
 
 public class BringAction extends Action {
   @Override
-  public void apply(Entity caster, Targetable targetable, Descriptor[] descriptors) {
+  public void apply(Targetable caster, Targetable targetable, Descriptor[] descriptors) {
     if(targetable.getLevel().isClientSide) return;
 
     ServerLevel level = (ServerLevel) targetable.getLevel();
     var pos = targetable.getTargetPos();
     if(caster != null) {
-      var casterPos = caster.position();
+      var casterPos = caster.getTargetPos();
       if(targetable instanceof ItemTargetable itemTargetable) {
         var item = itemTargetable.getTargetItem();
         if(item != null && !item.isEmpty()) {
           var newItem = item.copy();
           newItem.setCount(1);
-          ItemEntity entity = new ItemEntity(caster.level, caster.getX(), caster.getY() + 1, caster.getZ(), newItem);
-          caster.level.addFreshEntity(entity);
+          ItemEntity entity = new ItemEntity(caster.getLevel(), pos.x(), pos.y() + 1, pos.z(), newItem);
+          caster.getLevel().addFreshEntity(entity);
           item.shrink(1);
           return;
         }
       }
       if(targetable instanceof EntityTargetable entityTargetable)
         if(entityTargetable.getTargetEntity() instanceof LivingEntity living) {
-          if(caster.level != level)
-            living.changeDimension((ServerLevel) caster.level);
+          if(caster.getLevel() != level)
+            living.changeDimension((ServerLevel) caster.getLevel());
           living.teleportTo(casterPos.x, casterPos.y, casterPos.z);
           living.setDeltaMovement(0, 0, 0);
           living.resetFallDistance();

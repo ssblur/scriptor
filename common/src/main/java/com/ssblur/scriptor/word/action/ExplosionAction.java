@@ -13,7 +13,7 @@ import net.minecraft.world.level.Explosion;
 
 public class ExplosionAction extends Action {
   @Override
-  public void apply(Entity caster, Targetable targetable, Descriptor[] descriptors) {
+  public void apply(Targetable caster, Targetable targetable, Descriptor[] descriptors) {
     if(targetable.getLevel().isClientSide) return;
     int strength = 2;
     for(var d: descriptors) {

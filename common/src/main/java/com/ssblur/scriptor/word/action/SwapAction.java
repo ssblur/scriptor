@@ -11,29 +11,41 @@ import net.minecraft.world.entity.item.ItemEntity;
 
 public class SwapAction extends Action {
   @Override
-  public void apply(Entity caster, Targetable targetable, Descriptor[] descriptors) {
+  public void apply(Targetable caster, Targetable targetable, Descriptor[] descriptors) {
     if(targetable.getLevel().isClientSide
         || caster == null
-        || caster.level == null
+        || caster.getLevel() == null
         || targetable.getLevel() == null) return;
 
     var level = (ServerLevel) targetable.getLevel();
-    var casterLevel = (ServerLevel) caster.level;
+    var casterLevel = (ServerLevel) caster.getLevel();
     var pos = targetable.getTargetPos();
-    var casterPos = caster.position();
+    var casterPos = caster.getTargetPos();
 
-    if(caster.level != level)
-      caster.changeDimension(level);
-    caster.teleportTo(pos.x, pos.y, pos.z);
-    caster.setDeltaMovement(0, 0, 0);
-    caster.resetFallDistance();
+    if(caster instanceof ItemTargetable itemTargetable) {
+      var item = itemTargetable.getTargetItem();
+      if(item != null && !item.isEmpty()) {
+        var newItem = item.copy();
+        newItem.setCount(1);
+        ItemEntity entity = new ItemEntity(casterLevel, casterPos.x(), casterPos.y() + 1, casterPos.z(), newItem);
+        casterLevel.addFreshEntity(entity);
+        item.shrink(1);
+      }
+    } else if(caster instanceof EntityTargetable entityTargetable)
+      if (entityTargetable.getTargetEntity() instanceof LivingEntity living) {
+        if(living.getLevel() != level)
+          living.changeDimension(level);
+        living.teleportTo(pos.x, pos.y, pos.z);
+        living.setDeltaMovement(0, 0, 0);
+        living.resetFallDistance();
+      }
 
     if(targetable instanceof ItemTargetable itemTargetable) {
       var item = itemTargetable.getTargetItem();
       if(item != null && !item.isEmpty()) {
         var newItem = item.copy();
         newItem.setCount(1);
-        ItemEntity entity = new ItemEntity(casterLevel, caster.getX(), caster.getY() + 1, caster.getZ(), newItem);
+        ItemEntity entity = new ItemEntity(casterLevel, casterPos.x(), casterPos.y() + 1, casterPos.z(), newItem);
         casterLevel.addFreshEntity(entity);
         item.shrink(1);
         return;
