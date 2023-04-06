@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.ssblur.scriptor.helpers.DictionarySavedData;
 import com.ssblur.scriptor.helpers.LimitedBookSerializer;
+import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
 import com.ssblur.scriptor.item.interfaces.ItemWithCustomRenderer;
 import com.ssblur.scriptor.messages.EnchantNetwork;
 import com.ssblur.scriptor.word.Spell;
@@ -73,7 +74,7 @@ public class Spellbook extends Item implements ItemWithCustomRenderer {
           player.sendSystemMessage(Component.translatable("extra.scriptor.fizzle"));
           player.getCooldowns().addCooldown(this, 350);
         }
-        spell.cast(player);
+        spell.cast(new ItemTargetable(player.getItemInHand(interactionHand), player));
         if(!player.isCreative())
           player.getCooldowns().addCooldown(this, (int) Math.round(spell.cost() * 7));
       }

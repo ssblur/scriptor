@@ -16,9 +16,9 @@ public class SelfSubject extends Subject{
   public Cost cost() { return new Cost(1, COSTTYPE.ADDITIVE); }
 
   @Override
-  public CompletableFuture<List<Targetable>> getTargets(Entity caster, Spell spell) {
+  public CompletableFuture<List<Targetable>> getTargets(Targetable caster, Spell spell) {
     var result = new CompletableFuture<List<Targetable>>();
-    result.complete(List.of(new EntityTargetable(caster).setFacing(Direction.DOWN)));
+    result.complete(List.of(caster.setFacing(Direction.DOWN)));
     return result;
   }
 }

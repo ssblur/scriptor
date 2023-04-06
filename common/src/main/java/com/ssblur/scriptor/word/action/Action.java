@@ -14,5 +14,5 @@ public abstract class Action extends Word {
    * @param targetable A Targetable which describes the target of this spell (position, entity, item, etc.)
    * @param descriptors A list of all Descriptors which this spell contained
    */
-  public abstract void apply(Entity caster, Targetable targetable, Descriptor[] descriptors);
+  public abstract void apply(Targetable caster, Targetable targetable, Descriptor[] descriptors);
 }

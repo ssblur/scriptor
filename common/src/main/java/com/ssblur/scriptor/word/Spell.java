@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.word;
 
+import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.action.Action;
 import com.ssblur.scriptor.word.descriptor.CastDescriptor;
@@ -25,7 +26,7 @@ public record Spell(
   Subject subject,
   Descriptor... descriptors
 ) {
-  void castOnTargets(Entity caster, List<Targetable> targets) {
+  void castOnTargets(Targetable caster, List<Targetable> targets) {
     for(var target: targets) {
       action.apply(caster, target, deduplicatedDescriptors());
     }
@@ -38,7 +39,7 @@ public record Spell(
       if(throwable != null)
         throwable.printStackTrace();
       else
-        castOnTargets(caster, targets);
+        castOnTargets(new EntityTargetable(caster), targets);
     });
 
     return targetFuture;
@@ -48,10 +49,10 @@ public record Spell(
    * Casts this spell.
    * @param caster The entity which cast this spell.
    */
-  public void cast(Entity caster) {
+  public void cast(Targetable caster) {
     for(var descriptor: descriptors)
       if(descriptor instanceof CastDescriptor cast)
-        if(!cast.onCast(caster)) return;
+        if(cast.cannotCast(caster)) return;
 
     var targetFuture = subject.getTargets(caster, this);
     if(targetFuture.isDone()) {
@@ -74,10 +75,10 @@ public record Spell(
    * Casts this spell with a specified list of Targetables.
    * @param caster The entity which cast this spell.
    */
-  public void cast(Entity caster, Targetable... targetables) {
+  public void cast(Targetable caster, Targetable... targetables) {
     for(var descriptor: descriptors)
       if(descriptor instanceof CastDescriptor cast)
-        if(!cast.onCast(caster)) return;
+        if(cast.cannotCast(caster)) return;
 
     castOnTargets(caster, Arrays.stream(targetables).toList());
   }

@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.word.subject;
 
+import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.Spell;
@@ -19,8 +20,8 @@ public class ImbueSubject extends Subject implements InventorySubject {
   }
 
   @Override
-  public CompletableFuture<List<Targetable>> getTargets(Entity caster, Spell spell) {
-    if(caster instanceof Player player) {
+  public CompletableFuture<List<Targetable>> getTargets(Targetable caster, Spell spell) {
+    if(caster instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof Player player) {
       player.sendSystemMessage(Component.translatable("extra.scriptor.enchant_wrong"));
     }
     CompletableFuture<List<Targetable>> future = new CompletableFuture<>();
@@ -31,6 +32,6 @@ public class ImbueSubject extends Subject implements InventorySubject {
   @Override
   public void castOnItem(Spell spell, Player player, ItemStack slot) {
     var target = new ItemTargetable(slot, player);
-    spell.cast(player, target);
+    spell.cast(new EntityTargetable(player), target);
   }
 }

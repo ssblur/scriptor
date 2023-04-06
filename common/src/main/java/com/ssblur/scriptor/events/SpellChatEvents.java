@@ -4,6 +4,7 @@ import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.damage.OverloadDamageSource;
 import com.ssblur.scriptor.effect.ScriptorEffects;
 import com.ssblur.scriptor.helpers.DictionarySavedData;
+import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.word.Spell;
 import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.ChatEvent;
@@ -29,7 +30,7 @@ public class SpellChatEvents implements ChatEvent.Received {
           player.sendSystemMessage(Component.translatable("extra.scriptor.mute"));
           return EventResult.interruptFalse();
         }
-        spell.cast(player);
+        spell.cast(new EntityTargetable(player));
 
         int cost = (int) Math.round(spell.cost() * 30);
 

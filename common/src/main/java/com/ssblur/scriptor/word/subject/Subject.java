@@ -15,5 +15,5 @@ public abstract class Subject extends Word {
    * @param caster The Entity which cast this spell.
    * @param spell The Spell which is being cast.
    */
-  public abstract CompletableFuture<List<Targetable>> getTargets(Entity caster, Spell spell);
+  public abstract CompletableFuture<List<Targetable>> getTargets(Targetable caster, Spell spell);
 }
