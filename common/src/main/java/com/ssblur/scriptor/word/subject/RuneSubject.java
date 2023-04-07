@@ -2,6 +2,7 @@ package com.ssblur.scriptor.word.subject;
 
 import com.ssblur.scriptor.block.ScriptorBlocks;
 import com.ssblur.scriptor.blockentity.RuneBlockEntity;
+import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.messages.TraceNetwork;
@@ -24,9 +25,9 @@ import java.util.concurrent.CompletableFuture;
 public class RuneSubject extends Subject implements InventorySubject{
 
   @Override
-  public CompletableFuture<List<Targetable>> getTargets(Entity caster, Spell spell) {
+  public CompletableFuture<List<Targetable>> getTargets(Targetable caster, Spell spell) {
     var result = new CompletableFuture<List<Targetable>>();
-    if(caster instanceof Player player) {
+    if(caster instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof Player player) {
       TraceNetwork.requestTraceData(player, target -> {
 
         int color = 0xa020f0;
@@ -35,7 +36,7 @@ public class RuneSubject extends Subject implements InventorySubject{
             color = descriptor.getColor();
 
         BlockPos pos = target.getTargetBlockPos();
-        Level level = caster.level;
+        Level level = caster.getLevel();
 
         if(!level.getBlockState(pos).getMaterial().isReplaceable())
           return;
@@ -43,7 +44,7 @@ public class RuneSubject extends Subject implements InventorySubject{
         level.setBlockAndUpdate(pos, ScriptorBlocks.RUNE.get().defaultBlockState());
         var entity = level.getBlockEntity(pos);
         if(entity instanceof RuneBlockEntity runeBlockEntity) {
-          runeBlockEntity.owner = caster;
+          runeBlockEntity.owner = player;
           runeBlockEntity.future = result;
           runeBlockEntity.spell = spell;
           runeBlockEntity.color = color;

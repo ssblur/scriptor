@@ -44,9 +44,10 @@ public class Targetable {
 
   public Level getLevel() { return level; }
 
-  @Nullable
   public Direction getFacing() {
-    return direction;
+    if(direction != null)
+      return direction;
+    return Direction.UP;
   }
 
   public Targetable setFacing(@Nullable Direction direction) {

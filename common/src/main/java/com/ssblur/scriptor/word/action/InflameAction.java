@@ -10,7 +10,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.FlintAndSteelItem;
@@ -22,17 +21,18 @@ import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import org.w3c.dom.Entity;
 
 public class InflameAction extends Action {
   @Override
-  public void apply(Entity caster, Targetable targetable, Descriptor[] descriptors) {
+  public void apply(Targetable caster, Targetable targetable, Descriptor[] descriptors) {
     double seconds = 2;
     for(var d: descriptors) {
       if(d instanceof DurationDescriptor durationDescriptor)
         seconds += durationDescriptor.durationModifier();
     }
 
-    if(targetable instanceof ItemTargetable itemTargetable) {
+    if(targetable instanceof ItemTargetable itemTargetable && itemTargetable.shouldTargetItem()) {
       var check = RecipeManager.createCheck(RecipeType.SMELTING);
       var container = new SimpleContainer(1);
       container.addItem(itemTargetable.getTargetItem());
@@ -43,7 +43,7 @@ public class InflameAction extends Action {
 
         var pos = itemTargetable.getTargetPos();
         ItemEntity entity = new ItemEntity(itemTargetable.getLevel(), pos.x(), pos.y() + 1, pos.z(), recipe.get().getResultItem());
-        caster.level.addFreshEntity(entity);
+        caster.getLevel().addFreshEntity(entity);
       }
       return;
     }
@@ -60,7 +60,7 @@ public class InflameAction extends Action {
       BlockState blockState2 = BaseFireBlock.getState(level, pos);
       level.setBlock(pos, blockState2, 11);
 
-      if(caster instanceof Player player)
+      if(caster instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof Player player)
         level.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
       else
         level.playSound(null, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);

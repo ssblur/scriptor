@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.word.subject;
 
+import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.messages.TraceNetwork;
 import com.ssblur.scriptor.word.Spell;
@@ -14,9 +15,9 @@ import java.util.concurrent.CompletableFuture;
 public class TouchSubject extends Subject{
 
   @Override
-  public CompletableFuture<List<Targetable>> getTargets(Entity caster, Spell spell) {
+  public CompletableFuture<List<Targetable>> getTargets(Targetable caster, Spell spell) {
     var result = new CompletableFuture<List<Targetable>>();
-    if(caster instanceof Player player) {
+    if(caster instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof Player player) {
       TraceNetwork.requestTraceData(player, target -> result.complete(List.of(target)));
     } else {
       result.complete(List.of());

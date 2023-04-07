@@ -21,12 +21,12 @@ public class StormSubject extends Subject{
   public Cost cost() { return new Cost(8, COSTTYPE.MULTIPLICATIVE); }
 
   @Override
-  public CompletableFuture<List<Targetable>> getTargets(Entity caster, Spell spell) {
+  public CompletableFuture<List<Targetable>> getTargets(Targetable caster, Spell spell) {
     ArrayList<Targetable> targets = new ArrayList<>();
     Random random = new Random();
     int radius = 4;
     int limit = 12;
-    BlockPos center = caster.blockPosition();
+    BlockPos center = caster.getTargetBlockPos();
     BlockPos pos;
 
     for(int i = 0; i < limit; i++) {
@@ -36,13 +36,13 @@ public class StormSubject extends Subject{
         random.nextInt((radius * 2) - radius)
       );
       for(int j = 0; j < 3; j++) {
-        if(caster.level.getBlockState(pos.below()).getMaterial().isReplaceable())
+        if(caster.getLevel().getBlockState(pos.below()).getMaterial().isReplaceable())
           pos = pos.below();
         else
           break;
       }
 
-      var entities = caster.level.getEntitiesOfClass(
+      var entities = caster.getLevel().getEntitiesOfClass(
         LivingEntity.class,
         AABB.ofSize(
           new Vec3(
@@ -60,7 +60,7 @@ public class StormSubject extends Subject{
         for(var entity: entities)
           targets.add(new EntityTargetable(entity));
       else
-        targets.add(new Targetable(caster.level, pos));
+        targets.add(new Targetable(caster.getLevel(), pos));
     }
 
     var result = new CompletableFuture<List<Targetable>>();

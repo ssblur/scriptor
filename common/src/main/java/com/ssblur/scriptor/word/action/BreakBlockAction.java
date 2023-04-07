@@ -23,7 +23,7 @@ public class BreakBlockAction extends Action {
   }
 
   @Override
-  public void apply(Entity caster, Targetable targetable, Descriptor[] descriptors) {
+  public void apply(Targetable caster, Targetable targetable, Descriptor[] descriptors) {
     double strength = 1;
     for(var d: descriptors) {
       if(d instanceof StrengthDescriptor strengthDescriptor)
@@ -52,7 +52,8 @@ public class BreakBlockAction extends Action {
          neededStrength = toolLevelsList.get(tag.location().toString());
     }
     if(strength > neededStrength)
-      level.destroyBlock(pos, true, caster, (int) Math.round(strength));
+      if(caster instanceof EntityTargetable entityTargetable)
+        level.destroyBlock(pos, true, entityTargetable.getTargetEntity(), (int) Math.round(strength));
   }
   @Override
   public Cost cost() { return new Cost(1, COSTTYPE.ADDITIVE); }

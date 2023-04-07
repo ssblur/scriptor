@@ -11,7 +11,7 @@ import net.minecraft.world.entity.player.Player;
 
 public class HarmAction extends Action {
   @Override
-  public void apply(Entity caster, Targetable targetable, Descriptor[] descriptors) {
+  public void apply(Targetable caster, Targetable targetable, Descriptor[] descriptors) {
     double strength = 1;
     for(var d: descriptors) {
       if(d instanceof StrengthDescriptor strengthDescriptor)
@@ -22,10 +22,12 @@ public class HarmAction extends Action {
     if(targetable instanceof EntityTargetable entityTargetable) {
       Entity entity = entityTargetable.getTargetEntity();
       if(entity instanceof LivingEntity target) {
-        if(caster instanceof Player player)
-          target.hurt(DamageSource.indirectMagic(caster, player), (int) Math.round(strength));
+        if(caster instanceof EntityTargetable entityTargetable1 && entityTargetable1.getTargetEntity() instanceof Player player)
+          target.hurt(DamageSource.indirectMagic(player, player), (int) Math.round(strength));
+        else if(caster instanceof EntityTargetable entityTargetable1)
+          target.hurt(DamageSource.indirectMagic(entityTargetable1.getTargetEntity(), null), (int) Math.round(strength));
         else
-          target.hurt(DamageSource.indirectMagic(caster, null), (int) Math.round(strength));
+          target.hurt(DamageSource.indirectMagic(target, null), (int) Math.round(strength));
       }
     }
   }

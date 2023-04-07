@@ -6,7 +6,7 @@ import net.minecraft.world.entity.Entity;
 
 public class DebugAction extends Action {
   @Override
-  public void apply(Entity caster, Targetable targetable, Descriptor[] descriptors) {
+  public void apply(Targetable caster, Targetable targetable, Descriptor[] descriptors) {
     System.out.println(caster + " cast debug on " + targetable + " with " + descriptors.length + " descriptors.");
   }
   @Override

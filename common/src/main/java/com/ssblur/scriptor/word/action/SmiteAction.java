@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class SmiteAction extends Action {
   @Override
-  public void apply(Entity caster, Targetable targetable, Descriptor[] descriptors) {
+  public void apply(Targetable caster, Targetable targetable, Descriptor[] descriptors) {
     if(targetable.getLevel().isClientSide) return;
     int strength = 1;
     for(var d: descriptors) {
@@ -30,7 +30,7 @@ public class SmiteAction extends Action {
         strength += strengthDescriptor.strengthModifier();
     }
 
-    if(targetable instanceof ItemTargetable itemTargetable) {
+    if(targetable instanceof ItemTargetable itemTargetable && itemTargetable.shouldTargetItem()) {
       if(itemTargetable.getTargetItem() != null && !itemTargetable.getTargetItem().isEmpty())
         ChargedEnchant.chargeItem(itemTargetable.getTargetItem(), strength);
       return;
@@ -38,7 +38,7 @@ public class SmiteAction extends Action {
 
     ServerLevel level = (ServerLevel) targetable.getLevel();
     LightningBolt bolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
-    if(caster instanceof ServerPlayer player)
+    if(caster instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof ServerPlayer player)
       bolt.setCause(player);
     bolt.setPos(targetable.getTargetPos());
     level.addFreshEntity(bolt);
