@@ -6,7 +6,9 @@ import com.ssblur.scriptor.word.action.Action;
 import com.ssblur.scriptor.word.descriptor.CastDescriptor;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
 import com.ssblur.scriptor.word.subject.Subject;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
@@ -52,7 +54,11 @@ public record Spell(
   public void cast(Targetable caster) {
     for(var descriptor: descriptors)
       if(descriptor instanceof CastDescriptor cast)
-        if(cast.cannotCast(caster)) return;
+        if(cast.cannotCast(caster)) {
+          if(caster instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof Player player)
+            player.sendSystemMessage(Component.translatable("extra.scriptor.condition_not_met"));
+          return;
+        }
 
     var targetFuture = subject.getTargets(caster, this);
     if(targetFuture.isDone()) {
@@ -78,7 +84,11 @@ public record Spell(
   public void cast(Targetable caster, Targetable... targetables) {
     for(var descriptor: descriptors)
       if(descriptor instanceof CastDescriptor cast)
-        if(cast.cannotCast(caster)) return;
+        if(cast.cannotCast(caster)) {
+          if(caster instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof Player player)
+            player.sendSystemMessage(Component.translatable("extra.scriptor.condition_not_met"));
+          return;
+        }
 
     castOnTargets(caster, Arrays.stream(targetables).toList());
   }

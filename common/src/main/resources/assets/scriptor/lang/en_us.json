@@ -30,8 +30,10 @@
   "descriptor.scriptor.fast": "This spell seems faster than usual.",
   "descriptor.scriptor.slow": "This spell seems slower than usual.",
   "descriptor.scriptor.cheap": "For some reason, this spell costs less than most.",
-  "descriptor.scriptor.blood_power": "You sense a wicked power in this spell. \nIt may hurt to use.",
-  "descriptor.scriptor.blood_cost": "You feel a brutal efficiency in this spell. \nIt may hurt to use.",
+  "descriptor.scriptor.blood_power": "You sense a wicked power in this spell. It may hurt to use.",
+
+  "descriptor.scriptor.blood_cost": "You feel a brutal efficiency in this spell. It may hurt to use.",
+  "descriptor.scriptor.healthy": "This spell seems to demand perfect health.",
 
   "descriptor.scriptor.white": "The words on the cover glow white.",
   "descriptor.scriptor.light_gray": "The cover contains unremarkable light gray text.",
@@ -70,6 +72,7 @@
   "extra.scriptor.enchant_wrong": "Energy wells up and immediately dissipates. Maybe I should use this spell elsewhere...",
   "extra.scriptor.use_identify": "Right click this onto a Spellbook to learn more about it.",
   "extra.scriptor.tome_identified": "§aIdentified§7. Hold SNEAK for info.",
+  "extra.scriptor.condition_not_met": "You try to cast this spell but stop short. It seems a condition has not been met...",
 
   "itemGroup.scriptor.scriptor_tab": "Scriptor Magicae"
 }
