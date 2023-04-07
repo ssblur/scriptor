@@ -175,7 +175,7 @@ public class Spellbook extends Item implements ItemWithCustomRenderer {
         matrix.popPose();
       }
     } else {
-      matrix.translate(0.40f, 0.0f, 0);
+      matrix.translate(0.31f, 0.0f, 0);
       {
         matrix.pushPose(); // Left hand, left page
 
