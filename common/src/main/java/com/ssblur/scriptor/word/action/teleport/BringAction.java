@@ -1,8 +1,9 @@
-package com.ssblur.scriptor.word.action;
+package com.ssblur.scriptor.word.action.teleport;
 
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
+import com.ssblur.scriptor.word.action.Action;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;

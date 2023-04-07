@@ -1,6 +1,9 @@
 package com.ssblur.scriptor.registry;
 
 import com.ssblur.scriptor.word.action.*;
+import com.ssblur.scriptor.word.action.teleport.BringAction;
+import com.ssblur.scriptor.word.action.teleport.GotoAction;
+import com.ssblur.scriptor.word.action.teleport.SwapAction;
 import com.ssblur.scriptor.word.descriptor.*;
 import com.ssblur.scriptor.word.descriptor.discount.BloodCostDescriptor;
 import com.ssblur.scriptor.word.descriptor.discount.CheapDescriptor;
