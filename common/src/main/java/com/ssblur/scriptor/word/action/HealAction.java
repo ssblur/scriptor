@@ -4,7 +4,6 @@ import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
-import com.ssblur.scriptor.word.descriptor.DurationDescriptor;
 import com.ssblur.scriptor.word.descriptor.StrengthDescriptor;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -18,7 +17,7 @@ public class HealAction extends Action {
         strength += strengthDescriptor.strengthModifier();
     }
 
-    if(targetable instanceof ItemTargetable itemTargetable) {
+    if(targetable instanceof ItemTargetable itemTargetable && itemTargetable.shouldTargetItem()) {
       var item = itemTargetable.getTargetItem();
       if(item != null && !item.isEmpty()) {
         if(item.isDamageableItem()) {

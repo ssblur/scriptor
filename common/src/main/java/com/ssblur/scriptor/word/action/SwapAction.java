@@ -22,7 +22,7 @@ public class SwapAction extends Action {
     var pos = targetable.getTargetPos();
     var casterPos = caster.getTargetPos();
 
-    if(caster instanceof ItemTargetable itemTargetable) {
+    if(caster instanceof ItemTargetable itemTargetable && itemTargetable.shouldTargetItem()) {
       var item = itemTargetable.getTargetItem();
       if(item != null && !item.isEmpty()) {
         var newItem = item.copy();
@@ -40,7 +40,7 @@ public class SwapAction extends Action {
         living.resetFallDistance();
       }
 
-    if(targetable instanceof ItemTargetable itemTargetable) {
+    if(targetable instanceof ItemTargetable itemTargetable && itemTargetable.shouldTargetItem()) {
       var item = itemTargetable.getTargetItem();
       if(item != null && !item.isEmpty()) {
         var newItem = item.copy();

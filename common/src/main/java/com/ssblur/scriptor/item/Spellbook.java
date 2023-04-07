@@ -75,7 +75,7 @@ public class Spellbook extends Item implements ItemWithCustomRenderer {
           player.sendSystemMessage(Component.translatable("extra.scriptor.fizzle"));
           player.getCooldowns().addCooldown(this, 350);
         }
-        spell.cast(new EntityTargetable(player));
+        spell.cast(new ItemTargetable(player.getItemInHand(interactionHand), player).withTargetItem(false));
         if(!player.isCreative())
           player.getCooldowns().addCooldown(this, (int) Math.round(spell.cost() * 7));
       }

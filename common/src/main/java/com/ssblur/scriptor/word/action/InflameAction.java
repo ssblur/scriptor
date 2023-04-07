@@ -32,7 +32,7 @@ public class InflameAction extends Action {
         seconds += durationDescriptor.durationModifier();
     }
 
-    if(targetable instanceof ItemTargetable itemTargetable) {
+    if(targetable instanceof ItemTargetable itemTargetable && itemTargetable.shouldTargetItem()) {
       var check = RecipeManager.createCheck(RecipeType.SMELTING);
       var container = new SimpleContainer(1);
       container.addItem(itemTargetable.getTargetItem());

@@ -18,7 +18,7 @@ public class BringAction extends Action {
     var pos = targetable.getTargetPos();
     if(caster != null) {
       var casterPos = caster.getTargetPos();
-      if(targetable instanceof ItemTargetable itemTargetable) {
+      if(targetable instanceof ItemTargetable itemTargetable && itemTargetable.shouldTargetItem()) {
         var item = itemTargetable.getTargetItem();
         if(item != null && !item.isEmpty()) {
           var newItem = item.copy();

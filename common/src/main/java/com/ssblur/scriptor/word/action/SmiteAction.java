@@ -30,7 +30,7 @@ public class SmiteAction extends Action {
         strength += strengthDescriptor.strengthModifier();
     }
 
-    if(targetable instanceof ItemTargetable itemTargetable) {
+    if(targetable instanceof ItemTargetable itemTargetable && itemTargetable.shouldTargetItem()) {
       if(itemTargetable.getTargetItem() != null && !itemTargetable.getTargetItem().isEmpty())
         ChargedEnchant.chargeItem(itemTargetable.getTargetItem(), strength);
       return;

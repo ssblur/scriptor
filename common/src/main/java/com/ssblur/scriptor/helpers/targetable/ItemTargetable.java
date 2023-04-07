@@ -1,6 +1,5 @@
 package com.ssblur.scriptor.helpers.targetable;
 
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
@@ -18,9 +17,9 @@ public class ItemTargetable extends EntityTargetable {
     return itemStack;
   }
 
-  public boolean shouldTargetItemByDefault() { return targetItemByDefault; }
+  public boolean shouldTargetItem() { return targetItemByDefault; }
 
-  public ItemTargetable withTargetItemByDefault(boolean targetItemByDefault) {
+  public ItemTargetable withTargetItem(boolean targetItemByDefault) {
     this.targetItemByDefault = targetItemByDefault;
     return this;
   }

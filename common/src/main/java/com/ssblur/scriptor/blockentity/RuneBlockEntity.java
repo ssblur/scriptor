@@ -93,15 +93,24 @@ public class RuneBlockEntity extends BlockEntity {
         owner = level.getPlayerByUUID(ownerUUID);
         // If the owner is online after this is reloaded, reassign ownership.
         var spell = DictionarySavedData.computeIfAbsent((ServerLevel) level).parse(spellText);
-        if(spell != null)
-          future = spell.createFuture(owner);
+        if(spell != null) {
+          if (owner != null)
+            future = spell.createFuture(new EntityTargetable(owner));
+          else
+            future = spell.createFuture(new Targetable(this.level, this.getBlockPos()));
+        }
       }
 
     if(future == null || future.isDone())
-      if(spell != null)
-        future = spell.createFuture(owner);
-      else if(spellText != null)
-        future = DictionarySavedData.computeIfAbsent((ServerLevel) level).parse(spellText).createFuture(owner);
+      if(spell != null) {
+        if(owner != null && owner.isAlive())
+          future = spell.createFuture(new EntityTargetable(owner));
+        else
+          future = spell.createFuture(new Targetable(this.level, this.getBlockPos()));
+      } else if(spellText != null) {
+        spell = DictionarySavedData.computeIfAbsent((ServerLevel) level).parse(spellText);
+        future = spell.createFuture(new EntityTargetable(owner));
+      }
 
     var box = AABB.of(
       BoundingBox.fromCorners(

@@ -32,14 +32,14 @@ public record Spell(
     }
   }
 
-  public CompletableFuture<List<Targetable>> createFuture(Entity caster) {
+  public CompletableFuture<List<Targetable>> createFuture(Targetable caster) {
     var targetFuture = new CompletableFuture<List<Targetable>>();
 
     targetFuture.whenComplete((targets, throwable) -> {
       if(throwable != null)
         throwable.printStackTrace();
       else
-        castOnTargets(new EntityTargetable(caster), targets);
+        castOnTargets(caster, targets);
     });
 
     return targetFuture;

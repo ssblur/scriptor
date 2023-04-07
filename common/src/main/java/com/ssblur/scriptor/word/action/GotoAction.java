@@ -4,14 +4,8 @@ import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
-import com.ssblur.scriptor.word.descriptor.StrengthDescriptor;
-import net.minecraft.server.commands.TeleportCommand;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.projectile.ThrownEnderpearl;
-import net.minecraft.world.item.EnderpearlItem;
-import net.minecraft.world.level.Explosion;
 
 public class GotoAction extends Action {
   @Override
@@ -21,7 +15,7 @@ public class GotoAction extends Action {
     ServerLevel level = (ServerLevel) targetable.getLevel();
     var pos = targetable.getTargetPos();
 
-    if(caster instanceof ItemTargetable itemTargetable) {
+    if(caster instanceof ItemTargetable itemTargetable && itemTargetable.shouldTargetItem()) {
       var item = itemTargetable.getTargetItem();
       if(item != null && !item.isEmpty()) {
         var newItem = item.copy();
