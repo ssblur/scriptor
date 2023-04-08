@@ -36,6 +36,7 @@
   "descriptor.scriptor.cheap": "For some reason, this spell costs less than most.",
   "descriptor.scriptor.blood_cost": "You feel a brutal efficiency in this spell. It may hurt to use.",
   "descriptor.scriptor.healthy": "This spell seems to demand perfect health.",
+  "descriptor.scriptor.poisoned": "You must be poisoned to channel this spell..",
 
   "descriptor.scriptor.white": "The words on the cover glow white.",
   "descriptor.scriptor.light_gray": "The cover contains unremarkable light gray text.",
@@ -64,6 +65,7 @@
   "action.scriptor.bring": "This spell brings the target to the caster.",
   "action.scriptor.break": "This spell breaks down items and blocks.",
   "action.scriptor.harm": "This spell harms the target.",
+  "action.scriptor.poison": "This spell poisons the target.",
 
   "extra.scriptor.fizzle": "The tome starts to warm in your hand, then fizzles.",
   "extra.scriptor.tome_use": "You dust off the tome...",

@@ -8,6 +8,7 @@ import com.ssblur.scriptor.word.descriptor.*;
 import com.ssblur.scriptor.word.descriptor.discount.BloodCostDescriptor;
 import com.ssblur.scriptor.word.descriptor.discount.CheapDescriptor;
 import com.ssblur.scriptor.word.descriptor.discount.HealthyDescriptor;
+import com.ssblur.scriptor.word.descriptor.discount.PoisonDescriptor;
 import com.ssblur.scriptor.word.descriptor.duration.SimpleDurationDescriptor;
 import com.ssblur.scriptor.word.descriptor.power.BloodPowerDescriptor;
 import com.ssblur.scriptor.word.descriptor.power.SimpleStrengthDescriptor;
@@ -34,6 +35,7 @@ public class WordRegistry {
   public static final Descriptor POWERFUL = INSTANCE.register("powerful", new SimpleStrengthDescriptor(6, 4));
   public static final Descriptor CHAIN = INSTANCE.register("chain", new ChainDescriptor());
   public static final Descriptor BLOOD_POWER = INSTANCE.register("blood_power", new BloodPowerDescriptor());
+  public static final Descriptor POISONED = INSTANCE.register("poisoned", new PoisonDescriptor());
 
   public static final Descriptor BLOOD_COST = INSTANCE.register("blood_cost", new BloodCostDescriptor());
   public static final Descriptor CHEAP = INSTANCE.register("cheap", new CheapDescriptor());
@@ -66,6 +68,7 @@ public class WordRegistry {
   public static final Action BRING = INSTANCE.register("bring", new BringAction());
   public static final Action BREAK = INSTANCE.register("break", new BreakBlockAction());
   public static final Action HARM = INSTANCE.register("harm", new HarmAction());
+  public static final Action POISON = INSTANCE.register("poison", new PoisonAction());
 
   public HashMap<String, Action> actionRegistry = new HashMap<>();
   public HashMap<String, Descriptor> descriptorRegistry = new HashMap<>();
