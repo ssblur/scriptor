@@ -6,4 +6,9 @@ public class SacrificeDamageSource extends DamageSource {
   public SacrificeDamageSource() {
     super("sacrifice");
   }
+
+  @Override
+  public boolean isBypassArmor() {
+    return true;
+  }
 }
