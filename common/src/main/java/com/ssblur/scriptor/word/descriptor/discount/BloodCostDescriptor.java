@@ -1,9 +1,10 @@
-package com.ssblur.scriptor.word.descriptor;
+package com.ssblur.scriptor.word.descriptor.discount;
 
 import com.ssblur.scriptor.damage.SacrificeDamageSource;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
-import net.minecraft.world.entity.Entity;
+import com.ssblur.scriptor.word.descriptor.CastDescriptor;
+import com.ssblur.scriptor.word.descriptor.Descriptor;
 import net.minecraft.world.entity.LivingEntity;
 
 

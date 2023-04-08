@@ -1,5 +1,7 @@
 package com.ssblur.scriptor.word.descriptor;
 
+import com.ssblur.scriptor.word.descriptor.duration.SimpleDurationDescriptor;
+
 public class SpeedDurationDescriptor extends SimpleDurationDescriptor implements SpeedDescriptor {
   double speed;
 

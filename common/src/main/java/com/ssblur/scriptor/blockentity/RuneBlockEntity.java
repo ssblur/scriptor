@@ -109,7 +109,10 @@ public class RuneBlockEntity extends BlockEntity {
           future = spell.createFuture(new Targetable(this.level, this.getBlockPos()));
       } else if(spellText != null) {
         spell = DictionarySavedData.computeIfAbsent((ServerLevel) level).parse(spellText);
-        future = spell.createFuture(new EntityTargetable(owner));
+        if(owner == null)
+          future = spell.createFuture(new Targetable(level, worldPosition));
+        else
+          future = spell.createFuture(new EntityTargetable(owner));
       }
 
     var box = AABB.of(

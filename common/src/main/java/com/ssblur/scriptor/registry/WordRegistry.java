@@ -1,7 +1,21 @@
 package com.ssblur.scriptor.registry;
 
 import com.ssblur.scriptor.word.action.*;
+import com.ssblur.scriptor.word.action.potion.PoisonAction;
+import com.ssblur.scriptor.word.action.potion.SlowAction;
+import com.ssblur.scriptor.word.action.teleport.BringAction;
+import com.ssblur.scriptor.word.action.teleport.GotoAction;
+import com.ssblur.scriptor.word.action.teleport.SwapAction;
 import com.ssblur.scriptor.word.descriptor.*;
+import com.ssblur.scriptor.word.descriptor.discount.BloodCostDescriptor;
+import com.ssblur.scriptor.word.descriptor.discount.CheapDescriptor;
+import com.ssblur.scriptor.word.descriptor.discount.HealthyDescriptor;
+import com.ssblur.scriptor.word.descriptor.discount.PoisonDescriptor;
+import com.ssblur.scriptor.word.descriptor.duration.SimpleDurationDescriptor;
+import com.ssblur.scriptor.word.descriptor.power.BloodPowerDescriptor;
+import com.ssblur.scriptor.word.descriptor.power.SimpleStrengthDescriptor;
+import com.ssblur.scriptor.word.descriptor.target.ChainDescriptor;
+import com.ssblur.scriptor.word.descriptor.visual.ColorDescriptor;
 import com.ssblur.scriptor.word.subject.*;
 
 import java.util.HashMap;
@@ -20,9 +34,14 @@ public class WordRegistry {
   public static final Descriptor SLOW = INSTANCE.register("slow", new SpeedDurationDescriptor(2, 4, .75));
   public static final Descriptor FAST = INSTANCE.register("fast", new SpeedDurationDescriptor(2, -4, 1.25));
   public static final Descriptor STRONG = INSTANCE.register("strong", new SimpleStrengthDescriptor(2, 1));
-  public static final Descriptor CHEAP = INSTANCE.register("cheap", new CheapDescriptor());
+  public static final Descriptor POWERFUL = INSTANCE.register("powerful", new SimpleStrengthDescriptor(6, 4));
+  public static final Descriptor CHAIN = INSTANCE.register("chain", new ChainDescriptor());
   public static final Descriptor BLOOD_POWER = INSTANCE.register("blood_power", new BloodPowerDescriptor());
+  public static final Descriptor POISONED = INSTANCE.register("poisoned", new PoisonDescriptor());
+
   public static final Descriptor BLOOD_COST = INSTANCE.register("blood_cost", new BloodCostDescriptor());
+  public static final Descriptor CHEAP = INSTANCE.register("cheap", new CheapDescriptor());
+  public static final Descriptor HEALTHY = INSTANCE.register("healthy", new HealthyDescriptor());
 
   public static final Descriptor WHITE = INSTANCE.register("white", new ColorDescriptor(0xe4e4e4));
   public static final Descriptor LIGHT_GRAY = INSTANCE.register("light_gray", new ColorDescriptor(0xa0a7a7));
@@ -40,6 +59,7 @@ public class WordRegistry {
   public static final Descriptor MAGENTA = INSTANCE.register("magenta", new ColorDescriptor(0xbe49c9));
   public static final Descriptor PINK = INSTANCE.register("pink", new ColorDescriptor(0xd98199));
   public static final Descriptor BROWN = INSTANCE.register("brown", new ColorDescriptor(0x56331c));
+  public static final Descriptor RAINBOW = INSTANCE.register("rainbow", new ColorDescriptor(-1));
 
   public static final Action INFLAME = INSTANCE.register("inflame", new InflameAction());
   public static final Action HEAL = INSTANCE.register("heal", new HealAction());
@@ -50,6 +70,8 @@ public class WordRegistry {
   public static final Action BRING = INSTANCE.register("bring", new BringAction());
   public static final Action BREAK = INSTANCE.register("break", new BreakBlockAction());
   public static final Action HARM = INSTANCE.register("harm", new HarmAction());
+  public static final Action POISON_POTION = INSTANCE.register("poison", new PoisonAction());
+  public static final Action SLOW_POTION = INSTANCE.register("slow", new SlowAction());
 
   public HashMap<String, Action> actionRegistry = new HashMap<>();
   public HashMap<String, Descriptor> descriptorRegistry = new HashMap<>();

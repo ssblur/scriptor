@@ -1,6 +1,8 @@
-package com.ssblur.scriptor.word.descriptor;
+package com.ssblur.scriptor.word.descriptor.power;
 
-public class SimpleStrengthDescriptor extends Descriptor implements StrengthDescriptor{
+import com.ssblur.scriptor.word.descriptor.Descriptor;
+
+public class SimpleStrengthDescriptor extends Descriptor implements StrengthDescriptor {
   Cost cost;
   double strength;
 

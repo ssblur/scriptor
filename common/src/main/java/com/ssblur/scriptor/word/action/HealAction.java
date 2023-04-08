@@ -4,9 +4,11 @@ import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
-import com.ssblur.scriptor.word.descriptor.StrengthDescriptor;
+import com.ssblur.scriptor.word.descriptor.power.StrengthDescriptor;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobType;
 
 public class HealAction extends Action {
   @Override
@@ -16,6 +18,8 @@ public class HealAction extends Action {
       if(d instanceof StrengthDescriptor strengthDescriptor)
         strength += strengthDescriptor.strengthModifier();
     }
+
+    strength = Math.max(strength, 0);
 
     if(targetable instanceof ItemTargetable itemTargetable && itemTargetable.shouldTargetItem()) {
       var item = itemTargetable.getTargetItem();
@@ -29,8 +33,12 @@ public class HealAction extends Action {
 
     if(targetable instanceof EntityTargetable entityTargetable) {
       Entity entity = entityTargetable.getTargetEntity();
+      Entity source = caster instanceof EntityTargetable casterEntity ? casterEntity.getTargetEntity() : entity;
       if(entity instanceof LivingEntity target)
-        target.heal((int) Math.round(strength));
+        if(target.getMobType() == MobType.UNDEAD)
+          target.hurt(DamageSource.indirectMagic(source, source), (float) strength);
+        else
+          target.heal((float) strength);
     }
   }
   @Override

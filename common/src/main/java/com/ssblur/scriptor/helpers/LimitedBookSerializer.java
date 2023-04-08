@@ -35,8 +35,9 @@ public class LimitedBookSerializer {
     for(Tag tag: text) {
       Page page = gson.fromJson(tag.getAsString(), PAGE_TYPE);
       builder.append(page.text.strip());
+      builder.append(" ");
     }
-    return builder.toString();
+    return builder.toString().stripTrailing();
   }
 
   public static String decodeText(String text) {

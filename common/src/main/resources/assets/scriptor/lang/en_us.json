@@ -27,11 +27,16 @@
 
   "descriptor.scriptor.long": "Something in this spell makes effects last longer.",
   "descriptor.scriptor.strong": "It seems this spell is strengthened somehow.",
+  "descriptor.scriptor.powerful": "This spell has been strengthened greatly.",
   "descriptor.scriptor.fast": "This spell seems faster than usual.",
   "descriptor.scriptor.slow": "This spell seems slower than usual.",
+  "descriptor.scriptor.chain": "This spell reaches out to nearby targets.",
+  "descriptor.scriptor.blood_power": "You sense a wicked power in this spell. It may hurt to use.",
+
   "descriptor.scriptor.cheap": "For some reason, this spell costs less than most.",
-  "descriptor.scriptor.blood_power": "You sense a wicked power in this spell. \nIt may hurt to use.",
-  "descriptor.scriptor.blood_cost": "You feel a brutal efficiency in this spell. \nIt may hurt to use.",
+  "descriptor.scriptor.blood_cost": "You feel a brutal efficiency in this spell. It may hurt to use.",
+  "descriptor.scriptor.healthy": "This spell seems to demand perfect health.",
+  "descriptor.scriptor.poisoned": "You must be poisoned to channel this spell..",
 
   "descriptor.scriptor.white": "The words on the cover glow white.",
   "descriptor.scriptor.light_gray": "The cover contains unremarkable light gray text.",
@@ -49,6 +54,7 @@
   "descriptor.scriptor.magenta": "The cover is decorated by a gaudy magenta.",
   "descriptor.scriptor.pink": "Words on the cover are tinted a floral pink.",
   "descriptor.scriptor.brown": "An unremarkable brown color is splashed across the front.",
+  "descriptor.scriptor.rainbow": "The cover shimmers with prismatic light.",
 
   "action.scriptor.inflame": "This spell heats or sets the target on fire.",
   "action.scriptor.heal": "This spell heals or repairs the target.",
@@ -59,6 +65,8 @@
   "action.scriptor.bring": "This spell brings the target to the caster.",
   "action.scriptor.break": "This spell breaks down items and blocks.",
   "action.scriptor.harm": "This spell harms the target.",
+  "action.scriptor.poison": "This spell poisons the target.",
+  "action.scriptor.slow": "This spell slows the target.",
 
   "extra.scriptor.fizzle": "The tome starts to warm in your hand, then fizzles.",
   "extra.scriptor.tome_use": "You dust off the tome...",
@@ -70,6 +78,7 @@
   "extra.scriptor.enchant_wrong": "Energy wells up and immediately dissipates. Maybe I should use this spell elsewhere...",
   "extra.scriptor.use_identify": "Right click this onto a Spellbook to learn more about it.",
   "extra.scriptor.tome_identified": "§aIdentified§7. Hold SNEAK for info.",
+  "extra.scriptor.condition_not_met": "You try to cast this spell but stop short. It seems a condition has not been met...",
 
   "itemGroup.scriptor.scriptor_tab": "Scriptor Magicae"
 }

@@ -6,7 +6,19 @@ public abstract class Word {
     MULTIPLICATIVE,
     ADDITIVE_POST
   }
-  public record Cost(double cost, COSTTYPE type) {}
+  public record Cost(double cost, COSTTYPE type) {
+    public static Cost add(double cost) {
+      return new Cost(cost, COSTTYPE.ADDITIVE);
+    }
+
+    public static Cost multiply(double cost) {
+      return new Cost(cost, COSTTYPE.MULTIPLICATIVE);
+    }
+
+    public static Cost discount(double cost) {
+      return new Cost(cost, COSTTYPE.ADDITIVE_POST);
+    }
+  }
   /**
    * @return A number representing material cost or cast cooldown.
    * Actions shall cost at least 1.
@@ -20,4 +32,5 @@ public abstract class Word {
    * descriptor.
    */
   public abstract Cost cost();
+
 }
