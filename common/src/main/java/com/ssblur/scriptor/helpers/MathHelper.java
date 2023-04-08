@@ -15,7 +15,6 @@ public class MathHelper {
     assert position > 0;
     int sqrt = (int) Math.ceil(Math.sqrt(position));
     int ring = (int) Math.floor(((double) sqrt) / (double) 2);
-    int max = (int) Math.pow((ring * 2) + 1, 2);
     int x = 0;
     int y = ring;
 
