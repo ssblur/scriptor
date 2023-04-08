@@ -8,6 +8,10 @@ import com.ssblur.scriptor.word.descriptor.StrengthDescriptor;
 import net.minecraft.core.Registry;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -42,6 +46,7 @@ public class BreakBlockAction extends Action {
 
     var pos = targetable.getOffsetBlockPos();
     var state = targetable.getLevel().getBlockState(pos);
+    if(state.getBlock().defaultDestroyTime() < 0) return;
     var level = targetable.getLevel();
     var tags = Registry.BLOCK.getResourceKey(state.getBlock())
       .map(key -> Registry.BLOCK.getHolderOrThrow(key).tags().collect(Collectors.toSet()))
@@ -52,8 +57,11 @@ public class BreakBlockAction extends Action {
          neededStrength = toolLevelsList.get(tag.location().toString());
     }
     if(strength > neededStrength)
-      if(caster instanceof EntityTargetable entityTargetable)
+      if(caster instanceof EntityTargetable entityTargetable) {
+        if(entityTargetable.getTargetEntity() instanceof Player player)
+          state.getBlock().playerDestroy(level, player, pos, state, level.getBlockEntity(pos), new ItemStack(Items.NETHERITE_PICKAXE));
         level.destroyBlock(pos, true, entityTargetable.getTargetEntity(), (int) Math.round(strength));
+      }
   }
   @Override
   public Cost cost() { return new Cost(1, COSTTYPE.ADDITIVE); }

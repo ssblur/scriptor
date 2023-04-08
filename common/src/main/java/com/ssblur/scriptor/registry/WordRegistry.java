@@ -8,6 +8,7 @@ import com.ssblur.scriptor.word.descriptor.*;
 import com.ssblur.scriptor.word.descriptor.discount.BloodCostDescriptor;
 import com.ssblur.scriptor.word.descriptor.discount.CheapDescriptor;
 import com.ssblur.scriptor.word.descriptor.discount.HealthyDescriptor;
+import com.ssblur.scriptor.word.descriptor.target.ChainDescriptor;
 import com.ssblur.scriptor.word.subject.*;
 
 import java.util.HashMap;
@@ -26,10 +27,11 @@ public class WordRegistry {
   public static final Descriptor SLOW = INSTANCE.register("slow", new SpeedDurationDescriptor(2, 4, .75));
   public static final Descriptor FAST = INSTANCE.register("fast", new SpeedDurationDescriptor(2, -4, 1.25));
   public static final Descriptor STRONG = INSTANCE.register("strong", new SimpleStrengthDescriptor(2, 1));
-  public static final Descriptor CHEAP = INSTANCE.register("cheap", new CheapDescriptor());
+  public static final Descriptor CHAIN = INSTANCE.register("chain", new ChainDescriptor());
   public static final Descriptor BLOOD_POWER = INSTANCE.register("blood_power", new BloodPowerDescriptor());
 
   public static final Descriptor BLOOD_COST = INSTANCE.register("blood_cost", new BloodCostDescriptor());
+  public static final Descriptor CHEAP = INSTANCE.register("cheap", new CheapDescriptor());
   public static final Descriptor HEALTHY = INSTANCE.register("healthy", new HealthyDescriptor());
 
   public static final Descriptor WHITE = INSTANCE.register("white", new ColorDescriptor(0xe4e4e4));

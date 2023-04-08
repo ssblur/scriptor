@@ -5,6 +5,7 @@ import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.action.Action;
 import com.ssblur.scriptor.word.descriptor.CastDescriptor;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
+import com.ssblur.scriptor.word.descriptor.target.TargetDescriptor;
 import com.ssblur.scriptor.word.subject.Subject;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
@@ -29,6 +30,10 @@ public record Spell(
   Descriptor... descriptors
 ) {
   void castOnTargets(Targetable caster, List<Targetable> targets) {
+    for(var descriptor: descriptors)
+      if(descriptor instanceof TargetDescriptor cast)
+        targets = cast.modifyTargets(targets);
+
     for(var target: targets) {
       action.apply(caster, target, deduplicatedDescriptors());
     }
@@ -63,7 +68,8 @@ public record Spell(
     var targetFuture = subject.getTargets(caster, this);
     if(targetFuture.isDone()) {
       try {
-        castOnTargets(caster, targetFuture.get());
+        var targets = targetFuture.get();
+        castOnTargets(caster, targets);
       } catch (InterruptedException | ExecutionException e) {
         e.printStackTrace();
       }
@@ -71,8 +77,9 @@ public record Spell(
       targetFuture.whenComplete((targets, throwable) -> {
         if(throwable != null)
           throwable.printStackTrace();
-        else
+        else {
           castOnTargets(caster, targets);
+        }
       });
     }
   }
