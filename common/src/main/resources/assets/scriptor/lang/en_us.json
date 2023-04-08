@@ -27,11 +27,13 @@
 
   "descriptor.scriptor.long": "Something in this spell makes effects last longer.",
   "descriptor.scriptor.strong": "It seems this spell is strengthened somehow.",
+  "descriptor.scriptor.powerful": "This spell has been strengthened greatly.",
   "descriptor.scriptor.fast": "This spell seems faster than usual.",
   "descriptor.scriptor.slow": "This spell seems slower than usual.",
-  "descriptor.scriptor.cheap": "For some reason, this spell costs less than most.",
+  "descriptor.scriptor.chain": "This spell reaches out to nearby targets.",
   "descriptor.scriptor.blood_power": "You sense a wicked power in this spell. It may hurt to use.",
 
+  "descriptor.scriptor.cheap": "For some reason, this spell costs less than most.",
   "descriptor.scriptor.blood_cost": "You feel a brutal efficiency in this spell. It may hurt to use.",
   "descriptor.scriptor.healthy": "This spell seems to demand perfect health.",
 
@@ -51,6 +53,7 @@
   "descriptor.scriptor.magenta": "The cover is decorated by a gaudy magenta.",
   "descriptor.scriptor.pink": "Words on the cover are tinted a floral pink.",
   "descriptor.scriptor.brown": "An unremarkable brown color is splashed across the front.",
+  "descriptor.scriptor.rainbow": "The cover shimmers with prismatic light.",
 
   "action.scriptor.inflame": "This spell heats or sets the target on fire.",
   "action.scriptor.heal": "This spell heals or repairs the target.",
