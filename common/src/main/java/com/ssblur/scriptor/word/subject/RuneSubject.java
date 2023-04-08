@@ -3,23 +3,17 @@ package com.ssblur.scriptor.word.subject;
 import com.ssblur.scriptor.block.ScriptorBlocks;
 import com.ssblur.scriptor.blockentity.RuneBlockEntity;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
-import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.messages.TraceNetwork;
 import com.ssblur.scriptor.word.Spell;
-import com.ssblur.scriptor.word.descriptor.ColorDescriptor;
+import com.ssblur.scriptor.word.descriptor.visual.ColorDescriptor;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
-import com.ssblur.scriptor.word.descriptor.DurationDescriptor;
-import com.ssblur.scriptor.word.descriptor.SpeedDescriptor;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 public class RuneSubject extends Subject implements InventorySubject{

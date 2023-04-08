@@ -8,7 +8,11 @@ import com.ssblur.scriptor.word.descriptor.*;
 import com.ssblur.scriptor.word.descriptor.discount.BloodCostDescriptor;
 import com.ssblur.scriptor.word.descriptor.discount.CheapDescriptor;
 import com.ssblur.scriptor.word.descriptor.discount.HealthyDescriptor;
+import com.ssblur.scriptor.word.descriptor.duration.SimpleDurationDescriptor;
+import com.ssblur.scriptor.word.descriptor.power.BloodPowerDescriptor;
+import com.ssblur.scriptor.word.descriptor.power.SimpleStrengthDescriptor;
 import com.ssblur.scriptor.word.descriptor.target.ChainDescriptor;
+import com.ssblur.scriptor.word.descriptor.visual.ColorDescriptor;
 import com.ssblur.scriptor.word.subject.*;
 
 import java.util.HashMap;
@@ -50,6 +54,7 @@ public class WordRegistry {
   public static final Descriptor MAGENTA = INSTANCE.register("magenta", new ColorDescriptor(0xbe49c9));
   public static final Descriptor PINK = INSTANCE.register("pink", new ColorDescriptor(0xd98199));
   public static final Descriptor BROWN = INSTANCE.register("brown", new ColorDescriptor(0x56331c));
+  public static final Descriptor RAINBOW = INSTANCE.register("rainbow", new ColorDescriptor(-1));
 
   public static final Action INFLAME = INSTANCE.register("inflame", new InflameAction());
   public static final Action HEAL = INSTANCE.register("heal", new HealAction());
