@@ -1,0 +1,14 @@
+{
+  "name": "A Quite Pleasant Trap to Trip",
+  "author": "§iPrisma",
+  "tier": 3,
+  "spell": {
+    "action": "heal",
+    "subject": "rune",
+    "descriptors": [
+      "strong",
+      "rainbow",
+      "powerful"
+    ]
+  }
+}
