@@ -1,6 +1,8 @@
 package com.ssblur.scriptor.registry;
 
 import com.ssblur.scriptor.word.action.*;
+import com.ssblur.scriptor.word.action.potion.PoisonAction;
+import com.ssblur.scriptor.word.action.potion.SlowAction;
 import com.ssblur.scriptor.word.action.teleport.BringAction;
 import com.ssblur.scriptor.word.action.teleport.GotoAction;
 import com.ssblur.scriptor.word.action.teleport.SwapAction;
@@ -68,7 +70,8 @@ public class WordRegistry {
   public static final Action BRING = INSTANCE.register("bring", new BringAction());
   public static final Action BREAK = INSTANCE.register("break", new BreakBlockAction());
   public static final Action HARM = INSTANCE.register("harm", new HarmAction());
-  public static final Action POISON = INSTANCE.register("poison", new PoisonAction());
+  public static final Action POISON_POTION = INSTANCE.register("poison", new PoisonAction());
+  public static final Action SLOW_POTION = INSTANCE.register("slow", new SlowAction());
 
   public HashMap<String, Action> actionRegistry = new HashMap<>();
   public HashMap<String, Descriptor> descriptorRegistry = new HashMap<>();
