@@ -16,6 +16,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
 import org.jetbrains.annotations.NotNull;
 import com.ssblur.scriptor.ScriptorMod;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -373,10 +374,15 @@ public class DictionarySavedData extends SavedData {
    * @return The associated Spell
    * null if invalid
    */
-  public Spell parse(String text) {
+  @Nullable
+  public Spell parse(@Nullable String text) {
+    if(text == null) {
+      ScriptorMod.LOGGER.warn("No text provided to parser! This shouldn't happen.");
+      return null;
+    }
+    int position = 0;
+    int tokenPosition = 0;
     try {
-      int position = 0;
-      int tokenPosition = 0;
       String[] tokens = text.split("\s");
 
       Action action = null;
@@ -386,6 +392,7 @@ public class DictionarySavedData extends SavedData {
       while (position < spellStructure.size() && tokenPosition < tokens.length) {
         WORD word = spellStructure.get(position);
         WordData wordData;
+        System.out.println(tokens[tokenPosition]);
         switch(word) {
           case PREFIXARTICLE:
             if(spellStructure.get(position + 1) == WORD.DESCRIPTOR && !parseWord(tokens[tokenPosition + 1]).key.startsWith("descriptor")) {
@@ -394,17 +401,26 @@ public class DictionarySavedData extends SavedData {
             }
             if (
               (position + 1) > spellStructure.size()
-                || parseArticle(spellStructure.get(position + 1), tokens[tokenPosition]) != parseWord(tokens[tokenPosition + 1]).gender)
+                || parseArticle(spellStructure.get(position + 1), tokens[tokenPosition]) != parseWord(tokens[tokenPosition + 1]).gender) {
+              ScriptorMod.LOGGER.debug("Failed to process spell with text: \"" + text + "\"");
+              ScriptorMod.LOGGER.debug("Article \"" + tokens[tokenPosition] + "\" not valid for \"" + tokens[tokenPosition + 1] + "\"");
               return null;
+            }
             break;
           case SUFFIXARTICLE:
-            if (parseArticle(spellStructure.get(position - 1), tokens[tokenPosition]) != parseWord(tokens[tokenPosition - 1]).gender)
+            if (parseArticle(spellStructure.get(position - 1), tokens[tokenPosition]) != parseWord(tokens[tokenPosition - 1]).gender) {
+              ScriptorMod.LOGGER.debug("Failed to process spell with text: \"" + text + "\"");
+              ScriptorMod.LOGGER.debug("Article \"" + tokens[tokenPosition] + "\" not valid for \"" + tokens[tokenPosition - 1] + "\"");
               return null;
+            }
             break;
           case ACTION:
             wordData = parseWord(tokens[tokenPosition]);
-            if(wordData == null)
+            if(wordData == null) {
+              ScriptorMod.LOGGER.debug("Failed to process spell with text: \"" + text + "\"");
+              ScriptorMod.LOGGER.debug("No word found for \"" + tokens[tokenPosition] + "\", action expected");
               return null;
+            }
             action = WordRegistry.INSTANCE.actionRegistry.get(wordData.key.substring(7));
             break;
           case DESCRIPTOR:
@@ -432,15 +448,21 @@ public class DictionarySavedData extends SavedData {
               else {
                 position++;
                 tokenPosition++;
-                if (parseArticle(spellStructure.get(position - 1), tokens[tokenPosition]) != parseWord(tokens[tokenPosition - 1]).gender)
+                if (parseArticle(spellStructure.get(position - 1), tokens[tokenPosition]) != parseWord(tokens[tokenPosition - 1]).gender) {
+                  ScriptorMod.LOGGER.debug("Failed to process spell with text: \"" + text + "\"");
+                  ScriptorMod.LOGGER.debug("Article for descriptor incorrect");
                   return null;
+                }
                 position -= 2;
               }
             break;
           case SUBJECT:
             wordData = parseWord(tokens[tokenPosition]);
-            if(wordData == null)
+            if(wordData == null) {
+              ScriptorMod.LOGGER.debug("Failed to process spell with text: \"" + text + "\"");
+              ScriptorMod.LOGGER.debug("Subject " + tokens[tokenPosition] + " not found");
               return null;
+            }
             subject = WordRegistry.INSTANCE.subjectRegistry.get(wordData.key.substring(8));
             break;
         }
@@ -452,8 +474,12 @@ public class DictionarySavedData extends SavedData {
       if (action != null && subject != null)
         return new Spell(action, subject, descriptors.toArray(Descriptor[]::new));
     } catch (Exception e) {
-      e.printStackTrace();
+      ScriptorMod.LOGGER.warn("==========================================================");
+      ScriptorMod.LOGGER.warn("The below error did NOT cause a crash, this is debug info!");
+      ScriptorMod.LOGGER.error("Error:", e);
+      ScriptorMod.LOGGER.warn("==========================================================");
     }
+    ScriptorMod.LOGGER.debug("Failed to process spell with text: \"" + text + "\"");
     return null;
   }
 
@@ -490,6 +516,7 @@ public class DictionarySavedData extends SavedData {
               return null;
             break;
           case ACTION:
+          case SUBJECT:
             wordData = parseWord(tokens[tokenPosition]);
             if(wordData == null)
               return null;
@@ -524,12 +551,6 @@ public class DictionarySavedData extends SavedData {
                   return null;
                 position -= 2;
               }
-            break;
-          case SUBJECT:
-            wordData = parseWord(tokens[tokenPosition]);
-            if(wordData == null)
-              return null;
-            words.add(wordData.key);
             break;
         }
 

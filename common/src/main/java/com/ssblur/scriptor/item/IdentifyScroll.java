@@ -1,6 +1,8 @@
 package com.ssblur.scriptor.item;
 
 import com.ssblur.scriptor.messages.IdentifyNetwork;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -19,6 +21,7 @@ public class IdentifyScroll extends Item {
     super(properties);
   }
 
+  @Environment(EnvType.CLIENT)
   public boolean overrideStackedOnOther(ItemStack itemStack, Slot slot, ClickAction clickAction, Player player) {
     if(clickAction == ClickAction.SECONDARY && !slot.getItem().isEmpty() && slot.getItem().getItem() instanceof Spellbook) {
       if(player.getCooldowns().isOnCooldown(this)) return true;
