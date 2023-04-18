@@ -57,7 +57,7 @@ public class BreakBlockAction extends Action {
       if(caster instanceof EntityTargetable entityTargetable) {
         if(entityTargetable.getTargetEntity() instanceof Player player)
           state.getBlock().playerDestroy(level, player, pos, state, level.getBlockEntity(pos), new ItemStack(Items.NETHERITE_PICKAXE));
-        level.destroyBlock(pos, true, entityTargetable.getTargetEntity(), (int) Math.round(strength));
+        level.destroyBlock(pos, false, entityTargetable.getTargetEntity(), (int) Math.round(strength));
       }
   }
   @Override

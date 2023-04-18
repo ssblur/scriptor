@@ -54,17 +54,33 @@ public class LimitedBookSerializer {
   public static ListTag encodeText(String text) {
     Gson gson = new Gson();
     List<Page> list = new ArrayList<>();
-    int index = 0;
-    int max;
-    while(index < text.length()) {
-      max = Integer.min(index + 96, text.length());
-      list.add(new Page(text.substring(index, max)));
-      index += 96;
+    String[] tokens = text.split("\\s+");
+
+    int pageLength = 0;
+    StringBuilder page = new StringBuilder();
+    for(var token: tokens) {
+      if(token.length() >= 96) {
+        pageLength = 0;
+        list.add(new Page(page.toString()));
+        list.add(new Page(token));
+        page = new StringBuilder();
+      } else if((token.length() + page.length()) >= 96) {
+        pageLength = token.length();
+        list.add(new Page(page.toString()));
+        page = new StringBuilder();
+        page.append(token);
+        page.append(" ");
+      } else {
+        pageLength += token.length();
+        page.append(token);
+        page.append(" ");
+      }
     }
+    if(!page.isEmpty()) list.add(new Page(page.toString()));
 
     ListTag tag = new ListTag();
-    for(Page page: list)
-      tag.add(StringTag.valueOf(gson.toJson(page)));
+    for(Page p: list)
+      tag.add(StringTag.valueOf(gson.toJson(p)));
 
     return tag;
   }
