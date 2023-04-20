@@ -22,7 +22,7 @@ import java.util.List;
 public class AncientSpellbook extends Item {
   int tier;
   public AncientSpellbook(Properties properties, int tier) {
-    super(properties.stacksTo(1));
+    super(properties);
     this.tier = tier;
   }
 
@@ -47,8 +47,9 @@ public class AncientSpellbook extends Item {
       System.out.println(resource.getName());
       Spell spell = resource.getSpell();
       String sentence = DictionarySavedData.computeIfAbsent(server).generate(spell);
-      player.setItemInHand(interactionHand, LimitedBookSerializer.createSpellbook(resource.getAuthor(), resource.getName(), sentence));
+      player.addItem(LimitedBookSerializer.createSpellbook(resource.getAuthor(), resource.getName(), sentence));
       player.sendSystemMessage(Component.translatable("extra.scriptor.spell_get", resource.getName()));
+      player.getItemInHand(interactionHand).shrink(1);
       return InteractionResultHolder.consume(player.getItemInHand(interactionHand));
     }
 
