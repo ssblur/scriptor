@@ -9,6 +9,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
 
 public class ScriptorItems {
   public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ScriptorMod.MOD_ID, Registry.ITEM_REGISTRY);
@@ -30,6 +31,9 @@ public class ScriptorItems {
 
   public static final RegistrySupplier<Item> IDENTIFY_SCROLL = ITEMS.register("identify_scroll", () ->
     new IdentifyScroll(new Item.Properties().tab(ScriptorMod.SCRIPTOR_TAB)));
+
+  public static final RegistrySupplier<Item> CASTING_LECTERN = ITEMS.register("casting_lectern", () ->
+    new BlockItem(ScriptorBlocks.CASTING_LECTERN.get(), new Item.Properties().tab(ScriptorMod.SCRIPTOR_TAB)));
 
   public static void register() {
     ITEMS.register();

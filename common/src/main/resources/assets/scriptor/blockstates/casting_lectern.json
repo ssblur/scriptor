@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "scriptor:block/casting_lectern",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "scriptor:block/casting_lectern"
+    },
+    "facing=south": {
+      "model": "scriptor:block/casting_lectern",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "scriptor:block/casting_lectern",
+      "y": 270
+    }
+  }
+}

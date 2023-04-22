@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/lectern",
+  "texture_size": [64, 64],
+  "textures": {
+    "particle": "scriptor:block/lectern_sides",
+    "bottom": "scriptor:block/lectern_bottom",
+    "base": "scriptor:block/lectern_base",
+    "front": "scriptor:block/lectern_front",
+    "sides": "scriptor:block/lectern_sides",
+    "top": "scriptor:block/lectern_top"
+  }
+}
