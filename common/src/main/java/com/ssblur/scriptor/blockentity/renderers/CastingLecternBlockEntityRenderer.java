@@ -25,6 +25,9 @@ public class CastingLecternBlockEntityRenderer implements BlockEntityRenderer<Ca
 
     matrix.pushPose();
 
+    float translateY = (float) Math.sin((lectern.getBlockPos().hashCode() + level.getGameTime() + (double) tickDelta) / 8);
+    translateY /= 64;
+
     int rotationY = 0;
     float translateX = 0;
     float translateZ = 0;
@@ -33,29 +36,22 @@ public class CastingLecternBlockEntityRenderer implements BlockEntityRenderer<Ca
     switch (state.getValue(CastingLecternBlock.FACING)) {
       case NORTH -> {
         translateZ -= 0.2f;
-        translateX += 0.075f;
         rotationY += 180;
       }
-      case SOUTH -> {
-        translateZ += 0.2f;
-        translateX -= 0.075f;
-      }
-      case EAST -> {
-        rotationY += 90;
-        translateX += 0.2f;
-        translateZ += 0.075f;
-      }
+      case SOUTH -> translateZ += 0.2f;
       case WEST -> {
         rotationY += 270;
         translateX -= 0.2f;
-        translateZ -= 0.075f;
+      }
+      default -> {
+        rotationY += 90;
+        translateX += 0.2f;
       }
     }
 
-    matrix.translate(0.5f + translateX, 0.9f, 0.5f + translateZ);
+    matrix.translate(0.5f + translateX, 1f + translateY, 0.5f + translateZ);
     matrix.mulPose(Vector3f.YP.rotationDegrees(rotationY));
-    matrix.mulPose(Vector3f.XP.rotationDegrees(22));
-    matrix.scale(2f, 2f, 2f);
+    matrix.mulPose(Vector3f.XP.rotationDegrees(112));
 
     itemRenderer.renderStatic(lectern.getSpellbook(), ItemTransforms.TransformType.FIXED, light, overlay, matrix, buffers, (int) lectern.getBlockPos().asLong());
 
