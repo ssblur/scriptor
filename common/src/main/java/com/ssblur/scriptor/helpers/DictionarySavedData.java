@@ -392,7 +392,6 @@ public class DictionarySavedData extends SavedData {
       while (position < spellStructure.size() && tokenPosition < tokens.length) {
         WORD word = spellStructure.get(position);
         WordData wordData;
-        System.out.println(tokens[tokenPosition]);
         switch(word) {
           case PREFIXARTICLE:
             if(spellStructure.get(position + 1) == WORD.DESCRIPTOR && !parseWord(tokens[tokenPosition + 1]).key.startsWith("descriptor")) {

@@ -44,7 +44,6 @@ public class AncientSpellbook extends Item {
       player.getCooldowns().addCooldown(this, 20);
 
       var resource = TomeReloadListener.INSTANCE.getRandomTome(tier);
-      System.out.println(resource.getName());
       Spell spell = resource.getSpell();
       String sentence = DictionarySavedData.computeIfAbsent(server).generate(spell);
       player.addItem(LimitedBookSerializer.createSpellbook(resource.getAuthor(), resource.getName(), sentence));
