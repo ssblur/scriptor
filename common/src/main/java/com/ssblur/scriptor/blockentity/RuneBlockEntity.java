@@ -89,7 +89,7 @@ public class RuneBlockEntity extends BlockEntity {
     if(level.isClientSide) return;
 
     if(level.getGameTime() % 40 == 0 && owner == null)
-      if(level.getPlayerByUUID(ownerUUID) != null) {
+      if(ownerUUID != null && level.getPlayerByUUID(ownerUUID) != null) {
         owner = level.getPlayerByUUID(ownerUUID);
         // If the owner is online after this is reloaded, reassign ownership.
         var spell = DictionarySavedData.computeIfAbsent((ServerLevel) level).parse(spellText);
@@ -109,10 +109,12 @@ public class RuneBlockEntity extends BlockEntity {
           future = spell.createFuture(new Targetable(this.level, this.getBlockPos()));
       } else if(spellText != null) {
         spell = DictionarySavedData.computeIfAbsent((ServerLevel) level).parse(spellText);
-        if(owner == null)
-          future = spell.createFuture(new Targetable(level, worldPosition));
-        else
-          future = spell.createFuture(new EntityTargetable(owner));
+        if(spell != null)
+          if(owner == null) {
+            future = spell.createFuture(new Targetable(level, worldPosition));
+          } else {
+            future = spell.createFuture(new EntityTargetable(owner));
+          }
       }
 
     var box = AABB.of(

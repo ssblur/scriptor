@@ -46,7 +46,27 @@ public class RuneSubject extends Subject implements InventorySubject{
         }
       });
     } else {
-      result.complete(List.of());
+      int color = 0xa020f0;
+      for(Descriptor d: spell.descriptors())
+        if(d instanceof ColorDescriptor descriptor)
+          color = descriptor.getColor();
+
+      BlockPos pos = caster.getTargetBlockPos();
+      Level level = caster.getLevel();
+
+      if(!level.getBlockState(pos).getMaterial().isReplaceable()) {
+        result.complete(List.of());
+        return result;
+      }
+
+      level.setBlockAndUpdate(pos, ScriptorBlocks.RUNE.get().defaultBlockState());
+      var entity = level.getBlockEntity(pos);
+      if(entity instanceof RuneBlockEntity runeBlockEntity) {
+        runeBlockEntity.future = result;
+        runeBlockEntity.spell = spell;
+        runeBlockEntity.color = color;
+        runeBlockEntity.setChanged();
+      }
     }
     return result;
   }

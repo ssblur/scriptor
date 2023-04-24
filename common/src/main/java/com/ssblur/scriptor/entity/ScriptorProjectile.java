@@ -93,7 +93,6 @@ public class ScriptorProjectile extends Entity {
     var owner = level.getEntity(entityData.get(OWNER));
     if (
       tickCount > duration
-        || !(owner instanceof LivingEntity)
         || completable == null
         || completable.isDone()
     ) {

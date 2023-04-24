@@ -20,7 +20,7 @@ public class TouchSubject extends Subject{
     if(caster instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof Player player) {
       TraceNetwork.requestTraceData(player, target -> result.complete(List.of(target)));
     } else {
-      result.complete(List.of());
+      result.complete(List.of(new Targetable(caster.getLevel(), caster.getTargetBlockPos())));
     }
     return result;
   }
