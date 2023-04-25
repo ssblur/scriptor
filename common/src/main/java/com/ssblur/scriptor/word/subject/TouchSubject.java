@@ -44,7 +44,7 @@ public class TouchSubject extends Subject{
       else
         result.complete(entities.stream().map(living -> (Targetable) new EntityTargetable(living)).toList());
     } else {
-      result.complete(List.of(new Targetable(caster.getLevel(), caster.getTargetBlockPos())));
+      result.complete(List.of(caster.simpleCopy()));
     }
     return result;
   }

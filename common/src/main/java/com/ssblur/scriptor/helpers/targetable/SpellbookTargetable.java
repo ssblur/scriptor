@@ -12,6 +12,12 @@ public class SpellbookTargetable extends ItemTargetable implements InventoryTarg
     this.slot = slot;
   }
 
+  public Player getPlayer() {
+    if(targetEntity instanceof Player player)
+      return player;
+    return null;
+  }
+
   @Override
   public @Nullable Container getContainer() {
     return ((Player) targetEntity).getInventory();

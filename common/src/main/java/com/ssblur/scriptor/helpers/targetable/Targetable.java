@@ -60,4 +60,8 @@ public class Targetable {
       return getTargetBlockPos().relative(direction.getOpposite());
     return getTargetBlockPos();
   }
+
+  public Targetable simpleCopy() {
+    return new Targetable(level, targetPos);
+  }
 }
