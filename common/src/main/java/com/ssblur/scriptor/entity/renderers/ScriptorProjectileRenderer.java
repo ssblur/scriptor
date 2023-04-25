@@ -32,6 +32,7 @@ public class ScriptorProjectileRenderer extends EntityRenderer<ScriptorProjectil
   @Override
   public void render(ScriptorProjectile entity, float yaw, float tickDelta, PoseStack poseStack, MultiBufferSource multiBufferSource, int lightLevel) {
     super.render(entity, yaw, tickDelta, poseStack, multiBufferSource, lightLevel);
+    entity.setPos(entity.position().add(entity.getDeltaMovement().scale(tickDelta)));
 
     int c = entity.getColor();
     float r, g, b;
@@ -57,18 +58,16 @@ public class ScriptorProjectileRenderer extends EntityRenderer<ScriptorProjectil
     double yd = d.y * tickDelta;
     double zd = d.z * tickDelta;
 
-    if(entity.tickCount > 3) {
-      var level = Minecraft.getInstance().level;
-      if (level != null)
-        level.addParticle(
-          new DustParticleOptions(color, 1.0f),
-          entity.getX() + xd,
-          entity.getY() + yd,
-          entity.getZ() + zd,
-          0,
-          0,
-          0
-        );
-    }
+    var level = Minecraft.getInstance().level;
+    if (level != null)
+      level.addParticle(
+        new DustParticleOptions(color, 1.0f),
+        entity.getX() + xd,
+        entity.getY() + yd,
+        entity.getZ() + zd,
+        0,
+        0,
+        0
+      );
   }
 }

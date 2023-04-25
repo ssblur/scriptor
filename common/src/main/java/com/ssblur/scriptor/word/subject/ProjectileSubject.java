@@ -40,16 +40,18 @@ public class ProjectileSubject extends Subject {
 
     if(colorN == 0) color = 0xa020f0;
     else color /= colorN;
+    speed *= 0.8d;
 
     var projectile = ScriptorEntities.PROJECTILE_TYPE.get().create(caster.getLevel());
     assert projectile != null;
     if(caster instanceof EntityTargetable entityTargetable) {
       var entity = entityTargetable.getTargetEntity();
       projectile.setPos(entity.getEyePosition());
-      projectile.setDeltaMovement(entity.getLookAngle().scale(speed));
+      projectile.setDeltaMovement(entity.getLookAngle().normalize().scale(speed));
       projectile.setOwner(entity);
     } else {
       projectile.setPos(caster.getTargetPos());
+      projectile.setOrigin(caster.getTargetBlockPos());
       var normal = caster.getFacing().getNormal();
       projectile.setDeltaMovement(new Vec3(normal.getX(), normal.getY(), normal.getZ()).scale(speed));
     }

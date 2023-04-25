@@ -12,6 +12,7 @@ public class ScriptorBlocks {
   public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ScriptorMod.MOD_ID, Registry.BLOCK_REGISTRY);
 
   public static final RegistrySupplier<Block> RUNE = BLOCKS.register("rune", RuneBlock::new);
+  public static final RegistrySupplier<Block> CASTING_LECTERN = BLOCKS.register("casting_lectern", CastingLecternBlock::new);
 
   public static void register() {
     BLOCKS.register();

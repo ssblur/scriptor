@@ -12,9 +12,15 @@ import com.ssblur.scriptor.word.descriptor.discount.CheapDescriptor;
 import com.ssblur.scriptor.word.descriptor.discount.HealthyDescriptor;
 import com.ssblur.scriptor.word.descriptor.discount.PoisonDescriptor;
 import com.ssblur.scriptor.word.descriptor.duration.SimpleDurationDescriptor;
+import com.ssblur.scriptor.word.descriptor.focus.inventory.CasterFirstEmptySlotDescriptor;
+import com.ssblur.scriptor.word.descriptor.focus.inventory.CasterFirstFilledSlotDescriptor;
+import com.ssblur.scriptor.word.descriptor.focus.inventory.CasterInventoryDescriptor;
 import com.ssblur.scriptor.word.descriptor.power.BloodPowerDescriptor;
 import com.ssblur.scriptor.word.descriptor.power.SimpleStrengthDescriptor;
 import com.ssblur.scriptor.word.descriptor.target.ChainDescriptor;
+import com.ssblur.scriptor.word.descriptor.target.inventory.FirstEmptySlotDescriptor;
+import com.ssblur.scriptor.word.descriptor.target.inventory.FirstFilledSlotDescriptor;
+import com.ssblur.scriptor.word.descriptor.target.inventory.InventoryDescriptor;
 import com.ssblur.scriptor.word.descriptor.visual.ColorDescriptor;
 import com.ssblur.scriptor.word.subject.*;
 
@@ -60,6 +66,14 @@ public class WordRegistry {
   public static final Descriptor PINK = INSTANCE.register("pink", new ColorDescriptor(0xd98199));
   public static final Descriptor BROWN = INSTANCE.register("brown", new ColorDescriptor(0x56331c));
   public static final Descriptor RAINBOW = INSTANCE.register("rainbow", new ColorDescriptor(-1));
+
+  public static final Descriptor INVENTORY = INSTANCE.register("inventory", new InventoryDescriptor());
+  public static final Descriptor FIRST_EMPTY = INSTANCE.register("first_empty", new FirstEmptySlotDescriptor());
+  public static final Descriptor FIRST_FILLED = INSTANCE.register("first_filled", new FirstFilledSlotDescriptor());
+
+  public static final Descriptor CASTER_INVENTORY = INSTANCE.register("caster_inventory", new CasterInventoryDescriptor());
+  public static final Descriptor CASTER_FIRST_EMPTY = INSTANCE.register("caster_first_empty", new CasterFirstEmptySlotDescriptor());
+  public static final Descriptor CASTER_FIRST_FILLED = INSTANCE.register("caster_first_filled", new CasterFirstFilledSlotDescriptor());
 
   public static final Action INFLAME = INSTANCE.register("inflame", new InflameAction());
   public static final Action HEAL = INSTANCE.register("heal", new HealAction());
