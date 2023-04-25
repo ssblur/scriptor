@@ -6,6 +6,7 @@ import com.ssblur.scriptor.helpers.DictionarySavedData;
 import com.ssblur.scriptor.helpers.LimitedBookSerializer;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
+import com.ssblur.scriptor.helpers.targetable.SpellbookTargetable;
 import com.ssblur.scriptor.item.interfaces.ItemWithCustomRenderer;
 import com.ssblur.scriptor.messages.EnchantNetwork;
 import com.ssblur.scriptor.word.Spell;
@@ -76,7 +77,7 @@ public class Spellbook extends Item implements ItemWithCustomRenderer {
           player.getCooldowns().addCooldown(this, 350);
           return result;
         }
-        spell.cast(new ItemTargetable(player.getItemInHand(interactionHand), player).withTargetItem(false));
+        spell.cast(new SpellbookTargetable(player.getItemInHand(interactionHand), player, player.getInventory().selected).withTargetItem(false));
         if(!player.isCreative())
           player.getCooldowns().addCooldown(this, (int) Math.round(spell.cost() * 7));
         return InteractionResultHolder.fail(player.getItemInHand(interactionHand));
