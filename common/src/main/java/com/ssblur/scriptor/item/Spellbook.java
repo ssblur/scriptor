@@ -89,7 +89,7 @@ public class Spellbook extends Item implements ItemWithCustomRenderer {
 
   public boolean overrideStackedOnOther(ItemStack itemStack, Slot slot, ClickAction clickAction, Player player) {
     if (clickAction == ClickAction.SECONDARY && !slot.getItem().isEmpty()) {
-      if(player.getCooldowns().isOnCooldown(this)) return true;
+      if(player.getCooldowns().isOnCooldown(this) || !player.level.isClientSide) return true;
       if(player.isCreative())
         EnchantNetwork.clientUseBookCreative();
       else
