@@ -19,6 +19,7 @@ public class ScriptorEvents {
   public static final ResourceLocation RETURN_TRACE_DATA = new ResourceLocation(ScriptorMod.MOD_ID, "return_touch_data");
   public static final ResourceLocation CURSOR_USE_BOOK = new ResourceLocation(ScriptorMod.MOD_ID, "cursor_use_book");
   public static final ResourceLocation CURSOR_USE_BOOKC = new ResourceLocation(ScriptorMod.MOD_ID, "cursor_use_bookc");
+  public static final ResourceLocation CURSOR_RETURN_BOOKC = new ResourceLocation(ScriptorMod.MOD_ID, "cursor_return_bookc");
   public static final ResourceLocation CURSOR_USE_SCROLL = new ResourceLocation(ScriptorMod.MOD_ID, "cursor_use_scroll");
   public static final ResourceLocation CURSOR_USE_SCROLLC = new ResourceLocation(ScriptorMod.MOD_ID, "cursor_use_scrollc");
   public static final ResourceLocation CURSOR_RETURN_SCROLLC = new ResourceLocation(ScriptorMod.MOD_ID, "cursor_return_scrollc");
@@ -32,6 +33,7 @@ public class ScriptorEvents {
     if(Platform.getEnv() == EnvType.CLIENT) {
       NetworkManager.registerReceiver(NetworkManager.Side.S2C, GET_TRACE_DATA, TraceNetwork::getTraceData);
       NetworkManager.registerReceiver(NetworkManager.Side.S2C, CURSOR_RETURN_SCROLLC, IdentifyNetwork::receiveDataCreative);
+      NetworkManager.registerReceiver(NetworkManager.Side.S2C, CURSOR_RETURN_BOOKC, EnchantNetwork::returnBookCreative);
     }
     NetworkManager.registerReceiver(NetworkManager.Side.C2S, RETURN_TRACE_DATA, TraceNetwork::returnTraceData);
     NetworkManager.registerReceiver(NetworkManager.Side.C2S, CURSOR_USE_BOOK, EnchantNetwork::useBook);

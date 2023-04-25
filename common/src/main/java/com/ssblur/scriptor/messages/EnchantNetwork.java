@@ -3,15 +3,24 @@ package com.ssblur.scriptor.messages;
 import com.ssblur.scriptor.events.ScriptorEvents;
 import com.ssblur.scriptor.helpers.DictionarySavedData;
 import com.ssblur.scriptor.helpers.LimitedBookSerializer;
+import com.ssblur.scriptor.registry.WordRegistry;
 import com.ssblur.scriptor.word.Spell;
+import com.ssblur.scriptor.word.action.Action;
+import com.ssblur.scriptor.word.descriptor.Descriptor;
 import com.ssblur.scriptor.word.subject.InventorySubject;
+import com.ssblur.scriptor.word.subject.Subject;
 import dev.architectury.networking.NetworkManager;
 import io.netty.buffer.Unpooled;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.inventory.ContainerSynchronizer;
@@ -19,6 +28,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class EnchantNetwork {
@@ -50,13 +60,60 @@ public class EnchantNetwork {
   }
 
   public static void useBookCreative(FriendlyByteBuf buf, NetworkManager.PacketContext context) {
-    // Creative users manage slots differently and don't sync their cursor.
-    // So, they manage this differently.
-    // Could potentially cause some spells cast this way not to work in creative mode.
+    var item = ItemStack.of(Objects.requireNonNull(buf.readAnySizeNbt()));
+    var slot = buf.readInt();
+
+    var compound = item.getTag();
+    if(compound == null) return;
+    var text = compound.getList("pages", Tag.TAG_STRING);
+    var spell = DictionarySavedData.computeIfAbsent((ServerLevel) context.getPlayer().level).parseComponents(LimitedBookSerializer.decodeText(text));
+    var tagOut = new CompoundTag();
+    var list = new ListTag();
+    spell.forEach(i -> list.add(StringTag.valueOf(i)));
+    tagOut.put("components", list);
+
+    FriendlyByteBuf out = new FriendlyByteBuf(Unpooled.buffer());
+    out.writeNbt(tagOut);
+    out.writeInt(slot);
+    NetworkManager.sendToPlayer((ServerPlayer) context.getPlayer(), ScriptorEvents.CURSOR_RETURN_BOOKC, out);
   }
 
-  public static void clientUseBookCreative() {
-    // This is necessary because dictionary data is stored on the server.
-    // Gives the item since slot numbers aren't consistent.
+  public static void returnBookCreative(FriendlyByteBuf buf, NetworkManager.PacketContext context) {
+    var tag = buf.readAnySizeNbt();
+    if(tag == null) return;
+
+    var slot = buf.readInt();
+    var list = tag.getList("components", Tag.TAG_STRING);
+    var components = list.stream().map(Object::toString).toList();
+
+    Action action = null;
+    Subject subject = null;
+    ArrayList<Descriptor> descriptor = new ArrayList<>();
+    for(var i: components) {
+      var split = i.replace("\"", "").split(":", 2);
+
+      switch (split[0]) {
+        case "action" -> action = WordRegistry.INSTANCE.actionRegistry.get(split[1]);
+        case "descriptor" -> descriptor.add(WordRegistry.INSTANCE.descriptorRegistry.get(split[1]));
+        case "subject" -> subject = WordRegistry.INSTANCE.subjectRegistry.get(split[1]);
+      }
+    }
+    Spell spell = new Spell(action, subject, descriptor.toArray(new Descriptor[0]));
+    var player = context.getPlayer();
+    var item = player.containerMenu.getItems().get(slot);
+    var carried = player.containerMenu.getCarried();
+    if(spell.subject() instanceof InventorySubject inventorySubject) {
+      inventorySubject.castOnItem(spell, player, item);
+      player.getCooldowns().addCooldown(carried.getItem(), 5);
+    }
+  }
+
+  public static void clientUseBookCreative(ItemStack itemStack, int slot) {
+    FriendlyByteBuf out = new FriendlyByteBuf(Unpooled.buffer());
+    var tag = new CompoundTag();
+    itemStack.save(tag);
+    out.writeNbt(tag);
+    out.writeInt(slot);
+    NetworkManager.sendToServer(ScriptorEvents.CURSOR_USE_BOOKC, out);
   }
 }
