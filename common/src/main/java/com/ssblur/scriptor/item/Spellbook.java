@@ -91,7 +91,7 @@ public class Spellbook extends Item implements ItemWithCustomRenderer {
     if (clickAction == ClickAction.SECONDARY && !slot.getItem().isEmpty()) {
       if(player.getCooldowns().isOnCooldown(this) || !player.level.isClientSide) return true;
       if(player.isCreative())
-        EnchantNetwork.clientUseBookCreative();
+        EnchantNetwork.clientUseBookCreative(itemStack, slot.index);
       else
         EnchantNetwork.clientUseBook(slot.index);
       return true;

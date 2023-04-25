@@ -25,6 +25,7 @@ public class BreakBlockAction extends Action {
 
   @Override
   public void apply(Targetable caster, Targetable targetable, Descriptor[] descriptors) {
+    if(targetable.getLevel().isClientSide) return;
     double strength = 1;
     for(var d: descriptors) {
       if(d instanceof StrengthDescriptor strengthDescriptor)
