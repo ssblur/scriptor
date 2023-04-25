@@ -4,6 +4,8 @@ import com.ssblur.scriptor.helpers.DictionarySavedData;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.Spell;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
@@ -18,6 +20,7 @@ import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -29,6 +32,7 @@ public class ScriptorProjectile extends Entity {
   private static final EntityDataAccessor<Integer> OWNER = SynchedEntityData.defineId(ScriptorProjectile.class, EntityDataSerializers.INT);
 
   CompletableFuture<List<Targetable>> completable;
+  BlockPos origin;
 
   public ScriptorProjectile(EntityType<ScriptorProjectile> entityType, Level level) {
     super(entityType, level);
@@ -56,6 +60,8 @@ public class ScriptorProjectile extends Entity {
   public void setOwner(Entity owner) {
     entityData.set(OWNER, owner.getId());
   }
+
+  public void setOrigin(BlockPos origin) { this.origin = origin; }
 
   @Override
   protected void defineSynchedData() {
@@ -115,7 +121,10 @@ public class ScriptorProjectile extends Entity {
 
     if (entityHitResult != null && entityHitResult.getEntity() instanceof LivingEntity entity && entity != owner)
       completable.complete(List.of(new EntityTargetable(entity)));
-    else if(blockHitResult.getType() != HitResult.Type.MISS)
+    else if(
+      blockHitResult.getType() != HitResult.Type.MISS
+      || blockHitResult.getType() == HitResult.Type.BLOCK && origin.distSqr(new BlockPos(dest)) < 1
+    )
       completable.complete(List.of(
         new Targetable(this.level, blockHitResult.getBlockPos().offset(blockHitResult.getDirection().getNormal()))
           .setFacing(blockHitResult.getDirection())

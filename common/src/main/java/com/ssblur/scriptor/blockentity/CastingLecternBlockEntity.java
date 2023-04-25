@@ -6,6 +6,7 @@ import com.ssblur.scriptor.helpers.DictionarySavedData;
 import com.ssblur.scriptor.helpers.LimitedBookSerializer;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
+import com.ssblur.scriptor.helpers.targetable.LecternTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.Spell;
 import net.minecraft.core.BlockPos;
@@ -53,6 +54,8 @@ public class CastingLecternBlockEntity extends BlockEntity {
   }
   public void setSpellbook(ItemStack itemStack) {
     items.set(SPELLBOOK_SLOT, itemStack);
+    if(level != null)
+      level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
     setChanged();
   }
 
@@ -65,25 +68,21 @@ public class CastingLecternBlockEntity extends BlockEntity {
   @Override
   public CompoundTag getUpdateTag() {
     var tag = super.getUpdateTag();
-
     saveAdditional(tag);
-
     return tag;
   }
 
   @Override
   public void load(CompoundTag tag) {
     super.load(tag);
-
+    items = NonNullList.withSize(2, ItemStack.EMPTY);
     ContainerHelper.loadAllItems(tag, items);
-
     setChanged();
   }
 
   @Override
   protected void saveAdditional(CompoundTag tag) {
     super.saveAdditional(tag);
-
     ContainerHelper.saveAllItems(tag, items);
   }
 
@@ -105,11 +104,9 @@ public class CastingLecternBlockEntity extends BlockEntity {
           var direction = state.getValue(CastingLecternBlock.FACING).getOpposite();
           var blockPos = this.getBlockPos();
           float offsetX = direction.getAxis() == Direction.Axis.X ? 0 : 0.5f;
-          offsetX += direction == Direction.EAST ? 1.1f : 0;
           float offsetZ = direction.getAxis() == Direction.Axis.Z ? 0 : 0.5f;
-          offsetZ += direction == Direction.SOUTH ? 1.1f : 0;
           var pos = new Vector3f(blockPos.getX() + offsetX, blockPos.getY() + 0.5f, blockPos.getZ() + offsetZ);
-          var target = new Targetable(this.getLevel(), pos).setFacing(direction);
+          var target = new LecternTargetable(this.getLevel(), pos).setFacing(direction);
           spell.cast(target);
           cooldown += (int) Math.round(spell.cost() * 10);
         }
