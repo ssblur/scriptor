@@ -5,6 +5,7 @@ import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.action.Action;
 import com.ssblur.scriptor.word.descriptor.CastDescriptor;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
+import com.ssblur.scriptor.word.descriptor.focus.FocusDescriptor;
 import com.ssblur.scriptor.word.descriptor.target.TargetDescriptor;
 import com.ssblur.scriptor.word.subject.Subject;
 import net.minecraft.network.chat.Component;
@@ -30,9 +31,12 @@ public record Spell(
   Descriptor... descriptors
 ) {
   void castOnTargets(Targetable caster, List<Targetable> targets) {
-    for(var descriptor: descriptors)
-      if(descriptor instanceof TargetDescriptor cast)
+    for(var descriptor: descriptors) {
+      if (descriptor instanceof TargetDescriptor cast)
         targets = cast.modifyTargets(targets);
+      if (descriptor instanceof FocusDescriptor focus)
+        caster = focus.modifyFocus(caster);
+    }
 
     for(var target: targets) {
       action.apply(caster, target, deduplicatedDescriptors());
@@ -57,14 +61,18 @@ public record Spell(
    * @param caster The entity which cast this spell.
    */
   public void cast(Targetable caster) {
-    for(var descriptor: descriptors)
-      if(descriptor instanceof CastDescriptor cast)
-        if(cast.cannotCast(caster)) {
-          if(caster instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof Player player)
+    for(var descriptor: descriptors) {
+      if (descriptor instanceof CastDescriptor cast)
+        if (cast.cannotCast(caster)) {
+          if (caster instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof Player player)
             player.sendSystemMessage(Component.translatable("extra.scriptor.condition_not_met"));
           return;
         }
+      if (descriptor instanceof FocusDescriptor focus)
+        caster = focus.modifyFocus(caster);
+    }
 
+    final var finalCaster = caster;
     var targetFuture = subject.getTargets(caster, this);
     if(targetFuture.isDone()) {
       try {
@@ -78,7 +86,7 @@ public record Spell(
         if(throwable != null)
           throwable.printStackTrace();
         else {
-          castOnTargets(caster, targets);
+          castOnTargets(finalCaster, targets);
         }
       });
     }
@@ -90,9 +98,9 @@ public record Spell(
    */
   public void cast(Targetable caster, Targetable... targetables) {
     for(var descriptor: descriptors)
-      if(descriptor instanceof CastDescriptor cast)
-        if(cast.cannotCast(caster)) {
-          if(caster instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof Player player)
+      if (descriptor instanceof CastDescriptor cast)
+        if (cast.cannotCast(caster)) {
+          if (caster instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof Player player)
             player.sendSystemMessage(Component.translatable("extra.scriptor.condition_not_met"));
           return;
         }

@@ -4,21 +4,26 @@ import com.mojang.math.Vector3f;
 import com.ssblur.scriptor.blockentity.CastingLecternBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 public class LecternTargetable extends Targetable implements InventoryTargetable {
+  int slot;
   public LecternTargetable(Level level, Vec3 pos) {
     super(level, pos);
+    slot = 0;
   }
 
   public LecternTargetable(Level level, Vector3f pos) {
     super(level, pos);
+    slot = 0;
   }
 
   public LecternTargetable(Level level, BlockPos pos) {
     super(level, pos);
+    slot = 0;
   }
 
   @Override
@@ -31,6 +36,11 @@ public class LecternTargetable extends Targetable implements InventoryTargetable
 
   @Override
   public int getTargetedSlot() {
-    return 0;
+    return slot;
+  }
+
+  @Override
+  public void setTargetedSlot(int slot) {
+    this.slot = slot;
   }
 }

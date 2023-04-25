@@ -59,6 +59,10 @@ public class CastingLecternBlockEntity extends BlockEntity {
     setChanged();
   }
 
+  public NonNullList<ItemStack> getItems() {
+    return items;
+  }
+
   @Nullable
   @Override
   public Packet<ClientGamePacketListener> getUpdatePacket() {

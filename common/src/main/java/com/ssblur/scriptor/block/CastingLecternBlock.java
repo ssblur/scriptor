@@ -8,6 +8,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -54,6 +55,17 @@ public class CastingLecternBlock extends Block implements EntityBlock {
       return InteractionResult.PASS;
     }
     return InteractionResult.CONSUME;
+  }
+
+  @Override
+  public void playerWillDestroy(Level level, BlockPos blockPos, BlockState blockState, Player player) {
+    super.playerWillDestroy(level, blockPos, blockState, player);
+    if(level.getBlockEntity(blockPos) instanceof CastingLecternBlockEntity lectern) {
+      for(var item: lectern.getItems()) {
+        var entity = new ItemEntity(level, blockPos.getX() + 0.5f, blockPos.getY() + 0.5f, blockPos.getZ() + 0.5f, item);
+        level.addFreshEntity(entity);
+      }
+    }
   }
 
   public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {

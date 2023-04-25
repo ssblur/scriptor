@@ -38,6 +38,7 @@ public class SwapAction extends Action {
         var newItemStack = itemStack.copy();
         newItemStack.setCount(1);
         if(itemStack2.isEmpty()) {
+
           itemStack.shrink(1);
           toInventory.getContainer().setItem(toInventory.getTargetedSlot(), newItemStack);
         } else if(itemStack2.sameItemStackIgnoreDurability(itemStack)) {

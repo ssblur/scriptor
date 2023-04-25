@@ -8,6 +8,8 @@
   "item.scriptor.tome_tier4": "Exquisite Tome",
   "item.scriptor.identify_scroll": "Identify Scroll",
 
+  "block.scriptor.casting_lectern": "Casting Lectern",
+
   "effect.scriptor.hoarse": "Hoarse",
   "effect.scriptor.mute": "Mute",
 
@@ -55,6 +57,14 @@
   "descriptor.scriptor.pink": "Words on the cover are tinted a floral pink.",
   "descriptor.scriptor.brown": "An unremarkable brown color is splashed across the front.",
   "descriptor.scriptor.rainbow": "The cover shimmers with prismatic light.",
+
+  "descriptor.scriptor.inventory": "This spell targets a target's inventory",
+  "descriptor.scriptor.first_empty": "This spell targets the first empty slot in an inventory",
+  "descriptor.scriptor.first_filled": "This spell targets the first filled slot in an inventory",
+
+  "descriptor.scriptor.caster_inventory": "This spell focuses on the caster's inventory",
+  "descriptor.scriptor.caster_first_empty": "This spell focuses on the first empty slot in the caster's inventory",
+  "descriptor.scriptor.caster_first_filled": "This spell focuses on the first filled slot in the caster's inventory",
 
   "action.scriptor.inflame": "This spell heats or sets the target on fire.",
   "action.scriptor.heal": "This spell heals or repairs the target.",

@@ -1,20 +1,23 @@
 package com.ssblur.scriptor.helpers.targetable;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-public class SpellbookTargetable extends ItemTargetable implements InventoryTargetable {
+public class ContainerTargetable extends Targetable implements InventoryTargetable {
   int slot;
-  public SpellbookTargetable(ItemStack itemStack, Player entity, int slot) {
-    super(itemStack, entity);
+  public ContainerTargetable(Level level, BlockPos pos, int slot) {
+    super(level, pos);
     this.slot = slot;
   }
 
   @Override
   public @Nullable Container getContainer() {
-    return ((Player) targetEntity).getInventory();
+    if(level.getBlockEntity(getTargetBlockPos()) instanceof Container container)
+      return container;
+    return null;
   }
 
   @Override
