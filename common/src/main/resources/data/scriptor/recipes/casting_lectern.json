@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "---",
+    " B ",
+    "-#-"
+  ],
+  "key": {
+    "-": {
+      "tag": "minecraft:wooden_slabs"
+    },
+    "B": {
+      "item": "minecraft:bookshelf"
+    },
+    "#": {
+      "item": "minecraft:purple_wool"
+    }
+  },
+  "result": {
+    "item": "scriptor:casting_lectern"
+  }
+}
