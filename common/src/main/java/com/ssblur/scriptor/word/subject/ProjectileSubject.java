@@ -2,6 +2,7 @@ package com.ssblur.scriptor.word.subject;
 
 import com.ssblur.scriptor.entity.ScriptorEntities;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
+import com.ssblur.scriptor.helpers.targetable.LecternTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.Spell;
 import com.ssblur.scriptor.word.descriptor.visual.ColorDescriptor;

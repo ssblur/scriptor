@@ -1,9 +1,10 @@
 package com.ssblur.scriptor.events;
 
 import com.ssblur.scriptor.ScriptorMod;
-import com.ssblur.scriptor.messages.EnchantNetwork;
-import com.ssblur.scriptor.messages.IdentifyNetwork;
-import com.ssblur.scriptor.messages.TraceNetwork;
+import com.ssblur.scriptor.events.messages.EnchantNetwork;
+import com.ssblur.scriptor.events.messages.IdentifyNetwork;
+import com.ssblur.scriptor.events.messages.ParticleNetwork;
+import com.ssblur.scriptor.events.messages.TraceNetwork;
 import dev.architectury.event.events.common.ChatEvent;
 import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.event.events.common.LootEvent;
@@ -23,6 +24,7 @@ public class ScriptorEvents {
   public static final ResourceLocation CURSOR_USE_SCROLL = new ResourceLocation(ScriptorMod.MOD_ID, "cursor_use_scroll");
   public static final ResourceLocation CURSOR_USE_SCROLLC = new ResourceLocation(ScriptorMod.MOD_ID, "cursor_use_scrollc");
   public static final ResourceLocation CURSOR_RETURN_SCROLLC = new ResourceLocation(ScriptorMod.MOD_ID, "cursor_return_scrollc");
+  public static final ResourceLocation PARTICLE = new ResourceLocation(ScriptorMod.MOD_ID, "particle");
 
   public static void register() {
     ChatEvent.RECEIVED.register(new SpellChatEvents());
@@ -34,6 +36,7 @@ public class ScriptorEvents {
       NetworkManager.registerReceiver(NetworkManager.Side.S2C, GET_TRACE_DATA, TraceNetwork::getTraceData);
       NetworkManager.registerReceiver(NetworkManager.Side.S2C, CURSOR_RETURN_SCROLLC, IdentifyNetwork::receiveDataCreative);
       NetworkManager.registerReceiver(NetworkManager.Side.S2C, CURSOR_RETURN_BOOKC, EnchantNetwork::returnBookCreative);
+      NetworkManager.registerReceiver(NetworkManager.Side.S2C, PARTICLE, ParticleNetwork::getParticles);
     }
     NetworkManager.registerReceiver(NetworkManager.Side.C2S, RETURN_TRACE_DATA, TraceNetwork::returnTraceData);
     NetworkManager.registerReceiver(NetworkManager.Side.C2S, CURSOR_USE_BOOK, EnchantNetwork::useBook);

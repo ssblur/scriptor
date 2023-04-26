@@ -90,5 +90,11 @@
   "extra.scriptor.tome_identified": "§aIdentified§7. Hold SNEAK for info.",
   "extra.scriptor.condition_not_met": "You try to cast this spell but stop short. It seems a condition has not been met...",
 
+  "lore.scriptor.ingredient": "Crafting Ingredient",
+  "lore.scriptor.ingredient_tag": "Combine with a casting crystal",
+  "lore.scriptor.player_crystal": "Right click to attune this to yourself",
+  "lore.scriptor.coordinate_crystal_1": "Right click to attune to a position",
+  "lore.scriptor.coordinate_crystal_2": "Right click to add a position",
+
   "itemGroup.scriptor.scriptor_tab": "Scriptor Magicae"
 }

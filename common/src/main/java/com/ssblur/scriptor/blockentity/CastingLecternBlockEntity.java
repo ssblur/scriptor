@@ -2,6 +2,7 @@ package com.ssblur.scriptor.blockentity;
 
 import com.mojang.math.Vector3f;
 import com.ssblur.scriptor.block.CastingLecternBlock;
+import com.ssblur.scriptor.events.messages.ParticleNetwork;
 import com.ssblur.scriptor.helpers.DictionarySavedData;
 import com.ssblur.scriptor.helpers.LimitedBookSerializer;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
@@ -20,6 +21,8 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
@@ -91,6 +94,7 @@ public class CastingLecternBlockEntity extends BlockEntity {
   }
 
   public void tick() {
+    if(level == null || level.isClientSide) return;
     cooldown = Math.max(0, cooldown - 1);
     if(!getSpellbook().isEmpty() && cooldown == 0) {
       var item = getSpellbook();
@@ -100,8 +104,9 @@ public class CastingLecternBlockEntity extends BlockEntity {
         Spell spell = DictionarySavedData.computeIfAbsent(server).parse(LimitedBookSerializer.decodeText(text));
         if(spell != null) {
           if(spell.cost() > 20) {
-            System.out.println("would fizzle");
-            // TODO: emit smoke when fizzling
+            ParticleNetwork.fizzle(level, getBlockPos());
+            level.playSound(null, this.getBlockPos(), SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
+            cooldown += 200;
             return;
           }
           var state = level.getBlockState(getBlockPos());

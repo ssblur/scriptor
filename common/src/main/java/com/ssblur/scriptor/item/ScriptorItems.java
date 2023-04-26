@@ -2,6 +2,7 @@ package com.ssblur.scriptor.item;
 
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.block.ScriptorBlocks;
+import com.ssblur.scriptor.item.casters.PlayerCasterCrystal;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.client.resources.model.ModelBakery;
@@ -31,6 +32,21 @@ public class ScriptorItems {
 
   public static final RegistrySupplier<Item> IDENTIFY_SCROLL = ITEMS.register("identify_scroll", () ->
     new IdentifyScroll(new Item.Properties().tab(ScriptorMod.SCRIPTOR_TAB)));
+
+  public static final RegistrySupplier<Item> EMPTY_CASTING_CRYSTAL = ITEMS.register("empty_casting_crystal", () ->
+    new Ingredient(new Item.Properties().tab(ScriptorMod.SCRIPTOR_TAB), "lore.scriptor.ingredient"));
+  public static final RegistrySupplier<Item> CASTING_CRYSTAL = ITEMS.register("casting_crystal", () ->
+    new Ingredient(new Item.Properties().tab(ScriptorMod.SCRIPTOR_TAB), "lore.scriptor.ingredient"));
+  public static final RegistrySupplier<Item> COORDINATE_TAG = ITEMS.register("coordinate_tag", () ->
+    new Ingredient(new Item.Properties().tab(ScriptorMod.SCRIPTOR_TAB), "lore.scriptor.ingredient", "lore.scriptor.ingredient_tag"));
+  public static final RegistrySupplier<Item> PLAYER_TAG = ITEMS.register("player_tag", () ->
+    new Ingredient(new Item.Properties().tab(ScriptorMod.SCRIPTOR_TAB), "lore.scriptor.ingredient", "lore.scriptor.ingredient_tag"));
+
+
+  public static final RegistrySupplier<Item> PLAYER_CASTING_CRYSTAL = ITEMS.register("player_casting_crystal", () ->
+    new PlayerCasterCrystal(new Item.Properties().tab(ScriptorMod.SCRIPTOR_TAB)));
+  public static final RegistrySupplier<Item> COORDINATE_CASTING_CRYSTAL = ITEMS.register("coordinate_casting_crystal", () ->
+    new PlayerCasterCrystal(new Item.Properties().tab(ScriptorMod.SCRIPTOR_TAB)));
 
   public static final RegistrySupplier<Item> CASTING_LECTERN = ITEMS.register("casting_lectern", () ->
     new BlockItem(ScriptorBlocks.CASTING_LECTERN.get(), new Item.Properties().tab(ScriptorMod.SCRIPTOR_TAB)));
