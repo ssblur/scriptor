@@ -2,6 +2,7 @@ package com.ssblur.scriptor.item;
 
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.block.ScriptorBlocks;
+import com.ssblur.scriptor.item.casters.CoordinateCasterCrystal;
 import com.ssblur.scriptor.item.casters.PlayerCasterCrystal;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
@@ -46,7 +47,7 @@ public class ScriptorItems {
   public static final RegistrySupplier<Item> PLAYER_CASTING_CRYSTAL = ITEMS.register("player_casting_crystal", () ->
     new PlayerCasterCrystal(new Item.Properties().tab(ScriptorMod.SCRIPTOR_TAB)));
   public static final RegistrySupplier<Item> COORDINATE_CASTING_CRYSTAL = ITEMS.register("coordinate_casting_crystal", () ->
-    new PlayerCasterCrystal(new Item.Properties().tab(ScriptorMod.SCRIPTOR_TAB)));
+    new CoordinateCasterCrystal(new Item.Properties().tab(ScriptorMod.SCRIPTOR_TAB)));
 
   public static final RegistrySupplier<Item> CASTING_LECTERN = ITEMS.register("casting_lectern", () ->
     new BlockItem(ScriptorBlocks.CASTING_LECTERN.get(), new Item.Properties().tab(ScriptorMod.SCRIPTOR_TAB)));

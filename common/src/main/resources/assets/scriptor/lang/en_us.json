@@ -102,6 +102,8 @@
   "lore.scriptor.player_crystal": "Right click to attune this to yourself",
   "lore.scriptor.coordinate_crystal_1": "Right click to attune to a position",
   "lore.scriptor.coordinate_crystal_2": "Right click to add a position",
+  "lore.scriptor.coordinate_crystal_3": "Position: %1$d, %2$d, %3$d",
+  "lore.scriptor.crystal_reset": "Right click while sneaking to reset",
 
   "itemGroup.scriptor.scriptor_tab": "Scriptor Magicae"
 }
