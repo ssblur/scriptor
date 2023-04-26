@@ -34,7 +34,7 @@ public class ScriptorItems {
     new IdentifyScroll(new Item.Properties().tab(ScriptorMod.SCRIPTOR_TAB)));
 
   public static final RegistrySupplier<Item> EMPTY_CASTING_CRYSTAL = ITEMS.register("empty_casting_crystal", () ->
-    new Ingredient(new Item.Properties().tab(ScriptorMod.SCRIPTOR_TAB), "lore.scriptor.ingredient"));
+    new Ingredient(new Item.Properties().tab(ScriptorMod.SCRIPTOR_TAB), "lore.scriptor.ingredient", "lore.scriptor.needs_charge"));
   public static final RegistrySupplier<Item> CASTING_CRYSTAL = ITEMS.register("casting_crystal", () ->
     new Ingredient(new Item.Properties().tab(ScriptorMod.SCRIPTOR_TAB), "lore.scriptor.ingredient"));
   public static final RegistrySupplier<Item> COORDINATE_TAG = ITEMS.register("coordinate_tag", () ->
