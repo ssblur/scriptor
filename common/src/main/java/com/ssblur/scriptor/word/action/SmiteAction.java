@@ -2,6 +2,7 @@ package com.ssblur.scriptor.word.action;
 
 import com.ssblur.scriptor.enchant.ChargedEnchant;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
+import com.ssblur.scriptor.helpers.targetable.InventoryTargetable;
 import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
@@ -10,6 +11,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ItemStack;
 
 public class SmiteAction extends Action {
   @Override
@@ -24,6 +27,16 @@ public class SmiteAction extends Action {
       if(itemTargetable.getTargetItem() != null && !itemTargetable.getTargetItem().isEmpty())
         ChargedEnchant.chargeItem(itemTargetable.getTargetItem(), strength);
       return;
+    }
+
+    if(targetable instanceof InventoryTargetable inventoryTargetable) {
+      if(inventoryTargetable.getContainer() != null) {
+        var itemStack = inventoryTargetable.getContainer().getItem(inventoryTargetable.getTargetedSlot());
+        if (itemStack != null) {
+          ChargedEnchant.chargeItem(itemStack, strength);
+          return;
+        }
+      }
     }
 
     ServerLevel level = (ServerLevel) targetable.getLevel();

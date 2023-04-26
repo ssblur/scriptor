@@ -18,7 +18,7 @@ public class CasterFirstEmptySlotDescriptor extends Descriptor implements FocusD
   @Override
   public Targetable modifyFocus(Targetable targetable) {
     if(targetable instanceof InventoryTargetable inventoryTargetable)
-      inventoryTargetable.useFirstMatchingSlot(ItemStack.EMPTY);
+      inventoryTargetable.useFirstMatchingSlot(ItemStack::isEmpty);
     return targetable;
   }
 }
