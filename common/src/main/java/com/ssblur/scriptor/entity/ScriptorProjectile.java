@@ -123,7 +123,7 @@ public class ScriptorProjectile extends Entity {
       completable.complete(List.of(new EntityTargetable(entity)));
     else if(
       blockHitResult.getType() != HitResult.Type.MISS
-      && !(blockHitResult.getType() == HitResult.Type.BLOCK && origin.distSqr(new BlockPos(dest)) < 2)
+      && !(origin != null && blockHitResult.getType() == HitResult.Type.BLOCK && origin.distSqr(new BlockPos(dest)) < 2)
     )
       completable.complete(List.of(
         new Targetable(this.level, blockHitResult.getBlockPos().offset(blockHitResult.getDirection().getNormal()))
