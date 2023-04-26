@@ -1,6 +1,8 @@
 package com.ssblur.scriptor.word.action;
 
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
+import com.ssblur.scriptor.helpers.targetable.InventoryTargetable;
+import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
 import com.ssblur.scriptor.word.descriptor.power.StrengthDescriptor;
@@ -8,6 +10,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
+import net.minecraft.world.item.ItemStack;
 
 public class HarmAction extends Action {
   @Override
@@ -20,6 +23,33 @@ public class HarmAction extends Action {
 
     strength = Math.max(strength, 0);
     strength *= 2;
+
+    if(targetable instanceof InventoryTargetable inventoryTargetable && inventoryTargetable.getContainer() != null) {
+      int slot;
+      if(inventoryTargetable.shouldIgnoreTargetedSlot())
+        slot = inventoryTargetable.getFirstMatchingSlot(ItemStack::isDamageableItem);
+      else
+        slot = inventoryTargetable.getTargetedSlot();
+      if(slot > 0) {
+        var item = inventoryTargetable.getContainer().getItem(slot);
+        if (item != null && !item.isEmpty()) {
+          if (item.isDamageableItem()) {
+            item.setDamageValue(item.getDamageValue() + (int) Math.round(strength));
+            return;
+          }
+        }
+      }
+    }
+
+    if(targetable instanceof ItemTargetable itemTargetable && itemTargetable.shouldTargetItem()) {
+      var item = itemTargetable.getTargetItem();
+      if(item != null && !item.isEmpty()) {
+        if(item.isDamageableItem()) {
+          item.setDamageValue(item.getDamageValue() + (int) Math.round(strength));
+          return;
+        }
+      }
+    }
 
     if(targetable instanceof EntityTargetable entityTargetable) {
       Entity entity = entityTargetable.getTargetEntity();

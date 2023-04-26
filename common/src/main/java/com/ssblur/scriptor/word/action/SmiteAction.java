@@ -31,7 +31,11 @@ public class SmiteAction extends Action {
 
     if(targetable instanceof InventoryTargetable inventoryTargetable) {
       if(inventoryTargetable.getContainer() != null) {
-        var itemStack = inventoryTargetable.getContainer().getItem(inventoryTargetable.getTargetedSlot());
+        ItemStack itemStack;
+        if(!inventoryTargetable.shouldIgnoreTargetedSlot())
+          itemStack = inventoryTargetable.getContainer().getItem(inventoryTargetable.getTargetedSlot());
+        else
+          itemStack = inventoryTargetable.getContainer().getItem(inventoryTargetable.getFirstMatchingSlot(item -> !item.isEmpty()));
         if (itemStack != null) {
           ChargedEnchant.chargeItem(itemStack, strength);
           return;

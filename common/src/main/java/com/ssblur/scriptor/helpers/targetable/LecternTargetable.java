@@ -43,4 +43,9 @@ public class LecternTargetable extends Targetable implements InventoryTargetable
   public void setTargetedSlot(int slot) {
     this.slot = slot;
   }
+
+  @Override
+  public BlockPos getOrigin() {
+    return getTargetBlockPos();
+  }
 }

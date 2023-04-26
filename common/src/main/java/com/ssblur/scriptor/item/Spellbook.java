@@ -2,6 +2,7 @@ package com.ssblur.scriptor.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
+import com.ssblur.scriptor.helpers.ComponentHelper;
 import com.ssblur.scriptor.helpers.DictionarySavedData;
 import com.ssblur.scriptor.helpers.LimitedBookSerializer;
 import com.ssblur.scriptor.helpers.targetable.SpellbookTargetable;
@@ -105,7 +106,7 @@ public class Spellbook extends Item implements ItemWithCustomRenderer {
         if(Screen.hasShiftDown())
           for(var key: scriptor.getCompound("identified").getAllKeys()) {
             String[] parts = key.split(":", 2);
-            list.add(Component.translatable(parts[0] + ".scriptor." + parts[1]));
+            ComponentHelper.updateTooltipWith(list,parts[0] + ".scriptor." + parts[1]);
           }
         else
           list.add(Component.translatable("extra.scriptor.tome_identified"));

@@ -10,7 +10,7 @@
       "inventory",
       "first_filled",
       "caster_inventory",
-      "caster_first_empty"
+      "caster_first_matching"
     ]
   }
 }

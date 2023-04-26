@@ -1,6 +1,7 @@
 package com.ssblur.scriptor.word.action;
 
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
+import com.ssblur.scriptor.helpers.targetable.InventoryTargetable;
 import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
@@ -32,11 +33,28 @@ public class BreakBlockAction extends Action {
         strength += strengthDescriptor.strengthModifier();
     }
 
-    if(targetable instanceof ItemTargetable itemTargetable) {
+    if(targetable instanceof InventoryTargetable inventoryTargetable && inventoryTargetable.getContainer() != null) {
+      int slot;
+      if(inventoryTargetable.shouldIgnoreTargetedSlot())
+        slot = inventoryTargetable.getFirstMatchingSlot(ItemStack::isDamageableItem);
+      else
+        slot = inventoryTargetable.getTargetedSlot();
+      if(slot > -1) {
+        var item = inventoryTargetable.getContainer().getItem(slot);
+        if (item != null && !item.isEmpty()) {
+          if (item.isDamageableItem()) {
+            item.setDamageValue(item.getDamageValue() + (int) Math.round(strength));
+            return;
+          }
+        }
+      }
+    }
+
+    if(targetable instanceof ItemTargetable itemTargetable && itemTargetable.shouldTargetItem()) {
       var item = itemTargetable.getTargetItem();
       if(item != null && !item.isEmpty()) {
         if(item.isDamageableItem()) {
-          item.setDamageValue(item.getDamageValue() + (int) Math.round(strength * 2));
+          item.setDamageValue(item.getDamageValue() + (int) Math.round(strength));
           return;
         }
       }

@@ -9,6 +9,7 @@ import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
 import com.ssblur.scriptor.helpers.targetable.LecternTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
+import com.ssblur.scriptor.item.casters.CasterCrystal;
 import com.ssblur.scriptor.word.Spell;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -45,6 +46,7 @@ public class CastingLecternBlockEntity extends BlockEntity {
   public static final int CASTING_FOCUS_SLOT = 1;
 
   NonNullList<ItemStack> items;
+  int focusTarget;
   int cooldown;
 
   public CastingLecternBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -57,6 +59,14 @@ public class CastingLecternBlockEntity extends BlockEntity {
   }
   public void setSpellbook(ItemStack itemStack) {
     items.set(SPELLBOOK_SLOT, itemStack);
+    if(level != null)
+      level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
+    setChanged();
+  }
+
+  public ItemStack getFocus() { return items.get(CASTING_FOCUS_SLOT); }
+  public void setFocus(ItemStack itemStack) {
+    items.set(CASTING_FOCUS_SLOT, itemStack);
     if(level != null)
       level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
     setChanged();
@@ -116,6 +126,16 @@ public class CastingLecternBlockEntity extends BlockEntity {
           float offsetZ = direction.getAxis() == Direction.Axis.Z ? 0 : 0.5f;
           var pos = new Vector3f(blockPos.getX() + offsetX, blockPos.getY() + 0.5f, blockPos.getZ() + offsetZ);
           var target = new LecternTargetable(this.getLevel(), pos).setFacing(direction);
+          if(getFocus().getItem() instanceof CasterCrystal crystal) {
+            var foci = crystal.getTargetables(getFocus(), level);
+            if(foci.size() > 0) {
+              focusTarget++;
+              focusTarget %= foci.size();
+              var focus = foci.get(focusTarget);
+              if(focus.getTargetPos().distanceTo(target.getTargetPos()) <= 16 && focus.getLevel() == level)
+                target.setFinalTargetable(focus);
+            }
+          }
           spell.cast(target);
           cooldown += (int) Math.round(spell.cost() * 10);
         }

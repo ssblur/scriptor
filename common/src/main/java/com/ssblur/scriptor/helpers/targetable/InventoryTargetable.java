@@ -13,6 +13,10 @@ public interface InventoryTargetable {
   int getTargetedSlot();
   void setTargetedSlot(int slot);
 
+  default boolean shouldIgnoreTargetedSlot() {
+    return getTargetedSlot() == -1 && getContainer() != null;
+  }
+
   default void useFirstMatchingSlot(Predicate<ItemStack> predicate) {
     int slot = getFirstMatchingSlot(predicate);
     if(slot >= 0)
@@ -27,19 +31,24 @@ public interface InventoryTargetable {
         }
     return -1;
   }
+
+  default int getFirstFilledSlot() {
+    return getFirstMatchingSlot(item -> !item.isEmpty());
+  }
+
+  default int getFirstMatchingSlot(ItemStack itemStack) {
+    return getFirstMatchingSlot(
+      item -> item.isEmpty()
+        || (
+          ItemStack.isSameItemSameTags(item, itemStack)
+            && (item.getCount() + itemStack.getCount()) <= item.getMaxStackSize()
+      )
+    );
+  }
+
   default void useFirstFilledSlot() {
     int slot = getFirstFilledSlot();
     if(slot >= 0)
       setTargetedSlot(slot);
-  }
-
-  default int getFirstFilledSlot() {
-    if(getContainer() != null)
-      for(int i = 0; i < getContainer().getContainerSize(); i++) {
-        if (!getContainer().getItem(i).isEmpty()) {
-          setTargetedSlot(i);
-        }
-      }
-    return -1;
   }
 }

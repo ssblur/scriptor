@@ -67,10 +67,13 @@
   "descriptor.scriptor.inventory": "This spell targets a target's inventory",
   "descriptor.scriptor.first_empty": "This spell targets the first empty slot in an inventory",
   "descriptor.scriptor.first_filled": "This spell targets the first filled slot in an inventory",
+  "descriptor.scriptor.first_matching": "This spell targets the first valid slot in an inventory",
+
 
   "descriptor.scriptor.caster_inventory": "This spell focuses on the caster's inventory",
   "descriptor.scriptor.caster_first_empty": "This spell focuses on the first empty slot in the caster's inventory",
   "descriptor.scriptor.caster_first_filled": "This spell focuses on the first filled slot in the caster's inventory",
+  "descriptor.scriptor.caster_first_matching": "This spell focuses on the first valid slot in the caster's inventory",
 
   "action.scriptor.inflame": "This spell heats or sets the target on fire.",
   "action.scriptor.heal": "This spell heals or repairs the target.",
@@ -99,11 +102,13 @@
   "lore.scriptor.ingredient": "Crafting Ingredient",
   "lore.scriptor.ingredient_tag": "Combine with a casting crystal",
   "lore.scriptor.needs_charge": "Must be charged before use",
-  "lore.scriptor.player_crystal": "Right click to attune this to yourself",
+  "lore.scriptor.player_crystal_1": "Right click to attune this to yourself",
+  "lore.scriptor.player_crystal_2": "%1$s",
+  "lore.scriptor.player_crystal_3": "Offline Player",
   "lore.scriptor.coordinate_crystal_1": "Right click to attune to a position",
   "lore.scriptor.coordinate_crystal_2": "Right click to add a position",
-  "lore.scriptor.coordinate_crystal_3": "Position: %1$d, %2$d, %3$d",
-  "lore.scriptor.crystal_reset": "Right click while sneaking to reset",
+  "lore.scriptor.coordinate_crystal_3": "Position: %1$s, %2$s, %3$s",
+  "lore.scriptor.crystal_reset": "Craft to reset",
 
   "itemGroup.scriptor.scriptor_tab": "Scriptor Magicae"
 }

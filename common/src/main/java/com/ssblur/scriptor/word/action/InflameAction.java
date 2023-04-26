@@ -47,7 +47,12 @@ public class InflameAction extends Action {
 
     if(targetable instanceof InventoryTargetable inventoryTargetable) {
       if(inventoryTargetable.getContainer() != null) {
-        var itemStack = inventoryTargetable.getContainer().getItem(inventoryTargetable.getTargetedSlot());
+        int slot;
+        if(inventoryTargetable.shouldIgnoreTargetedSlot())
+          slot = inventoryTargetable.getFirstFilledSlot();
+        else
+          slot = inventoryTargetable.getTargetedSlot();
+        var itemStack = inventoryTargetable.getContainer().getItem(slot);
         if (itemStack != null) {
           var check = RecipeManager.createCheck(RecipeType.SMELTING);
           var container = new SimpleContainer(1);
@@ -59,7 +64,7 @@ public class InflameAction extends Action {
 
             var result = recipe.get().getResultItem();
             count = result.getCount();
-            int slot = inventoryTargetable.getFirstMatchingSlot(itemStack1 -> ItemStack.isSameItemSameTags(itemStack1, result));
+            slot = inventoryTargetable.getFirstMatchingSlot(result);
             if(slot >= 0) {
               var item = inventoryTargetable.getContainer().getItem(slot);
               if (item.getCount() + count < item.getMaxStackSize()) {

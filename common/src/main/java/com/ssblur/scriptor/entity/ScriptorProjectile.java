@@ -22,6 +22,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -32,7 +33,7 @@ public class ScriptorProjectile extends Entity {
   private static final EntityDataAccessor<Integer> OWNER = SynchedEntityData.defineId(ScriptorProjectile.class, EntityDataSerializers.INT);
 
   CompletableFuture<List<Targetable>> completable;
-  BlockPos origin;
+  Vec3 origin;
 
   public ScriptorProjectile(EntityType<ScriptorProjectile> entityType, Level level) {
     super(entityType, level);
@@ -61,7 +62,12 @@ public class ScriptorProjectile extends Entity {
     entityData.set(OWNER, owner.getId());
   }
 
-  public void setOrigin(BlockPos origin) { this.origin = origin; }
+  public void setOrigin(@Nullable BlockPos origin) {
+    if(origin == null)
+      this.origin = null;
+    else
+      this.origin = new Vec3(origin.getX() + 0.5, origin.getY() + 0.5, origin.getZ() + 0.5);
+  }
 
   @Override
   protected void defineSynchedData() {
@@ -123,7 +129,7 @@ public class ScriptorProjectile extends Entity {
       completable.complete(List.of(new EntityTargetable(entity)));
     else if(
       blockHitResult.getType() != HitResult.Type.MISS
-      && !(origin != null && blockHitResult.getType() == HitResult.Type.BLOCK && origin.distSqr(new BlockPos(dest)) < 1)
+      && !(origin != null && blockHitResult.getType() == HitResult.Type.BLOCK && origin.distanceToSqr(dest) < 0.55)
     )
       completable.complete(List.of(
         new Targetable(this.level, blockHitResult.getBlockPos().offset(blockHitResult.getDirection().getNormal()))

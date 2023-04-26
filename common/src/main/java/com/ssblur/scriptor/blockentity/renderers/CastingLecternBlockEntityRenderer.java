@@ -22,6 +22,9 @@ public class CastingLecternBlockEntityRenderer implements BlockEntityRenderer<Ca
   public void render(CastingLecternBlockEntity lectern, float tickDelta, PoseStack matrix, MultiBufferSource buffers, int light, int overlay) {
     var level = lectern.getLevel();
     if(lectern.isRemoved() || level == null) return;
+    float time = level.getGameTime() + tickDelta;
+    time %= 101;
+    time /= 100;
 
     matrix.pushPose();
 
@@ -49,7 +52,18 @@ public class CastingLecternBlockEntityRenderer implements BlockEntityRenderer<Ca
       }
     }
 
+    matrix.pushPose();
+
+    matrix.translate(0.5f, 1.3f, 0.5f);
+    matrix.scale(0.5f, 0.5f, 0.5f);
+
+    matrix.mulPose(Vector3f.YP.rotationDegrees(time * 360));
+    itemRenderer.renderStatic(lectern.getFocus(), ItemTransforms.TransformType.GROUND, light, overlay, matrix, buffers, (int) lectern.getBlockPos().asLong());
+
+    matrix.popPose();
+
     matrix.translate(0.5f + translateX, 1f + translateY, 0.5f + translateZ);
+
     matrix.mulPose(Vector3f.YP.rotationDegrees(rotationY));
     matrix.mulPose(Vector3f.XP.rotationDegrees(112));
 

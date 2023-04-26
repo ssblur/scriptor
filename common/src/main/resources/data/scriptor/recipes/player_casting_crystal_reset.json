@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "scriptor:player_casting_crystal"
+    }
+  ],
+  "result": {
+    "item": "scriptor:player_casting_crystal",
+    "count": 1
+  }
+}

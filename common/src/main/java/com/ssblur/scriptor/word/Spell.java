@@ -75,12 +75,12 @@ public record Spell(
         caster = focus.modifyFocus(caster);
     }
 
-    final var finalCaster = caster;
     var targetFuture = subject.getTargets(caster, this);
+    final var finalCaster = caster.getFinalTargetable();
     if(targetFuture.isDone()) {
       try {
         var targets = targetFuture.get();
-        castOnTargets(caster, targets);
+        castOnTargets(finalCaster, targets);
       } catch (InterruptedException | ExecutionException e) {
         e.printStackTrace();
       }
