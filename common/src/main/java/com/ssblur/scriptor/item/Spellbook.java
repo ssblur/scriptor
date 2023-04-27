@@ -2,26 +2,18 @@ package com.ssblur.scriptor.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
+import com.ssblur.scriptor.helpers.ComponentHelper;
 import com.ssblur.scriptor.helpers.DictionarySavedData;
 import com.ssblur.scriptor.helpers.LimitedBookSerializer;
-import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
-import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
 import com.ssblur.scriptor.helpers.targetable.SpellbookTargetable;
 import com.ssblur.scriptor.item.interfaces.ItemWithCustomRenderer;
-import com.ssblur.scriptor.messages.EnchantNetwork;
+import com.ssblur.scriptor.events.messages.EnchantNetwork;
 import com.ssblur.scriptor.word.Spell;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.BookViewScreen;
 import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
@@ -32,14 +24,11 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.StringUtil;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import org.apache.logging.log4j.core.pattern.TextRenderer;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -117,7 +106,7 @@ public class Spellbook extends Item implements ItemWithCustomRenderer {
         if(Screen.hasShiftDown())
           for(var key: scriptor.getCompound("identified").getAllKeys()) {
             String[] parts = key.split(":", 2);
-            list.add(Component.translatable(parts[0] + ".scriptor." + parts[1]));
+            ComponentHelper.updateTooltipWith(list,parts[0] + ".scriptor." + parts[1]);
           }
         else
           list.add(Component.translatable("extra.scriptor.tome_identified"));

@@ -1,4 +1,4 @@
-package com.ssblur.scriptor.messages;
+package com.ssblur.scriptor.events.messages;
 
 import com.ssblur.scriptor.events.ScriptorEvents;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;

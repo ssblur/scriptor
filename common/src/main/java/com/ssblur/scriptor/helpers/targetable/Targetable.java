@@ -11,8 +11,10 @@ import javax.annotation.Nullable;
 
 public class Targetable {
   Vec3 targetPos;
+  BlockPos origin;
   Level level;
   Direction direction = null;
+  Targetable finalTargetable;
 
   /**
    * A class describing anything that can be targeted by a spell
@@ -37,6 +39,13 @@ public class Targetable {
   public Vec3 getTargetPos() {
     return targetPos;
   }
+  public void setTargetPos(Vec3 targetPos) {
+    this.targetPos = targetPos;
+  }
+
+  public void setTargetPos(Vector3f targetPos) {
+    this.targetPos = new Vec3(targetPos.x(), targetPos.y(), targetPos.z());
+  }
 
   public BlockPos getTargetBlockPos() {
     return new BlockPos(targetPos.x, targetPos.y, targetPos.z);
@@ -59,6 +68,24 @@ public class Targetable {
     if(direction != null)
       return getTargetBlockPos().relative(direction.getOpposite());
     return getTargetBlockPos();
+  }
+
+  public BlockPos getOrigin() {
+    return origin;
+  }
+
+  public void setOrigin(BlockPos origin) {
+    this.origin = origin;
+  }
+
+  public void setFinalTargetable(Targetable targetable) {
+    this.finalTargetable = targetable;
+  }
+
+  public Targetable getFinalTargetable() {
+    if(finalTargetable != null)
+      return finalTargetable;
+    return this;
   }
 
   public Targetable simpleCopy() {

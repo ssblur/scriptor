@@ -4,12 +4,9 @@ import com.ssblur.scriptor.helpers.targetable.InventoryTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
 import com.ssblur.scriptor.word.descriptor.focus.FocusDescriptor;
-import com.ssblur.scriptor.word.descriptor.target.TargetDescriptor;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.List;
-
-public class CasterFirstEmptySlotDescriptor extends Descriptor implements FocusDescriptor {
+public class CasterIgnoreTargetedSlotDescriptor extends Descriptor implements FocusDescriptor {
   @Override
   public Cost cost() {
     return new Cost(0, COSTTYPE.ADDITIVE);
@@ -18,7 +15,7 @@ public class CasterFirstEmptySlotDescriptor extends Descriptor implements FocusD
   @Override
   public Targetable modifyFocus(Targetable targetable) {
     if(targetable instanceof InventoryTargetable inventoryTargetable)
-      inventoryTargetable.useFirstMatchingSlot(ItemStack::isEmpty);
+      inventoryTargetable.setTargetedSlot(-1);
     return targetable;
   }
 }

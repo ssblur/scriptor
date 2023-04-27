@@ -1,0 +1,16 @@
+{
+  "name": "Delivery",
+  "author": "P&P",
+  "tier": 2,
+  "spell": {
+    "action": "goto",
+    "subject": "projectile",
+    "descriptors": [
+      "brown",
+      "inventory",
+      "first_matching",
+      "caster_inventory",
+      "caster_first_filled"
+    ]
+  }
+}

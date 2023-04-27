@@ -32,15 +32,24 @@ public class SwapAction extends Action {
         && fromInventory.getContainer() != null
         && toInventory.getContainer() != null
     ) {
-      var itemStack = fromInventory.getContainer().getItem(fromInventory.getTargetedSlot());
+      ItemStack itemStack;
+      if(fromInventory.shouldIgnoreTargetedSlot())
+        itemStack = fromInventory.getContainer().getItem(fromInventory.getTargetedSlot());
+      else
+        itemStack = fromInventory.getContainer().getItem(fromInventory.getFirstFilledSlot());
       if(toInventory.getContainer().canPlaceItem(toInventory.getTargetedSlot(), itemStack)) {
-        var itemStack2 = toInventory.getContainer().getItem(toInventory.getTargetedSlot());
         var newItemStack = itemStack.copy();
         newItemStack.setCount(1);
+        int slot;
+        if(toInventory.shouldIgnoreTargetedSlot())
+          slot = toInventory.getFirstMatchingSlot(newItemStack);
+        else
+          slot = toInventory.getTargetedSlot();
+        var itemStack2 = toInventory.getContainer().getItem(slot);
         if(itemStack2.isEmpty()) {
 
           itemStack.shrink(1);
-          toInventory.getContainer().setItem(toInventory.getTargetedSlot(), newItemStack);
+          toInventory.getContainer().setItem(slot, newItemStack);
         } else if(itemStack2.sameItemStackIgnoreDurability(itemStack)) {
           itemStack.shrink(1);
           itemStack2.grow(1);
@@ -53,12 +62,17 @@ public class SwapAction extends Action {
     ) {
       var itemStack = fromItem.getTargetItem();
       if(toInventory.getContainer().canPlaceItem(toInventory.getTargetedSlot(), itemStack)) {
-        var itemStack2 = toInventory.getContainer().getItem(toInventory.getTargetedSlot());
         var newItemStack = itemStack.copy();
         newItemStack.setCount(1);
+        int slot;
+        if(toInventory.shouldIgnoreTargetedSlot())
+          slot = toInventory.getFirstMatchingSlot(newItemStack);
+        else
+          slot = toInventory.getTargetedSlot();
+        var itemStack2 = toInventory.getContainer().getItem(slot);
         if(itemStack2.isEmpty()) {
           itemStack.shrink(1);
-          toInventory.getContainer().setItem(toInventory.getTargetedSlot(), newItemStack);
+          toInventory.getContainer().setItem(slot, newItemStack);
         } else if(itemStack2.sameItemStackIgnoreDurability(itemStack)) {
           itemStack.shrink(1);
           itemStack2.grow(1);

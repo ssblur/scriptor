@@ -1,9 +1,8 @@
 package com.ssblur.scriptor.item;
 
-import com.ssblur.scriptor.messages.IdentifyNetwork;
+import com.ssblur.scriptor.events.messages.IdentifyNetwork;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;

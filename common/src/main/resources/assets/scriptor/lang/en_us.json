@@ -7,6 +7,12 @@
   "item.scriptor.tome_tier3": "Well-Preserved Tome",
   "item.scriptor.tome_tier4": "Exquisite Tome",
   "item.scriptor.identify_scroll": "Identify Scroll",
+  "item.scriptor.empty_casting_crystal": "Empty Casting Crystal",
+  "item.scriptor.casting_crystal": "Casting Crystal",
+  "item.scriptor.player_casting_crystal": "Player-Focused Crystal",
+  "item.scriptor.coordinate_casting_crystal": "Coordinate-Focused Crystal",
+  "item.scriptor.coordinate_tag": "Coordinate Tag",
+  "item.scriptor.player_tag": "Player Tag",
 
   "block.scriptor.casting_lectern": "Casting Lectern",
 
@@ -61,10 +67,13 @@
   "descriptor.scriptor.inventory": "This spell targets a target's inventory",
   "descriptor.scriptor.first_empty": "This spell targets the first empty slot in an inventory",
   "descriptor.scriptor.first_filled": "This spell targets the first filled slot in an inventory",
+  "descriptor.scriptor.first_matching": "This spell targets the first valid slot in an inventory",
+
 
   "descriptor.scriptor.caster_inventory": "This spell focuses on the caster's inventory",
   "descriptor.scriptor.caster_first_empty": "This spell focuses on the first empty slot in the caster's inventory",
   "descriptor.scriptor.caster_first_filled": "This spell focuses on the first filled slot in the caster's inventory",
+  "descriptor.scriptor.caster_first_matching": "This spell focuses on the first valid slot in the caster's inventory",
 
   "action.scriptor.inflame": "This spell heats or sets the target on fire.",
   "action.scriptor.heal": "This spell heals or repairs the target.",
@@ -89,6 +98,17 @@
   "extra.scriptor.use_identify": "Right click this onto a Spellbook to learn more about it.",
   "extra.scriptor.tome_identified": "§aIdentified§7. Hold SNEAK for info.",
   "extra.scriptor.condition_not_met": "You try to cast this spell but stop short. It seems a condition has not been met...",
+
+  "lore.scriptor.ingredient": "Crafting Ingredient",
+  "lore.scriptor.ingredient_tag": "Combine with a casting crystal",
+  "lore.scriptor.needs_charge": "Must be charged before use",
+  "lore.scriptor.player_crystal_1": "Right click to attune this to yourself",
+  "lore.scriptor.player_crystal_2": "%1$s",
+  "lore.scriptor.player_crystal_3": "Offline Player",
+  "lore.scriptor.coordinate_crystal_1": "Right click to attune to a position",
+  "lore.scriptor.coordinate_crystal_2": "Right click to add a position",
+  "lore.scriptor.coordinate_crystal_3": "Position: %1$s, %2$s, %3$s",
+  "lore.scriptor.crystal_reset": "Craft to reset",
 
   "itemGroup.scriptor.scriptor_tab": "Scriptor Magicae"
 }

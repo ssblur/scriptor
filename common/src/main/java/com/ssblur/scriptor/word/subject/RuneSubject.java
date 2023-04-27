@@ -4,7 +4,7 @@ import com.ssblur.scriptor.block.ScriptorBlocks;
 import com.ssblur.scriptor.blockentity.RuneBlockEntity;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
-import com.ssblur.scriptor.messages.TraceNetwork;
+import com.ssblur.scriptor.events.messages.TraceNetwork;
 import com.ssblur.scriptor.word.Spell;
 import com.ssblur.scriptor.word.descriptor.visual.ColorDescriptor;
 import com.ssblur.scriptor.word.descriptor.Descriptor;

@@ -2,6 +2,7 @@ package com.ssblur.scriptor.block;
 
 import com.ssblur.scriptor.blockentity.CastingLecternBlockEntity;
 import com.ssblur.scriptor.item.Spellbook;
+import com.ssblur.scriptor.item.casters.CasterCrystal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -45,15 +46,25 @@ public class CastingLecternBlock extends Block implements EntityBlock {
   public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
     BlockEntity blockEntity = level.getBlockEntity(blockPos);
     ItemStack itemStack = player.getItemInHand(interactionHand);
-    if (
-      (itemStack.isEmpty() || itemStack.getItem() instanceof Spellbook)
-        && blockEntity instanceof CastingLecternBlockEntity lectern
-        && !level.isClientSide
-    )  {
-      player.setItemInHand(interactionHand, lectern.getSpellbook());
-      lectern.setSpellbook(itemStack);
-      return InteractionResult.PASS;
-    }
+
+    if(!level.isClientSide && blockEntity instanceof CastingLecternBlockEntity lectern)
+      if(itemStack.isEmpty()) {
+        if(!lectern.getSpellbook().isEmpty()) {
+          player.setItemInHand(interactionHand, lectern.getSpellbook());
+          lectern.setSpellbook(itemStack);
+        } else {
+          player.setItemInHand(interactionHand, lectern.getFocus());
+          lectern.setFocus(itemStack);
+        }
+      } else if (itemStack.getItem() instanceof Spellbook)  {
+        player.setItemInHand(interactionHand, lectern.getSpellbook());
+        lectern.setSpellbook(itemStack);
+        return InteractionResult.PASS;
+      } else if (itemStack.getItem() instanceof CasterCrystal)  {
+        player.setItemInHand(interactionHand, lectern.getFocus());
+        lectern.setFocus(itemStack);
+        return InteractionResult.PASS;
+      }
     return InteractionResult.CONSUME;
   }
 

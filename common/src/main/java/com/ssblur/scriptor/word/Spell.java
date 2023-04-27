@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.word;
 
+import com.ssblur.scriptor.events.messages.ParticleNetwork;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.action.Action;
@@ -66,18 +67,20 @@ public record Spell(
         if (cast.cannotCast(caster)) {
           if (caster instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof Player player)
             player.sendSystemMessage(Component.translatable("extra.scriptor.condition_not_met"));
+          if(!caster.getLevel().isClientSide)
+            ParticleNetwork.fizzle(caster.getLevel(), caster.getTargetBlockPos());
           return;
         }
       if (descriptor instanceof FocusDescriptor focus)
         caster = focus.modifyFocus(caster);
     }
 
-    final var finalCaster = caster;
     var targetFuture = subject.getTargets(caster, this);
+    final var finalCaster = caster.getFinalTargetable();
     if(targetFuture.isDone()) {
       try {
         var targets = targetFuture.get();
-        castOnTargets(caster, targets);
+        castOnTargets(finalCaster, targets);
       } catch (InterruptedException | ExecutionException e) {
         e.printStackTrace();
       }

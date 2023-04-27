@@ -2,6 +2,7 @@ package com.ssblur.scriptor.word.subject;
 
 import com.ssblur.scriptor.entity.ScriptorEntities;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
+import com.ssblur.scriptor.helpers.targetable.LecternTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.Spell;
 import com.ssblur.scriptor.word.descriptor.visual.ColorDescriptor;
@@ -51,10 +52,10 @@ public class ProjectileSubject extends Subject {
       projectile.setOwner(entity);
     } else {
       projectile.setPos(caster.getTargetPos());
-      projectile.setOrigin(caster.getTargetBlockPos());
       var normal = caster.getFacing().getNormal();
       projectile.setDeltaMovement(new Vec3(normal.getX(), normal.getY(), normal.getZ()).scale(speed));
     }
+    projectile.setOrigin(caster.getOrigin());
     projectile.setDuration((int) Math.round(10 * duration));
     projectile.setColor(color);
     projectile.setCompletable(future);

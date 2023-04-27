@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "scriptor:casting_crystal"
+    },
+    {
+      "item": "scriptor:coordinate_tag"
+    }
+  ],
+  "result": {
+    "item": "scriptor:coordinate_casting_crystal",
+    "count": 1
+  }
+}
