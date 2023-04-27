@@ -36,14 +36,14 @@ public class PlayerCasterCrystal extends CasterCrystal {
   public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> list, TooltipFlag tooltipFlag) {
     super.appendHoverText(itemStack, level, list, tooltipFlag);
 
-    list.add(Component.translatable("lore.scriptor.player_crystal_1"));
+    list.add(Component.translatable("lore.scriptor.player_crystal_1").withStyle(ChatFormatting.GRAY));
     if(itemStack.getTag() != null && itemStack.getTag().contains("playerUUID")) {
       var uuid = itemStack.getTag().getString("playerUUID");
       if(level != null && level.getPlayerByUUID(UUID.fromString(uuid)) != null) {
         list.add(Component.translatable(
           "lore.scriptor.player_crystal_2",
           level.getPlayerByUUID(UUID.fromString(uuid)).getName()
-        ));
+        ).withStyle(ChatFormatting.GRAY));
       } else {
         list.add(Component.translatable("lore.scriptor.player_crystal_3"));
         list.add(Component.literal("(" + uuid + ")"));
