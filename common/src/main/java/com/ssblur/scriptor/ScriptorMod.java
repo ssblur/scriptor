@@ -10,6 +10,7 @@ import com.ssblur.scriptor.enchant.ScriptorEnchantments;
 import com.ssblur.scriptor.entity.ScriptorEntities;
 import com.ssblur.scriptor.events.ScriptorEvents;
 import com.ssblur.scriptor.item.ScriptorItems;
+import com.ssblur.scriptor.recipe.ScriptorRecipes;
 import com.ssblur.scriptor.trade.ScriptorTrades;
 import dev.architectury.event.events.common.CommandRegistrationEvent;
 import dev.architectury.registry.CreativeTabRegistry;
@@ -43,6 +44,7 @@ public class ScriptorMod {
     ScriptorEffects.register();
     ScriptorEnchantments.register();
     ScriptorTrades.register();
+    ScriptorRecipes.register();
 
     registerCommands();
   }
