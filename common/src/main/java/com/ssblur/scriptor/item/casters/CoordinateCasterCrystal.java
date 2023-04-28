@@ -1,5 +1,10 @@
 package com.ssblur.scriptor.item.casters;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import com.ssblur.scriptor.events.TomeReloadListener;
 import com.ssblur.scriptor.events.messages.TraceNetwork;
 import com.ssblur.scriptor.helpers.ComponentHelper;
@@ -7,9 +12,13 @@ import com.ssblur.scriptor.helpers.DictionarySavedData;
 import com.ssblur.scriptor.helpers.LimitedBookSerializer;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
+import com.ssblur.scriptor.item.interfaces.ItemWithCustomRenderer;
 import com.ssblur.scriptor.word.Spell;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.ListTag;
@@ -36,7 +45,7 @@ public class CoordinateCasterCrystal extends CasterCrystal {
     super(properties);
   }
 
-  static class BlockPosDirection extends Pair<BlockPos, Direction> {
+  public static class BlockPosDirection extends Pair<BlockPos, Direction> {
     BlockPos left;
     Direction right;
     public BlockPosDirection(BlockPos left, Direction right) {
@@ -115,15 +124,8 @@ public class CoordinateCasterCrystal extends CasterCrystal {
       tag.put("coordinates", new ListTag());
     ListTag list = tag.getList("coordinates", ListTag.TAG_LONG_ARRAY);
 
-    int dir = 0;
-    for(int i = 0; i < Direction.values().length; i++) {
-      if(Direction.values()[i] == direction) {
-        dir = i;
-        break;
-      }
-    }
     if(list.size() < 4)
-      list.add(new LongArrayTag(new long[] {pos.getX(), pos.getY(), pos.getZ(), dir}));
+      list.add(new LongArrayTag(new long[] {pos.getX(), pos.getY(), pos.getZ(), direction.ordinal()}));
   }
 
   public static List<BlockPosDirection> getCoordinates(ItemStack itemStack) {

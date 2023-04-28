@@ -37,6 +37,7 @@ public class ScriptorEvents {
       NetworkManager.registerReceiver(NetworkManager.Side.S2C, CURSOR_RETURN_SCROLLC, IdentifyNetwork::receiveDataCreative);
       NetworkManager.registerReceiver(NetworkManager.Side.S2C, CURSOR_RETURN_BOOKC, EnchantNetwork::returnBookCreative);
       NetworkManager.registerReceiver(NetworkManager.Side.S2C, PARTICLE, ParticleNetwork::getParticles);
+      ScriptorEventsExpectPlatform.registerClientEvents();
     }
     NetworkManager.registerReceiver(NetworkManager.Side.C2S, RETURN_TRACE_DATA, TraceNetwork::returnTraceData);
     NetworkManager.registerReceiver(NetworkManager.Side.C2S, CURSOR_USE_BOOK, EnchantNetwork::useBook);
