@@ -3,18 +3,21 @@ package com.ssblur.scriptor.forge;
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.blockentity.ScriptorBlockEntities;
 import com.ssblur.scriptor.blockentity.renderers.RuneBlockEntityRenderer;
+import com.ssblur.scriptor.events.forge.ScriptorEventsExpectPlatformImpl;
 import dev.architectury.annotations.ForgeEvent;
 import dev.architectury.platform.forge.EventBuses;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
+import net.minecraftforge.common.MinecraftForge;
 
 @Mod(ScriptorMod.MOD_ID)
 public class ScriptorModForge {
@@ -23,5 +26,6 @@ public class ScriptorModForge {
       EventBuses.registerModEventBus(ScriptorMod.MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
       ScriptorMod.init();
       FMLJavaModLoadingContext.get().getModEventBus().addListener(ScriptorModClientEvents::register);
+      MinecraftForge.EVENT_BUS.register(ScriptorEventsExpectPlatformImpl.class);
     }
 }
