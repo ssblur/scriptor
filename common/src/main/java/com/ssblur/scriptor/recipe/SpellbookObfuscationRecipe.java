@@ -14,7 +14,6 @@ import net.minecraft.world.level.Level;
 public class SpellbookObfuscationRecipe extends CustomRecipe {
   public SpellbookObfuscationRecipe(ResourceLocation resourceLocation) {
     super(resourceLocation);
-    System.out.println(1);
   }
 
   @Override

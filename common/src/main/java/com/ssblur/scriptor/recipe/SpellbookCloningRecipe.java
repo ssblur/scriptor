@@ -16,7 +16,6 @@ import net.minecraft.world.level.Level;
 public class SpellbookCloningRecipe extends CustomRecipe {
   public SpellbookCloningRecipe(ResourceLocation resourceLocation) {
     super(resourceLocation);
-    System.out.println(1);
   }
 
   @Override
