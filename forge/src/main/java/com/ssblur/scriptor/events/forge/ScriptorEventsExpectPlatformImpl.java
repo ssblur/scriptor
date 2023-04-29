@@ -9,7 +9,6 @@ public class ScriptorEventsExpectPlatformImpl {
 
   @SubscribeEvent
   public static void levelStageRenderers(RenderLevelStageEvent event) {
-    System.out.println("test");
     if(event.getStage() == RenderLevelStageEvent.Stage.AFTER_CUTOUT_BLOCKS)
       CoordinateCasterWorldRenderer.render(event.getPoseStack());
   }
