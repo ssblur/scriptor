@@ -1,6 +1,6 @@
 # Spellbook
 
-![Spellbook Icon](../../common/src/main/resources/assets/scriptor/textures/item/spellbook.png)
+![Spellbook Icon](../../common/src/main/resources/assets/scriptor/textures/item/tome_t4.png)
 *A Spellbook*
 
 These books will cast any valid spell contained within, and have a shorter
@@ -9,3 +9,7 @@ tools such as Spellbooks won't generally negatively affect their user.
 
 They can be crafted by placing a **[Spellbook Binder](spellbook-binder.md)** on
 a Written Book in a Smithing Table.
+
+## Obfuscation
+You can hide the contents of a Spellbook and prevent it from being crafted
+back into a regular book by crafting it with a Glow Ink Sac.
