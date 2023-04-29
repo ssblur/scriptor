@@ -28,7 +28,8 @@ public class CastingLecternBlockEntityRenderer implements BlockEntityRenderer<Ca
 
     matrix.pushPose();
 
-    float translateY = (float) Math.sin((lectern.getBlockPos().hashCode() + level.getGameTime() + (double) tickDelta) / 8);
+    int combined = lectern.getBlockPos().getX() + lectern.getBlockPos().getY() + lectern.getBlockPos().getZ();
+    float translateY = (float) Math.sin((combined + level.getGameTime() + (double) tickDelta) / 8);
     translateY /= 64;
 
     int rotationY = 0;

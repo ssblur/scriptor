@@ -18,7 +18,7 @@ public class SelfSubject extends Subject{
   @Override
   public CompletableFuture<List<Targetable>> getTargets(Targetable caster, Spell spell) {
     var result = new CompletableFuture<List<Targetable>>();
-    result.complete(List.of(caster.setFacing(Direction.DOWN)));
+    result.complete(List.of(caster.getFinalTargetable().setFacing(Direction.DOWN)));
     return result;
   }
 }
