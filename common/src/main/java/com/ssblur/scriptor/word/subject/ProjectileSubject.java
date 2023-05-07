@@ -28,7 +28,7 @@ public class ProjectileSubject extends Subject {
     int colorN = 0;
     double duration = 12;
     double speed = 1;
-    for(Descriptor d: spell.descriptors()) {
+    for(Descriptor d: spell.deduplicatedDescriptors()) {
       if(d instanceof ColorDescriptor descriptor) {
         color = descriptor.getColor();
         colorN++;

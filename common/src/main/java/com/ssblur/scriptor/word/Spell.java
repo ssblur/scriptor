@@ -100,7 +100,7 @@ public record Spell(
    * @param caster The entity which cast this spell.
    */
   public void cast(Targetable caster, Targetable... targetables) {
-    for(var descriptor: descriptors)
+    for(var descriptor: deduplicatedDescriptors())
       if (descriptor instanceof CastDescriptor cast)
         if (cast.cannotCast(caster)) {
           if (caster instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof Player player)

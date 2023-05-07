@@ -587,7 +587,7 @@ public class DictionarySavedData extends SavedData {
     else subjectString = subjectData.word;
 
     StringBuilder descriptorBuilder = new StringBuilder();
-    for(Descriptor descriptor: spell.descriptors()) {
+    for(Descriptor descriptor: spell.deduplicatedDescriptors()) {
       WordData descriptorData = getWord(descriptor);
       if(descriptorArticlePosition == ARTICLEPOSITION.BEFORE)
         descriptorBuilder.append(" ").append(descriptorGenderedArticles.get(descriptorData.gender)).append(" ").append(descriptorData.word);
