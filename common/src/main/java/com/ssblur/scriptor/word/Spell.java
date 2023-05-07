@@ -32,7 +32,7 @@ public record Spell(
   Descriptor... descriptors
 ) {
   void castOnTargets(Targetable caster, List<Targetable> targets) {
-    for(var descriptor: descriptors) {
+    for(var descriptor: deduplicatedDescriptors()) {
       if (descriptor instanceof TargetDescriptor cast)
         targets = cast.modifyTargets(targets);
       if (descriptor instanceof FocusDescriptor focus)
@@ -62,7 +62,7 @@ public record Spell(
    * @param caster The entity which cast this spell.
    */
   public void cast(Targetable caster) {
-    for(var descriptor: descriptors) {
+    for(var descriptor: deduplicatedDescriptors()) {
       if (descriptor instanceof CastDescriptor cast)
         if (cast.cannotCast(caster)) {
           if (caster instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof Player player)
@@ -118,34 +118,19 @@ public record Spell(
   public double cost() {
     double sum = 0;
     double scalar = 1;
-    ArrayList<Double> discounts = new ArrayList<>();
+    double discount = 0;
 
-    for(var d: deduplicatedDescriptors()) {
+    for(var d: words()) {
       var cost = d.cost();
       switch (cost.type()){
         case ADDITIVE -> sum += cost.cost();
         case MULTIPLICATIVE -> scalar *= cost.cost();
-        case ADDITIVE_POST -> discounts.add(cost.cost());
+        case ADDITIVE_POST -> discount += cost.cost();
       }
     }
 
-    var cost = action.cost();
-    switch (cost.type()){
-      case ADDITIVE -> sum += cost.cost();
-      case MULTIPLICATIVE -> scalar *= cost.cost();
-      case ADDITIVE_POST -> discounts.add(cost.cost());
-    }
-
-    cost = subject.cost();
-    switch (cost.type()){
-      case ADDITIVE -> sum += cost.cost();
-      case MULTIPLICATIVE -> scalar *= cost.cost();
-      case ADDITIVE_POST -> discounts.add(cost.cost());
-    }
-
     var out = sum * scalar;
-    for(double discount: discounts)
-      out += discount;
+    out += discount;
     return out;
   }
 
@@ -156,5 +141,15 @@ public record Spell(
         out.add(descriptor);
     }
     return out.toArray(Descriptor[]::new);
+  }
+
+  public Word[] words() {
+    var descriptors = deduplicatedDescriptors();
+    Word[] words = new Word[descriptors.length + 2];
+
+    words[0] = subject;
+    words[1] = action;
+    System.arraycopy(descriptors, 0, words, 2, descriptors.length);
+    return words;
   }
 }

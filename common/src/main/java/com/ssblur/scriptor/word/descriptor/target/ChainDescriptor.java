@@ -17,7 +17,7 @@ import java.util.Random;
 public class ChainDescriptor extends Descriptor implements TargetDescriptor {
   @Override
   public Cost cost() {
-    return new Cost(2d, COSTTYPE.MULTIPLICATIVE);
+    return new Cost(1.25d, COSTTYPE.MULTIPLICATIVE);
   }
 
   @Override
@@ -71,4 +71,7 @@ public class ChainDescriptor extends Descriptor implements TargetDescriptor {
   public boolean replacesSubjectCost() {
     return false;
   }
+
+  @Override
+  public boolean allowsDuplicates() { return true; }
 }
