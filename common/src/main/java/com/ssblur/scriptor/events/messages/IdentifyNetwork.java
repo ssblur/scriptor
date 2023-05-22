@@ -37,18 +37,14 @@ public class IdentifyNetwork {
       if(tokens == null) return;
 
       var scriptor = item.getOrCreateTagElement("scriptor");
-      if(!scriptor.contains("identified"))
-        scriptor.put("identified", new CompoundTag());
+      if(scriptor.contains("identified"))
+        return;
+      scriptor.put("identified", new CompoundTag());
       var identified = scriptor.getCompound("identified");
 
-      Random random = new Random();
-      int firstPick = random.nextInt(tokens.size());
-      int secondPick = random.nextInt(tokens.size());
-      while(secondPick == firstPick)
-        secondPick = random.nextInt(tokens.size());
+      for(var token: tokens)
+        identified.putBoolean(token, true);
 
-      identified.putBoolean(tokens.get(firstPick), true);
-      identified.putBoolean(tokens.get(secondPick), true);
       carried.shrink(1);
       player.getCooldowns().addCooldown(carried.getItem(), 10);
     }
@@ -81,18 +77,13 @@ public class IdentifyNetwork {
       if(!tag.contains("scriptor"))
         tag.put("scriptor", new CompoundTag());
       var scriptor = tag.getCompound("scriptor");
-      if(!scriptor.contains("identified"))
-        scriptor.put("identified", new CompoundTag());
+      if(scriptor.contains("identified"))
+        return;
+      scriptor.put("identified", new CompoundTag());
       var identified = scriptor.getCompound("identified");
 
-      Random random = new Random();
-      int firstPick = random.nextInt(tokens.size());
-      int secondPick = random.nextInt(tokens.size());
-      while(secondPick == firstPick)
-        secondPick = random.nextInt(tokens.size());
-
-      identified.putBoolean(tokens.get(firstPick), true);
-      identified.putBoolean(tokens.get(secondPick), true);
+      for(var token: tokens)
+        identified.putBoolean(token, true);
 
       FriendlyByteBuf out = new FriendlyByteBuf(Unpooled.buffer());
       out.writeInt(slot);
