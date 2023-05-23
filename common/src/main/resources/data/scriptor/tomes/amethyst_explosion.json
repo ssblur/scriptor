@@ -1,0 +1,14 @@
+{
+  "name": "Gempact",
+  "author": "Snark",
+  "tier": 3,
+  "spell": {
+    "action": "explosion",
+    "subject": "projectile",
+    "descriptors": [
+      "purple",
+      "strong",
+      "reagent.scriptor.amethyst"
+    ]
+  }
+}

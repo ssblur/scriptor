@@ -36,11 +36,16 @@
 
   "descriptor.scriptor.long": "Something in this spell makes effects last longer.",
   "descriptor.scriptor.strong": "It seems this spell is strengthened somehow.",
+  "descriptor.scriptor.stacking_strong": "This spell has been slightly strengthened.",
   "descriptor.scriptor.powerful": "This spell has been strengthened greatly.",
   "descriptor.scriptor.fast": "This spell seems faster than usual.",
   "descriptor.scriptor.slow": "This spell seems slower than usual.",
   "descriptor.scriptor.chain": "This spell reaches out to nearby targets.",
   "descriptor.scriptor.blood_power": "You sense a wicked power in this spell. It may hurt to use.",
+
+  "descriptor.scriptor.reagent.scriptor.amethyst": "This spell consumes Amethysts",
+  "descriptor.scriptor.reagent.scriptor.gold": "This spell consumes Gold Ingots",
+  "descriptor.scriptor.reagent.scriptor.redstone": "This spell consumes Redstone Dust",
 
   "descriptor.scriptor.cheap": "For some reason, this spell costs less than most.",
   "descriptor.scriptor.blood_cost": "You feel a brutal efficiency in this spell. It may hurt to use.",
