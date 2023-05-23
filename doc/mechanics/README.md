@@ -12,3 +12,7 @@ the [Spellcrafting](spellcrafting.md) section.
 ## Casting
 For information on different ways to cast spells, and the benefits and
 drawbacks of each, check out the [Casting](casting.md) section.
+
+## Datapacks
+For information on how you can use datapacks to modify Scriptor,
+check out the [Datapack](datapack.md) section.
