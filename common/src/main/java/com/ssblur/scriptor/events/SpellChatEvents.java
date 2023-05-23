@@ -3,6 +3,7 @@ package com.ssblur.scriptor.events;
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.damage.OverloadDamageSource;
 import com.ssblur.scriptor.effect.ScriptorEffects;
+import com.ssblur.scriptor.helpers.ConfigHelper;
 import com.ssblur.scriptor.helpers.DictionarySavedData;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.word.Spell;
@@ -34,11 +35,15 @@ public class SpellChatEvents implements ChatEvent.Received {
 
         int cost = (int) Math.round(spell.cost() * 30);
 
+        var config = ConfigHelper.getConfig();
+        if(config.vocalCastingMaxCost >= 0 && cost > config.vocalCastingMaxCost)
+          player.sendSystemMessage(Component.translatable("extra.scriptor.mute"));
+
         player.addEffect(new MobEffectInstance(ScriptorEffects.HOARSE.get(), cost));
-        if(cost > 400)
-          player.addEffect(new MobEffectInstance(MobEffects.HUNGER, cost - 300));
-        if(cost > 1200)
-          player.hurt(new OverloadDamageSource(), ((float) (cost - 800)) / 100f);
+        if(cost > config.vocalCastingHungerThreshold)
+          player.addEffect(new MobEffectInstance(MobEffects.HUNGER, config.vocalCastingHungerThreshold));
+        if(cost > config.vocalCastingHurtThreshold)
+          player.hurt(new OverloadDamageSource(), (cost - config.vocalCastingHurtThreshold * 0.75f) / 100f);
 
         return EventResult.interruptFalse();
       }

@@ -3,6 +3,7 @@ package com.ssblur.scriptor.item;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.ssblur.scriptor.helpers.ComponentHelper;
+import com.ssblur.scriptor.helpers.ConfigHelper;
 import com.ssblur.scriptor.helpers.DictionarySavedData;
 import com.ssblur.scriptor.helpers.LimitedBookSerializer;
 import com.ssblur.scriptor.helpers.targetable.SpellbookTargetable;
@@ -61,7 +62,8 @@ public class Spellbook extends Item implements ItemWithCustomRenderer {
       var text = compound.getList("pages", Tag.TAG_STRING);
       Spell spell = DictionarySavedData.computeIfAbsent(server).parse(LimitedBookSerializer.decodeText(text));
       if(spell != null) {
-        if(spell.cost() > 50) {
+        var config = ConfigHelper.getConfig();
+        if(spell.cost() > config.basicTomeMaxCost) {
           player.sendSystemMessage(Component.translatable("extra.scriptor.fizzle"));
           player.getCooldowns().addCooldown(this, 350);
           return result;
