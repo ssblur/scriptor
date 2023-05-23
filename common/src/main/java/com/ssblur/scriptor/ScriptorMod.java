@@ -9,6 +9,7 @@ import com.ssblur.scriptor.effect.ScriptorEffects;
 import com.ssblur.scriptor.enchant.ScriptorEnchantments;
 import com.ssblur.scriptor.entity.ScriptorEntities;
 import com.ssblur.scriptor.events.ScriptorEvents;
+import com.ssblur.scriptor.helpers.ConfigHelper;
 import com.ssblur.scriptor.item.ScriptorItems;
 import com.ssblur.scriptor.recipe.ScriptorRecipes;
 import com.ssblur.scriptor.trade.ScriptorTrades;
@@ -45,6 +46,8 @@ public class ScriptorMod {
     ScriptorEnchantments.register();
     ScriptorTrades.register();
     ScriptorRecipes.register();
+
+    ConfigHelper.getConfig();
 
     registerCommands();
   }

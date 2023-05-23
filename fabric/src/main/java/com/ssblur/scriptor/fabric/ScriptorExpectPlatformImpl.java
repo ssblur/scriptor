@@ -10,6 +10,6 @@ public class ScriptorExpectPlatformImpl {
      * This is our actual method to {@link ScriptorExpectPlatform#getConfigDirectory()}.
      */
     public static Path getConfigDirectory() {
-        return FabricLoader.getInstance().getConfigDir();
+        return FabricLoader.getInstance().getConfigDir().resolve("scriptor.json");
     }
 }
