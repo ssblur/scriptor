@@ -14,7 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 
-public class DumpDictionaryCommand {
+public class  DumpDictionaryCommand {
   public static void register(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext registry, Commands.CommandSelection selection){
     dispatcher.register(Commands.literal("dump_dictionary")
       .requires(s -> s.hasPermission(4))

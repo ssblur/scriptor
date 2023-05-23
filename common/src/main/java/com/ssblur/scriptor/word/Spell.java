@@ -4,6 +4,7 @@ import com.ssblur.scriptor.events.messages.ParticleNetwork;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.action.Action;
+import com.ssblur.scriptor.word.descriptor.AfterCastDescriptor;
 import com.ssblur.scriptor.word.descriptor.CastDescriptor;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
 import com.ssblur.scriptor.word.descriptor.focus.FocusDescriptor;
@@ -76,6 +77,11 @@ public record Spell(
     }
 
     var targetFuture = subject.getTargets(caster, this);
+
+    for(var descriptor: deduplicatedDescriptors())
+      if(descriptor instanceof AfterCastDescriptor afterCastDescriptor)
+        afterCastDescriptor.afterCast(caster);
+
     final var finalCaster = caster.getFinalTargetable();
     if(targetFuture.isDone()) {
       try {

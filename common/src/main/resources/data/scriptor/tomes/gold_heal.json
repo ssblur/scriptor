@@ -1,0 +1,21 @@
+{
+  "name": "Good as Gold",
+  "author": "Aurelius",
+  "tier": 3,
+  "spell": {
+    "action": "heal",
+    "subject": "storm",
+    "descriptors": [
+      "yellow",
+      "stacking_strong",
+      "stacking_strong",
+      "stacking_strong",
+      "stacking_strong",
+      "stacking_strong",
+      "stacking_strong",
+      "stacking_strong",
+      "stacking_strong",
+      "reagent.scriptor.gold"
+    ]
+  }
+}
