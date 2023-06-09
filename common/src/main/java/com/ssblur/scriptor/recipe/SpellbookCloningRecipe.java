@@ -8,14 +8,14 @@ import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.WrittenBookItem;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.Level;
 
 public class SpellbookCloningRecipe extends CustomRecipe {
-  public SpellbookCloningRecipe(ResourceLocation resourceLocation) {
-    super(resourceLocation);
+  public SpellbookCloningRecipe(ResourceLocation resourceLocation, CraftingBookCategory category) {
+    super(resourceLocation, category);
   }
 
   @Override

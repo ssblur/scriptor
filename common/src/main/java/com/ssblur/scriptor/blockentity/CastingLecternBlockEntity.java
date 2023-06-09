@@ -1,6 +1,5 @@
 package com.ssblur.scriptor.blockentity;
 
-import com.mojang.math.Vector3f;
 import com.ssblur.scriptor.block.CastingLecternBlock;
 import com.ssblur.scriptor.events.messages.ParticleNetwork;
 import com.ssblur.scriptor.helpers.DictionarySavedData;
@@ -35,6 +34,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.List;

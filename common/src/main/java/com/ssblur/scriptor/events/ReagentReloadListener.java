@@ -4,10 +4,14 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.ssblur.scriptor.helpers.TomeResource;
+import com.ssblur.scriptor.item.ScriptorItems;
 import com.ssblur.scriptor.registry.WordRegistry;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
 import com.ssblur.scriptor.word.descriptor.discount.ReagentDescriptor;
+import dev.architectury.registry.registries.Registrar;
+import dev.architectury.registry.registries.RegistrarManager;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -38,7 +42,6 @@ public class ReagentReloadListener extends SimpleJsonResourceReloadListener {
   }
 
   static ResourceLocation REAGENTS = new ResourceLocation("data/reagents");
-  @SuppressWarnings("UnstableApiUsage")
   static Type REAGENT_TYPE = new TypeToken<ReagentResource>() {}.getType();
   static Gson GSON = new Gson();
   static Random RANDOM = new Random();
@@ -60,7 +63,7 @@ public class ReagentReloadListener extends SimpleJsonResourceReloadListener {
           resourceLocation.toShortLanguageKey(),
           WordRegistry.INSTANCE.register(
             "reagent." + resourceLocation.toShortLanguageKey(),
-            new ReagentDescriptor(Registry.ITEM.get(new ResourceLocation(resource.item)), resource.cost)
+            new ReagentDescriptor(ScriptorItems.ITEMS.getRegistrar().get(new ResourceLocation(resource.item)), resource.cost)
           )
         );
     });

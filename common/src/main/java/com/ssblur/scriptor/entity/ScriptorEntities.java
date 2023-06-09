@@ -7,12 +7,12 @@ import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.fabricmc.api.EnvType;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 
 public class ScriptorEntities {
-  public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ScriptorMod.MOD_ID, Registry.ENTITY_TYPE_REGISTRY);
+  public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ScriptorMod.MOD_ID, Registries.ENTITY_TYPE);
   public static final RegistrySupplier<EntityType<ScriptorProjectile>> PROJECTILE_TYPE =
     ENTITY_TYPES.register(
       "projectile",

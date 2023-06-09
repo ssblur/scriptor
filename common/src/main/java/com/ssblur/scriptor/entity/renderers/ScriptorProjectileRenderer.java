@@ -2,7 +2,6 @@ package com.ssblur.scriptor.entity.renderers;
 
 import com.mojang.authlib.minecraft.client.MinecraftClient;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.entity.ScriptorProjectile;
 import net.minecraft.client.Minecraft;
@@ -14,6 +13,7 @@ import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3f;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.awt.*;

@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import com.ssblur.scriptor.helpers.ComponentHelper;
 import com.ssblur.scriptor.helpers.ConfigHelper;
 import com.ssblur.scriptor.helpers.DictionarySavedData;
@@ -31,6 +31,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,11 +134,11 @@ public class Spellbook extends Item implements ItemWithCustomRenderer {
     int v = hand == InteractionHand.MAIN_HAND ? 1 : -1;
     matrix.translate((float)v * 0.56f, -0.52f + readyProgress * -0.6f, -0.72f);
     float g = Mth.sin(swingProgress * swingProgress * (float)Math.PI);
-    matrix.mulPose(Vector3f.YP.rotationDegrees(i * (45.0f + g * -20.0f)));
+    matrix.mulPose(Axis.YP.rotationDegrees(i * (45.0f + g * -20.0f)));
     float h = Mth.sin(Mth.sqrt(swingProgress) * (float)Math.PI);
-    matrix.mulPose(Vector3f.ZP.rotationDegrees(i * h * -20.0f));
-    matrix.mulPose(Vector3f.XP.rotationDegrees(h * -80.0f));
-    matrix.mulPose(Vector3f.YP.rotationDegrees(i * -45.0f));
+    matrix.mulPose(Axis.ZP.rotationDegrees(i * h * -20.0f));
+    matrix.mulPose(Axis.XP.rotationDegrees(h * -80.0f));
+    matrix.mulPose(Axis.YP.rotationDegrees(i * -45.0f));
 
     if(hand == InteractionHand.MAIN_HAND) {
       {
@@ -145,10 +146,10 @@ public class Spellbook extends Item implements ItemWithCustomRenderer {
 
         matrix.translate(-0.30f, 0.4f, 0.05);
         matrix.scale(0.003f, 0.003f, 0.003f);
-        matrix.mulPose(Vector3f.ZP.rotationDegrees(183f));
-        matrix.mulPose(Vector3f.YP.rotationDegrees(180));
-        matrix.mulPose(Vector3f.XP.rotationDegrees(-48.5f));
-        matrix.mulPose(Vector3f.YP.rotationDegrees(-25f));
+        matrix.mulPose(Axis.ZP.rotationDegrees(183f));
+        matrix.mulPose(Axis.YP.rotationDegrees(180));
+        matrix.mulPose(Axis.XP.rotationDegrees(-48.5f));
+        matrix.mulPose(Axis.YP.rotationDegrees(-25f));
 
         drawPage(itemStack, 0, matrix, buffer, lightLevel);
 
@@ -159,10 +160,10 @@ public class Spellbook extends Item implements ItemWithCustomRenderer {
 
         matrix.translate(-0.07f, 0.37f, 0);
         matrix.scale(0.003f, 0.003f, 0.003f);
-        matrix.mulPose(Vector3f.ZP.rotationDegrees(183f));
-        matrix.mulPose(Vector3f.YP.rotationDegrees(180));
-        matrix.mulPose(Vector3f.XP.rotationDegrees(-49.75f));
-        matrix.mulPose(Vector3f.YP.rotationDegrees(20f));
+        matrix.mulPose(Axis.ZP.rotationDegrees(183f));
+        matrix.mulPose(Axis.YP.rotationDegrees(180));
+        matrix.mulPose(Axis.XP.rotationDegrees(-49.75f));
+        matrix.mulPose(Axis.YP.rotationDegrees(20f));
 
         drawPage(itemStack, 1, matrix, buffer, lightLevel);
 
@@ -175,10 +176,10 @@ public class Spellbook extends Item implements ItemWithCustomRenderer {
 
         matrix.translate(-0.31f, 0.4f, 0.05);
         matrix.scale(0.003f, 0.003f, 0.003f);
-        matrix.mulPose(Vector3f.ZP.rotationDegrees(180f));
-        matrix.mulPose(Vector3f.YP.rotationDegrees(180));
-        matrix.mulPose(Vector3f.XP.rotationDegrees(-48.5f));
-        matrix.mulPose(Vector3f.YP.rotationDegrees(-25f));
+        matrix.mulPose(Axis.ZP.rotationDegrees(180f));
+        matrix.mulPose(Axis.YP.rotationDegrees(180));
+        matrix.mulPose(Axis.XP.rotationDegrees(-48.5f));
+        matrix.mulPose(Axis.YP.rotationDegrees(-25f));
 
         drawPage(itemStack, 0, matrix, buffer, lightLevel);
 
@@ -189,10 +190,10 @@ public class Spellbook extends Item implements ItemWithCustomRenderer {
 
         matrix.translate(-0.07f, 0.38f, 0);
         matrix.scale(0.003f, 0.003f, 0.003f);
-        matrix.mulPose(Vector3f.ZP.rotationDegrees(183f));
-        matrix.mulPose(Vector3f.YP.rotationDegrees(180));
-        matrix.mulPose(Vector3f.XP.rotationDegrees(-49.75f));
-        matrix.mulPose(Vector3f.YP.rotationDegrees(20f));
+        matrix.mulPose(Axis.ZP.rotationDegrees(183f));
+        matrix.mulPose(Axis.YP.rotationDegrees(180));
+        matrix.mulPose(Axis.XP.rotationDegrees(-49.75f));
+        matrix.mulPose(Axis.YP.rotationDegrees(20f));
 
         drawPage(itemStack, 1, matrix, buffer, lightLevel);
 
