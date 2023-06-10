@@ -209,8 +209,6 @@ public class DictionarySavedData extends SavedData {
       List<Descriptor> descriptors = new ArrayList<>();
 
       while (tokenPosition < tokens.length) {
-        System.out.println(tokens[tokenPosition]);
-        System.out.println(spellStructure.get(position % spellStructure.size()));
         if(position % spellStructure.size() == 0 && position > 0) {
           if(parseWord(tokens[tokenPosition]).equals("other:and")) {
             tokenPosition++;
