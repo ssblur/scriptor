@@ -3,8 +3,12 @@
   "author": "Steve",
   "tier": 1,
   "spell": {
-    "action": "break",
     "subject": "touch",
-    "descriptors": []
+    "spells": [
+      {
+        "action": "break",
+        "descriptors": []
+      }
+    ]
   }
 }

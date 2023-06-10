@@ -3,18 +3,22 @@
   "author": "Zephyr the Pained",
   "tier": 2,
   "spell": {
-    "action": "smite",
     "subject": "projectile",
-    "descriptors": [
-      "blood_cost",
-      "blood_cost",
-      "blood_cost",
-      "blood_cost",
-      "blood_cost",
-      "blood_cost",
-      "blood_cost",
-      "blood_cost",
-      "blood_cost"
+    "spells": [
+      {
+        "action": "smite",
+        "descriptors": [
+          "blood_cost",
+          "blood_cost",
+          "blood_cost",
+          "blood_cost",
+          "blood_cost",
+          "blood_cost",
+          "blood_cost",
+          "blood_cost",
+          "blood_cost"
+        ]
+      }
     ]
   }
 }

@@ -3,11 +3,15 @@
   "author": "Andy",
   "tier": 3,
   "spell": {
-    "action": "heal",
     "subject": "self",
-    "descriptors": [
-      "inventory",
-      "first_matching"
+    "spells": [
+      {
+        "action": "heal",
+        "descriptors": [
+          "inventory",
+          "first_matching"
+        ]
+      }
     ]
   }
 }

@@ -3,8 +3,12 @@
   "author": "Arnold the Unwise",
   "tier": 1,
   "spell": {
-    "action": "inflame",
     "subject": "self",
-    "descriptors": []
+    "spells": [
+      {
+        "action": "inflame",
+        "descriptors": []
+      }
+    ]
   }
 }

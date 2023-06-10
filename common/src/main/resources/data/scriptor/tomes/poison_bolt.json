@@ -3,11 +3,15 @@
   "author": "Mithridates",
   "tier": 2,
   "spell": {
-    "action": "poison",
     "subject": "projectile",
-    "descriptors": [
-      "green",
-      "poisoned"
+    "spells": [
+      {
+        "action": "poison",
+        "descriptors": [
+          "green",
+          "poisoned"
+        ]
+      }
     ]
   }
 }

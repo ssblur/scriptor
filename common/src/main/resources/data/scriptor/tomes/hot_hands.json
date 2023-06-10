@@ -3,10 +3,14 @@
   "author": "Jaurice",
   "tier": 1,
   "spell": {
-    "action": "inflame",
     "subject": "touch",
-    "descriptors": [
-      "long"
+    "spells": [
+      {
+        "action": "inflame",
+        "descriptors": [
+          "long"
+        ]
+      }
     ]
   }
 }

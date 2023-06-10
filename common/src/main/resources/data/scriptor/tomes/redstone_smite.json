@@ -3,12 +3,16 @@
   "author": "A Bee Somewhere",
   "tier": 2,
   "spell": {
-    "action": "smite",
     "subject": "projectile",
-    "descriptors": [
-      "red",
-      "fast",
-      "reagent.scriptor.redstone"
+    "spells": [
+      {
+        "action": "smite",
+        "descriptors": [
+          "red",
+          "fast",
+          "reagent.scriptor.redstone"
+        ]
+      }
     ]
   }
 }

@@ -3,10 +3,14 @@
   "author": "And Drew",
   "tier": 1,
   "spell": {
-    "action": "goto",
     "subject": "projectile",
-    "descriptors": [
-      "light_blue"
+    "spells": [
+      {
+        "action": "goto",
+        "descriptors": [
+          "light_blue"
+        ]
+      }
     ]
   }
 }

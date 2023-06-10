@@ -1,14 +1,18 @@
 {
   "name": "A Quite Pleasant Trap to Trip",
-  "author": "§iPrisma",
+  "author": "\u00c2\u00a7iPrisma",
   "tier": 3,
   "spell": {
-    "action": "heal",
     "subject": "rune",
-    "descriptors": [
-      "strong",
-      "rainbow",
-      "powerful"
+    "spells": [
+      {
+        "action": "heal",
+        "descriptors": [
+          "strong",
+          "rainbow",
+          "powerful"
+        ]
+      }
     ]
   }
 }

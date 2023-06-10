@@ -3,10 +3,14 @@
   "author": "Faurash",
   "tier": 1,
   "spell": {
-    "action": "swap",
     "subject": "projectile",
-    "descriptors": [
-      "red"
+    "spells": [
+      {
+        "action": "swap",
+        "descriptors": [
+          "red"
+        ]
+      }
     ]
   }
 }

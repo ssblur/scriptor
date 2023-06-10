@@ -3,10 +3,14 @@
   "author": "T.A. Swift",
   "tier": 3,
   "spell": {
-    "action": "smite",
     "subject": "enchant",
-    "descriptors": [
-      "strong"
+    "spells": [
+      {
+        "action": "smite",
+        "descriptors": [
+          "strong"
+        ]
+      }
     ]
   }
 }

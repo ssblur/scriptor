@@ -3,10 +3,14 @@
   "author": "The Scorpion",
   "tier": 1,
   "spell": {
-    "action": "bring",
     "subject": "projectile",
-    "descriptors": [
-      "purple"
+    "spells": [
+      {
+        "action": "bring",
+        "descriptors": [
+          "purple"
+        ]
+      }
     ]
   }
 }

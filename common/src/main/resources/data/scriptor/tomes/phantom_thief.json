@@ -3,14 +3,18 @@
   "author": "The Joker, Baby",
   "tier": 2,
   "spell": {
-    "action": "bring",
     "subject": "projectile",
-    "descriptors": [
-      "blue",
-      "inventory",
-      "first_filled",
-      "caster_inventory",
-      "caster_first_matching"
+    "spells": [
+      {
+        "action": "bring",
+        "descriptors": [
+          "blue",
+          "inventory",
+          "first_filled",
+          "caster_inventory",
+          "caster_first_matching"
+        ]
+      }
     ]
   }
 }

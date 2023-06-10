@@ -3,12 +3,16 @@
   "author": "Hurt the Healer",
   "tier": 2,
   "spell": {
-    "action": "heal",
     "subject": "touch",
-    "descriptors": [
-      "blood_power",
-      "blood_power",
-      "blood_power"
+    "spells": [
+      {
+        "action": "heal",
+        "descriptors": [
+          "blood_power",
+          "blood_power",
+          "blood_power"
+        ]
+      }
     ]
   }
 }

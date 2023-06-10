@@ -13,14 +13,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TomeResource {
-  public static class SpellResource {
+  public static class PartialSpellResource {
     String action;
-    String subject;
     List<String> descriptors;
-    public SpellResource(String action, String subject, List<String> descriptors) {
+    public PartialSpellResource(String action, List<String> descriptors) {
       this.action = action;
-      this.subject = subject;
       this.descriptors = descriptors;
+    }
+  }
+  public static class SpellResource {
+    String subject;
+    List<PartialSpellResource> spells;
+    public SpellResource(String subject, List<PartialSpellResource> spells) {
+      this.subject = subject;
+      this.spells = spells;
     }
   }
 
@@ -44,22 +50,28 @@ public class TomeResource {
   public int getTier() { return tier; }
 
   public Spell getSpell() {
-    Action action = WordRegistry.INSTANCE.actionRegistry.get(spell.action);
-    if(action == null)
-      throw new WordNotFoundException(spell.action);
+    List<PartialSpell> spells = new ArrayList<>();
+
+    for(var spell: spell.spells) {
+      Action action = WordRegistry.INSTANCE.actionRegistry.get(spell.action);
+      if (action == null)
+        throw new WordNotFoundException(spell.action);
+
+      ArrayList<Descriptor> descriptors = new ArrayList<>();
+      for (String string : spell.descriptors) {
+        Descriptor descriptor = WordRegistry.INSTANCE.descriptorRegistry.get(string);
+        if (descriptor == null)
+          throw new WordNotFoundException(string);
+        descriptors.add(descriptor);
+      }
+
+      spells.add(new PartialSpell(action, descriptors.toArray(Descriptor[]::new)));
+    }
 
     Subject subject = WordRegistry.INSTANCE.subjectRegistry.get(spell.subject);
     if(subject == null)
       throw new WordNotFoundException(spell.subject);
 
-    ArrayList<Descriptor> descriptors = new ArrayList<>();
-    for(String string: spell.descriptors) {
-      Descriptor descriptor = WordRegistry.INSTANCE.descriptorRegistry.get(string);
-      if(descriptor == null)
-        throw new WordNotFoundException(string);
-      descriptors.add(descriptor);
-    }
-
-    return new Spell(subject, new PartialSpell(action, descriptors.toArray(Descriptor[]::new)));
+    return new Spell(subject, spells.toArray(PartialSpell[]::new));
   }
 }

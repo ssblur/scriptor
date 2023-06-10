@@ -3,10 +3,14 @@
   "author": "Harry",
   "tier": 1,
   "spell": {
-    "action": "slow",
     "subject": "projectile",
-    "descriptors": [
-      "light_gray"
+    "spells": [
+      {
+        "action": "slow",
+        "descriptors": [
+          "light_gray"
+        ]
+      }
     ]
   }
 }

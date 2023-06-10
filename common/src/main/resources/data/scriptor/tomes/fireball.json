@@ -3,12 +3,16 @@
   "author": "Pyrus the Plain",
   "tier": 1,
   "spell": {
-    "action": "inflame",
     "subject": "projectile",
-    "descriptors": [
-      "long",
-      "slow",
-      "orange"
+    "spells": [
+      {
+        "action": "inflame",
+        "descriptors": [
+          "long",
+          "slow",
+          "orange"
+        ]
+      }
     ]
   }
 }

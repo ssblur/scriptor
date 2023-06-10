@@ -3,10 +3,14 @@
   "author": "Niz",
   "tier": 4,
   "spell": {
-    "action": "inflame",
     "subject": "touch",
-    "descriptors": [
-      "cheap"
+    "spells": [
+      {
+        "action": "inflame",
+        "descriptors": [
+          "cheap"
+        ]
+      }
     ]
   }
 }
