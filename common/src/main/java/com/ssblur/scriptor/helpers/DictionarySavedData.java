@@ -80,6 +80,13 @@ public class DictionarySavedData extends SavedData {
     String token;
     Random random = new Random();
 
+    if(!containsKey("other:and")) {
+      do {
+        token = DefaultTokenGenerators.shortAngGenerator.generateToken();
+      } while (containsWord(token));
+      words.put("other:and", token);
+    }
+
     for(var word: WordRegistry.INSTANCE.actionRegistry.keySet()) {
       if(containsKey("action:" + word))
         continue;
@@ -118,10 +125,6 @@ public class DictionarySavedData extends SavedData {
     WORD[] basicStructure = new WORD[]{WORD.ACTION, WORD.DESCRIPTOR, WORD.SUBJECT};
     List<WORD> structure = Arrays.asList(basicStructure);
     Collections.shuffle(structure);
-
-    String token;
-    Random random = new Random();
-    TokenGenerator shortGenerator = DefaultTokenGenerators.shortAngGenerator;
 
     spellStructure = new ArrayList<>();
     spellStructure.addAll(structure);
@@ -206,13 +209,21 @@ public class DictionarySavedData extends SavedData {
       List<Descriptor> descriptors = new ArrayList<>();
 
       while (tokenPosition < tokens.length) {
-        if(position % spellStructure.size() == 0 && position > 0) spells.add(new PartialSpell(action, descriptors.toArray(Descriptor[]::new)));
+        System.out.println(tokens[tokenPosition]);
+        System.out.println(spellStructure.get(position % spellStructure.size()));
+        if(position % spellStructure.size() == 0 && position > 0) {
+          if(parseWord(tokens[tokenPosition]).equals("other:and")) {
+            tokenPosition++;
+            spells.add(new PartialSpell(action, descriptors.toArray(Descriptor[]::new)));
+          } else {
+            return null;
+          }
+        }
         if(position >= spellStructure.size() && spellStructure.get(position % spellStructure.size()) == WORD.SUBJECT) position++;
         WORD word = spellStructure.get(position % spellStructure.size());
-        String wordData;
+        String wordData = parseWord(tokens[tokenPosition]);
         switch (word) {
           case ACTION -> {
-            wordData = parseWord(tokens[tokenPosition]);
             if (wordData == null) {
               ScriptorMod.LOGGER.debug("Failed to process spell with text: \"" + text + "\"");
               ScriptorMod.LOGGER.debug("No word found for \"" + tokens[tokenPosition] + "\", action expected");
@@ -221,7 +232,6 @@ public class DictionarySavedData extends SavedData {
             action = WordRegistry.INSTANCE.actionRegistry.get(wordData.substring(7));
           }
           case DESCRIPTOR -> {
-            wordData = parseWord(tokens[tokenPosition]);
             // Descriptors aren't required. If there are none, roll forward as necessary and continue.
             if (wordData == null) {
               position++;
@@ -235,14 +245,10 @@ public class DictionarySavedData extends SavedData {
             descriptors.add(descriptor);
 
             // If there are enough tokens to have more descriptors, process descriptors again.
-            if ((tokens.length - tokenPosition) > (spellStructure.size() - position)) {
-              position++;
+            if ((tokens.length - tokenPosition) > (spellStructure.size() - (position % spellStructure.size())))
               tokenPosition++;
-              position -= 2;
-            }
           }
           case SUBJECT -> {
-            wordData = parseWord(tokens[tokenPosition]);
             if (wordData == null) {
               ScriptorMod.LOGGER.debug("Failed to process spell with text: \"" + text + "\"");
               ScriptorMod.LOGGER.debug("Subject " + tokens[tokenPosition] + " not found");
@@ -315,6 +321,7 @@ public class DictionarySavedData extends SavedData {
     }
 
     for(var partialSpell: Arrays.stream(spell.spells()).skip(1).toList()) {
+      builder.append(" ").append(getWord("other:and"));
       descriptorBuilder = new StringBuilder();
       for(Descriptor descriptor: partialSpell.deduplicatedDescriptors()) {
         descriptorBuilder.append(" ").append(getWord(descriptor));
