@@ -233,7 +233,7 @@ public class DictionarySavedData extends SavedData {
           }
           case DESCRIPTOR -> {
             // Descriptors aren't required. If there are none, roll forward as necessary and continue.
-            if (wordData == null) {
+            if (wordData == null || wordData.length() < 12) {
               position++;
               continue;
             }
@@ -244,9 +244,8 @@ public class DictionarySavedData extends SavedData {
             }
             descriptors.add(descriptor);
 
-            // If there are enough tokens to have more descriptors, process descriptors again.
-            if ((tokens.length - tokenPosition) > (spellStructure.size() - (position % spellStructure.size())))
-              tokenPosition++;
+            tokenPosition++;
+            continue;
           }
           case SUBJECT -> {
             if (wordData == null) {
