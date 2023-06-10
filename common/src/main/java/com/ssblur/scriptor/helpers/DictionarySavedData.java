@@ -1,5 +1,8 @@
 package com.ssblur.scriptor.helpers;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.ssblur.scriptor.helpers.language.DefaultTokenGenerators;
@@ -22,136 +25,57 @@ import java.util.*;
 
 public class DictionarySavedData extends SavedData {
   public List<WORD> spellStructure;
-  public List<String> actionGenderedArticles;
-  public ARTICLEPOSITION actionArticlePosition;
-  public List<String> descriptorGenderedArticles;
-  public ARTICLEPOSITION descriptorArticlePosition;
-  public List<String> subjectGenderedArticles;
-  public ARTICLEPOSITION subjectArticlePosition;
-  public List<WordData> words;
+  public BiMap<String, String> words;
+
   /**
    * A class for storing language data for a given world.
    * @param spellStructure The structure of spells for this world.
-   * @param actionGenderedArticles All gendered articles which exist for actions in this world.
-   * @param actionArticlePosition Position and presence of an article for the action a spell describes.
-   * @param descriptorGenderedArticles All gendered articles which exist for descriptors in this world.
-   * @param descriptorArticlePosition Position and presence of an article for the descriptors of a spell.
-   * @param subjectGenderedArticles All gendered articles which exist for subjects in this world.
-   * @param subjectArticlePosition Position and presence of an article for the subject of a spell.
    * @param words All words which exist in this world's lexicon.
    */
   public DictionarySavedData(
-    List<WORD> spellStructure,
-    List<String> actionGenderedArticles,
-    ARTICLEPOSITION actionArticlePosition,
-    List<String> descriptorGenderedArticles,
-    ARTICLEPOSITION descriptorArticlePosition,
-    List<String> subjectGenderedArticles,
-    ARTICLEPOSITION subjectArticlePosition,
-    List<WordData> words
+    List<String> spellStructure,
+    List<Pair<String, String>> words
   ) {
-    this.spellStructure = spellStructure;
-    this.actionGenderedArticles = actionGenderedArticles;
-    this.actionArticlePosition = actionArticlePosition;
-    this.descriptorGenderedArticles = descriptorGenderedArticles;
-    this.descriptorArticlePosition = descriptorArticlePosition;
-    this.subjectGenderedArticles = subjectGenderedArticles;
-    this.subjectArticlePosition = subjectArticlePosition;
-    this.words = new ArrayList<>(words);
+    this.spellStructure = spellStructure.stream().map(WORD::valueOf).toList();
+    this.words = HashBiMap.create();
+    for(var pair: words)
+      this.words.put(pair.getFirst(), pair.getSecond());
 
     generateMissingWords();
     setDirty();
-  }
-
-  public DictionarySavedData(
-    List<String> spellStructure,
-    List<String> actionGenderedArticles,
-    String actionArticlePosition,
-    List<String> descriptorGenderedArticles,
-    String descriptorArticlePosition,
-    List<String> subjectGenderedArticles,
-    String subjectArticlePosition,
-    List<WordData> words
-  ) {
-    this(
-      spellStructure.stream().map(WORD::valueOf).toList(),
-      actionGenderedArticles,
-      ARTICLEPOSITION.valueOf(actionArticlePosition),
-      descriptorGenderedArticles,
-      ARTICLEPOSITION.valueOf(descriptorArticlePosition),
-      subjectGenderedArticles,
-      ARTICLEPOSITION.valueOf(subjectArticlePosition),
-      words
-    );
   }
 
   /**
    * An enum representing types of words used in Spells.
    */
   public enum WORD {
-    PREFIXARTICLE,
-    SUFFIXARTICLE,
     ACTION,
     DESCRIPTOR,
     SUBJECT
   }
 
-  /**
-   * An enum representing the positions of an article relative to a Word.
-   */
-  public enum ARTICLEPOSITION {
-    NONE,
-    BEFORE,
-    AFTER
-  }
-
-  /**
-   * Record for representing individual words.
-   * @param word The word as read in-game
-   * @param key The key representing the original word
-   * @param gender The gender associated with this word
-   */
-  public record WordData(
-    String word,
-    String key,
-    int gender
-  ){}
-
-  public static final Codec<WordData> wordCodec = RecordCodecBuilder.create(instance -> instance.group(
-    Codec.STRING.fieldOf("word").forGetter(WordData::word),
-    Codec.STRING.fieldOf("key").forGetter(WordData::key),
-    Codec.INT.fieldOf("gender").forGetter(WordData::gender)
-  ).apply(instance, WordData::new));
 
   public static final Codec<DictionarySavedData> worldCodec = RecordCodecBuilder.create(instance -> instance.group(
     Codec.STRING.listOf().fieldOf("spellStructure").forGetter(worldData -> worldData.spellStructure.stream().map(WORD::toString).toList()),
-    Codec.STRING.listOf().fieldOf("actionGenderedArticles").forGetter(worldData -> worldData.actionGenderedArticles.stream().toList()),
-    Codec.STRING.fieldOf("actionArticlePosition").forGetter(worldData -> worldData.actionArticlePosition.toString()),
-    Codec.STRING.listOf().fieldOf("descriptorGenderedArticles").forGetter(worldData -> worldData.descriptorGenderedArticles.stream().toList()),
-    Codec.STRING.fieldOf("descriptorArticlePosition").forGetter(worldData -> worldData.descriptorArticlePosition.toString()),
-    Codec.STRING.listOf().fieldOf("subjectGenderedArticles").forGetter(worldData -> worldData.subjectGenderedArticles.stream().toList()),
-    Codec.STRING.fieldOf("subjectArticlePosition").forGetter(worldData -> worldData.subjectArticlePosition.toString()),
-    wordCodec.listOf().fieldOf("words").forGetter(worldData -> worldData.words.stream().toList())
+    Codec.compoundList(Codec.STRING, Codec.STRING)
+      .fieldOf("words")
+      .forGetter(
+        worldData ->
+          worldData.words.keySet().stream().map(key -> new Pair<>(key, worldData.words.get(key))).toList()
+      )
   ).apply(instance, DictionarySavedData::new));
 
   boolean containsKey(String key) {
-    for(var word: words)
-      if(word.key.equalsIgnoreCase(key))
-        return true;
-    return false;
+    return words.containsKey(key);
   }
 
   boolean containsWord(String string) {
-    for(var word: words)
-      if(word.word.equalsIgnoreCase(string))
-        return true;
-    return false;
+    return words.containsValue(string);
   }
 
   void generateMissingWords() {
     TokenGenerator generator = DefaultTokenGenerators.angGenerator;
     String token;
-    int genders = actionGenderedArticles.size();
     Random random = new Random();
 
     for(var word: WordRegistry.INSTANCE.actionRegistry.keySet()) {
@@ -162,11 +86,7 @@ public class DictionarySavedData extends SavedData {
         token = generator.generateToken();
       } while (containsWord(token));
 
-      words.add(new WordData(
-        generator.generateToken(),
-        "action:" + word,
-        random.nextInt(genders)
-      ));
+      words.put("action:" + word, token);
     }
 
     for(var word: WordRegistry.INSTANCE.descriptorRegistry.keySet()) {
@@ -177,11 +97,7 @@ public class DictionarySavedData extends SavedData {
         token = generator.generateToken();
       } while (containsWord(token));
 
-      words.add(new WordData(
-        generator.generateToken(),
-        "descriptor:" + word,
-        random.nextInt(genders)
-      ));
+      words.put("descriptor:" + word, token);
     }
     for(var word: WordRegistry.INSTANCE.subjectRegistry.keySet()) {
       if(containsKey("subject:" + word))
@@ -191,11 +107,8 @@ public class DictionarySavedData extends SavedData {
         token = generator.generateToken();
       } while (containsWord(token));
 
-      words.add(new WordData(
-        generator.generateToken(),
-        "subject:" + word,
-        random.nextInt(genders)
-      ));
+      words.put("subject:" + word, token);
+
     }
   }
 
@@ -207,60 +120,11 @@ public class DictionarySavedData extends SavedData {
     String token;
     Random random = new Random();
     TokenGenerator shortGenerator = DefaultTokenGenerators.shortAngGenerator;
-    int genders = random.nextInt(3) + 1;
-
-    actionArticlePosition = ARTICLEPOSITION.values()[random.nextInt(ARTICLEPOSITION.values().length)];
-    descriptorArticlePosition = ARTICLEPOSITION.values()[random.nextInt(ARTICLEPOSITION.values().length)];
-    subjectArticlePosition = ARTICLEPOSITION.values()[random.nextInt(ARTICLEPOSITION.values().length)];
-
-    actionGenderedArticles = new ArrayList<>();
-    for(int i = 0; i < genders; i++) {
-      do
-        token = shortGenerator.generateToken();
-      while (actionGenderedArticles.contains(token));
-      actionGenderedArticles.add(token);
-    }
-
-    descriptorGenderedArticles = new ArrayList<>();
-    for(int i = 0; i < genders; i++) {
-      do
-        token = shortGenerator.generateToken();
-      while (descriptorGenderedArticles.contains(token));
-      descriptorGenderedArticles.add(token);
-    }
-
-    subjectGenderedArticles = new ArrayList<>();
-    for(int i = 0; i < genders; i++) {
-      do
-        token = shortGenerator.generateToken();
-      while (subjectGenderedArticles.contains(token));
-      subjectGenderedArticles.add(token);
-    }
 
     spellStructure = new ArrayList<>();
-    for(WORD w: structure) {
-      if(w == WORD.ACTION) {
-        if(actionArticlePosition == ARTICLEPOSITION.BEFORE)
-          spellStructure.add(WORD.PREFIXARTICLE);
-        spellStructure.add(w);
-        if(actionArticlePosition == ARTICLEPOSITION.AFTER)
-          spellStructure.add(WORD.SUFFIXARTICLE);
-      } else if(w == WORD.SUBJECT) {
-        if(subjectArticlePosition == ARTICLEPOSITION.BEFORE)
-          spellStructure.add(WORD.PREFIXARTICLE);
-        spellStructure.add(w);
-        if(subjectArticlePosition == ARTICLEPOSITION.AFTER)
-          spellStructure.add(WORD.SUFFIXARTICLE);
-      } else {
-        if(descriptorArticlePosition == ARTICLEPOSITION.BEFORE)
-          spellStructure.add(WORD.PREFIXARTICLE);
-        spellStructure.add(w);
-        if(descriptorArticlePosition == ARTICLEPOSITION.AFTER)
-          spellStructure.add(WORD.SUFFIXARTICLE);
-      }
-    }
+    spellStructure.addAll(structure);
 
-    words = new ArrayList<>();
+    words = HashBiMap.create();
     generateMissingWords();
 
     setDirty();
@@ -269,36 +133,73 @@ public class DictionarySavedData extends SavedData {
   /**
    * A helper for parsing a written word into corresponding WordData.
    * @param word The written word to parse
-   * @return WordData with a matching word field
+   * @return The matching word key
    * null if no matches
    */
-  public WordData parseWord(String word) {
-    for(WordData wordData: words)
-      if (wordData.word.equalsIgnoreCase(word))
-        return wordData;
-    return null;
+  public String parseWord(String word) {
+    return words.inverse().get(word);
   }
 
   /**
    * A helper for getting WordData based on its key.
    * @param key The key used to register a Word
-   * @return The WordData associated with a key
+   * @return The matching word
    * null if no matches
    */
-  public WordData getWord(String key) {
-    for(WordData wordData: words)
-      if (wordData.key.equalsIgnoreCase(key))
-        return wordData;
+  public String getWord(String key) {
+    return words.get(key);
+  }
+
+  /**
+   * A helper for getting a key based on a Word.
+   * @param action The Action to search by
+   * @return The matching key
+   * null if no matches
+   */
+  public String getKey(Action action) {
+    for(String key: WordRegistry.INSTANCE.actionRegistry.keySet()) {
+      if(action == WordRegistry.INSTANCE.actionRegistry.get(key))
+        return "action:" + key;
+    }
     return null;
   }
 
   /**
-   * A helper for getting WordData based on a Word.
-   * @param action The Action to search by
-   * @return The WordData associated with a Word
+   * A helper for getting a key based on a Word.
+   * @param descriptor The Descriptor to search by
+   * @return The matching key
    * null if no matches
    */
-  public WordData getWord(Action action) {
+  public String getKey(Descriptor descriptor) {
+    for(String key: WordRegistry.INSTANCE.descriptorRegistry.keySet()) {
+      if(descriptor == WordRegistry.INSTANCE.descriptorRegistry.get(key))
+        return "descriptor:" + key;
+    }
+    return null;
+  }
+
+  /**
+   * A helper for getting a key based on a Word.
+   * @param subject The Subject to search by
+   * @return The matching key
+   * null if no matches
+   */
+  public String getKey(Subject subject) {
+    for(String key: WordRegistry.INSTANCE.subjectRegistry.keySet()) {
+      if(subject == WordRegistry.INSTANCE.subjectRegistry.get(key))
+        return "subject:" + key;
+    }
+    return null;
+  }
+
+
+  /**
+   * A helper for getting WordData based on a Word.
+   * @param action The Action to search by
+   * @return The matching word
+   * null if no matches
+   */
+  public String getWord(Action action) {
     for(String key: WordRegistry.INSTANCE.actionRegistry.keySet()) {
       if(action == WordRegistry.INSTANCE.actionRegistry.get(key))
         return getWord("action:" + key);
@@ -309,10 +210,10 @@ public class DictionarySavedData extends SavedData {
   /**
    * A helper for getting WordData based on a Word.
    * @param descriptor The Descriptor to search by
-   * @return The WordData associated with a Word
+   * @return The matching word
    * null if no matches
    */
-  public WordData getWord(Descriptor descriptor) {
+  public String getWord(Descriptor descriptor) {
     for(String key: WordRegistry.INSTANCE.descriptorRegistry.keySet()) {
       if(descriptor == WordRegistry.INSTANCE.descriptorRegistry.get(key))
         return getWord("descriptor:" + key);
@@ -323,10 +224,10 @@ public class DictionarySavedData extends SavedData {
   /**
    * A helper for getting WordData based on a Word.
    * @param subject The Subject to search by
-   * @return The WordData associated with a Word
+   * @return The matching word
    * null if no matches
    */
-  public WordData getWord(Subject subject) {
+  public String getWord(Subject subject) {
     for(String key: WordRegistry.INSTANCE.subjectRegistry.keySet()) {
       if(subject == WordRegistry.INSTANCE.subjectRegistry.get(key))
         return getWord("subject:" + key);
@@ -334,39 +235,6 @@ public class DictionarySavedData extends SavedData {
     return null;
   }
 
-  /**
-   * Attempts to get the gender of a given article
-   * @param word The Word type to search by
-   * @param article The article to search for
-   * @return The gender associated with an article
-   * -1 if no matches
-   */
-  public int parseArticle(WORD word, String article) {
-    if(word == WORD.ACTION) {
-      for (int i = 0; i < actionGenderedArticles.size(); i++)
-        if (actionGenderedArticles.get(i).equalsIgnoreCase(article))
-          return i;
-    } else if(word == WORD.DESCRIPTOR) {
-      for (int i = 0; i < descriptorGenderedArticles.size(); i++)
-        if (descriptorGenderedArticles.get(i).equalsIgnoreCase(article))
-          return i;
-    } else if(word == WORD.SUBJECT) {
-      for (int i = 0; i < subjectGenderedArticles.size(); i++)
-        if (subjectGenderedArticles.get(i).equalsIgnoreCase(article))
-          return i;
-    }
-    return -1;
-  }
-
-  boolean hasPrefix(WORD word) {
-    if(word == WORD.ACTION)
-      return actionArticlePosition == ARTICLEPOSITION.BEFORE;
-    if(word == WORD.SUBJECT)
-      return subjectArticlePosition == ARTICLEPOSITION.BEFORE;
-    if(word == WORD.DESCRIPTOR)
-      return descriptorArticlePosition == ARTICLEPOSITION.BEFORE;
-    return false;
-  }
 
   /**
    * Attempt to parse a String into a Spell
@@ -391,47 +259,25 @@ public class DictionarySavedData extends SavedData {
 
       while (position < spellStructure.size() && tokenPosition < tokens.length) {
         WORD word = spellStructure.get(position);
-        WordData wordData;
-        switch(word) {
-          case PREFIXARTICLE:
-            if(spellStructure.get(position + 1) == WORD.DESCRIPTOR && !parseWord(tokens[tokenPosition + 1]).key.startsWith("descriptor")) {
-              position++;
-              continue;
-            }
-            if (
-              (position + 1) > spellStructure.size()
-                || parseArticle(spellStructure.get(position + 1), tokens[tokenPosition]) != parseWord(tokens[tokenPosition + 1]).gender) {
-              ScriptorMod.LOGGER.debug("Failed to process spell with text: \"" + text + "\"");
-              ScriptorMod.LOGGER.debug("Article \"" + tokens[tokenPosition] + "\" not valid for \"" + tokens[tokenPosition + 1] + "\"");
-              return null;
-            }
-            break;
-          case SUFFIXARTICLE:
-            if (parseArticle(spellStructure.get(position - 1), tokens[tokenPosition]) != parseWord(tokens[tokenPosition - 1]).gender) {
-              ScriptorMod.LOGGER.debug("Failed to process spell with text: \"" + text + "\"");
-              ScriptorMod.LOGGER.debug("Article \"" + tokens[tokenPosition] + "\" not valid for \"" + tokens[tokenPosition - 1] + "\"");
-              return null;
-            }
-            break;
-          case ACTION:
+        String wordData;
+        switch (word) {
+          case ACTION -> {
             wordData = parseWord(tokens[tokenPosition]);
-            if(wordData == null) {
+            if (wordData == null) {
               ScriptorMod.LOGGER.debug("Failed to process spell with text: \"" + text + "\"");
               ScriptorMod.LOGGER.debug("No word found for \"" + tokens[tokenPosition] + "\", action expected");
               return null;
             }
-            action = WordRegistry.INSTANCE.actionRegistry.get(wordData.key.substring(7));
-            break;
-          case DESCRIPTOR:
+            action = WordRegistry.INSTANCE.actionRegistry.get(wordData.substring(7));
+          }
+          case DESCRIPTOR -> {
             wordData = parseWord(tokens[tokenPosition]);
-            // Descriptors aren't required. If there is none, roll forward as necessary and continue.
+            // Descriptors aren't required. If there are none, roll forward as necessary and continue.
             if (wordData == null) {
               position++;
-              if(descriptorArticlePosition == ARTICLEPOSITION.AFTER)
-                position++;
               continue;
             }
-            Descriptor descriptor = WordRegistry.INSTANCE.descriptorRegistry.get(wordData.key.substring(11));
+            Descriptor descriptor = WordRegistry.INSTANCE.descriptorRegistry.get(wordData.substring(11));
             if (descriptor == null) {
               position++;
               continue;
@@ -439,31 +285,21 @@ public class DictionarySavedData extends SavedData {
             descriptors.add(descriptor);
 
             // If there are enough tokens to have more descriptors, process descriptors again.
-            if ((tokens.length - tokenPosition) > (spellStructure.size() - position))
-              if (descriptorArticlePosition == ARTICLEPOSITION.NONE)
-                position--;
-              else if (descriptorArticlePosition == ARTICLEPOSITION.BEFORE)
-                position -= 2;
-              else {
-                position++;
-                tokenPosition++;
-                if (parseArticle(spellStructure.get(position - 1), tokens[tokenPosition]) != parseWord(tokens[tokenPosition - 1]).gender) {
-                  ScriptorMod.LOGGER.debug("Failed to process spell with text: \"" + text + "\"");
-                  ScriptorMod.LOGGER.debug("Article for descriptor incorrect");
-                  return null;
-                }
-                position -= 2;
-              }
-            break;
-          case SUBJECT:
+            if ((tokens.length - tokenPosition) > (spellStructure.size() - position)) {
+              position++;
+              tokenPosition++;
+              position -= 2;
+            }
+          }
+          case SUBJECT -> {
             wordData = parseWord(tokens[tokenPosition]);
-            if(wordData == null) {
+            if (wordData == null) {
               ScriptorMod.LOGGER.debug("Failed to process spell with text: \"" + text + "\"");
               ScriptorMod.LOGGER.debug("Subject " + tokens[tokenPosition] + " not found");
               return null;
             }
-            subject = WordRegistry.INSTANCE.subjectRegistry.get(wordData.key.substring(8));
-            break;
+            subject = WordRegistry.INSTANCE.subjectRegistry.get(wordData.substring(8));
+          }
         }
 
         position++;
@@ -489,77 +325,9 @@ public class DictionarySavedData extends SavedData {
    * null if invalid
    */
   public List<String> parseComponents(String text) {
-    try {
-      int position = 0;
-      int tokenPosition = 0;
-      String[] tokens = text.split("\s");
-
-      List<String> words = new ArrayList<>();
-
-      while (position < spellStructure.size() && tokenPosition < tokens.length) {
-        WORD word = spellStructure.get(position);
-        WordData wordData;
-        switch(word) {
-          case PREFIXARTICLE:
-            if(spellStructure.get(position + 1) == WORD.DESCRIPTOR && !parseWord(tokens[tokenPosition + 1]).key.startsWith("descriptor")) {
-              position++;
-              continue;
-            }
-            if (
-              (position + 1) > spellStructure.size()
-                || parseArticle(spellStructure.get(position + 1), tokens[tokenPosition]) != parseWord(tokens[tokenPosition + 1]).gender)
-              return null;
-            break;
-          case SUFFIXARTICLE:
-            if (parseArticle(spellStructure.get(position - 1), tokens[tokenPosition]) != parseWord(tokens[tokenPosition - 1]).gender)
-              return null;
-            break;
-          case ACTION:
-          case SUBJECT:
-            wordData = parseWord(tokens[tokenPosition]);
-            if(wordData == null)
-              return null;
-            words.add(wordData.key);
-            break;
-          case DESCRIPTOR:
-            wordData = parseWord(tokens[tokenPosition]);
-            // Descriptors aren't required. If there is none, roll forward as necessary and continue.
-            if (wordData == null) {
-              position++;
-              if(descriptorArticlePosition == ARTICLEPOSITION.AFTER)
-                position++;
-              continue;
-            }
-            Descriptor descriptor = WordRegistry.INSTANCE.descriptorRegistry.get(wordData.key.substring(11));
-            if (descriptor == null) {
-              position++;
-              continue;
-            }
-            words.add(wordData.key);
-
-            // If there are enough tokens to have more descriptors, process descriptors again.
-            if ((tokens.length - tokenPosition) > (spellStructure.size() - position))
-              if (descriptorArticlePosition == ARTICLEPOSITION.NONE)
-                position--;
-              else if (descriptorArticlePosition == ARTICLEPOSITION.BEFORE)
-                position -= 2;
-              else {
-                position++;
-                tokenPosition++;
-                if (parseArticle(spellStructure.get(position - 1), tokens[tokenPosition]) != parseWord(tokens[tokenPosition - 1]).gender)
-                  return null;
-                position -= 2;
-              }
-            break;
-        }
-
-        position++;
-        tokenPosition++;
-      }
-      return words;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+    var spell = parse(text);
+    if(spell != null)
+      return Arrays.asList(generate(spell).split("\\s"));
     return null;
   }
 
@@ -570,38 +338,17 @@ public class DictionarySavedData extends SavedData {
    * @return A String to describe a spell
    */
   public String generate(Spell spell) {
-    String actionString;
-    WordData actionData = getWord(spell.action());
-    if(actionArticlePosition == ARTICLEPOSITION.BEFORE)
-      actionString = actionGenderedArticles.get(actionData.gender) + " " + actionData.word;
-    else if (actionArticlePosition == ARTICLEPOSITION.AFTER)
-      actionString = actionData.word + " " + actionGenderedArticles.get(actionData.gender);
-    else actionString = actionData.word;
-
-    String subjectString;
-    WordData subjectData = getWord(spell.subject());
-    if(subjectArticlePosition == ARTICLEPOSITION.BEFORE)
-      subjectString = subjectGenderedArticles.get(subjectData.gender) + " " + subjectData.word;
-    else if (subjectArticlePosition == ARTICLEPOSITION.AFTER)
-      subjectString = subjectData.word + " " + subjectGenderedArticles.get(subjectData.gender);
-    else subjectString = subjectData.word;
-
     StringBuilder descriptorBuilder = new StringBuilder();
     for(Descriptor descriptor: spell.deduplicatedDescriptors()) {
-      WordData descriptorData = getWord(descriptor);
-      if(descriptorArticlePosition == ARTICLEPOSITION.BEFORE)
-        descriptorBuilder.append(" ").append(descriptorGenderedArticles.get(descriptorData.gender)).append(" ").append(descriptorData.word);
-      else if (descriptorArticlePosition == ARTICLEPOSITION.AFTER)
-        descriptorBuilder.append(" ").append(descriptorData.word).append(" ").append(descriptorGenderedArticles.get(descriptorData.gender));
-      else descriptorBuilder.append(" ").append(descriptorData.word);
+      descriptorBuilder.append(" ").append(getWord(descriptor));
     }
 
     StringBuilder builder = new StringBuilder();
     for(WORD w: spellStructure) {
       if(w == WORD.ACTION)
-        builder.append(" ").append(actionString);
+        builder.append(" ").append(getWord(spell.action()));
       else if(w == WORD.SUBJECT)
-        builder.append(" ").append(subjectString);
+        builder.append(" ").append(getWord(spell.subject()));
       else if(w == WORD.DESCRIPTOR)
         builder.append(descriptorBuilder);
     }
@@ -641,29 +388,18 @@ public class DictionarySavedData extends SavedData {
   public String toString() {
     var builder = new StringBuilder();
 
+    builder.append("\n\nStructure:\n");
     for(var w: spellStructure)
       builder.append(w).append(" ");
     builder.append("\n\n");
 
     builder.append("Words:\n");
-    for(var w: words) {
-      builder.append('"').append(w.key).append('"');
+    for(var k: words.keySet()) {
+      builder.append('"').append(k).append('"');
       builder.append(" : ");
-      builder.append(w.word);
-      builder.append(" (").append(w.gender).append(")\n");
+      builder.append(words.get(k));
+      builder.append("\n");
     }
-
-    builder.append("\nAction Articles:\n");
-    for(var w: actionGenderedArticles)
-      builder.append(w).append("\n");
-
-    builder.append("\nSubject Articles:\n");
-    for(var w: subjectGenderedArticles)
-      builder.append(w).append("\n");
-
-    builder.append("\nDescriptor Articles:\n");
-    for(var w: descriptorGenderedArticles)
-      builder.append(w).append("\n");
 
     return builder.toString();
   }
