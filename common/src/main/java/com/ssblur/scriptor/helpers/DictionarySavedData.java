@@ -8,7 +8,9 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.ssblur.scriptor.helpers.language.DefaultTokenGenerators;
 import com.ssblur.scriptor.helpers.language.TokenGenerator;
 import com.ssblur.scriptor.registry.WordRegistry;
+import com.ssblur.scriptor.word.PartialSpell;
 import com.ssblur.scriptor.word.Spell;
+import com.ssblur.scriptor.word.Word;
 import com.ssblur.scriptor.word.action.Action;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
 import com.ssblur.scriptor.word.subject.Subject;
@@ -152,87 +154,31 @@ public class DictionarySavedData extends SavedData {
 
   /**
    * A helper for getting a key based on a Word.
-   * @param action The Action to search by
+   * @param word The Word to search by
    * @return The matching key
    * null if no matches
    */
-  public String getKey(Action action) {
-    for(String key: WordRegistry.INSTANCE.actionRegistry.keySet()) {
-      if(action == WordRegistry.INSTANCE.actionRegistry.get(key))
+  public String getKey(Word word) {
+    var key = WordRegistry.INSTANCE.getKey(word);
+    if(key != null)
+      if(word instanceof Action)
         return "action:" + key;
-    }
-    return null;
-  }
-
-  /**
-   * A helper for getting a key based on a Word.
-   * @param descriptor The Descriptor to search by
-   * @return The matching key
-   * null if no matches
-   */
-  public String getKey(Descriptor descriptor) {
-    for(String key: WordRegistry.INSTANCE.descriptorRegistry.keySet()) {
-      if(descriptor == WordRegistry.INSTANCE.descriptorRegistry.get(key))
-        return "descriptor:" + key;
-    }
-    return null;
-  }
-
-  /**
-   * A helper for getting a key based on a Word.
-   * @param subject The Subject to search by
-   * @return The matching key
-   * null if no matches
-   */
-  public String getKey(Subject subject) {
-    for(String key: WordRegistry.INSTANCE.subjectRegistry.keySet()) {
-      if(subject == WordRegistry.INSTANCE.subjectRegistry.get(key))
+      else if(word instanceof Subject)
         return "subject:" + key;
-    }
+      else if(word instanceof Descriptor)
+        return "descriptor:" + key;
     return null;
   }
 
 
   /**
    * A helper for getting WordData based on a Word.
-   * @param action The Action to search by
+   * @param word The Word to search by
    * @return The matching word
    * null if no matches
    */
-  public String getWord(Action action) {
-    for(String key: WordRegistry.INSTANCE.actionRegistry.keySet()) {
-      if(action == WordRegistry.INSTANCE.actionRegistry.get(key))
-        return getWord("action:" + key);
-    }
-    return null;
-  }
-
-  /**
-   * A helper for getting WordData based on a Word.
-   * @param descriptor The Descriptor to search by
-   * @return The matching word
-   * null if no matches
-   */
-  public String getWord(Descriptor descriptor) {
-    for(String key: WordRegistry.INSTANCE.descriptorRegistry.keySet()) {
-      if(descriptor == WordRegistry.INSTANCE.descriptorRegistry.get(key))
-        return getWord("descriptor:" + key);
-    }
-    return null;
-  }
-
-  /**
-   * A helper for getting WordData based on a Word.
-   * @param subject The Subject to search by
-   * @return The matching word
-   * null if no matches
-   */
-  public String getWord(Subject subject) {
-    for(String key: WordRegistry.INSTANCE.subjectRegistry.keySet()) {
-      if(subject == WordRegistry.INSTANCE.subjectRegistry.get(key))
-        return getWord("subject:" + key);
-    }
-    return null;
+  public String getWord(Word word) {
+    return getWord(getKey(word));
   }
 
 
@@ -245,7 +191,7 @@ public class DictionarySavedData extends SavedData {
   @Nullable
   public Spell parse(@Nullable String text) {
     if(text == null) {
-      ScriptorMod.LOGGER.warn("No text provided to parser! This shouldn't happen.");
+      ScriptorMod.LOGGER.warn("No text provided to parser!");
       return null;
     }
     int position = 0;
@@ -258,7 +204,7 @@ public class DictionarySavedData extends SavedData {
       Subject subject = null;
 
       while (position < spellStructure.size() && tokenPosition < tokens.length) {
-        WORD word = spellStructure.get(position);
+        WORD word = spellStructure.get(position % spellStructure.size());
         String wordData;
         switch (word) {
           case ACTION -> {
@@ -307,7 +253,7 @@ public class DictionarySavedData extends SavedData {
       }
 
       if (action != null && subject != null)
-        return new Spell(action, subject, descriptors.toArray(Descriptor[]::new));
+        return new Spell(subject, new PartialSpell(action, descriptors.toArray(Descriptor[]::new)));
     } catch (Exception e) {
       ScriptorMod.LOGGER.warn("==========================================================");
       ScriptorMod.LOGGER.warn("The below error did NOT cause a crash, this is debug info!");
@@ -338,15 +284,17 @@ public class DictionarySavedData extends SavedData {
    * @return A String to describe a spell
    */
   public String generate(Spell spell) {
+    assert spell.spells().length >= 1;
     StringBuilder descriptorBuilder = new StringBuilder();
-    for(Descriptor descriptor: spell.deduplicatedDescriptors()) {
+    // TODO: update once grammar is compatible with multiple clauses
+    for(Descriptor descriptor: spell.spells()[0].deduplicatedDescriptors()) {
       descriptorBuilder.append(" ").append(getWord(descriptor));
     }
 
     StringBuilder builder = new StringBuilder();
     for(WORD w: spellStructure) {
       if(w == WORD.ACTION)
-        builder.append(" ").append(getWord(spell.action()));
+        builder.append(" ").append(getWord(spell.spells()[0].action()));
       else if(w == WORD.SUBJECT)
         builder.append(" ").append(getWord(spell.subject()));
       else if(w == WORD.DESCRIPTOR)
@@ -397,8 +345,7 @@ public class DictionarySavedData extends SavedData {
     for(var k: words.keySet()) {
       builder.append('"').append(k).append('"');
       builder.append(" : ");
-      builder.append(words.get(k));
-      builder.append("\n");
+      builder.append(words.get(k)).append("\n");
     }
 
     return builder.toString();

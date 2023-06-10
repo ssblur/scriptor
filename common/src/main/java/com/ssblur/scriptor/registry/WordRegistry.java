@@ -1,5 +1,7 @@
 package com.ssblur.scriptor.registry;
 
+import com.google.common.collect.HashBiMap;
+import com.ssblur.scriptor.word.Word;
 import com.ssblur.scriptor.word.action.*;
 import com.ssblur.scriptor.word.action.potion.PoisonAction;
 import com.ssblur.scriptor.word.action.potion.SlowAction;
@@ -92,9 +94,24 @@ public class WordRegistry {
   public static final Action POISON_POTION = INSTANCE.register("poison", new PoisonAction());
   public static final Action SLOW_POTION = INSTANCE.register("slow", new SlowAction());
 
-  public HashMap<String, Action> actionRegistry = new HashMap<>();
-  public HashMap<String, Descriptor> descriptorRegistry = new HashMap<>();
-  public HashMap<String, Subject> subjectRegistry = new HashMap<>();
+  public HashBiMap<String, Action> actionRegistry = HashBiMap.create();
+  public HashBiMap<String, Descriptor> descriptorRegistry = HashBiMap.create();
+  public HashBiMap<String, Subject> subjectRegistry = HashBiMap.create();
+
+  /**
+   * Tries to get find a word's key in the relevant registry.
+   * @param word The word to search for
+   * @return The associated key
+   */
+  public String getKey(Word word) {
+    if(word instanceof Action action)
+      return actionRegistry.inverse().get(action);
+    else if (word instanceof Descriptor descriptor)
+      return descriptorRegistry.inverse().get(descriptor);
+    else if (word instanceof Subject subject)
+      return subjectRegistry.inverse().get(subject);
+    return null;
+  }
 
   /**
    * Register a new Action.

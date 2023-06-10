@@ -2,6 +2,7 @@ package com.ssblur.scriptor.helpers;
 
 import com.ssblur.scriptor.error.WordNotFoundException;
 import com.ssblur.scriptor.registry.WordRegistry;
+import com.ssblur.scriptor.word.PartialSpell;
 import com.ssblur.scriptor.word.Spell;
 import com.ssblur.scriptor.word.action.Action;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
@@ -59,6 +60,6 @@ public class TomeResource {
       descriptors.add(descriptor);
     }
 
-    return new Spell(action, subject, descriptors.toArray(Descriptor[]::new));
+    return new Spell(subject, new PartialSpell(action, descriptors.toArray(Descriptor[]::new)));
   }
 }

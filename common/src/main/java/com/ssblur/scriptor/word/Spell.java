@@ -23,17 +23,16 @@ import java.util.concurrent.ExecutionException;
 
 /**
  * A record used to represent a complete spell.
- * @param action The active component of a spell
  * @param subject The target of a spell
- * @param descriptors Any descriptors affecting this spell
+ * @param spells Groups of descriptors and actions
  */
 public record Spell(
-  Action action,
   Subject subject,
-  Descriptor... descriptors
+  PartialSpell... spells
 ) {
   void castOnTargets(Targetable caster, List<Targetable> targets) {
-    for(var descriptor: deduplicatedDescriptors()) {
+    assert spells.length >= 1;
+    for(var descriptor: spells[0].deduplicatedDescriptors()) {
       if (descriptor instanceof TargetDescriptor cast)
         targets = cast.modifyTargets(targets);
       if (descriptor instanceof FocusDescriptor focus)
@@ -41,7 +40,8 @@ public record Spell(
     }
 
     for(var target: targets) {
-      action.apply(caster, target, deduplicatedDescriptors());
+      for(var spell: spells)
+        spell.action().apply(caster, target, spells[0].deduplicatedDescriptors());
     }
   }
 
@@ -63,7 +63,8 @@ public record Spell(
    * @param caster The entity which cast this spell.
    */
   public void cast(Targetable caster) {
-    for(var descriptor: deduplicatedDescriptors()) {
+    assert spells.length >= 1;
+    for(var descriptor: spells[0].deduplicatedDescriptors()) {
       if (descriptor instanceof CastDescriptor cast)
         if (cast.cannotCast(caster)) {
           if (caster instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof Player player)
@@ -78,7 +79,7 @@ public record Spell(
 
     var targetFuture = subject.getTargets(caster, this);
 
-    for(var descriptor: deduplicatedDescriptors())
+    for(var descriptor: spells[0].deduplicatedDescriptors())
       if(descriptor instanceof AfterCastDescriptor afterCastDescriptor)
         afterCastDescriptor.afterCast(caster);
 
@@ -106,7 +107,8 @@ public record Spell(
    * @param caster The entity which cast this spell.
    */
   public void cast(Targetable caster, Targetable... targetables) {
-    for(var descriptor: deduplicatedDescriptors())
+    assert spells.length >= 1;
+    for(var descriptor: spells[0].deduplicatedDescriptors())
       if (descriptor instanceof CastDescriptor cast)
         if (cast.cannotCast(caster)) {
           if (caster instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof Player player)
@@ -140,22 +142,47 @@ public record Spell(
     return out;
   }
 
-  public Descriptor[] deduplicatedDescriptors() {
-    ArrayList<Descriptor> out = new ArrayList<>();
-    for(var descriptor: descriptors) {
-      if(descriptor.allowsDuplicates() || !out.contains(descriptor))
-        out.add(descriptor);
+
+
+  private Word[] words() {
+    int length = 1;
+    int index = 1;
+    for(var spell: spells)
+      length += spell.deduplicatedDescriptors().length + 1;
+
+    Word[] words = new Word[length];
+    words[0] = subject;
+
+    for(var spell: spells) {
+      words[index] = spell.action();
+      index++;
+
+      var descriptors = spell.deduplicatedDescriptors();
+      System.arraycopy(descriptors, 0, words, index, descriptors.length);
+      index += descriptors.length;
     }
-    return out.toArray(Descriptor[]::new);
+    return words;
   }
 
-  public Word[] words() {
-    var descriptors = deduplicatedDescriptors();
-    Word[] words = new Word[descriptors.length + 2];
+  public Descriptor[] deduplicatedDescriptorsForSubjects() {
+    assert spells.length >= 1;
+    return spells[0].deduplicatedDescriptors();
+  }
 
-    words[0] = subject;
-    words[1] = action;
-    System.arraycopy(descriptors, 0, words, 2, descriptors.length);
-    return words;
+  public Descriptor[] deduplicatedDescriptorsForAccumulation() {
+    int length = 0;
+    int index = 0;
+
+    for(var spell: spells)
+      length += spell.deduplicatedDescriptors().length;
+
+    Descriptor[] descriptors = new Descriptor[length];
+
+    for(var spell: spells) {
+      System.arraycopy(spell.deduplicatedDescriptors(), 0, descriptors, index, descriptors.length);
+      index += descriptors.length;
+    }
+
+    return descriptors;
   }
 }
