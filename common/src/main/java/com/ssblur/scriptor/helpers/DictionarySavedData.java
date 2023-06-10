@@ -199,11 +199,15 @@ public class DictionarySavedData extends SavedData {
     try {
       String[] tokens = text.split("\s");
 
+      Subject subject = null;
+      List<PartialSpell> spells = new ArrayList<>();
+
       Action action = null;
       List<Descriptor> descriptors = new ArrayList<>();
-      Subject subject = null;
 
-      while (position < spellStructure.size() && tokenPosition < tokens.length) {
+      while (tokenPosition < tokens.length) {
+        if(position % spellStructure.size() == 0 && position > 0) spells.add(new PartialSpell(action, descriptors.toArray(Descriptor[]::new)));
+        if(position >= spellStructure.size() && spellStructure.get(position % spellStructure.size()) == WORD.SUBJECT) position++;
         WORD word = spellStructure.get(position % spellStructure.size());
         String wordData;
         switch (word) {
@@ -252,8 +256,10 @@ public class DictionarySavedData extends SavedData {
         tokenPosition++;
       }
 
-      if (action != null && subject != null)
-        return new Spell(subject, new PartialSpell(action, descriptors.toArray(Descriptor[]::new)));
+      if (action != null && subject != null) {
+        spells.add(new PartialSpell(action, descriptors.toArray(Descriptor[]::new)));
+        return new Spell(subject, spells.toArray(PartialSpell[]::new));
+      }
     } catch (Exception e) {
       ScriptorMod.LOGGER.warn("==========================================================");
       ScriptorMod.LOGGER.warn("The below error did NOT cause a crash, this is debug info!");
@@ -272,8 +278,16 @@ public class DictionarySavedData extends SavedData {
    */
   public List<String> parseComponents(String text) {
     var spell = parse(text);
-    if(spell != null)
-      return Arrays.asList(generate(spell).split("\\s"));
+    if(spell != null) {
+      List<String> list = new ArrayList<>();
+      list.add(getKey(spell.subject()));
+      for(var partialSpell: spell.spells()) {
+        list.add(getKey(partialSpell.action()));
+        for(var descriptor: partialSpell.descriptors())
+          list.add(getKey(descriptor));
+      }
+      return list;
+    }
     return null;
   }
 
@@ -286,7 +300,6 @@ public class DictionarySavedData extends SavedData {
   public String generate(Spell spell) {
     assert spell.spells().length >= 1;
     StringBuilder descriptorBuilder = new StringBuilder();
-    // TODO: update once grammar is compatible with multiple clauses
     for(Descriptor descriptor: spell.spells()[0].deduplicatedDescriptors()) {
       descriptorBuilder.append(" ").append(getWord(descriptor));
     }
@@ -299,6 +312,20 @@ public class DictionarySavedData extends SavedData {
         builder.append(" ").append(getWord(spell.subject()));
       else if(w == WORD.DESCRIPTOR)
         builder.append(descriptorBuilder);
+    }
+
+    for(var partialSpell: Arrays.stream(spell.spells()).skip(1).toList()) {
+      descriptorBuilder = new StringBuilder();
+      for(Descriptor descriptor: partialSpell.deduplicatedDescriptors()) {
+        descriptorBuilder.append(" ").append(getWord(descriptor));
+      }
+
+      for(WORD w: spellStructure) {
+        if(w == WORD.ACTION)
+          builder.append(" ").append(getWord(partialSpell.action()));
+        else if(w == WORD.DESCRIPTOR)
+          builder.append(descriptorBuilder);
+      }
     }
 
     return builder.toString().strip();

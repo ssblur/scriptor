@@ -19,7 +19,6 @@ import java.util.Random;
 
 public class TomeReloadListener extends SimpleJsonResourceReloadListener {
   static ResourceLocation TOMES = new ResourceLocation("data/tomes");
-  @SuppressWarnings("UnstableApiUsage")
   static Type TOME_TYPE = new TypeToken<TomeResource>() {}.getType();
   static Gson GSON = new Gson();
   static Random RANDOM = new Random();
@@ -30,6 +29,10 @@ public class TomeReloadListener extends SimpleJsonResourceReloadListener {
 
   TomeReloadListener() {
     super(GSON, "tomes");
+  }
+
+  public HashMap<Integer, HashMap<ResourceLocation, TomeResource>> getTiers() {
+    return tomes;
   }
 
   @Override
