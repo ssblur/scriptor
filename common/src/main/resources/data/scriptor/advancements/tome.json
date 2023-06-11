@@ -1,0 +1,25 @@
+{
+  "display": {
+    "title": {
+      "text": "Apprentice Arcanist",
+      "color": "white"
+    },
+    "description": {
+      "text": "Uncover an ancient tome."
+    },
+    "icon": {
+      "item": "minecraft:book"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
+  },
+  "criteria": {
+    "collect": {
+      "conditions": {},
+      "trigger": "scriptor:tome_collect"
+    }
+  }
+}

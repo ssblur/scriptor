@@ -3,13 +3,16 @@ package com.ssblur.scriptor.events;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import com.ssblur.scriptor.helpers.LimitedBookSerializer;
+import com.ssblur.scriptor.advancement.ScriptorAdvancements;
+import com.ssblur.scriptor.advancement.TomeCollectionTrigger;
+import com.ssblur.scriptor.helpers.PlayerSpellsSavedData;
 import com.ssblur.scriptor.helpers.TomeResource;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.world.entity.player.Player;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -52,6 +55,35 @@ public class TomeReloadListener extends SimpleJsonResourceReloadListener {
 
   public TomeResource getRandomTome(int tier) {
     var keys = tomes.get(tier).keySet();
+    return tomes.get(tier).get(keys.toArray(new ResourceLocation[]{})[RANDOM.nextInt(keys.size())]);
+  }
+
+  public TomeResource getRandomTome(int tier, Player player) {
+    var keys = tomes.get(tier).keySet();
+    var data = PlayerSpellsSavedData.computeIfAbsent(player);
+    if(data != null) {
+      var spells = data.getTier(tier);
+
+      ScriptorAdvancements.TOME.trigger((ServerPlayer) player);
+      if (keys.size() == spells.size())
+        return tomes.get(tier).get(keys.toArray(new ResourceLocation[]{})[RANDOM.nextInt(keys.size())]);
+      else if (keys.size() == spells.size() + 1) {
+        if (tier == 1) ScriptorAdvancements.TOME_1.trigger((ServerPlayer) player);
+        if (tier == 2) ScriptorAdvancements.TOME_2.trigger((ServerPlayer) player);
+        if (tier == 3) ScriptorAdvancements.TOME_3.trigger((ServerPlayer) player);
+        if (tier == 4) ScriptorAdvancements.TOME_4.trigger((ServerPlayer) player);
+      }
+
+      var keysArray = keys.toArray(new ResourceLocation[]{});
+      ResourceLocation resource;
+      do {
+        resource = keysArray[RANDOM.nextInt(keys.size())];
+      } while (spells.containsKey(resource.toShortLanguageKey()));
+      spells.put(resource.toShortLanguageKey(), true);
+      data.setDirty();
+
+      return tomes.get(tier).get(resource);
+    }
     return tomes.get(tier).get(keys.toArray(new ResourceLocation[]{})[RANDOM.nextInt(keys.size())]);
   }
 }

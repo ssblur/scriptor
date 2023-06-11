@@ -1,0 +1,25 @@
+{
+  "display": {
+    "title": {
+      "text": "Occult Librarian",
+      "color": "gold"
+    },
+    "description": {
+      "text": "Collect all available Tier 3 spells."
+    },
+    "icon": {
+      "item": "scriptor:tome_tier3"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "collect": {
+      "conditions": {},
+      "trigger": "scriptor:tome3_collect"
+    }
+  },
+  "parent": "scriptor:tome"
+}

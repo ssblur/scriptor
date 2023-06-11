@@ -8,15 +8,12 @@
       {
         "action": "smite",
         "descriptors": [
-          "cheap",
           "yellow"
         ]
       },
       {
         "action": "explosion",
-        "descriptors": [
-          "cheap"
-        ]
+        "descriptors": []
       }
     ]
   }
