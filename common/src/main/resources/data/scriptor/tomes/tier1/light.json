@@ -1,0 +1,14 @@
+{
+  "name": "Magelight",
+  "author": "Lucy",
+  "tier": 1,
+  "spell": {
+    "subject": "touch",
+    "spells": [
+      {
+        "action": "light",
+        "descriptors": []
+      }
+    ]
+  }
+}

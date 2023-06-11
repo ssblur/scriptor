@@ -83,6 +83,7 @@ public class WordRegistry {
   public static final Descriptor CASTER_FIRST_MATCHING = INSTANCE.register("caster_first_matching", new CasterIgnoreTargetedSlotDescriptor());
 
   public static final Action INFLAME = INSTANCE.register("inflame", new InflameAction());
+  public static final Action LIGHT = INSTANCE.register("light", new LightAction());
   public static final Action HEAL = INSTANCE.register("heal", new HealAction());
   public static final Action SMITE = INSTANCE.register("smite", new SmiteAction());
   public static final Action EXPLOSION = INSTANCE.register("explosion", new ExplosionAction());
