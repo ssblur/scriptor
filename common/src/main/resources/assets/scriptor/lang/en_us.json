@@ -42,6 +42,7 @@
   "descriptor.scriptor.slow": "This spell seems slower than usual.",
   "descriptor.scriptor.chain": "This spell reaches out to nearby targets.",
   "descriptor.scriptor.blood_power": "You sense a wicked power in this spell. It may hurt to use.",
+  "descriptor.scriptor.overwhelming": "The strength of this spell overwhelms the caster.",
 
   "descriptor.scriptor.reagent.scriptor.amethyst": "This spell consumes Amethysts",
   "descriptor.scriptor.reagent.scriptor.gold": "This spell consumes Gold Ingots",
@@ -75,13 +76,13 @@
   "descriptor.scriptor.first_filled": "This spell targets the first filled slot in an inventory",
   "descriptor.scriptor.first_matching": "This spell targets the first valid slot in an inventory",
 
-
   "descriptor.scriptor.caster_inventory": "This spell focuses on the caster's inventory",
   "descriptor.scriptor.caster_first_empty": "This spell focuses on the first empty slot in the caster's inventory",
   "descriptor.scriptor.caster_first_filled": "This spell focuses on the first filled slot in the caster's inventory",
   "descriptor.scriptor.caster_first_matching": "This spell focuses on the first valid slot in the caster's inventory",
 
   "action.scriptor.inflame": "This spell heats or sets the target on fire.",
+  "action.scriptor.light": "This spell places a light where it is cast.",
   "action.scriptor.heal": "This spell heals or repairs the target.",
   "action.scriptor.smite": "This spell electrifies the target.",
   "action.scriptor.explosion": "This spell creates an explosion on the target.",

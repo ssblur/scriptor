@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.word;
 
+import com.ssblur.scriptor.effect.ScriptorEffects;
 import com.ssblur.scriptor.events.messages.ParticleNetwork;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
@@ -12,6 +13,7 @@ import com.ssblur.scriptor.word.descriptor.target.TargetDescriptor;
 import com.ssblur.scriptor.word.subject.Subject;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import org.checkerframework.checker.units.qual.A;
 
@@ -63,6 +65,13 @@ public record Spell(
    * @param caster The entity which cast this spell.
    */
   public void cast(Targetable caster) {
+    if(caster instanceof EntityTargetable entity && entity.getTargetEntity() instanceof LivingEntity living)
+      if(living.hasEffect(ScriptorEffects.MUTE.get())) {
+        if(living instanceof Player player)
+          player.sendSystemMessage(Component.translatable("extra.scriptor.mute"));
+        return;
+      }
+
     assert spells.length >= 1;
     for(var descriptor: spells[0].deduplicatedDescriptors()) {
       if (descriptor instanceof CastDescriptor cast)
@@ -107,15 +116,6 @@ public record Spell(
    * @param caster The entity which cast this spell.
    */
   public void cast(Targetable caster, Targetable... targetables) {
-    assert spells.length >= 1;
-    for(var descriptor: spells[0].deduplicatedDescriptors())
-      if (descriptor instanceof CastDescriptor cast)
-        if (cast.cannotCast(caster)) {
-          if (caster instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof Player player)
-            player.sendSystemMessage(Component.translatable("extra.scriptor.condition_not_met"));
-          return;
-        }
-
     castOnTargets(caster, Arrays.stream(targetables).toList());
   }
 

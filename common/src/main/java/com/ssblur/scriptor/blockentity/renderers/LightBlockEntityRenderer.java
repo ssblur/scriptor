@@ -20,9 +20,7 @@ import org.joml.Vector3f;
 import java.awt.*;
 
 public class LightBlockEntityRenderer implements BlockEntityRenderer<LightBlockEntity> {
-  public LightBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
-
-  }
+  public LightBlockEntityRenderer(BlockEntityRendererProvider.Context context) {}
 
   @Override
   public void render(LightBlockEntity light, float tickDelta, PoseStack matrix, MultiBufferSource buffers, int lightLevel, int j) {

@@ -29,6 +29,7 @@ public class LightBlock extends Block implements EntityBlock {
         .noLootTable()
         .sound(SoundType.WOOL)
         .noCollission()
+        .lightLevel(state -> 15)
     );
   }
 
