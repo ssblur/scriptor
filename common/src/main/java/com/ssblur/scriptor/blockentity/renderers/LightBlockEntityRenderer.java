@@ -39,14 +39,15 @@ public class LightBlockEntityRenderer implements BlockEntityRenderer<LightBlockE
     float yd = 0.25f + random.nextFloat() / 2f;
     float zd = 0.25f + random.nextFloat() / 2f;
 
-    light.getLevel().addParticle(
-      new DustParticleOptions(new Vector3f(r, g, b), 1.0f),
-      light.getBlockPos().getX() + xd,
-      light.getBlockPos().getY() + yd,
-      light.getBlockPos().getZ() + zd,
-      0,
-      0,
-      0
-    );
+    if(!Minecraft.getInstance().isPaused())
+      light.getLevel().addParticle(
+        new DustParticleOptions(new Vector3f(r, g, b), 1.0f),
+        light.getBlockPos().getX() + xd,
+        light.getBlockPos().getY() + yd,
+        light.getBlockPos().getZ() + zd,
+        0,
+        0,
+        0
+      );
   }
 }
