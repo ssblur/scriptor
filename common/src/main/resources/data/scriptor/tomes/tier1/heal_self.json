@@ -1,0 +1,16 @@
+{
+  "name": "Heal Self",
+  "author": "Bert the Healer",
+  "tier": 1,
+  "spell": {
+    "subject": "self",
+    "spells": [
+      {
+        "action": "heal",
+        "descriptors": [
+          "strong"
+        ]
+      }
+    ]
+  }
+}

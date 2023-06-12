@@ -1,5 +1,7 @@
 package com.ssblur.scriptor.registry;
 
+import com.google.common.collect.HashBiMap;
+import com.ssblur.scriptor.word.Word;
 import com.ssblur.scriptor.word.action.*;
 import com.ssblur.scriptor.word.action.potion.PoisonAction;
 import com.ssblur.scriptor.word.action.potion.SlowAction;
@@ -17,6 +19,7 @@ import com.ssblur.scriptor.word.descriptor.focus.inventory.CasterFirstFilledSlot
 import com.ssblur.scriptor.word.descriptor.focus.inventory.CasterIgnoreTargetedSlotDescriptor;
 import com.ssblur.scriptor.word.descriptor.focus.inventory.CasterInventoryDescriptor;
 import com.ssblur.scriptor.word.descriptor.power.BloodPowerDescriptor;
+import com.ssblur.scriptor.word.descriptor.power.OverwhelmingStrengthDescriptor;
 import com.ssblur.scriptor.word.descriptor.power.SimpleStrengthDescriptor;
 import com.ssblur.scriptor.word.descriptor.target.ChainDescriptor;
 import com.ssblur.scriptor.word.descriptor.target.inventory.FirstEmptySlotDescriptor;
@@ -33,6 +36,7 @@ public class WordRegistry {
 
   public static final Subject SELF = INSTANCE.register("self", new SelfSubject());
   public static final Subject TOUCH = INSTANCE.register("touch", new TouchSubject());
+  public static final Subject HITSCAN = INSTANCE.register("hitscan", new HitscanSubject());
   public static final Subject PROJECTILE = INSTANCE.register("projectile", new ProjectileSubject());
   public static final Subject STORM = INSTANCE.register("storm", new StormSubject());
   public static final Subject RUNE = INSTANCE.register("rune", new RuneSubject());
@@ -41,12 +45,14 @@ public class WordRegistry {
   public static final Descriptor LONG = INSTANCE.register("long", new SimpleDurationDescriptor(3, 7));
   public static final Descriptor SLOW = INSTANCE.register("slow", new SpeedDurationDescriptor(2, 4, .75));
   public static final Descriptor FAST = INSTANCE.register("fast", new SpeedDurationDescriptor(2, -4, 1.25));
-  public static final Descriptor STRONG = INSTANCE.register("strong", new SimpleStrengthDescriptor(2, 1));
-  public static final Descriptor STACKING_STRONG = INSTANCE.register("stacking_strong", new SimpleStrengthDescriptor(4, 1).allowDuplication());
-  public static final Descriptor POWERFUL = INSTANCE.register("powerful", new SimpleStrengthDescriptor(6, 4));
   public static final Descriptor CHAIN = INSTANCE.register("chain", new ChainDescriptor());
-  public static final Descriptor BLOOD_POWER = INSTANCE.register("blood_power", new BloodPowerDescriptor());
   public static final Descriptor POISONED = INSTANCE.register("poisoned", new PoisonDescriptor());
+
+  public static final Descriptor BLOOD_POWER = INSTANCE.register("blood_power", new BloodPowerDescriptor());
+  public static final Descriptor STRONG = INSTANCE.register("strong", new SimpleStrengthDescriptor(2, 1));
+  public static final Descriptor POWERFUL = INSTANCE.register("powerful", new SimpleStrengthDescriptor(6, 4));
+  public static final Descriptor STACKING_STRONG = INSTANCE.register("stacking_strong", new SimpleStrengthDescriptor(4, 1).allowDuplication());
+  public static final Descriptor OVERWHELMING_STRENGTH = INSTANCE.register("overwhelming", new OverwhelmingStrengthDescriptor());
 
   public static final Descriptor BLOOD_COST = INSTANCE.register("blood_cost", new BloodCostDescriptor());
   public static final Descriptor CHEAP = INSTANCE.register("cheap", new CheapDescriptor());
@@ -81,6 +87,7 @@ public class WordRegistry {
   public static final Descriptor CASTER_FIRST_MATCHING = INSTANCE.register("caster_first_matching", new CasterIgnoreTargetedSlotDescriptor());
 
   public static final Action INFLAME = INSTANCE.register("inflame", new InflameAction());
+  public static final Action LIGHT = INSTANCE.register("light", new LightAction());
   public static final Action HEAL = INSTANCE.register("heal", new HealAction());
   public static final Action SMITE = INSTANCE.register("smite", new SmiteAction());
   public static final Action EXPLOSION = INSTANCE.register("explosion", new ExplosionAction());
@@ -92,9 +99,24 @@ public class WordRegistry {
   public static final Action POISON_POTION = INSTANCE.register("poison", new PoisonAction());
   public static final Action SLOW_POTION = INSTANCE.register("slow", new SlowAction());
 
-  public HashMap<String, Action> actionRegistry = new HashMap<>();
-  public HashMap<String, Descriptor> descriptorRegistry = new HashMap<>();
-  public HashMap<String, Subject> subjectRegistry = new HashMap<>();
+  public HashBiMap<String, Action> actionRegistry = HashBiMap.create();
+  public HashBiMap<String, Descriptor> descriptorRegistry = HashBiMap.create();
+  public HashBiMap<String, Subject> subjectRegistry = HashBiMap.create();
+
+  /**
+   * Tries to get find a word's key in the relevant registry.
+   * @param word The word to search for
+   * @return The associated key
+   */
+  public String getKey(Word word) {
+    if(word instanceof Action action)
+      return actionRegistry.inverse().get(action);
+    else if (word instanceof Descriptor descriptor)
+      return descriptorRegistry.inverse().get(descriptor);
+    else if (word instanceof Subject subject)
+      return subjectRegistry.inverse().get(subject);
+    return null;
+  }
 
   /**
    * Register a new Action.

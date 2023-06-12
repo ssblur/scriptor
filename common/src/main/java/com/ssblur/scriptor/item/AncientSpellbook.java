@@ -43,7 +43,7 @@ public class AncientSpellbook extends Item {
       player.sendSystemMessage(Component.translatable("extra.scriptor.tome_use"));
       player.getCooldowns().addCooldown(this, 20);
 
-      var resource = TomeReloadListener.INSTANCE.getRandomTome(tier);
+      var resource = TomeReloadListener.INSTANCE.getRandomTome(tier, player);
       Spell spell = resource.getSpell();
       String sentence = DictionarySavedData.computeIfAbsent(server).generate(spell);
       player.addItem(LimitedBookSerializer.createSpellbook(resource.getAuthor(), resource.getName(), sentence));

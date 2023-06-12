@@ -1,0 +1,14 @@
+{
+  "name": "Break Block",
+  "author": "Steve",
+  "tier": 1,
+  "spell": {
+    "subject": "touch",
+    "spells": [
+      {
+        "action": "break",
+        "descriptors": []
+      }
+    ]
+  }
+}

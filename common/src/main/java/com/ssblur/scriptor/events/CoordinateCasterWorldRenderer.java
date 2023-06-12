@@ -5,7 +5,6 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
-import com.mojang.math.Vector3f;
 import com.ssblur.scriptor.item.ScriptorItems;
 import com.ssblur.scriptor.item.casters.CoordinateCasterCrystal;
 import net.minecraft.client.Minecraft;

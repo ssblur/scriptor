@@ -5,6 +5,7 @@ import com.ssblur.scriptor.word.descriptor.Descriptor;
 import com.ssblur.scriptor.word.descriptor.power.StrengthDescriptor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.Level;
 
 public class ExplosionAction extends Action {
   @Override
@@ -18,7 +19,7 @@ public class ExplosionAction extends Action {
 
     ServerLevel level = (ServerLevel) targetable.getLevel();
     var pos = targetable.getTargetPos();
-    level.explode(null, pos.x, pos.y + .25, pos.z, strength, Explosion.BlockInteraction.DESTROY);
+    level.explode(null, pos.x, pos.y + .25, pos.z, strength, Level.ExplosionInteraction.TNT);
   }
 
   @Override

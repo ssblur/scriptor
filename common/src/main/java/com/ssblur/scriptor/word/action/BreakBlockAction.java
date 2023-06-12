@@ -7,6 +7,7 @@ import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
 import com.ssblur.scriptor.word.descriptor.power.StrengthDescriptor;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -64,9 +65,7 @@ public class BreakBlockAction extends Action {
     var state = targetable.getLevel().getBlockState(pos);
     if(state.getBlock().defaultDestroyTime() < 0) return;
     var level = targetable.getLevel();
-    var tags = Registry.BLOCK.getResourceKey(state.getBlock())
-      .map(key -> Registry.BLOCK.getHolderOrThrow(key).tags().collect(Collectors.toSet()))
-      .orElse(Collections.emptySet());
+    var tags = state.getBlock().arch$holder().tags().collect(Collectors.toSet());
     int neededStrength = 0;
     for(var tag: tags) {
       if(toolLevelsList.containsKey(tag.location().toString()))

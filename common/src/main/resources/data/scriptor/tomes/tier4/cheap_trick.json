@@ -1,0 +1,16 @@
+{
+  "name": "A Cheap Trick",
+  "author": "Niz",
+  "tier": 4,
+  "spell": {
+    "subject": "touch",
+    "spells": [
+      {
+        "action": "inflame",
+        "descriptors": [
+          "cheap"
+        ]
+      }
+    ]
+  }
+}

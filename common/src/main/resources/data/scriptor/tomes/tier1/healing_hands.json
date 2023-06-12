@@ -1,0 +1,16 @@
+{
+  "name": "Healing Hands",
+  "author": "Yurt the Healer",
+  "tier": 1,
+  "spell": {
+    "subject": "touch",
+    "spells": [
+      {
+        "action": "heal",
+        "descriptors": [
+          "strong"
+        ]
+      }
+    ]
+  }
+}

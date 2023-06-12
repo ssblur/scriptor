@@ -4,6 +4,7 @@ import com.ssblur.scriptor.events.ScriptorEvents;
 import com.ssblur.scriptor.helpers.DictionarySavedData;
 import com.ssblur.scriptor.helpers.LimitedBookSerializer;
 import com.ssblur.scriptor.registry.WordRegistry;
+import com.ssblur.scriptor.word.PartialSpell;
 import com.ssblur.scriptor.word.Spell;
 import com.ssblur.scriptor.word.action.Action;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
@@ -98,7 +99,7 @@ public class EnchantNetwork {
         case "subject" -> subject = WordRegistry.INSTANCE.subjectRegistry.get(split[1]);
       }
     }
-    Spell spell = new Spell(action, subject, descriptor.toArray(new Descriptor[0]));
+    Spell spell = new Spell(subject, new PartialSpell(action, descriptor.toArray(new Descriptor[0])));
     var player = context.getPlayer();
     var item = player.containerMenu.getItems().get(slot);
     var carried = player.containerMenu.getCarried();

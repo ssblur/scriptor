@@ -25,7 +25,7 @@ public class RuneSubject extends Subject implements InventorySubject{
       TraceNetwork.requestTraceData(player, target -> {
 
         int color = 0xa020f0;
-        for(Descriptor d: spell.deduplicatedDescriptors())
+        for(Descriptor d: spell.deduplicatedDescriptorsForSubjects())
           if(d instanceof ColorDescriptor descriptor)
             color = descriptor.getColor();
 
@@ -47,7 +47,7 @@ public class RuneSubject extends Subject implements InventorySubject{
       });
     } else {
       int color = 0xa020f0;
-      for(Descriptor d: spell.deduplicatedDescriptors())
+      for(Descriptor d: spell.deduplicatedDescriptorsForSubjects())
         if(d instanceof ColorDescriptor descriptor)
           color = descriptor.getColor();
 

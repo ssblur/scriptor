@@ -1,0 +1,16 @@
+{
+  "name": "Greater Smite",
+  "author": "Danny the Vito",
+  "tier": 3,
+  "spell": {
+    "subject": "storm",
+    "spells": [
+      {
+        "action": "smite",
+        "descriptors": [
+          "strong"
+        ]
+      }
+    ]
+  }
+}

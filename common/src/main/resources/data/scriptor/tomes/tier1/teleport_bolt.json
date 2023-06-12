@@ -1,0 +1,16 @@
+{
+  "name": "Train Bullet",
+  "author": "And Drew",
+  "tier": 1,
+  "spell": {
+    "subject": "projectile",
+    "spells": [
+      {
+        "action": "goto",
+        "descriptors": [
+          "light_blue"
+        ]
+      }
+    ]
+  }
+}

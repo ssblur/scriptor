@@ -1,0 +1,24 @@
+{
+  "name": "Instant Lightning",
+  "author": "Zephyr the Pained",
+  "tier": 2,
+  "spell": {
+    "subject": "projectile",
+    "spells": [
+      {
+        "action": "smite",
+        "descriptors": [
+          "blood_cost",
+          "blood_cost",
+          "blood_cost",
+          "blood_cost",
+          "blood_cost",
+          "blood_cost",
+          "blood_cost",
+          "blood_cost",
+          "blood_cost"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Hot Hands",
+  "author": "Jaurice",
+  "tier": 1,
+  "spell": {
+    "subject": "touch",
+    "spells": [
+      {
+        "action": "inflame",
+        "descriptors": [
+          "long"
+        ]
+      }
+    ]
+  }
+}

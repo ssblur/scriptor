@@ -1,0 +1,20 @@
+{
+  "name": "Zeus' Might",
+  "author": "Riju",
+  "tier": 3,
+  "spell": {
+    "subject": "projectile",
+    "spells": [
+      {
+        "action": "smite",
+        "descriptors": [
+          "yellow"
+        ]
+      },
+      {
+        "action": "explosion",
+        "descriptors": []
+      }
+    ]
+  }
+}

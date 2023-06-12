@@ -1,0 +1,18 @@
+{
+  "name": "Disabled Tome",
+  "disabled": true,
+  "tier": 1,
+  "author": "This tome is an example of how to disable existing tomes.",
+  "spell": {
+    "subject": "storm",
+    "spells": [
+      {
+        "action": "inflame",
+        "descriptors": [
+          "long",
+          "slow"
+        ]
+      }
+    ]
+  }
+}

@@ -16,7 +16,7 @@ modrinth {
     changelog = (System.getenv("CHANGELOG") ?: "Could not load changelog").replace("\n", "\n\n")
     versionType = "beta"
     uploadFile = remapJar
-    gameVersions = ["1.19.2"]
+    gameVersions = ["1.19.3"]
     loaders = ["forge"]
     dependencies {
         required.project "architectury-api"
@@ -67,7 +67,7 @@ shadowJar {
 }
 
 remapJar {
-    input.set shadowJar.archiveFile
+    inputFile.set shadowJar.archiveFile
     dependsOn shadowJar
     classifier null
 }

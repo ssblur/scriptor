@@ -1,6 +1,5 @@
 package com.ssblur.scriptor.helpers.targetable;
 
-import com.mojang.math.Vector3f;
 import com.ssblur.scriptor.blockentity.CastingLecternBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
@@ -8,6 +7,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 
 public class LecternTargetable extends Targetable implements InventoryTargetable {
   int slot;
@@ -17,7 +17,7 @@ public class LecternTargetable extends Targetable implements InventoryTargetable
   }
 
   public LecternTargetable(Level level, Vector3f pos) {
-    super(level, pos);
+    super(level, new Vec3(pos.x, pos.y, pos.z));
     slot = 0;
   }
 

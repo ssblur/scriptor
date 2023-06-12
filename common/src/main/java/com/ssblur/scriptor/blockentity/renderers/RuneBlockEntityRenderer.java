@@ -2,9 +2,6 @@ package com.ssblur.scriptor.blockentity.renderers;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.blockentity.RuneBlockEntity;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;

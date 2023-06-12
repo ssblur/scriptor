@@ -1,0 +1,16 @@
+{
+  "name": "Touch of Death",
+  "author": "Squiddles",
+  "tier": 4,
+  "spell": {
+    "subject": "touch",
+    "spells": [
+      {
+        "action": "harm",
+        "descriptors": [
+          "overwhelming"
+        ]
+      }
+    ]
+  }
+}

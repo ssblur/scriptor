@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.blockentity.renderers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import com.ssblur.scriptor.block.CastingLecternBlock;
 import com.ssblur.scriptor.blockentity.CastingLecternBlockEntity;
 import com.ssblur.scriptor.item.ScriptorItems;
@@ -58,15 +58,15 @@ public class CastingLecternBlockEntityRenderer implements BlockEntityRenderer<Ca
     matrix.translate(0.5f, 1.3f, 0.5f);
     matrix.scale(0.5f, 0.5f, 0.5f);
 
-    matrix.mulPose(Vector3f.YP.rotationDegrees(time * 360));
+    matrix.mulPose(Axis.YP.rotationDegrees(time * 360));
     itemRenderer.renderStatic(lectern.getFocus(), ItemTransforms.TransformType.GROUND, light, overlay, matrix, buffers, (int) lectern.getBlockPos().asLong());
 
     matrix.popPose();
 
     matrix.translate(0.5f + translateX, 1f + translateY, 0.5f + translateZ);
 
-    matrix.mulPose(Vector3f.YP.rotationDegrees(rotationY));
-    matrix.mulPose(Vector3f.XP.rotationDegrees(112));
+    matrix.mulPose(Axis.YP.rotationDegrees(rotationY));
+    matrix.mulPose(Axis.XP.rotationDegrees(112));
 
     itemRenderer.renderStatic(lectern.getSpellbook(), ItemTransforms.TransformType.FIXED, light, overlay, matrix, buffers, (int) lectern.getBlockPos().asLong());
 

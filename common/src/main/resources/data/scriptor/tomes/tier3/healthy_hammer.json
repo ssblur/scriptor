@@ -1,0 +1,24 @@
+{
+  "name": "Healthy Hammer",
+  "author": "Alex",
+  "tier": 3,
+  "spell": {
+    "subject": "touch",
+    "spells": [
+      {
+        "action": "break",
+        "descriptors": [
+          "chain",
+          "chain",
+          "chain",
+          "chain",
+          "chain",
+          "chain",
+          "chain",
+          "chain",
+          "healthy"
+        ]
+      }
+    ]
+  }
+}

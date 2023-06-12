@@ -1,0 +1,16 @@
+{
+  "name": "Lag Bolt",
+  "author": "Harry",
+  "tier": 1,
+  "spell": {
+    "subject": "projectile",
+    "spells": [
+      {
+        "action": "slow",
+        "descriptors": [
+          "light_gray"
+        ]
+      }
+    ]
+  }
+}

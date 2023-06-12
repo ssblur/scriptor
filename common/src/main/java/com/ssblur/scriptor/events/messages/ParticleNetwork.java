@@ -1,6 +1,5 @@
 package com.ssblur.scriptor.events.messages;
 
-import com.mojang.math.Vector3f;
 import com.ssblur.scriptor.events.ScriptorEvents;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
@@ -22,6 +21,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.*;
 import org.apache.logging.log4j.core.jmx.Server;
+import org.joml.Vector3f;
 
 import java.util.HashMap;
 import java.util.Objects;

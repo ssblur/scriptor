@@ -1,0 +1,16 @@
+{
+  "name": "Scorpion's Chain",
+  "author": "The Scorpion",
+  "tier": 1,
+  "spell": {
+    "subject": "projectile",
+    "spells": [
+      {
+        "action": "bring",
+        "descriptors": [
+          "purple"
+        ]
+      }
+    ]
+  }
+}

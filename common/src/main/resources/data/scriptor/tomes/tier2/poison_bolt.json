@@ -1,0 +1,17 @@
+{
+  "name": "Sickly Sympathy",
+  "author": "Mithridates",
+  "tier": 2,
+  "spell": {
+    "subject": "projectile",
+    "spells": [
+      {
+        "action": "poison",
+        "descriptors": [
+          "green",
+          "poisoned"
+        ]
+      }
+    ]
+  }
+}

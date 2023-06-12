@@ -40,19 +40,7 @@ public class DumpWordCommand {
       if(command.getSource().getEntity() instanceof Player player) {
         var dict = DictionarySavedData.computeIfAbsent((ServerLevel) player.level);
         var data = dict.getWord("action:" + key);
-        player.sendSystemMessage(Component.literal("The word for action \"" + key + "\" is \"" + data.word() + "\""));
-        if(dict.actionArticlePosition == DictionarySavedData.ARTICLEPOSITION.AFTER)
-          player.sendSystemMessage(
-            Component.literal(
-              "This word should be proceeded with the article \""
-                + dict.actionGenderedArticles.get(data.gender())
-                + "\""));
-        else if(dict.actionArticlePosition == DictionarySavedData.ARTICLEPOSITION.BEFORE)
-          player.sendSystemMessage(
-            Component.literal(
-              "This word should be preceeded with the article \""
-                + dict.actionGenderedArticles.get(data.gender())
-                + "\""));
+        player.sendSystemMessage(Component.literal("The word for action \"" + key + "\" is \"" + data + "\""));
 
       }
       return Command.SINGLE_SUCCESS;
@@ -64,19 +52,7 @@ public class DumpWordCommand {
       if(command.getSource().getEntity() instanceof Player player) {
         var dict = DictionarySavedData.computeIfAbsent((ServerLevel) player.level);
         var data = dict.getWord("descriptor:" + key);
-        player.sendSystemMessage(Component.literal("The word for descriptor \"" + key + "\" is \"" + data.word() + "\""));
-        if(dict.descriptorArticlePosition == DictionarySavedData.ARTICLEPOSITION.AFTER)
-          player.sendSystemMessage(
-            Component.literal(
-              "This word should be proceeded with the article \""
-                + dict.descriptorGenderedArticles.get(data.gender())
-                + "\""));
-        else if(dict.descriptorArticlePosition == DictionarySavedData.ARTICLEPOSITION.BEFORE)
-          player.sendSystemMessage(
-            Component.literal(
-              "This word should be preceeded with the article \""
-                + dict.descriptorGenderedArticles.get(data.gender())
-                + "\""));
+        player.sendSystemMessage(Component.literal("The word for descriptor \"" + key + "\" is \"" + data + "\""));
 
       }
       return Command.SINGLE_SUCCESS;
@@ -88,19 +64,7 @@ public class DumpWordCommand {
       if(command.getSource().getEntity() instanceof Player player) {
         var dict = DictionarySavedData.computeIfAbsent((ServerLevel) player.level);
         var data = dict.getWord("subject:" + key);
-        player.sendSystemMessage(Component.literal("The word for subject \"" + key + "\" is \"" + data.word() + "\""));
-        if(dict.subjectArticlePosition == DictionarySavedData.ARTICLEPOSITION.AFTER)
-          player.sendSystemMessage(
-            Component.literal(
-              "This word should be proceeded with the article \""
-                + dict.subjectGenderedArticles.get(data.gender())
-                + "\""));
-        else if(dict.subjectArticlePosition == DictionarySavedData.ARTICLEPOSITION.BEFORE)
-          player.sendSystemMessage(
-            Component.literal(
-              "This word should be preceeded with the article \""
-                + dict.subjectGenderedArticles.get(data.gender())
-                + "\""));
+        player.sendSystemMessage(Component.literal("The word for subject \"" + key + "\" is \"" + data + "\""));
 
       }
       return Command.SINGLE_SUCCESS;

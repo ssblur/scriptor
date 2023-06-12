@@ -1,0 +1,16 @@
+{
+  "name": "Journeyman's Rudimentary Mine",
+  "author": "Niter",
+  "tier": 2,
+  "spell": {
+    "subject": "rune",
+    "spells": [
+      {
+        "action": "explosion",
+        "descriptors": [
+          "red"
+        ]
+      }
+    ]
+  }
+}

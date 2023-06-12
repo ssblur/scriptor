@@ -2,7 +2,6 @@ package com.ssblur.scriptor.word.subject;
 
 import com.ssblur.scriptor.entity.ScriptorEntities;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
-import com.ssblur.scriptor.helpers.targetable.LecternTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.Spell;
 import com.ssblur.scriptor.word.descriptor.visual.ColorDescriptor;
@@ -28,7 +27,7 @@ public class ProjectileSubject extends Subject {
     int colorN = 0;
     double duration = 12;
     double speed = 1;
-    for(Descriptor d: spell.deduplicatedDescriptors()) {
+    for(Descriptor d: spell.deduplicatedDescriptorsForSubjects()) {
       if(d instanceof ColorDescriptor descriptor) {
         color = descriptor.getColor();
         colorN++;

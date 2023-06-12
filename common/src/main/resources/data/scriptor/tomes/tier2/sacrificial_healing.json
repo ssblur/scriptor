@@ -1,0 +1,18 @@
+{
+  "name": "Martyrdom",
+  "author": "Hurt the Healer",
+  "tier": 2,
+  "spell": {
+    "subject": "touch",
+    "spells": [
+      {
+        "action": "heal",
+        "descriptors": [
+          "blood_power",
+          "blood_power",
+          "blood_power"
+        ]
+      }
+    ]
+  }
+}
