@@ -39,7 +39,13 @@ public class InflameAction extends Action {
         itemTargetable.getTargetItem().shrink(count);
 
         var pos = itemTargetable.getTargetPos();
-        ItemEntity entity = new ItemEntity(itemTargetable.getLevel(), pos.x(), pos.y() + 1, pos.z(), recipe.get().getResultItem());
+        ItemEntity entity = new ItemEntity(
+          itemTargetable.getLevel(),
+          pos.x(),
+          pos.y() + 1,
+          pos.z(),
+          recipe.get().getResultItem(targetable.getLevel().registryAccess())
+        );
         caster.getLevel().addFreshEntity(entity);
       }
       return;
@@ -62,9 +68,9 @@ public class InflameAction extends Action {
             int count = recipe.get().getIngredients().get(0).getItems()[0].getCount();
             itemStack.shrink(count);
 
-            var result = recipe.get().getResultItem();
+            var result = recipe.get().getResultItem(targetable.getLevel().registryAccess());
             count = result.getCount();
-            slot = inventoryTargetable.getFirstMatchingSlot(result);
+            slot = inventoryTargetable.getFirstMatchingSlotNotEmpty(result);
             if(slot >= 0) {
               var item = inventoryTargetable.getContainer().getItem(slot);
               if (item.getCount() + count < item.getMaxStackSize()) {
@@ -79,7 +85,13 @@ public class InflameAction extends Action {
               return;
             }
             var pos = targetable.getTargetPos();
-            ItemEntity entity = new ItemEntity(targetable.getLevel(), pos.x(), pos.y() + 1, pos.z(), recipe.get().getResultItem());
+            ItemEntity entity = new ItemEntity(
+              targetable.getLevel(),
+              pos.x(),
+              pos.y() + 1,
+              pos.z(),
+              recipe.get().getResultItem(targetable.getLevel().registryAccess())
+            );
             caster.getLevel().addFreshEntity(entity);
           }
           return;

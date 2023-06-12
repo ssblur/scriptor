@@ -1,7 +1,5 @@
 package com.ssblur.scriptor.word.descriptor.power;
 
-import com.ssblur.scriptor.damage.SacrificeDamageSource;
-import com.ssblur.scriptor.effect.MuteStatusEffect;
 import com.ssblur.scriptor.effect.ScriptorEffects;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;

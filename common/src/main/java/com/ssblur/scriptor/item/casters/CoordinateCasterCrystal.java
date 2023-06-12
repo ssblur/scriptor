@@ -76,7 +76,7 @@ public class CoordinateCasterCrystal extends CasterCrystal {
       var coords = itemStack.getTag().getList("coordinates", ListTag.TAG_LONG_ARRAY);
       for(var tag: coords) {
         if(tag instanceof LongArrayTag array) {
-          list.add(new Targetable(level, new BlockPos(array.get(0).getAsLong(), array.get(1).getAsLong(), array.get(2).getAsLong())));
+          list.add(new Targetable(level, new BlockPos(array.get(0).getAsInt(), array.get(1).getAsInt(), array.get(2).getAsInt())));
         }
       }
     }
@@ -135,7 +135,7 @@ public class CoordinateCasterCrystal extends CasterCrystal {
       for(var tag: coords) {
         if(tag instanceof LongArrayTag array && array.size() == 4)
           list.add(new BlockPosDirection(
-            new BlockPos(array.get(0).getAsLong(), array.get(1).getAsLong(), array.get(2).getAsLong()),
+            new BlockPos(array.get(0).getAsInt(), array.get(1).getAsInt(), array.get(2).getAsInt()),
             Direction.values()[array.get(3).getAsInt()]
         ));
       }

@@ -37,7 +37,6 @@ allprojects {
         version = matcher.group(1)
     else
         version = "dev"
-    System.out.println(version)
     group = rootProject.maven_group
 
     repositories {

@@ -1,7 +1,6 @@
 package com.ssblur.scriptor.events;
 
-import com.ssblur.scriptor.ScriptorMod;
-import com.ssblur.scriptor.damage.OverloadDamageSource;
+import com.ssblur.scriptor.damage.ScriptorDamage;
 import com.ssblur.scriptor.effect.ScriptorEffects;
 import com.ssblur.scriptor.helpers.ConfigHelper;
 import com.ssblur.scriptor.helpers.DictionarySavedData;
@@ -12,7 +11,6 @@ import dev.architectury.event.events.common.ChatEvent;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import org.jetbrains.annotations.Nullable;
@@ -43,7 +41,7 @@ public class SpellChatEvents implements ChatEvent.Received {
         if(cost > config.vocalCastingHungerThreshold)
           player.addEffect(new MobEffectInstance(MobEffects.HUNGER, config.vocalCastingHungerThreshold));
         if(cost > config.vocalCastingHurtThreshold)
-          player.hurt(new OverloadDamageSource(), (cost - config.vocalCastingHurtThreshold * 0.75f) / 100f);
+          player.hurt(ScriptorDamage.overload(player), (cost - config.vocalCastingHurtThreshold * 0.75f) / 100f);
 
         return EventResult.interruptFalse();
       }

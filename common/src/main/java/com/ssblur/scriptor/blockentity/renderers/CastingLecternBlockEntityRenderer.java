@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 public class CastingLecternBlockEntityRenderer implements BlockEntityRenderer<CastingLecternBlockEntity> {
@@ -59,7 +60,7 @@ public class CastingLecternBlockEntityRenderer implements BlockEntityRenderer<Ca
     matrix.scale(0.5f, 0.5f, 0.5f);
 
     matrix.mulPose(Axis.YP.rotationDegrees(time * 360));
-    itemRenderer.renderStatic(lectern.getFocus(), ItemTransforms.TransformType.GROUND, light, overlay, matrix, buffers, (int) lectern.getBlockPos().asLong());
+    itemRenderer.renderStatic(lectern.getFocus(), ItemDisplayContext.GROUND, light, overlay, matrix, buffers, level, (int) lectern.getBlockPos().asLong());
 
     matrix.popPose();
 
@@ -68,7 +69,7 @@ public class CastingLecternBlockEntityRenderer implements BlockEntityRenderer<Ca
     matrix.mulPose(Axis.YP.rotationDegrees(rotationY));
     matrix.mulPose(Axis.XP.rotationDegrees(112));
 
-    itemRenderer.renderStatic(lectern.getSpellbook(), ItemTransforms.TransformType.FIXED, light, overlay, matrix, buffers, (int) lectern.getBlockPos().asLong());
+    itemRenderer.renderStatic(lectern.getSpellbook(), ItemDisplayContext.FIXED, light, overlay, matrix, buffers, level, (int) lectern.getBlockPos().asLong());
 
     matrix.popPose();
   }

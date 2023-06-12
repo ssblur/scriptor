@@ -3,6 +3,7 @@ package com.ssblur.scriptor.recipe;
 import com.ssblur.scriptor.item.ScriptorItems;
 import com.ssblur.scriptor.item.Spellbook;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
@@ -42,7 +43,7 @@ public class SpellbookCloningRecipe extends CustomRecipe {
   }
 
   @Override
-  public ItemStack assemble(CraftingContainer container) {
+  public ItemStack assemble(CraftingContainer container, RegistryAccess access) {
     ItemStack spellbook = ItemStack.EMPTY;
     for(int slot = 0; slot < container.getContainerSize(); slot++)
       if(container.getItem(slot).getItem() instanceof Spellbook)
