@@ -1,21 +1,17 @@
 package com.ssblur.scriptor.events;
 
-import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.item.ScriptorItems;
 import dev.architectury.event.events.common.LootEvent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.storage.loot.LootDataManager;
 import net.minecraft.world.level.storage.loot.LootPool;
-import net.minecraft.world.level.storage.loot.LootTables;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemConditions;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
-import net.minecraft.world.level.storage.loot.providers.number.BinomialDistributionGenerator;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraft.world.level.storage.loot.providers.number.LootNumberProviderType;
+import org.jetbrains.annotations.Nullable;
 
 public class AddLootEvent implements LootEvent.ModifyLootTable {
+
   record LootItemRecord(ResourceLocation location, float chance, LootItemCondition.Builder... conditions) {}
 
   LootItemRecord[] tomePoolsTier1 = new LootItemRecord[]{
@@ -83,7 +79,7 @@ public class AddLootEvent implements LootEvent.ModifyLootTable {
   };
 
   @Override
-  public void modifyLootTable(LootTables lootTables, ResourceLocation id, LootEvent.LootTableModificationContext context, boolean builtin) {
+  public void modifyLootTable(@Nullable LootDataManager lootTables, ResourceLocation id, LootEvent.LootTableModificationContext context, boolean builtin) {
     if(builtin) {
       for(var i: tomePoolsTier1)
         if(id.equals(i.location)) {

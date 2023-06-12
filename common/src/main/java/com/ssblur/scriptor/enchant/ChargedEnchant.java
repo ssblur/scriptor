@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.enchant;
 
+import com.ssblur.scriptor.ScriptorMod;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.entity.Entity;
@@ -11,6 +12,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.Enchantments;
 
+import java.io.IOException;
 import java.util.List;
 
 public class ChargedEnchant extends Enchantment {
@@ -29,13 +31,17 @@ public class ChargedEnchant extends Enchantment {
 
   @Override
   public void doPostAttack(LivingEntity owner, Entity entity, int i) {
-    if(owner.level.isClientSide) return;
+    try(var level = owner.level()) {
+      if (level.isClientSide) return;
 
-    var tag = owner.getMainHandItem().getOrCreateTagElement("scriptor");
-    long lastDrained = tag.getLong("chargeLastDrained");
-    if(lastDrained < owner.level.getGameTime()) {
-      tag.putLong("chargeLastDrained", owner.level.getGameTime());
-      chargeItem(owner.getMainHandItem(), i - 1);
+      var tag = owner.getMainHandItem().getOrCreateTagElement("scriptor");
+      long lastDrained = tag.getLong("chargeLastDrained");
+      if (lastDrained < level.getGameTime()) {
+        tag.putLong("chargeLastDrained", level.getGameTime());
+        chargeItem(owner.getMainHandItem(), i - 1);
+      }
+    } catch (IOException e) {
+      ScriptorMod.LOGGER.error(e);
     }
   }
 

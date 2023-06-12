@@ -36,7 +36,7 @@ public class StormSubject extends Subject{
         random.nextInt((radius * 2) - radius)
       );
       for(int j = 0; j < 3; j++) {
-        if(caster.getLevel().getBlockState(pos.below()).getMaterial().isReplaceable())
+        if(caster.getLevel().getBlockState(pos.below()).canBeReplaced())
           pos = pos.below();
         else
           break;

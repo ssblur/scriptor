@@ -15,7 +15,6 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEventListener;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -28,8 +27,7 @@ import java.util.function.Function;
 public class RuneBlock extends Block implements EntityBlock {
   public RuneBlock() {
     super(
-      Properties
-        .of(Material.DECORATION)
+      Properties.of()
         .instabreak()
         .noLootTable()
         .sound(SoundType.AMETHYST)

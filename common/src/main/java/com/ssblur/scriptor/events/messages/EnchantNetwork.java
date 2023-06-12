@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.events.messages;
 
+import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.events.ScriptorEvents;
 import com.ssblur.scriptor.helpers.DictionarySavedData;
 import com.ssblur.scriptor.helpers.LimitedBookSerializer;
@@ -29,28 +30,32 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class EnchantNetwork {
   public static void useBook(FriendlyByteBuf buf, NetworkManager.PacketContext context) {
     var player = context.getPlayer();
-    var slot = buf.readInt();
-    var item = player.containerMenu.getItems().get(slot);
-    var level = player.level;
-    var carried = player.containerMenu.getCarried();
+    try(var level = player.level()) {
+      var slot = buf.readInt();
+      var item = player.containerMenu.getItems().get(slot);
+      var carried = player.containerMenu.getCarried();
 
-    if(carried == null || carried.isEmpty()) return;
+      if (carried == null || carried.isEmpty()) return;
 
-    CompoundTag tag = carried.getTag();
-    if(tag != null && level instanceof ServerLevel server) {
-      var text = tag.getList("pages", Tag.TAG_STRING);
-      Spell spell = DictionarySavedData.computeIfAbsent(server).parse(LimitedBookSerializer.decodeText(text));
-      if(spell == null) return;
-      if(spell.subject() instanceof InventorySubject subject) {
-        subject.castOnItem(spell, player, item);
-        player.getCooldowns().addCooldown(carried.getItem(), (int) Math.round(spell.cost() * 7));
+      CompoundTag tag = carried.getTag();
+      if (tag != null && level instanceof ServerLevel server) {
+        var text = tag.getList("pages", Tag.TAG_STRING);
+        Spell spell = DictionarySavedData.computeIfAbsent(server).parse(LimitedBookSerializer.decodeText(text));
+        if (spell == null) return;
+        if (spell.subject() instanceof InventorySubject subject) {
+          subject.castOnItem(spell, player, item);
+          player.getCooldowns().addCooldown(carried.getItem(), (int) Math.round(spell.cost() * 7));
+        }
       }
+    } catch (IOException e) {
+      ScriptorMod.LOGGER.error(e);
     }
   }
 
@@ -67,7 +72,7 @@ public class EnchantNetwork {
     var compound = item.getTag();
     if(compound == null) return;
     var text = compound.getList("pages", Tag.TAG_STRING);
-    var spell = DictionarySavedData.computeIfAbsent((ServerLevel) context.getPlayer().level).parseComponents(LimitedBookSerializer.decodeText(text));
+    var spell = DictionarySavedData.computeIfAbsent((ServerLevel) context.getPlayer().level()).parseComponents(LimitedBookSerializer.decodeText(text));
     var tagOut = new CompoundTag();
     var list = new ListTag();
     spell.forEach(i -> list.add(StringTag.valueOf(i)));

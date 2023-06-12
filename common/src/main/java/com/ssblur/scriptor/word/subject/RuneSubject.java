@@ -32,7 +32,7 @@ public class RuneSubject extends Subject implements InventorySubject{
         BlockPos pos = target.getTargetBlockPos();
         Level level = caster.getLevel();
 
-        if(!level.getBlockState(pos).getMaterial().isReplaceable())
+        if(!level.getBlockState(pos).canBeReplaced())
           return;
 
         level.setBlockAndUpdate(pos, ScriptorBlocks.RUNE.get().defaultBlockState());
@@ -54,7 +54,7 @@ public class RuneSubject extends Subject implements InventorySubject{
       BlockPos pos = caster.getTargetBlockPos();
       Level level = caster.getLevel();
 
-      if(!level.getBlockState(pos).getMaterial().isReplaceable()) {
+      if(!level.getBlockState(pos).canBeReplaced()) {
         result.complete(List.of());
         return result;
       }

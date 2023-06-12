@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.word.action.teleport;
 
+import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.InventoryTargetable;
 import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
@@ -12,6 +13,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import org.apache.logging.log4j.core.jmx.Server;
+
+import java.io.IOException;
 
 public class SwapAction extends Action {
   @Override
@@ -86,8 +89,13 @@ public class SwapAction extends Action {
       ItemEntity entity = new ItemEntity(to.getLevel(), to.getTargetPos().x(), to.getTargetPos().y() + 1, to.getTargetPos().z(), newItemStack);
       to.getLevel().addFreshEntity(entity);
     } else if(from instanceof EntityTargetable fromEntity && fromEntity.getTargetEntity() instanceof LivingEntity living) {
-      if(living.level != to.getLevel())
-        living.changeDimension((ServerLevel) to.getLevel());
+      try(var level = living.level()) {
+        if (level != to.getLevel())
+          living.changeDimension((ServerLevel) to.getLevel());
+      } catch (IOException e) {
+        ScriptorMod.LOGGER.error(e);
+        return;
+      }
       living.teleportTo(to.getTargetPos().x, to.getTargetPos().y, to.getTargetPos().z);
       living.setDeltaMovement(0, 0, 0);
       living.resetFallDistance();

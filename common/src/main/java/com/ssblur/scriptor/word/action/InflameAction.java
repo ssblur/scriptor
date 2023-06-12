@@ -105,7 +105,7 @@ public class InflameAction extends Action {
       BlockPos pos = targetable.getTargetBlockPos();
       Level level = targetable.getLevel();
 
-      if(!level.getBlockState(pos).getMaterial().isReplaceable())
+      if(!level.getBlockState(pos).canBeReplaced())
         return;
 
       BlockState blockState2 = BaseFireBlock.getState(level, pos);

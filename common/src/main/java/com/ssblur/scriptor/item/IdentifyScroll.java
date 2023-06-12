@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.item;
 
+import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.events.messages.IdentifyNetwork;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -13,6 +14,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.IOException;
 import java.util.List;
 
 public class IdentifyScroll extends Item {
@@ -23,7 +25,14 @@ public class IdentifyScroll extends Item {
   @Environment(EnvType.CLIENT)
   public boolean overrideStackedOnOther(ItemStack itemStack, Slot slot, ClickAction clickAction, Player player) {
     if(clickAction == ClickAction.SECONDARY && !slot.getItem().isEmpty() && slot.getItem().getItem() instanceof Spellbook) {
-      if(player.getCooldowns().isOnCooldown(this) || !player.level.isClientSide) return true;
+      if(player.getCooldowns().isOnCooldown(this)) return true;
+
+      try(var level = player.level()) {
+        if (!level.isClientSide) return true;
+      } catch (IOException e) {
+        ScriptorMod.LOGGER.error(e);
+      }
+
       if(player.isCreative()) {
         IdentifyNetwork.clientUseScrollCreative(slot.getItem(), slot.index);
         player.getCooldowns().addCooldown(this, 10);
