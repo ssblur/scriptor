@@ -11,6 +11,9 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -43,6 +46,14 @@ public class TraceNetwork {
     NetworkManager.sendToPlayer((ServerPlayer) player, ScriptorEvents.GET_TRACE_DATA, out);
   }
 
+  public static void requestExtendedTraceData(Player player, TraceCallback callback) {
+    UUID uuid = UUID.randomUUID();
+    FriendlyByteBuf out = new FriendlyByteBuf(Unpooled.buffer());
+    out.writeUUID(uuid);
+    queue.put(uuid, new TraceQueue(player, callback));
+    NetworkManager.sendToPlayer((ServerPlayer) player, ScriptorEvents.GET_HITSCAN_DATA, out);
+  }
+
   public static void validateAndRun(UUID uuid, Player player, Targetable targetable) {
     var queueItem = queue.get(uuid);
     if(queueItem.player == player)
@@ -53,6 +64,45 @@ public class TraceNetwork {
     var queueItem = queue.get(uuid);
     if(queueItem.player == player)
       queue.remove(uuid);
+  }
+
+  public static void getExtendedTraceData(FriendlyByteBuf buf, NetworkManager.PacketContext context) {
+    FriendlyByteBuf out = new FriendlyByteBuf(Unpooled.buffer());
+    out.writeUUID(buf.readUUID());
+
+    var player = context.getPlayer();
+    var level = player.level;
+    var position = player.getEyePosition();
+    var angle = player.getLookAngle().normalize().multiply(20, 20, 20);
+    var dest = angle.add(position);
+    var blockHitResult = level.clip(new ClipContext(position, dest, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player));
+
+    if (blockHitResult.getType() != HitResult.Type.MISS) {
+      out.writeEnum(TYPE.BLOCK);
+      out.writeBlockHitResult(blockHitResult);
+      NetworkManager.sendToServer(ScriptorEvents.RETURN_TRACE_DATA, out);
+      return;
+    }
+
+    var entityHitResult = ProjectileUtil.getEntityHitResult(
+      level,
+      player,
+      position,
+      dest,
+      AABB.ofSize(position.subtract(0.1, 0.1, 0.1), 0.2, 0.2, 0.2).expandTowards(angle).inflate(1),
+      e -> true
+    );
+    if (entityHitResult != null && entityHitResult.getType() != HitResult.Type.MISS) {
+      Entity entity = entityHitResult.getEntity();
+      out.writeEnum(TYPE.ENTITY);
+      out.writeInt(entity.getId());
+      out.writeUUID(entity.getUUID());
+      NetworkManager.sendToServer(ScriptorEvents.RETURN_TRACE_DATA, out);
+      return;
+    }
+
+    out.writeEnum(TYPE.MISS);
+    NetworkManager.sendToServer(ScriptorEvents.RETURN_TRACE_DATA, out);
   }
 
   public static void getTraceData(FriendlyByteBuf buf, NetworkManager.PacketContext ignoredContext) {

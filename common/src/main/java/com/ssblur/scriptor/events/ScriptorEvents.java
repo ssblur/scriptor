@@ -19,6 +19,7 @@ import net.minecraft.world.item.CreativeModeTab;
 
 public class ScriptorEvents {
   public static final ResourceLocation GET_TRACE_DATA = new ResourceLocation(ScriptorMod.MOD_ID, "get_touch_data");
+  public static final ResourceLocation GET_HITSCAN_DATA = new ResourceLocation(ScriptorMod.MOD_ID, "get_hitscan_data");
   public static final ResourceLocation RETURN_TRACE_DATA = new ResourceLocation(ScriptorMod.MOD_ID, "return_touch_data");
   public static final ResourceLocation CURSOR_USE_BOOK = new ResourceLocation(ScriptorMod.MOD_ID, "cursor_use_book");
   public static final ResourceLocation CURSOR_USE_BOOKC = new ResourceLocation(ScriptorMod.MOD_ID, "cursor_use_bookc");
@@ -37,6 +38,7 @@ public class ScriptorEvents {
 
     if(Platform.getEnv() == EnvType.CLIENT) {
       NetworkManager.registerReceiver(NetworkManager.Side.S2C, GET_TRACE_DATA, TraceNetwork::getTraceData);
+      NetworkManager.registerReceiver(NetworkManager.Side.S2C, GET_HITSCAN_DATA, TraceNetwork::getExtendedTraceData);
       NetworkManager.registerReceiver(NetworkManager.Side.S2C, CURSOR_RETURN_SCROLLC, IdentifyNetwork::receiveDataCreative);
       NetworkManager.registerReceiver(NetworkManager.Side.S2C, CURSOR_RETURN_BOOKC, EnchantNetwork::returnBookCreative);
       NetworkManager.registerReceiver(NetworkManager.Side.S2C, PARTICLE, ParticleNetwork::getParticles);

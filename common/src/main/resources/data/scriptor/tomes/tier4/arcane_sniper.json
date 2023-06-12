@@ -1,0 +1,14 @@
+{
+  "name": "Arcane Sniper",
+  "author": "Tulin",
+  "tier": 4,
+  "spell": {
+    "subject": "hitscan",
+    "spells": [
+      {
+        "action": "explosion",
+        "descriptors": []
+      }
+    ]
+  }
+}

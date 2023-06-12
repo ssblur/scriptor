@@ -36,6 +36,7 @@ public class WordRegistry {
 
   public static final Subject SELF = INSTANCE.register("self", new SelfSubject());
   public static final Subject TOUCH = INSTANCE.register("touch", new TouchSubject());
+  public static final Subject HITSCAN = INSTANCE.register("hitscan", new HitscanSubject());
   public static final Subject PROJECTILE = INSTANCE.register("projectile", new ProjectileSubject());
   public static final Subject STORM = INSTANCE.register("storm", new StormSubject());
   public static final Subject RUNE = INSTANCE.register("rune", new RuneSubject());
