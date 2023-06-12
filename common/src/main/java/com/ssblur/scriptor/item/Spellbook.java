@@ -35,6 +35,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,7 +84,13 @@ public class Spellbook extends Item implements ItemWithCustomRenderer {
 
   public boolean overrideStackedOnOther(ItemStack itemStack, Slot slot, ClickAction clickAction, Player player) {
     if (clickAction == ClickAction.SECONDARY && !slot.getItem().isEmpty()) {
-      if(player.getCooldowns().isOnCooldown(this) || !player.level.isClientSide) return true;
+      if(player.getCooldowns().isOnCooldown(this)) return true;
+      try(var level = player.level()) {
+        if(!level.isClientSide) return true;
+      } catch (IOException e) {
+        return true;
+      }
+
       if(player.isCreative())
         EnchantNetwork.clientUseBookCreative(itemStack, slot.index);
       else

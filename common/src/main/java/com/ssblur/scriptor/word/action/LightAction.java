@@ -38,7 +38,7 @@ public class LightAction extends Action {
     BlockPos pos = targetable.getTargetBlockPos();
     Level level = targetable.getLevel();
 
-    if(!level.getBlockState(pos).getMaterial().isReplaceable())
+    if(!level.getBlockState(pos).canBeReplaced())
       return;
 
     BlockState blockState2 = ScriptorBlocks.LIGHT.get().defaultBlockState();

@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.events.messages;
 
+import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.events.ScriptorEvents;
 import com.ssblur.scriptor.helpers.DictionarySavedData;
 import com.ssblur.scriptor.helpers.LimitedBookSerializer;
@@ -17,36 +18,40 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import org.checkerframework.checker.units.qual.C;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
 public class IdentifyNetwork {
   public static void useScroll(FriendlyByteBuf buf, NetworkManager.PacketContext context) {
     var player = context.getPlayer();
-    var slot = buf.readInt();
-    var item = player.containerMenu.getItems().get(slot);
-    var level = player.level;
-    var carried = player.containerMenu.getCarried();
+    try(var level = player.level()) {
+      var slot = buf.readInt();
+      var item = player.containerMenu.getItems().get(slot);
+      var carried = player.containerMenu.getCarried();
 
-    if(carried == null || carried.isEmpty()) return;
+      if (carried == null || carried.isEmpty()) return;
 
-    CompoundTag tag = item.getTag();
-    if(tag != null && level instanceof ServerLevel server) {
-      var text = tag.getList("pages", Tag.TAG_STRING);
-      List<String> tokens = DictionarySavedData.computeIfAbsent(server).parseComponents(LimitedBookSerializer.decodeText(text));
-      if(tokens == null) return;
+      CompoundTag tag = item.getTag();
+      if (tag != null && level instanceof ServerLevel server) {
+        var text = tag.getList("pages", Tag.TAG_STRING);
+        List<String> tokens = DictionarySavedData.computeIfAbsent(server).parseComponents(LimitedBookSerializer.decodeText(text));
+        if (tokens == null) return;
 
-      var scriptor = item.getOrCreateTagElement("scriptor");
-      if(scriptor.contains("identified"))
-        return;
-      scriptor.put("identified", new CompoundTag());
-      var identified = scriptor.getCompound("identified");
+        var scriptor = item.getOrCreateTagElement("scriptor");
+        if (scriptor.contains("identified"))
+          return;
+        scriptor.put("identified", new CompoundTag());
+        var identified = scriptor.getCompound("identified");
 
-      for(var token: tokens)
-        identified.putBoolean(token, true);
+        for (var token : tokens)
+          identified.putBoolean(token, true);
 
-      carried.shrink(1);
-      player.getCooldowns().addCooldown(carried.getItem(), 10);
+        carried.shrink(1);
+        player.getCooldowns().addCooldown(carried.getItem(), 10);
+      }
+    } catch (IOException e) {
+      ScriptorMod.LOGGER.error(e);
     }
   }
 
@@ -65,30 +70,33 @@ public class IdentifyNetwork {
   }
 
   public static void useScrollCreative(FriendlyByteBuf buf, NetworkManager.PacketContext context) {
-    var level = context.getPlayer().level;
-    int slot = buf.readInt();
-    CompoundTag tag = buf.readAnySizeNbt();
+    try(var level = context.getPlayer().level()) {
+      int slot = buf.readInt();
+      CompoundTag tag = buf.readAnySizeNbt();
 
-    if(tag != null && level instanceof ServerLevel server) {
-      var text = tag.getList("pages", Tag.TAG_STRING);
-      List<String> tokens = DictionarySavedData.computeIfAbsent(server).parseComponents(LimitedBookSerializer.decodeText(text));
-      if(tokens == null) return;
+      if (tag != null && level instanceof ServerLevel server) {
+        var text = tag.getList("pages", Tag.TAG_STRING);
+        List<String> tokens = DictionarySavedData.computeIfAbsent(server).parseComponents(LimitedBookSerializer.decodeText(text));
+        if (tokens == null) return;
 
-      if(!tag.contains("scriptor"))
-        tag.put("scriptor", new CompoundTag());
-      var scriptor = tag.getCompound("scriptor");
-      if(scriptor.contains("identified"))
-        return;
-      scriptor.put("identified", new CompoundTag());
-      var identified = scriptor.getCompound("identified");
+        if (!tag.contains("scriptor"))
+          tag.put("scriptor", new CompoundTag());
+        var scriptor = tag.getCompound("scriptor");
+        if (scriptor.contains("identified"))
+          return;
+        scriptor.put("identified", new CompoundTag());
+        var identified = scriptor.getCompound("identified");
 
-      for(var token: tokens)
-        identified.putBoolean(token, true);
+        for (var token : tokens)
+          identified.putBoolean(token, true);
 
-      FriendlyByteBuf out = new FriendlyByteBuf(Unpooled.buffer());
-      out.writeInt(slot);
-      out.writeNbt(tag);
-      NetworkManager.sendToPlayer((ServerPlayer) context.getPlayer(), ScriptorEvents.CURSOR_RETURN_SCROLLC, out);
+        FriendlyByteBuf out = new FriendlyByteBuf(Unpooled.buffer());
+        out.writeInt(slot);
+        out.writeNbt(tag);
+        NetworkManager.sendToPlayer((ServerPlayer) context.getPlayer(), ScriptorEvents.CURSOR_RETURN_SCROLLC, out);
+      }
+    } catch (IOException e) {
+      ScriptorMod.LOGGER.error(e);
     }
   }
 

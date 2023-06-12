@@ -22,7 +22,7 @@ public class  DumpDictionaryCommand {
   }
   private static int execute(CommandContext<CommandSourceStack> command){
     if(command.getSource().getEntity() instanceof Player player)
-      player.sendSystemMessage(Component.literal(DictionarySavedData.computeIfAbsent((ServerLevel) player.level).toString()));
+      player.sendSystemMessage(Component.literal(DictionarySavedData.computeIfAbsent((ServerLevel) player.level()).toString()));
     return Command.SINGLE_SUCCESS;
   }
 }

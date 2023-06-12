@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.events.messages;
 
+import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.events.ScriptorEvents;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
@@ -18,6 +19,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
@@ -71,7 +73,7 @@ public class TraceNetwork {
     out.writeUUID(buf.readUUID());
 
     var player = context.getPlayer();
-    var level = player.level;
+    var level = player.level();
     var position = player.getEyePosition();
     var angle = player.getLookAngle().normalize().multiply(20, 20, 20);
     var dest = angle.add(position);
@@ -138,18 +140,23 @@ public class TraceNetwork {
       case BLOCK -> {
         var result = buf.readBlockHitResult();
         var pos = result.getBlockPos().relative(result.getDirection());
-        var targetable = new Targetable(player.level, pos).setFacing(result.getDirection());
+        var targetable = new Targetable(player.level(), pos).setFacing(result.getDirection());
 
         context.queue(() -> validateAndRun(uuid, player, targetable));
       }
       case ENTITY -> {
         int entityId = buf.readInt();
         var entityUUID = buf.readUUID();
-        var entity = player.level.getEntity(entityId);
-        if(entity != null && entity.getUUID().equals(entityUUID))
-          context.queue(() -> validateAndRun(uuid, player, new EntityTargetable(entity)));
-        else
+        try(var level = player.level()) {
+          var entity = level.getEntity(entityId);
+          if (entity != null && entity.getUUID().equals(entityUUID))
+            context.queue(() -> validateAndRun(uuid, player, new EntityTargetable(entity)));
+          else
+            context.queue(() -> validateAndDrop(uuid, player));
+        } catch (IOException e) {
+          ScriptorMod.LOGGER.error(e);
           context.queue(() -> validateAndDrop(uuid, player));
+        }
       }
       default -> context.queue(() -> validateAndDrop(uuid, player));
     }

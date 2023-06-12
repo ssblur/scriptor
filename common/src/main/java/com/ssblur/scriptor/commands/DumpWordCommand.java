@@ -38,7 +38,7 @@ public class DumpWordCommand {
   private static Command<CommandSourceStack> generateActionCommand(String key) {
     return command -> {
       if(command.getSource().getEntity() instanceof Player player) {
-        var dict = DictionarySavedData.computeIfAbsent((ServerLevel) player.level);
+        var dict = DictionarySavedData.computeIfAbsent((ServerLevel) player.level());
         var data = dict.getWord("action:" + key);
         player.sendSystemMessage(Component.literal("The word for action \"" + key + "\" is \"" + data + "\""));
 
@@ -50,7 +50,7 @@ public class DumpWordCommand {
   private static Command<CommandSourceStack> generateDescriptorCommand(String key) {
     return command -> {
       if(command.getSource().getEntity() instanceof Player player) {
-        var dict = DictionarySavedData.computeIfAbsent((ServerLevel) player.level);
+        var dict = DictionarySavedData.computeIfAbsent((ServerLevel) player.level());
         var data = dict.getWord("descriptor:" + key);
         player.sendSystemMessage(Component.literal("The word for descriptor \"" + key + "\" is \"" + data + "\""));
 
@@ -62,7 +62,7 @@ public class DumpWordCommand {
   private static Command<CommandSourceStack> generateSubjectCommand(String key) {
     return command -> {
       if(command.getSource().getEntity() instanceof Player player) {
-        var dict = DictionarySavedData.computeIfAbsent((ServerLevel) player.level);
+        var dict = DictionarySavedData.computeIfAbsent((ServerLevel) player.level());
         var data = dict.getWord("subject:" + key);
         player.sendSystemMessage(Component.literal("The word for subject \"" + key + "\" is \"" + data + "\""));
 

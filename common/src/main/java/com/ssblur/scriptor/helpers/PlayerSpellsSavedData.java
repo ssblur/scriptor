@@ -6,6 +6,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.client.renderer.texture.SpriteContents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -78,8 +79,13 @@ public class PlayerSpellsSavedData extends SavedData {
    */
   @Nullable
   public static PlayerSpellsSavedData computeIfAbsent(Player player) {
-    var minecraft = player.level.getServer();
-    if(minecraft == null) return null;
+    MinecraftServer minecraft;
+    try(var level = player.level()) {
+      minecraft = level.getServer();
+      if(minecraft == null) return null;
+    } catch (IOException e) {
+      return null;
+    }
 
     var server = minecraft.getLevel(Level.OVERWORLD);
     if(server == null) return null;

@@ -3,7 +3,7 @@
 ![Leather Binder Icon](../../common/src/main/resources/assets/scriptor/textures/item/leather_binder.png)
 *A Leather Binder*
 
-Leather Binders can be crafted and placed onto any **[Spellbook](spellbook.md)**
+Leather Binders can be crafted with any **[Spellbook](spellbook.md)**
 to turn it into a Written Book.
 This can be used to copy books or reveal their contents.
 
