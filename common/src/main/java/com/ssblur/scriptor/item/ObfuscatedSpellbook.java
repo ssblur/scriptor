@@ -2,7 +2,9 @@ package com.ssblur.scriptor.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.ItemStack;
@@ -27,7 +29,7 @@ public class ObfuscatedSpellbook extends Spellbook {
         false,
         matrix.last().pose(),
         buffer,
-        false,
+        Font.DisplayMode.NORMAL,
         0x0,
         lightLevel
       );

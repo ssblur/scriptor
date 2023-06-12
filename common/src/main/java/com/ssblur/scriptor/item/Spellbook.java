@@ -13,6 +13,7 @@ import com.ssblur.scriptor.events.messages.EnchantNetwork;
 import com.ssblur.scriptor.word.Spell;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -231,7 +232,7 @@ public class Spellbook extends Item implements ItemWithCustomRenderer {
           false,
           matrix.last().pose(),
           buffer,
-          false,
+          Font.DisplayMode.NORMAL,
           0x0,
           lightLevel
         );

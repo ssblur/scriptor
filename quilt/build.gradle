@@ -20,7 +20,7 @@ modrinth {
     changelog = (System.getenv("CHANGELOG") ?: "Could not load changelog").replace("\n", "\n\n")
     versionType = "beta"
     uploadFile = remapJar
-    gameVersions = ["1.19.3"]
+    gameVersions = ["1.19.4"]
     loaders = ["quilt"]
     dependencies {
         required.project "architectury-api"

@@ -46,6 +46,14 @@ public interface InventoryTargetable {
     );
   }
 
+  default int getFirstMatchingSlotNotEmpty(ItemStack itemStack) {
+    return getFirstMatchingSlot(
+      item ->
+        ItemStack.isSameItemSameTags(item, itemStack)
+          && (item.getCount() + itemStack.getCount()) <= item.getMaxStackSize()
+    );
+  }
+
   default void useFirstFilledSlot() {
     int slot = getFirstFilledSlot();
     if(slot >= 0)

@@ -37,7 +37,6 @@ public class CoordinateCasterWorldRenderer {
     var pose = matrix.last().pose();
 
     matrix.pushPose();
-    RenderSystem.disableTexture();
     RenderSystem.disableDepthTest();
     RenderSystem.enableBlend();
     RenderSystem.setShader(GameRenderer::getPositionColorShader);
