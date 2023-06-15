@@ -8,7 +8,7 @@
     "description": "Knowledge is power!",
     "authors": ["SSBlur"],
     "contact": {
-      "sources": "https://github.com/architectury/architectury-templates"
+      "sources": "https://github.com/ssblur/scriptor/"
     },
     "license": "GPL",
     "icon": "assets/scriptor/icon.png",
