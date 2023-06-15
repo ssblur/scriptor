@@ -19,8 +19,8 @@ modrinth {
     versionName = version + "-QUILT"
     changelog = (System.getenv("CHANGELOG") ?: "Could not load changelog").replace("\n", "\n\n")
     versionType = "beta"
-    uploadFile = remapJar
-    gameVersions = ["1.20"]
+    uploadFile = signedJar
+    gameVersions = ["1.20.1"]
     loaders = ["quilt"]
     dependencies {
         required.project "architectury-api"
@@ -43,7 +43,9 @@ configurations {
 
 dependencies {
     modImplementation "org.quiltmc:quilt-loader:${rootProject.quilt_loader_version}"
-    modApi "org.quiltmc.quilted-fabric-api:quilted-fabric-api:${rootProject.quilt_fabric_api_version}"
+    modApi("org.quiltmc.quilted-fabric-api:quilted-fabric-api:${rootProject.quilt_fabric_api_version}"){
+        exclude group: "org.quiltmc", module: "quilt-loader"
+    }
     // Remove the next few lines if you don't want to depend on the API
     modApi("dev.architectury:architectury-fabric:${rootProject.architectury_version}") {
         // We must not pull Fabric Loader from Architectury Fabric
@@ -78,7 +80,7 @@ remapJar {
     injectAccessWidener = true
     inputFile.set shadowJar.archiveFile
     dependsOn shadowJar
-    classifier null
+    classifier "quilt"
 }
 
 jar {
@@ -108,5 +110,45 @@ publishing {
     // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
     repositories {
         // Add repositories to publish to here.
+    }
+}
+
+tasks.register("signedJar") {
+    def output = buildDir.toPath()
+            .resolve("libs")
+            .resolve(remapJar.archiveFileName.get().replace(".jar", "-sgd.jar"))
+            .toString()
+
+    outputs.file new File(output)
+
+    dependsOn remapJar
+
+    doLast {
+        System.out.println("Signing jar...")
+
+        def store = System.getenv("JAR_SIGNING_STORE")
+        def storeLoc = new File("$buildDir/store.jks")
+        def writer = new FileOutputStream(storeLoc)
+        writer.write(Base64.decoder.decode(store))
+        writer.close()
+
+        def alias = System.getenv("JAR_SIGNING_ALIAS")
+        def storePass = System.getenv("JAR_SIGNING_STORE_PASS")
+        def keyPass = System.getenv("JAR_SIGNING_KEY_PASS")
+
+        def input = buildDir.toPath()
+                .resolve("libs")
+                .resolve(remapJar.archiveFileName.get())
+                .toString()
+        def jarsigner = [
+                "jarsigner",
+                "-keystore", storeLoc.toPath().toString(),
+                "-storepass", storePass,
+                "-signedjar", output,
+                "-keypass", keyPass,
+                input,
+                alias
+        ].execute()
+        jarsigner.waitFor()
     }
 }

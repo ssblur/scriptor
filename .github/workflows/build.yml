@@ -21,17 +21,17 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
       - name: Build Forge
-        run: bash ./gradlew forge:build
+        run: bash ./gradlew forge:signedJar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_USER: 'ssblur'
       - name: Build Fabric
-        run: bash ./gradlew fabric:build
+        run: bash ./gradlew fabric:signedJar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_USER: 'ssblur'
       - name: Build Quilt
-        run: bash ./gradlew quilt:build
+        run: bash ./gradlew quilt:signedJar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_USER: 'ssblur'
@@ -46,18 +46,20 @@ jobs:
         with:
           name: Release
           path: |
-            fabric/build/libs/scriptor-*.jar
-            forge/build/libs/scriptor-*.jar
-            quilt/build/libs/scriptor-*.jar
+            fabric/build/libs/scriptor-*-sgd-*.jar
+            forge/build/libs/scriptor-*-sgd-*.jar
+            quilt/build/libs/scriptor-*-sgd-*.jar
+            modkey.cer
       - name: "Release"
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
           files: |
-            fabric/build/libs/scriptor-*.jar
-            forge/build/libs/scriptor-*.jar
-            quilt/build/libs/scriptor-*.jar
+            fabric/build/libs/scriptor-*-sgd-*.jar
+            forge/build/libs/scriptor-*-sgd-*.jar
+            quilt/build/libs/scriptor-*-sgd-*.jar
+            modkey.cer
       - name: Extract Tag Version
         id: tag
         run: echo "version=${GITHUB_REF:11}" >> $GITHUB_OUTPUT
@@ -67,7 +69,7 @@ jobs:
           file_path: quilt/build/libs/scriptor-${{ steps.tag.outputs.version }}-quilt.jar
           game_endpoint: "minecraft"
           relations: "qsl:requiredDependency,architectury-api:requiredDependency"
-          game_versions: "Minecraft 1.20:1.20,Java 17,Java 18,Quilt,Client,Server"
+          game_versions: "Minecraft 1.20:1.20.1,Java 17,Java 18,Quilt,Client,Server"
           project_id: "817436"
           token: "${{ secrets.CURSEFORGE_TOKEN }}"
           changelog_type: text
@@ -80,7 +82,7 @@ jobs:
           file_path: fabric/build/libs/scriptor-${{ steps.tag.outputs.version }}-fabric.jar
           game_endpoint: "minecraft"
           relations: "fabric-api:requiredDependency,architectury-api:requiredDependency"
-          game_versions: "Minecraft 1.20:1.20,Java 17,Java 18,Fabric,Client,Server"
+          game_versions: "Minecraft 1.20:1.20.1,Java 17,Java 18,Fabric,Client,Server"
           project_id: "817436"
           token: "${{ secrets.CURSEFORGE_TOKEN }}"
           changelog_type: text
@@ -93,7 +95,7 @@ jobs:
           file_path: forge/build/libs/scriptor-${{ steps.tag.outputs.version }}-forge.jar
           game_endpoint: "minecraft"
           relations: "architectury-api:requiredDependency"
-          game_versions: "Minecraft 1.20:1.20,Java 17,Java 18,Forge,Client,Server"
+          game_versions: "Minecraft 1.20:1.20.1,Java 17,Java 18,Forge,Client,Server"
           project_id: "817436"
           token: "${{ secrets.CURSEFORGE_TOKEN }}"
           changelog_type: text
