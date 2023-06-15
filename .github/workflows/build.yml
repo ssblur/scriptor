@@ -21,7 +21,7 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
       - name: Build Forge
-        run: bash ./gradlew forge:build
+        run: bash ./gradlew forge:signedJar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_USER: 'ssblur'
@@ -30,7 +30,7 @@ jobs:
           JAR_SIGNING_STORE_PASS: ${{ secrets.JAR_SIGNING_STORE_PASS }}
           JAR_SIGNING_KEY_PASS: ${{ secrets.JAR_SIGNING_KEY_PASS }}
       - name: Build Fabric
-        run: bash ./gradlew fabric:build
+        run: bash ./gradlew fabric:signedJar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_USER: 'ssblur'
@@ -39,7 +39,7 @@ jobs:
           JAR_SIGNING_STORE_PASS: ${{ secrets.JAR_SIGNING_STORE_PASS }}
           JAR_SIGNING_KEY_PASS: ${{ secrets.JAR_SIGNING_KEY_PASS }}
       - name: Build Quilt
-        run: bash ./gradlew quilt:build
+        run: bash ./gradlew quilt:signedJar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_USER: 'ssblur'
