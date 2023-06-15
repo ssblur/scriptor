@@ -19,7 +19,7 @@ modrinth {
     versionName = version + "-QUILT"
     changelog = (System.getenv("CHANGELOG") ?: "Could not load changelog").replace("\n", "\n\n")
     versionType = "beta"
-    uploadFile = signedJar
+    uploadFile = "signedJar"
     gameVersions = ["1.20.1"]
     loaders = ["quilt"]
     dependencies {
