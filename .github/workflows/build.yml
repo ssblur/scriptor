@@ -25,16 +25,28 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_USER: 'ssblur'
+          JAR_SIGNING_STORE: ${{ secrets.JAR_SIGNING_STORE }}
+          JAR_SIGNING_ALIAS: ${{ secrets.JAR_SIGNING_ALIAS }}
+          JAR_SIGNING_STORE_PASS: ${{ secrets.JAR_SIGNING_STORE_PASS }}
+          JAR_SIGNING_KEY_PASS: ${{ secrets.JAR_SIGNING_KEY_PASS }}
       - name: Build Fabric
         run: bash ./gradlew fabric:build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_USER: 'ssblur'
+          JAR_SIGNING_STORE: ${{ secrets.JAR_SIGNING_STORE }}
+          JAR_SIGNING_ALIAS: ${{ secrets.JAR_SIGNING_ALIAS }}
+          JAR_SIGNING_STORE_PASS: ${{ secrets.JAR_SIGNING_STORE_PASS }}
+          JAR_SIGNING_KEY_PASS: ${{ secrets.JAR_SIGNING_KEY_PASS }}
       - name: Build Quilt
         run: bash ./gradlew quilt:build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_USER: 'ssblur'
+          JAR_SIGNING_STORE: ${{ secrets.JAR_SIGNING_STORE }}
+          JAR_SIGNING_ALIAS: ${{ secrets.JAR_SIGNING_ALIAS }}
+          JAR_SIGNING_STORE_PASS: ${{ secrets.JAR_SIGNING_STORE_PASS }}
+          JAR_SIGNING_KEY_PASS: ${{ secrets.JAR_SIGNING_KEY_PASS }}
       - name: Cleanup
         run: |
           rm */build/libs/scriptor-*-dev-shadow.jar
@@ -46,9 +58,10 @@ jobs:
         with:
           name: Release
           path: |
-            fabric/build/libs/scriptor-*.jar
-            forge/build/libs/scriptor-*.jar
-            quilt/build/libs/scriptor-*.jar
+            fabric/build/libs/scriptor-*-sgd-*.jar
+            forge/build/libs/scriptor-*-sgd-*.jar
+            quilt/build/libs/scriptor-*-sgd-*.jar
+            modkey.cert
       - name: "Release"
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
@@ -64,10 +77,10 @@ jobs:
       - name: "Upload Quilt to CurseForge"
         uses: itsmeow/curseforge-upload@v3
         with:
-          file_path: quilt/build/libs/scriptor-${{ steps.tag.outputs.version }}-quilt.jar
+          file_path: quilt/build/libs/scriptor-${{ steps.tag.outputs.version }}-sgd-quilt.jar
           game_endpoint: "minecraft"
           relations: "qsl:requiredDependency,architectury-api:requiredDependency"
-          game_versions: "Minecraft 1.19:1.20,Java 17,Java 18,Quilt,Client,Server"
+          game_versions: "Minecraft 1.20:1.20,Java 17,Java 18,Quilt,Client,Server"
           project_id: "817436"
           token: "${{ secrets.CURSEFORGE_TOKEN }}"
           changelog_type: text
@@ -77,10 +90,10 @@ jobs:
       - name: "Upload Fabric to CurseForge"
         uses: itsmeow/curseforge-upload@v3
         with:
-          file_path: fabric/build/libs/scriptor-${{ steps.tag.outputs.version }}-fabric.jar
+          file_path: fabric/build/libs/scriptor-${{ steps.tag.outputs.version }}-sgd-fabric.jar
           game_endpoint: "minecraft"
           relations: "fabric-api:requiredDependency,architectury-api:requiredDependency"
-          game_versions: "Minecraft 1.19:1.20,Java 17,Java 18,Fabric,Client,Server"
+          game_versions: "Minecraft 1.20:1.20,Java 17,Java 18,Fabric,Client,Server"
           project_id: "817436"
           token: "${{ secrets.CURSEFORGE_TOKEN }}"
           changelog_type: text
@@ -90,10 +103,10 @@ jobs:
       - name: "Upload Forge to CurseForge"
         uses: itsmeow/curseforge-upload@v3
         with:
-          file_path: forge/build/libs/scriptor-${{ steps.tag.outputs.version }}-forge.jar
+          file_path: forge/build/libs/scriptor-${{ steps.tag.outputs.version }}-sgd-forge.jar
           game_endpoint: "minecraft"
           relations: "architectury-api:requiredDependency"
-          game_versions: "Minecraft 1.19:1.20,Java 17,Java 18,Forge,Client,Server"
+          game_versions: "Minecraft 1.20:1.20,Java 17,Java 18,Forge,Client,Server"
           project_id: "817436"
           token: "${{ secrets.CURSEFORGE_TOKEN }}"
           changelog_type: text
