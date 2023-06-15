@@ -25,16 +25,28 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_USER: 'ssblur'
+          JAR_SIGNING_STORE: ${{ secrets.JAR_SIGNING_STORE }}
+          JAR_SIGNING_ALIAS: ${{ secrets.JAR_SIGNING_ALIAS }}
+          JAR_SIGNING_STORE_PASS: ${{ secrets.JAR_SIGNING_STORE_PASS }}
+          JAR_SIGNING_KEY_PASS: ${{ secrets.JAR_SIGNING_KEY_PASS }}
       - name: Build Fabric
         run: bash ./gradlew fabric:signedJar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_USER: 'ssblur'
+          JAR_SIGNING_STORE: ${{ secrets.JAR_SIGNING_STORE }}
+          JAR_SIGNING_ALIAS: ${{ secrets.JAR_SIGNING_ALIAS }}
+          JAR_SIGNING_STORE_PASS: ${{ secrets.JAR_SIGNING_STORE_PASS }}
+          JAR_SIGNING_KEY_PASS: ${{ secrets.JAR_SIGNING_KEY_PASS }}
       - name: Build Quilt
         run: bash ./gradlew quilt:signedJar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_USER: 'ssblur'
+          JAR_SIGNING_STORE: ${{ secrets.JAR_SIGNING_STORE }}
+          JAR_SIGNING_ALIAS: ${{ secrets.JAR_SIGNING_ALIAS }}
+          JAR_SIGNING_STORE_PASS: ${{ secrets.JAR_SIGNING_STORE_PASS }}
+          JAR_SIGNING_KEY_PASS: ${{ secrets.JAR_SIGNING_KEY_PASS }}
       - name: Cleanup
         run: |
           rm */build/libs/scriptor-*-dev-shadow.jar

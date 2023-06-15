@@ -5,8 +5,8 @@
 
 Downloads: 
 
-[![Modrinth logo](https://raw.githubusercontent.com/ssblur/scriptor/main/doc/assets/curseforge.png)](https://modrinth.com/mod/scriptor-magicae/)
-[![CurseForge logo](https://raw.githubusercontent.com/ssblur/scriptor/main/doc/assets/modrinth.png)](https://www.curseforge.com/minecraft/mc-mods/scriptor-magicae)
+[![Modrinth logo](https://raw.githubusercontent.com/ssblur/scriptor/main/doc/assets/modrinth.png)](https://modrinth.com/mod/scriptor-magicae/)
+[![CurseForge logo](https://raw.githubusercontent.com/ssblur/scriptor/main/doc/assets/curseforge.png)](https://www.curseforge.com/minecraft/mc-mods/scriptor-magicae)
 
 If you notice any bugs or have a suggestion, please feel free to open an
 [Issue](https://github.com/ssblur/scriptor/issues).

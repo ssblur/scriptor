@@ -29,14 +29,26 @@ jobs:
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
           CHANGELOG: ${{ steps.changelog.outputs.changelog }}
+          JAR_SIGNING_STORE: ${{ secrets.JAR_SIGNING_STORE }}
+          JAR_SIGNING_ALIAS: ${{ secrets.JAR_SIGNING_ALIAS }}
+          JAR_SIGNING_STORE_PASS: ${{ secrets.JAR_SIGNING_STORE_PASS }}
+          JAR_SIGNING_KEY_PASS: ${{ secrets.JAR_SIGNING_KEY_PASS }}
       - name: Publish Forge
         run: bash ./gradlew forge:modrinth
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
           CHANGELOG: ${{ steps.changelog.outputs.changelog }}
+          JAR_SIGNING_STORE: ${{ secrets.JAR_SIGNING_STORE }}
+          JAR_SIGNING_ALIAS: ${{ secrets.JAR_SIGNING_ALIAS }}
+          JAR_SIGNING_STORE_PASS: ${{ secrets.JAR_SIGNING_STORE_PASS }}
+          JAR_SIGNING_KEY_PASS: ${{ secrets.JAR_SIGNING_KEY_PASS }}
       - name: Publish Fabric
         run: bash ./gradlew fabric:modrinth
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
           CHANGELOG: ${{ steps.changelog.outputs.changelog }}
+          JAR_SIGNING_STORE: ${{ secrets.JAR_SIGNING_STORE }}
+          JAR_SIGNING_ALIAS: ${{ secrets.JAR_SIGNING_ALIAS }}
+          JAR_SIGNING_STORE_PASS: ${{ secrets.JAR_SIGNING_STORE_PASS }}
+          JAR_SIGNING_KEY_PASS: ${{ secrets.JAR_SIGNING_KEY_PASS }}
 
