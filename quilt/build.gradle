@@ -68,6 +68,7 @@ modrinth {
     }
     syncBodyFrom = rootProject.file("README.md").text
 }
+tasks.modrinth.dependsOn tasks.named("signedJar")
 
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
