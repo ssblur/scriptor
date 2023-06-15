@@ -147,16 +147,12 @@ public class TraceNetwork {
       case ENTITY -> {
         int entityId = buf.readInt();
         var entityUUID = buf.readUUID();
-        try(var level = player.level()) {
-          var entity = level.getEntity(entityId);
-          if (entity != null && entity.getUUID().equals(entityUUID))
-            context.queue(() -> validateAndRun(uuid, player, new EntityTargetable(entity)));
-          else
-            context.queue(() -> validateAndDrop(uuid, player));
-        } catch (IOException e) {
-          ScriptorMod.LOGGER.error(e);
+        var level = player.level();
+        var entity = level.getEntity(entityId);
+        if (entity != null && entity.getUUID().equals(entityUUID))
+          context.queue(() -> validateAndRun(uuid, player, new EntityTargetable(entity)));
+        else
           context.queue(() -> validateAndDrop(uuid, player));
-        }
       }
       default -> context.queue(() -> validateAndDrop(uuid, player));
     }

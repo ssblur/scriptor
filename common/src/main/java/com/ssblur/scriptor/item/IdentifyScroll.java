@@ -27,11 +27,8 @@ public class IdentifyScroll extends Item {
     if(clickAction == ClickAction.SECONDARY && !slot.getItem().isEmpty() && slot.getItem().getItem() instanceof Spellbook) {
       if(player.getCooldowns().isOnCooldown(this)) return true;
 
-      try(var level = player.level()) {
-        if (!level.isClientSide) return true;
-      } catch (IOException e) {
-        ScriptorMod.LOGGER.error(e);
-      }
+      var level = player.level();
+      if (!level.isClientSide) return true;
 
       if(player.isCreative()) {
         IdentifyNetwork.clientUseScrollCreative(slot.getItem(), slot.index);

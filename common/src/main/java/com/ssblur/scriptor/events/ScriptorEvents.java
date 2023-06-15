@@ -8,6 +8,7 @@ import com.ssblur.scriptor.events.messages.TraceNetwork;
 import dev.architectury.event.events.common.ChatEvent;
 import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.event.events.common.LootEvent;
+import dev.architectury.event.events.common.PlayerEvent;
 import dev.architectury.networking.NetworkManager;
 import dev.architectury.platform.Platform;
 import dev.architectury.registry.CreativeTabOutput;
@@ -33,6 +34,7 @@ public class ScriptorEvents {
     ChatEvent.RECEIVED.register(new SpellChatEvents());
     LootEvent.MODIFY_LOOT_TABLE.register(new AddLootEvent());
     LifecycleEvent.SERVER_LEVEL_LOAD.register(new PreloadDictionary());
+    PlayerEvent.PLAYER_JOIN.register(new PlayerJoinedEvent());
     ReloadListenerRegistry.register(PackType.SERVER_DATA, TomeReloadListener.INSTANCE);
     ReloadListenerRegistry.register(PackType.SERVER_DATA, ReagentReloadListener.INSTANCE);
 

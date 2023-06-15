@@ -24,30 +24,21 @@ public class ScriptorDamage {
   public static final ResourceKey<DamageType> OVERLOAD = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(ScriptorMod.MOD_ID, "overload"));
 
   public static DamageSource sacrifice(Entity entity) {
-    try(var level = entity.level()) {
-      return level.registryAccess().registry(Registries.DAMAGE_TYPE).map(
-        damageTypes -> new DamageSource(damageTypes.getHolderOrThrow(SACRIFICE), entity)
-      ).orElse(null);
-    } catch (IOException e) {
-      return null;
-    }
+    var level = entity.level();
+    return level.registryAccess().registry(Registries.DAMAGE_TYPE).map(
+      damageTypes -> new DamageSource(damageTypes.getHolderOrThrow(SACRIFICE), entity)
+    ).orElse(null);
   }
 
   public static DamageSource overload(Entity entity) {
-    try(var level = entity.level()) {
-      return level.registryAccess().registry(Registries.DAMAGE_TYPE).map(
-        damageTypes -> new DamageSource(damageTypes.getHolderOrThrow(OVERLOAD), entity)
-      ).orElse(null);
-    } catch (IOException e) {
-      return null;
-    }
+    var level = entity.level();
+    return level.registryAccess().registry(Registries.DAMAGE_TYPE).map(
+      damageTypes -> new DamageSource(damageTypes.getHolderOrThrow(OVERLOAD), entity)
+    ).orElse(null);
   }
 
   public static DamageSource magic(Entity entity, Entity entity2) {
-    try(var level = entity.level()) {
-      return new DamageSources(level.registryAccess()).indirectMagic(entity, entity2);
-    } catch (IOException e) {
-      return null;
-    }
+    var level = entity.level();
+    return new DamageSources(level.registryAccess()).indirectMagic(entity, entity2);
   }
 }

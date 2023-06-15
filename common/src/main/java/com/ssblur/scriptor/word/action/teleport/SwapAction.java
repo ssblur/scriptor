@@ -89,13 +89,9 @@ public class SwapAction extends Action {
       ItemEntity entity = new ItemEntity(to.getLevel(), to.getTargetPos().x(), to.getTargetPos().y() + 1, to.getTargetPos().z(), newItemStack);
       to.getLevel().addFreshEntity(entity);
     } else if(from instanceof EntityTargetable fromEntity && fromEntity.getTargetEntity() instanceof LivingEntity living) {
-      try(var level = living.level()) {
-        if (level != to.getLevel())
-          living.changeDimension((ServerLevel) to.getLevel());
-      } catch (IOException e) {
-        ScriptorMod.LOGGER.error(e);
-        return;
-      }
+      var level = living.level();
+      if (level != to.getLevel())
+        living.changeDimension((ServerLevel) to.getLevel());
       living.teleportTo(to.getTargetPos().x, to.getTargetPos().y, to.getTargetPos().z);
       living.setDeltaMovement(0, 0, 0);
       living.resetFallDistance();
