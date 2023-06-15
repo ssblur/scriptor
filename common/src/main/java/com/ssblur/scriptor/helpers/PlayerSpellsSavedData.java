@@ -80,12 +80,9 @@ public class PlayerSpellsSavedData extends SavedData {
   @Nullable
   public static PlayerSpellsSavedData computeIfAbsent(Player player) {
     MinecraftServer minecraft;
-    try(var level = player.level()) {
-      minecraft = level.getServer();
-      if(minecraft == null) return null;
-    } catch (IOException e) {
-      return null;
-    }
+    var level = player.level();
+    minecraft = level.getServer();
+    if(minecraft == null) return null;
 
     var server = minecraft.getLevel(Level.OVERWORLD);
     if(server == null) return null;

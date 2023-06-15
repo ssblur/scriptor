@@ -97,48 +97,45 @@ public class ScriptorProjectile extends Entity {
 
   @Override
   public void tick() {
-    try(var level = level()) {
-      if (level.isClientSide) return;
+    var level = level();
+    if (level.isClientSide) return;
 
-      int duration = entityData.get(DURATION);
-      var owner = level.getEntity(entityData.get(OWNER));
-      if (
-        tickCount > duration
-          || completable == null
-          || completable.isDone()
-      ) {
-        remove(RemovalReason.KILLED);
-        return;
-      }
-
-      var dest = position().add(getDeltaMovement());
-      var blockHitResult = level.clip(new ClipContext(position(), dest, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
-      if (blockHitResult.getType() != HitResult.Type.MISS)
-        dest = blockHitResult.getLocation();
-      var entityHitResult = ProjectileUtil.getEntityHitResult(
-        level(),
-        this,
-        position(),
-        dest,
-        getBoundingBox().expandTowards(getDeltaMovement()).inflate(1),
-        e -> true
-      );
-
-      if (entityHitResult != null && entityHitResult.getEntity() instanceof LivingEntity entity && entity != owner)
-        completable.complete(List.of(new EntityTargetable(entity)));
-      else if (
-        blockHitResult.getType() != HitResult.Type.MISS
-          && !(origin != null && blockHitResult.getType() == HitResult.Type.BLOCK && origin.distanceToSqr(dest) < 0.55)
-      )
-        completable.complete(List.of(
-          new Targetable(this.level(), blockHitResult.getBlockPos().offset(blockHitResult.getDirection().getNormal()))
-            .setFacing(blockHitResult.getDirection())
-        ));
-
-      setDeltaMovement(getDeltaMovement().x, getDeltaMovement().y, getDeltaMovement().z);
-      setPos(position().add(getDeltaMovement()));
-    } catch (IOException e) {
-      ScriptorMod.LOGGER.error(e);
+    int duration = entityData.get(DURATION);
+    var owner = level.getEntity(entityData.get(OWNER));
+    if (
+      tickCount > duration
+        || completable == null
+        || completable.isDone()
+    ) {
+      remove(RemovalReason.KILLED);
+      return;
     }
+
+    var dest = position().add(getDeltaMovement());
+    var blockHitResult = level.clip(new ClipContext(position(), dest, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
+    if (blockHitResult.getType() != HitResult.Type.MISS)
+      dest = blockHitResult.getLocation();
+    var entityHitResult = ProjectileUtil.getEntityHitResult(
+      level(),
+      this,
+      position(),
+      dest,
+      getBoundingBox().expandTowards(getDeltaMovement()).inflate(1),
+      e -> true
+    );
+
+    if (entityHitResult != null && entityHitResult.getEntity() instanceof LivingEntity entity && entity != owner)
+      completable.complete(List.of(new EntityTargetable(entity)));
+    else if (
+      blockHitResult.getType() != HitResult.Type.MISS
+        && !(origin != null && blockHitResult.getType() == HitResult.Type.BLOCK && origin.distanceToSqr(dest) < 0.55)
+    )
+      completable.complete(List.of(
+        new Targetable(this.level(), blockHitResult.getBlockPos().offset(blockHitResult.getDirection().getNormal()))
+          .setFacing(blockHitResult.getDirection())
+      ));
+
+    setDeltaMovement(getDeltaMovement().x, getDeltaMovement().y, getDeltaMovement().z);
+    setPos(position().add(getDeltaMovement()));
   }
 }

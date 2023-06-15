@@ -37,25 +37,22 @@ import java.util.Objects;
 public class EnchantNetwork {
   public static void useBook(FriendlyByteBuf buf, NetworkManager.PacketContext context) {
     var player = context.getPlayer();
-    try(var level = player.level()) {
-      var slot = buf.readInt();
-      var item = player.containerMenu.getItems().get(slot);
-      var carried = player.containerMenu.getCarried();
+    var level = player.level();
+    var slot = buf.readInt();
+    var item = player.containerMenu.getItems().get(slot);
+    var carried = player.containerMenu.getCarried();
 
-      if (carried == null || carried.isEmpty()) return;
+    if (carried == null || carried.isEmpty()) return;
 
-      CompoundTag tag = carried.getTag();
-      if (tag != null && level instanceof ServerLevel server) {
-        var text = tag.getList("pages", Tag.TAG_STRING);
-        Spell spell = DictionarySavedData.computeIfAbsent(server).parse(LimitedBookSerializer.decodeText(text));
-        if (spell == null) return;
-        if (spell.subject() instanceof InventorySubject subject) {
-          subject.castOnItem(spell, player, item);
-          player.getCooldowns().addCooldown(carried.getItem(), (int) Math.round(spell.cost() * 7));
-        }
+    CompoundTag tag = carried.getTag();
+    if (tag != null && level instanceof ServerLevel server) {
+      var text = tag.getList("pages", Tag.TAG_STRING);
+      Spell spell = DictionarySavedData.computeIfAbsent(server).parse(LimitedBookSerializer.decodeText(text));
+      if (spell == null) return;
+      if (spell.subject() instanceof InventorySubject subject) {
+        subject.castOnItem(spell, player, item);
+        player.getCooldowns().addCooldown(carried.getItem(), (int) Math.round(spell.cost() * 7));
       }
-    } catch (IOException e) {
-      ScriptorMod.LOGGER.error(e);
     }
   }
 
