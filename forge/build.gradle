@@ -55,7 +55,7 @@ modrinth {
     versionName = version + "-FORGE"
     changelog = (System.getenv("CHANGELOG") ?: "Could not load changelog").replace("\n", "\n\n")
     versionType = "beta"
-    uploadFile = tasks.named("signedJar")
+    uploadFile = tasks.named("signedJar").get()
     gameVersions = ["1.20.1"]
     loaders = ["forge"]
     dependencies {

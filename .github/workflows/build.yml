@@ -78,7 +78,7 @@ jobs:
       - name: "Upload Quilt to CurseForge"
         uses: itsmeow/curseforge-upload@v3
         with:
-          file_path: quilt/build/libs/scriptor-${{ steps.tag.outputs.version }}-quilt.jar
+          file_path: quilt/build/libs/scriptor-${{ steps.tag.outputs.version }}-sgd-quilt.jar
           game_endpoint: "minecraft"
           relations: "qsl:requiredDependency,architectury-api:requiredDependency"
           game_versions: "Minecraft 1.20:1.20.1,Java 17,Java 18,Quilt,Client,Server"
@@ -91,7 +91,7 @@ jobs:
       - name: "Upload Fabric to CurseForge"
         uses: itsmeow/curseforge-upload@v3
         with:
-          file_path: fabric/build/libs/scriptor-${{ steps.tag.outputs.version }}-fabric.jar
+          file_path: fabric/build/libs/scriptor-${{ steps.tag.outputs.version }}-sgd-fabric.jar
           game_endpoint: "minecraft"
           relations: "fabric-api:requiredDependency,architectury-api:requiredDependency"
           game_versions: "Minecraft 1.20:1.20.1,Java 17,Java 18,Fabric,Client,Server"
@@ -104,7 +104,7 @@ jobs:
       - name: "Upload Forge to CurseForge"
         uses: itsmeow/curseforge-upload@v3
         with:
-          file_path: forge/build/libs/scriptor-${{ steps.tag.outputs.version }}-forge.jar
+          file_path: forge/build/libs/scriptor-${{ steps.tag.outputs.version }}-sgd-forge.jar
           game_endpoint: "minecraft"
           relations: "architectury-api:requiredDependency"
           game_versions: "Minecraft 1.20:1.20.1,Java 17,Java 18,Forge,Client,Server"
