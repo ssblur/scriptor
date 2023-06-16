@@ -17,3 +17,6 @@ classes/
 .vscode
 .settings
 *.launch
+
+*~
+.env
