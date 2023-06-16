@@ -58,7 +58,7 @@ modrinth {
     changelog = (System.getenv("CHANGELOG") ?: "Could not load changelog").replace("\n", "\n\n")
     versionType = "beta"
     uploadFile = tasks.named("signedJar").get().outputs.files.singleFile
-    gameVersions = ["1.20"]
+    gameVersions = [rootProject.minecraft_version]
     loaders = ["fabric"]
     dependencies {
         required.project "architectury-api"
