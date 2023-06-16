@@ -20,3 +20,5 @@ classes/
 
 .env
 .env.ps1
+
+*~
