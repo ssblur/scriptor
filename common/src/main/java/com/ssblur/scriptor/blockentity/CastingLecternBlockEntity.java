@@ -106,7 +106,7 @@ public class CastingLecternBlockEntity extends BlockEntity {
   public void tick() {
     if(level == null || level.isClientSide) return;
     cooldown = Math.max(0, cooldown - 1);
-    if(!getSpellbook().isEmpty() && cooldown == 0) {
+    if(level.getDirectSignalTo(getBlockPos()) == 0 && !getSpellbook().isEmpty() && cooldown == 0) {
       var item = getSpellbook();
       Tag tag = item.getTag();
       if(tag instanceof CompoundTag compound && level instanceof ServerLevel server) {
