@@ -9,6 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -46,7 +47,19 @@ public class AncientSpellbook extends Item {
       var resource = TomeReloadListener.INSTANCE.getRandomTome(tier, player);
       Spell spell = resource.getSpell();
       String sentence = DictionarySavedData.computeIfAbsent(server).generate(spell);
-      player.addItem(LimitedBookSerializer.createSpellbook(resource.getAuthor(), resource.getName(), sentence));
+
+      var spellbook = LimitedBookSerializer.createSpellbook(resource.getAuthor(), resource.getName(), sentence);
+      if(!player.addItem(spellbook)) {
+        ItemEntity entity = new ItemEntity(
+          level,
+          player.getX(),
+          player.getY() + 1,
+          player.getZ() + 1,
+          spellbook
+        );
+        level.addFreshEntity(entity);
+      }
+
       player.sendSystemMessage(Component.translatable("extra.scriptor.spell_get", resource.getName()));
       player.getItemInHand(interactionHand).shrink(1);
       return InteractionResultHolder.consume(player.getItemInHand(interactionHand));
