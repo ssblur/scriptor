@@ -39,7 +39,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Spellbook extends Item implements ItemWithCustomRenderer {
+public class Spellbook extends WrittenBookItem implements ItemWithCustomRenderer {
 
   public Spellbook(Properties properties) {
     super(properties);
@@ -103,12 +103,6 @@ public class Spellbook extends Item implements ItemWithCustomRenderer {
 
     if(itemStack.getTag() != null && itemStack.getTag().getCompound("scriptor") != null) {
       CompoundTag tag = itemStack.getTag();
-
-      String string = tag.getString("author");
-      if (string != null && !string.isEmpty())
-        list.add(Component.translatable("book.byAuthor", string).withStyle(ChatFormatting.GRAY));
-
-      list.add(Component.translatable("book.generation." + tag.getInt("generation")).withStyle(ChatFormatting.GRAY));
 
       var scriptor = tag.getCompound("scriptor");
       if(scriptor.contains("identified")) {
@@ -241,5 +235,9 @@ public class Spellbook extends Item implements ItemWithCustomRenderer {
           lightLevel
         );
     }
+  }
+
+  public boolean isFoil(ItemStack itemStack) {
+    return itemStack.isEnchanted();
   }
 }
