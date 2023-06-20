@@ -3,9 +3,12 @@
   "package": "com.ssblur.scriptor.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "LecternBlockEntitySpellbookMixin"
   ],
   "client": [
-    "ItemWithCustomRendererMixin"
+    "ItemWithCustomRendererMixin",
+    "BookViewScreenSpellbookMixin",
+    "LecternScreenAccessorPatch"
   ],
   "injectors": {
     "defaultRequire": 1
