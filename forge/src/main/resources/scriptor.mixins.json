@@ -7,7 +7,8 @@
   ],
   "client": [
     "ItemWithCustomRendererMixin",
-    "BookViewScreenSpellbookMixin"
+    "BookViewScreenSpellbookMixin",
+    "LecternScreenAccessorPatch"
   ],
   "injectors": {
     "defaultRequire": 1
