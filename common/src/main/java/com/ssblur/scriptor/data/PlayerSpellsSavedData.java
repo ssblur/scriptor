@@ -1,14 +1,10 @@
-package com.ssblur.scriptor.helpers;
+package com.ssblur.scriptor.data;
 
-import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.client.renderer.texture.SpriteContents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
@@ -23,6 +19,7 @@ import java.util.Objects;
 
 public class PlayerSpellsSavedData extends SavedData {
   public HashMap<Integer, HashMap<String, Boolean>> spells = new HashMap<>();
+  public HashMap<Integer, HashMap<String, Boolean>> scraps = new HashMap<>();
   public static final Codec<PlayerSpellsSavedData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
     Codec.STRING.listOf()
       .fieldOf("spells")
@@ -34,11 +31,30 @@ public class PlayerSpellsSavedData extends SavedData {
               list.add(i + ":" + s);
           return list;
         }
+      ),
+    Codec.STRING.listOf()
+      .fieldOf("scraps")
+      .forGetter(
+        data -> {
+          ArrayList<String> list = new ArrayList<>();
+          for(int i: data.scraps.keySet())
+            for(var s: data.scraps.get(i).keySet())
+              list.add(i + ":" + s);
+          return list;
+        }
       )
   ).apply(instance, PlayerSpellsSavedData::new));
 
-  public PlayerSpellsSavedData(List<String> pairs) {
-    for(var pair: pairs) {
+  public PlayerSpellsSavedData(List<String> spellList, List<String> scrapList) {
+    for(var pair: spellList) {
+      var split = pair.split(":", 2);
+      int first = Integer.parseInt(split[0]);
+      if(!spells.containsKey(first))
+        spells.put(first, new HashMap<>());
+      spells.get(first).put(split[1], true);
+    }
+
+    for(var pair: scrapList) {
       var split = pair.split(":", 2);
       int first = Integer.parseInt(split[0]);
       if(!spells.containsKey(first))
@@ -53,6 +69,12 @@ public class PlayerSpellsSavedData extends SavedData {
     if(!spells.containsKey(tier))
       spells.put(tier, new HashMap<>());
     return spells.get(tier);
+  }
+
+  public HashMap<String, Boolean> getScrapTier(int tier) {
+    if(!scraps.containsKey(tier))
+      scraps.put(tier, new HashMap<>());
+    return scraps.get(tier);
   }
 
   @Override

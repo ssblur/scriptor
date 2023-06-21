@@ -3,7 +3,7 @@ package com.ssblur.scriptor.commands;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
-import com.ssblur.scriptor.helpers.DictionarySavedData;
+import com.ssblur.scriptor.data.DictionarySavedData;
 import com.ssblur.scriptor.registry.words.WordRegistry;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;

@@ -1,7 +1,6 @@
 package com.ssblur.scriptor.events;
 
-import com.ssblur.scriptor.helpers.PlayerSpellsSavedData;
-import dev.architectury.event.Event;
+import com.ssblur.scriptor.data.PlayerSpellsSavedData;
 import dev.architectury.event.events.common.PlayerEvent;
 import net.minecraft.server.level.ServerPlayer;
 

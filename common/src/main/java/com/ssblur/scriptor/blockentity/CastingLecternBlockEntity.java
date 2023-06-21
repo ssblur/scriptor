@@ -2,21 +2,16 @@ package com.ssblur.scriptor.blockentity;
 
 import com.ssblur.scriptor.block.CastingLecternBlock;
 import com.ssblur.scriptor.events.messages.ParticleNetwork;
-import com.ssblur.scriptor.helpers.DictionarySavedData;
+import com.ssblur.scriptor.data.DictionarySavedData;
 import com.ssblur.scriptor.helpers.LimitedBookSerializer;
-import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
-import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
 import com.ssblur.scriptor.helpers.targetable.LecternTargetable;
-import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.item.casters.CasterCrystal;
 import com.ssblur.scriptor.word.Spell;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -24,22 +19,12 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.ContainerHelper;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.LecternBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.structure.BoundingBox;
-import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 public class CastingLecternBlockEntity extends BlockEntity {
   public static final int SPELLBOOK_SLOT = 0;

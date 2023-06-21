@@ -1,26 +1,19 @@
 package com.ssblur.scriptor.events.messages;
 
-import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.events.ScriptorEvents;
-import com.ssblur.scriptor.helpers.DictionarySavedData;
+import com.ssblur.scriptor.data.DictionarySavedData;
 import com.ssblur.scriptor.helpers.LimitedBookSerializer;
-import com.ssblur.scriptor.word.Spell;
-import com.ssblur.scriptor.word.subject.InventorySubject;
 import dev.architectury.networking.NetworkManager;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import org.checkerframework.checker.units.qual.C;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Random;
 
 public class IdentifyNetwork {
   public static void useScroll(FriendlyByteBuf buf, NetworkManager.PacketContext context) {

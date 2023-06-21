@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.events.messages;
 
 import com.ssblur.scriptor.events.ScriptorEvents;
-import com.ssblur.scriptor.helpers.DictionarySavedData;
+import com.ssblur.scriptor.data.DictionarySavedData;
 import com.ssblur.scriptor.helpers.LimitedBookSerializer;
 import com.ssblur.scriptor.registry.words.WordRegistry;
 import com.ssblur.scriptor.word.PartialSpell;
