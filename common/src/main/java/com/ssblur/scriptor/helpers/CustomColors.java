@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.helpers;
 
 import com.ssblur.scriptor.word.descriptor.Descriptor;
-import com.ssblur.scriptor.word.descriptor.visual.ColorDescriptor;
+import com.ssblur.scriptor.word.descriptor.ColorDescriptor;
 import net.minecraft.world.item.DyeColor;
 import java.awt.*;
 import java.util.Arrays;
@@ -179,9 +179,9 @@ public class CustomColors {
         if(descriptor.getColor() >= 0) {
           colorN += 1;
           c = descriptor.getColor();
-          r += c & 0xFF;
+          b += c & 0xFF;
           g += (c >> 8) & 0xFF;
-          b += (c >> 16) & 0xFF;
+          r += (c >> 16) & 0xFF;
           a += (c >> 24) & 0xFF;
         } else {
           return descriptor.getColor();
