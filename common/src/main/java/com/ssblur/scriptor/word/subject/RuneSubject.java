@@ -2,12 +2,11 @@ package com.ssblur.scriptor.word.subject;
 
 import com.ssblur.scriptor.block.ScriptorBlocks;
 import com.ssblur.scriptor.blockentity.RuneBlockEntity;
+import com.ssblur.scriptor.color.CustomColors;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.events.messages.TraceNetwork;
 import com.ssblur.scriptor.word.Spell;
-import com.ssblur.scriptor.word.descriptor.visual.ColorDescriptor;
-import com.ssblur.scriptor.word.descriptor.Descriptor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -23,12 +22,7 @@ public class RuneSubject extends Subject implements InventorySubject{
     var result = new CompletableFuture<List<Targetable>>();
     if(caster instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof Player player) {
       TraceNetwork.requestTraceData(player, target -> {
-
-        int color = 0xa020f0;
-        for(Descriptor d: spell.deduplicatedDescriptorsForSubjects())
-          if(d instanceof ColorDescriptor descriptor)
-            color = descriptor.getColor();
-
+        int color = CustomColors.getColor(spell.deduplicatedDescriptorsForSubjects());
         BlockPos pos = target.getTargetBlockPos();
         Level level = caster.getLevel();
 
@@ -46,10 +40,7 @@ public class RuneSubject extends Subject implements InventorySubject{
         }
       });
     } else {
-      int color = 0xa020f0;
-      for(Descriptor d: spell.deduplicatedDescriptorsForSubjects())
-        if(d instanceof ColorDescriptor descriptor)
-          color = descriptor.getColor();
+      int color = CustomColors.getColor(spell.deduplicatedDescriptorsForSubjects());
 
       BlockPos pos = caster.getTargetBlockPos();
       Level level = caster.getLevel();

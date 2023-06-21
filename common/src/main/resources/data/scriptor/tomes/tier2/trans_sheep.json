@@ -1,0 +1,16 @@
+{
+  "name": "Wear it Proud",
+  "author": "Ecain",
+  "tier": 2,
+  "spell": {
+    "subject": "touch",
+    "spells": [
+      {
+        "action": "color",
+        "descriptors": [
+          "color.scriptor.trans"
+        ]
+      }
+    ]
+  }
+}

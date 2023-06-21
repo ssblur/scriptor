@@ -1,13 +1,12 @@
 package com.ssblur.scriptor.helpers;
 
 import com.ssblur.scriptor.error.WordNotFoundException;
-import com.ssblur.scriptor.registry.WordRegistry;
+import com.ssblur.scriptor.registry.words.WordRegistry;
 import com.ssblur.scriptor.word.PartialSpell;
 import com.ssblur.scriptor.word.Spell;
 import com.ssblur.scriptor.word.action.Action;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
 import com.ssblur.scriptor.word.subject.Subject;
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.List;

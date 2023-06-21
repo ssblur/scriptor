@@ -7,7 +7,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.ssblur.scriptor.helpers.language.DefaultTokenGenerators;
 import com.ssblur.scriptor.helpers.language.TokenGenerator;
-import com.ssblur.scriptor.registry.WordRegistry;
+import com.ssblur.scriptor.registry.words.WordRegistry;
 import com.ssblur.scriptor.word.PartialSpell;
 import com.ssblur.scriptor.word.Spell;
 import com.ssblur.scriptor.word.Word;
@@ -19,7 +19,6 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
-import org.jetbrains.annotations.NotNull;
 import com.ssblur.scriptor.ScriptorMod;
 import org.jetbrains.annotations.Nullable;
 

@@ -1,6 +1,7 @@
 package com.ssblur.scriptor.word.action;
 
 import com.ssblur.scriptor.enchant.ChargedEnchant;
+import com.ssblur.scriptor.helpers.ItemTargetableHelper;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.InventoryTargetable;
 import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
@@ -23,24 +24,10 @@ public class SmiteAction extends Action {
         strength += strengthDescriptor.strengthModifier();
     }
 
-    if(targetable instanceof ItemTargetable itemTargetable && itemTargetable.shouldTargetItem()) {
-      if(itemTargetable.getTargetItem() != null && !itemTargetable.getTargetItem().isEmpty())
-        ChargedEnchant.chargeItem(itemTargetable.getTargetItem(), strength);
+    var itemTarget = ItemTargetableHelper.getTargetItemStack(targetable);
+    if(!itemTarget.isEmpty()) {
+      ChargedEnchant.chargeItem(itemTarget, strength);
       return;
-    }
-
-    if(targetable instanceof InventoryTargetable inventoryTargetable) {
-      if(inventoryTargetable.getContainer() != null) {
-        ItemStack itemStack;
-        if(!inventoryTargetable.shouldIgnoreTargetedSlot())
-          itemStack = inventoryTargetable.getContainer().getItem(inventoryTargetable.getTargetedSlot());
-        else
-          itemStack = inventoryTargetable.getContainer().getItem(inventoryTargetable.getFirstMatchingSlot(item -> !item.isEmpty()));
-        if (itemStack != null) {
-          ChargedEnchant.chargeItem(itemStack, strength);
-          return;
-        }
-      }
     }
 
     ServerLevel level = (ServerLevel) targetable.getLevel();

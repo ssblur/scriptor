@@ -3,23 +3,17 @@ package com.ssblur.scriptor.events;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import com.ssblur.scriptor.helpers.TomeResource;
+import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.item.ScriptorItems;
-import com.ssblur.scriptor.registry.WordRegistry;
+import com.ssblur.scriptor.registry.words.WordRegistry;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
 import com.ssblur.scriptor.word.descriptor.discount.ReagentDescriptor;
-import dev.architectury.registry.registries.Registrar;
-import dev.architectury.registry.registries.RegistrarManager;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
-import net.minecraft.world.item.Item;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -58,9 +52,16 @@ public class ReagentReloadListener extends SimpleJsonResourceReloadListener {
     words = new HashMap<>();
     object.forEach((resourceLocation, jsonElement) -> {
       ReagentResource resource = GSON.fromJson(jsonElement, REAGENT_TYPE);
+      ScriptorMod.LOGGER.info(
+        "Loaded reagent {}{}. Item: {} Cost: {}",
+        resource.disabled ? " (disabled)" : "",
+        resourceLocation.toShortLanguageKey(),
+        resource.item,
+        resource.cost
+      );
       if(!resource.disabled)
         words.put(
-          resourceLocation.toShortLanguageKey(),
+          "reagent." + resourceLocation.toShortLanguageKey(),
           WordRegistry.INSTANCE.register(
             "reagent." + resourceLocation.toShortLanguageKey(),
             new ReagentDescriptor(ScriptorItems.ITEMS.getRegistrar().get(new ResourceLocation(resource.item)), resource.cost)

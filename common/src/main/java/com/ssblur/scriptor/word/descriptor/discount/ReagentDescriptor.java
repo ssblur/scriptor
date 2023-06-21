@@ -21,7 +21,6 @@ public class ReagentDescriptor extends Descriptor implements CastDescriptor, Aft
   Item item;
 
   public ReagentDescriptor(Item item, int cost) {
-    ScriptorMod.LOGGER.info("Loaded a reagent. Item: {} Cost: {}", item, cost);
     this.item = item;
     this.cost = cost;
   }

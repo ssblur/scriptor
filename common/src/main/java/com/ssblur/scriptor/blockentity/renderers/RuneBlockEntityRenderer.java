@@ -1,26 +1,16 @@
 package com.ssblur.scriptor.blockentity.renderers;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.blockentity.RuneBlockEntity;
-import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
+import com.ssblur.scriptor.color.CustomColors;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.blockentity.EnchantTableRenderer;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.phys.Vec3;
-import org.lwjgl.opengl.GL11;
-
-import java.awt.*;
 
 public class RuneBlockEntityRenderer implements BlockEntityRenderer<RuneBlockEntity> {
   static ResourceLocation magicCircle = new ResourceLocation(ScriptorMod.MOD_ID, "textures/entity/magic_circle.png");
@@ -64,23 +54,13 @@ public class RuneBlockEntityRenderer implements BlockEntityRenderer<RuneBlockEnt
     if(rune.getLevel() == null) return;
     matrix.pushPose();
 
-    int c = rune.color;
+    int c = CustomColors.getColor(rune.color, rune.getLevel().getGameTime() + tickDelta);
     int r, g, b;
     var mc = Minecraft.getInstance();
     assert mc.level != null;
-    float time = mc.level.getGameTime() + mc.getDeltaFrameTime();
-    time %= 400;
-    time /= 400;
-    if(c == -1) {
-      var color = Color.getHSBColor(time, 1f, 0.5f);
-      r = color.getRed();
-      g = color.getGreen();
-      b = color.getBlue();
-    } else {
-      r = (c & 0xff0000) >> 16;
-      g = (c & 0x00ff00) >> 8;
-      b = c & 0x0000ff;
-    }
+    r = (c & 0xff0000) >> 16;
+    g = (c & 0x00ff00) >> 8;
+    b = c & 0x0000ff;
     float yo = 0.0625f;
     matrix.translate(0, yo, 0);
     var pose = matrix.last().pose();

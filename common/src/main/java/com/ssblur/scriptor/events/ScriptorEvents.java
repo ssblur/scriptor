@@ -37,6 +37,8 @@ public class ScriptorEvents {
     PlayerEvent.PLAYER_JOIN.register(new PlayerJoinedEvent());
     ReloadListenerRegistry.register(PackType.SERVER_DATA, TomeReloadListener.INSTANCE);
     ReloadListenerRegistry.register(PackType.SERVER_DATA, ReagentReloadListener.INSTANCE);
+    ReloadListenerRegistry.register(PackType.SERVER_DATA, CustomColorReloadListener.INSTANCE);
+    ReloadListenerRegistry.register(PackType.SERVER_DATA, ScrapReloadListener.INSTANCE);
 
     if(Platform.getEnv() == EnvType.CLIENT) {
       NetworkManager.registerReceiver(NetworkManager.Side.S2C, GET_TRACE_DATA, TraceNetwork::getTraceData);

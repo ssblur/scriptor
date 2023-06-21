@@ -1,6 +1,5 @@
 package com.ssblur.scriptor.entity;
 
-import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import net.minecraft.core.BlockPos;
@@ -21,7 +20,6 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
-import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -77,7 +75,7 @@ public class ScriptorProjectile extends Entity {
   @Override
   protected void readAdditionalSaveData(CompoundTag compoundTag) {
     CompoundTag tag = compoundTag.getCompound("scriptor:projectile_data");
-    entityData.set(COLOR, tag.getInt("color"));
+    entityData.set(COLOR, tag.getInt("com/ssblur/scriptor/color"));
     entityData.set(DURATION, tag.getInt("duration"));
     entityData.set(OWNER, tag.getInt("owner"));
   }
@@ -85,7 +83,7 @@ public class ScriptorProjectile extends Entity {
   @Override
   protected void addAdditionalSaveData(CompoundTag compoundTag) {
     CompoundTag tag = compoundTag.getCompound("scriptor:projectile_data");
-    tag.putInt("color", entityData.get(COLOR));
+    tag.putInt("com/ssblur/scriptor/color", entityData.get(COLOR));
     tag.putInt("duration", entityData.get(DURATION));
     tag.putInt("owner", entityData.get(OWNER));
   }
