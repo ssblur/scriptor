@@ -89,6 +89,13 @@ public class AddLootEvent implements LootEvent.ModifyLootTable {
           for(var condition: i.conditions)
             builder.when(condition);
           context.addPool(builder);
+
+          builder = LootPool.lootPool();
+          builder.when(LootItemRandomChanceCondition.randomChance(i.chance));
+          builder.add(LootItem.lootTableItem(ScriptorItems.SCRAP_TIER1.get()));
+          for(var condition: i.conditions)
+            builder.when(condition);
+          context.addPool(builder);
         }
       for(var i: tomePoolsTier2)
         if(id.equals(i.location)) {
@@ -98,12 +105,26 @@ public class AddLootEvent implements LootEvent.ModifyLootTable {
           for(var condition: i.conditions)
             builder.when(condition);
           context.addPool(builder);
+
+          builder = LootPool.lootPool();
+          builder.when(LootItemRandomChanceCondition.randomChance(i.chance));
+          builder.add(LootItem.lootTableItem(ScriptorItems.SCRAP_TIER2.get()));
+          for(var condition: i.conditions)
+            builder.when(condition);
+          context.addPool(builder);
         }
       for(var i: tomePoolsTier3)
         if(id.equals(i.location)) {
           LootPool.Builder builder = LootPool.lootPool();
           builder.when(LootItemRandomChanceCondition.randomChance(i.chance));
           builder.add(LootItem.lootTableItem(ScriptorItems.TOME_TIER3.get()));
+          for(var condition: i.conditions)
+            builder.when(condition);
+          context.addPool(builder);
+
+          builder = LootPool.lootPool();
+          builder.when(LootItemRandomChanceCondition.randomChance(i.chance));
+          builder.add(LootItem.lootTableItem(ScriptorItems.SCRAP_TIER3.get()));
           for(var condition: i.conditions)
             builder.when(condition);
           context.addPool(builder);
