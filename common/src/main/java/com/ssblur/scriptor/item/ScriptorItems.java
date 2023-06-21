@@ -25,6 +25,8 @@ public class ScriptorItems {
     new Item(new Item.Properties().arch$tab(ScriptorMod.SCRIPTOR_TAB)));
   public static final RegistrySupplier<Item> LEATHER_BINDER = ITEMS.register("leather_binder", () ->
     new Item(new Item.Properties().arch$tab(ScriptorMod.SCRIPTOR_TAB)));
+  public static final RegistrySupplier<Item> SCRAP = ITEMS.register("scrap", () ->
+    new Scrap(new Item.Properties()));
 
   public static final RegistrySupplier<Item> TOME_TIER1 = ITEMS.register("tome_tier1", () ->
     new AncientSpellbook(new Item.Properties().arch$tab(ScriptorMod.SCRIPTOR_TAB), 1));
@@ -34,6 +36,14 @@ public class ScriptorItems {
     new AncientSpellbook(new Item.Properties().arch$tab(ScriptorMod.SCRIPTOR_TAB), 3));
   public static final RegistrySupplier<Item> TOME_TIER4 = ITEMS.register("tome_tier4", () ->
     new AncientSpellbook(new Item.Properties().arch$tab(ScriptorMod.SCRIPTOR_TAB), 4));
+
+
+  public static final RegistrySupplier<Item> SCRAP_TIER1 = ITEMS.register("scrap_tier1", () ->
+    new AncientScrap(new Item.Properties().arch$tab(ScriptorMod.SCRIPTOR_TAB), 1));
+  public static final RegistrySupplier<Item> SCRAP_TIER2 = ITEMS.register("scrap_tier2", () ->
+    new AncientScrap(new Item.Properties().arch$tab(ScriptorMod.SCRIPTOR_TAB), 2));
+  public static final RegistrySupplier<Item> SCRAP_TIER3 = ITEMS.register("scrap_tier3", () ->
+    new AncientScrap(new Item.Properties().arch$tab(ScriptorMod.SCRIPTOR_TAB), 3));
 
   public static final RegistrySupplier<Item> IDENTIFY_SCROLL = ITEMS.register("identify_scroll", () ->
     new IdentifyScroll(new Item.Properties().arch$tab(ScriptorMod.SCRIPTOR_TAB)));

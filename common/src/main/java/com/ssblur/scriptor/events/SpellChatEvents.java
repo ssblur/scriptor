@@ -1,10 +1,9 @@
 package com.ssblur.scriptor.events;
 
-import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.damage.ScriptorDamage;
 import com.ssblur.scriptor.effect.ScriptorEffects;
 import com.ssblur.scriptor.helpers.ConfigHelper;
-import com.ssblur.scriptor.helpers.DictionarySavedData;
+import com.ssblur.scriptor.data.DictionarySavedData;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.word.Spell;
 import dev.architectury.event.EventResult;
@@ -16,7 +15,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.IOException;
 import java.util.Objects;
 
 public class SpellChatEvents implements ChatEvent.Received {

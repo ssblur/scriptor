@@ -1,0 +1,21 @@
+{
+  "tier": 1,
+  "keys": [
+    "descriptor:black",
+    "descriptor:blue",
+    "descriptor:white",
+    "descriptor:green",
+    "descriptor:orange",
+    "descriptor:light_blue",
+    "descriptor:yellow",
+    "descriptor:red",
+    "descriptor:pink",
+    "descriptor:lime",
+    "descriptor:light_gray",
+    "descriptor:cyan",
+    "descriptor:magenta",
+    "descriptor:purple",
+    "descriptor:brown",
+    "descriptor:dark_gray"
+  ]
+}

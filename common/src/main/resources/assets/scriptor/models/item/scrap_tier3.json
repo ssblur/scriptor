@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "scriptor:item/scrap_t3"
+  },
+  "display": {
+    "thirdperson_righthand": {
+      "scale": [0.6, 0.6, 0.6]
+    },
+    "thirdperson_lefthand": {
+      "scale": [0.6, 0.6, 0.6]
+    }
+  }
+}

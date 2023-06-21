@@ -1,9 +1,6 @@
 package com.ssblur.scriptor.item;
 
-import com.ssblur.scriptor.events.TomeReloadListener;
-import com.ssblur.scriptor.data.DictionarySavedData;
-import com.ssblur.scriptor.helpers.LimitedBookSerializer;
-import com.ssblur.scriptor.word.Spell;
+import com.ssblur.scriptor.events.ScrapReloadListener;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
@@ -18,9 +15,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class AncientSpellbook extends Item {
+public class AncientScrap extends Item {
   int tier;
-  public AncientSpellbook(Properties properties, int tier) {
+  public AncientScrap(Properties properties, int tier) {
     super(properties);
     this.tier = tier;
   }
@@ -28,8 +25,8 @@ public class AncientSpellbook extends Item {
   @Override
   public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> list, TooltipFlag tooltipFlag) {
     super.appendHoverText(itemStack, level, list, tooltipFlag);
-    list.add(Component.translatable("extra.scriptor.tome_description"));
-    list.add(Component.translatable("extra.scriptor.tome_tier", tier));
+    list.add(Component.translatable("extra.scriptor.scrap_description"));
+    list.add(Component.translatable("extra.scriptor.scrap_tier", tier));
   }
 
   @Override
@@ -39,25 +36,24 @@ public class AncientSpellbook extends Item {
     if(!level.isClientSide) {
       ServerLevel server = (ServerLevel) level;
 
-      player.sendSystemMessage(Component.translatable("extra.scriptor.tome_use"));
+      player.sendSystemMessage(Component.translatable("extra.scriptor.scrap_use"));
       player.getCooldowns().addCooldown(this, 20);
 
-      var resource = TomeReloadListener.INSTANCE.getRandomTome(tier, player);
-      Spell spell = resource.getSpell();
-      String sentence = DictionarySavedData.computeIfAbsent(server).generate(spell);
+      // Generate and distribute scrap
+      var scrap = ScrapReloadListener.INSTANCE.getRandomScrap(tier, player);
 
-      var spellbook = LimitedBookSerializer.createSpellbook(resource.getAuthor(), resource.getName(), sentence);
-      if(!player.addItem(spellbook)) {
+
+      if(!player.addItem(scrap)) {
         ItemEntity entity = new ItemEntity(
           level,
           player.getX(),
           player.getY() + 1,
           player.getZ() + 1,
-          spellbook
+          scrap
         );
         level.addFreshEntity(entity);
       }
-      player.sendSystemMessage(Component.translatable("extra.scriptor.spell_get", resource.getName()));
+      player.sendSystemMessage(Component.translatable("extra.scriptor.scrap_get"));
       player.getItemInHand(interactionHand).shrink(1);
       return InteractionResultHolder.consume(player.getItemInHand(interactionHand));
     }

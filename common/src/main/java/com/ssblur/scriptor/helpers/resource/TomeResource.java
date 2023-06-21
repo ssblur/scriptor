@@ -1,4 +1,4 @@
-package com.ssblur.scriptor.helpers;
+package com.ssblur.scriptor.helpers.resource;
 
 import com.ssblur.scriptor.error.WordNotFoundException;
 import com.ssblur.scriptor.registry.words.WordRegistry;

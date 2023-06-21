@@ -1,4 +1,4 @@
-package com.ssblur.scriptor.helpers;
+package com.ssblur.scriptor.data;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
