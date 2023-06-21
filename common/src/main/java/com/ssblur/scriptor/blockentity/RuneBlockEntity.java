@@ -1,11 +1,10 @@
 package com.ssblur.scriptor.blockentity;
 
 import com.ssblur.scriptor.helpers.DictionarySavedData;
+import com.ssblur.scriptor.color.interfaces.Colorable;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.Spell;
-import net.minecraft.client.multiplayer.ClientPacketListener;
-import net.minecraft.client.renderer.texture.Tickable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
@@ -14,10 +13,8 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.phys.AABB;
@@ -28,7 +25,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
-public class RuneBlockEntity extends BlockEntity {
+public class RuneBlockEntity extends BlockEntity implements Colorable {
   public Entity owner;
   public UUID ownerUUID;
   // Keep the Spell for Serialization and to rebuild future if reloaded.
@@ -51,14 +48,14 @@ public class RuneBlockEntity extends BlockEntity {
   @Override
   public CompoundTag getUpdateTag() {
     var tag = super.getUpdateTag();
-    tag.putInt("color", color);
+    tag.putInt("com/ssblur/scriptor/color", color);
     return tag;
   }
 
   @Override
   public void load(CompoundTag tag) {
     super.load(tag);
-    color = tag.getInt("color");
+    color = tag.getInt("com/ssblur/scriptor/color");
 
     if(tag.contains("spell"))
       spellText = tag.getString("spell");
@@ -81,7 +78,7 @@ public class RuneBlockEntity extends BlockEntity {
       tag.putString("owner", owner.getStringUUID());
     else if(ownerUUID != null)
       tag.putString("owner", ownerUUID.toString());
-    tag.putInt("color", color);
+    tag.putInt("com/ssblur/scriptor/color", color);
   }
 
   public void tick() {
@@ -119,8 +116,8 @@ public class RuneBlockEntity extends BlockEntity {
 
     var box = AABB.of(
       BoundingBox.fromCorners(
-        new Vec3i((int) (worldPosition.getX() + 0.2), (int) (worldPosition.getY() + 0.2), (int) (worldPosition.getZ() - 1 + 0.2)),
-        new Vec3i((int) (worldPosition.getX() + 0.6), (int) (worldPosition.getY() + 0.0625), (int) (worldPosition.getZ() - 1 + 0.6))
+        new Vec3i((int) (worldPosition.getX() - 1 + 0.2), (int) (worldPosition.getY() + 0.0), (int) (worldPosition.getZ() + 0.2)),
+        new Vec3i((int) (worldPosition.getX() - 1 + 0.6), (int) (worldPosition.getY() + 0.0625), (int) (worldPosition.getZ() + 0.6))
       )
     );
     var entities = level.getEntities(null, box);
@@ -137,5 +134,13 @@ public class RuneBlockEntity extends BlockEntity {
   public static <T extends BlockEntity> void tick(Level level, BlockPos pos, BlockState state, T entity) {
     if(level.isClientSide) return;
     if(entity instanceof RuneBlockEntity tile) tile.tick();
+  }
+
+  @Override
+  public void setColor(int color) {
+    this.color = color;
+    setChanged();
+    if(level != null)
+      level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 2);
   }
 }

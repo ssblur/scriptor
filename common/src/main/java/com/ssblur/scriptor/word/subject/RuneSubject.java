@@ -2,13 +2,11 @@ package com.ssblur.scriptor.word.subject;
 
 import com.ssblur.scriptor.block.ScriptorBlocks;
 import com.ssblur.scriptor.blockentity.RuneBlockEntity;
-import com.ssblur.scriptor.helpers.CustomColors;
+import com.ssblur.scriptor.color.CustomColors;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.events.messages.TraceNetwork;
 import com.ssblur.scriptor.word.Spell;
-import com.ssblur.scriptor.word.descriptor.visual.ColorDescriptor;
-import com.ssblur.scriptor.word.descriptor.Descriptor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;

@@ -5,6 +5,7 @@ import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -76,6 +77,11 @@ public class ItemTargetableHelper {
         }
       }
     }
+
+    if(targetable instanceof ItemTargetable itemTargetable)
+      if(itemTargetable.getTargetEntity() instanceof Player player)
+        if(player.addItem(itemStack))
+          return;
 
     var pos = targetable.getTargetPos();
     ItemEntity entity = new ItemEntity(

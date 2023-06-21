@@ -8,7 +8,9 @@
   "client": [
     "ItemWithCustomRendererMixin",
     "BookViewScreenSpellbookMixin",
-    "LecternScreenAccessorPatch"
+    "LecternScreenAccessorPatch",
+    "SheepColorableInject",
+    "BlockItemColorableInject"
   ],
   "injectors": {
     "defaultRequire": 1

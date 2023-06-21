@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.registry.words;
 
 import com.ssblur.scriptor.word.descriptor.Descriptor;
-import com.ssblur.scriptor.word.descriptor.visual.ColorDescriptor;
+import com.ssblur.scriptor.word.descriptor.color.ColorDescriptor;
 
 public class ColorDescriptors {
   private static final WordRegistry INSTANCE = WordRegistry.INSTANCE;
@@ -24,16 +24,16 @@ public class ColorDescriptors {
   public final Descriptor BROWN = INSTANCE.register("brown", new ColorDescriptor(0x56331c));
 
   public final Descriptor RAINBOW = INSTANCE.register("rainbow", new ColorDescriptor(-1));
-  public final Descriptor TRANS = INSTANCE.register("trans", new ColorDescriptor(-2));
-  public final Descriptor ENBY = INSTANCE.register("enby", new ColorDescriptor(-3));
-  public final Descriptor BI = INSTANCE.register("bi", new ColorDescriptor(-4));
-  public final Descriptor PAN = INSTANCE.register("pan", new ColorDescriptor(-5));
-  public final Descriptor LESBIAN = INSTANCE.register("lesbian", new ColorDescriptor(-6));
-  public final Descriptor AGENDER = INSTANCE.register("agender", new ColorDescriptor(-7));
-  public final Descriptor ACE = INSTANCE.register("ace", new ColorDescriptor(-8));
-  public final Descriptor GENDERQUEER = INSTANCE.register("genderqueer", new ColorDescriptor(-9));
-  public final Descriptor GENDERFLUID = INSTANCE.register("genderfluid", new ColorDescriptor(-10));
-  public final Descriptor INTERSEX = INSTANCE.register("intersex", new ColorDescriptor(-11));
-  public final Descriptor ARO = INSTANCE.register("aro", new ColorDescriptor(-12));
-  public final Descriptor POLY = INSTANCE.register("poly", new ColorDescriptor(-13));
+//  public final Descriptor TRANS = INSTANCE.register("trans", new ColorDescriptor(-2));
+//  public final Descriptor ENBY = INSTANCE.register("enby", new ColorDescriptor(-3));
+//  public final Descriptor BI = INSTANCE.register("bi", new ColorDescriptor(-4));
+//  public final Descriptor PAN = INSTANCE.register("pan", new ColorDescriptor(-5));
+//  public final Descriptor LESBIAN = INSTANCE.register("lesbian", new ColorDescriptor(-6));
+//  public final Descriptor AGENDER = INSTANCE.register("agender", new ColorDescriptor(-7));
+//  public final Descriptor ACE = INSTANCE.register("ace", new ColorDescriptor(-8));
+//  public final Descriptor GENDERQUEER = INSTANCE.register("genderqueer", new ColorDescriptor(-9));
+//  public final Descriptor GENDERFLUID = INSTANCE.register("genderfluid", new ColorDescriptor(-10));
+//  public final Descriptor INTERSEX = INSTANCE.register("intersex", new ColorDescriptor(-11));
+//  public final Descriptor ARO = INSTANCE.register("aro", new ColorDescriptor(-12));
+//  public final Descriptor POLY = INSTANCE.register("poly", new ColorDescriptor(-13));
 }

@@ -3,6 +3,7 @@ package com.ssblur.scriptor.events;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.item.ScriptorItems;
 import com.ssblur.scriptor.registry.words.WordRegistry;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
@@ -51,9 +52,16 @@ public class ReagentReloadListener extends SimpleJsonResourceReloadListener {
     words = new HashMap<>();
     object.forEach((resourceLocation, jsonElement) -> {
       ReagentResource resource = GSON.fromJson(jsonElement, REAGENT_TYPE);
+      ScriptorMod.LOGGER.info(
+        "Loaded reagent {}{}. Item: {} Cost: {}",
+        resource.disabled ? " (disabled)" : "",
+        resourceLocation.toShortLanguageKey(),
+        resource.item,
+        resource.cost
+      );
       if(!resource.disabled)
         words.put(
-          resourceLocation.toShortLanguageKey(),
+          "reagent." + resourceLocation.toShortLanguageKey(),
           WordRegistry.INSTANCE.register(
             "reagent." + resourceLocation.toShortLanguageKey(),
             new ReagentDescriptor(ScriptorItems.ITEMS.getRegistrar().get(new ResourceLocation(resource.item)), resource.cost)

@@ -2,28 +2,18 @@ package com.ssblur.scriptor.word.action;
 
 import com.ssblur.scriptor.block.ScriptorBlocks;
 import com.ssblur.scriptor.blockentity.LightBlockEntity;
-import com.ssblur.scriptor.helpers.CustomColors;
+import com.ssblur.scriptor.color.CustomColors;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
-import com.ssblur.scriptor.helpers.targetable.InventoryTargetable;
-import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
 import com.ssblur.scriptor.word.descriptor.duration.DurationDescriptor;
-import com.ssblur.scriptor.word.descriptor.visual.ColorDescriptor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class LightAction extends Action {

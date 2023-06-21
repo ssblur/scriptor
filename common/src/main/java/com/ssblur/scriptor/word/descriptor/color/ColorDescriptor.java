@@ -1,4 +1,4 @@
-package com.ssblur.scriptor.word.descriptor.visual;
+package com.ssblur.scriptor.word.descriptor.color;
 
 import com.ssblur.scriptor.word.descriptor.Descriptor;
 

@@ -1,6 +1,7 @@
 package com.ssblur.scriptor.entity;
 
-import com.ssblur.scriptor.helpers.CustomColors;
+import com.ssblur.scriptor.color.CustomColors;
+import com.ssblur.scriptor.color.interfaces.Colorable;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -13,11 +14,9 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
@@ -26,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 import java.awt.*;
 import java.util.HashMap;
 
-public class ColorfulSheep extends Sheep {
+public class ColorfulSheep extends Sheep implements Colorable {
   static HashMap<DyeColor, Item> WOOL = new HashMap<>();
   static {
     WOOL.put(DyeColor.BLACK, Items.BLACK_WOOL);

@@ -1,7 +1,7 @@
-package com.ssblur.scriptor.helpers;
+package com.ssblur.scriptor.color;
 
 import com.ssblur.scriptor.word.descriptor.Descriptor;
-import com.ssblur.scriptor.word.descriptor.ColorDescriptor;
+import com.ssblur.scriptor.word.descriptor.color.ColorDescriptor;
 import net.minecraft.world.item.DyeColor;
 import java.awt.*;
 import java.util.Arrays;
@@ -14,150 +14,37 @@ public class CustomColors {
   static {
     // Rainbow
     // it can be gay too, as a treat.
-    INSTANCE.register(-1, tick -> {
+    INSTANCE.register("rainbow", tick -> {
+      float s = tick % 31;
+      s /= 93;
+      s += 0.75f;
+      float b = tick % 23;
+      b /= 46;
+      b += 0.5f;
       tick %= 40;
-      return Color.getHSBColor(tick / 40f, 1f, 0.5f).getRGB();
+      return Color.getHSBColor(tick / 40f, s, b).getRGB();
     });
-
-    // Trans Flag
-    INSTANCE.register(
-      -2,
-      createCustomColor(new int[]{
-        0x5BCEFA,
-        0xF5A9B8,
-        0xFFFFFF,
-        0xF5A9B8
-      })
-    );
-
-    // Enby Flag
-    INSTANCE.register(
-      -3,
-      createCustomColor(new int[]{
-        0xFCF434,
-        0xFFFFFF,
-        0x9C59D1,
-        0x2C2C2C
-      })
-    );
-
-    // Bi flag
-    INSTANCE.register(
-      -4,
-      createCustomColor(new int[]{
-        0xD60270,
-        0x9B4D96,
-        0x0038A8
-      })
-    );
-
-    // Pan flag
-    INSTANCE.register(
-      -5,
-      createCustomColor(new int[]{
-        0xFF1C8D,
-        0xFFD700,
-        0x1AB3FF
-      })
-    );
-
-    // Lesbian Flag
-    INSTANCE.register(
-      -6,
-      createCustomColor(new int[]{
-        0xD62800,
-        0xFF9B56,
-        0xFFFFFF,
-        0xD462A6,
-        0xA40062
-      })
-    );
-
-    // Agender Flag
-    INSTANCE.register(
-      -7,
-      createCustomColor(new int[]{
-        0x000000,
-        0xBABABA,
-        0xFFFFFF,
-        0xBAF484,
-        0x000000,
-        0xBABABA,
-        0xFFFFFF
-      })
-    );
-
-    // Ace (/grayce, demi, etc.) Flag
-    INSTANCE.register(
-      -8,
-      createCustomColor(new int[]{
-        0x000000,
-        0xA4A4A4,
-        0xFFFFFF,
-        0x810081
-      })
-    );
-
-    // Genderqueer Flag
-    INSTANCE.register(
-      -9,
-      createCustomColor(new int[]{
-        0xB57FDD,
-        0xFFFFFF,
-        0x49821E
-      })
-    );
-
-    // Genderfluid Flag
-    INSTANCE.register(
-      -10,
-      createCustomColor(new int[]{
-        0xFE76A2,
-        0xFFFFFF,
-        0xBF12D7,
-        0x000000,
-        0x303CBE
-      })
-    );
-
-    // Intersex Flag
-    INSTANCE.register(
-      -11,
-      createCustomColor(new int[]{
-        0xFFD800,
-        0x7902AA
-      })
-    );
-
-    // Aro Flag
-    INSTANCE.register(
-      -12,
-      createCustomColor(new int[]{
-        0x3BA740,
-        0xA8D47A,
-        0xFFFFFF,
-        0xABABAB,
-        0x000000
-      })
-    );
-
-    // Poly Flag
-    INSTANCE.register(
-      -13,
-      createCustomColor(new int[]{
-        0x0000FF,
-        0xFF0000,
-        0xFFFF00,
-        0xFF0000,
-        0x000000
-      })
-    );
   }
 
   HashMap<Integer, Function<Float, Integer>> registry = new HashMap<>();
+  int currentNumber = 0;
+  HashMap<String, Integer> colors = new HashMap<>();
 
-  public void register(int index, Function<Float, Integer> color) {
-    registry.put(index, color);
+  public void register(String value, Function<Float, Integer> color) {
+    currentNumber--;
+    colors.put(value, currentNumber);
+    registry.put(currentNumber, color);
+  }
+
+  public static void registerWithEasing(String key, int[] values) {
+    INSTANCE.register(
+      key,
+      createCustomColor(values)
+    );
+  }
+
+  public static int getKey(String key) {
+    return INSTANCE.colors.get(key);
   }
 
   public static int getColor(int color, float tick) {
