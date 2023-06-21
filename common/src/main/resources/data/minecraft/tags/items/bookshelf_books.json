@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "scriptor:spellbook",
+    "scriptor:obfuscated_spellbook"
+  ]
+}
