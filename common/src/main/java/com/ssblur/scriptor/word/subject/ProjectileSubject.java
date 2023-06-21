@@ -1,6 +1,7 @@
 package com.ssblur.scriptor.word.subject;
 
 import com.ssblur.scriptor.entity.ScriptorEntities;
+import com.ssblur.scriptor.helpers.CustomColors;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.Spell;
@@ -23,23 +24,15 @@ public class ProjectileSubject extends Subject {
   public CompletableFuture<List<Targetable>> getTargets(Targetable caster, Spell spell) {
     CompletableFuture<List<Targetable>> future = new CompletableFuture<>();
 
-    int color = 0;
-    int colorN = 0;
+    int color = CustomColors.getColor(spell.deduplicatedDescriptorsForSubjects());
     double duration = 12;
     double speed = 1;
     for(Descriptor d: spell.deduplicatedDescriptorsForSubjects()) {
-      if(d instanceof ColorDescriptor descriptor) {
-        color = descriptor.getColor();
-        colorN++;
-      }
       if(d instanceof DurationDescriptor descriptor)
         duration += descriptor.durationModifier();
       if(d instanceof SpeedDescriptor descriptor)
         speed *= descriptor.speedModifier();
     }
-
-    if(colorN == 0) color = 0xa020f0;
-    else color /= colorN;
     speed *= 0.8d;
 
     var projectile = ScriptorEntities.PROJECTILE_TYPE.get().create(caster.getLevel());

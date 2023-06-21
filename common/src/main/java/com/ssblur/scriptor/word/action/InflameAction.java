@@ -1,6 +1,7 @@
 package com.ssblur.scriptor.word.action;
 
 import com.ssblur.scriptor.enchant.ChargedEnchant;
+import com.ssblur.scriptor.helpers.ItemTargetableHelper;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.InventoryTargetable;
 import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
@@ -51,51 +52,17 @@ public class InflameAction extends Action {
       return;
     }
 
-    if(targetable instanceof InventoryTargetable inventoryTargetable) {
-      if(inventoryTargetable.getContainer() != null) {
-        int slot;
-        if(inventoryTargetable.shouldIgnoreTargetedSlot())
-          slot = inventoryTargetable.getFirstFilledSlot();
-        else
-          slot = inventoryTargetable.getTargetedSlot();
-        var itemStack = inventoryTargetable.getContainer().getItem(slot);
-        if (itemStack != null) {
-          var check = RecipeManager.createCheck(RecipeType.SMELTING);
-          var container = new SimpleContainer(1);
-          container.addItem(itemStack);
-          var recipe = check.getRecipeFor(container, targetable.getLevel());
-          if(recipe.isPresent() && recipe.get().getIngredients().size() > 0 && recipe.get().getIngredients().get(0).getItems().length > 0) {
-            int count = recipe.get().getIngredients().get(0).getItems()[0].getCount();
-            itemStack.shrink(count);
-
-            var result = recipe.get().getResultItem(targetable.getLevel().registryAccess());
-            count = result.getCount();
-            slot = inventoryTargetable.getFirstMatchingSlotNotEmpty(result);
-            if(slot >= 0) {
-              var item = inventoryTargetable.getContainer().getItem(slot);
-              if (item.getCount() + count < item.getMaxStackSize()) {
-                item.grow(count);
-                return;
-              }
-            }
-
-            slot = inventoryTargetable.getFirstMatchingSlot(ItemStack::isEmpty);
-            if(slot >= 0) {
-              inventoryTargetable.getContainer().setItem(slot, result);
-              return;
-            }
-            var pos = targetable.getTargetPos();
-            ItemEntity entity = new ItemEntity(
-              targetable.getLevel(),
-              pos.x(),
-              pos.y() + 1,
-              pos.z(),
-              recipe.get().getResultItem(targetable.getLevel().registryAccess())
-            );
-            caster.getLevel().addFreshEntity(entity);
-          }
-          return;
-        }
+    var itemTarget = ItemTargetableHelper.getTargetItemStack(targetable);
+    if(!itemTarget.isEmpty()) {
+      var check = RecipeManager.createCheck(RecipeType.SMELTING);
+      var container = new SimpleContainer(1);
+      container.addItem(itemTarget);
+      var recipe = check.getRecipeFor(container, targetable.getLevel());
+      if(recipe.isPresent() && recipe.get().getIngredients().size() > 0 && recipe.get().getIngredients().get(0).getItems().length > 0) {
+        int count = recipe.get().getIngredients().get(0).getItems()[0].getCount();
+        itemTarget.shrink(count);
+        ItemTargetableHelper.depositItemStack(targetable, recipe.get().getResultItem(targetable.getLevel().registryAccess()));
+        return;
       }
     }
 

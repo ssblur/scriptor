@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.blockentity.RuneBlockEntity;
+import com.ssblur.scriptor.helpers.CustomColors;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
@@ -13,6 +14,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.EnchantTableRenderer;
+import net.minecraft.client.renderer.entity.SheepRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -64,23 +66,13 @@ public class RuneBlockEntityRenderer implements BlockEntityRenderer<RuneBlockEnt
     if(rune.getLevel() == null) return;
     matrix.pushPose();
 
-    int c = rune.color;
+    int c = CustomColors.getColor(rune.color, rune.getLevel().getGameTime() + tickDelta);
     int r, g, b;
     var mc = Minecraft.getInstance();
     assert mc.level != null;
-    float time = mc.level.getGameTime() + mc.getDeltaFrameTime();
-    time %= 400;
-    time /= 400;
-    if(c == -1) {
-      var color = Color.getHSBColor(time, 1f, 0.5f);
-      r = color.getRed();
-      g = color.getGreen();
-      b = color.getBlue();
-    } else {
-      r = (c & 0xff0000) >> 16;
-      g = (c & 0x00ff00) >> 8;
-      b = c & 0x0000ff;
-    }
+    r = (c & 0xff0000) >> 16;
+    g = (c & 0x00ff00) >> 8;
+    b = c & 0x0000ff;
     float yo = 0.0625f;
     matrix.translate(0, yo, 0);
     var pose = matrix.last().pose();

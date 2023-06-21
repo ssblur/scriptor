@@ -6,6 +6,7 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.blockentity.LightBlockEntity;
 import com.ssblur.scriptor.blockentity.RuneBlockEntity;
+import com.ssblur.scriptor.helpers.CustomColors;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderStateShard;
@@ -26,7 +27,7 @@ public class LightBlockEntityRenderer implements BlockEntityRenderer<LightBlockE
   public void render(LightBlockEntity light, float tickDelta, PoseStack matrix, MultiBufferSource buffers, int lightLevel, int j) {
     if(light.getLevel() == null) return;
 
-    int c = light.getColor();
+    int c = CustomColors.getColor(light.getColor(), light.getLevel().getGameTime() + tickDelta);
     float r = ((float) ((c & 0xff0000) >> 16)) / 255;
     float g = ((float) ((c & 0x00ff00) >> 8)) / 255;
     float b = ((float) (c & 0x0000ff)) / 255;

@@ -2,6 +2,7 @@ package com.ssblur.scriptor.word.action;
 
 import com.ssblur.scriptor.block.ScriptorBlocks;
 import com.ssblur.scriptor.blockentity.LightBlockEntity;
+import com.ssblur.scriptor.helpers.CustomColors;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.InventoryTargetable;
 import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
@@ -13,6 +14,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -25,16 +29,18 @@ import net.minecraft.world.level.block.state.BlockState;
 public class LightAction extends Action {
   @Override
   public void apply(Targetable caster, Targetable targetable, Descriptor[] descriptors) {
-    int color = 0, colorN = 0;
-    for(Descriptor d: descriptors)
-      if(d instanceof ColorDescriptor descriptor) {
-        color = descriptor.getColor();
-        colorN++;
-      }
-    if(colorN == 0) color = 0xa020f0;
-    else color /= colorN;
+    int seconds = 6;
+    for(var d: descriptors) {
+      if(d instanceof DurationDescriptor durationDescriptor)
+        seconds += 3 * durationDescriptor.durationModifier();
+    }
 
+    if(targetable instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof LivingEntity living) {
+      living.addEffect(new MobEffectInstance(MobEffects.GLOWING, seconds));
+      return;
+    }
 
+    int color = CustomColors.getColor(descriptors);
     BlockPos pos = targetable.getTargetBlockPos();
     Level level = targetable.getLevel();
 

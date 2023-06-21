@@ -1,10 +1,9 @@
 package com.ssblur.scriptor.events.messages;
 
-import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.events.ScriptorEvents;
 import com.ssblur.scriptor.helpers.DictionarySavedData;
 import com.ssblur.scriptor.helpers.LimitedBookSerializer;
-import com.ssblur.scriptor.registry.WordRegistry;
+import com.ssblur.scriptor.registry.words.WordRegistry;
 import com.ssblur.scriptor.word.PartialSpell;
 import com.ssblur.scriptor.word.Spell;
 import com.ssblur.scriptor.word.action.Action;
@@ -13,24 +12,15 @@ import com.ssblur.scriptor.word.subject.InventorySubject;
 import com.ssblur.scriptor.word.subject.Subject;
 import dev.architectury.networking.NetworkManager;
 import io.netty.buffer.Unpooled;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.ContainerHelper;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.inventory.ContainerSynchronizer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.EntityHitResult;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 

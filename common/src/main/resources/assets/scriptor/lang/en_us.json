@@ -117,5 +117,7 @@
   "lore.scriptor.coordinate_crystal_3": "Position: %1$s, %2$s, %3$s",
   "lore.scriptor.crystal_reset": "Craft to reset",
 
-  "itemGroup.scriptor.scriptor_tab": "Scriptor Magicae"
+  "itemGroup.scriptor.scriptor_tab": "Scriptor Magicae",
+
+  "entity.scriptor.colorful_sheep": "Sheep"
 }
