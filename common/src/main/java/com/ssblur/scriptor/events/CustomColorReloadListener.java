@@ -5,7 +5,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.color.CustomColors;
-import com.ssblur.scriptor.helpers.TomeResource;
 import com.ssblur.scriptor.registry.words.WordRegistry;
 import com.ssblur.scriptor.word.descriptor.color.CustomColorDescriptor;
 import net.minecraft.resources.ResourceLocation;
@@ -13,10 +12,7 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 public class CustomColorReloadListener extends SimpleJsonResourceReloadListener {
   static ResourceLocation COLORS = new ResourceLocation("data/colors");
@@ -33,6 +29,10 @@ public class CustomColorReloadListener extends SimpleJsonResourceReloadListener 
       assert jsonElement.isJsonObject();
       var json = jsonElement.getAsJsonObject();
       assert json.has("color");
+
+      if(json.has("disabled") && json.get("disabled").getAsBoolean())
+        return;
+
       var name = resourceLocation.toShortLanguageKey();
       ScriptorMod.LOGGER.info("Loaded custom color " + name);
       if(json.get("color") instanceof JsonArray array) {
