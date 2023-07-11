@@ -1,0 +1,12 @@
+{
+  "generator": "scriptor:mixed_groups",
+  "bindings": [
+    {
+      "word": "other:and",
+      "parameters": {
+        "minTokens": 2,
+        "maxTokens": 2
+      }
+    }
+  ]
+}

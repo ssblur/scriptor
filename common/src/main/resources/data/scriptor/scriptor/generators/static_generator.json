@@ -1,0 +1,7 @@
+{
+  "generator": "static_token",
+  "default": false,
+  "parameters": {
+    "collisionStrategy": "FALLBACK"
+  }
+}

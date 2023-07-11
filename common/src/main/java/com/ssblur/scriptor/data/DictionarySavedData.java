@@ -5,8 +5,7 @@ import com.google.common.collect.HashBiMap;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.ssblur.scriptor.helpers.language.DefaultTokenGenerators;
-import com.ssblur.scriptor.helpers.language.TokenGenerator;
+import com.ssblur.scriptor.registry.TokenGeneratorRegistry;
 import com.ssblur.scriptor.registry.words.WordRegistry;
 import com.ssblur.scriptor.word.PartialSpell;
 import com.ssblur.scriptor.word.Spell;
@@ -75,13 +74,12 @@ public class DictionarySavedData extends SavedData {
   }
 
   void generateMissingWords() {
-    TokenGenerator generator = DefaultTokenGenerators.angGenerator;
+    var registry = TokenGeneratorRegistry.INSTANCE;
     String token;
-    Random random = new Random();
 
     if(!containsKey("other:and")) {
       do {
-        token = DefaultTokenGenerators.shortAngGenerator.generateToken();
+        token = registry.generateWord("other:and");
       } while (containsWord(token));
       words.put("other:and", token);
     }
@@ -91,7 +89,7 @@ public class DictionarySavedData extends SavedData {
         continue;
 
       do {
-        token = generator.generateToken();
+        token = registry.generateWord(word);
       } while (containsWord(token));
 
       words.put("action:" + word, token);
@@ -102,7 +100,7 @@ public class DictionarySavedData extends SavedData {
         continue;
 
       do {
-        token = generator.generateToken();
+        token = registry.generateWord(word);
       } while (containsWord(token));
 
       words.put("descriptor:" + word, token);
@@ -112,7 +110,7 @@ public class DictionarySavedData extends SavedData {
         continue;
 
       do {
-        token = generator.generateToken();
+        token = registry.generateWord(word);
       } while (containsWord(token));
 
       words.put("subject:" + word, token);
