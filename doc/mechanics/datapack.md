@@ -115,12 +115,15 @@ in the Tome's `spell.descriptors` field, as seen [above](#spell-tomes).
 
 A generator is used to create the words that populate your world.
 By default, there are two generator types and two generators available. 
-The default generator types are `static_token`, which is used by `scriptor:static_generator`, 
-and `mixed_groups`, which is used by `scriptor:mixed_groups`.
+The default generator types are `static_token`, which is used by 
+`scriptor:static_generator`, and `mixed_groups`, which is used by 
+`scriptor:mixed_groups`.
 
 Here are examples of generators for each default generator type.
 (You can also view the default generators 
 [here](../../common/src/main/resources/data/scriptor/scriptor/generators))
+
+Token Generators are defined in `scriptor/generators` in your data pack.
 
 ### Static Token
 
@@ -227,4 +230,74 @@ combined to create new words.
 
 ## Generator Bindings
 
-TODO
+A generator binding is used to define how a *specific word* is 
+generated.
+You can use such a binding to either specify parameters for a
+specific word, or to use a non-default generator.
+
+Each binding file can contain numerous bindings for the same 
+generator.
+
+Generator Bindings are located in `scriptor/bindings` in your
+data pack.
+
+### Static Token
+
+Bindings are required for each word which uses a Static Token 
+Generator.
+
+Below is an example of a static token binding which ships with
+Scriptor.
+
+```json
+{
+  "generator": "scriptor:static_generator",
+  "bindings": [
+    {
+      "word": "color.scriptor.enby",
+      "parameters": {
+        "token": "biur"
+      }
+    }
+  ]
+}
+```
+
+Static Token generators only have one parameter, `token`, which 
+is required.
+This parameter is used to determine the token which will be used 
+for this word, straight up and down.
+In this case, it is an Easter egg that sets the word for one of the
+dynamic color sets to "biur", a username I often use that I don't 
+think stands out among other generated words.
+
+### Mixed Groups
+
+Bindings are optional for words using a Mixed Groups generator.
+
+Here is an example of a mixed group binding which shipped with
+Scriptor.
+
+```json
+{
+  "generator": "scriptor:mixed_groups",
+  "bindings": [
+    {
+      "word": "other:and",
+      "parameters": {
+        "minTokens": 2,
+        "maxTokens": 2
+      }
+    }
+  ]
+}
+```
+
+This uses the generator `mixed_groups` defined within the
+`scriptor` data pack, and only rebinds the special word
+`other:and`. 
+
+Mixed Group bindings only support 2 parameters, which allow
+the minimum and maximum tokens used to be modified.
+In this case, this special word is expected to be shorter
+than most words, so this binding is used to shorten it.
