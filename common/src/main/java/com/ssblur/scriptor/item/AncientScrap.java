@@ -1,6 +1,6 @@
 package com.ssblur.scriptor.item;
 
-import com.ssblur.scriptor.events.ScrapReloadListener;
+import com.ssblur.scriptor.events.reloadlisteners.ScrapReloadListener;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;

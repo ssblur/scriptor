@@ -1,6 +1,6 @@
 package com.ssblur.scriptor.item;
 
-import com.ssblur.scriptor.events.TomeReloadListener;
+import com.ssblur.scriptor.events.reloadlisteners.TomeReloadListener;
 import com.ssblur.scriptor.data.DictionarySavedData;
 import com.ssblur.scriptor.helpers.LimitedBookSerializer;
 import com.ssblur.scriptor.word.Spell;
