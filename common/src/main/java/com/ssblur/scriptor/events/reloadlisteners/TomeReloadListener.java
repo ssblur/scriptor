@@ -1,4 +1,4 @@
-package com.ssblur.scriptor.events;
+package com.ssblur.scriptor.events.reloadlisteners;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.Random;
 
 public class TomeReloadListener extends SimpleJsonResourceReloadListener {
-  static ResourceLocation TOMES = new ResourceLocation("data/tomes");
+  static ResourceLocation TOMES = new ResourceLocation("data/scriptor/tomes");
   static Type TOME_TYPE = new TypeToken<TomeResource>() {}.getType();
   static Gson GSON = new Gson();
   static Random RANDOM = new Random();
@@ -30,7 +30,7 @@ public class TomeReloadListener extends SimpleJsonResourceReloadListener {
   ArrayList<ResourceLocation> keys;
 
   TomeReloadListener() {
-    super(GSON, "tomes");
+    super(GSON, "scriptor/tomes");
   }
 
   public HashMap<Integer, HashMap<ResourceLocation, TomeResource>> getTiers() {

@@ -1,4 +1,4 @@
-package com.ssblur.scriptor.events;
+package com.ssblur.scriptor.events.reloadlisteners;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.Random;
 
 public class ScrapReloadListener extends SimpleJsonResourceReloadListener {
-  static ResourceLocation SCRAPS = new ResourceLocation("data/scraps");
+  static ResourceLocation SCRAPS = new ResourceLocation("data/scriptor/scraps");
   static Gson GSON = new Gson();
   static Random RANDOM = new Random();
   static Type SCRAP_TYPE = new TypeToken<ScrapResource>() {}.getType();
@@ -32,7 +32,7 @@ public class ScrapReloadListener extends SimpleJsonResourceReloadListener {
   public HashMap<Integer, HashMap<ResourceLocation, String>> tiers = new HashMap<>();
 
   public ScrapReloadListener() {
-    super(GSON, "scraps");
+    super(GSON, "scriptor/scraps");
   }
 
   @Override

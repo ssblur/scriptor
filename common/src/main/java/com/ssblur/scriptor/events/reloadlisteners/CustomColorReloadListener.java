@@ -1,4 +1,4 @@
-package com.ssblur.scriptor.events;
+package com.ssblur.scriptor.events.reloadlisteners;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -15,12 +15,12 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import java.util.Map;
 
 public class CustomColorReloadListener extends SimpleJsonResourceReloadListener {
-  static ResourceLocation COLORS = new ResourceLocation("data/colors");
+  static ResourceLocation COLORS = new ResourceLocation("data/scriptor/colors");
   static Gson GSON = new Gson();
   public static final CustomColorReloadListener INSTANCE = new CustomColorReloadListener();
 
   public CustomColorReloadListener() {
-    super(GSON, "colors");
+    super(GSON, "scriptor/colors");
   }
 
   @Override

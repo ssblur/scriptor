@@ -1,4 +1,4 @@
-package com.ssblur.scriptor.events;
+package com.ssblur.scriptor.events.reloadlisteners;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
@@ -35,7 +35,7 @@ public class ReagentReloadListener extends SimpleJsonResourceReloadListener {
     }
   }
 
-  static ResourceLocation REAGENTS = new ResourceLocation("data/reagents");
+  static ResourceLocation REAGENTS = new ResourceLocation("data/scriptor/reagents");
   static Type REAGENT_TYPE = new TypeToken<ReagentResource>() {}.getType();
   static Gson GSON = new Gson();
   static Random RANDOM = new Random();
@@ -44,7 +44,7 @@ public class ReagentReloadListener extends SimpleJsonResourceReloadListener {
   HashMap<String, Descriptor> words;
 
   ReagentReloadListener() {
-    super(GSON, "reagents");
+    super(GSON, "scriptor/reagents");
   }
 
   @Override

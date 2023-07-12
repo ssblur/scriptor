@@ -1,0 +1,61 @@
+{
+  "generator": "mixed_groups",
+  "default": true,
+  "parameters": {
+    "minTokens": 3,
+    "maxTokens": 11,
+    "maxConsecutiveGroups": 1,
+    "groups": [
+      {
+        "weight": 1,
+        "tokens": [
+          "b",
+          "c",
+          "d",
+          "e",
+          "f",
+          "g",
+          "h",
+          "j",
+          "k",
+          "l",
+          "m",
+          "n",
+          "p",
+          "r",
+          "s",
+          "t",
+          "v",
+          "w",
+          "x",
+          "z",
+          "st",
+          "th",
+          "ld",
+          "qu",
+          "pr",
+          "lk",
+          "mm",
+          "pp",
+          "ck",
+          "rd",
+          "pt"
+        ]
+      },
+      {
+        "weight": 1,
+        "tokens": [
+          "a",
+          "e",
+          "i",
+          "o",
+          "u",
+          "ou",
+          "ao",
+          "io",
+          "ee"
+        ]
+      }
+    ]
+  }
+}

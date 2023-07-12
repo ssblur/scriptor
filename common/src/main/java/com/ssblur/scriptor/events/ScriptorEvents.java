@@ -5,18 +5,17 @@ import com.ssblur.scriptor.events.messages.EnchantNetwork;
 import com.ssblur.scriptor.events.messages.IdentifyNetwork;
 import com.ssblur.scriptor.events.messages.ParticleNetwork;
 import com.ssblur.scriptor.events.messages.TraceNetwork;
+import com.ssblur.scriptor.events.reloadlisteners.*;
 import dev.architectury.event.events.common.ChatEvent;
 import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.event.events.common.LootEvent;
 import dev.architectury.event.events.common.PlayerEvent;
 import dev.architectury.networking.NetworkManager;
 import dev.architectury.platform.Platform;
-import dev.architectury.registry.CreativeTabOutput;
 import dev.architectury.registry.ReloadListenerRegistry;
 import net.fabricmc.api.EnvType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
-import net.minecraft.world.item.CreativeModeTab;
 
 public class ScriptorEvents {
   public static final ResourceLocation GET_TRACE_DATA = new ResourceLocation(ScriptorMod.MOD_ID, "get_touch_data");
@@ -39,6 +38,8 @@ public class ScriptorEvents {
     ReloadListenerRegistry.register(PackType.SERVER_DATA, ReagentReloadListener.INSTANCE);
     ReloadListenerRegistry.register(PackType.SERVER_DATA, CustomColorReloadListener.INSTANCE);
     ReloadListenerRegistry.register(PackType.SERVER_DATA, ScrapReloadListener.INSTANCE);
+    ReloadListenerRegistry.register(PackType.SERVER_DATA, GeneratorReloadListener.INSTANCE);
+    ReloadListenerRegistry.register(PackType.SERVER_DATA, GeneratorBindingReloadListener.INSTANCE);
 
     if(Platform.getEnv() == EnvType.CLIENT) {
       NetworkManager.registerReceiver(NetworkManager.Side.S2C, GET_TRACE_DATA, TraceNetwork::getTraceData);
