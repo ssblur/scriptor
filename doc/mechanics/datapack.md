@@ -19,12 +19,16 @@ that ships with Scriptor.
   "author": "Snark",
   "tier": 3,
   "spell": {
-    "action": "explosion",
     "subject": "projectile",
-    "descriptors": [
-      "purple",
-      "strong",
-      "reagent.scriptor.amethyst"
+    "spells": [
+      {
+        "action": "explosion",
+        "descriptors": [
+          "purple",
+          "strong",
+          "reagent.scriptor.amethyst"
+        ]
+      }
     ]
   }
 }
@@ -43,11 +47,12 @@ The base mod supports 1-4.
 `spell` defines the spell to be generated. 
 This format is subject to change.
 
-* `action` defines the action to attach to this spell.
 * `subject` defines the subject to attach to this spell.
-* `descriptors` is a list of descriptors attached to this spell. 
-    Any descriptors that support duplication can be included 
-    multiple times.
+* `spells` contains all the effect this spell applies to a target.
+  * `action` defines the action to attach to this spell.
+  * `descriptors` is a list of descriptors attached to this spell. 
+      Any descriptors that support duplication can be included 
+      multiple times.
 
 In order to disable a default Tome, you can add a copy of the
 default Tome and add the value `true` to the `disabled` key,
@@ -60,12 +65,16 @@ as follows.
   "author": "Snark",
   "tier": 3,
   "spell": {
-    "action": "explosion",
     "subject": "projectile",
-    "descriptors": [
-      "purple",
-      "strong",
-      "reagent.scriptor.amethyst"
+    "spells": [
+      {
+        "action": "explosion",
+        "descriptors": [
+          "purple",
+          "strong",
+          "reagent.scriptor.amethyst"
+        ]
+      }
     ]
   }
 }
