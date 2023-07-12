@@ -7,10 +7,10 @@ Tomes are default generated Spellbooks, and are the way that spell
 components are discovered in Scriptor.
 These can be created or modified using datapacks.
 
-Tomes are located in `data/[namespace]/tomes/[tome].json` in a 
+Tomes are located in `data/[namespace]/scriptor/tomes/[tome].json` in a 
 datapack.
 The following is an example of 
-`data/[namespace]/tomes/amethyst_explosion.json`, a default Tome 
+`data/[namespace]/scriptor/tomes/tier3/amethyst_explosion.json`, a default Tome 
 that ships with Scriptor.
 
 ```json
@@ -89,9 +89,9 @@ Reagents are special spell components that consume items in order to
 reduce the cost of a spell. 
 These can be created or modified using datapacks.
 
-Reagents are located in `data/[namespace]/reagents/[reagent].json` in a 
+Reagents are located in `data/[namespace]/scriptor/reagents/[reagent].json` in a 
 datapack.
-The following is an example of `data/scriptor/reagents/amethyst.json`, a 
+The following is an example of `data/scriptor/scriptor/reagents/amethyst.json`, a 
 default reagent that ships with Scriptor.
 
 ```json
