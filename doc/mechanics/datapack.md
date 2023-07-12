@@ -83,6 +83,46 @@ as follows.
 A spell component can be disabled by disabling all Tomes which use
 it.
 
+## Scraps
+
+Scraps allow you to include individual spell components without 
+building them into a spell.
+
+Scraps are located in `data/[namespace]/scriptor/scraps/[scrap].json`
+in your datapack.
+
+The following is an example of `data/scriptor/scriptor/scraps/tier1.json`:
+
+```json
+{
+  "tier": 1,
+  "keys": [
+    "descriptor:black",
+    "descriptor:blue",
+    "descriptor:white",
+    "descriptor:green",
+    "descriptor:orange",
+    "descriptor:light_blue",
+    "descriptor:yellow",
+    "descriptor:red",
+    "descriptor:pink",
+    "descriptor:lime",
+    "descriptor:light_gray",
+    "descriptor:cyan",
+    "descriptor:magenta",
+    "descriptor:purple",
+    "descriptor:brown",
+    "descriptor:dark_gray"
+  ]
+}
+```
+
+These resources are simple:
+
+`tier` is the tier at which these scraps can be found.
+
+`keys` is a list containing all the spells to add to this tier.
+
 ## Reagents
 
 Reagents are special spell components that consume items in order to 
