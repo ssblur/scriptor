@@ -1,0 +1,8 @@
+{
+  "criteria": {
+    "collect": {
+      "conditions": {},
+      "trigger": "scriptor:fizzle"
+    }
+  }
+}

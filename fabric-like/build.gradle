@@ -13,4 +13,6 @@ dependencies {
     modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}"
 
     compileClasspath(project(path: ":common", configuration: "namedElements")) { transitive false }
+
+    modImplementation "vazkii.patchouli:Patchouli:${rootProject.patchouli_version}-FABRIC"
 }

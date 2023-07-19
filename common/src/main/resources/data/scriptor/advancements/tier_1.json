@@ -1,7 +1,7 @@
 {
   "display": {
     "title": {
-      "text": "Collector of Tricks",
+      "translate": "advancement.scriptor.tier_1",
       "color": "gold"
     },
     "description": {

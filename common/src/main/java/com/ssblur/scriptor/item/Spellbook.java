@@ -3,6 +3,7 @@ package com.ssblur.scriptor.item;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.ssblur.scriptor.ScriptorMod;
+import com.ssblur.scriptor.advancement.ScriptorAdvancements;
 import com.ssblur.scriptor.helpers.ComponentHelper;
 import com.ssblur.scriptor.helpers.ConfigHelper;
 import com.ssblur.scriptor.data.DictionarySavedData;
@@ -21,6 +22,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
 import net.minecraft.util.StringUtil;
@@ -66,7 +68,9 @@ public class Spellbook extends WrittenBookItem implements ItemWithCustomRenderer
         var config = ConfigHelper.getConfig();
         if(spell.cost() > config.basicTomeMaxCost) {
           player.sendSystemMessage(Component.translatable("extra.scriptor.fizzle"));
-          player.getCooldowns().addCooldown(this, 350);
+          ScriptorAdvancements.FIZZLE.trigger((ServerPlayer) player);
+          if(!player.isCreative())
+            player.getCooldowns().addCooldown(this, 350);
           return result;
         }
         spell.cast(new SpellbookTargetable(player.getItemInHand(interactionHand), player, player.getInventory().selected).withTargetItem(false));

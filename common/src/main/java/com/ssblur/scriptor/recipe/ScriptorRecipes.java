@@ -15,8 +15,6 @@ public class ScriptorRecipes {
 
   public static final RegistrySupplier<RecipeSerializer<?>> SPELLBOOK_CLONING = RECIPES.register("spellbook_cloning",
     () -> new SimpleCraftingRecipeSerializer<>(SpellbookCloningRecipe::new));
-  public static final RegistrySupplier<RecipeSerializer<?>> SPELLBOOK_OBFUSCATION = RECIPES.register("spellbook_obfuscation",
-    () -> new SimpleCraftingRecipeSerializer<>(SpellbookObfuscationRecipe::new));
 
   public static final RegistrySupplier<RecipeSerializer<?>> SPELLBOOK = RECIPES.register("spellbook",
     SpellbookRecipe.Serializer::new);
