@@ -1,7 +1,7 @@
 {
   "display": {
     "title": {
-      "text": "Master of Magicks",
+      "translate": "advancement.scriptor.tier_4",
       "color": "gold"
     },
     "description": {

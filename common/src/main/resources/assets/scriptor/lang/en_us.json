@@ -71,7 +71,7 @@
 
   "descriptor.scriptor.white": "The words glow white.",
   "descriptor.scriptor.light_gray": "This contains unremarkable light gray text.",
-  "descriptor.scriptor.dark_gray": "The words is an ashy dark gray.",
+  "descriptor.scriptor.dark_gray": "The words are an ashy dark gray.",
   "descriptor.scriptor.black": "The words are a plain black.",
   "descriptor.scriptor.red": "A fiery red sheen glints across this.",
   "descriptor.scriptor.orange": "The words glisten a warm orange.",
@@ -140,5 +140,14 @@
 
   "itemGroup.scriptor.scriptor_tab": "Scriptor Magicae",
 
-  "entity.scriptor.colorful_sheep": "Sheep"
+  "entity.scriptor.colorful_sheep": "Sheep",
+
+  "advancement.scriptor.tier_1": "Collector of Tricks",
+  "advancement.scriptor.tier_2": "Arcane Archiver",
+  "advancement.scriptor.tier_3": "Occult Librarian",
+  "advancement.scriptor.tier_4": "Master of Magicks",
+  "advancement.scriptor.tome": "Apprentice Arcanist",
+
+  "patchouli.scriptor.namr": "Simple Scriptomagy",
+  "patchouli.scriptor.landing_text": "Learn the world's lingua magica!"
 }

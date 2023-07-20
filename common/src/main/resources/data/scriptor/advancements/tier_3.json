@@ -1,7 +1,7 @@
 {
   "display": {
     "title": {
-      "text": "Occult Librarian",
+      "translate": "advancement.scriptor.tier_3",
       "color": "gold"
     },
     "description": {

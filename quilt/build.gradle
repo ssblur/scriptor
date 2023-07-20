@@ -12,46 +12,6 @@ architectury {
     loader("quilt")
 }
 
-tasks.register("signedJar") {
-    def output = buildDir.toPath()
-            .resolve("libs")
-            .resolve(remapJar.archiveFileName.get().replace(".jar", "-sgd.jar"))
-            .toString()
-
-    outputs.file new File(output)
-
-    dependsOn remapJar
-
-    doLast {
-        System.out.println("Signing jar...")
-
-        def store = System.getenv("JAR_SIGNING_STORE")
-        def storeLoc = new File("$buildDir/store.jks")
-        def writer = new FileOutputStream(storeLoc)
-        writer.write(Base64.decoder.decode(store))
-        writer.close()
-
-        def alias = System.getenv("JAR_SIGNING_ALIAS")
-        def storePass = System.getenv("JAR_SIGNING_STORE_PASS")
-        def keyPass = System.getenv("JAR_SIGNING_KEY_PASS")
-
-        def input = buildDir.toPath()
-                .resolve("libs")
-                .resolve(remapJar.archiveFileName.get())
-                .toString()
-        def jarsigner = [
-                "jarsigner",
-                "-keystore", storeLoc.toPath().toString(),
-                "-storepass", storePass,
-                "-signedjar", output,
-                "-keypass", keyPass,
-                input,
-                alias
-        ].execute()
-        jarsigner.waitFor()
-    }
-}
-
 modrinth {
     token = System.getenv("MODRINTH_TOKEN")
     projectId = "scriptor-magicae"
@@ -65,6 +25,7 @@ modrinth {
     dependencies {
         required.project "architectury-api"
         required.project "qsl"
+        optional.project "patchouli"
     }
     syncBodyFrom = rootProject.file("README.md").text
 }

@@ -1,0 +1,9 @@
+{
+  "name": "Simple Scriptomagy",
+  "landing_text": "patchouli.scriptor.landing_text",
+  "version": 1,
+  "creative_tab": "scriptor:scriptor_tab",
+  "use_resource_pack": true,
+  "model": "scriptor:guide_book",
+  "book_texture": "patchouli:textures/gui/book_purple.png"
+}
