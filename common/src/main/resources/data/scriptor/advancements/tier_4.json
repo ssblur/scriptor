@@ -1,11 +1,10 @@
 {
   "display": {
     "title": {
-      "translate": "advancement.scriptor.tier_4",
-      "color": "gold"
+      "translate": "advancement.scriptor.tier_4"
     },
     "description": {
-      "text": "Collect all available Tier 4 spells."
+      "translate": "advancement.scriptor.tier_4_desc"
     },
     "icon": {
       "item": "scriptor:tome_tier4"
