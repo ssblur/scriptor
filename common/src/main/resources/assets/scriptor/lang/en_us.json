@@ -146,6 +146,10 @@
   "advancement.scriptor.tier_2": "Arcane Archiver",
   "advancement.scriptor.tier_3": "Occult Librarian",
   "advancement.scriptor.tier_4": "Master of Magicks",
+  "advancement.scriptor.tier_1_desc": "Collect all available Tier 1 spells.",
+  "advancement.scriptor.tier_2_desc": "Collect all available Tier 2 spells.",
+  "advancement.scriptor.tier_3_desc": "Collect all available Tier 3 spells.",
+  "advancement.scriptor.tier_4_desc": "Collect all available Tier 4 spells.",
   "advancement.scriptor.tome": "Apprentice Arcanist",
 
   "patchouli.scriptor.namr": "Simple Scriptomagy",

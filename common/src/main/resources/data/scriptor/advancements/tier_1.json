@@ -1,11 +1,10 @@
 {
   "display": {
     "title": {
-      "translate": "advancement.scriptor.tier_1",
-      "color": "gold"
+      "translate": "advancement.scriptor.tier_1"
     },
     "description": {
-      "text": "Collect all available Tier 1 spells."
+      "translate": "advancement.scriptor.tier_1_desc"
     },
     "icon": {
       "item": "scriptor:tome_tier1"

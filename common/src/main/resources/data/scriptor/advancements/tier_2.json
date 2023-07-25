@@ -1,11 +1,10 @@
 {
   "display": {
     "title": {
-      "translate": "advancement.scriptor.tier_2",
-      "color": "gold"
+      "translate": "advancement.scriptor.tier_2"
     },
     "description": {
-      "text": "Collect all available Tier 2 spells."
+      "translate": "advancement.scriptor.tier_2_desc"
     },
     "icon": {
       "item": "scriptor:tome_tier2"
