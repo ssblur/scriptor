@@ -24,8 +24,8 @@
   "effect.scriptor.hoarse": "Охрипший",
   "effect.scriptor.mute": "Онемевшмй",
 
-  "death.attack.overload": "%1$s был сокрушён магическими силами.",
-  "death.attack.overload.player": "%1$s был сокрушён магическими силами.",
+  "death.attack.overload": "%1$s был переполнен магическими силами.",
+  "death.attack.overload.player": "%1$s был переполнен магическими силами.",
   "death.attack.sacrifice": "%1$s принёс слишком большую жертву.",
   "death.attack.sacrifice.player": "%1$s принёс слишком большую жертву...",
 
@@ -44,7 +44,7 @@
   "descriptor.scriptor.powerful": "Данное заклинание значительно усилено.",
   "descriptor.scriptor.fast": "Данное заклинание быстрее чем обычное.",
   "descriptor.scriptor.slow": "Данное заклинание медленнее чем обычное.",
-  "descriptor.scriptor.chain": "Данное заклинание достигает ближайших целей.", 
+  "descriptor.scriptor.chain": "Данное заклинание распростроняется на ближайшие цели.", 
   "descriptor.scriptor.blood_power": "Вы ощущаете зловещую силу в этом заклинании. Его использование может причинить боль.",
   "descriptor.scriptor.overwhelming": "Мощь этого заклинания ошеломляет заклинателя.",
 
@@ -111,8 +111,8 @@
   "action.scriptor.slow": "Данное заклинание замедляет цель.",
   "action.scriptor.color": "Данное заклинание изменяет цвет цели.",
 
-  "extra.scriptor.fizzle": "Том начинает греться в вашей руке, после чего шипит.",
-  "extra.scriptor.tome_use": "Вы стряхиваете пыль с тома...",
+  "extra.scriptor.fizzle": "Фолиант начинает греться в вашей руке, после чего шипит.",
+  "extra.scriptor.tome_use": "Вы стряхиваете пыль с фолианта...",
   "extra.scriptor.tome_description": "Щелкните пкм, чтобы раскрыть заклинание.",
   "extra.scriptor.tome_tier": "Уровень %1$s",
   "extra.scriptor.spell_get": "На обложке написано \"%1$s\".",
@@ -146,6 +146,10 @@
   "advancement.scriptor.tier_2": "Аркановый Архиватор",
   "advancement.scriptor.tier_3": "Оккультный Библиотекарь",
   "advancement.scriptor.tier_4": "Мастер Магик",
+  "advancement.scriptor.tier_1_desc": "Соберите все доступные заклинания 1-го уровня.",
+  "advancement.scriptor.tier_2_desc": "Соберите все доступные заклинания 2-го уровня.",
+  "advancement.scriptor.tier_3_desc": "Соберите все доступные заклинания 3-го уровня.",
+  "advancement.scriptor.tier_4_desc": "Соберите все доступные заклинания 4-го уровня.",
   "advancement.scriptor.tome": "Начинающий Чародей",
 
   "patchouli.scriptor.namr": "Простые Тексточары",
