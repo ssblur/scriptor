@@ -12,6 +12,18 @@ public class CustomColors {
   public static CustomColors INSTANCE = new CustomColors();
 
   static {
+    INSTANCE.reset();
+  }
+
+  HashMap<Integer, Function<Float, Integer>> registry = new HashMap<>();
+  int currentNumber = 0;
+  HashMap<String, Integer> colors = new HashMap<>();
+
+  public void reset() {
+    currentNumber = 0;
+    colors = new HashMap<>();
+    registry = new HashMap<>();
+
     // Rainbow
     // it can be gay too, as a treat.
     INSTANCE.register("rainbow", tick -> {
@@ -26,18 +38,20 @@ public class CustomColors {
     });
   }
 
-  HashMap<Integer, Function<Float, Integer>> registry = new HashMap<>();
-  int currentNumber = 0;
-  HashMap<String, Integer> colors = new HashMap<>();
+  public void putColor(int index, String key, int[] colors) {
+    this.colors.put(key, index);
+    this.registry.put(index, createCustomColor(colors));
+  }
 
-  public void register(String value, Function<Float, Integer> color) {
+  public int register(String value, Function<Float, Integer> color) {
     currentNumber--;
     colors.put(value, currentNumber);
     registry.put(currentNumber, color);
+    return currentNumber;
   }
 
-  public static void registerWithEasing(String key, int[] values) {
-    INSTANCE.register(
+  public static int registerWithEasing(String key, int[] values) {
+    return INSTANCE.register(
       key,
       createCustomColor(values)
     );
