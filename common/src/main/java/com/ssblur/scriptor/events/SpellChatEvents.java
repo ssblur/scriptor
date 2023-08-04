@@ -33,7 +33,6 @@ public class SpellChatEvents implements ChatEvent.Received {
             player.sendSystemMessage(Component.translatable("extra.scriptor.mute"));
             return EventResult.interruptFalse();
           }
-          spell.cast(new EntityTargetable(player));
 
           int cost = (int) Math.round(spell.cost() * 30);
 
@@ -46,6 +45,9 @@ public class SpellChatEvents implements ChatEvent.Received {
             player.addEffect(new MobEffectInstance(MobEffects.HUNGER, config.vocalCastingHungerThreshold));
           if (cost > config.vocalCastingHurtThreshold)
             player.hurt(Objects.requireNonNull(ScriptorDamage.overload(player)), (cost - config.vocalCastingHurtThreshold * 0.75f) / 100f);
+
+          if(player.getHealth() > 0)
+            spell.cast(new EntityTargetable(player));
 
           return EventResult.interruptFalse();
         }
