@@ -41,6 +41,6 @@ you.
  * [thekillergoose](https://github.com/thekillergoose) 
    for the Canadian French (fr_CA) translation.
  * [KingAlexey212](https://github.com/KingAlexey212) 
-   for Russion (ru_RU) and Ukrainian (uk_UA) translations.
+   for Russian (ru_RU) and Ukrainian (uk_UA) translations.
  * Regulars of the [Discord Server](http://dc.blur.lol) who 
    regularly suggest improvements and get spells named after them.
