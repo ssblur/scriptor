@@ -79,13 +79,6 @@ public class TraceNetwork {
     var dest = angle.add(position);
     var blockHitResult = level.clip(new ClipContext(position, dest, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player));
 
-    if (blockHitResult.getType() != HitResult.Type.MISS) {
-      out.writeEnum(TYPE.BLOCK);
-      out.writeBlockHitResult(blockHitResult);
-      NetworkManager.sendToServer(ScriptorEvents.RETURN_TRACE_DATA, out);
-      return;
-    }
-
     var entityHitResult = ProjectileUtil.getEntityHitResult(
       level,
       player,
@@ -95,10 +88,22 @@ public class TraceNetwork {
       e -> true
     );
     if (entityHitResult != null && entityHitResult.getType() != HitResult.Type.MISS) {
+      if (blockHitResult.getType() != HitResult.Type.MISS && blockHitResult.distanceTo(player) < entityHitResult.distanceTo(player)) {
+        out.writeEnum(TYPE.BLOCK);
+        out.writeBlockHitResult(blockHitResult);
+        NetworkManager.sendToServer(ScriptorEvents.RETURN_TRACE_DATA, out);
+        return;
+      }
       Entity entity = entityHitResult.getEntity();
       out.writeEnum(TYPE.ENTITY);
       out.writeInt(entity.getId());
       out.writeUUID(entity.getUUID());
+      NetworkManager.sendToServer(ScriptorEvents.RETURN_TRACE_DATA, out);
+      return;
+    }
+    if (blockHitResult.getType() != HitResult.Type.MISS) {
+      out.writeEnum(TYPE.BLOCK);
+      out.writeBlockHitResult(blockHitResult);
       NetworkManager.sendToServer(ScriptorEvents.RETURN_TRACE_DATA, out);
       return;
     }
