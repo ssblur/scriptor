@@ -53,7 +53,6 @@ public class ColorfulSheepFurLayer extends RenderLayer<ColorfulSheep, SheepModel
           model.renderToBuffer(poseStack, vertexConsumer, i, LivingEntityRenderer.getOverlayCoords(sheep, 0f), 0f, 0f, 0f, 1f);
         }
       } else {
-        int[] hsb = new int[3];
         var color = sheep.getColorArray();
         coloredCutoutModelCopyLayerRender(
           getParentModel(),
@@ -70,8 +69,8 @@ public class ColorfulSheepFurLayer extends RenderLayer<ColorfulSheep, SheepModel
           l,
           h,
           ((float) color.getRed()) / 255f,
-          ((float) color.getBlue()) / 255f,
-          ((float) color.getGreen()) / 255f
+          ((float) color.getGreen()) / 255f,
+          ((float) color.getBlue()) / 255f
         );
       }
   }

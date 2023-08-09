@@ -37,6 +37,7 @@
   "subject.scriptor.projectile": "This spell fires a projectile that casts on hit.",
   "subject.scriptor.rune": "This spell places a rune which casts when touched.",
   "subject.scriptor.enchant": "It seems this can be cast on other items in the inventory.",
+  "subject.scriptor.hitscan": "This spell targets whatever is in front of the caster.",
 
   "descriptor.scriptor.long": "Something in this spell makes effects last longer.",
   "descriptor.scriptor.strong": "It seems this spell is strengthened somehow.",
