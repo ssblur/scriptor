@@ -40,7 +40,7 @@ public class ItemTargetableHelper {
           slot = inventoryTargetable.getFirstMatchingSlot(condition);
         else
           slot = inventoryTargetable.getTargetedSlot();
-        if(condition.test(inventoryTargetable.getContainer().getItem(slot)))
+        if(slot >= 0 && condition.test(inventoryTargetable.getContainer().getItem(slot)))
           return inventoryTargetable.getContainer().getItem(slot);
       }
     return ItemStack.EMPTY;
