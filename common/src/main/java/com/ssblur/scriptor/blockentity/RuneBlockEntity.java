@@ -116,8 +116,8 @@ public class RuneBlockEntity extends BlockEntity implements Colorable {
 
     var box = AABB.of(
       BoundingBox.fromCorners(
-        new Vec3i((int) (worldPosition.getX() - 1 + 0.2), (int) (worldPosition.getY() + 0.0), (int) (worldPosition.getZ() + 0.2)),
-        new Vec3i((int) (worldPosition.getX() - 1 + 0.6), (int) (worldPosition.getY() + 0.0625), (int) (worldPosition.getZ() + 0.6))
+        new Vec3i((int) (worldPosition.getX() + 0.2), (int) (worldPosition.getY() + 0.0), (int) (worldPosition.getZ() + 0.2)),
+        new Vec3i((int) (worldPosition.getX() + 0.6), (int) (worldPosition.getY() + 0.0625), (int) (worldPosition.getZ() + 0.6))
       )
     );
     var entities = level.getEntities(null, box);
