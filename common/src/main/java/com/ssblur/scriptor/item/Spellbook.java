@@ -28,6 +28,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.StringUtil;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
@@ -135,7 +136,8 @@ public class Spellbook extends WrittenBookItem implements ItemWithCustomRenderer
     int lightLevel
   ) {
     matrix.pushPose();
-    int v = hand == InteractionHand.MAIN_HAND ? 1 : -1;
+    boolean in_right_hand = hand == InteractionHand.MAIN_HAND ^ player.getMainArm() == HumanoidArm.LEFT;
+    int v = in_right_hand ? 1 : -1;
     matrix.translate((float)v * 0.56f, -0.52f + readyProgress * -0.6f, -0.72f);
     float g = Mth.sin(swingProgress * swingProgress * (float)Math.PI);
     matrix.mulPose(Axis.YP.rotationDegrees(i * (45.0f + g * -20.0f)));
@@ -144,7 +146,7 @@ public class Spellbook extends WrittenBookItem implements ItemWithCustomRenderer
     matrix.mulPose(Axis.XP.rotationDegrees(h * -80.0f));
     matrix.mulPose(Axis.YP.rotationDegrees(i * -45.0f));
 
-    if(hand == InteractionHand.MAIN_HAND) {
+    if(in_right_hand) {
       {
         matrix.pushPose(); // Right hand, left page
 
