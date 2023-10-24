@@ -136,8 +136,8 @@ public class Spellbook extends WrittenBookItem implements ItemWithCustomRenderer
     int lightLevel
   ) {
     matrix.pushPose();
-    boolean in_right_hand = hand == InteractionHand.MAIN_HAND ^ player.getMainArm() == HumanoidArm.LEFT;
-    int v = in_right_hand ? 1 : -1;
+    boolean inRightHand = hand == InteractionHand.MAIN_HAND ^ player.getMainArm() == HumanoidArm.LEFT;
+    int v = inRightHand ? 1 : -1;
     matrix.translate((float)v * 0.56f, -0.52f + readyProgress * -0.6f, -0.72f);
     float g = Mth.sin(swingProgress * swingProgress * (float)Math.PI);
     matrix.mulPose(Axis.YP.rotationDegrees(i * (45.0f + g * -20.0f)));
@@ -146,7 +146,7 @@ public class Spellbook extends WrittenBookItem implements ItemWithCustomRenderer
     matrix.mulPose(Axis.XP.rotationDegrees(h * -80.0f));
     matrix.mulPose(Axis.YP.rotationDegrees(i * -45.0f));
 
-    if(in_right_hand) {
+    if(inRightHand) {
       {
         matrix.pushPose(); // Right hand, left page
 
