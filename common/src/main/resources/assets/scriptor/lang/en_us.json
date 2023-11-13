@@ -18,6 +18,7 @@
   "item.scriptor.coordinate_tag": "Coordinate Tag",
   "item.scriptor.player_tag": "Player Tag",
   "item.scriptor.scrap": "Scrap (Unobtainable)",
+  "item.scriptor.chalk": "Chalk",
 
   "block.scriptor.casting_lectern": "Casting Lectern",
 
@@ -127,6 +128,8 @@
   "extra.scriptor.use_identify": "Right click this onto a Spellbook to learn more about it.",
   "extra.scriptor.tome_identified": "§aIdentified§7. Hold SNEAK for info.",
   "extra.scriptor.condition_not_met": "You try to cast this spell but stop short. It seems a condition has not been met...",
+  "extra.scriptor.chalk_unnamed_1": "No word bound!",
+  "extra.scriptor.chalk_unnamed_2": "Name in an Anvil to use",
 
   "lore.scriptor.ingredient": "Crafting Ingredient",
   "lore.scriptor.ingredient_tag": "Combine with a casting crystal",

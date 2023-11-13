@@ -18,6 +18,7 @@ public class ScriptorEvents {
   public static final ResourceLocation GET_TRACE_DATA = new ResourceLocation(ScriptorMod.MOD_ID, "get_touch_data");
   public static final ResourceLocation GET_HITSCAN_DATA = new ResourceLocation(ScriptorMod.MOD_ID, "get_hitscan_data");
   public static final ResourceLocation RETURN_TRACE_DATA = new ResourceLocation(ScriptorMod.MOD_ID, "return_touch_data");
+  public static final ResourceLocation RECEIVE_CHALK_MESSAGE = new ResourceLocation(ScriptorMod.MOD_ID, "receive_chalk_message");
   public static final ResourceLocation CURSOR_USE_BOOK = new ResourceLocation(ScriptorMod.MOD_ID, "cursor_use_book");
   public static final ResourceLocation CURSOR_USE_BOOKC = new ResourceLocation(ScriptorMod.MOD_ID, "cursor_use_bookc");
   public static final ResourceLocation CURSOR_RETURN_BOOKC = new ResourceLocation(ScriptorMod.MOD_ID, "cursor_return_bookc");
@@ -49,6 +50,7 @@ public class ScriptorEvents {
       ScriptorEventsExpectPlatform.registerClientEvents();
     }
     NetworkManager.registerReceiver(NetworkManager.Side.C2S, RETURN_TRACE_DATA, TraceNetwork::returnTraceData);
+    NetworkManager.registerReceiver(NetworkManager.Side.C2S, RECEIVE_CHALK_MESSAGE, ChalkNetwork::receiveChalkMessage);
     NetworkManager.registerReceiver(NetworkManager.Side.C2S, CURSOR_USE_BOOK, EnchantNetwork::useBook);
     NetworkManager.registerReceiver(NetworkManager.Side.C2S, CURSOR_USE_BOOKC, EnchantNetwork::useBookCreative);
     NetworkManager.registerReceiver(NetworkManager.Side.C2S, CURSOR_USE_SCROLL, IdentifyNetwork::useScroll);

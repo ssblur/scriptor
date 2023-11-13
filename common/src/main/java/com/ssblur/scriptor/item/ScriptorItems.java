@@ -27,6 +27,8 @@ public class ScriptorItems {
     new Item(new Item.Properties().arch$tab(ScriptorMod.SCRIPTOR_TAB)));
   public static final RegistrySupplier<Item> SCRAP = ITEMS.register("scrap", () ->
     new Scrap(new Item.Properties()));
+  public static final RegistrySupplier<Item> CHALK = ITEMS.register("chalk", () ->
+    new Chalk(new Item.Properties().arch$tab(ScriptorMod.SCRIPTOR_TAB)));
 
   public static final RegistrySupplier<Item> TOME_TIER1 = ITEMS.register("tome_tier1", () ->
     new AncientSpellbook(new Item.Properties().arch$tab(ScriptorMod.SCRIPTOR_TAB), 1));
