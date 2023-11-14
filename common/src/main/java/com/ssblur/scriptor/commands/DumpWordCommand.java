@@ -5,6 +5,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import com.ssblur.scriptor.data.DictionarySavedData;
 import com.ssblur.scriptor.registry.words.WordRegistry;
+import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -40,8 +41,7 @@ public class DumpWordCommand {
       if(command.getSource().getEntity() instanceof Player player) {
         var dict = DictionarySavedData.computeIfAbsent((ServerLevel) player.level());
         var data = dict.getWord("action:" + key);
-        player.sendSystemMessage(Component.literal("The word for action \"" + key + "\" is \"" + data + "\""));
-
+        command.getSource().sendSystemMessage(Component.translatable("command.scriptor.dump_action", key, data));
       }
       return Command.SINGLE_SUCCESS;
     };
@@ -52,8 +52,7 @@ public class DumpWordCommand {
       if(command.getSource().getEntity() instanceof Player player) {
         var dict = DictionarySavedData.computeIfAbsent((ServerLevel) player.level());
         var data = dict.getWord("descriptor:" + key);
-        player.sendSystemMessage(Component.literal("The word for descriptor \"" + key + "\" is \"" + data + "\""));
-
+        command.getSource().sendSystemMessage(Component.translatable("command.scriptor.dump_descriptor", key, data));
       }
       return Command.SINGLE_SUCCESS;
     };
@@ -64,8 +63,7 @@ public class DumpWordCommand {
       if(command.getSource().getEntity() instanceof Player player) {
         var dict = DictionarySavedData.computeIfAbsent((ServerLevel) player.level());
         var data = dict.getWord("subject:" + key);
-        player.sendSystemMessage(Component.literal("The word for subject \"" + key + "\" is \"" + data + "\""));
-
+        command.getSource().sendSystemMessage(Component.translatable("command.scriptor.dump_subject", key, data));
       }
       return Command.SINGLE_SUCCESS;
     };
@@ -73,7 +71,7 @@ public class DumpWordCommand {
 
   private static int execute(CommandContext<CommandSourceStack> command){
     if(command.getSource().getEntity() instanceof Player player)
-      player.sendSystemMessage(Component.literal("Please specify a word to dump."));
+      command.getSource().sendSystemMessage(Component.translatable("command.scriptor.dump_noword").withStyle(ChatFormatting.RED));
     return Command.SINGLE_SUCCESS;
   }
 }

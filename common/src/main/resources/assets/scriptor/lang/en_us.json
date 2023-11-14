@@ -157,5 +157,10 @@
   "advancement.scriptor.tome": "Apprentice Arcanist",
 
   "patchouli.scriptor.name": "Simple Scriptomagy",
-  "patchouli.scriptor.landing_text": "Learn the world's lingua magica!"
+  "patchouli.scriptor.landing_text": "Learn the world's lingua magica!",
+
+  "command.scriptor.dump_action": "The word for action %1$s is %2$s",
+  "command.scriptor.dump_descriptor": "The word for descriptor %1$s is %2$s",
+  "command.scriptor.dump_subject": "The word for subject %1$s is %2$s",
+  "command.scriptor.dump_noword": "Please specify a word to dump."
 }
