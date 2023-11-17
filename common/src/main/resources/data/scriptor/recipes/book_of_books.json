@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "lsl",
+    "lbl",
+    "lsl"
+  ],
+  "key": {
+    "l": {
+      "item": "minecraft:leather"
+    },
+    "s": {
+      "item": "minecraft:string"
+    },
+    "b": {
+      "item": "scriptor:spellbook_binder"
+    }
+  },
+  "result": {
+    "item": "scriptor:book_of_books"
+  }
+}

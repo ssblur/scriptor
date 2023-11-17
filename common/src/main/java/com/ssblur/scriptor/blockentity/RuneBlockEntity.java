@@ -114,10 +114,14 @@ public class RuneBlockEntity extends BlockEntity implements Colorable {
           }
       }
 
+    double xMin = worldPosition.getX() >= 0 ? 0.2 : -0.8;
+    double zMin = worldPosition.getZ() >= 0 ? 0.2 : -0.8;
+    double xMax = worldPosition.getX() >= 0 ? 0.6 : -0.4;
+    double zMax = worldPosition.getZ() >= 0 ? 0.6 : -0.4;
     var box = AABB.of(
       BoundingBox.fromCorners(
-        new Vec3i((int) (worldPosition.getX() + 0.2), (int) (worldPosition.getY() + 0.0), (int) (worldPosition.getZ() + 0.2)),
-        new Vec3i((int) (worldPosition.getX() + 0.6), (int) (worldPosition.getY() + 0.0625), (int) (worldPosition.getZ() + 0.6))
+        new Vec3i((int) (worldPosition.getX() + xMin), (int) (worldPosition.getY() + 0.0), (int) (worldPosition.getZ() + zMin)),
+        new Vec3i((int) (worldPosition.getX() + xMax), (int) (worldPosition.getY() + 0.0625), (int) (worldPosition.getZ() + zMax))
       )
     );
     var entities = level.getEntities(null, box);

@@ -3,6 +3,7 @@ package com.ssblur.scriptor.events;
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.events.messages.*;
 import com.ssblur.scriptor.events.reloadlisteners.*;
+import dev.architectury.event.events.client.ClientRawInputEvent;
 import dev.architectury.event.events.common.ChatEvent;
 import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.event.events.common.LootEvent;
@@ -27,12 +28,14 @@ public class ScriptorEvents {
   public static final ResourceLocation CURSOR_RETURN_SCROLLC = new ResourceLocation(ScriptorMod.MOD_ID, "cursor_return_scrollc");
   public static final ResourceLocation COLOR_RECEIVEC = new ResourceLocation(ScriptorMod.MOD_ID, "color_receivec");
   public static final ResourceLocation PARTICLE = new ResourceLocation(ScriptorMod.MOD_ID, "particle");
+  public static final ResourceLocation SCROLL_NETWORK_C = new ResourceLocation(ScriptorMod.MOD_ID, "scroll_networkc");
 
   public static void register() {
     ChatEvent.RECEIVED.register(new SpellChatEvents());
     LootEvent.MODIFY_LOOT_TABLE.register(new AddLootEvent());
     LifecycleEvent.SERVER_LEVEL_LOAD.register(new PreloadDictionary());
     PlayerEvent.PLAYER_JOIN.register(new PlayerJoinedEvent());
+    ClientRawInputEvent.MOUSE_SCROLLED.register(new ScrollEvent());
     ReloadListenerRegistry.register(PackType.SERVER_DATA, TomeReloadListener.INSTANCE);
     ReloadListenerRegistry.register(PackType.SERVER_DATA, ReagentReloadListener.INSTANCE);
     ReloadListenerRegistry.register(PackType.SERVER_DATA, CustomColorReloadListener.INSTANCE);
@@ -55,5 +58,6 @@ public class ScriptorEvents {
     NetworkManager.registerReceiver(NetworkManager.Side.C2S, CURSOR_USE_BOOKC, EnchantNetwork::useBookCreative);
     NetworkManager.registerReceiver(NetworkManager.Side.C2S, CURSOR_USE_SCROLL, IdentifyNetwork::useScroll);
     NetworkManager.registerReceiver(NetworkManager.Side.C2S, CURSOR_USE_SCROLLC, IdentifyNetwork::useScrollCreative);
+    NetworkManager.registerReceiver(NetworkManager.Side.C2S, SCROLL_NETWORK_C, ScrollNetwork::scrollBook);
   }
 }
