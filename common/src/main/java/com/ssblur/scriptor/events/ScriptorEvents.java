@@ -35,7 +35,6 @@ public class ScriptorEvents {
     LootEvent.MODIFY_LOOT_TABLE.register(new AddLootEvent());
     LifecycleEvent.SERVER_LEVEL_LOAD.register(new PreloadDictionary());
     PlayerEvent.PLAYER_JOIN.register(new PlayerJoinedEvent());
-    ClientRawInputEvent.MOUSE_SCROLLED.register(new ScrollEvent());
     ReloadListenerRegistry.register(PackType.SERVER_DATA, TomeReloadListener.INSTANCE);
     ReloadListenerRegistry.register(PackType.SERVER_DATA, ReagentReloadListener.INSTANCE);
     ReloadListenerRegistry.register(PackType.SERVER_DATA, CustomColorReloadListener.INSTANCE);
@@ -50,6 +49,8 @@ public class ScriptorEvents {
       NetworkManager.registerReceiver(NetworkManager.Side.S2C, CURSOR_RETURN_BOOKC, EnchantNetwork::returnBookCreative);
       NetworkManager.registerReceiver(NetworkManager.Side.S2C, COLOR_RECEIVEC, ColorNetwork::receiveColor);
       NetworkManager.registerReceiver(NetworkManager.Side.S2C, PARTICLE, ParticleNetwork::getParticles);
+
+      ClientRawInputEvent.MOUSE_SCROLLED.register(new ScrollEvent());
       ScriptorEventsExpectPlatform.registerClientEvents();
     }
     NetworkManager.registerReceiver(NetworkManager.Side.C2S, RETURN_TRACE_DATA, TraceNetwork::returnTraceData);
