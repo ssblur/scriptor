@@ -35,12 +35,21 @@ public class ScriptorEvents {
     LootEvent.MODIFY_LOOT_TABLE.register(new AddLootEvent());
     LifecycleEvent.SERVER_LEVEL_LOAD.register(new PreloadDictionary());
     PlayerEvent.PLAYER_JOIN.register(new PlayerJoinedEvent());
+
     ReloadListenerRegistry.register(PackType.SERVER_DATA, TomeReloadListener.INSTANCE);
     ReloadListenerRegistry.register(PackType.SERVER_DATA, ReagentReloadListener.INSTANCE);
     ReloadListenerRegistry.register(PackType.SERVER_DATA, CustomColorReloadListener.INSTANCE);
     ReloadListenerRegistry.register(PackType.SERVER_DATA, ScrapReloadListener.INSTANCE);
     ReloadListenerRegistry.register(PackType.SERVER_DATA, GeneratorReloadListener.INSTANCE);
     ReloadListenerRegistry.register(PackType.SERVER_DATA, GeneratorBindingReloadListener.INSTANCE);
+
+    NetworkManager.registerReceiver(NetworkManager.Side.C2S, RETURN_TRACE_DATA, TraceNetwork::returnTraceData);
+    NetworkManager.registerReceiver(NetworkManager.Side.C2S, RECEIVE_CHALK_MESSAGE, ChalkNetwork::receiveChalkMessage);
+    NetworkManager.registerReceiver(NetworkManager.Side.C2S, CURSOR_USE_BOOK, EnchantNetwork::useBook);
+    NetworkManager.registerReceiver(NetworkManager.Side.C2S, CURSOR_USE_BOOKC, EnchantNetwork::useBookCreative);
+    NetworkManager.registerReceiver(NetworkManager.Side.C2S, CURSOR_USE_SCROLL, IdentifyNetwork::useScroll);
+    NetworkManager.registerReceiver(NetworkManager.Side.C2S, CURSOR_USE_SCROLLC, IdentifyNetwork::useScrollCreative);
+    NetworkManager.registerReceiver(NetworkManager.Side.C2S, SCROLL_NETWORK_C, ScrollNetwork::scrollBook);
 
     if(Platform.getEnv() == EnvType.CLIENT) {
       NetworkManager.registerReceiver(NetworkManager.Side.S2C, GET_TRACE_DATA, TraceNetwork::getTraceData);
@@ -51,14 +60,8 @@ public class ScriptorEvents {
       NetworkManager.registerReceiver(NetworkManager.Side.S2C, PARTICLE, ParticleNetwork::getParticles);
 
       ClientRawInputEvent.MOUSE_SCROLLED.register(new ScrollEvent());
+
       ScriptorEventsExpectPlatform.registerClientEvents();
     }
-    NetworkManager.registerReceiver(NetworkManager.Side.C2S, RETURN_TRACE_DATA, TraceNetwork::returnTraceData);
-    NetworkManager.registerReceiver(NetworkManager.Side.C2S, RECEIVE_CHALK_MESSAGE, ChalkNetwork::receiveChalkMessage);
-    NetworkManager.registerReceiver(NetworkManager.Side.C2S, CURSOR_USE_BOOK, EnchantNetwork::useBook);
-    NetworkManager.registerReceiver(NetworkManager.Side.C2S, CURSOR_USE_BOOKC, EnchantNetwork::useBookCreative);
-    NetworkManager.registerReceiver(NetworkManager.Side.C2S, CURSOR_USE_SCROLL, IdentifyNetwork::useScroll);
-    NetworkManager.registerReceiver(NetworkManager.Side.C2S, CURSOR_USE_SCROLLC, IdentifyNetwork::useScrollCreative);
-    NetworkManager.registerReceiver(NetworkManager.Side.C2S, SCROLL_NETWORK_C, ScrollNetwork::scrollBook);
   }
 }
