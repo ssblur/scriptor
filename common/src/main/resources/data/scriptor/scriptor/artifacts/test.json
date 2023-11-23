@@ -1,0 +1,14 @@
+{
+  "name": "The Real Artifacts Will Come Once I've Officially Added Their Spell Effects",
+  "spell": {
+    "subject": "touch",
+    "spells": [
+      {
+        "action": "heal",
+        "descriptors": [
+          "strong"
+        ]
+      }
+    ]
+  }
+}

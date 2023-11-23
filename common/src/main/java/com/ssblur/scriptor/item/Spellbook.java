@@ -47,9 +47,9 @@ public class Spellbook extends WrittenBookItem implements ItemWithCustomRenderer
 
   @Override
   public Component getName(ItemStack itemStack) {
-    CompoundTag compoundTag = itemStack.getTag();
-    if (compoundTag != null) {
-      String string = compoundTag.getString("title");
+    CompoundTag tag = itemStack.getTag();
+    if (tag != null) {
+      String string = tag.getString("title");
       if (!StringUtil.isNullOrEmpty(string)) {
         return Component.literal(string);
       }

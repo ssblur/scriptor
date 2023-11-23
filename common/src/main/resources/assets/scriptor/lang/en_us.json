@@ -147,6 +147,8 @@
   "lore.scriptor.empty_book_1": "Load a Spellbook by right-clicking",
   "lore.scriptor.empty_book_2": "it onto this item.",
   "lore.scriptor.book_scroll": "(Scroll while sneaking to change)",
+  "lore.scriptor.artifact_1": "Something's inscribed on the side...",
+  "lore.scriptor.artifact_2": "\"%1$s\"",
 
   "itemGroup.scriptor.scriptor_tab": "Scriptor Magicae",
 

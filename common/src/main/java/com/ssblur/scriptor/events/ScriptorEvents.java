@@ -42,6 +42,7 @@ public class ScriptorEvents {
     ReloadListenerRegistry.register(PackType.SERVER_DATA, ScrapReloadListener.INSTANCE);
     ReloadListenerRegistry.register(PackType.SERVER_DATA, GeneratorReloadListener.INSTANCE);
     ReloadListenerRegistry.register(PackType.SERVER_DATA, GeneratorBindingReloadListener.INSTANCE);
+    ReloadListenerRegistry.register(PackType.SERVER_DATA, ArtifactReloadListener.INSTANCE);
 
     NetworkManager.registerReceiver(NetworkManager.Side.C2S, RETURN_TRACE_DATA, TraceNetwork::returnTraceData);
     NetworkManager.registerReceiver(NetworkManager.Side.C2S, RECEIVE_CHALK_MESSAGE, ChalkNetwork::receiveChalkMessage);

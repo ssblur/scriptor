@@ -21,6 +21,14 @@ public class ScriptorItems {
     new Spellbook(new Item.Properties()));
   public static final RegistrySupplier<Item> OBFUSCATED_SPELLBOOK = ITEMS.register("obfuscated_spellbook", () ->
     new ObfuscatedSpellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> ARTIFACT_1 = ITEMS.register("artifact_1", () ->
+    new Artifact(new Item.Properties()));
+  public static final RegistrySupplier<Item> ARTIFACT_2 = ITEMS.register("artifact_2", () ->
+    new Artifact(new Item.Properties()));
+  public static final RegistrySupplier<Item> ARTIFACT_3 = ITEMS.register("artifact_3", () ->
+    new Artifact(new Item.Properties()));
+  public static final RegistrySupplier<Item> ARTIFACT_4 = ITEMS.register("artifact_4", () ->
+    new Artifact(new Item.Properties()));
 
   public static final RegistrySupplier<Item> BOOK_OF_BOOKS = ITEMS.register("book_of_books", () ->
     new BookOfBooks(new Item.Properties().stacksTo(1).arch$tab(ScriptorMod.SCRIPTOR_TAB), 4));
