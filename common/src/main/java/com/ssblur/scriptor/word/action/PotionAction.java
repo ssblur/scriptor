@@ -1,4 +1,4 @@
-package com.ssblur.scriptor.word.action.potion;
+package com.ssblur.scriptor.word.action;
 
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
@@ -11,14 +11,16 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 
-public abstract class PotionAction extends Action {
+public class PotionAction extends Action {
   MobEffect mobEffect;
   double durationScale;
   double strengthScale;
-  PotionAction(MobEffect mobEffect, double durationScale, double strengthScale) {
+  Cost cost;
+  public PotionAction(MobEffect mobEffect, double durationScale, double strengthScale, Cost cost) {
     this.mobEffect = mobEffect;
     this.durationScale = durationScale;
     this.strengthScale = strengthScale;
+    this.cost = cost;
   }
 
   @Override
@@ -40,5 +42,10 @@ public abstract class PotionAction extends Action {
 
     if(targetable instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof LivingEntity living)
       living.addEffect(new MobEffectInstance(mobEffect, (int) duration, (int) Math.floor(strength)));
+  }
+
+  @Override
+  public Cost cost() {
+    return this.cost;
   }
 }

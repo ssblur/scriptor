@@ -11,6 +11,7 @@ public class WordRegistry {
   public static final WordRegistry INSTANCE = new WordRegistry();
 
   public static final Actions ACTIONS = new Actions();
+  public static final PotionActions POTION_ACTIONS = new PotionActions();
   public static final ColorDescriptors COLOR_DESCRIPTORS = new ColorDescriptors();
   public static final Descriptors DESCRIPTORS = new Descriptors();
   public static final InventoryDescriptors INVENTORY_DESCRIPTORS = new InventoryDescriptors();

@@ -4,6 +4,7 @@ import com.mojang.authlib.minecraft.client.MinecraftClient;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.entity.ScriptorProjectile;
+import com.ssblur.scriptor.particle.MagicParticleData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -35,7 +36,7 @@ public class ScriptorProjectileRenderer extends EntityRenderer<ScriptorProjectil
     entity.setPos(entity.position().add(entity.getDeltaMovement().scale(tickDelta)));
 
     int c = entity.getColor();
-    float r, g, b;
+    int r, g, b;
     if(c == -1) {
       var mc = Minecraft.getInstance();
       assert mc.level != null;
@@ -43,15 +44,14 @@ public class ScriptorProjectileRenderer extends EntityRenderer<ScriptorProjectil
       time %= 40;
       time /= 40;
       var color = Color.getHSBColor(time, 1f, 0.5f);
-      r = ((float) color.getRed()) / 255;
-      g = ((float) color.getGreen()) / 255;
-      b = ((float) color.getBlue()) / 255;
+      r = color.getRed();
+      g = color.getGreen();
+      b = color.getBlue();
     } else {
-      r = ((float) ((c & 0xff0000) >> 16)) / 255;
-      g = ((float) ((c & 0x00ff00) >> 8)) / 255;
-      b = ((float) (c & 0x0000ff)) / 255;
+      r = (c & 0xff0000) >> 16;
+      g = (c & 0x00ff00) >> 8;
+      b = c & 0x0000ff;
     }
-    Vector3f color = new Vector3f(r, g, b);
 
     Vec3 d = entity.getDeltaMovement();
     double xd = d.x * tickDelta;
@@ -61,7 +61,7 @@ public class ScriptorProjectileRenderer extends EntityRenderer<ScriptorProjectil
     var level = Minecraft.getInstance().level;
     if (level != null)
       level.addParticle(
-        new DustParticleOptions(color, 1.0f),
+        MagicParticleData.magic(r, g, b),
         entity.getX() + xd,
         entity.getY() + yd,
         entity.getZ() + zd,

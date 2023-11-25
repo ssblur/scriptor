@@ -49,5 +49,4 @@ public class LightAction extends Action {
 
   @Override
   public Cost cost() { return new Cost(2, COSTTYPE.ADDITIVE); }
-
 }

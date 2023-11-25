@@ -18,6 +18,9 @@
   "item.scriptor.coordinate_tag": "Coordinate Tag",
   "item.scriptor.player_tag": "Player Tag",
   "item.scriptor.scrap": "Scrap (Unobtainable)",
+  "item.scriptor.chalk": "Chalk",
+  "item.scriptor.book_of_books": "Book of Books",
+  "item.scriptor.book_of_books_2": "Book of Books [%1$s]",
 
   "block.scriptor.casting_lectern": "Casting Lectern",
 
@@ -127,6 +130,8 @@
   "extra.scriptor.use_identify": "Right click this onto a Spellbook to learn more about it.",
   "extra.scriptor.tome_identified": "§aIdentified§7. Hold SNEAK for info.",
   "extra.scriptor.condition_not_met": "You try to cast this spell but stop short. It seems a condition has not been met...",
+  "extra.scriptor.chalk_unnamed_1": "No word bound!",
+  "extra.scriptor.chalk_unnamed_2": "Name in an Anvil to use",
 
   "lore.scriptor.ingredient": "Crafting Ingredient",
   "lore.scriptor.ingredient_tag": "Combine with a casting crystal",
@@ -138,6 +143,12 @@
   "lore.scriptor.coordinate_crystal_2": "Right click to add a position",
   "lore.scriptor.coordinate_crystal_3": "Position: %1$s, %2$s, %3$s",
   "lore.scriptor.crystal_reset": "Craft to reset",
+  "lore.scriptor.active_book": "%1$s [Active]",
+  "lore.scriptor.empty_book_1": "Load a Spellbook by right-clicking",
+  "lore.scriptor.empty_book_2": "it onto this item.",
+  "lore.scriptor.book_scroll": "(Scroll while sneaking to change)",
+  "lore.scriptor.artifact_1": "Something's inscribed on the side...",
+  "lore.scriptor.artifact_2": "\"%1$s\"",
 
   "itemGroup.scriptor.scriptor_tab": "Scriptor Magicae",
 
@@ -154,5 +165,10 @@
   "advancement.scriptor.tome": "Apprentice Arcanist",
 
   "patchouli.scriptor.name": "Simple Scriptomagy",
-  "patchouli.scriptor.landing_text": "Learn the world's lingua magica!"
+  "patchouli.scriptor.landing_text": "Learn the world's lingua magica!",
+
+  "command.scriptor.dump_action": "The word for action %1$s is %2$s",
+  "command.scriptor.dump_descriptor": "The word for descriptor %1$s is %2$s",
+  "command.scriptor.dump_subject": "The word for subject %1$s is %2$s",
+  "command.scriptor.dump_noword": "Please specify a word to dump."
 }

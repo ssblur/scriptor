@@ -1,0 +1,17 @@
+{
+  "name": "Buffering",
+  "author": "Herc",
+  "tier": 2,
+  "spell": {
+    "subject": "self",
+    "spells": [
+      {
+        "action": "strength",
+        "descriptors": [
+          "strong",
+          "longer"
+        ]
+      }
+    ]
+  }
+}

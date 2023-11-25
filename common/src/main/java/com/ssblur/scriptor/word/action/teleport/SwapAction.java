@@ -8,10 +8,14 @@ import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.action.Action;
 import com.ssblur.scriptor.word.descriptor.Descriptor;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.TicketType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ChunkPos;
 import org.apache.logging.log4j.core.jmx.Server;
 
 import java.io.IOException;
@@ -90,8 +94,21 @@ public class SwapAction extends Action {
       to.getLevel().addFreshEntity(entity);
     } else if(from instanceof EntityTargetable fromEntity && fromEntity.getTargetEntity() instanceof LivingEntity living) {
       var level = living.level();
-      if (level != to.getLevel())
-        living.changeDimension((ServerLevel) to.getLevel());
+      if (level != to.getLevel()) {
+        var toLevel = (ServerLevel) to.getLevel();
+        if(living instanceof ServerPlayer player) {
+          toLevel.getChunkSource().addRegionTicket(TicketType.POST_TELEPORT, new ChunkPos(to.getTargetBlockPos()), 1, player.getId());
+          player.teleportTo(toLevel, to.getTargetPos().x, to.getTargetPos().y, to.getTargetPos().z, player.getYRot(), player.getXRot());
+          player.stopRiding();
+          if(player.isSleeping()) player.stopSleepInBed(true, true);
+          player.onUpdateAbilities();
+        } else {
+          living.changeDimension(toLevel);
+        }
+      }
+
+      if(living instanceof PathfinderMob pathfinderMob) pathfinderMob.getNavigation().stop();
+
       living.teleportTo(to.getTargetPos().x, to.getTargetPos().y, to.getTargetPos().z);
       living.setDeltaMovement(0, 0, 0);
       living.resetFallDistance();

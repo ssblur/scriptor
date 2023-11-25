@@ -1,0 +1,14 @@
+{
+  "name": "Hunger Not",
+  "spell": {
+    "subject": "self",
+    "spells": [
+      {
+        "action": "saturation",
+        "descriptors": [
+          "very_long"
+        ]
+      }
+    ]
+  }
+}

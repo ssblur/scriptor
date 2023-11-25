@@ -1,0 +1,16 @@
+{
+  "name": "Oakflesh",
+  "author": "Shuckster",
+  "tier": 2,
+  "spell": {
+    "subject": "self",
+    "spells": [
+      {
+        "action": "resistance",
+        "descriptors": [
+          "long"
+        ]
+      }
+    ]
+  }
+}

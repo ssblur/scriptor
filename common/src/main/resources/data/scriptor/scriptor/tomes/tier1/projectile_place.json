@@ -1,0 +1,17 @@
+{
+  "name": "Emplacement",
+  "author": "Alex",
+  "tier": 1,
+  "spell": {
+    "subject": "projectile",
+    "spells": [
+      {
+        "action": "place",
+        "descriptors": [
+          "caster_inventory",
+          "caster_first_matching"
+        ]
+      }
+    ]
+  }
+}

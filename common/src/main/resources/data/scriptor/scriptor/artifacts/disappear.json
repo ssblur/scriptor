@@ -1,0 +1,14 @@
+{
+  "name": "Disappear",
+  "spell": {
+    "subject": "projectile",
+    "spells": [
+      {
+        "action": "explosion",
+        "descriptors": [
+          "massive_strong"
+        ]
+      }
+    ]
+  }
+}

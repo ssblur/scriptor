@@ -1,0 +1,17 @@
+{
+  "name": "Bite of Tchea",
+  "author": "C. Citrus",
+  "tier": 2,
+  "spell": {
+    "subject": "self",
+    "spells": [
+      {
+        "action": "regeneration",
+        "descriptors": [
+          "strong",
+          "long"
+        ]
+      }
+    ]
+  }
+}

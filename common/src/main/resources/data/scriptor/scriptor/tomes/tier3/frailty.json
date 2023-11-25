@@ -1,0 +1,14 @@
+{
+  "name": "Plague of Frailty",
+  "author": "Joe",
+  "tier": 3,
+  "spell": {
+    "subject": "storm",
+    "spells": [
+      {
+        "action": "weakness",
+        "descriptors": []
+      }
+    ]
+  }
+}

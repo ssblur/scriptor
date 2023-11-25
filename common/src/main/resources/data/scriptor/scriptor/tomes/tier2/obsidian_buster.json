@@ -1,0 +1,17 @@
+{
+  "name": "Obsidian Buster",
+  "author": "Henry",
+  "tier": 2,
+  "spell": {
+    "subject": "self",
+    "spells": [
+      {
+        "action": "haste",
+        "descriptors": [
+          "strong",
+          "longer"
+        ]
+      }
+    ]
+  }
+}

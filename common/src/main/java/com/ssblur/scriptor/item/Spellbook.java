@@ -8,6 +8,7 @@ import com.ssblur.scriptor.helpers.ComponentHelper;
 import com.ssblur.scriptor.helpers.ConfigHelper;
 import com.ssblur.scriptor.data.DictionarySavedData;
 import com.ssblur.scriptor.helpers.LimitedBookSerializer;
+import com.ssblur.scriptor.helpers.SpellbookHelper;
 import com.ssblur.scriptor.helpers.targetable.SpellbookTargetable;
 import com.ssblur.scriptor.item.interfaces.ItemWithCustomRenderer;
 import com.ssblur.scriptor.events.messages.EnchantNetwork;
@@ -40,16 +41,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Spellbook extends WrittenBookItem implements ItemWithCustomRenderer {
-
   public Spellbook(Properties properties) {
     super(properties);
+    SpellbookHelper.SPELLBOOKS.add(this);
   }
 
   @Override
   public Component getName(ItemStack itemStack) {
-    CompoundTag compoundTag = itemStack.getTag();
-    if (compoundTag != null) {
-      String string = compoundTag.getString("title");
+    CompoundTag tag = itemStack.getTag();
+    if (tag != null) {
+      String string = tag.getString("title");
       if (!StringUtil.isNullOrEmpty(string)) {
         return Component.literal(string);
       }
@@ -61,31 +62,16 @@ public class Spellbook extends WrittenBookItem implements ItemWithCustomRenderer
   public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
     var result = super.use(level, player, interactionHand);
 
-    Tag tag = player.getItemInHand(interactionHand).getTag();
-    if(tag instanceof CompoundTag compound && level instanceof ServerLevel server) {
-      var text = compound.getList("pages", Tag.TAG_STRING);
-      Spell spell = DictionarySavedData.computeIfAbsent(server).parse(LimitedBookSerializer.decodeText(text));
-      if(spell != null) {
-        var config = ConfigHelper.getConfig();
-        if(spell.cost() > config.basicTomeMaxCost) {
-          player.sendSystemMessage(Component.translatable("extra.scriptor.fizzle"));
-          ScriptorAdvancements.FIZZLE.trigger((ServerPlayer) player);
-          if(!player.isCreative())
-            player.getCooldowns().addCooldown(this, 350);
-          return result;
-        }
-        spell.cast(new SpellbookTargetable(player.getItemInHand(interactionHand), player, player.getInventory().selected).withTargetItem(false));
-        if(!player.isCreative())
-          player.getCooldowns().addCooldown(this, (int) Math.round(spell.cost() * 7));
-        return InteractionResultHolder.fail(player.getItemInHand(interactionHand));
-      }
-    }
+    var item = player.getItemInHand(interactionHand);
+    boolean castResult = SpellbookHelper.castFromItem(item, player);
 
-    return result;
+    if(castResult)
+      return result;
+    return InteractionResultHolder.fail(player.getItemInHand(interactionHand));
   }
 
   public boolean overrideStackedOnOther(ItemStack itemStack, Slot slot, ClickAction clickAction, Player player) {
-    if (clickAction == ClickAction.SECONDARY && !slot.getItem().isEmpty()) {
+    if (clickAction == ClickAction.SECONDARY && !slot.getItem().isEmpty() && !(slot.getItem().getItem() instanceof BookOfBooks)) {
       if(player.getCooldowns().isOnCooldown(this)) return true;
       var level = player.level();
       if(!level.isClientSide) return true;

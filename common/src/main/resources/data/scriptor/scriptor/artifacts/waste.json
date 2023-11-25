@@ -1,0 +1,15 @@
+{
+  "name": "Waste Away",
+  "spell": {
+    "subject": "touch",
+    "spells": [
+      {
+        "action": "wither",
+        "descriptors": [
+          "massive_strong",
+          "long"
+        ]
+      }
+    ]
+  }
+}

@@ -21,12 +21,25 @@ public class ScriptorItems {
     new Spellbook(new Item.Properties()));
   public static final RegistrySupplier<Item> OBFUSCATED_SPELLBOOK = ITEMS.register("obfuscated_spellbook", () ->
     new ObfuscatedSpellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> ARTIFACT_1 = ITEMS.register("artifact_1", () ->
+    new Artifact(new Item.Properties()));
+  public static final RegistrySupplier<Item> ARTIFACT_2 = ITEMS.register("artifact_2", () ->
+    new Artifact(new Item.Properties()));
+  public static final RegistrySupplier<Item> ARTIFACT_3 = ITEMS.register("artifact_3", () ->
+    new Artifact(new Item.Properties()));
+  public static final RegistrySupplier<Item> ARTIFACT_4 = ITEMS.register("artifact_4", () ->
+    new Artifact(new Item.Properties()));
+
+  public static final RegistrySupplier<Item> BOOK_OF_BOOKS = ITEMS.register("book_of_books", () ->
+    new BookOfBooks(new Item.Properties().stacksTo(1).arch$tab(ScriptorMod.SCRIPTOR_TAB), 4));
   public static final RegistrySupplier<Item> SPELLBOOK_BINDER = ITEMS.register("spellbook_binder", () ->
     new Item(new Item.Properties().arch$tab(ScriptorMod.SCRIPTOR_TAB)));
   public static final RegistrySupplier<Item> LEATHER_BINDER = ITEMS.register("leather_binder", () ->
     new Item(new Item.Properties().arch$tab(ScriptorMod.SCRIPTOR_TAB)));
   public static final RegistrySupplier<Item> SCRAP = ITEMS.register("scrap", () ->
     new Scrap(new Item.Properties()));
+  public static final RegistrySupplier<Item> CHALK = ITEMS.register("chalk", () ->
+    new Chalk(new Item.Properties().arch$tab(ScriptorMod.SCRIPTOR_TAB)));
 
   public static final RegistrySupplier<Item> TOME_TIER1 = ITEMS.register("tome_tier1", () ->
     new AncientSpellbook(new Item.Properties().arch$tab(ScriptorMod.SCRIPTOR_TAB), 1));
