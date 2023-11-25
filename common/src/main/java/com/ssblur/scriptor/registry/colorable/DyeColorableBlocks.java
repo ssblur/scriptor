@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.registry.colorable;
 
+import com.ssblur.scriptor.block.ScriptorBlocks;
 import com.ssblur.scriptor.color.DyeColorableBlock;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Blocks;
@@ -16,6 +17,7 @@ public class DyeColorableBlocks {
   public final DyeColorableBlock CANDLE = new DyeColorableBlock();
   public final DyeColorableBlock BED = new DyeColorableBlock();
   public final DyeColorableBlock SHULKER_BOX = new DyeColorableBlock();
+  public final DyeColorableBlock MAGIC_BLOCK = new DyeColorableBlock();
 
   public DyeColorableBlocks() {
     registerWool();
@@ -29,6 +31,7 @@ public class DyeColorableBlocks {
     registerCandle();
     registerBed();
     registerShulkerBox();
+    registerMagicBlocks();
   }
 
   public void registerWool() {
@@ -249,5 +252,25 @@ public class DyeColorableBlocks {
     CONCRETE.add(Blocks.RED_CONCRETE, DyeColor.RED);
     CONCRETE.add(Blocks.YELLOW_CONCRETE, DyeColor.YELLOW);
     CONCRETE.register();
+  }
+
+  public void registerMagicBlocks() {
+    MAGIC_BLOCK.add(ScriptorBlocks.BLACK_MAGIC_BLOCK.get(), DyeColor.BLACK);
+    MAGIC_BLOCK.add(ScriptorBlocks.WHITE_MAGIC_BLOCK.get(), DyeColor.WHITE);
+    MAGIC_BLOCK.add(ScriptorBlocks.BLUE_MAGIC_BLOCK.get(), DyeColor.BLUE);
+    MAGIC_BLOCK.add(ScriptorBlocks.BROWN_MAGIC_BLOCK.get(), DyeColor.BROWN);
+    MAGIC_BLOCK.add(ScriptorBlocks.CYAN_MAGIC_BLOCK.get(), DyeColor.CYAN);
+    MAGIC_BLOCK.add(ScriptorBlocks.GRAY_MAGIC_BLOCK.get(), DyeColor.GRAY);
+    MAGIC_BLOCK.add(ScriptorBlocks.GREEN_MAGIC_BLOCK.get(), DyeColor.GREEN);
+    MAGIC_BLOCK.add(ScriptorBlocks.LIGHT_BLUE_MAGIC_BLOCK.get(), DyeColor.LIGHT_BLUE);
+    MAGIC_BLOCK.add(ScriptorBlocks.LIGHT_GRAY_MAGIC_BLOCK.get(), DyeColor.LIGHT_GRAY);
+    MAGIC_BLOCK.add(ScriptorBlocks.LIME_MAGIC_BLOCK.get(), DyeColor.LIME);
+    MAGIC_BLOCK.add(ScriptorBlocks.MAGENTA_MAGIC_BLOCK.get(), DyeColor.MAGENTA);
+    MAGIC_BLOCK.add(ScriptorBlocks.ORANGE_MAGIC_BLOCK.get(), DyeColor.ORANGE);
+    MAGIC_BLOCK.add(ScriptorBlocks.PINK_MAGIC_BLOCK.get(), DyeColor.PINK);
+    MAGIC_BLOCK.add(ScriptorBlocks.PURPLE_MAGIC_BLOCK.get(), DyeColor.PURPLE);
+    MAGIC_BLOCK.add(ScriptorBlocks.RED_MAGIC_BLOCK.get(), DyeColor.RED);
+    MAGIC_BLOCK.add(ScriptorBlocks.YELLOW_MAGIC_BLOCK.get(), DyeColor.YELLOW);
+    MAGIC_BLOCK.register();
   }
 }

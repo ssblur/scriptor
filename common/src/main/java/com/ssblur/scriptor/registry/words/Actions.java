@@ -1,11 +1,11 @@
 package com.ssblur.scriptor.registry.words;
 
+import com.ssblur.scriptor.word.Word;
 import com.ssblur.scriptor.word.action.*;
-import com.ssblur.scriptor.word.action.potion.PoisonAction;
-import com.ssblur.scriptor.word.action.potion.SlowAction;
 import com.ssblur.scriptor.word.action.teleport.BringAction;
 import com.ssblur.scriptor.word.action.teleport.GotoAction;
 import com.ssblur.scriptor.word.action.teleport.SwapAction;
+import net.minecraft.world.effect.MobEffects;
 
 public class Actions {
   private static final WordRegistry INSTANCE = WordRegistry.INSTANCE;
@@ -19,9 +19,7 @@ public class Actions {
   public final Action SWAP = INSTANCE.register("swap", new SwapAction());
   public final Action BRING = INSTANCE.register("bring", new BringAction());
   public final Action BREAK = INSTANCE.register("break", new BreakBlockAction());
+  public final Action PLACE = INSTANCE.register("place", new PlaceBlockAction());
   public final Action HARM = INSTANCE.register("harm", new HarmAction());
   public final Action COLOR = INSTANCE.register("color", new ColorAction());
-
-  public final Action POISON_POTION = INSTANCE.register("poison", new PoisonAction());
-  public final Action SLOW_POTION = INSTANCE.register("slow", new SlowAction());
 }

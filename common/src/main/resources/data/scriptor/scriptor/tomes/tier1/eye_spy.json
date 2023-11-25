@@ -1,0 +1,16 @@
+{
+  "name": "Eye Spy",
+  "author": "Great Marzollo",
+  "tier": 1,
+  "spell": {
+    "subject": "self",
+    "spells": [
+      {
+        "action": "night_vision",
+        "descriptors": [
+          "stacking_long"
+        ]
+      }
+    ]
+  }
+}

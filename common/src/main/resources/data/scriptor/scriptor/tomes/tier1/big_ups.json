@@ -1,0 +1,16 @@
+{
+  "name": "Big Ups",
+  "author": "Regular Mike",
+  "tier": 1,
+  "spell": {
+    "subject": "self",
+    "spells": [
+      {
+        "action": "jump_boost",
+        "descriptors": [
+          "long"
+        ]
+      }
+    ]
+  }
+}

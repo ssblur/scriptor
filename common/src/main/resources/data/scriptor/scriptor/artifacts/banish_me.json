@@ -1,0 +1,14 @@
+{
+  "name": "Banish Me",
+  "spell": {
+    "subject": "self",
+    "spells": [
+      {
+        "action": "goto",
+        "descriptors": [
+          "nether"
+        ]
+      }
+    ]
+  }
+}

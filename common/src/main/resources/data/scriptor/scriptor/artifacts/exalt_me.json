@@ -1,0 +1,14 @@
+{
+  "name": "Exalt Me",
+  "spell": {
+    "subject": "self",
+    "spells": [
+      {
+        "action": "hero",
+        "descriptors": [
+          "longer"
+        ]
+      }
+    ]
+  }
+}
