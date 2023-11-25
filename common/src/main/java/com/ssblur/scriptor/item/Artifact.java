@@ -19,11 +19,14 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Artifact extends Item {
+  public static List<Item> ARTIFACTS = new ArrayList<>();
   public Artifact(Properties properties) {
     super(properties.stacksTo(1));
+    ARTIFACTS.add(this);
   }
 
   @Override
@@ -66,7 +69,8 @@ public class Artifact extends Item {
     if(spell != null) {
       spell.cast(new SpellbookTargetable(itemStack, player, player.getInventory().selected).withTargetItem(false));
       if(!player.isCreative())
-        player.getCooldowns().addCooldown(itemStack.getItem(), (int) Math.round(spell.cost() * 2));
+        for(var artifact: ARTIFACTS)
+          player.getCooldowns().addCooldown(artifact, (int) Math.round(spell.cost() * 2));
       return InteractionResultHolder.pass(itemStack);
     }
     return InteractionResultHolder.fail(itemStack);

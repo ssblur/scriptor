@@ -31,6 +31,7 @@ public class BookOfBooks extends Item implements ItemWithCustomRenderer {
   public BookOfBooks(Properties properties, int capacity) {
     super(properties);
     this.capacity = capacity;
+    SpellbookHelper.SPELLBOOKS.add(this);
   }
 
   public boolean overrideOtherStackedOnMe(ItemStack book, ItemStack itemStack, Slot slot, ClickAction clickAction, Player player, SlotAccess slotAccess) {

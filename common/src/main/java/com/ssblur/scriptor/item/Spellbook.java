@@ -40,9 +40,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Spellbook extends WrittenBookItem implements ItemWithCustomRenderer {
-
   public Spellbook(Properties properties) {
     super(properties);
+    SpellbookHelper.SPELLBOOKS.add(this);
   }
 
   @Override
