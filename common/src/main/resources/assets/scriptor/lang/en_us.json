@@ -24,6 +24,23 @@
 
   "block.scriptor.casting_lectern": "Casting Lectern",
 
+  "block.scriptor.white_magic_block": "Magic Block",
+  "block.scriptor.light_gray_magic_block": "Magic Block",
+  "block.scriptor.gray_magic_block": "Magic Block",
+  "block.scriptor.black_magic_block": "Magic Block",
+  "block.scriptor.red_magic_block": "Magic Block",
+  "block.scriptor.orange_magic_block": "Magic Block",
+  "block.scriptor.yellow_magic_block": "Magic Block",
+  "block.scriptor.lime_magic_block": "Magic Block",
+  "block.scriptor.green_magic_block": "Magic Block",
+  "block.scriptor.light_blue_magic_block": "Magic Block",
+  "block.scriptor.cyan_magic_block": "Magic Block",
+  "block.scriptor.blue_magic_block": "Magic Block",
+  "block.scriptor.purple_magic_block": "Magic Block",
+  "block.scriptor.magenta_magic_block": "Magic Block",
+  "block.scriptor.pink_magic_block": "Magic Block",
+  "block.scriptor.brown_magic_block": "Magic Block",
+
   "effect.scriptor.hoarse": "Hoarse",
   "effect.scriptor.mute": "Mute",
 
