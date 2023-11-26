@@ -25,7 +25,7 @@ public class PotionAction extends Action {
 
   @Override
   public void apply(Targetable caster, Targetable targetable, Descriptor[] descriptors) {
-    double strength = 4;
+    double strength = 0;
     double duration = 2;
     for(var d: descriptors) {
       if(d instanceof StrengthDescriptor strengthDescriptor)
