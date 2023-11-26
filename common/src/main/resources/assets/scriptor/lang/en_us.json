@@ -40,6 +40,7 @@
   "block.scriptor.magenta_magic_block": "Magic Block",
   "block.scriptor.pink_magic_block": "Magic Block",
   "block.scriptor.brown_magic_block": "Magic Block",
+  "block.scriptor.light": "Magic Light",
 
   "effect.scriptor.hoarse": "Hoarse",
   "effect.scriptor.mute": "Mute",
