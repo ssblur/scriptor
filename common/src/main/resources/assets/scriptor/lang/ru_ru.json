@@ -1,6 +1,6 @@
 {
-  "item.scriptor.spellbook_binder": "Переплет Книги Заклинаний",
-  "item.scriptor.leather_binder": "Скучный Кожаный Переплет",
+  "item.scriptor.spellbook_binder": "Переплёт Книги Заклинаний",
+  "item.scriptor.leather_binder": "Скучный Кожаный Переплёт",
   "item.scriptor.spellbook": "Книга Заклинаний",
   "item.scriptor.obfuscated_spellbook": "Книга Заклинаний (Зашифрованная)",
   "item.scriptor.tome_tier1": "Поношенный Фолиант",
@@ -18,8 +18,29 @@
   "item.scriptor.coordinate_tag": "Бирка Локации",
   "item.scriptor.player_tag": "Бирка Игрока",
   "item.scriptor.scrap": "Клочок (Недоступный)",
+  "item.scriptor.chalk": "Мел",
+  "item.scriptor.book_of_books": "Книга Книг",
+  "item.scriptor.book_of_books_2": "Книга Книг [%1$s]",
 
   "block.scriptor.casting_lectern": "Заклинающая Кафедра",
+
+  "block.scriptor.white_magic_block": "Магический Блок",
+  "block.scriptor.light_gray_magic_block": "Магический Блок",
+  "block.scriptor.gray_magic_block": "Магический Блок",
+  "block.scriptor.black_magic_block": "Магический Блок",
+  "block.scriptor.red_magic_block": "Магический Блок",
+  "block.scriptor.orange_magic_block": "Магический Блок",
+  "block.scriptor.yellow_magic_block": "Магический Блок",
+  "block.scriptor.lime_magic_block": "Магический Блок",
+  "block.scriptor.green_magic_block": "Магический Блок",
+  "block.scriptor.light_blue_magic_block": "Магический Блок",
+  "block.scriptor.cyan_magic_block": "Магический Блок",
+  "block.scriptor.blue_magic_block": "Магический Блок",
+  "block.scriptor.purple_magic_block": "Магический Блок",
+  "block.scriptor.magenta_magic_block": "Магический Блок",
+  "block.scriptor.pink_magic_block": "Магический Блок",
+  "block.scriptor.brown_magic_block": "Магический Блок",
+  "block.scriptor.light": "Магический Свет",
 
   "effect.scriptor.hoarse": "Охрипший",
   "effect.scriptor.mute": "Онемевшмй",
@@ -40,14 +61,19 @@
   "subject.scriptor.hitscan": "Данное заклинание нацелено на что-либо находящееся перед заклинателем.",
 
   "descriptor.scriptor.long": "Что-то в этом заклинании продлевает его эффект.", 
+  "descriptor.scriptor.longer": "Данное заклинание длится немного дольше чем обычно.",
+  "descriptor.scriptor.very_long": "Данное заклинание длится очень долго.",
+  "descriptor.scriptor.stacking_long": "Эффекты данного заклинания длятся немного дольше.",
   "descriptor.scriptor.strong": "Данное заклинание чем-то усилено.", 
   "descriptor.scriptor.stacking_strong": "Данное заклинание немного усилено.",
   "descriptor.scriptor.powerful": "Данное заклинание значительно усилено.",
+  "descriptor.scriptor.massive_strong": "Данное заклинание невероятно сильно.",
   "descriptor.scriptor.fast": "Данное заклинание быстрее чем обычное.",
   "descriptor.scriptor.slow": "Данное заклинание медленнее чем обычное.",
   "descriptor.scriptor.chain": "Данное заклинание распростроняется на ближайшие цели.", 
   "descriptor.scriptor.blood_power": "Вы ощущаете зловещую силу в этом заклинании. Его использование может причинить боль.",
   "descriptor.scriptor.overwhelming": "Мощь этого заклинания ошеломляет заклинателя.",
+  "descriptor.scriptor.nether": "Цель данного заклинания находится на другой плоскости.",
 
   "descriptor.scriptor.reagent.scriptor.amethyst": "Данное заклинание потребляет Аметисты",
   "descriptor.scriptor.reagent.scriptor.gold": "Данное заклинание потребляет Золотые Слитки",
@@ -108,9 +134,24 @@
   "action.scriptor.bring": "Данное заклинание притягивает цель к заклинателю.",
   "action.scriptor.break": "Данное заклинание разрушает предметы и блоки.",
   "action.scriptor.harm": "Данное заклинание вредит цели.",
+  "action.scriptor.color": "Данное заклинание изменяет цвет цели.",
+  "action.scriptor.place": "Данное заклинание размещает блок.",
+
   "action.scriptor.poison": "Данное заклинание отравляет цель.",
   "action.scriptor.slow": "Данное заклинание замедляет цель.",
-  "action.scriptor.color": "Данное заклинание изменяет цвет цели.",
+  "action.scriptor.regeneration": "Данное заклинание какое-то время исцеляет цель.",
+  "action.scriptor.wither": "Данное заклинание иссушает цель.",
+  "action.scriptor.saturation": "Данное заклинание утоляет голод цели.",
+  "action.scriptor.speed": "Данное заклинание ускоряет цель.",
+  "action.scriptor.haste": "Данное заклинание ускоряет руки цели.",
+  "action.scriptor.strength": "Данное заклинание усиляет руки цели.",
+  "action.scriptor.jump_boost": "Данное заклинание укрепляет ноги цели.",
+  "action.scriptor.resistance": "Данное заклинание закаляет цель.",
+  "action.scriptor.fire_resistance": "Данное заклинание даёт цели иммунитет от огня.",
+  "action.scriptor.water_breathing": "Данное заклинание наполняет лёгкие цели.",
+  "action.scriptor.night_vision": "Данное заклинание освещает глаза цели.",
+  "action.scriptor.weakness": "Данное заклинание ослабляет руки цели.",
+  "action.scriptor.hero": "Данное заклинание делает цель любимой.",
 
   "extra.scriptor.fizzle": "Фолиант начинает греться в вашей руке, после чего шипит.",
   "extra.scriptor.tome_use": "Вы стряхиваете пыль с фолианта...",
@@ -127,6 +168,8 @@
   "extra.scriptor.use_identify": "Щелкните пкм по книге заклинаний, чтобы узнать о ней больше.",
   "extra.scriptor.tome_identified": "§aИдентифицирована§7. Удерживайте ПРИСЕДАНИЕ для информации.",
   "extra.scriptor.condition_not_met": "Вы пытаетесь произнести это заклинание, но внезапно останавливаетесь. Похоже, не выполнено какое-то условие...",
+  "extra.scriptor.chalk_unnamed_1": "Нет связанного слова!",
+  "extra.scriptor.chalk_unnamed_2": "Переименуйте в Наковальне чтобы использовать",
 
   "lore.scriptor.ingredient": "Ингредиент Создания",
   "lore.scriptor.ingredient_tag": "Объедините с кристаллом фокусировки",
@@ -138,6 +181,12 @@
   "lore.scriptor.coordinate_crystal_2": "Щелкните пкм, чтобы добавить позицию",
   "lore.scriptor.coordinate_crystal_3": "Позиция: %1$s, %2$s, %3$s",
   "lore.scriptor.crystal_reset": "Изготовьте для сброса",
+  "lore.scriptor.active_book": "%1$s [Активная]",
+  "lore.scriptor.empty_book_1": "Добавьте Книгу Заклинаний нажав пкм",
+  "lore.scriptor.empty_book_2": "по этому предмету.",
+  "lore.scriptor.book_scroll": "(Пролистайте крадясь для изменения)",
+  "lore.scriptor.artifact_1": "Что-то написано сбоку...",
+  "lore.scriptor.artifact_2": "\"%1$s\"",
 
   "itemGroup.scriptor.scriptor_tab": "Scriptor Magicae",
 
@@ -154,5 +203,10 @@
   "advancement.scriptor.tome": "Начинающий Чародей",
 
   "patchouli.scriptor.name": "Простые Тексточары",
-  "patchouli.scriptor.landing_text": "Изучите лингвистическую магию мира!"
+  "patchouli.scriptor.landing_text": "Изучите лингвистическую магию мира!",
+
+  "command.scriptor.dump_action": "Слово для действия %1$s это %2$s",
+  "command.scriptor.dump_descriptor": "Слово для дескриптора %1$s это %2$s",
+  "command.scriptor.dump_subject": "Слово для объекта %1$s это %2$s",
+  "command.scriptor.dump_noword": "Пожалуйста укажите слово для отображения."
 }
