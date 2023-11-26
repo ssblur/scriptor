@@ -2,6 +2,7 @@ package com.ssblur.scriptor.block;
 
 import dev.architectury.platform.Platform;
 import dev.architectury.registry.client.rendering.RenderTypeRegistry;
+import net.fabricmc.api.EnvType;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Block;
@@ -25,7 +26,7 @@ public class MagicBlock extends Block {
         .isViewBlocking(NEVER)
     );
 
-    if(!Platform.isForge())
+    if(!Platform.isForge() && Platform.getEnv() == EnvType.CLIENT)
       RenderTypeRegistry.register(RenderType.translucent(), this);
   }
 }
