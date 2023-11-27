@@ -35,7 +35,7 @@ public class PotionActions {
   public final Action NIGHT_VISION_POTION = INSTANCE.register("night_vision",
     new PotionAction(MobEffects.NIGHT_VISION, 80, 1d/3d, new Word.Cost(6, Word.COSTTYPE.ADDITIVE)));
   public final Action WEAKNESS_POTION = INSTANCE.register("weakness",
-    new PotionAction(MobEffects.DAMAGE_BOOST, 50, 1d/3d, new Word.Cost(6, Word.COSTTYPE.ADDITIVE)));
+    new PotionAction(MobEffects.WEAKNESS, 50, 1d/3d, new Word.Cost(6, Word.COSTTYPE.ADDITIVE)));
   public final Action HERO_POTION = INSTANCE.register("hero",
     new PotionAction(MobEffects.HERO_OF_THE_VILLAGE, 120, 1d/6d, new Word.Cost(100, Word.COSTTYPE.ADDITIVE)));
 }
