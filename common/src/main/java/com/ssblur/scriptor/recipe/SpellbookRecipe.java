@@ -1,6 +1,10 @@
 package com.ssblur.scriptor.recipe;
 
 import com.google.gson.JsonObject;
+import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.ssblur.scriptor.data.DictionarySavedData;
 import com.ssblur.scriptor.item.ScriptorItems;
 import com.ssblur.scriptor.item.Spellbook;
 import net.minecraft.core.NonNullList;
@@ -29,14 +33,28 @@ import java.util.List;
 import java.util.Objects;
 
 public class SpellbookRecipe extends CustomRecipe {
+  public static Codec<SpellbookRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+    Codec.STRING.fieldOf("base").forGetter(data -> ScriptorItems.ITEMS.getRegistrar().getId(data.base).toString()),
+    Codec.STRING.fieldOf("addition").forGetter(data -> ScriptorItems.ITEMS.getRegistrar().getId(data.addition).toString()),
+    Codec.STRING.fieldOf("result").forGetter(data -> ScriptorItems.ITEMS.getRegistrar().getId(data.result).toString())
+  ).apply(instance, SpellbookRecipe::new));
+
   Item base;
   Item addition;
   Item result;
-  public SpellbookRecipe(ResourceLocation resourceLocation, CraftingBookCategory category, Item base, Item addition, Item result) {
-    super(resourceLocation, category);
+  public SpellbookRecipe(CraftingBookCategory category, Item base, Item addition, Item result) {
+    super(category);
     this.result = result;
     this.base = base;
     this.addition = addition;
+  }
+
+  public SpellbookRecipe(String base, String addition, String result) {
+    super(CraftingBookCategory.MISC);
+    this.result = ScriptorItems.ITEMS.getRegistrar().get(new ResourceLocation(result));
+    this.base = ScriptorItems.ITEMS.getRegistrar().get(new ResourceLocation(base));
+    this.addition = ScriptorItems.ITEMS.getRegistrar().get(new ResourceLocation(addition));
+
   }
 
   @Override
@@ -82,10 +100,16 @@ public class SpellbookRecipe extends CustomRecipe {
       var addition = ScriptorItems.ITEMS.getRegistrar().get(new ResourceLocation(jsonObject.get("addition").getAsString()));
 
       assert result != null && base != null && addition != null;
-      return new SpellbookRecipe(resourceLocation, craftingBookCategory, base, addition, result);
+      return new SpellbookRecipe(craftingBookCategory, base, addition, result);
     }
 
-    public SpellbookRecipe fromNetwork(ResourceLocation resourceLocation, FriendlyByteBuf buf) {
+    @Override
+    public Codec<SpellbookRecipe> codec() {
+      return CODEC;
+    }
+
+    @Override
+    public SpellbookRecipe fromNetwork(FriendlyByteBuf buf) {
       CraftingBookCategory craftingBookCategory = buf.readEnum(CraftingBookCategory.class);
 
       var nbt = buf.readNbt();
@@ -95,7 +119,7 @@ public class SpellbookRecipe extends CustomRecipe {
       var addition = ScriptorItems.ITEMS.getRegistrar().get(new ResourceLocation(nbt.getString("a")));
 
       assert result != null && base != null && addition != null;
-      return new SpellbookRecipe(resourceLocation, craftingBookCategory, base, addition, result);
+      return new SpellbookRecipe(craftingBookCategory, base, addition, result);
     }
 
     public void toNetwork(FriendlyByteBuf buf, SpellbookRecipe craftingRecipe) {

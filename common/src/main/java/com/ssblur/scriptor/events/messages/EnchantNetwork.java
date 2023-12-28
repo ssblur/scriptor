@@ -53,7 +53,7 @@ public class EnchantNetwork {
   }
 
   public static void useBookCreative(FriendlyByteBuf buf, NetworkManager.PacketContext context) {
-    var item = ItemStack.of(Objects.requireNonNull(buf.readAnySizeNbt()));
+    var item = ItemStack.of(Objects.requireNonNull(buf.readNbt()));
     var slot = buf.readInt();
 
     var compound = item.getTag();
@@ -72,7 +72,7 @@ public class EnchantNetwork {
   }
 
   public static void returnBookCreative(FriendlyByteBuf buf, NetworkManager.PacketContext context) {
-    var tag = buf.readAnySizeNbt();
+    var tag = buf.readNbt();
     if(tag == null) return;
 
     var slot = buf.readInt();

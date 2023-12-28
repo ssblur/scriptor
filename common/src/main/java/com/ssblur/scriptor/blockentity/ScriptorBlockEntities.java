@@ -44,7 +44,7 @@ public class ScriptorBlockEntities {
   public static void register() {
     BLOCK_ENTITIES.register();
 
-    if(!Platform.isForge() && Platform.getEnv() == EnvType.CLIENT) registerRenderers();
+    if(!Platform.isForgeLike() && Platform.getEnv() == EnvType.CLIENT) registerRenderers();
   }
 
   public static void registerRenderers() {

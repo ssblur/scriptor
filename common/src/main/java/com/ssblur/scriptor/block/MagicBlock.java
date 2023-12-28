@@ -26,7 +26,7 @@ public class MagicBlock extends Block {
         .isViewBlocking(NEVER)
     );
 
-    if(!Platform.isForge() && Platform.getEnv() == EnvType.CLIENT)
+    if(!Platform.isForgeLike() && Platform.getEnv() == EnvType.CLIENT)
       RenderTypeRegistry.register(RenderType.translucent(), this);
   }
 }

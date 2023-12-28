@@ -21,18 +21,9 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
       - name: Sync Body
-        run: bash ./gradlew quilt:modrinthSyncBody
+        run: bash ./gradlew fabric:modrinthSyncBody
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
-      - name: Publish Quilt
-        run: bash ./gradlew quilt:modrinth
-        env:
-          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
-          CHANGELOG: ${{ steps.changelog.outputs.changelog }}
-          JAR_SIGNING_STORE: ${{ secrets.JAR_SIGNING_STORE }}
-          JAR_SIGNING_ALIAS: ${{ secrets.JAR_SIGNING_ALIAS }}
-          JAR_SIGNING_STORE_PASS: ${{ secrets.JAR_SIGNING_STORE_PASS }}
-          JAR_SIGNING_KEY_PASS: ${{ secrets.JAR_SIGNING_KEY_PASS }}
       - name: Publish Forge
         run: bash ./gradlew forge:modrinth
         env:

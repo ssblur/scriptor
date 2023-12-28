@@ -8,17 +8,14 @@ import net.minecraft.client.model.SheepModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.SheepRenderer;
-import net.minecraft.client.renderer.entity.layers.SheepFurLayer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.animal.Sheep;
 
 @Environment(EnvType.CLIENT)
 public class ColorfulSheepRenderer extends MobRenderer<ColorfulSheep, SheepModel<ColorfulSheep>> {
   private static final ResourceLocation SHEEP_LOCATION = new ResourceLocation("textures/entity/sheep/sheep.png");
 
   public ColorfulSheepRenderer(EntityRendererProvider.Context context) {
-    super(context, new SheepModel(context.bakeLayer(ModelLayers.SHEEP)), 0.7F);
+    super(context, new SheepModel<>(context.bakeLayer(ModelLayers.SHEEP)), 0.7F);
     this.addLayer(new ColorfulSheepFurLayer(this, context.getModelSet()));
   }
 

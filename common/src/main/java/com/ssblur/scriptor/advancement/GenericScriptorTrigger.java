@@ -2,9 +2,13 @@ package com.ssblur.scriptor.advancement;
 
 
 import com.google.gson.JsonObject;
+import com.ssblur.scriptor.ScriptorMod;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.storage.loot.predicates.AllOfCondition;
+
+import java.util.Optional;
 
 public class GenericScriptorTrigger extends SimpleCriterionTrigger<GenericScriptorTrigger.Instance> {
 
@@ -14,28 +18,29 @@ public class GenericScriptorTrigger extends SimpleCriterionTrigger<GenericScript
     this.location = location;
   }
 
-  @Override
-  public ResourceLocation getId() {
-    return location;
-  }
-
-  @Override
-  protected GenericScriptorTrigger.Instance createInstance(JsonObject json, ContextAwarePredicate player, DeserializationContext ctx) {
-    return new GenericScriptorTrigger.Instance(player);
-  }
-
   public void trigger(ServerPlayer player) {
-    this.trigger(player, (instance) -> true);
+    // TODO: simpleInstance is null producing errors when awarding advancements?
+    try {
+      this.trigger(player, (instance) -> true);
+    } catch(NullPointerException e) {
+      ScriptorMod.LOGGER.error("An error occurred while trying to award an advancement:");
+      ScriptorMod.LOGGER.error(e);
+    }
+  }
+
+  @Override
+  protected Instance createInstance(JsonObject jsonObject, Optional<ContextAwarePredicate> optional, DeserializationContext deserializationContext) {
+    return optional.map(Instance::new).orElse(null);
   }
 
 
-  public class Instance extends AbstractCriterionTriggerInstance {
-    public Instance(ContextAwarePredicate player) {
-      super(location, player);
+  public static class Instance extends AbstractCriterionTriggerInstance {
+    public Instance(ContextAwarePredicate predicate) {
+      super(Optional.of(predicate));
     }
   }
 
   public Instance collectTome() {
-    return new Instance(ContextAwarePredicate.ANY);
+    return new Instance(ContextAwarePredicate.create(AllOfCondition.allOf().build()));
   }
 }
