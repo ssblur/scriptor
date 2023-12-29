@@ -2,11 +2,11 @@ package com.ssblur.scriptor.advancement;
 
 
 import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
 import com.ssblur.scriptor.ScriptorMod;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.storage.loot.predicates.AllOfCondition;
 
 import java.util.Optional;
 
@@ -19,7 +19,6 @@ public class GenericScriptorTrigger extends SimpleCriterionTrigger<GenericScript
   }
 
   public void trigger(ServerPlayer player) {
-    // TODO: simpleInstance is null producing errors when awarding advancements?
     try {
       this.trigger(player, (instance) -> true);
     } catch(NullPointerException e) {
@@ -29,18 +28,24 @@ public class GenericScriptorTrigger extends SimpleCriterionTrigger<GenericScript
   }
 
   @Override
-  protected Instance createInstance(JsonObject jsonObject, Optional<ContextAwarePredicate> optional, DeserializationContext deserializationContext) {
-    return optional.map(Instance::new).orElse(new Instance());
+  public Codec<Instance> codec() {
+    return null;
   }
 
 
-  public static class Instance extends AbstractCriterionTriggerInstance {
+  public static class Instance implements SimpleInstance {
+    ContextAwarePredicate player;
     public Instance(ContextAwarePredicate predicate) {
-      super(Optional.of(predicate));
+      this.player = predicate;
     }
 
     public Instance() {
-      super(Optional.empty());
+      this.player = null;
+    }
+
+    @Override
+    public Optional<ContextAwarePredicate> player() {
+      return Optional.ofNullable(player);
     }
   }
 }

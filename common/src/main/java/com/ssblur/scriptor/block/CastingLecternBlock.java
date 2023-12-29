@@ -68,14 +68,15 @@ public class CastingLecternBlock extends Block implements EntityBlock {
   }
 
   @Override
-  public void playerWillDestroy(Level level, BlockPos blockPos, BlockState blockState, Player player) {
-    super.playerWillDestroy(level, blockPos, blockState, player);
+  public BlockState playerWillDestroy(Level level, BlockPos blockPos, BlockState blockState, Player player) {
+    var result = super.playerWillDestroy(level, blockPos, blockState, player);
     if(level.getBlockEntity(blockPos) instanceof CastingLecternBlockEntity lectern) {
       for(var item: lectern.getItems()) {
         var entity = new ItemEntity(level, blockPos.getX() + 0.5f, blockPos.getY() + 0.5f, blockPos.getZ() + 0.5f, item);
         level.addFreshEntity(entity);
       }
     }
+    return result;
   }
 
   public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {

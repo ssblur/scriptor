@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LimitedBookSerializer {
-  @SuppressWarnings("UnstableApiUsage")
   static Type PAGE_TYPE = new TypeToken<Page>() {}.getType();
   static class Page {
     String text;
@@ -33,17 +32,26 @@ public class LimitedBookSerializer {
     Gson gson = new Gson();
     StringBuilder builder = new StringBuilder();
     for(Tag tag: text) {
-      Page page = gson.fromJson(tag.getAsString(), PAGE_TYPE);
-      builder.append(page.text.strip());
-      builder.append(" ");
+      try {
+        Page page = gson.fromJson(tag.getAsString(), PAGE_TYPE);
+        builder.append(page.text.strip());
+        builder.append(" ");
+      } catch(Exception e) {
+        builder.append(tag.getAsString().strip());
+        builder.append(" ");
+      }
     }
     return builder.toString().stripTrailing();
   }
 
   public static String decodeText(String text) {
     Gson gson = new Gson();
-    Page page = gson.fromJson(text, PAGE_TYPE);
-    return page.text.strip();
+    try {
+      Page page = gson.fromJson(text, PAGE_TYPE);
+      return page.text.strip();
+    } catch(Exception e) {
+      return text;
+    }
   }
 
   /**

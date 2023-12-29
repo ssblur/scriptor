@@ -69,7 +69,7 @@ jobs:
           file_path: fabric/build/libs/scriptor-${{ steps.tag.outputs.version }}-sgd-fabric.jar
           game_endpoint: "minecraft"
           relations: "fabric-api:requiredDependency,architectury-api:requiredDependency" #,patchouli-fabric:optionalDependency"
-          game_versions: "Minecraft 1.20:1.20.1,Java 17,Java 18,Fabric,Client,Server"
+          game_versions: "Minecraft 1.20:1.20.4,Java 17,Java 18,Fabric,Client,Server"
           project_id: "817436"
           token: "${{ secrets.CURSEFORGE_TOKEN }}"
           changelog_type: text
@@ -82,7 +82,7 @@ jobs:
           file_path: forge/build/libs/scriptor-${{ steps.tag.outputs.version }}-sgd-forge.jar
           game_endpoint: "minecraft"
           relations: "architectury-api:requiredDependency" #,patchouli:optionalDependency"
-          game_versions: "Minecraft 1.20:1.20.1,Java 17,Java 18,Forge,Client,Server"
+          game_versions: "Minecraft 1.20:1.20.4,Java 17,Java 18,Forge,Client,Server"
           project_id: "817436"
           token: "${{ secrets.CURSEFORGE_TOKEN }}"
           changelog_type: text
