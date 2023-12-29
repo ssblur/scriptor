@@ -30,7 +30,7 @@ public class GenericScriptorTrigger extends SimpleCriterionTrigger<GenericScript
 
   @Override
   protected Instance createInstance(JsonObject jsonObject, Optional<ContextAwarePredicate> optional, DeserializationContext deserializationContext) {
-    return optional.map(Instance::new).orElse(null);
+    return optional.map(Instance::new).orElse(new Instance());
   }
 
 
@@ -38,9 +38,9 @@ public class GenericScriptorTrigger extends SimpleCriterionTrigger<GenericScript
     public Instance(ContextAwarePredicate predicate) {
       super(Optional.of(predicate));
     }
-  }
 
-  public Instance collectTome() {
-    return new Instance(ContextAwarePredicate.create(AllOfCondition.allOf().build()));
+    public Instance() {
+      super(Optional.empty());
+    }
   }
 }
