@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
@@ -120,8 +121,11 @@ public class PlayerSpellsSavedData extends SavedData {
     }
     Objects.requireNonNull(server);
     return server.getDataStorage().computeIfAbsent(
-      PlayerSpellsSavedData::load,
-      PlayerSpellsSavedData::new,
+      new Factory<>(
+        PlayerSpellsSavedData::new,
+        PlayerSpellsSavedData::load,
+        DataFixTypes.SAVED_DATA_MAP_DATA
+      ),
       "scriptor_players/spells_" + player.getStringUUID()
     );
   }

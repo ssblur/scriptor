@@ -16,12 +16,15 @@ import com.ssblur.scriptor.word.subject.Subject;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
 import com.ssblur.scriptor.ScriptorMod;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class DictionarySavedData extends SavedData {
   public List<WORD> spellStructure;
@@ -357,7 +360,7 @@ public class DictionarySavedData extends SavedData {
   public static DictionarySavedData computeIfAbsent(ServerLevel level) {
     ServerLevel server = level.getServer().getLevel(Level.OVERWORLD);
     Objects.requireNonNull(server);
-    return server.getDataStorage().computeIfAbsent(DictionarySavedData::load, DictionarySavedData::new, "scriptor_dictionary");
+    return server.getDataStorage().computeIfAbsent(new Factory<>(DictionarySavedData::new, DictionarySavedData::load, DataFixTypes.SAVED_DATA_MAP_DATA), "scriptor_dictionary");
   }
 
   @Override

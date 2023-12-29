@@ -15,8 +15,8 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
 public class SpellbookCloningRecipe extends CustomRecipe {
-  public SpellbookCloningRecipe(ResourceLocation resourceLocation, CraftingBookCategory category) {
-    super(resourceLocation, category);
+  public SpellbookCloningRecipe(CraftingBookCategory category) {
+    super(category);
   }
 
   @Override
@@ -73,7 +73,9 @@ public class SpellbookCloningRecipe extends CustomRecipe {
     for (int i = 0; i < nonNullList.size(); i++) {
       ItemStack itemStack = craftingContainer.getItem(i);
       if (itemStack.getItem().hasCraftingRemainingItem()) {
-        nonNullList.set(i, new ItemStack(itemStack.getItem().getCraftingRemainingItem()));
+        var remainingItem = itemStack.getItem().getCraftingRemainingItem();
+        if(remainingItem != null)
+          nonNullList.set(i, new ItemStack(remainingItem));
         continue;
       }
 

@@ -51,7 +51,7 @@ dependencies {
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
 
-    modImplementation "vazkii.patchouli:Patchouli:${rootProject.patchouli_version}-FORGE"
+//    modImplementation "vazkii.patchouli:Patchouli:${rootProject.patchouli_version}-FORGE"
 }
 
 processResources {

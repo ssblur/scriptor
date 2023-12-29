@@ -53,7 +53,7 @@ public class IdentifyNetwork {
 
   public static void receiveDataCreative(FriendlyByteBuf buf, NetworkManager.PacketContext context) {
     int slot = buf.readInt();
-    CompoundTag tag = buf.readAnySizeNbt();
+    CompoundTag tag = buf.readNbt();
 
     assert Minecraft.getInstance().player != null;
     Minecraft.getInstance().player.containerMenu.getSlot(slot).getItem().setTag(tag);
@@ -62,7 +62,7 @@ public class IdentifyNetwork {
   public static void useScrollCreative(FriendlyByteBuf buf, NetworkManager.PacketContext context) {
     var level = context.getPlayer().level();
     int slot = buf.readInt();
-    CompoundTag tag = buf.readAnySizeNbt();
+    CompoundTag tag = buf.readNbt();
 
     if (tag != null && level instanceof ServerLevel server) {
       var text = tag.getList("pages", Tag.TAG_STRING);

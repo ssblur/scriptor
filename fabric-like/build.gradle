@@ -14,5 +14,5 @@ dependencies {
 
     compileClasspath(project(path: ":common", configuration: "namedElements")) { transitive false }
 
-    modImplementation "vazkii.patchouli:Patchouli:${rootProject.patchouli_version}-FABRIC"
+//    modImplementation "vazkii.patchouli:Patchouli:${rootProject.patchouli_version}-FABRIC"
 }

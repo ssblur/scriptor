@@ -3,15 +3,19 @@ package com.ssblur.scriptor.helpers.loot;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
+import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.DynamicOps;
 import com.ssblur.scriptor.data.DictionarySavedData;
 import com.ssblur.scriptor.events.reloadlisteners.ArtifactReloadListener;
 import com.ssblur.scriptor.loot.ScriptorLoot;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.Serializer;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunctions;
 
 public class ArtifactItemFunction implements LootItemFunction {
   @Override
@@ -32,15 +36,16 @@ public class ArtifactItemFunction implements LootItemFunction {
 
     return itemStack;
   }
-  public static class ArtifactSerializer
-    implements Serializer<ArtifactItemFunction> {
+  public static class ArtifactSerializer implements Codec<ArtifactItemFunction> {
     @Override
-    public ArtifactItemFunction deserialize(JsonObject jsonObject, JsonDeserializationContext jsonDeserializationContext) {
-      return new ArtifactItemFunction();
+    public <T> DataResult<Pair<ArtifactItemFunction, T>> decode(DynamicOps<T> ops, T input) {
+      return DataResult.success(null);
     }
 
     @Override
-    public void serialize(JsonObject jsonObject, ArtifactItemFunction object, JsonSerializationContext jsonSerializationContext) {}
+    public <T> DataResult<T> encode(ArtifactItemFunction input, DynamicOps<T> ops, T prefix) {
+      return DataResult.success(null);
+    }
   }
 
 }

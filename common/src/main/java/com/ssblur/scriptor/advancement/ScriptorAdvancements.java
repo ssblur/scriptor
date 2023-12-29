@@ -14,11 +14,11 @@ public class ScriptorAdvancements {
   public static final GenericScriptorTrigger FIZZLE = new GenericScriptorTrigger(new ResourceLocation(ScriptorMod.MOD_ID, "fizzle"));
 
   public static void register() {
-    CriteriaTriggers.register(TOME);
-    CriteriaTriggers.register(TOME_1);
-    CriteriaTriggers.register(TOME_2);
-    CriteriaTriggers.register(TOME_3);
-    CriteriaTriggers.register(TOME_4);
-    CriteriaTriggers.register(COMPLEX_SPELL);
+    CriteriaTriggers.register(TOME.location.toString(), TOME);
+    CriteriaTriggers.register(TOME_1.location.toString(), TOME_1);
+    CriteriaTriggers.register(TOME_2.location.toString(), TOME_2);
+    CriteriaTriggers.register(TOME_3.location.toString(), TOME_3);
+    CriteriaTriggers.register(TOME_4.location.toString(), TOME_4);
+    CriteriaTriggers.register(COMPLEX_SPELL.location.toString(), COMPLEX_SPELL);
   }
 }

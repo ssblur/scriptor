@@ -20,15 +20,14 @@ public class BookViewScreenSpellbookMixin {
   private static final ResourceLocation BOOK_LOCATION_DISABLED = new ResourceLocation(ScriptorMod.MOD_ID, "textures/gui/book_disabled.png");
 
   @Inject(
-    method = "render",
+    method = "renderBackground",
     at = @At(
       value = "INVOKE",
       target = "Lnet/minecraft/client/gui/GuiGraphics;blit(Lnet/minecraft/resources/ResourceLocation;IIIIII)V",
       shift = At.Shift.AFTER
-    ),
-    cancellable = true
+    )
   )
-  public void render(GuiGraphics guiGraphics, int i, int j, float f, CallbackInfo info) {
+  public void renderBackground(GuiGraphics guiGraphics, int i, int j, float f, CallbackInfo info) {
     var self = (BookViewScreen) (Object) this;
     int k = (self.width - 192) / 2;
     if(self.bookAccess instanceof SpellbookAccess)
