@@ -22,6 +22,7 @@ modrinth {
         required.project "architectury-api"
         optional.project "patchouli"
     }
+    syncBodyFrom = rootProject.file("README.md").text
 }
 tasks.modrinth.dependsOn tasks.named("signedJar")
 
