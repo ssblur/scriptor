@@ -1,7 +1,7 @@
 {
   "texture_size": [64, 64],
   "textures": {
-    "particle": "scriptor:entity/empty_circle"
+    "particle": "scriptor:block/purple_magic_block"
   },
   "elements": []
 }
