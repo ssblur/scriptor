@@ -20,5 +20,6 @@ public class ScriptorAdvancements {
     CriteriaTriggers.register(TOME_3.location.toString(), TOME_3);
     CriteriaTriggers.register(TOME_4.location.toString(), TOME_4);
     CriteriaTriggers.register(COMPLEX_SPELL.location.toString(), COMPLEX_SPELL);
+    CriteriaTriggers.register(FIZZLE.location.toString(), FIZZLE);
   }
 }
