@@ -37,7 +37,7 @@ public class SpellbookHelper {
       var config = ConfigHelper.getConfig();
       if(spell.cost() > config.basicTomeMaxCost) {
         player.sendSystemMessage(Component.translatable("extra.scriptor.fizzle"));
-        ScriptorAdvancements.FIZZLE.trigger((ServerPlayer) player);
+        ScriptorAdvancements.FIZZLE.get().trigger((ServerPlayer) player);
         if(!player.isCreative())
           addCooldown(player, 350);
         return true;

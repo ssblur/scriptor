@@ -14,7 +14,7 @@ modrinth {
     versionNumber = version
     versionName = version + "-FABRIC"
     changelog = (System.getenv("CHANGELOG") ?: "Could not load changelog").replace("\n", "\n\n")
-    versionType = "beta"
+    versionType = "release"
     uploadFile = tasks.named("signedJar").get().outputs.files.singleFile
     gameVersions = [rootProject.minecraft_version]
     loaders = ["fabric"]

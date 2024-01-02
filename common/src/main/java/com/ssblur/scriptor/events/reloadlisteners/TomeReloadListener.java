@@ -63,14 +63,14 @@ public class TomeReloadListener extends SimpleJsonResourceReloadListener {
     if(data != null) {
       var spells = data.getTier(tier);
 
-      ScriptorAdvancements.TOME.trigger((ServerPlayer) player);
+      ScriptorAdvancements.TOME.get().trigger((ServerPlayer) player);
       if (keys.size() <= spells.size())
         return tomes.get(tier).get(keys.toArray(new ResourceLocation[]{})[RANDOM.nextInt(keys.size())]);
       else if (keys.size() <= spells.size() + 1) {
-        if (tier == 1) ScriptorAdvancements.TOME_1.trigger((ServerPlayer) player);
-        if (tier == 2) ScriptorAdvancements.TOME_2.trigger((ServerPlayer) player);
-        if (tier == 3) ScriptorAdvancements.TOME_3.trigger((ServerPlayer) player);
-        if (tier == 4) ScriptorAdvancements.TOME_4.trigger((ServerPlayer) player);
+        if (tier == 1) ScriptorAdvancements.TOME_1.get().trigger((ServerPlayer) player);
+        if (tier == 2) ScriptorAdvancements.TOME_2.get().trigger((ServerPlayer) player);
+        if (tier == 3) ScriptorAdvancements.TOME_3.get().trigger((ServerPlayer) player);
+        if (tier == 4) ScriptorAdvancements.TOME_4.get().trigger((ServerPlayer) player);
       }
 
 

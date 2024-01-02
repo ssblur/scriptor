@@ -76,7 +76,7 @@ public record Spell(
         if (cast.cannotCast(caster)) {
           if (caster instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof Player player) {
             player.sendSystemMessage(Component.translatable("extra.scriptor.condition_not_met"));
-            ScriptorAdvancements.FIZZLE.trigger((ServerPlayer) player);
+            ScriptorAdvancements.FIZZLE.get().trigger((ServerPlayer) player);
           }
           if(!caster.getLevel().isClientSide)
             ParticleNetwork.fizzle(caster.getLevel(), caster.getTargetBlockPos());

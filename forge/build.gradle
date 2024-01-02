@@ -14,7 +14,7 @@ modrinth {
     versionNumber = version
     versionName = version + "-FORGE"
     changelog = (System.getenv("CHANGELOG") ?: "Could not load changelog").replace("\n", "\n\n")
-    versionType = "beta"
+    versionType = "release"
     uploadFile = tasks.named("signedJar").get().outputs.files.singleFile
     gameVersions = [rootProject.minecraft_version]
     loaders = ["forge"]
@@ -40,7 +40,6 @@ configurations {
     common
     shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
     compileClasspath.extendsFrom common
-    runtimeClasspath.extendsFrom common
     developmentForge.extendsFrom common
 }
 
@@ -100,4 +99,10 @@ publishing {
     repositories {
         // Add repositories to publish to here.
     }
+}
+
+sourceSets.each {
+  def dir = layout.buildDirectory.dir("sourcesSets/$it.name")
+  it.output.resourcesDir = dir
+  it.java.destinationDirectory = dir
 }
