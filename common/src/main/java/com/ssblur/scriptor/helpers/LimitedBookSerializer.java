@@ -36,8 +36,15 @@ public class LimitedBookSerializer {
         Page page = gson.fromJson(tag.getAsString(), PAGE_TYPE);
         builder.append(page.text.strip());
         builder.append(" ");
+        continue;
+      } catch(Exception ignored) {}
+
+      try {
+        var string = gson.fromJson(tag.getAsString(), String.class);
+        builder.append(string.strip());
+        builder.append(" ");
       } catch(Exception e) {
-        builder.append(tag.getAsString().strip());
+        builder.append(tag.toString());
         builder.append(" ");
       }
     }
@@ -49,8 +56,15 @@ public class LimitedBookSerializer {
     try {
       Page page = gson.fromJson(text, PAGE_TYPE);
       return page.text.strip();
+    } catch(Exception ignored) {}
+
+    try {
+      var string = gson.fromJson(text, String.class);
+      return string.strip();
     } catch(Exception e) {
-      return text;
+      return "Error parsing text: \""
+        + text
+        + "\".";
     }
   }
 

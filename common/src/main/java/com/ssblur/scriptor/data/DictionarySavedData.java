@@ -208,9 +208,11 @@ public class DictionarySavedData extends SavedData {
       Action action = null;
       List<Descriptor> descriptors = new ArrayList<>();
 
+      String parsed;
       while (tokenPosition < tokens.length) {
         if(position % spellStructure.size() == 0 && position > 0) {
-          if(parseWord(tokens[tokenPosition]).equals("other:and")) {
+          parsed = parseWord(tokens[tokenPosition]);
+          if(parsed != null && parsed.equals("other:and")) {
             tokenPosition++;
             spells.add(new PartialSpell(action, descriptors.toArray(Descriptor[]::new)));
           } else {
