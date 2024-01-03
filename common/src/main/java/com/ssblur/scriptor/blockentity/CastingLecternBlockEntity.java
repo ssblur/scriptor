@@ -107,9 +107,9 @@ public class CastingLecternBlockEntity extends BlockEntity {
           var state = level.getBlockState(getBlockPos());
           var direction = state.getValue(CastingLecternBlock.FACING).getOpposite();
           var blockPos = this.getBlockPos();
-          float offsetX = direction.getAxis() == Direction.Axis.X ? Math.signum(blockPos.getX()) : 0;
-          float offsetZ = direction.getAxis() == Direction.Axis.Z ? Math.signum(blockPos.getZ()) : 0;
-          var pos = new Vector3f(blockPos.getX() + offsetX, blockPos.getY() + 0.5f, blockPos.getZ() + offsetZ);
+          float offsetX = direction.getAxis() == Direction.Axis.X ? Math.signum(blockPos.getX()) : 0.5f;
+          float offsetZ = direction.getAxis() == Direction.Axis.Z ? Math.signum(blockPos.getZ()) : 0.5f;
+          var pos = new Vector3f(blockPos.getX() + offsetX, blockPos.getY() + 0.49f, blockPos.getZ() + offsetZ);
           var target = new LecternTargetable(this.getLevel(), pos).setFacing(direction);
           if(getFocus().getItem() instanceof CasterCrystal crystal) {
             var foci = crystal.getTargetables(getFocus(), level);
