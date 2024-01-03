@@ -48,7 +48,7 @@ public class Targetable {
   }
 
   public BlockPos getTargetBlockPos() {
-    return new BlockPos((int) targetPos.x, (int) targetPos.y, (int) targetPos.z);
+    return new BlockPos((int) Math.floor(targetPos.x), (int) Math.floor(targetPos.y), (int) Math.floor(targetPos.z));
   }
 
   public Level getLevel() { return level; }
