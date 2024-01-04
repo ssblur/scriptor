@@ -34,41 +34,30 @@ public class ChalkBlockEntity extends BlockEntity {
   }
 
   public void cast() {
-    this.cast(new ArrayList<>(), "");
+    this.cast(new ArrayList<>(), "", true);
   }
 
-  public void cast(List<BlockPos> visited, String words) {
+  public void cast(List<BlockPos> visited, String words, boolean primary) {
     boolean continued = false;
     assert level != null;
+    visited.add(getBlockPos());
     if(!visited.contains(getBlockPos().north()) && level.getBlockEntity(getBlockPos().north()) instanceof ChalkBlockEntity entity) {
-      var list = new ArrayList<>(visited);
-      list.add(getBlockPos());
-
-      entity.cast(list, words + " " + word);
+      entity.cast(visited, words + " " + word, primary);
       continued = true;
     }
 
     if(!visited.contains(getBlockPos().south()) && level.getBlockEntity(getBlockPos().south()) instanceof ChalkBlockEntity entity) {
-      var list = new ArrayList<>(visited);
-      list.add(getBlockPos());
-
-      entity.cast(list, words + " " + word);
+      entity.cast(visited, words + " " + word, !continued && primary);
       continued = true;
     }
 
     if(!visited.contains(getBlockPos().east()) && level.getBlockEntity(getBlockPos().east()) instanceof ChalkBlockEntity entity) {
-      var list = new ArrayList<>(visited);
-      list.add(getBlockPos());
-
-      entity.cast(list, words + " " + word);
+      entity.cast(visited, words + " " + word, !continued && primary);
       continued = true;
     }
 
     if(!visited.contains(getBlockPos().west()) && level.getBlockEntity(getBlockPos().west()) instanceof ChalkBlockEntity entity) {
-      var list = new ArrayList<>(visited);
-      list.add(getBlockPos());
-
-      entity.cast(list, words + " " + word);
+      entity.cast(visited, words + " " + word, !continued && primary);
       continued = true;
     }
 
@@ -85,9 +74,9 @@ public class ChalkBlockEntity extends BlockEntity {
           level.setBlockAndUpdate(block, Blocks.AIR.defaultBlockState());
         level.setBlockAndUpdate(getBlockPos(), Blocks.AIR.defaultBlockState());
         spell.cast(target);
-      } else {
-        ParticleNetwork.fizzle(level, getBlockPos());
-        level.playSound(null, this.getBlockPos(), SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
+      } else if(primary) {
+        ParticleNetwork.fizzle(level, visited.get(0));
+        level.playSound(null, visited.get(0), SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
       }
     }
   }
