@@ -16,5 +16,13 @@
         }
       ]
     }
+  ],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:registry_contains",
+      "values": [
+        "patchouli:guide_book"
+      ]
+    }
   ]
 }
