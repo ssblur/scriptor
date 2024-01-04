@@ -42,6 +42,11 @@
   "block.scriptor.brown_magic_block": "Магічний Блок",
   "block.scriptor.light": "Магічне Світло",
 
+  "block.scriptor.chalk": "Крейда",
+  "block.scriptor.rune": "Руна",
+  "entity.scriptor.projectile": "Снаряд",
+  "enchantment.scriptor.charged.desc": "Посилює вашу наступну атаку. Зменшується на 1 після атаки.",
+
   "effect.scriptor.hoarse": "Хриплисть",
   "effect.scriptor.mute": "Німота",
 
@@ -64,7 +69,7 @@
   "descriptor.scriptor.longer": "Це заклинання триває дещо довше ніж зазвичай.",
   "descriptor.scriptor.very_long": "Це заклинання триває дуже багато часу.",
   "descriptor.scriptor.stacking_long": "Ефекти цього заклинання тривають трохи довше.",
-  "descriptor.scriptor.strong": "Здається, це закляття якось посилюється.",
+  "descriptor.scriptor.strong": "Здається, це заклинання якось посилюється.",
   "descriptor.scriptor.stacking_strong": "Це заклинання було трохи посилено.",
   "descriptor.scriptor.powerful": "Це заклинання було значно посилено.",
   "descriptor.scriptor.massive_strong": "Це заклинання незбагненно сильне.",
@@ -164,7 +169,7 @@
   "extra.scriptor.scrap_get": "Вам вдалося відновити сторінку.",
   "extra.scriptor.hoarse": "Залишки вашого останнього заклинання все ще печуть у горлі. Ви повинні відновитися, перш ніж вимовляти інші заклинання.",
   "extra.scriptor.mute": "Магія б'ється у ваших грудях, але ви оніміли...",
-  "extra.scriptor.enchant_wrong": "Енергія з'являється і одразу ж розсіюється. Може, мені варто використати це закляття в іншому місці...",
+  "extra.scriptor.enchant_wrong": "Енергія з'являється і одразу ж розсіюється. Може, мені варто використати це заклинання в іншому місці...",
   "extra.scriptor.use_identify": "Клацніть пкм цим по Книзі Заклинань, щоб дізнатися більше про неї.",
   "extra.scriptor.tome_identified": "§aІдентифікована§7. Утримуйте ПРИСІД для інформації.",
   "extra.scriptor.condition_not_met": "Ви намагаєтесь промовити заклинання, але зупиняєтесь на півслові. Здається, умова не була виконана...",
