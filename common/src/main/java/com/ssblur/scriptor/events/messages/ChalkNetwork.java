@@ -51,12 +51,16 @@ public class ChalkNetwork {
     var blockHitResult = buf.readBlockHitResult();
     var pos = blockHitResult.getBlockPos().relative(blockHitResult.getDirection());
     if(player.level().getBlockState(pos).canBeReplaced()) {
-      player.level().setBlock(pos, ScriptorBlocks.CHALK.get().defaultBlockState(), 11);
+      var level = player.level();
+      level.setBlock(pos, ScriptorBlocks.CHALK.get().defaultBlockState(), 11);
 
-      var blockEntity = new ChalkBlockEntity(pos, player.level().getBlockState(pos));
+      var blockEntity = new ChalkBlockEntity(pos, level.getBlockState(pos));
       blockEntity.setWord(text);
       blockEntity.setFacing(player.getDirection());
-      player.level().setBlockEntity(blockEntity);
+      level.setBlockEntity(blockEntity);
+
+      var blockState = level.getBlockState(pos);
+      level.sendBlockUpdated(pos, blockState, blockState, 11);
     }
   }
 }
