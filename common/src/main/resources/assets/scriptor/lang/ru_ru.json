@@ -42,6 +42,11 @@
   "block.scriptor.brown_magic_block": "Магический Блок",
   "block.scriptor.light": "Магический Свет",
 
+  "block.scriptor.chalk": "Мел",
+  "block.scriptor.rune": "Руна",
+  "entity.scriptor.projectile": "Снаряд",
+  "enchantment.scriptor.charged.desc": "Усиляет вашу следующую атаку. Уменьшается на 1 после удара.",
+
   "effect.scriptor.hoarse": "Охрипший",
   "effect.scriptor.mute": "Онемевшмй",
 

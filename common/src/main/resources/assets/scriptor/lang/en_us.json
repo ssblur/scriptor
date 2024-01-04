@@ -42,6 +42,11 @@
   "block.scriptor.brown_magic_block": "Magic Block",
   "block.scriptor.light": "Magic Light",
 
+  "block.scriptor.chalk": "Chalk",
+  "block.scriptor.rune": "Rune",
+  "entity.scriptor.projectile": "Projectile",
+  "enchantment.scriptor.charged.desc": "Strengthens your next attack. Reduces by 1 after each hit.",
+
   "effect.scriptor.hoarse": "Hoarse",
   "effect.scriptor.mute": "Mute",
 
