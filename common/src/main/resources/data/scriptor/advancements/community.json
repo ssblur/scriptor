@@ -9,9 +9,9 @@
     "icon": {
       "item": "scriptor:tome_tier4"
     },
-    "frame": "challenge",
+    "frame": "task",
     "show_toast": true,
-    "announce_to_chat": false,
+    "announce_to_chat": true,
     "hidden": true,
     "background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
   },
