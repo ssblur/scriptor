@@ -1,4 +1,4 @@
-package com.ssblur.scriptor.events.messages;
+package com.ssblur.scriptor.events.network;
 
 import com.ssblur.scriptor.events.ScriptorEvents;
 import com.ssblur.scriptor.data.DictionarySavedData;
@@ -49,7 +49,7 @@ public class EnchantNetwork {
   public static void clientUseBook(int slot) {
     FriendlyByteBuf out = new FriendlyByteBuf(Unpooled.buffer());
     out.writeInt(slot);
-    NetworkManager.sendToServer(ScriptorEvents.CURSOR_USE_BOOK, out);
+    NetworkManager.sendToServer(ScriptorNetwork.SERVER_CURSOR_USE_BOOK, out);
   }
 
   public static void useBookCreative(FriendlyByteBuf buf, NetworkManager.PacketContext context) {
@@ -68,7 +68,7 @@ public class EnchantNetwork {
     FriendlyByteBuf out = new FriendlyByteBuf(Unpooled.buffer());
     out.writeNbt(tagOut);
     out.writeInt(slot);
-    NetworkManager.sendToPlayer((ServerPlayer) context.getPlayer(), ScriptorEvents.CURSOR_RETURN_BOOKC, out);
+    NetworkManager.sendToPlayer((ServerPlayer) context.getPlayer(), ScriptorNetwork.CLIENT_CURSOR_RETURN_BOOK_CREATIVE, out);
   }
 
   public static void returnBookCreative(FriendlyByteBuf buf, NetworkManager.PacketContext context) {
@@ -107,6 +107,6 @@ public class EnchantNetwork {
     itemStack.save(tag);
     out.writeNbt(tag);
     out.writeInt(slot);
-    NetworkManager.sendToServer(ScriptorEvents.CURSOR_USE_BOOKC, out);
+    NetworkManager.sendToServer(ScriptorNetwork.SERVER_CURSOR_USE_BOOK_CREATIVE, out);
   }
 }

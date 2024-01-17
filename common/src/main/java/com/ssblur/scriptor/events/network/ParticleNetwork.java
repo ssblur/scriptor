@@ -1,32 +1,17 @@
-package com.ssblur.scriptor.events.messages;
+package com.ssblur.scriptor.events.network;
 
 import com.ssblur.scriptor.events.ScriptorEvents;
-import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
-import com.ssblur.scriptor.helpers.targetable.Targetable;
 import dev.architectury.networking.NetworkManager;
 import io.netty.buffer.Unpooled;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.*;
-import org.apache.logging.log4j.core.jmx.Server;
 import org.joml.Vector3f;
 
-import java.util.HashMap;
-import java.util.Objects;
 import java.util.Random;
-import java.util.UUID;
 
 public class ParticleNetwork {
   enum TYPE {
@@ -46,7 +31,7 @@ public class ParticleNetwork {
 
     NetworkManager.sendToPlayers(
       level.players().stream().map(player -> (ServerPlayer) player).toList(),
-      ScriptorEvents.PARTICLE,
+      ScriptorNetwork.CLIENT_PARTICLE,
       out
     );
   }

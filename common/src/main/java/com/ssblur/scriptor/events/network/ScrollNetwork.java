@@ -1,10 +1,9 @@
-package com.ssblur.scriptor.events.messages;
+package com.ssblur.scriptor.events.network;
 
 import com.ssblur.scriptor.events.ScriptorEvents;
 import com.ssblur.scriptor.item.BookOfBooks;
 import dev.architectury.networking.NetworkManager;
 import io.netty.buffer.Unpooled;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.InteractionHand;
@@ -34,6 +33,6 @@ public class ScrollNetwork {
     FriendlyByteBuf out = new FriendlyByteBuf(Unpooled.buffer());
     out.writeBoolean(amount > 0);
     out.writeBoolean(interactionHand == InteractionHand.MAIN_HAND);
-    NetworkManager.sendToServer(ScriptorEvents.SCROLL_NETWORK_C, out);
+    NetworkManager.sendToServer(ScriptorNetwork.SERVER_SCROLL_NETWORK, out);
   }
 }
