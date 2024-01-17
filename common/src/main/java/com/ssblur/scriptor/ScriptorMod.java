@@ -10,7 +10,6 @@ import com.ssblur.scriptor.effect.ScriptorEffects;
 import com.ssblur.scriptor.enchant.ScriptorEnchantments;
 import com.ssblur.scriptor.entity.ScriptorEntities;
 import com.ssblur.scriptor.events.ScriptorEvents;
-import com.ssblur.scriptor.helpers.ConfigHelper;
 import com.ssblur.scriptor.item.ScriptorItems;
 import com.ssblur.scriptor.loot.ScriptorLoot;
 import com.ssblur.scriptor.particle.ScriptorParticles;
@@ -25,7 +24,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -68,8 +66,7 @@ public class ScriptorMod {
     ScriptorRecipes.register();
     ScriptorParticles.register();
     ScriptorLoot.register();
-
-    ConfigHelper.getConfig();
+    ScriptorGameRules.register();
 
     registerCommands();
   }

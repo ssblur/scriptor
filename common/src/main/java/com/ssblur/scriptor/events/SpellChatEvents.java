@@ -1,8 +1,8 @@
 package com.ssblur.scriptor.events;
 
+import com.ssblur.scriptor.ScriptorGameRules;
 import com.ssblur.scriptor.damage.ScriptorDamage;
 import com.ssblur.scriptor.effect.ScriptorEffects;
-import com.ssblur.scriptor.helpers.ConfigHelper;
 import com.ssblur.scriptor.data.DictionarySavedData;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.word.Spell;
@@ -36,15 +36,14 @@ public class SpellChatEvents implements ChatEvent.Received {
 
           int cost = (int) Math.round(spell.cost() * 30);
 
-          var config = ConfigHelper.getConfig();
-          if (config.vocalCastingMaxCost >= 0 && cost > config.vocalCastingMaxCost)
+          if (level.getGameRules().getInt(ScriptorGameRules.VOCAL_MAX_COST) >= 0 && cost > level.getGameRules().getInt(ScriptorGameRules.VOCAL_MAX_COST))
             player.sendSystemMessage(Component.translatable("extra.scriptor.mute"));
 
           player.addEffect(new MobEffectInstance(ScriptorEffects.HOARSE.get(), cost));
-          if (cost > config.vocalCastingHungerThreshold)
-            player.addEffect(new MobEffectInstance(MobEffects.HUNGER, config.vocalCastingHungerThreshold));
-          if (cost > config.vocalCastingHurtThreshold)
-            player.hurt(Objects.requireNonNull(ScriptorDamage.overload(player)), (cost - config.vocalCastingHurtThreshold * 0.75f) / 100f);
+          if (cost > level.getGameRules().getInt(ScriptorGameRules.VOCAL_HUNGER_THRESHOLD))
+            player.addEffect(new MobEffectInstance(MobEffects.HUNGER, level.getGameRules().getInt(ScriptorGameRules.VOCAL_HUNGER_THRESHOLD)));
+          if (cost > level.getGameRules().getInt(ScriptorGameRules.VOCAL_DAMAGE_THRESHOLD))
+            player.hurt(Objects.requireNonNull(ScriptorDamage.overload(player)), (cost - level.getGameRules().getInt(ScriptorGameRules.VOCAL_DAMAGE_THRESHOLD) * 0.75f) / 100f);
 
           if(player.getHealth() > 0)
             spell.cast(new EntityTargetable(player));
