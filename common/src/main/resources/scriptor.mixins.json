@@ -5,7 +5,8 @@
   "mixins": [
     "LecternBlockEntitySpellbookMixin",
     "SheepColorableInject",
-    "GiveCommandCommunityMixin"
+    "GiveCommandCommunityMixin",
+    "ReloadResourcesMixin"
   ],
   "client": [
     "ItemWithCustomRendererMixin",
