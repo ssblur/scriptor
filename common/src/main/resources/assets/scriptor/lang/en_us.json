@@ -192,6 +192,9 @@
   "lore.scriptor.book_scroll": "(Scroll while sneaking to change)",
   "lore.scriptor.artifact_1": "Something's inscribed on the side...",
   "lore.scriptor.artifact_2": "\"%1$s\"",
+  "lore.scriptor.not_community_1": "This was not generated in Community Mode.",
+  "lore.scriptor.not_community_2": "This was generated in Community Mode.",
+  "lore.scriptor.not_community_3": "It likely will not work.",
 
   "itemGroup.scriptor.scriptor_tab": "Scriptor Magicae",
 
@@ -205,6 +208,8 @@
   "advancement.scriptor.tier_2_desc": "Collect all available Tier 2 spells.",
   "advancement.scriptor.tier_3_desc": "Collect all available Tier 3 spells.",
   "advancement.scriptor.tier_4_desc": "Collect all available Tier 4 spells.",
+  "advancement.scriptor.community": "Part of the Community",
+  "advancement.scriptor.community_desc": "Play Scriptor Magicae with Community Mode enabled!",
   "advancement.scriptor.tome": "Apprentice Arcanist",
 
   "patchouli.scriptor.name": "Simple Scriptomagy",
@@ -213,5 +218,8 @@
   "command.scriptor.dump_action": "The word for action %1$s is %2$s",
   "command.scriptor.dump_descriptor": "The word for descriptor %1$s is %2$s",
   "command.scriptor.dump_subject": "The word for subject %1$s is %2$s",
-  "command.scriptor.dump_noword": "Please specify a word to dump."
+  "command.scriptor.dump_noword": "Please specify a word to dump.",
+  "command.scriptor.community_mode": "Community mode is active; Debug commands are disabled.",
+  "command.scriptor.community_mode_give_tome": "Community mode is active; Tomes cannot be given.",
+  "command.scriptor.community_mode_give_scrap": "Community mode is active; Scraps cannot be given."
 }

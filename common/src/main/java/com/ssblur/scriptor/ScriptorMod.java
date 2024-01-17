@@ -15,8 +15,10 @@ import com.ssblur.scriptor.item.ScriptorItems;
 import com.ssblur.scriptor.loot.ScriptorLoot;
 import com.ssblur.scriptor.particle.ScriptorParticles;
 import com.ssblur.scriptor.recipe.ScriptorRecipes;
+import com.ssblur.scriptor.tabs.ScriptorTabs;
 import com.ssblur.scriptor.trade.ScriptorTrades;
 import dev.architectury.event.events.common.CommandRegistrationEvent;
+import dev.architectury.registry.CreativeTabOutput;
 import dev.architectury.registry.CreativeTabRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrarManager;
@@ -24,6 +26,7 @@ import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -37,17 +40,9 @@ public class ScriptorMod {
   public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
   public static final Supplier<RegistrarManager> REGISTRIES = Suppliers.memoize(() -> RegistrarManager.get(MOD_ID));
 
-  public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(ScriptorMod.MOD_ID, Registries.CREATIVE_MODE_TAB);
 
-  public static final RegistrySupplier<CreativeModeTab> SCRIPTOR_TAB = TABS.register(
-    new ResourceLocation(MOD_ID, "scriptor_tab"),
-    () ->
-      CreativeTabRegistry.create(
-        Component.translatable("itemGroup.scriptor.scriptor_tab"),
-        () ->
-          new ItemStack(ScriptorItems.TOME_TIER4.get())
-      )
-    );
+  // Please don't mess with this, I'm not adding anticheat but it's no fun );
+  public static boolean COMMUNITY_MODE = false;
 
   public static void registerCommands() {
     CommandRegistrationEvent.EVENT.register(DumpDictionaryCommand::register);
@@ -55,7 +50,7 @@ public class ScriptorMod {
   }
 
   public static void init() {
-    TABS.register();
+    ScriptorTabs.register();
     ScriptorAdvancements.register();
     ScriptorBlocks.register();
     ScriptorBlockEntities.register();

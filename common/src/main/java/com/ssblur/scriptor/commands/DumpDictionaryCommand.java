@@ -3,6 +3,7 @@ package com.ssblur.scriptor.commands;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
+import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.data.DictionarySavedData;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
@@ -18,8 +19,12 @@ public class  DumpDictionaryCommand {
       .executes(DumpDictionaryCommand::execute));
   }
   private static int execute(CommandContext<CommandSourceStack> command){
-    if(command.getSource().getEntity() instanceof Player player)
-      player.sendSystemMessage(Component.literal(DictionarySavedData.computeIfAbsent((ServerLevel) player.level()).toString()));
+    if(command.getSource().getEntity() instanceof Player player) {
+      if(ScriptorMod.COMMUNITY_MODE)
+        player.sendSystemMessage(Component.translatable("command.scriptor.community_mode"));
+      else
+        player.sendSystemMessage(Component.literal(DictionarySavedData.computeIfAbsent((ServerLevel) player.level()).toString()));
+    }
     return Command.SINGLE_SUCCESS;
   }
 }

@@ -27,6 +27,8 @@ public class MixedGroupGenerator extends TokenGenerator {
       totalWeight += group.weight();
   }
 
+  protected MixedGroupGenerator() {}
+
   public boolean canBeDefault() { return true; }
 
   @Override

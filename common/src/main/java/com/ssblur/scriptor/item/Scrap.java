@@ -45,6 +45,8 @@ public class Scrap extends Item {
         else
           ScriptorMod.LOGGER.error("Invalid Identify entry: " + key);
       }
+
+      ComponentHelper.addCommunityDisclaimer(list, itemStack);
     }
   }
 }

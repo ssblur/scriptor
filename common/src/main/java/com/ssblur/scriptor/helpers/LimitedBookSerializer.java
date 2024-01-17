@@ -112,6 +112,11 @@ public class LimitedBookSerializer {
     tag.putString("author", author);
     tag.putString("title", title);
     tag.put("pages", encodeText(text));
+    if(ScriptorMod.COMMUNITY_MODE) {
+      var scriptor = new CompoundTag();
+      scriptor.putBoolean("community", true);
+      tag.put("scriptor", scriptor);
+    }
 
     ItemStack itemStack = new ItemStack(ScriptorItems.SPELLBOOK.get());
     itemStack.setCount(1);

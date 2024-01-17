@@ -92,7 +92,7 @@ public class DictionarySavedData extends SavedData {
         continue;
 
       do {
-        token = registry.generateWord(word);
+        token = registry.generateWord("action:" + word);
       } while (containsWord(token));
 
       words.put("action:" + word, token);
@@ -103,7 +103,7 @@ public class DictionarySavedData extends SavedData {
         continue;
 
       do {
-        token = registry.generateWord(word);
+        token = registry.generateWord("descriptor:" + word);
       } while (containsWord(token));
 
       words.put("descriptor:" + word, token);
@@ -113,18 +113,18 @@ public class DictionarySavedData extends SavedData {
         continue;
 
       do {
-        token = registry.generateWord(word);
+        token = registry.generateWord("subject:" + word);
       } while (containsWord(token));
 
       words.put("subject:" + word, token);
-
     }
   }
 
   public DictionarySavedData() {
-    WORD[] basicStructure = new WORD[]{WORD.ACTION, WORD.DESCRIPTOR, WORD.SUBJECT};
+    WORD[] basicStructure = new WORD[]{WORD.SUBJECT, WORD.ACTION, WORD.DESCRIPTOR};
     List<WORD> structure = Arrays.asList(basicStructure);
-    Collections.shuffle(structure);
+    if(!ScriptorMod.COMMUNITY_MODE)
+      Collections.shuffle(structure);
 
     spellStructure = new ArrayList<>();
     spellStructure.addAll(structure);
@@ -362,11 +362,17 @@ public class DictionarySavedData extends SavedData {
   public static DictionarySavedData computeIfAbsent(ServerLevel level) {
     ServerLevel server = level.getServer().getLevel(Level.OVERWORLD);
     Objects.requireNonNull(server);
-    return server.getDataStorage().computeIfAbsent(new Factory<>(DictionarySavedData::new, DictionarySavedData::load, DataFixTypes.SAVED_DATA_MAP_DATA), "scriptor_dictionary");
+    return server.getDataStorage().computeIfAbsent(
+      new Factory<>(DictionarySavedData::new, DictionarySavedData::load, DataFixTypes.SAVED_DATA_MAP_DATA),
+      ScriptorMod.COMMUNITY_MODE ? "scriptor_community_dictionary" : "scriptor_dictionary"
+    );
   }
 
   @Override
   public String toString() {
+    if(ScriptorMod.COMMUNITY_MODE)
+      return "DictionarySavedData[COMMUNITY_MODE=true]";
+
     var builder = new StringBuilder();
 
     builder.append("\n\nStructure:\n");

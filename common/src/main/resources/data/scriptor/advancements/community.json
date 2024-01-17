@@ -1,0 +1,24 @@
+{
+  "display": {
+    "title": {
+      "translate": "advancement.scriptor.community"
+    },
+    "description": {
+      "translate": "advancement.scriptor.community_desc"
+    },
+    "icon": {
+      "item": "scriptor:tome_tier4"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": true,
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
+  },
+  "criteria": {
+    "collect": {
+      "conditions": {},
+      "trigger": "scriptor:community"
+    }
+  }
+}

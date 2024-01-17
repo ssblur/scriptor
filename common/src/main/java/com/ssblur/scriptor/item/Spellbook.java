@@ -98,6 +98,8 @@ public class Spellbook extends WrittenBookItem implements ItemWithCustomRenderer
         else
           list.add(Component.translatable("extra.scriptor.tome_identified"));
       }
+
+      ComponentHelper.addCommunityDisclaimer(list, itemStack);
     }
   }
 
