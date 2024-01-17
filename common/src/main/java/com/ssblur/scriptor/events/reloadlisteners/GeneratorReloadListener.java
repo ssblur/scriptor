@@ -8,6 +8,7 @@ import com.ssblur.scriptor.exceptions.InvalidGeneratorException;
 import com.ssblur.scriptor.exceptions.MissingRequiredElementException;
 import com.ssblur.scriptor.helpers.resource.TomeResource;
 import com.ssblur.scriptor.registry.TokenGeneratorRegistry;
+import com.ssblur.scriptor.tabs.ScriptorTabs;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -27,7 +28,9 @@ public class GeneratorReloadListener extends SimpleJsonResourceReloadListener {
 
   @Override
   protected void apply(Map<ResourceLocation, JsonElement> objects, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
+    ScriptorMod.COMMUNITY_MODE = false;
     objects.forEach((resourceLocation, jsonElement) -> {
+      System.out.println(resourceLocation);
       var object = jsonElement.getAsJsonObject();
       if(!object.has("generator"))
         throw new MissingRequiredElementException("generator", resourceLocation);
@@ -37,6 +40,13 @@ public class GeneratorReloadListener extends SimpleJsonResourceReloadListener {
       var generator = object.get("generator").getAsString();
       if(TokenGeneratorRegistry.INSTANCE.getGeneratorGenerator(generator) == null)
         throw new InvalidGeneratorException(generator, resourceLocation);
+
+      if(generator.equals("community")) {
+        ScriptorMod.LOGGER.info("Community mode generator loaded, locking down debug features.");
+        ScriptorMod.COMMUNITY_MODE = true;
+
+        var tab = ScriptorTabs.SCRIPTOR_TAB.get();
+      }
 
       var generatorGenerator = TokenGeneratorRegistry.INSTANCE.getGeneratorGenerator(generator);
       TokenGeneratorRegistry.INSTANCE.registerGenerator(resourceLocation, generatorGenerator.create(object.get("parameters").getAsJsonObject()));

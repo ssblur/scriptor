@@ -3,6 +3,7 @@ package com.ssblur.scriptor.commands;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
+import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.data.DictionarySavedData;
 import com.ssblur.scriptor.registry.words.WordRegistry;
 import net.minecraft.ChatFormatting;
@@ -39,6 +40,10 @@ public class DumpWordCommand {
   private static Command<CommandSourceStack> generateActionCommand(String key) {
     return command -> {
       if(command.getSource().getEntity() instanceof Player player) {
+        if(ScriptorMod.COMMUNITY_MODE) {
+          player.sendSystemMessage(Component.translatable("command.scriptor.community_mode"));
+          return Command.SINGLE_SUCCESS;
+        }
         var dict = DictionarySavedData.computeIfAbsent((ServerLevel) player.level());
         var data = dict.getWord("action:" + key);
         command.getSource().sendSystemMessage(Component.translatable("command.scriptor.dump_action", key, data));
@@ -50,6 +55,10 @@ public class DumpWordCommand {
   private static Command<CommandSourceStack> generateDescriptorCommand(String key) {
     return command -> {
       if(command.getSource().getEntity() instanceof Player player) {
+        if(ScriptorMod.COMMUNITY_MODE) {
+          player.sendSystemMessage(Component.translatable("command.scriptor.community_mode"));
+          return Command.SINGLE_SUCCESS;
+        }
         var dict = DictionarySavedData.computeIfAbsent((ServerLevel) player.level());
         var data = dict.getWord("descriptor:" + key);
         command.getSource().sendSystemMessage(Component.translatable("command.scriptor.dump_descriptor", key, data));
@@ -61,6 +70,10 @@ public class DumpWordCommand {
   private static Command<CommandSourceStack> generateSubjectCommand(String key) {
     return command -> {
       if(command.getSource().getEntity() instanceof Player player) {
+        if(ScriptorMod.COMMUNITY_MODE) {
+          player.sendSystemMessage(Component.translatable("command.scriptor.community_mode"));
+          return Command.SINGLE_SUCCESS;
+        }
         var dict = DictionarySavedData.computeIfAbsent((ServerLevel) player.level());
         var data = dict.getWord("subject:" + key);
         command.getSource().sendSystemMessage(Component.translatable("command.scriptor.dump_subject", key, data));

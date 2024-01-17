@@ -3,10 +3,12 @@ package com.ssblur.scriptor.events.reloadlisteners;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.advancement.ScriptorAdvancements;
 import com.ssblur.scriptor.data.PlayerSpellsSavedData;
 import com.ssblur.scriptor.helpers.resource.TomeResource;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -14,10 +16,7 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.entity.player.Player;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class TomeReloadListener extends SimpleJsonResourceReloadListener {
   static ResourceLocation TOMES = new ResourceLocation("data/scriptor/tomes");
@@ -59,6 +58,27 @@ public class TomeReloadListener extends SimpleJsonResourceReloadListener {
 
   public TomeResource getRandomTome(int tier, Player player) {
     var keys = tomes.get(tier).keySet();
+
+    if(ScriptorMod.COMMUNITY_MODE) {
+      var level = player.level();
+      if(level instanceof ServerLevel serverLevel) {
+        int bracket = (int) serverLevel.getSeed() % 5;
+        bracket += 10;
+        bracket %= 5;
+        bracket = Math.min(bracket, keys.size() - 1);
+
+        Set<ResourceLocation> filteredKeys = new HashSet<>();
+        var array = keys.toArray(new ResourceLocation[]{});
+        for(int i = 0; i < keys.size(); i++) {
+          if(bracket == i % 5)
+            filteredKeys.add(array[i]);
+        }
+        keys = filteredKeys;
+      } else {
+        return null;
+      }
+    }
+
     var data = PlayerSpellsSavedData.computeIfAbsent(player);
     if(data != null) {
       var spells = data.getTier(tier);

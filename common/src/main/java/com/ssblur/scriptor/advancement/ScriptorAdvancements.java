@@ -41,6 +41,10 @@ public class ScriptorAdvancements {
     "fizzle",
     () -> new GenericScriptorTrigger(new ResourceLocation(ScriptorMod.MOD_ID, "fizzle"))
   );
+  public static final RegistrySupplier<GenericScriptorTrigger> COMMUNITY = TRIGGERS.register(
+    "community",
+    () -> new GenericScriptorTrigger(new ResourceLocation(ScriptorMod.MOD_ID, "community"))
+  );
 
   public static void register() {
     TRIGGERS.register();
