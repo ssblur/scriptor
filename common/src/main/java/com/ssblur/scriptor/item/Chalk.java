@@ -1,18 +1,10 @@
 package com.ssblur.scriptor.item;
 
-import com.ssblur.scriptor.advancement.ScriptorAdvancements;
-import com.ssblur.scriptor.data.DictionarySavedData;
-import com.ssblur.scriptor.events.messages.ChalkNetwork;
-import com.ssblur.scriptor.events.reloadlisteners.TomeReloadListener;
-import com.ssblur.scriptor.helpers.LimitedBookSerializer;
-import com.ssblur.scriptor.word.Spell;
+import com.ssblur.scriptor.events.network.ChalkNetwork;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;

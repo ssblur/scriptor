@@ -5,7 +5,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.color.CustomColors;
-import com.ssblur.scriptor.events.messages.ColorNetwork;
 import com.ssblur.scriptor.registry.words.WordRegistry;
 import com.ssblur.scriptor.word.descriptor.color.CustomColorDescriptor;
 import net.minecraft.resources.ResourceLocation;

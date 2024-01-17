@@ -1,4 +1,4 @@
-package com.ssblur.scriptor.events.messages;
+package com.ssblur.scriptor.events.network;
 
 import com.ssblur.scriptor.events.ScriptorEvents;
 import com.ssblur.scriptor.data.DictionarySavedData;
@@ -48,7 +48,7 @@ public class IdentifyNetwork {
   public static void clientUseScroll(int slot) {
     FriendlyByteBuf out = new FriendlyByteBuf(Unpooled.buffer());
     out.writeInt(slot);
-    NetworkManager.sendToServer(ScriptorEvents.CURSOR_USE_SCROLL, out);
+    NetworkManager.sendToServer(ScriptorNetwork.SERVER_CURSOR_USE_SCROLL, out);
   }
 
   public static void receiveDataCreative(FriendlyByteBuf buf, NetworkManager.PacketContext context) {
@@ -83,7 +83,7 @@ public class IdentifyNetwork {
       FriendlyByteBuf out = new FriendlyByteBuf(Unpooled.buffer());
       out.writeInt(slot);
       out.writeNbt(tag);
-      NetworkManager.sendToPlayer((ServerPlayer) context.getPlayer(), ScriptorEvents.CURSOR_RETURN_SCROLLC, out);
+      NetworkManager.sendToPlayer((ServerPlayer) context.getPlayer(), ScriptorNetwork.CLIENT_CURSOR_RETURN_SCROLL_CREATIVE, out);
     }
   }
 
@@ -91,6 +91,6 @@ public class IdentifyNetwork {
     FriendlyByteBuf out = new FriendlyByteBuf(Unpooled.buffer());
     out.writeInt(slot);
     out.writeNbt(book.getTag());
-    NetworkManager.sendToServer(ScriptorEvents.CURSOR_USE_SCROLLC, out);
+    NetworkManager.sendToServer(ScriptorNetwork.SERVER_CURSOR_USE_SCROLL_CREATIVE, out);
   }
 }

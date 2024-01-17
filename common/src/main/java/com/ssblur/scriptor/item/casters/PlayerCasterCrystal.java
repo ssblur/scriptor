@@ -1,6 +1,5 @@
 package com.ssblur.scriptor.item.casters;
 
-import com.ssblur.scriptor.events.messages.TraceNetwork;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import net.minecraft.ChatFormatting;

@@ -2,7 +2,7 @@ package com.ssblur.scriptor.word;
 
 import com.ssblur.scriptor.advancement.ScriptorAdvancements;
 import com.ssblur.scriptor.effect.ScriptorEffects;
-import com.ssblur.scriptor.events.messages.ParticleNetwork;
+import com.ssblur.scriptor.events.network.ParticleNetwork;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.descriptor.AfterCastDescriptor;

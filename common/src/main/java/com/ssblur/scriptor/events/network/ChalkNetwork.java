@@ -1,30 +1,16 @@
-package com.ssblur.scriptor.events.messages;
+package com.ssblur.scriptor.events.network;
 
-import com.ssblur.scriptor.block.ChalkBlock;
 import com.ssblur.scriptor.block.ScriptorBlocks;
 import com.ssblur.scriptor.blockentity.ChalkBlockEntity;
 import com.ssblur.scriptor.events.ScriptorEvents;
-import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
-import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.item.Chalk;
 import dev.architectury.networking.NetworkManager;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ProjectileUtil;
-import net.minecraft.world.level.ClipContext;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
-
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.UUID;
 
 public class ChalkNetwork {
   public static void sendChalkMessage() {
@@ -34,7 +20,7 @@ public class ChalkNetwork {
     if(hit instanceof BlockHitResult blockHitResult) {
       FriendlyByteBuf out = new FriendlyByteBuf(Unpooled.buffer());
       out.writeBlockHitResult(blockHitResult);
-      NetworkManager.sendToServer(ScriptorEvents.RECEIVE_CHALK_MESSAGE, out);
+      NetworkManager.sendToServer(ScriptorNetwork.SERVER_RECEIVE_CHALK_MESSAGE, out);
     }
 
   }

@@ -1,4 +1,4 @@
-package com.ssblur.scriptor.events.messages;
+package com.ssblur.scriptor.events.network;
 
 import com.ssblur.scriptor.color.CustomColors;
 import com.ssblur.scriptor.events.ScriptorEvents;
@@ -24,7 +24,7 @@ public class ColorNetwork {
       out.writeInt(triplet.getA());
       out.writeVarIntArray(triplet.getC());
       out.writeUtf(triplet.getB());
-      NetworkManager.sendToPlayers(server.getPlayerList().getPlayers(), ScriptorEvents.COLOR_RECEIVEC, out);
+      NetworkManager.sendToPlayers(server.getPlayerList().getPlayers(), ScriptorNetwork.CLIENT_COLOR_RECEIVE, out);
     }
   }
 
@@ -34,7 +34,7 @@ public class ColorNetwork {
       out.writeInt(triplet.getA());
       out.writeVarIntArray(triplet.getC());
       out.writeUtf(triplet.getB());
-      NetworkManager.sendToPlayer(player, ScriptorEvents.COLOR_RECEIVEC, out);
+      NetworkManager.sendToPlayer(player, ScriptorNetwork.CLIENT_COLOR_RECEIVE, out);
     }
   }
 }

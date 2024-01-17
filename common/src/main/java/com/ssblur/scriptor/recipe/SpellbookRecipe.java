@@ -105,8 +105,6 @@ public class SpellbookRecipe extends CustomRecipe {
     }
 
     public void toNetwork(FriendlyByteBuf buf, SpellbookRecipe craftingRecipe) {
-      buf.writeEnum(craftingRecipe.category());
-
       var compound = new CompoundTag();
       compound.putString("r", Objects.requireNonNull(ScriptorItems.ITEMS.getRegistrar().getId(craftingRecipe.result)).toString());
       compound.putString("b", Objects.requireNonNull(ScriptorItems.ITEMS.getRegistrar().getId(craftingRecipe.base)).toString());

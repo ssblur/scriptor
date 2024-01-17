@@ -1,10 +1,7 @@
 package com.ssblur.scriptor.blockentity;
 
-import com.google.common.collect.ImmutableList;
-import com.ssblur.scriptor.color.interfaces.Colorable;
 import com.ssblur.scriptor.data.DictionarySavedData;
-import com.ssblur.scriptor.events.messages.ParticleNetwork;
-import com.ssblur.scriptor.helpers.LimitedBookSerializer;
+import com.ssblur.scriptor.events.network.ParticleNetwork;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.Spell;
 import net.minecraft.core.BlockPos;

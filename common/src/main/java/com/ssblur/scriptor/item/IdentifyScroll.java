@@ -1,7 +1,6 @@
 package com.ssblur.scriptor.item;
 
-import com.ssblur.scriptor.ScriptorMod;
-import com.ssblur.scriptor.events.messages.IdentifyNetwork;
+import com.ssblur.scriptor.events.network.IdentifyNetwork;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.network.chat.Component;
@@ -14,7 +13,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.IOException;
 import java.util.List;
 
 public class IdentifyScroll extends Item {

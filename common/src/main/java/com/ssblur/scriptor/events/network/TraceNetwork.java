@@ -1,10 +1,8 @@
-package com.ssblur.scriptor.events.messages;
+package com.ssblur.scriptor.events.network;
 
-import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.events.ScriptorEvents;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
-import com.ssblur.scriptor.word.subject.TouchSubject;
 import dev.architectury.networking.NetworkManager;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
@@ -19,11 +17,9 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
-import java.util.concurrent.Callable;
 
 public class TraceNetwork {
   enum TYPE {
@@ -45,7 +41,7 @@ public class TraceNetwork {
     FriendlyByteBuf out = new FriendlyByteBuf(Unpooled.buffer());
     out.writeUUID(uuid);
     queue.put(uuid, new TraceQueue(player, callback));
-    NetworkManager.sendToPlayer((ServerPlayer) player, ScriptorEvents.GET_TRACE_DATA, out);
+    NetworkManager.sendToPlayer((ServerPlayer) player, ScriptorNetwork.CLIENT_GET_TRACE_DATA, out);
   }
 
   public static void requestExtendedTraceData(Player player, TraceCallback callback) {
@@ -53,7 +49,7 @@ public class TraceNetwork {
     FriendlyByteBuf out = new FriendlyByteBuf(Unpooled.buffer());
     out.writeUUID(uuid);
     queue.put(uuid, new TraceQueue(player, callback));
-    NetworkManager.sendToPlayer((ServerPlayer) player, ScriptorEvents.GET_HITSCAN_DATA, out);
+    NetworkManager.sendToPlayer((ServerPlayer) player, ScriptorNetwork.CLIENT_GET_HITSCAN_DATA, out);
   }
 
   public static void validateAndRun(UUID uuid, Player player, Targetable targetable) {
@@ -91,25 +87,25 @@ public class TraceNetwork {
       if (blockHitResult.getType() != HitResult.Type.MISS && blockHitResult.distanceTo(player) < entityHitResult.distanceTo(player)) {
         out.writeEnum(TYPE.BLOCK);
         out.writeBlockHitResult(blockHitResult);
-        NetworkManager.sendToServer(ScriptorEvents.RETURN_TRACE_DATA, out);
+        NetworkManager.sendToServer(ScriptorNetwork.SERVER_RETURN_TRACE_DATA, out);
         return;
       }
       Entity entity = entityHitResult.getEntity();
       out.writeEnum(TYPE.ENTITY);
       out.writeInt(entity.getId());
       out.writeUUID(entity.getUUID());
-      NetworkManager.sendToServer(ScriptorEvents.RETURN_TRACE_DATA, out);
+      NetworkManager.sendToServer(ScriptorNetwork.SERVER_RETURN_TRACE_DATA, out);
       return;
     }
     if (blockHitResult.getType() != HitResult.Type.MISS) {
       out.writeEnum(TYPE.BLOCK);
       out.writeBlockHitResult(blockHitResult);
-      NetworkManager.sendToServer(ScriptorEvents.RETURN_TRACE_DATA, out);
+      NetworkManager.sendToServer(ScriptorNetwork.SERVER_RETURN_TRACE_DATA, out);
       return;
     }
 
     out.writeEnum(TYPE.MISS);
-    NetworkManager.sendToServer(ScriptorEvents.RETURN_TRACE_DATA, out);
+    NetworkManager.sendToServer(ScriptorNetwork.SERVER_RETURN_TRACE_DATA, out);
   }
 
   public static void getTraceData(FriendlyByteBuf buf, NetworkManager.PacketContext ignoredContext) {
@@ -133,7 +129,7 @@ public class TraceNetwork {
       }
       default -> out.writeEnum(TYPE.MISS);
     }
-    NetworkManager.sendToServer(ScriptorEvents.RETURN_TRACE_DATA, out);
+    NetworkManager.sendToServer(ScriptorNetwork.SERVER_RETURN_TRACE_DATA, out);
   }
 
   public static void returnTraceData(FriendlyByteBuf buf, NetworkManager.PacketContext context) {
