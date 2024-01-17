@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.helpers;
 
+import com.ssblur.scriptor.ScriptorGameRules;
 import com.ssblur.scriptor.advancement.ScriptorAdvancements;
 import com.ssblur.scriptor.data.DictionarySavedData;
 import com.ssblur.scriptor.helpers.targetable.SpellbookTargetable;
@@ -16,6 +17,7 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameRules;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +36,7 @@ public class SpellbookHelper {
     var text = compound.getList("pages", Tag.TAG_STRING);
     Spell spell = DictionarySavedData.computeIfAbsent(server).parse(LimitedBookSerializer.decodeText(text));
     if(spell != null) {
-      var config = ConfigHelper.getConfig();
-      if(spell.cost() > config.basicTomeMaxCost) {
+      if(spell.cost() > level.getGameRules().getInt(ScriptorGameRules.TOME_MAX_COST)) {
         player.sendSystemMessage(Component.translatable("extra.scriptor.fizzle"));
         ScriptorAdvancements.FIZZLE.get().trigger((ServerPlayer) player);
         if(!player.isCreative())
