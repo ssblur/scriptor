@@ -48,7 +48,7 @@ public class MixedGroupGenerator extends TokenGenerator {
     TokenGroup lastGroup = null;
     int consecutiveGroups = 0;
 
-    for(int i = minTokens; i <= tokens; i++) {
+    for(int i = 0; i <= tokens; i++) {
       TokenGroup tokenGroup = null;
       do {
         int random = RANDOM.nextInt(totalWeight);
@@ -69,7 +69,6 @@ public class MixedGroupGenerator extends TokenGenerator {
       consecutiveGroups++;
 
       var groupTokens = tokenGroup.tokens;
-
       builder.append(groupTokens[RANDOM.nextInt(groupTokens.length)]);
     }
     return builder.toString();
