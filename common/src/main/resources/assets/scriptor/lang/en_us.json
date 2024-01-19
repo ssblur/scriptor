@@ -218,6 +218,7 @@
   "command.scriptor.dump_action": "The word for action %1$s is %2$s",
   "command.scriptor.dump_descriptor": "The word for descriptor %1$s is %2$s",
   "command.scriptor.dump_subject": "The word for subject %1$s is %2$s",
+  "command.scriptor.dump_other": "The word for %1$s is %2$s",
   "command.scriptor.dump_noword": "Please specify a word to dump.",
   "command.scriptor.community_mode": "Community mode is active; Debug commands are disabled.",
   "command.scriptor.community_mode_give_tome": "Community mode is active; Tomes cannot be given.",
