@@ -375,17 +375,14 @@ public class DictionarySavedData extends SavedData {
 
     var builder = new StringBuilder();
 
-    builder.append("\n\nStructure:\n");
+    builder.append("Structure: ");
     for(var w: spellStructure)
-      builder.append(w).append(" ");
-    builder.append("\n\n");
+      builder.append(w)
+        .append(" ");
 
-    builder.append("Words:\n");
-    for(var k: words.keySet()) {
-      builder.append('"').append(k).append('"');
-      builder.append(" : ");
-      builder.append(words.get(k)).append("\n");
-    }
+    builder.append("\nContains ")
+      .append(words.size())
+      .append(" Words.");
 
     return builder.toString();
   }
