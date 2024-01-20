@@ -192,6 +192,9 @@
   "lore.scriptor.book_scroll": "(Пролистайте крадясь для изменения)",
   "lore.scriptor.artifact_1": "Что-то написано сбоку...",
   "lore.scriptor.artifact_2": "\"%1$s\"",
+  "lore.scriptor.not_community_1": "Это не было создано в Режиме Сообщества.",
+  "lore.scriptor.not_community_2": "Это было создано в Режиме Сообщества.",
+  "lore.scriptor.not_community_3": "Вероятно это не сработает.",
 
   "itemGroup.scriptor.scriptor_tab": "Scriptor Magicae",
 
@@ -205,6 +208,8 @@
   "advancement.scriptor.tier_2_desc": "Соберите все доступные заклинания 2-го уровня.",
   "advancement.scriptor.tier_3_desc": "Соберите все доступные заклинания 3-го уровня.",
   "advancement.scriptor.tier_4_desc": "Соберите все доступные заклинания 4-го уровня.",
+  "advancement.scriptor.community": "Часть Сообщества",
+  "advancement.scriptor.community_desc": "Сыграйте в Scriptor Magicae с Режимом Сообщества!",
   "advancement.scriptor.tome": "Начинающий Чародей",
 
   "patchouli.scriptor.name": "Простые Тексточары",
@@ -213,5 +218,14 @@
   "command.scriptor.dump_action": "Слово для действия %1$s это %2$s",
   "command.scriptor.dump_descriptor": "Слово для дескриптора %1$s это %2$s",
   "command.scriptor.dump_subject": "Слово для объекта %1$s это %2$s",
-  "command.scriptor.dump_noword": "Пожалуйста укажите слово для отображения."
+  "command.scriptor.dump_other": "Слово для %1$s это %2$s",
+  "command.scriptor.dump_noword": "Пожалуйста укажите слово для отображения.",
+  "command.scriptor.community_mode": "Режим сообщества активен; Команды отладки отключены.",
+  "command.scriptor.community_mode_give_tome": "Режим сообщества активен; Фолианты не могут быть выданы.",
+  "command.scriptor.community_mode_give_scrap": "Режим сообщества активен; Клочки не могут быть выданы.",
+
+  "gamerule.scriptor:tome_max_cost": "[Scriptor] Максимальная Стоимость Заклинания Фолианта",
+  "gamerule.scriptor:vocal_max_cost": "[Scriptor] Максимальная Стоимость Заклинания Вслух",
+  "gamerule.scriptor:vocal_hunger_threshold": "[Scriptor] Минимальная Стоимость для Голода",
+  "gamerule.scriptor:vocal_damage_threshold": "[Scriptor] Минимальная Стоимость для Урона"
 }
