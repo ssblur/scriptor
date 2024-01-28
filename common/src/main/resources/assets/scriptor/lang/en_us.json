@@ -223,6 +223,7 @@
   "command.scriptor.community_mode": "Community mode is active; Debug commands are disabled.",
   "command.scriptor.community_mode_give_tome": "Community mode is active; Tomes cannot be given.",
   "command.scriptor.community_mode_give_scrap": "Community mode is active; Scraps cannot be given.",
+  "command.scriptor.magic_name": "Magic",
 
   "gamerule.scriptor:tome_max_cost": "[Scriptor] Tome Max Spell Cost",
   "gamerule.scriptor:vocal_max_cost": "[Scriptor] Vocal Max Spell Cost",
