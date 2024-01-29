@@ -21,37 +21,44 @@ import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CommandAction extends Action {
-  String entityTargetCommand;
-  String blockTargetCommand;
-  String itemTargetCommand;
+  List<String> entityTargetCommand;
+  List<String> blockTargetCommand;
+  List<String> itemTargetCommand;
   double cost;
 
-  public CommandAction(double cost, String blockTargetCommand, String entityTargetCommand, String itemTargetCommand) {
+  public CommandAction(double cost, String[] blockTargetCommand, String[] entityTargetCommand, String[] itemTargetCommand) {
     this.cost = cost;
-    this.blockTargetCommand = blockTargetCommand;
-    this.entityTargetCommand = entityTargetCommand;
-    this.itemTargetCommand = itemTargetCommand;
+    this.blockTargetCommand = List.of(blockTargetCommand);
+    this.entityTargetCommand = List.of(entityTargetCommand);
+    this.itemTargetCommand = List.of(itemTargetCommand);
   }
 
-  public CommandAction(double cost, String blockTargetCommand, String entityTargetCommand) {
-    this(cost, blockTargetCommand, entityTargetCommand, null);
+  public CommandAction(double cost, String[] blockTargetCommand, String[] entityTargetCommand) {
+    this(cost, blockTargetCommand, entityTargetCommand, new String[0]);
   }
 
-  public CommandAction(double cost, String blockTargetCommand) {
-    this(cost, blockTargetCommand, null);
+  public CommandAction(double cost, String[] blockTargetCommand) {
+    this(cost, blockTargetCommand, new String[0]);
   }
 
-  public void setEntityTargetCommand(String entityTargetCommand) {
-    this.entityTargetCommand = entityTargetCommand;
+  public CommandAction(double cost) {
+    this(cost, new String[0]);
   }
 
-  public void setItemTargetCommand(String itemTargetCommand) {
-    this.itemTargetCommand = itemTargetCommand;
+  public void addEntityTargetCommand(String entityTargetCommand) {
+    this.entityTargetCommand.add(entityTargetCommand);
   }
 
-  public void setBlockTargetCommand(String blockTargetCommand) {
-    this.blockTargetCommand = blockTargetCommand;
+  public void addItemTargetCommand(String itemTargetCommand) {
+    this.itemTargetCommand.add(itemTargetCommand);
+  }
+
+  public void addBlockTargetCommand(String blockTargetCommand) {
+    this.blockTargetCommand.add(blockTargetCommand);
   }
 
   @Override
@@ -97,45 +104,53 @@ public class CommandAction extends Action {
       }
     }
 
-    String commandToParse;
+    List<String> commandToParse = new ArrayList<>();
     var pos = targetable.getTargetPos();
     if(targetable instanceof EntityTargetable entityTargetable && entityTargetCommand != null) {
       var entity = entityTargetable.getTargetEntity();
       var uuid = entity.getUUID();
-      commandToParse = String.format(
-        "execute at %s as %s run %s",
-        getTargetSelector(entity),
-        getTargetSelector(entity),
-        entityTargetCommand.replace("@caster", casterString)
-      );
+      for(var i: entityTargetCommand)
+        commandToParse.add(
+          String.format(
+            "execute at %s as %s run %s",
+            getTargetSelector(entity),
+            getTargetSelector(entity),
+            i.replace("@caster", casterString)
+          )
+        );
     } else {
-      commandToParse = String.format(
-        "execute positioned %f %f %f in %s run %s",
-        pos.x,
-        pos.y,
-        pos.z,
-        targetable.getLevel().dimension().location(),
-        blockTargetCommand.replace("@caster", casterString)
-      );
+      for(var i: blockTargetCommand)
+        commandToParse.add(
+          String.format(
+            "execute positioned %f %f %f in %s run %s",
+            pos.x,
+            pos.y,
+            pos.z,
+            targetable.getLevel().dimension().location(),
+            i.replace("@caster", casterString)
+          )
+        );
     }
 
     if(targetable.getLevel().getServer() == null) return;
     var commands = targetable.getLevel().getServer().getCommands();
-    var results = commands.getDispatcher().parse(
-      commandToParse,
-      new CommandSourceStack(
-        CommandSource.NULL,
-        targetable.getTargetPos(),
-        new Vec2(0, 0),
-        (ServerLevel) targetable.getLevel(),
-        4,
-        "Magic",
-        Component.translatable("command.scriptor.magic_name"),
-        targetable.getLevel().getServer(),
-        null
-      )
-    );
-    commands.performCommand(results, commandToParse);
+    for(var command: commandToParse) {
+      var results = commands.getDispatcher().parse(
+        command,
+        new CommandSourceStack(
+          CommandSource.NULL,
+          targetable.getTargetPos(),
+          new Vec2(0, 0),
+          (ServerLevel) targetable.getLevel(),
+          4,
+          "Magic",
+          Component.translatable("command.scriptor.magic_name"),
+          targetable.getLevel().getServer(),
+          null
+        )
+      );
+      commands.performCommand(results, command);
+    }
 
     if(tempCasterEntity != null)
       tempCasterEntity.remove(Entity.RemovalReason.DISCARDED);
