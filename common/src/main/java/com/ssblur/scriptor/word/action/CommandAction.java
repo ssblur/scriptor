@@ -13,7 +13,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -78,14 +81,20 @@ public class CommandAction extends Action {
     // It will target the entity or block position that cast this spell.
     // This is run using execute.
     // By default, this is run as the target, with @s targeting them.
-    String casterString;
+    String casterString = "@s";
+    ArmorStand tempCasterEntity = null;
 
     if(caster instanceof EntityTargetable entityTargetable) {
       var entity = entityTargetable.getTargetEntity();
       casterString = getTargetSelector(entity);
     } else {
       // summon an entity for targeting.
-      casterString = "todo";
+      var level = (ServerLevel) caster.getLevel();
+      tempCasterEntity = EntityType.ARMOR_STAND.spawn(level, caster.getOrigin(), MobSpawnType.COMMAND);
+      if(tempCasterEntity != null) {
+        casterString = getTargetSelector(tempCasterEntity);
+        tempCasterEntity.setCustomName(Component.translatable("block.scriptor.casting_lectern"));
+      }
     }
 
     String commandToParse;
@@ -127,5 +136,8 @@ public class CommandAction extends Action {
       )
     );
     commands.performCommand(results, commandToParse);
+
+    if(tempCasterEntity != null)
+      tempCasterEntity.remove(Entity.RemovalReason.DISCARDED);
   }
 }
