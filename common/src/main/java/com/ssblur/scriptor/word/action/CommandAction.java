@@ -70,6 +70,14 @@ public class CommandAction extends Action {
     return String.format("@e[nbt={UUID:[I;%d,%d,%d,%d]}]", (int) (m >> 32), (int) m, (int) (l >> 32), (int) l);
   }
 
+  public static String substituteTargetStrings(String string, String casterString, String targetString) {
+    return string
+      .replace("@caster[", casterString.substring(0, casterString.length()-1) + ",")
+      .replace("@target[", targetString.substring(0, targetString.length()-1) + ",")
+      .replace("@caster", casterString)
+      .replace("@target", targetString);
+  }
+
   @Override
   public void apply(Targetable caster, Targetable targetable, Descriptor[] descriptors) {
     // @caster is a fake selector that's replaced at runtime.
@@ -111,7 +119,7 @@ public class CommandAction extends Action {
                 "execute at %s as %s run %s",
                 getTargetSelector(tempItemEntity),
                 getTargetSelector(tempItemEntity),
-                i.replace("@caster", casterString).replace("@target", targetString)
+                substituteTargetStrings(i, casterString, targetString)
               )
             );
         }
@@ -129,7 +137,7 @@ public class CommandAction extends Action {
             "execute at %s as %s run %s",
             targetString,
             targetString,
-            i.replace("@caster", casterString).replace("@target", targetString)
+            substituteTargetStrings(i, casterString, targetString)
           )
         );
     } else {
@@ -141,7 +149,7 @@ public class CommandAction extends Action {
             pos.y,
             pos.z,
             targetable.getLevel().dimension().location(),
-            i.replace("@caster", casterString).replace("@target", "@e[distance=..1]")
+            substituteTargetStrings(i, casterString, "@e[distance=..1]")
           )
         );
     }
