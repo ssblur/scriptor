@@ -1,0 +1,14 @@
+{
+  "cost": 0.2,
+  "disabled": true,
+  "cast_at_position": [
+    "execute as @caster run say Dang, I missed. I'm so bad at this game"
+  ],
+  "cast_on_entity": [
+    "kill @s"
+  ],
+  "cast_on_item": [
+    "enchant @s minecraft:vanishing_curse",
+    "say wowie zowie"
+  ]
+}
