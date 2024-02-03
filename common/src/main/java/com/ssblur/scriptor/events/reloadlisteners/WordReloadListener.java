@@ -23,63 +23,56 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class WordReloadListener extends SimpleJsonResourceReloadListener {
+public class WordReloadListener extends ScriptorReloadListener {
   static class WordResource {
     int cost;
-    boolean disabled;
     String[] castAtPosition;
     String[] castOnEntity = new String[0];
     String[] castOnItem = new String[0];
 
-    WordResource(int cost, boolean disabled, String[] castAtPosition) {
-      this.disabled = disabled;
+    WordResource(int cost, String[] castAtPosition) {
       this.cost = cost;
       this.castAtPosition = castAtPosition;
     }
 
-    WordResource(int cost, boolean disabled, String[] castAtPosition, String[] castOnEntity) {
-      this(cost, disabled, castAtPosition);
+    WordResource(int cost, String[] castAtPosition, String[] castOnEntity) {
+      this(cost, castAtPosition);
       this.castOnEntity = castOnEntity;
     }
 
-    WordResource(int cost, boolean disabled, String[] castAtPosition, String[] castOnEntity, String[] castOnItem) {
-      this(cost, disabled, castAtPosition, castOnEntity);
+    WordResource(int cost, String[] castAtPosition, String[] castOnEntity, String[] castOnItem) {
+      this(cost, castAtPosition, castOnEntity);
       this.castOnItem = castOnItem;
     }
   }
-
-  static ResourceLocation WORDS = new ResourceLocation("data/scriptor/words");
   static Type WORD_TYPE = new TypeToken<WordResource>() {}.getType();
-  static Gson GSON = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
-  static Random RANDOM = new Random();
   public static final WordReloadListener INSTANCE = new WordReloadListener();
 
   HashMap<String, Action> words;
 
   WordReloadListener() {
-    super(GSON, "scriptor/words");
+    super("scriptor/actions");
   }
 
   @Override
   protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
     words = new HashMap<>();
-    object.forEach((resourceLocation, jsonElement) -> {
-      WordResource resource = GSON.fromJson(jsonElement, WORD_TYPE);
-      System.out.println(jsonElement);
-      ScriptorMod.LOGGER.info(
-        "Loaded word {}{}. Cost: {}",
-        resource.disabled ? " (disabled)" : "",
-        resourceLocation.toShortLanguageKey(),
-        resource.cost
-      );
-      if(!resource.disabled)
-        words.put( "action." + resourceLocation.toShortLanguageKey(),
-          WordRegistry.INSTANCE.register(
-            "action." + resourceLocation.toShortLanguageKey(),
-            new CommandAction(resource.cost, resource.castAtPosition, resource.castOnEntity, resource.castOnItem)
-          )
-        );
+    super.apply(object, resourceManager, profilerFiller);
+  }
 
-    });
+  @Override
+  public void loadResource(ResourceLocation resourceLocation, JsonElement jsonElement) {
+    WordResource resource = GSON.fromJson(jsonElement, WORD_TYPE);
+    ScriptorMod.LOGGER.info(
+      "Loaded word {}. Cost: {}",
+      resourceLocation.toShortLanguageKey(),
+      resource.cost
+    );
+    words.put( "action." + resourceLocation.toShortLanguageKey(),
+      WordRegistry.INSTANCE.register(
+        "action." + resourceLocation.toShortLanguageKey(),
+        new CommandAction(resource.cost, resource.castAtPosition, resource.castOnEntity, resource.castOnItem)
+      )
+    );
   }
 }
