@@ -381,4 +381,55 @@ than most words, so this binding is used to shorten it.
 
 ## Custom Actions
 
-**TODO**
+Custom Actions can be used to allow spells to access custom 
+effects using commands.
+
+This can be used to add special spells to servers or challenge
+maps, or to add mod compatibility.
+
+Here is an example of a custom action which is available in 
+the demo datapack.
+
+```json
+{
+  "cost": 0.2,
+  "cast_at_position": [
+    "execute as @caster run me teleported.",
+    "tp @caster ~ ~ ~"
+  ],
+  "cast_on_entity": [
+    "tp @s @caster",
+    "execute as @caster run me brought @target."
+  ],
+  "cast_on_item": [
+    "enchant @s minecraft:vanishing_curse",
+    "say Well it's kind of hard to teleport an item for a demo."
+  ]
+}
+```
+
+Casting modes are cast based on priority: 
+* If a spell can be cast on an item, and `cast_on_item` is defined,
+it will be used.
+* If a spell can be cast on an entity, and `cast_on_entity` is defined,
+it will be used.
+* `cast_on_position` is required, and will be used otherwise.
+
+When cast on an item, the `@s` target will target an entity with the targeted
+item in its hand.
+This allows most commands that target items to function as expected.
+Once this is run, the targeted item will be replaced in the inventory if modified.
+
+When cast on an entity, the `@s` target will target the targeted entity.
+
+`@caster` is a special target which will always target the caster of the spell.
+Bear in mind this is not always a player, and dummy entities are used for
+things such as chalk circles and lecterns.
+
+`@target` is a special target which will always target the targeted entity if 
+it is available.
+This is only available for spells targeted at items and entities.
+
+`cost` determines the cost of the spell. 
+This usually affects the cooldown of the spell and whether it can be 
+cast through certain media.
