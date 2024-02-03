@@ -17,54 +17,52 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class CustomColorReloadListener extends SimpleJsonResourceReloadListener {
-  static ResourceLocation COLORS = new ResourceLocation("data/scriptor/colors");
-  static Gson GSON = new Gson();
+public class CustomColorReloadListener extends ScriptorReloadListener {
   public static final CustomColorReloadListener INSTANCE = new CustomColorReloadListener();
   public List<Triplet<Integer, String, int[]>> cache;
 
   public CustomColorReloadListener() {
-    super(GSON, "scriptor/colors");
+    super("scriptor/colors");
   }
 
   @Override
   protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
     cache = new ArrayList<>();
-    object.forEach((resourceLocation, jsonElement) -> {
-      assert jsonElement.isJsonObject();
-      var json = jsonElement.getAsJsonObject();
-      assert json.has("color");
+    super.apply(object, resourceManager, profilerFiller);
+  }
 
-      if(json.has("disabled") && json.get("disabled").getAsBoolean())
-        return;
+  @Override
+  public void loadResource(ResourceLocation resourceLocation, JsonElement jsonElement) {
+    assert jsonElement.isJsonObject();
+    var json = jsonElement.getAsJsonObject();
+    assert json.has("color");
 
-      var name = resourceLocation.toShortLanguageKey();
-      ScriptorMod.LOGGER.info("Loaded custom color " + name);
-      if(json.get("color") instanceof JsonArray array) {
-        int[] colors = array
-          .asList()
-          .stream()
-          .map(element -> Integer.parseInt(element.getAsString(), 16))
-          .mapToInt(i -> i)
-          .toArray();
-        int index = CustomColors.registerWithEasing(name, colors);
-        cache.add(new Triplet<>(index, name, colors));
-        WordRegistry.INSTANCE.register(
-          "color." + resourceLocation.toShortLanguageKey(),
-          new CustomColorDescriptor(name)
-        );
-      } else if(json.get("color").isJsonPrimitive()) {
-        CustomColors.registerWithEasing(
-          name,
-          new int[]{
-            Integer.parseInt(json.get("color").getAsString(), 16)
-          }
-        );
-        WordRegistry.INSTANCE.register(
-          "color." + resourceLocation.toShortLanguageKey(),
-          new CustomColorDescriptor(name)
-        );
-      }
-    });
+    var name = resourceLocation.toShortLanguageKey();
+    ScriptorMod.LOGGER.info("Loaded custom color " + name);
+    if(json.get("color") instanceof JsonArray array) {
+      int[] colors = array
+        .asList()
+        .stream()
+        .map(element -> Integer.parseInt(element.getAsString(), 16))
+        .mapToInt(i -> i)
+        .toArray();
+      int index = CustomColors.registerWithEasing(name, colors);
+      cache.add(new Triplet<>(index, name, colors));
+      WordRegistry.INSTANCE.register(
+        "color." + resourceLocation.toShortLanguageKey(),
+        new CustomColorDescriptor(name)
+      );
+    } else if(json.get("color").isJsonPrimitive()) {
+      CustomColors.registerWithEasing(
+        name,
+        new int[]{
+          Integer.parseInt(json.get("color").getAsString(), 16)
+        }
+      );
+      WordRegistry.INSTANCE.register(
+        "color." + resourceLocation.toShortLanguageKey(),
+        new CustomColorDescriptor(name)
+      );
+    }
   }
 }

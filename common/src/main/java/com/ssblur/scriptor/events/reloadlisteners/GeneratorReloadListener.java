@@ -18,42 +18,42 @@ import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.Random;
 
-public class GeneratorReloadListener extends SimpleJsonResourceReloadListener {
-  static ResourceLocation GENERATORS = new ResourceLocation("data/scriptor/generators");
-  static Gson GSON = new Gson();
+public class GeneratorReloadListener extends ScriptorReloadListener {
   public static final GeneratorReloadListener INSTANCE = new GeneratorReloadListener();
   GeneratorReloadListener() {
-    super(GSON, "scriptor/generators");
+    super("scriptor/generators");
   }
 
   @Override
   protected void apply(Map<ResourceLocation, JsonElement> objects, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
     ScriptorMod.COMMUNITY_MODE = false;
-    objects.forEach((resourceLocation, jsonElement) -> {
-      System.out.println(resourceLocation);
-      var object = jsonElement.getAsJsonObject();
-      if(!object.has("generator"))
-        throw new MissingRequiredElementException("generator", resourceLocation);
-      if(!object.has("parameters"))
-        throw new MissingRequiredElementException("parameters", resourceLocation);
+    super.apply(objects, resourceManager, profilerFiller);
+  }
 
-      var generator = object.get("generator").getAsString();
-      if(TokenGeneratorRegistry.INSTANCE.getGeneratorGenerator(generator) == null)
-        throw new InvalidGeneratorException(generator, resourceLocation);
+  @Override
+  public void loadResource(ResourceLocation resourceLocation, JsonElement jsonElement) {
+    var object = jsonElement.getAsJsonObject();
+    if(!object.has("generator"))
+      throw new MissingRequiredElementException("generator", resourceLocation);
+    if(!object.has("parameters"))
+      throw new MissingRequiredElementException("parameters", resourceLocation);
 
-      if(generator.equals("community")) {
-        ScriptorMod.LOGGER.info("Community mode generator loaded, locking down debug features.");
-        ScriptorMod.COMMUNITY_MODE = true;
+    var generator = object.get("generator").getAsString();
+    if(TokenGeneratorRegistry.INSTANCE.getGeneratorGenerator(generator) == null)
+      throw new InvalidGeneratorException(generator, resourceLocation);
 
-        var tab = ScriptorTabs.SCRIPTOR_TAB.get();
-      }
+    if(generator.equals("community")) {
+      ScriptorMod.LOGGER.info("Community mode generator loaded, locking down debug features.");
+      ScriptorMod.COMMUNITY_MODE = true;
 
-      var generatorGenerator = TokenGeneratorRegistry.INSTANCE.getGeneratorGenerator(generator);
-      TokenGeneratorRegistry.INSTANCE.registerGenerator(resourceLocation, generatorGenerator.create(object.get("parameters").getAsJsonObject()));
+      var tab = ScriptorTabs.SCRIPTOR_TAB.get();
+    }
 
-      if(object.has("default") && object.get("default").getAsBoolean())
-        TokenGeneratorRegistry.INSTANCE.registerDefaultGenerator(resourceLocation);
-      ScriptorMod.LOGGER.info("Loaded custom generator at {}", resourceLocation);
-    });
+    var generatorGenerator = TokenGeneratorRegistry.INSTANCE.getGeneratorGenerator(generator);
+    TokenGeneratorRegistry.INSTANCE.registerGenerator(resourceLocation, generatorGenerator.create(object.get("parameters").getAsJsonObject()));
+
+    if(object.has("default") && object.get("default").getAsBoolean())
+      TokenGeneratorRegistry.INSTANCE.registerDefaultGenerator(resourceLocation);
+    ScriptorMod.LOGGER.info("Loaded custom generator at {}", resourceLocation);
   }
 }

@@ -18,16 +18,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class ReagentReloadListener extends SimpleJsonResourceReloadListener {
+public class ReagentReloadListener extends ScriptorReloadListener {
   static class ReagentResource {
     String item;
     int cost;
-    boolean disabled = false;
-    ReagentResource(String item, int cost, boolean disabled) {
-      this.item = item;
-      this.disabled = disabled;
-      this.cost = cost;
-    }
 
     ReagentResource(String item, int cost) {
       this.item = item;
@@ -35,38 +29,36 @@ public class ReagentReloadListener extends SimpleJsonResourceReloadListener {
     }
   }
 
-  static ResourceLocation REAGENTS = new ResourceLocation("data/scriptor/reagents");
   static Type REAGENT_TYPE = new TypeToken<ReagentResource>() {}.getType();
-  static Gson GSON = new Gson();
-  static Random RANDOM = new Random();
   public static final ReagentReloadListener INSTANCE = new ReagentReloadListener();
 
   HashMap<String, Descriptor> words;
 
   ReagentReloadListener() {
-    super(GSON, "scriptor/reagents");
+    super("scriptor/reagents");
   }
 
   @Override
   protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
     words = new HashMap<>();
-    object.forEach((resourceLocation, jsonElement) -> {
-      ReagentResource resource = GSON.fromJson(jsonElement, REAGENT_TYPE);
-      ScriptorMod.LOGGER.info(
-        "Loaded reagent {}{}. Item: {} Cost: {}",
-        resource.disabled ? " (disabled)" : "",
-        resourceLocation.toShortLanguageKey(),
-        resource.item,
-        resource.cost
-      );
-      if(!resource.disabled)
-        words.put(
-          "reagent." + resourceLocation.toShortLanguageKey(),
-          WordRegistry.INSTANCE.register(
-            "reagent." + resourceLocation.toShortLanguageKey(),
-            new ReagentDescriptor(ScriptorItems.ITEMS.getRegistrar().get(new ResourceLocation(resource.item)), resource.cost)
-          )
-        );
-    });
+    super.apply(object, resourceManager, profilerFiller);
+  }
+
+  @Override
+  public void loadResource(ResourceLocation resourceLocation, JsonElement jsonElement) {
+    ReagentResource resource = GSON.fromJson(jsonElement, REAGENT_TYPE);
+    ScriptorMod.LOGGER.info(
+      "Loaded reagent {}. Item: {} Cost: {}",
+      resourceLocation.toShortLanguageKey(),
+      resource.item,
+      resource.cost
+    );
+    words.put(
+      "reagent." + resourceLocation.toShortLanguageKey(),
+      WordRegistry.INSTANCE.register(
+        "reagent." + resourceLocation.toShortLanguageKey(),
+        new ReagentDescriptor(ScriptorItems.ITEMS.getRegistrar().get(new ResourceLocation(resource.item)), resource.cost)
+      )
+    );
   }
 }

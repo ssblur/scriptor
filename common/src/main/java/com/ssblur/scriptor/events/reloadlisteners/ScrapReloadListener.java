@@ -22,9 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import java.lang.reflect.Type;
 import java.util.*;
 
-public class ScrapReloadListener extends SimpleJsonResourceReloadListener {
-  static ResourceLocation SCRAPS = new ResourceLocation("data/scriptor/scraps");
-  static Gson GSON = new Gson();
+public class ScrapReloadListener extends ScriptorReloadListener {
   static Random RANDOM = new Random();
   static Type SCRAP_TYPE = new TypeToken<ScrapResource>() {}.getType();
 
@@ -33,19 +31,17 @@ public class ScrapReloadListener extends SimpleJsonResourceReloadListener {
   public HashMap<Integer, HashMap<ResourceLocation, String>> tiers = new HashMap<>();
 
   public ScrapReloadListener() {
-    super(GSON, "scriptor/scraps");
+    super("scriptor/scraps");
   }
 
   @Override
-  protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
-    object.forEach((resourceLocation, jsonElement) -> {
-      ScrapResource resource = GSON.fromJson(jsonElement, SCRAP_TYPE);
-      if(!tiers.containsKey(resource.getTier()))
-        tiers.put(resource.getTier(), new HashMap<>());
-      if(!resource.isDisabled())
-        for(var key: resource.getKeys())
-          tiers.get(resource.getTier()).put(resourceLocation.withSuffix("." + key.replace(":", ".")), key);
-    });
+  public void loadResource(ResourceLocation resourceLocation, JsonElement jsonElement) {
+    ScrapResource resource = GSON.fromJson(jsonElement, SCRAP_TYPE);
+    if(!tiers.containsKey(resource.getTier()))
+      tiers.put(resource.getTier(), new HashMap<>());
+    if(!resource.isDisabled())
+      for(var key: resource.getKeys())
+        tiers.get(resource.getTier()).put(resourceLocation.withSuffix("." + key.replace(":", ".")), key);
   }
 
   public HashMap<ResourceLocation, String> getTier(int tier) {

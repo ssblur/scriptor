@@ -30,14 +30,9 @@ public class TomeResource {
   }
 
   String name;
-  boolean disabled = false;
   String author;
   SpellResource spell;
   int tier;
-
-  public boolean isDisabled() {
-    return disabled;
-  }
 
   public String getAuthor() {
     return author;

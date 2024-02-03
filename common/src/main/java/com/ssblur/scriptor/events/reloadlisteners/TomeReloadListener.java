@@ -18,10 +18,8 @@ import net.minecraft.world.entity.player.Player;
 import java.lang.reflect.Type;
 import java.util.*;
 
-public class TomeReloadListener extends SimpleJsonResourceReloadListener {
-  static ResourceLocation TOMES = new ResourceLocation("data/scriptor/tomes");
+public class TomeReloadListener extends ScriptorReloadListener {
   static Type TOME_TYPE = new TypeToken<TomeResource>() {}.getType();
-  static Gson GSON = new Gson();
   static Random RANDOM = new Random();
   public static final TomeReloadListener INSTANCE = new TomeReloadListener();
 
@@ -29,7 +27,7 @@ public class TomeReloadListener extends SimpleJsonResourceReloadListener {
   ArrayList<ResourceLocation> keys;
 
   TomeReloadListener() {
-    super(GSON, "scriptor/tomes");
+    super("scriptor/tomes");
   }
 
   public HashMap<Integer, HashMap<ResourceLocation, TomeResource>> getTiers() {
@@ -40,15 +38,15 @@ public class TomeReloadListener extends SimpleJsonResourceReloadListener {
   protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
     tomes = new HashMap<>();
     keys = new ArrayList<>();
-    object.forEach((resourceLocation, jsonElement) -> {
-      TomeResource resource = GSON.fromJson(jsonElement, TOME_TYPE);
-      if(!tomes.containsKey(resource.getTier()))
-        tomes.put(resource.getTier(), new HashMap<>());
-      if(!resource.isDisabled()) {
-        keys.add(resourceLocation);
-        tomes.get(resource.getTier()).put(resourceLocation, resource);
-      }
-    });
+    super.apply(object, resourceManager, profilerFiller);
+  }
+
+  public void loadResource(ResourceLocation resourceLocation, JsonElement jsonElement) {
+    TomeResource resource = GSON.fromJson(jsonElement, TOME_TYPE);
+    if(!tomes.containsKey(resource.getTier()))
+      tomes.put(resource.getTier(), new HashMap<>());
+    keys.add(resourceLocation);
+    tomes.get(resource.getTier()).put(resourceLocation, resource);
   }
 
   public TomeResource getRandomTome(int tier) {

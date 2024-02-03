@@ -20,10 +20,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class ArtifactReloadListener extends SimpleJsonResourceReloadListener {
-  static ResourceLocation TOMES = new ResourceLocation("data/scriptor/artifacts");
+public class ArtifactReloadListener extends ScriptorReloadListener {
   static Type ARTIFACT_TYPE = new TypeToken<ArtifactResource>() {}.getType();
-  static Gson GSON = new Gson();
   static Random RANDOM = new Random();
   public static final ArtifactReloadListener INSTANCE = new ArtifactReloadListener();
 
@@ -31,20 +29,23 @@ public class ArtifactReloadListener extends SimpleJsonResourceReloadListener {
   ArrayList<ResourceLocation> keys;
 
   ArtifactReloadListener() {
-    super(GSON, "scriptor/artifacts");
+    super("scriptor/artifacts");
   }
 
   @Override
   protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
     artifacts = new HashMap<>();
     keys = new ArrayList<>();
-    object.forEach((resourceLocation, jsonElement) -> {
-      ArtifactResource resource = GSON.fromJson(jsonElement, ARTIFACT_TYPE);
-      if(!resource.isDisabled()) {
-        keys.add(resourceLocation);
-        artifacts.put(resourceLocation, resource);
-      }
-    });
+    super.apply(object, resourceManager, profilerFiller);
+  }
+
+  @Override
+  public void loadResource(ResourceLocation resourceLocation, JsonElement jsonElement) {
+    ArtifactResource resource = GSON.fromJson(jsonElement, ARTIFACT_TYPE);
+    if(!resource.isDisabled()) {
+      keys.add(resourceLocation);
+      artifacts.put(resourceLocation, resource);
+    }
   }
 
   public ArtifactResource getRandomArtifact() {
