@@ -1,6 +1,34 @@
 # Datapacks
 *All the datapack-driven features you can play with in Scriptor*
 
+An example datapack is located at
+[scriptor-datapacks](https://github.com/ssblur/scriptor-datapacks).
+
+## Universal Features
+
+All resources Scriptor loads through datapacks support some features.
+
+### Disabling Resources
+
+By adding `"disabled": true` into the top level of any resource Scriptor
+loads, the resource will be prevented from loading.
+This can be used to disabled resources which are included in the base mod.
+
+### Conditional Loading
+
+Using the `required` key, you can make a resource only load
+when specific mods are present.
+
+```json
+{
+  "required": [
+    "scriptor"
+  ]
+}
+```
+
+If ANY mods in `required` aren't loaded, the item will be skipped. 
+
 ## Spell Tomes
 
 Tomes are default generated Spellbooks, and are the way that spell
@@ -303,7 +331,7 @@ Scriptor.
   "generator": "scriptor:static_generator",
   "bindings": [
     {
-      "word": "color.scriptor.enby",
+      "word": "descriptor:color.scriptor.enby",
       "parameters": {
         "token": "biur"
       }
@@ -350,3 +378,7 @@ Mixed Group bindings only support 2 parameters, which allow
 the minimum and maximum tokens used to be modified.
 In this case, this special word is expected to be shorter
 than most words, so this binding is used to shorten it.
+
+## Custom Actions
+
+**TODO**
