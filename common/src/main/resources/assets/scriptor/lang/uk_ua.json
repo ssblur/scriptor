@@ -192,6 +192,9 @@
   "lore.scriptor.book_scroll": "(Прогортайте крадучись для зміни)",
   "lore.scriptor.artifact_1": "Щось написано на боці...",
   "lore.scriptor.artifact_2": "\"%1$s\"",
+  "lore.scriptor.not_community_1": "Це не було стоврено у Режимі Спільноти.",
+  "lore.scriptor.not_community_2": "Це було стоврено у Режимі Спільноти.",
+  "lore.scriptor.not_community_3": "Це не має працювати.",
 
   "itemGroup.scriptor.scriptor_tab": "Scriptor Magicae",
 
@@ -205,6 +208,8 @@
   "advancement.scriptor.tier_2_desc": "Зберіть усі доступні заклинання 2-го Рівня.",
   "advancement.scriptor.tier_3_desc": "Зберіть усі доступні заклинання 3-го Рівня.",
   "advancement.scriptor.tier_4_desc": "Зберіть усі доступні заклинання 4-го Рівня.",
+  "advancement.scriptor.community": "Частина Спільноти",
+  "advancement.scriptor.community_desc": "Зіграйте у Scriptor Magicae з Режимом Спільноти!",
   "advancement.scriptor.tome": "Учень-Арканіст",
 
   "patchouli.scriptor.namr": "Проста Лінгвомагія",
@@ -213,5 +218,14 @@
   "command.scriptor.dump_action": "Слово для дії %1$s це %2$s",
   "command.scriptor.dump_descriptor": "Слово для дескриптора %1$s це %2$s",
   "command.scriptor.dump_subject": "Слово для об'єкта %1$s це %2$s",
-  "command.scriptor.dump_noword": "Будь ласка вкажіть слово для виведення."
+  "command.scriptor.dump_other": "Слово для %1$s це %2$s",
+  "command.scriptor.dump_noword": "Будь ласка вкажіть слово для виведення.",
+  "command.scriptor.community_mode": "Режим спільноти активован; Команди відлагоджування вимкнені.",
+  "command.scriptor.community_mode_give_tome": "Режим спільноти активован; Фоліанти не можуть бути видані.",
+  "command.scriptor.community_mode_give_scrap": "Режим спільноти активован; Уривки не можуть бути видані.",
+
+  "gamerule.scriptor:tome_max_cost": "[Scriptor] Максимальна Вартість Заклинання Фоліанту",
+  "gamerule.scriptor:vocal_max_cost": "[Scriptor] Максимальна Вартість Заклинання Вголос",
+  "gamerule.scriptor:vocal_hunger_threshold": "[Scriptor] Мінімальна Вартість для Голоду",
+  "gamerule.scriptor:vocal_damage_threshold": "[Scriptor] Мінімальна Вартість для Шкоди"
 }
