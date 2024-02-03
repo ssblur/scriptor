@@ -7,7 +7,6 @@ assignees: ''
 
 ---
 
-Please describe, in as much detail as you'd like, the feature you'd like
-added to Scriptor Magicae 
-(**Bear in mind that new features will only be considered for the latest
-version of Scriptor**):
+(**Bear in mind that new features will only be considered for the latest version of Scriptor**)
+
+Please describe, in as much detail as you'd like, the feature you'd like added to Scriptor Magicae:
