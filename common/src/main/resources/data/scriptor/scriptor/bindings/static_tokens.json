@@ -2,7 +2,7 @@
   "generator": "scriptor:static_generator",
   "bindings": [
     {
-      "word": "color.scriptor.enby",
+      "word": "descriptor:color.scriptor.enby",
       "parameters": {
         "token": "biur"
       }
