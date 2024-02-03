@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.blockentity;
 
+import com.ssblur.scriptor.ScriptorGameRules;
 import com.ssblur.scriptor.data.DictionarySavedData;
 import com.ssblur.scriptor.events.network.ParticleNetwork;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
@@ -64,7 +65,7 @@ public class ChalkBlockEntity extends BlockEntity {
     if(level instanceof ServerLevel server) {
       words = words + " " + word;
       Spell spell = DictionarySavedData.computeIfAbsent(server).parse(words.trim());
-      if(spell != null && spell.cost() < 200) {
+      if(spell != null && spell.cost() < server.getGameRules().getInt(ScriptorGameRules.CHALK_MAX_COST)) {
         var target = new Targetable(level, getBlockPos());
         target.setFacing(facing);
         for(var block: visited)
