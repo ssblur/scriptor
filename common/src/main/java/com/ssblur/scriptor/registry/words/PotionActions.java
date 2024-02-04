@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.registry.words;
 
-import com.ssblur.scriptor.word.Word;
-import com.ssblur.scriptor.word.action.Action;
+import com.ssblur.scriptor.api.word.Word;
+import com.ssblur.scriptor.api.word.Action;
 import com.ssblur.scriptor.word.action.PotionAction;
 import net.minecraft.world.effect.MobEffects;
 

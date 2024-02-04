@@ -1,11 +1,10 @@
 package com.ssblur.scriptor.registry.words;
 
-import com.ssblur.scriptor.word.Word;
+import com.ssblur.scriptor.api.word.Action;
 import com.ssblur.scriptor.word.action.*;
 import com.ssblur.scriptor.word.action.teleport.BringAction;
 import com.ssblur.scriptor.word.action.teleport.GotoAction;
 import com.ssblur.scriptor.word.action.teleport.SwapAction;
-import net.minecraft.world.effect.MobEffects;
 
 public class Actions {
   private static final WordRegistry INSTANCE = WordRegistry.INSTANCE;

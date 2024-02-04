@@ -4,8 +4,7 @@ import com.ssblur.scriptor.damage.ScriptorDamage;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.descriptor.CastDescriptor;
-import com.ssblur.scriptor.word.descriptor.Descriptor;
-import net.minecraft.world.damagesource.DamageSource;
+import com.ssblur.scriptor.api.word.Descriptor;
 import net.minecraft.world.entity.LivingEntity;
 
 

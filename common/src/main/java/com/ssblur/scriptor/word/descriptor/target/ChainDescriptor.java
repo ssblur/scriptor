@@ -3,7 +3,7 @@ package com.ssblur.scriptor.word.descriptor.target;
 import com.ssblur.scriptor.helpers.MathHelper;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
-import com.ssblur.scriptor.word.descriptor.Descriptor;
+import com.ssblur.scriptor.api.word.Descriptor;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.AABB;

@@ -1,15 +1,14 @@
 package com.ssblur.scriptor.events.network;
 
-import com.ssblur.scriptor.events.ScriptorEvents;
 import com.ssblur.scriptor.data.DictionarySavedData;
 import com.ssblur.scriptor.helpers.LimitedBookSerializer;
 import com.ssblur.scriptor.registry.words.WordRegistry;
 import com.ssblur.scriptor.word.PartialSpell;
 import com.ssblur.scriptor.word.Spell;
-import com.ssblur.scriptor.word.action.Action;
-import com.ssblur.scriptor.word.descriptor.Descriptor;
+import com.ssblur.scriptor.api.word.Action;
+import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.word.subject.InventorySubject;
-import com.ssblur.scriptor.word.subject.Subject;
+import com.ssblur.scriptor.api.word.Subject;
 import dev.architectury.networking.NetworkManager;
 import io.netty.buffer.Unpooled;
 import net.minecraft.nbt.CompoundTag;

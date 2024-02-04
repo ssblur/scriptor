@@ -9,10 +9,10 @@ import com.ssblur.scriptor.registry.TokenGeneratorRegistry;
 import com.ssblur.scriptor.registry.words.WordRegistry;
 import com.ssblur.scriptor.word.PartialSpell;
 import com.ssblur.scriptor.word.Spell;
-import com.ssblur.scriptor.word.Word;
-import com.ssblur.scriptor.word.action.Action;
-import com.ssblur.scriptor.word.descriptor.Descriptor;
-import com.ssblur.scriptor.word.subject.Subject;
+import com.ssblur.scriptor.api.word.Word;
+import com.ssblur.scriptor.api.word.Action;
+import com.ssblur.scriptor.api.word.Descriptor;
+import com.ssblur.scriptor.api.word.Subject;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.level.ServerLevel;
@@ -23,8 +23,6 @@ import com.ssblur.scriptor.ScriptorMod;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class DictionarySavedData extends SavedData {
   public List<WORD> spellStructure;

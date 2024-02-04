@@ -1,4 +1,4 @@
-package com.ssblur.scriptor.word;
+package com.ssblur.scriptor.api.word;
 
 public abstract class Word {
   public enum COSTTYPE {

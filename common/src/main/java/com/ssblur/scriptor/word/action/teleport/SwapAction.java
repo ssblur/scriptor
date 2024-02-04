@@ -1,24 +1,19 @@
 package com.ssblur.scriptor.word.action.teleport;
 
-import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.InventoryTargetable;
 import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
-import com.ssblur.scriptor.word.action.Action;
-import com.ssblur.scriptor.word.descriptor.Descriptor;
+import com.ssblur.scriptor.api.word.Action;
+import com.ssblur.scriptor.api.word.Descriptor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.TicketType;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ChunkPos;
-import org.apache.logging.log4j.core.jmx.Server;
-
-import java.io.IOException;
 
 public class SwapAction extends Action {
   @Override

@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.word;
 
-import com.ssblur.scriptor.word.action.Action;
-import com.ssblur.scriptor.word.descriptor.Descriptor;
+import com.ssblur.scriptor.api.word.Action;
+import com.ssblur.scriptor.api.word.Descriptor;
 
 import java.util.ArrayList;
 

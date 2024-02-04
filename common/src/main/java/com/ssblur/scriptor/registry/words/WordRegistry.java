@@ -1,11 +1,10 @@
 package com.ssblur.scriptor.registry.words;
 
 import com.google.common.collect.HashBiMap;
-import com.ssblur.scriptor.word.Word;
-import com.ssblur.scriptor.word.action.*;
-import com.ssblur.scriptor.word.descriptor.*;
-import com.ssblur.scriptor.word.subject.*;
-import com.ssblur.scriptor.registry.words.*;
+import com.ssblur.scriptor.api.word.Action;
+import com.ssblur.scriptor.api.word.Descriptor;
+import com.ssblur.scriptor.api.word.Subject;
+import com.ssblur.scriptor.api.word.Word;
 
 public class WordRegistry {
   public static final WordRegistry INSTANCE = new WordRegistry();

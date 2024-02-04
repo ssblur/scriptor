@@ -1,19 +1,15 @@
 package com.ssblur.scriptor.word.action;
 
+import com.ssblur.scriptor.api.word.Action;
 import com.ssblur.scriptor.helpers.ItemTargetableHelper;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
-import com.ssblur.scriptor.helpers.targetable.InventoryTargetable;
-import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
-import com.ssblur.scriptor.word.descriptor.Descriptor;
+import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.word.descriptor.power.StrengthDescriptor;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 

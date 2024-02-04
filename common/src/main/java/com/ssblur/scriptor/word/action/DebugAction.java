@@ -1,8 +1,8 @@
 package com.ssblur.scriptor.word.action;
 
+import com.ssblur.scriptor.api.word.Action;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
-import com.ssblur.scriptor.word.descriptor.Descriptor;
-import net.minecraft.world.entity.Entity;
+import com.ssblur.scriptor.api.word.Descriptor;
 
 public class DebugAction extends Action {
   @Override

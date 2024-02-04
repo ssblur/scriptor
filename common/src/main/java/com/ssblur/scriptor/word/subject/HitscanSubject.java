@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.word.subject;
 
+import com.ssblur.scriptor.api.word.Subject;
 import com.ssblur.scriptor.events.network.TraceNetwork;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.LecternTargetable;
@@ -13,7 +14,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class HitscanSubject extends Subject{
+public class HitscanSubject extends Subject {
 
   @Override
   public CompletableFuture<List<Targetable>> getTargets(Targetable caster, Spell spell) {

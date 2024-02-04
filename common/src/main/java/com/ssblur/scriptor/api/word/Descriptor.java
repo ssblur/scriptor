@@ -1,6 +1,6 @@
-package com.ssblur.scriptor.word.descriptor;
+package com.ssblur.scriptor.api.word;
 
-import com.ssblur.scriptor.word.Word;
+import com.ssblur.scriptor.api.word.Word;
 
 public abstract class Descriptor extends Word {
   public boolean allowsDuplicates() {

@@ -1,6 +1,6 @@
 package com.ssblur.scriptor.registry.words;
 
-import com.ssblur.scriptor.word.descriptor.Descriptor;
+import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.word.descriptor.focus.inventory.CasterFirstEmptySlotDescriptor;
 import com.ssblur.scriptor.word.descriptor.focus.inventory.CasterFirstFilledSlotDescriptor;
 import com.ssblur.scriptor.word.descriptor.focus.inventory.CasterIgnoreTargetedSlotDescriptor;

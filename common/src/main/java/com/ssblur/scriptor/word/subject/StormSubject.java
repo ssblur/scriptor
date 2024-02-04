@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.word.subject;
 
+import com.ssblur.scriptor.api.word.Subject;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.Spell;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 
-public class StormSubject extends Subject{
+public class StormSubject extends Subject {
 
   @Override
   public Cost cost() { return new Cost(8, COSTTYPE.MULTIPLICATIVE); }

@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.word.subject;
 
+import com.ssblur.scriptor.api.word.Subject;
 import com.ssblur.scriptor.block.ScriptorBlocks;
 import com.ssblur.scriptor.blockentity.RuneBlockEntity;
 import com.ssblur.scriptor.color.CustomColors;

@@ -1,9 +1,8 @@
 package com.ssblur.scriptor.word.descriptor.target.inventory;
 
 import com.ssblur.scriptor.helpers.targetable.*;
-import com.ssblur.scriptor.word.descriptor.Descriptor;
+import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.word.descriptor.target.TargetDescriptor;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;

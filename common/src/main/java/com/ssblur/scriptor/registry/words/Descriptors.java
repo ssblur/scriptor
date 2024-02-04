@@ -1,6 +1,6 @@
 package com.ssblur.scriptor.registry.words;
 
-import com.ssblur.scriptor.word.descriptor.Descriptor;
+import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.word.descriptor.SpeedDurationDescriptor;
 import com.ssblur.scriptor.word.descriptor.discount.BloodCostDescriptor;
 import com.ssblur.scriptor.word.descriptor.discount.CheapDescriptor;

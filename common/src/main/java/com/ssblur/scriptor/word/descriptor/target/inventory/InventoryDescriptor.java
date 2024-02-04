@@ -1,22 +1,14 @@
 package com.ssblur.scriptor.word.descriptor.target.inventory;
 
-import com.ssblur.scriptor.helpers.MathHelper;
 import com.ssblur.scriptor.helpers.targetable.ContainerTargetable;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.InventoryEntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
-import com.ssblur.scriptor.word.descriptor.Descriptor;
+import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.word.descriptor.target.TargetDescriptor;
-import net.minecraft.core.Direction;
 import net.minecraft.world.Container;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec2;
-import net.minecraft.world.phys.Vec3;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class InventoryDescriptor extends Descriptor implements TargetDescriptor {
   @Override

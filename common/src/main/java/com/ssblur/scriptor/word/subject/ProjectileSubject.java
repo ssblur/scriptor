@@ -1,11 +1,12 @@
 package com.ssblur.scriptor.word.subject;
 
+import com.ssblur.scriptor.api.word.Subject;
 import com.ssblur.scriptor.entity.ScriptorEntities;
 import com.ssblur.scriptor.color.CustomColors;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.Spell;
-import com.ssblur.scriptor.word.descriptor.Descriptor;
+import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.word.descriptor.duration.DurationDescriptor;
 import com.ssblur.scriptor.word.descriptor.SpeedDescriptor;
 import net.minecraft.world.phys.Vec3;

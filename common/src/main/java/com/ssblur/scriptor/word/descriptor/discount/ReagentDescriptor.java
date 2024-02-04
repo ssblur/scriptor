@@ -1,14 +1,12 @@
 package com.ssblur.scriptor.word.descriptor.discount;
 
-import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.InventoryTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.descriptor.AfterCastDescriptor;
 import com.ssblur.scriptor.word.descriptor.CastDescriptor;
-import com.ssblur.scriptor.word.descriptor.Descriptor;
+import com.ssblur.scriptor.api.word.Descriptor;
 import net.minecraft.world.Container;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 

@@ -1,10 +1,10 @@
 package com.ssblur.scriptor.word.action;
 
+import com.ssblur.scriptor.api.word.Action;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
-import com.ssblur.scriptor.word.descriptor.Descriptor;
+import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.word.descriptor.power.StrengthDescriptor;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 
 public class ExplosionAction extends Action {

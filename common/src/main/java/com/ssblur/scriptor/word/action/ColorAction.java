@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.word.action;
 
+import com.ssblur.scriptor.api.word.Action;
 import com.ssblur.scriptor.color.CustomColors;
 import com.ssblur.scriptor.color.interfaces.ColorableBlock;
 import com.ssblur.scriptor.helpers.ItemTargetableHelper;
@@ -8,7 +9,7 @@ import com.ssblur.scriptor.color.interfaces.ColorableItem;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.registry.colorable.ColorableBlockRegistry;
-import com.ssblur.scriptor.word.descriptor.Descriptor;
+import com.ssblur.scriptor.api.word.Descriptor;
 
 public class ColorAction extends Action {
   @Override
