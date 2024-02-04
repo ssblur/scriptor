@@ -32,7 +32,15 @@ public class DumpWordCommand {
       ))
       .executes(getWord("action")))
       .requires(s -> s.hasPermission(4))
-      .executes(DumpWordCommand::execute));
+      .executes((context -> {
+        if(context.getSource().getEntity() instanceof Player) {
+          context.getSource().sendSystemMessage(Component.translatable("command.scriptor.dump_noword").withStyle(ChatFormatting.RED));
+          context.getSource().sendSystemMessage(
+            Component.translatable("command.scriptor.dump_actions", String.join(", ", WordRegistry.INSTANCE.actionRegistry.keySet()))
+              .withStyle(ChatFormatting.RED));
+        }
+        return Command.SINGLE_SUCCESS;
+      })));
 
     command = command.then(Commands
       .literal("descriptor")
@@ -41,7 +49,15 @@ public class DumpWordCommand {
       ))
       .executes(getWord("descriptor")))
       .requires(s -> s.hasPermission(4))
-      .executes(DumpWordCommand::execute));
+      .executes((context -> {
+        if(context.getSource().getEntity() instanceof Player) {
+          context.getSource().sendSystemMessage(Component.translatable("command.scriptor.dump_noword").withStyle(ChatFormatting.RED));
+          context.getSource().sendSystemMessage(
+            Component.translatable("command.scriptor.dump_descriptors", String.join(", ", WordRegistry.INSTANCE.descriptorRegistry.keySet()))
+              .withStyle(ChatFormatting.RED));
+        }
+        return Command.SINGLE_SUCCESS;
+      })));
 
     command = command.then(Commands
       .literal("subject")
@@ -50,7 +66,15 @@ public class DumpWordCommand {
       ))
       .executes(getWord("subject")))
       .requires(s -> s.hasPermission(4))
-      .executes(DumpWordCommand::execute));
+      .executes((context -> {
+        if(context.getSource().getEntity() instanceof Player) {
+          context.getSource().sendSystemMessage(Component.translatable("command.scriptor.dump_noword").withStyle(ChatFormatting.RED));
+          context.getSource().sendSystemMessage(
+            Component.translatable("command.scriptor.dump_subjects", String.join(", ", WordRegistry.INSTANCE.subjectRegistry.keySet()))
+              .withStyle(ChatFormatting.RED));
+        }
+        return Command.SINGLE_SUCCESS;
+      })));
 
     command = command.then(Commands
       .literal("other")
@@ -59,7 +83,15 @@ public class DumpWordCommand {
         ))
         .executes(getWord("other")))
       .requires(s -> s.hasPermission(4))
-      .executes(DumpWordCommand::execute));
+      .executes((context -> {
+        if(context.getSource().getEntity() instanceof Player) {
+          context.getSource().sendSystemMessage(Component.translatable("command.scriptor.dump_noword").withStyle(ChatFormatting.RED));
+          context.getSource().sendSystemMessage(
+            Component.translatable("command.scriptor.dump_others", "and")
+              .withStyle(ChatFormatting.RED));
+        }
+        return Command.SINGLE_SUCCESS;
+      })));
 
     dispatcher.register(command);
   }
@@ -81,7 +113,7 @@ public class DumpWordCommand {
   }
 
   private static int execute(CommandContext<CommandSourceStack> command){
-    if(command.getSource().getEntity() instanceof Player player)
+    if(command.getSource().getEntity() instanceof Player)
       command.getSource().sendSystemMessage(Component.translatable("command.scriptor.dump_noword").withStyle(ChatFormatting.RED));
     return Command.SINGLE_SUCCESS;
   }
