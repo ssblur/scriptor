@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.mixin;
 
-import com.ssblur.scriptor.item.ScriptorItems;
 import com.ssblur.scriptor.helpers.SpellbookAccess;
+import com.ssblur.scriptor.item.ScriptorItems;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screens.inventory.BookViewScreen;

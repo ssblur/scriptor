@@ -5,11 +5,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.math.Axis;
 import com.ssblur.scriptor.ScriptorMod;
-import com.ssblur.scriptor.block.CastingLecternBlock;
 import com.ssblur.scriptor.block.ScriptorBlocks;
 import com.ssblur.scriptor.blockentity.ChalkBlockEntity;
-import com.ssblur.scriptor.blockentity.RuneBlockEntity;
-import com.ssblur.scriptor.color.CustomColors;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -18,12 +15,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.FormattedText;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.FormattedCharSequence;
-import org.joml.Quaternionf;
-
-import java.util.List;
 
 public class ChalkBlockEntityRenderer implements BlockEntityRenderer<ChalkBlockEntity> {
   static ResourceLocation magicCircleS = new ResourceLocation(ScriptorMod.MOD_ID, "textures/entity/chalk_edge.png");

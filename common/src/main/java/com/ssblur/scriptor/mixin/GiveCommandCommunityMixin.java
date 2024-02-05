@@ -3,8 +3,6 @@ package com.ssblur.scriptor.mixin;
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.item.AncientScrap;
 import com.ssblur.scriptor.item.AncientSpellbook;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.item.ItemInput;
 import net.minecraft.network.chat.Component;

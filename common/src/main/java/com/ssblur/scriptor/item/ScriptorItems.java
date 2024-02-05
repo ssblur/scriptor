@@ -7,13 +7,9 @@ import com.ssblur.scriptor.item.casters.PlayerCasterCrystal;
 import com.ssblur.scriptor.tabs.ScriptorTabs;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
-import net.minecraft.client.resources.model.ModelBakery;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Blocks;
 
 @SuppressWarnings("UnstableApiUsage")
 public class ScriptorItems {

@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.mixin;
 
-import com.ssblur.scriptor.entity.ScriptorEntities;
 import com.ssblur.scriptor.color.interfaces.Colorable;
+import com.ssblur.scriptor.entity.ScriptorEntities;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;

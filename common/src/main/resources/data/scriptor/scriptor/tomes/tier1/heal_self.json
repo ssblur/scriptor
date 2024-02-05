@@ -1,5 +1,5 @@
 {
-  "name": "Heal Self",
+  "name": "tome.scriptor.heal_self",
   "author": "Bert the Healer",
   "tier": 1,
   "spell": {

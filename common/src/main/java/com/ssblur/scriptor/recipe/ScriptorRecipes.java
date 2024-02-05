@@ -1,14 +1,11 @@
 package com.ssblur.scriptor.recipe;
 
-import com.google.gson.JsonObject;
 import com.ssblur.scriptor.ScriptorMod;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 
 public class ScriptorRecipes {
   public static final DeferredRegister<RecipeSerializer<?>> RECIPES = DeferredRegister.create(ScriptorMod.MOD_ID, Registries.RECIPE_SERIALIZER);

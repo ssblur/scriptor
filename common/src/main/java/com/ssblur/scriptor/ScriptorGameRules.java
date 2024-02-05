@@ -1,7 +1,9 @@
 package com.ssblur.scriptor;
 
 import net.minecraft.world.level.GameRules;
-import net.minecraft.world.level.GameRules.*;
+import net.minecraft.world.level.GameRules.Category;
+import net.minecraft.world.level.GameRules.IntegerValue;
+import net.minecraft.world.level.GameRules.Key;
 
 public class ScriptorGameRules {
   public static Key<IntegerValue> TOME_MAX_COST;

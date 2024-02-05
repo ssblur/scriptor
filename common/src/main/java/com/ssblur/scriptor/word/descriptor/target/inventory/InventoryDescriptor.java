@@ -1,10 +1,10 @@
 package com.ssblur.scriptor.word.descriptor.target.inventory;
 
+import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.helpers.targetable.ContainerTargetable;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.InventoryEntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
-import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.word.descriptor.target.TargetDescriptor;
 import net.minecraft.world.Container;
 

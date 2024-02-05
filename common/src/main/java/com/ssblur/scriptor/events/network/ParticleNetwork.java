@@ -1,6 +1,5 @@
 package com.ssblur.scriptor.events.network;
 
-import com.ssblur.scriptor.events.ScriptorEvents;
 import dev.architectury.networking.NetworkManager;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;

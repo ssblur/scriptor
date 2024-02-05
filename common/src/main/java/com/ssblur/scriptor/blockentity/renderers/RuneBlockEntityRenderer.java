@@ -1,6 +1,8 @@
 package com.ssblur.scriptor.blockentity.renderers;
 
-import com.mojang.blaze3d.vertex.*;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.blockentity.RuneBlockEntity;
 import com.ssblur.scriptor.color.CustomColors;

@@ -1,7 +1,6 @@
 package com.ssblur.scriptor.events.network;
 
 import com.ssblur.scriptor.color.CustomColors;
-import com.ssblur.scriptor.events.ScriptorEvents;
 import com.ssblur.scriptor.events.reloadlisteners.CustomColorReloadListener;
 import dev.architectury.networking.NetworkManager;
 import io.netty.buffer.Unpooled;

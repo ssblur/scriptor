@@ -1,18 +1,13 @@
 package com.ssblur.scriptor.events.reloadlisteners;
 
 import com.google.common.reflect.TypeToken;
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.ssblur.scriptor.registry.TokenGeneratorRegistry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
-import net.minecraft.util.profiling.ProfilerFiller;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.Type;
-import java.util.Map;
 
 public class GeneratorBindingReloadListener extends ScriptorReloadListener {
   public record GeneratorBinding(String word, @Nullable JsonObject parameters){}

@@ -3,11 +3,9 @@ package com.ssblur.scriptor.advancement;
 import com.ssblur.scriptor.ScriptorMod;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
 
 public class ScriptorAdvancements {
   public static final DeferredRegister<CriterionTrigger<?>> TRIGGERS = DeferredRegister.create(ScriptorMod.MOD_ID, Registries.TRIGGER_TYPE);

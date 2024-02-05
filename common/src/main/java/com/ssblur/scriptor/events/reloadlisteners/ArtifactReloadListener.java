@@ -1,18 +1,11 @@
 package com.ssblur.scriptor.events.reloadlisteners;
 
 import com.google.common.reflect.TypeToken;
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import com.ssblur.scriptor.advancement.ScriptorAdvancements;
-import com.ssblur.scriptor.data.PlayerSpellsSavedData;
 import com.ssblur.scriptor.helpers.resource.ArtifactResource;
-import com.ssblur.scriptor.helpers.resource.TomeResource;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
-import net.minecraft.world.entity.player.Player;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

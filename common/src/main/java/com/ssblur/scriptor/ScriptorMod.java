@@ -17,17 +17,7 @@ import com.ssblur.scriptor.recipe.ScriptorRecipes;
 import com.ssblur.scriptor.tabs.ScriptorTabs;
 import com.ssblur.scriptor.trade.ScriptorTrades;
 import dev.architectury.event.events.common.CommandRegistrationEvent;
-import dev.architectury.registry.CreativeTabOutput;
-import dev.architectury.registry.CreativeTabRegistry;
-import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrarManager;
-import dev.architectury.registry.registries.RegistrySupplier;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.flag.FeatureFlagSet;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

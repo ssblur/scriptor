@@ -1,5 +1,5 @@
 {
-  "name": "Disabled Tome",
+  "name": "tome.scriptor.disabled_example",
   "disabled": true,
   "tier": 1,
   "author": "This tome is an example of how to disable existing tomes.",

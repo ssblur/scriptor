@@ -2,13 +2,13 @@ package com.ssblur.scriptor.events;
 
 import com.ssblur.scriptor.ScriptorGameRules;
 import com.ssblur.scriptor.damage.ScriptorDamage;
-import com.ssblur.scriptor.effect.ScriptorEffects;
 import com.ssblur.scriptor.data.DictionarySavedData;
+import com.ssblur.scriptor.effect.ScriptorEffects;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.word.Spell;
 import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.ChatEvent;
-import net.minecraft.network.chat.*;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;

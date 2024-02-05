@@ -6,8 +6,8 @@ import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.item.ScriptorItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.nbt.StringTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 
 import java.lang.reflect.Type;

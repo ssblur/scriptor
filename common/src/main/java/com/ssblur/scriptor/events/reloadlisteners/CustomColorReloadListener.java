@@ -1,6 +1,5 @@
 package com.ssblur.scriptor.events.reloadlisteners;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.ssblur.scriptor.ScriptorMod;
@@ -9,7 +8,6 @@ import com.ssblur.scriptor.registry.words.WordRegistry;
 import com.ssblur.scriptor.word.descriptor.color.CustomColorDescriptor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import oshi.util.tuples.Triplet;
 

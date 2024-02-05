@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.blockentity;
 
-import com.ssblur.scriptor.data.DictionarySavedData;
 import com.ssblur.scriptor.color.interfaces.Colorable;
+import com.ssblur.scriptor.data.DictionarySavedData;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.Spell;
