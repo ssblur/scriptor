@@ -1,7 +1,9 @@
 package com.ssblur.scriptor.helpers.generators;
 
 import com.google.common.reflect.TypeToken;
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.ssblur.scriptor.events.reloadlisteners.ReagentReloadListener;
 import net.minecraft.util.GsonHelper;
@@ -14,7 +16,7 @@ public class MixedGroupGenerator extends TokenGenerator {
   public record TokenGroup(String[] tokens, int weight) {}
   public record MixedGroupParameters(TokenGroup[] groups, int maxConsecutiveGroups, int minTokens, int maxTokens) {}
   static Type PARAMETERS_TYPE = new TypeToken<MixedGroupParameters>() {}.getType();
-  static Gson GSON = new Gson();
+  static Gson GSON = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
   static Random RANDOM = new Random();
 
 

@@ -2,9 +2,9 @@
   "generator": "mixed_groups",
   "default": true,
   "parameters": {
-    "minTokens": 3,
-    "maxTokens": 11,
-    "maxConsecutiveGroups": 1,
+    "min_tokens": 3,
+    "max_tokens": 11,
+    "max_consecutive_groups": 1,
     "groups": [
       {
         "weight": 1,
