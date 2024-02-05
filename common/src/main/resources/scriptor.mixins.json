@@ -3,16 +3,16 @@
   "package": "com.ssblur.scriptor.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "LecternBlockEntitySpellbookMixin",
-    "SheepColorableInject",
     "GiveCommandCommunityMixin",
-    "ReloadResourcesMixin"
+    "LecternBlockEntitySpellbookMixin",
+    "ReloadResourcesMixin",
+    "SheepColorableInject"
   ],
   "client": [
-    "ItemWithCustomRendererMixin",
+    "BlockItemColorableInject",
     "BookViewScreenSpellbookMixin",
-    "LecternScreenAccessorPatch",
-    "BlockItemColorableInject"
+    "ItemWithCustomRendererMixin",
+    "LecternScreenAccessorPatch"
   ],
   "injectors": {
     "defaultRequire": 1

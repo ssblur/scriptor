@@ -1,7 +1,6 @@
 package com.ssblur.scriptor.events.reloadlisteners;
 
 import com.google.common.reflect.TypeToken;
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.advancement.ScriptorAdvancements;
@@ -11,7 +10,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.entity.player.Player;
 

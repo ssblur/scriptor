@@ -5,7 +5,6 @@ import com.ssblur.scriptor.helpers.loot.ArtifactItemFunction;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 
 public class ScriptorLoot {

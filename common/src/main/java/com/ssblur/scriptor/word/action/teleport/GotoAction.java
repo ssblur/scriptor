@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.word.action.teleport;
 
-import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.api.word.Descriptor;
+import com.ssblur.scriptor.helpers.targetable.Targetable;
 
 public class GotoAction extends SwapAction {
   @Override

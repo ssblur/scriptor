@@ -1,10 +1,10 @@
 package com.ssblur.scriptor.api;
 
-import com.ssblur.scriptor.registry.words.WordRegistry;
-import com.ssblur.scriptor.api.word.Word;
 import com.ssblur.scriptor.api.word.Action;
 import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.api.word.Subject;
+import com.ssblur.scriptor.api.word.Word;
+import com.ssblur.scriptor.registry.words.WordRegistry;
 import net.minecraft.resources.ResourceLocation;
 
 public class ScriptorRegistry {

@@ -1,24 +1,18 @@
 package com.ssblur.scriptor.entity.renderers;
 
-import com.mojang.authlib.minecraft.client.MinecraftClient;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.entity.ScriptorProjectile;
 import com.ssblur.scriptor.particle.MagicParticleData;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.core.particles.DustParticleOptions;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Vector3f;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.awt.*;
-import java.util.Random;
 @ParametersAreNonnullByDefault
 public class ScriptorProjectileRenderer extends EntityRenderer<ScriptorProjectile> {
   public ScriptorProjectileRenderer(EntityRendererProvider.Context context) {

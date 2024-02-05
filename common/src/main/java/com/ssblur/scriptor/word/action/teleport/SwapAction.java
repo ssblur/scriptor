@@ -1,11 +1,11 @@
 package com.ssblur.scriptor.word.action.teleport;
 
+import com.ssblur.scriptor.api.word.Action;
+import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.InventoryTargetable;
 import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
-import com.ssblur.scriptor.api.word.Action;
-import com.ssblur.scriptor.api.word.Descriptor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.TicketType;

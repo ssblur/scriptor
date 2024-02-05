@@ -2,7 +2,6 @@ package com.ssblur.scriptor.events.network;
 
 import com.ssblur.scriptor.block.ScriptorBlocks;
 import com.ssblur.scriptor.blockentity.ChalkBlockEntity;
-import com.ssblur.scriptor.events.ScriptorEvents;
 import com.ssblur.scriptor.item.Chalk;
 import dev.architectury.networking.NetworkManager;
 import io.netty.buffer.Unpooled;

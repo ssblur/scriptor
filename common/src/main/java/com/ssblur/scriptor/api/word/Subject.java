@@ -2,7 +2,6 @@ package com.ssblur.scriptor.api.word;
 
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.Spell;
-import com.ssblur.scriptor.api.word.Word;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;

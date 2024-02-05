@@ -1,22 +1,16 @@
 package com.ssblur.scriptor.events.reloadlisteners;
 
-import com.google.common.reflect.TypeToken;
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.exceptions.InvalidGeneratorException;
 import com.ssblur.scriptor.exceptions.MissingRequiredElementException;
-import com.ssblur.scriptor.helpers.resource.TomeResource;
 import com.ssblur.scriptor.registry.TokenGeneratorRegistry;
 import com.ssblur.scriptor.tabs.ScriptorTabs;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 
-import java.lang.reflect.Type;
 import java.util.Map;
-import java.util.Random;
 
 public class GeneratorReloadListener extends ScriptorReloadListener {
   public static final GeneratorReloadListener INSTANCE = new GeneratorReloadListener();

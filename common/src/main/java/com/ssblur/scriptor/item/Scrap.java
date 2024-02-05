@@ -2,7 +2,6 @@ package com.ssblur.scriptor.item;
 
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.helpers.ComponentHelper;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.StringUtil;

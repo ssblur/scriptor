@@ -1,18 +1,16 @@
 package com.ssblur.scriptor.events;
 
 import com.ssblur.scriptor.ScriptorMod;
-import com.ssblur.scriptor.events.network.*;
+import com.ssblur.scriptor.events.network.ScriptorNetwork;
 import com.ssblur.scriptor.events.reloadlisteners.*;
 import dev.architectury.event.events.client.ClientRawInputEvent;
 import dev.architectury.event.events.common.ChatEvent;
 import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.event.events.common.LootEvent;
 import dev.architectury.event.events.common.PlayerEvent;
-import dev.architectury.networking.NetworkManager;
 import dev.architectury.platform.Platform;
 import dev.architectury.registry.ReloadListenerRegistry;
 import net.fabricmc.api.EnvType;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 
 public class ScriptorEvents {

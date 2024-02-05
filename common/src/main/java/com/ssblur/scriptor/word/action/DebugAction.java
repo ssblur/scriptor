@@ -1,8 +1,8 @@
 package com.ssblur.scriptor.word.action;
 
 import com.ssblur.scriptor.api.word.Action;
-import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.api.word.Descriptor;
+import com.ssblur.scriptor.helpers.targetable.Targetable;
 
 public class DebugAction extends Action {
   @Override

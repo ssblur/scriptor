@@ -1,6 +1,8 @@
 package com.ssblur.scriptor.word;
 
 import com.ssblur.scriptor.advancement.ScriptorAdvancements;
+import com.ssblur.scriptor.api.word.Descriptor;
+import com.ssblur.scriptor.api.word.Subject;
 import com.ssblur.scriptor.api.word.Word;
 import com.ssblur.scriptor.effect.ScriptorEffects;
 import com.ssblur.scriptor.events.network.ParticleNetwork;
@@ -8,10 +10,8 @@ import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.descriptor.AfterCastDescriptor;
 import com.ssblur.scriptor.word.descriptor.CastDescriptor;
-import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.word.descriptor.focus.FocusDescriptor;
 import com.ssblur.scriptor.word.descriptor.target.TargetDescriptor;
-import com.ssblur.scriptor.api.word.Subject;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;

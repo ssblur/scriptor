@@ -1,7 +1,10 @@
 package com.ssblur.scriptor.word.descriptor.focus.inventory;
 
-import com.ssblur.scriptor.helpers.targetable.*;
 import com.ssblur.scriptor.api.word.Descriptor;
+import com.ssblur.scriptor.helpers.targetable.ContainerTargetable;
+import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
+import com.ssblur.scriptor.helpers.targetable.InventoryEntityTargetable;
+import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.descriptor.focus.FocusDescriptor;
 import net.minecraft.world.Container;
 

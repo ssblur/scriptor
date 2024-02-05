@@ -1,11 +1,9 @@
 package com.ssblur.scriptor.mixin;
 
 import com.ssblur.scriptor.item.ScriptorItems;
-import net.minecraft.client.gui.screens.inventory.LecternScreen;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.WrittenBookItem;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import org.jetbrains.annotations.Nullable;
@@ -24,7 +22,7 @@ public class LecternBlockEntitySpellbookMixin {
     }
   }
 
-  @Inject(method = "resolveBook", at = @At("HEAD"), cancellable = true)
+  @Inject(method = "resolveBook", at = @At("HEAD"))
   private void resolveBook(ItemStack itemStack, @Nullable Player player, CallbackInfoReturnable<ItemStack> info) {
     var self = ((LecternBlockEntity) (Object) this);
     if (self.getLevel() instanceof ServerLevel && itemStack.is(ScriptorItems.SPELLBOOK.get())) {

@@ -1,13 +1,10 @@
 package com.ssblur.scriptor.block;
 
 import com.ssblur.scriptor.ScriptorMod;
-import com.ssblur.scriptor.item.Spellbook;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 

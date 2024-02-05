@@ -3,7 +3,6 @@ package com.ssblur.scriptor.entity.renderers.layer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.ssblur.scriptor.entity.ColorfulSheep;
-import com.ssblur.scriptor.entity.renderers.ColorfulSheepRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.SheepFurModel;
 import net.minecraft.client.model.SheepModel;
@@ -14,12 +13,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.client.renderer.entity.layers.SheepFurLayer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.animal.Sheep;
-import net.minecraft.world.item.DyeColor;
-
-import java.awt.*;
 
 public class ColorfulSheepFurLayer extends RenderLayer<ColorfulSheep, SheepModel<ColorfulSheep>> {
   private static final ResourceLocation SHEEP_FUR_LOCATION = new ResourceLocation("textures/entity/sheep/sheep_fur.png");

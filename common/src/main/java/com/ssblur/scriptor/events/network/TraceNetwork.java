@@ -1,6 +1,5 @@
 package com.ssblur.scriptor.events.network;
 
-import com.ssblur.scriptor.events.ScriptorEvents;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import dev.architectury.networking.NetworkManager;
