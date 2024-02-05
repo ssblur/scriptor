@@ -36,10 +36,10 @@ public class MixedGroupGenerator extends TokenGenerator {
     int maxTokens = this.parameters.maxTokens;
     int minTokens = this.parameters.minTokens;
     if(parameters != null) {
-      if (parameters.has("maxTokens"))
-        maxTokens = parameters.get("maxTokens").getAsInt();
-      if (parameters.has("minTokens"))
-        minTokens = parameters.get("minTokens").getAsInt();
+      if (parameters.has("max_tokens"))
+        maxTokens = parameters.get("max_tokens").getAsInt();
+      if (parameters.has("min_tokens"))
+        minTokens = parameters.get("min_tokens").getAsInt();
     }
 
     int tokens = RANDOM.nextInt(minTokens, maxTokens + 1);

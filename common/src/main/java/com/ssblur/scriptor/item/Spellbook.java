@@ -45,7 +45,7 @@ public class Spellbook extends WrittenBookItem implements ItemWithCustomRenderer
     if (tag != null) {
       String string = tag.getString("title");
       if (!StringUtil.isNullOrEmpty(string)) {
-        return Component.literal(string);
+        return Component.translatable(string);
       }
     }
     return super.getName(itemStack);

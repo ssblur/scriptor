@@ -63,7 +63,7 @@ public class AncientSpellbook extends Item {
         );
         level.addFreshEntity(entity);
       }
-      player.sendSystemMessage(Component.translatable("extra.scriptor.spell_get", resource.getName()));
+      player.sendSystemMessage(Component.translatable("extra.scriptor.spell_get", Component.translatable(resource.getName())));
       player.getItemInHand(interactionHand).shrink(1);
       return InteractionResultHolder.consume(player.getItemInHand(interactionHand));
     }
