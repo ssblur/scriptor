@@ -33,6 +33,8 @@ public class ScriptorItems {
     new Item(new Item.Properties().arch$tab(ScriptorTabs.SCRIPTOR_TAB)));
   public static final RegistrySupplier<Item> LEATHER_BINDER = ITEMS.register("leather_binder", () ->
     new Item(new Item.Properties().arch$tab(ScriptorTabs.SCRIPTOR_TAB)));
+  public static final RegistrySupplier<Item> WRITABLE_SPELLBOOK = ITEMS.register("writable_spellbook", () ->
+    new WritableSpellbook(new Item.Properties().arch$tab(ScriptorTabs.SCRIPTOR_TAB)));
   public static final RegistrySupplier<Item> SCRAP = ITEMS.register("scrap", () ->
     new Scrap(new Item.Properties()));
   public static final RegistrySupplier<Item> CHALK = ITEMS.register("chalk", () ->
