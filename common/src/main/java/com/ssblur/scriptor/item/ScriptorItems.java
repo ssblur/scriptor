@@ -28,7 +28,7 @@ public class ScriptorItems {
     new Artifact(new Item.Properties()));
 
   public static final RegistrySupplier<Item> BOOK_OF_BOOKS = ITEMS.register("book_of_books", () ->
-    new BookOfBooks(new Item.Properties().stacksTo(1).arch$tab(ScriptorTabs.SCRIPTOR_TAB), 4));
+    new BookOfBooks(new Item.Properties().stacksTo(1).arch$tab(ScriptorTabs.SCRIPTOR_TAB), 8));
   public static final RegistrySupplier<Item> SPELLBOOK_BINDER = ITEMS.register("spellbook_binder", () ->
     new Item(new Item.Properties().arch$tab(ScriptorTabs.SCRIPTOR_TAB)));
   public static final RegistrySupplier<Item> LEATHER_BINDER = ITEMS.register("leather_binder", () ->
