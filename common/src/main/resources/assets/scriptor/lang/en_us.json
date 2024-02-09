@@ -149,7 +149,7 @@
   "action.scriptor.saturation": "This spell sates the target's hunger.",
   "action.scriptor.speed": "This spell speeds up the target.",
   "action.scriptor.haste": "This spell hastens the target's hands.",
-  "action.scriptor.strength": "This spell strengthens the target's hands.",
+  "action.scriptor.strength": "This spell empowers or grows the target.",
   "action.scriptor.jump_boost": "This spell bolsters the target's legs.",
   "action.scriptor.resistance": "This spell toughens up the target.",
   "action.scriptor.fire_resistance": "This spell makes the target immune to fire.",
@@ -277,5 +277,6 @@
   "tome.scriptor.repair": "Repair",
   "tome.scriptor.arcane_sniper": "Arcane Sniper",
   "tome.scriptor.cheap_trick": "A Cheap Trick",
-  "tome.scriptor.power_overwhelming": "Touch of Death"
+  "tome.scriptor.power_overwhelming": "Touch of Death",
+  "tome.scriptor.growth": "Green Thumb"
 }

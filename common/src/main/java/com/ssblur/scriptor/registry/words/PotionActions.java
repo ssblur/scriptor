@@ -2,7 +2,8 @@ package com.ssblur.scriptor.registry.words;
 
 import com.ssblur.scriptor.api.word.Action;
 import com.ssblur.scriptor.api.word.Word;
-import com.ssblur.scriptor.word.action.PotionAction;
+import com.ssblur.scriptor.word.action.potions.PotionAction;
+import com.ssblur.scriptor.word.action.potions.StrengthAction;
 import net.minecraft.world.effect.MobEffects;
 
 public class PotionActions {
@@ -22,8 +23,7 @@ public class PotionActions {
     new PotionAction(MobEffects.MOVEMENT_SPEED, 80, 1d/2d, new Word.Cost(6, Word.COSTTYPE.ADDITIVE)));
   public final Action HASTE_POTION = INSTANCE.register("haste",
     new PotionAction(MobEffects.DIG_SPEED, 50, 1d/3d, new Word.Cost(8, Word.COSTTYPE.ADDITIVE)));
-  public final Action STRENGTH_POTION = INSTANCE.register("strength",
-    new PotionAction(MobEffects.DAMAGE_BOOST, 40, 1d/3d, new Word.Cost(9, Word.COSTTYPE.ADDITIVE)));
+  public final Action STRENGTH_POTION = INSTANCE.register("strength", new StrengthAction());
   public final Action JUMP_BOOST_POTION = INSTANCE.register("jump_boost",
     new PotionAction(MobEffects.JUMP, 60, 1d/3d, new Word.Cost(9, Word.COSTTYPE.ADDITIVE)));
   public final Action RESISTANCE_POTION = INSTANCE.register("resistance",

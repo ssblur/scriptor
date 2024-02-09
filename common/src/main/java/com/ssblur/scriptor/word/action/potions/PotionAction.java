@@ -1,4 +1,4 @@
-package com.ssblur.scriptor.word.action;
+package com.ssblur.scriptor.word.action.potions;
 
 import com.ssblur.scriptor.api.word.Action;
 import com.ssblur.scriptor.api.word.Descriptor;
@@ -41,7 +41,11 @@ public class PotionAction extends Action {
 
     if(targetable instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof LivingEntity living)
       living.addEffect(new MobEffectInstance(mobEffect, (int) duration, (int) Math.floor(strength)));
+    else
+      applyToPosition(caster, targetable, descriptors, strength, duration);
   }
+
+  public void applyToPosition(Targetable caster, Targetable targetable, Descriptor[] descriptors, double strength, double duration) {}
 
   @Override
   public Cost cost() {
