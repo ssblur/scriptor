@@ -1,0 +1,6 @@
+{
+  "type": "scriptor:spellbook",
+  "base": "scriptor:spellbook",
+  "addition": "minecraft:red_dye",
+  "result": "scriptor:spellbook_red"
+}

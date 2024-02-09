@@ -18,6 +18,67 @@ public class ScriptorItems {
     new Spellbook(new Item.Properties()));
   public static final RegistrySupplier<Item> OBFUSCATED_SPELLBOOK = ITEMS.register("obfuscated_spellbook", () ->
     new ObfuscatedSpellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> SPELLBOOK_WHITE = ITEMS.register("spellbook_white", () ->
+    new Spellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> OBFUSCATED_SPELLBOOK_WHITE = ITEMS.register("obfuscated_spellbook_white", () ->
+    new ObfuscatedSpellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> SPELLBOOK_ORANGE = ITEMS.register("spellbook_orange", () ->
+    new Spellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> OBFUSCATED_SPELLBOOK_ORANGE = ITEMS.register("obfuscated_spellbook_orange", () ->
+    new ObfuscatedSpellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> SPELLBOOK_MAGENTA = ITEMS.register("spellbook_magenta", () ->
+    new Spellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> OBFUSCATED_SPELLBOOK_MAGENTA = ITEMS.register("obfuscated_spellbook_magenta", () ->
+    new ObfuscatedSpellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> SPELLBOOK_LIGHT_BLUE = ITEMS.register("spellbook_light_blue", () ->
+    new Spellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> OBFUSCATED_SPELLBOOK_LIGHT_BLUE = ITEMS.register("obfuscated_spellbook_light_blue", () ->
+    new ObfuscatedSpellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> SPELLBOOK_YELLOW = ITEMS.register("spellbook_yellow", () ->
+    new Spellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> OBFUSCATED_SPELLBOOK_YELLOW = ITEMS.register("obfuscated_spellbook_yellow", () ->
+    new ObfuscatedSpellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> SPELLBOOK_LIME = ITEMS.register("spellbook_lime", () ->
+    new Spellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> OBFUSCATED_SPELLBOOK_LIME = ITEMS.register("obfuscated_spellbook_lime", () ->
+    new ObfuscatedSpellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> SPELLBOOK_PINK = ITEMS.register("spellbook_pink", () ->
+    new Spellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> OBFUSCATED_SPELLBOOK_PINK = ITEMS.register("obfuscated_spellbook_pink", () ->
+    new ObfuscatedSpellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> SPELLBOOK_GRAY = ITEMS.register("spellbook_gray", () ->
+    new Spellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> OBFUSCATED_SPELLBOOK_GRAY = ITEMS.register("obfuscated_spellbook_gray", () ->
+    new ObfuscatedSpellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> SPELLBOOK_LIGHT_GRAY = ITEMS.register("spellbook_light_gray", () ->
+    new Spellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> OBFUSCATED_SPELLBOOK_LIGHT_GRAY = ITEMS.register("obfuscated_spellbook_light_gray", () ->
+    new ObfuscatedSpellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> SPELLBOOK_CYAN = ITEMS.register("spellbook_cyan", () ->
+    new Spellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> OBFUSCATED_SPELLBOOK_CYAN = ITEMS.register("obfuscated_spellbook_cyan", () ->
+    new ObfuscatedSpellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> SPELLBOOK_BLUE = ITEMS.register("spellbook_blue", () ->
+    new Spellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> OBFUSCATED_SPELLBOOK_BLUE = ITEMS.register("obfuscated_spellbook_blue", () ->
+    new ObfuscatedSpellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> SPELLBOOK_BROWN = ITEMS.register("spellbook_brown", () ->
+    new Spellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> OBFUSCATED_SPELLBOOK_BROWN = ITEMS.register("obfuscated_spellbook_brown", () ->
+    new ObfuscatedSpellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> SPELLBOOK_GREEN = ITEMS.register("spellbook_green", () ->
+    new Spellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> OBFUSCATED_SPELLBOOK_GREEN = ITEMS.register("obfuscated_spellbook_green", () ->
+    new ObfuscatedSpellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> SPELLBOOK_RED = ITEMS.register("spellbook_red", () ->
+    new Spellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> OBFUSCATED_SPELLBOOK_RED = ITEMS.register("obfuscated_spellbook_red", () ->
+    new ObfuscatedSpellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> SPELLBOOK_BLACK = ITEMS.register("spellbook_black", () ->
+    new Spellbook(new Item.Properties()));
+  public static final RegistrySupplier<Item> OBFUSCATED_SPELLBOOK_BLACK = ITEMS.register("obfuscated_spellbook_black", () ->
+    new ObfuscatedSpellbook(new Item.Properties()));
+
   public static final RegistrySupplier<Item> ARTIFACT_1 = ITEMS.register("artifact_1", () ->
     new Artifact(new Item.Properties()));
   public static final RegistrySupplier<Item> ARTIFACT_2 = ITEMS.register("artifact_2", () ->
