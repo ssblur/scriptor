@@ -17,17 +17,20 @@ import java.util.function.UnaryOperator;
 
 @Mixin(ServerGamePacketListenerImpl.class)
 public class EditWritableSpellbookMixin {
+
   @Inject(method = "updateBookContents", at = @At("HEAD"))
   private void updateBookContents(List<FilteredText> list, int i, CallbackInfo info) {
     var self = (ServerGamePacketListenerImpl) (Object) this;
+    var invoker = (ServerGamePacketInvoker) self;
     ItemStack itemstack = self.player.getInventory().getItem(i);
     if (itemstack.is(ScriptorItems.WRITABLE_SPELLBOOK.get()))
-      self.updateBookPages(list, UnaryOperator.identity(), itemstack);
+      invoker.invokeUpdateBookPages(list, UnaryOperator.identity(), itemstack);
 
   }
 
   private void signBook(FilteredText arg, List<FilteredText> list, int i) {
     var self = (ServerGamePacketListenerImpl) (Object) this;
+    var invoker = (ServerGamePacketInvoker) self;
     ItemStack itemstack = self.player.getInventory().getItem(i);
     if (itemstack.is(ScriptorItems.WRITABLE_SPELLBOOK.get())) {
       ItemStack itemstack1 = new ItemStack(ScriptorItems.SPELLBOOK.get());
@@ -43,7 +46,7 @@ public class EditWritableSpellbookMixin {
         itemstack1.addTagElement("title", StringTag.valueOf(arg.raw()));
       }
 
-      self.updateBookPages(list, (string) -> Component.Serializer.toJson(Component.literal(string)), itemstack1);
+      invoker.invokeUpdateBookPages(list, (string) -> Component.Serializer.toJson(Component.literal(string)), itemstack1);
       self.player.getInventory().setItem(i, itemstack1);
     }
 
