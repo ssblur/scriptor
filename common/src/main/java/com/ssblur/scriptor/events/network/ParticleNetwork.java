@@ -14,7 +14,8 @@ import java.util.Random;
 
 public class ParticleNetwork {
   enum TYPE {
-    FIZZLE(new Vector3f(0.2f, 0.2f, 0.2f));
+    FIZZLE(new Vector3f(0.2f, 0.2f, 0.2f)),
+    WITHER(new Vector3f(0.1f, 0.1f, 0.1f));
 
     public final Vector3f color;
     TYPE(Vector3f vector3f) {
@@ -35,24 +36,39 @@ public class ParticleNetwork {
     );
   }
 
+  public static void wither(Level level, BlockPos pos) {
+    FriendlyByteBuf out = new FriendlyByteBuf(Unpooled.buffer());
+
+    out.writeEnum(TYPE.WITHER);
+    out.writeBlockPos(pos);
+
+    NetworkManager.sendToPlayers(
+      level.players().stream().map(player -> (ServerPlayer) player).toList(),
+      ScriptorNetwork.CLIENT_PARTICLE,
+      out
+    );
+  }
+
   public static void getParticles(FriendlyByteBuf buf, NetworkManager.PacketContext ignoredContext) {
     Minecraft client = Minecraft.getInstance();
     Random random = new Random();
     var type = buf.readEnum(TYPE.class);
     var pos = buf.readBlockPos();
 
-    if(type == TYPE.FIZZLE) {
-      if (client.level != null)
-        for (int i = 0; i < 9; i++)
-          client.level.addParticle(
-            new DustParticleOptions(type.color, 1.0f),
-            pos.getX() - 0.25f + random.nextFloat(1.5f),
-            pos.getY() + 0.5f + random.nextFloat(0.7f),
-            pos.getZ() - 0.25f + random.nextFloat(1.5f),
-            0,
-            0,
-            0
-          );
-    }
+    if (client.level != null)
+      switch(type) {
+        case FIZZLE, WITHER -> {
+          for (int i = 0; i < 9; i++)
+            client.level.addParticle(
+              new DustParticleOptions(type.color, 1.0f),
+              pos.getX() - 0.25f + random.nextFloat(1.5f),
+              pos.getY() + 0.5f + random.nextFloat(0.7f),
+              pos.getZ() - 0.25f + random.nextFloat(1.5f),
+              0,
+              0,
+              0
+            );
+        }
+      }
   }
 }

@@ -4,6 +4,7 @@ import com.ssblur.scriptor.api.word.Action;
 import com.ssblur.scriptor.api.word.Word;
 import com.ssblur.scriptor.word.action.potions.PotionAction;
 import com.ssblur.scriptor.word.action.potions.StrengthAction;
+import com.ssblur.scriptor.word.action.potions.WitherAction;
 import net.minecraft.world.effect.MobEffects;
 
 public class PotionActions {
@@ -15,8 +16,7 @@ public class PotionActions {
     new PotionAction(MobEffects.MOVEMENT_SLOWDOWN, 80, 1d/3d, new Word.Cost(6, Word.COSTTYPE.ADDITIVE)));
   public final Action REGENERATION_POTION = INSTANCE.register("regeneration",
     new PotionAction(MobEffects.REGENERATION, 30, 1d/3d, new Word.Cost(8, Word.COSTTYPE.ADDITIVE)));
-  public final Action WITHER_POTION = INSTANCE.register("wither",
-    new PotionAction(MobEffects.WITHER, 30, 1d/3d, new Word.Cost(12, Word.COSTTYPE.ADDITIVE)));
+  public final Action WITHER_POTION = INSTANCE.register("wither", new WitherAction());
   public final Action SATURATION_POTION = INSTANCE.register("saturation",
     new PotionAction(MobEffects.SATURATION, 60, 1d/3d, new Word.Cost(4, Word.COSTTYPE.ADDITIVE)));
   public final Action SPEED_POTION = INSTANCE.register("speed",
