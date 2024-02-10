@@ -52,7 +52,7 @@ public class AncientSpellbook extends Item {
       Spell spell = resource.getSpell();
       String sentence = DictionarySavedData.computeIfAbsent(server).generate(spell);
 
-      var spellbook = LimitedBookSerializer.createSpellbook(resource.getAuthor(), resource.getName(), sentence);
+      var spellbook = LimitedBookSerializer.createSpellbook(resource.getAuthor(), resource.getName(), sentence, resource.getItem());
       if(!player.addItem(spellbook)) {
         ItemEntity entity = new ItemEntity(
           level,

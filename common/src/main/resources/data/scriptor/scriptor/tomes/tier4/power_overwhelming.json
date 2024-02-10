@@ -1,6 +1,7 @@
 {
   "name": "tome.scriptor.power_overwhelming",
   "author": "Squiddles",
+  "item": "scriptor:spellbook_black",
   "tier": 4,
   "spell": {
     "subject": "touch",

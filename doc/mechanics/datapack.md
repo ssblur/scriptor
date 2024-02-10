@@ -46,6 +46,7 @@ that ships with Scriptor.
   "name": "Gempact",
   "author": "Snark",
   "tier": 3,
+  "item": "scriptor:spellbook",
   "spell": {
     "subject": "projectile",
     "spells": [
@@ -63,7 +64,7 @@ that ships with Scriptor.
 ```
 
 `name` is the plain text name of the corresponding Spellbook. 
-This is not localized.
+This is localized.
 
 `author` is the plain text name to show in the author field under
 the title. 
@@ -71,6 +72,14 @@ This is not localized.
 
 `tier` is the tier of Ancient Tome this Spellbook will generate from.
 The base mod supports 1-4.
+
+`item` is optional, and defines the item to be given.
+If not defined, this defaults to `scriptor:spellbook`.
+This does not need to be an actual spellbook, and can be, for instance,
+`minecraft:writable_book` or `scriptor:writable_spellbook` to give the
+player an unsigned book.
+The default mod only uses this to grant alternate spellbook colors
+(i.e. `scriptor:spellbook_red`, `scriptor:spellbook_black`)
 
 `spell` defines the spell to be generated. 
 This format is subject to change.

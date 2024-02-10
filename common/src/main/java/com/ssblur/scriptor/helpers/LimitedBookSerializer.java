@@ -8,11 +8,14 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class LimitedBookSerializer {
   static Type PAGE_TYPE = new TypeToken<Page>() {}.getType();
@@ -107,7 +110,7 @@ public class LimitedBookSerializer {
     return tag;
   }
 
-  public static ItemStack createSpellbook(String author, String title, String text) {
+  public static ItemStack createSpellbook(String author, String title, String text, @Nullable String item) {
     CompoundTag tag = new CompoundTag();
     tag.putString("author", author);
     tag.putString("title", title);
@@ -118,7 +121,12 @@ public class LimitedBookSerializer {
       tag.put("scriptor", scriptor);
     }
 
-    ItemStack itemStack = new ItemStack(ScriptorItems.SPELLBOOK.get());
+
+    ItemStack itemStack;
+    if(item != null)
+      itemStack = new ItemStack(Objects.requireNonNull(ScriptorItems.ITEMS.getRegistrar().get(new ResourceLocation(item))));
+    else
+      itemStack = new ItemStack(ScriptorItems.SPELLBOOK.get());
     itemStack.setCount(1);
     itemStack.setTag(tag);
     return itemStack;
