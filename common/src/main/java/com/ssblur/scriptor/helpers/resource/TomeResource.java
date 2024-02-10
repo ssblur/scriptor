@@ -32,6 +32,7 @@ public class TomeResource {
   String name;
   String author;
   SpellResource spell;
+  String item;
   int tier;
 
   public String getAuthor() {
@@ -42,6 +43,8 @@ public class TomeResource {
     return name;
   }
   public int getTier() { return tier; }
+
+  public String getItem() { return item; }
 
   public Spell getSpell() {
     List<PartialSpell> spells = new ArrayList<>();

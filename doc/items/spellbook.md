@@ -15,3 +15,7 @@ a Written Book in a Crafting Table.
 ## Obfuscation
 You can hide the contents of a Spellbook and prevent it from being crafted
 back into a regular book by crafting it with a Glow Ink Sac.
+
+## Dyeing
+Any spellbook that is not already obfuscated can be dyed by crafting it with 
+any vanilla dye.

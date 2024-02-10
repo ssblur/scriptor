@@ -2,6 +2,7 @@
   "name": "tome.scriptor.cheap_trick",
   "author": "Niz",
   "tier": 4,
+  "item": "scriptor:spellbook_red",
   "spell": {
     "subject": "touch",
     "spells": [

@@ -1,0 +1,14 @@
+{
+  "name": "tome.scriptor.growth",
+  "author": "Tom the Short",
+  "tier": 2,
+  "spell": {
+    "subject": "touch",
+    "spells": [
+      {
+        "action": "strength",
+        "descriptors": []
+      }
+    ]
+  }
+}

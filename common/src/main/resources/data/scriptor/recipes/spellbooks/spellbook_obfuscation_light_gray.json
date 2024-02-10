@@ -1,0 +1,6 @@
+{
+  "type": "scriptor:spellbook",
+  "base": "scriptor:spellbook_light_gray",
+  "addition": "minecraft:glow_ink_sac",
+  "result": "scriptor:obfuscated_spellbook_light_gray"
+}
