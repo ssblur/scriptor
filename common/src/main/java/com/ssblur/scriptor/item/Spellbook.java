@@ -13,6 +13,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
@@ -201,8 +202,12 @@ public class Spellbook extends WrittenBookItem implements ItemWithCustomRenderer
       var pages = tag.getList("pages", Tag.TAG_STRING);
       List<FormattedCharSequence> sequence = new ArrayList<>();
       if (page >= pages.size()) {
-        if (tag.contains("title"))
-          sequence.addAll(font.split(FormattedText.of(tag.getString("title")), 80));
+        if (tag.contains("title")) {
+          if(I18n.exists(tag.getString("title")))
+            sequence.addAll(font.split(FormattedText.of(I18n.get(tag.getString("title"))), 80));
+          else
+            sequence.addAll(font.split(FormattedText.of(tag.getString("title")), 80));
+        }
         if (tag.contains("author"))
           sequence.addAll(font.split(FormattedText.of("By " + tag.getString("author")), 80));
       } else
