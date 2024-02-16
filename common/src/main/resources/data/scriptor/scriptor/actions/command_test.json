@@ -1,14 +1,16 @@
 {
   "cost": 0.2,
-  "disabled": true,
+  "disabled": false,
   "cast_at_position": [
-    "execute as @caster run say Dang, I missed. I'm so bad at this game"
+    "execute as @caster run me teleported.",
+    "tp @caster ~ ~ ~"
   ],
   "cast_on_entity": [
-    "kill @s"
+    "tp @s @caster",
+    "execute as @caster run me brought @target."
   ],
   "cast_on_item": [
     "enchant @s minecraft:vanishing_curse",
-    "say wowie zowie"
+    "say Well it's kind of hard to teleport an item for a demo."
   ]
 }

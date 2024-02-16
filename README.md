@@ -14,6 +14,9 @@ If you notice any bugs or have a suggestion, please feel free to open an
 You can join [My Discord](http://dc.blur.lol) to be notified about
 mod updates, new mods, and other things I do.
 
+I've created a video explaining how to customize Scriptor in-depth.
+Check it out [here](https://www.youtube.com/watch?v=vLaZzCKMcQA).
+
 Welcome to Scriptor, the mod which gives words power.
 This Vanilla-style mod adds various kinds of magic spell to the world
 with the aim of making discovery and spellcrafting simple, interesting,
