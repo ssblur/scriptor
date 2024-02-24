@@ -20,11 +20,13 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
 public class DictionarySavedData extends SavedData {
+  private static final Logger LOGGER = ScriptorMod.LOGGER;
   public List<WORD> spellStructure;
   public BiMap<String, String> words;
 
@@ -78,11 +80,15 @@ public class DictionarySavedData extends SavedData {
     var registry = TokenGeneratorRegistry.INSTANCE;
     String token;
 
-    if(!containsKey("other:and")) {
+    for(var word: WordRegistry.INSTANCE.otherRegistry) {
+      if(containsKey("other:" + word))
+        continue;
+
       do {
-        token = registry.generateWord("other:and");
+        token = registry.generateWord("other:" + word);
       } while (containsWord(token));
-      words.put("other:and", token);
+
+      words.put("other:" + word, token);
     }
 
     for(var word: WordRegistry.INSTANCE.actionRegistry.keySet()) {
@@ -182,6 +188,18 @@ public class DictionarySavedData extends SavedData {
     return getWord(getKey(word));
   }
 
+  private @Nullable WORD lastWord(WORD word) {
+    if(spellStructure.indexOf(word) == 0)
+      return null;
+    return spellStructure.get(spellStructure.indexOf(word) - 1);
+  }
+
+  private boolean checkLastWord(WORD word, @Nullable WORD prevWord, boolean skipSubject) {
+    WORD last = lastWord(word);
+    if((skipSubject && last == WORD.SUBJECT) || (last == WORD.DESCRIPTOR && last != prevWord))
+      return lastWord(last) != prevWord;
+    return last != prevWord;
+  }
 
   /**
    * Attempt to parse a String into a Spell
@@ -192,11 +210,10 @@ public class DictionarySavedData extends SavedData {
   @Nullable
   public Spell parse(@Nullable String text) {
     if(text == null) {
-      ScriptorMod.LOGGER.warn("No text provided to parser!");
+      ScriptorMod.LOGGER.debug("No text provided to parser!");
       return null;
     }
-    int position = 0;
-    int tokenPosition = 0;
+
     try {
       String[] tokens = text.split("\s");
 
@@ -207,56 +224,84 @@ public class DictionarySavedData extends SavedData {
       List<Descriptor> descriptors = new ArrayList<>();
 
       String parsed;
-      while (tokenPosition < tokens.length) {
-        if(position % spellStructure.size() == 0 && position > 0) {
-          parsed = parseWord(tokens[tokenPosition]);
-          if(parsed != null && parsed.equals("other:and")) {
-            tokenPosition++;
+      boolean subjectParsed = false;
+      boolean skipSubject = false;
+      WORD lastToken = null;
+      int multiplier = 1;
+      for(var token: tokens) {
+        parsed = parseWord(token);
+
+        if (parsed.startsWith("other:")) {
+          if(parsed.equals("other:and")) {
             spells.add(new PartialSpell(action, descriptors.toArray(Descriptor[]::new)));
-          } else {
+            action = null;
+            descriptors = new ArrayList<>();
+            lastToken = null;
+            skipSubject = true;
+          } else if (parsed.startsWith("other:x")) {
+            if(lastToken != WORD.DESCRIPTOR) {
+              LOGGER.debug("Failed to parse spell with text \"%s\"".formatted(text));
+              LOGGER.debug("Can only duplicate descriptors!");
+              return null;
+            }
+            System.out.println(parsed.substring(7));
+            multiplier *= Integer.parseInt(parsed.substring(7));
+          }
+          continue;
+        } else {
+          if(multiplier > 1) {
+            if(multiplier > 25) {
+              multiplier = 25;
+
+              LOGGER.info("Modified a parsed spell with text \"%s\"".formatted(text));
+              LOGGER.info("Descriptor multiplier was reduced to %d".formatted(multiplier));
+            }
+            var duplicated = descriptors.get(descriptors.size() - 1);
+            for(int i = 0; i < multiplier - 1; i++)
+              descriptors.add(duplicated);
+            multiplier = 1;
+          }
+        }
+
+        if(parsed.startsWith("subject:")) {
+          if(subjectParsed) {
+            LOGGER.debug("Failed to parse spell with text \"%s\"".formatted(text));
+            LOGGER.debug("Multiple subjects provided!");
             return null;
           }
-        }
-        if(position >= spellStructure.size() && spellStructure.get(position % spellStructure.size()) == WORD.SUBJECT) position++;
-        WORD word = spellStructure.get(position % spellStructure.size());
-        String wordData = parseWord(tokens[tokenPosition]);
-        switch (word) {
-          case ACTION -> {
-            if (wordData == null) {
-              ScriptorMod.LOGGER.debug("Failed to process spell with text: \"" + text + "\"");
-              ScriptorMod.LOGGER.debug("No word found for \"" + tokens[tokenPosition] + "\", action expected");
-              return null;
-            }
-            action = WordRegistry.INSTANCE.actionRegistry.get(wordData.substring(7));
-          }
-          case DESCRIPTOR -> {
-            // Descriptors aren't required. If there are none, roll forward as necessary and continue.
-            if (wordData == null || wordData.length() < 12) {
-              position++;
-              continue;
-            }
-            Descriptor descriptor = WordRegistry.INSTANCE.descriptorRegistry.get(wordData.substring(11));
-            if (descriptor == null) {
-              position++;
-              continue;
-            }
-            descriptors.add(descriptor);
 
-            tokenPosition++;
-            continue;
+          if(checkLastWord(WORD.SUBJECT, lastToken, skipSubject)) {
+            LOGGER.debug("Failed to parse spell with text \"%s\"".formatted(text));
+            LOGGER.debug("Subject in incorrect position!");
+            return null;
           }
-          case SUBJECT -> {
-            if (wordData == null) {
-              ScriptorMod.LOGGER.debug("Failed to process spell with text: \"" + text + "\"");
-              ScriptorMod.LOGGER.debug("Subject " + tokens[tokenPosition] + " not found");
-              return null;
-            }
-            subject = WordRegistry.INSTANCE.subjectRegistry.get(wordData.substring(8));
-          }
-        }
 
-        position++;
-        tokenPosition++;
+          subject = WordRegistry.INSTANCE.subjectRegistry.get(token.substring(8));
+          subjectParsed = true;
+          lastToken = WORD.SUBJECT;
+        } else if (parsed.startsWith("action:")) {
+          if(checkLastWord(WORD.ACTION, lastToken, skipSubject)) {
+            LOGGER.debug("Failed to parse spell with text \"%s\"".formatted(text));
+            LOGGER.debug("Action in incorrect position!");
+            return null;
+          }
+
+          action = WordRegistry.INSTANCE.actionRegistry.get(token.substring(7));
+          lastToken = WORD.ACTION;
+        } else if (parsed.startsWith("descriptor:")) {
+          if(checkLastWord(WORD.DESCRIPTOR, lastToken, skipSubject) && lastToken != WORD.DESCRIPTOR) {
+            LOGGER.debug("Failed to parse spell with text \"%s\"".formatted(text));
+            LOGGER.debug("Action in incorrect position!");
+            return null;
+          }
+
+          descriptors.add(WordRegistry.INSTANCE.descriptorRegistry.get(token.substring(11)));
+          lastToken = WORD.DESCRIPTOR;
+        } else {
+          LOGGER.warn("Failed to parse spell with text \"%s\"".formatted(text));
+          LOGGER.warn("Encountered non-word \"%s\"".formatted(token));
+          return null;
+        }
       }
 
       if (action != null && subject != null) {
@@ -264,12 +309,12 @@ public class DictionarySavedData extends SavedData {
         return new Spell(subject, spells.toArray(PartialSpell[]::new));
       }
     } catch (Exception e) {
-      ScriptorMod.LOGGER.warn("==========================================================");
-      ScriptorMod.LOGGER.warn("The below error did NOT cause a crash, this is debug info!");
-      ScriptorMod.LOGGER.error("Error:", e);
-      ScriptorMod.LOGGER.warn("==========================================================");
+      LOGGER.warn("==========================================================");
+      LOGGER.warn("The below error did NOT cause a crash, this is debug info!");
+      LOGGER.error("Error:", e);
+      LOGGER.warn("==========================================================");
     }
-    ScriptorMod.LOGGER.debug("Failed to process spell with text: \"" + text + "\"");
+    LOGGER.debug("Failed to process spell with text: \"" + text + "\"");
     return null;
   }
 

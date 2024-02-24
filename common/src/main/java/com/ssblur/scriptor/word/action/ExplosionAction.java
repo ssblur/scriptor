@@ -2,10 +2,10 @@ package com.ssblur.scriptor.word.action;
 
 import com.ssblur.scriptor.api.word.Action;
 import com.ssblur.scriptor.api.word.Descriptor;
+import com.ssblur.scriptor.helpers.ExplosionHelper;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.descriptor.power.StrengthDescriptor;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.Level;
 
 public class ExplosionAction extends Action {
   @Override
@@ -18,8 +18,8 @@ public class ExplosionAction extends Action {
     }
 
     ServerLevel level = (ServerLevel) targetable.getLevel();
-    var pos = targetable.getTargetPos();
-    level.explode(null, pos.x, pos.y + .25, pos.z, strength, Level.ExplosionInteraction.TNT);
+    var pos = targetable.getTargetPos().add(0,  .25, 0);
+    ExplosionHelper.explode(level, pos, strength);
   }
 
   @Override

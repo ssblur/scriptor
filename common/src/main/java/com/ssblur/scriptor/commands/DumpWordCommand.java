@@ -17,9 +17,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 
 public class DumpWordCommand {
-  private static final String[] otherWords = new String[] {
-    "and"
-  };
 
   public static void register(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext registry, Commands.CommandSelection selection){
     var command = Commands.literal("dump_word").requires(s -> s.hasPermission(4)).executes(DumpWordCommand::execute);
@@ -78,7 +75,7 @@ public class DumpWordCommand {
     command = command.then(Commands
       .literal("other")
       .then(Commands.argument("word", StringArgumentType.string()).suggests(((context, builder) ->
-          SharedSuggestionProvider.suggest(otherWords, builder)
+          SharedSuggestionProvider.suggest(WordRegistry.INSTANCE.otherRegistry, builder)
         ))
         .executes(getWord("other")))
       .requires(s -> s.hasPermission(4))

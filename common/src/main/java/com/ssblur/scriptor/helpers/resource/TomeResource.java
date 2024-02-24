@@ -12,22 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TomeResource {
-  public static class PartialSpellResource {
-    String action;
-    List<String> descriptors;
-    public PartialSpellResource(String action, List<String> descriptors) {
-      this.action = action;
-      this.descriptors = descriptors;
-    }
-  }
-  public static class SpellResource {
-    String subject;
-    List<PartialSpellResource> spells;
-    public SpellResource(String subject, List<PartialSpellResource> spells) {
-      this.subject = subject;
-      this.spells = spells;
-    }
-  }
 
   String name;
   String author;

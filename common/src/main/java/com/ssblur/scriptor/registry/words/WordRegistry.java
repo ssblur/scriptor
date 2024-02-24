@@ -6,6 +6,9 @@ import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.api.word.Subject;
 import com.ssblur.scriptor.api.word.Word;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class WordRegistry {
   public static final WordRegistry INSTANCE = new WordRegistry();
 
@@ -15,10 +18,12 @@ public class WordRegistry {
   public static final Descriptors DESCRIPTORS = new Descriptors();
   public static final InventoryDescriptors INVENTORY_DESCRIPTORS = new InventoryDescriptors();
   public static final Subjects SUBJECTS = new Subjects();
+  public static final Others OTHERS = new Others();
 
   public HashBiMap<String, Action> actionRegistry = HashBiMap.create();
   public HashBiMap<String, Descriptor> descriptorRegistry = HashBiMap.create();
   public HashBiMap<String, Subject> subjectRegistry = HashBiMap.create();
+  public List<String> otherRegistry = new ArrayList<>();
 
 
   /**
@@ -61,5 +66,14 @@ public class WordRegistry {
    */
   public Subject register(String key, Subject subject) {
     return subjectRegistry.put(key, subject);
+  }
+
+  /**
+   * Register a special token.
+   * @param key The key of the special token to register
+   */
+  public String register(String key) {
+    otherRegistry.add(key);
+    return key;
   }
 }
