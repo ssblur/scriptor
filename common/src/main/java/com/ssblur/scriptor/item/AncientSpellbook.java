@@ -4,7 +4,6 @@ import com.ssblur.scriptor.advancement.ScriptorAdvancements;
 import com.ssblur.scriptor.data.DictionarySavedData;
 import com.ssblur.scriptor.events.reloadlisteners.TomeReloadListener;
 import com.ssblur.scriptor.helpers.LimitedBookSerializer;
-import com.ssblur.scriptor.word.Spell;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -46,11 +45,10 @@ public class AncientSpellbook extends Item {
 
       var resource = TomeReloadListener.INSTANCE.getRandomTome(tier, player);
 
-      if(resource.getSpell().spells().length > 1)
+      if(resource.getSpell().spells.size() > 1)
         ScriptorAdvancements.COMPLEX_SPELL.get().trigger((ServerPlayer) player);
 
-      Spell spell = resource.getSpell();
-      String sentence = DictionarySavedData.computeIfAbsent(server).generate(spell);
+      String sentence = DictionarySavedData.computeIfAbsent(server).generate(resource.getSpell());
 
       var spellbook = LimitedBookSerializer.createSpellbook(resource.getAuthor(), resource.getName(), sentence, resource.getItem());
       if(!player.addItem(spellbook)) {

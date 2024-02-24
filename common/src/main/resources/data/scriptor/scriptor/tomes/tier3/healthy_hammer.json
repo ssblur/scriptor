@@ -9,13 +9,9 @@
         "action": "break",
         "descriptors": [
           "chain",
+          5,
           "chain",
-          "chain",
-          "chain",
-          "chain",
-          "chain",
-          "chain",
-          "chain",
+          3,
           "healthy"
         ]
       }

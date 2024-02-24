@@ -10,6 +10,7 @@ import com.ssblur.scriptor.api.word.Action;
 import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.api.word.Subject;
 import com.ssblur.scriptor.api.word.Word;
+import com.ssblur.scriptor.helpers.resource.SpellResource;
 import com.ssblur.scriptor.registry.TokenGeneratorRegistry;
 import com.ssblur.scriptor.registry.words.WordRegistry;
 import com.ssblur.scriptor.word.PartialSpell;
@@ -378,6 +379,33 @@ public class DictionarySavedData extends SavedData {
     }
 
     return builder.toString().strip();
+  }
+
+  /**
+   * A helper for generating a String to describe a spell.
+   * @param spell The Spell resource to generate text for.
+   * @return A String to describe a spell
+   */
+  public String generate(SpellResource spell) {
+    StringBuilder builder = new StringBuilder();
+    SpellResource.PartialSpellResource first = spell.spells.remove(0);
+
+    for(var word: spellStructure) {
+      if(word == WORD.ACTION)
+        builder.append(getWord("action:" + first.action));
+      else if (word == WORD.SUBJECT)
+        builder.append(getWord("subject:" + spell.subject));
+      else
+        for(var either: first.descriptors) {
+          if(either.isNumber())
+            builder.append(getWord("other:x" + either.getAsNumber()));
+          else
+            builder.append(getWord("descriptor:" + either.getAsString()));
+          builder.append(" ");
+        }
+      builder.append(" ");
+    }
+    return builder.toString();
   }
 
   @Override
