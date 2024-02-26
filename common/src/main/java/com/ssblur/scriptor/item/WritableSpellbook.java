@@ -1,5 +1,7 @@
 package com.ssblur.scriptor.item;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.BookEditScreen;
 import net.minecraft.world.InteractionHand;
@@ -18,7 +20,12 @@ public class WritableSpellbook extends WritableBookItem {
   public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
     var itemStack = player.getItemInHand(interactionHand);
     if(level.isClientSide)
-      Minecraft.getInstance().setScreen(new BookEditScreen(player, itemStack, interactionHand));
+      openScreen(player, itemStack, interactionHand);
     return InteractionResultHolder.sidedSuccess(itemStack, level.isClientSide());
+  }
+
+  @Environment(EnvType.CLIENT)
+  public void openScreen(Player player, ItemStack itemStack, InteractionHand interactionHand) {
+    Minecraft.getInstance().setScreen(new BookEditScreen(player, itemStack, interactionHand));
   }
 }
