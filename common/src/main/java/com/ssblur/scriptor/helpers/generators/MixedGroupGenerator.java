@@ -35,6 +35,10 @@ public class MixedGroupGenerator extends TokenGenerator {
   public String generateToken(String key, @Nullable JsonObject parameters) {
     int maxTokens = this.parameters.maxTokens;
     int minTokens = this.parameters.minTokens;
+    int maxConsecutiveGroups = this.parameters.maxConsecutiveGroups;
+
+    if(this.parameters.groups.length <= 1) maxConsecutiveGroups = 0;
+
     if(parameters != null) {
       if (parameters.has("max_tokens"))
         maxTokens = parameters.get("max_tokens").getAsInt();
@@ -60,7 +64,16 @@ public class MixedGroupGenerator extends TokenGenerator {
             random -= group.weight;
           }
         }
-      } while(tokenGroup == null || (lastGroup == tokenGroup && consecutiveGroups >= this.parameters.maxConsecutiveGroups));
+      } while(
+        tokenGroup == null
+          || (
+          maxConsecutiveGroups > 0
+            && (
+              lastGroup == tokenGroup
+                && consecutiveGroups >= maxConsecutiveGroups
+          )
+        )
+      );
 
       if(lastGroup != tokenGroup) {
         consecutiveGroups = 0;
