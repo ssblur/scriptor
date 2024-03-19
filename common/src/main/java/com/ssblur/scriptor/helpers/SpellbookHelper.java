@@ -42,7 +42,7 @@ public class SpellbookHelper {
       spell.cast(new SpellbookTargetable(itemStack, player, player.getInventory().selected).withTargetItem(false));
       if(!player.isCreative()) {
 		double adjustedCost = spell.cost() * (double) ( (double) level.getGameRules().getInt(ScriptorGameRules.TOME_COOLDOWN_MULTIPLIER) / (double) 100);
-        addCooldown(player, (int) Math.round(adjustedcost * 7));
+        addCooldown(player, (int) Math.round(adjustedCost * 7));
 	  }
       return false;
     }
