@@ -8,7 +8,7 @@ architectury {
     forge()
 }
 
-/* modrinth {
+modrinth {
     token = System.getenv("MODRINTH_TOKEN")
     projectId = "scriptor-magicae"
     versionNumber = version
@@ -24,7 +24,7 @@ architectury {
     }
     syncBodyFrom = rootProject.file("README.md").text
 }
-tasks.modrinth.dependsOn tasks.named("signedJar") */
+tasks.modrinth.dependsOn tasks.named("signedJar")
 
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
