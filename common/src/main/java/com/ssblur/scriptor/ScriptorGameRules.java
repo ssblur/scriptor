@@ -20,7 +20,7 @@ public class ScriptorGameRules {
     TOME_MAX_COST = GameRules.register("scriptor:tome_max_cost", Category.MISC, IntegerValue.create(50));
     CHALK_MAX_COST = GameRules.register("scriptor:chalk_max_cost", Category.MISC, IntegerValue.create(200));
     VOCAL_MAX_COST = GameRules.register("scriptor:vocal_max_cost", Category.MISC, IntegerValue.create(-1));
-    VOCAL_MAX_COST = GameRules.register("scriptor:casting_lectern_max_cost", Category.MISC, IntegerValue.create(20));
+    CASTING_LECTERN_MAX_COST = GameRules.register("scriptor:casting_lectern_max_cost", Category.MISC, IntegerValue.create(20));
     VOCAL_HUNGER_THRESHOLD = GameRules.register("scriptor:vocal_hunger_threshold", Category.MISC, IntegerValue.create(50));
     VOCAL_DAMAGE_THRESHOLD = GameRules.register("scriptor:vocal_damage_threshold", Category.MISC, IntegerValue.create(75));
     VOCAL_COOLDOWN_MULTIPLIER = GameRules.register("scriptor:vocal_cooldown_multiplier", Category.MISC, IntegerValue.create(100));
