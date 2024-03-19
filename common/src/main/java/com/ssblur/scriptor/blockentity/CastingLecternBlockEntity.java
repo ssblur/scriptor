@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.blockentity;
 
+import com.ssblur.scriptor.ScriptorGameRules;
 import com.ssblur.scriptor.block.CastingLecternBlock;
 import com.ssblur.scriptor.data.DictionarySavedData;
 import com.ssblur.scriptor.events.network.ParticleNetwork;
@@ -101,7 +102,7 @@ public class CastingLecternBlockEntity extends BlockEntity {
           if(spell.cost() > 20) {
             ParticleNetwork.fizzle(level, getBlockPos());
             level.playSound(null, this.getBlockPos(), SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
-            cooldown += 200;
+            cooldown += (int) Math.round(200.0D * ( (double) level.getGameRules().getInt(ScriptorGameRules.CASTING_LECTERN_COOLDOWN_MULTIPLIER) / (double) 100));
             return;
           }
           var state = level.getBlockState(getBlockPos());
@@ -122,7 +123,7 @@ public class CastingLecternBlockEntity extends BlockEntity {
             }
           }
           spell.cast(target);
-          cooldown += (int) Math.round(spell.cost() * 10);
+          cooldown += (int) Math.round(spell.cost() * 10.0D * ( (double) level.getGameRules().getInt(ScriptorGameRules.CASTING_LECTERN_COOLDOWN_MULTIPLIER) / (double) 100));
         }
       }
     }

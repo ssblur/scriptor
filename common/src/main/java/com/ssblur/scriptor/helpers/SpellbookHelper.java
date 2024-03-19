@@ -36,7 +36,7 @@ public class SpellbookHelper {
         player.sendSystemMessage(Component.translatable("extra.scriptor.fizzle"));
         ScriptorAdvancements.FIZZLE.get().trigger((ServerPlayer) player);
         if(!player.isCreative())
-          addCooldown(player, 350);
+          addCooldown(player, (int) Math.round( 350.0D * ( (double) level.getGameRules().getInt(ScriptorGameRules.TOME_COOLDOWN_MULTIPLIER) / (double) 100) ));
         return true;
       }
       spell.cast(new SpellbookTargetable(itemStack, player, player.getInventory().selected).withTargetItem(false));

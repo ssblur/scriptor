@@ -235,6 +235,9 @@
   "gamerule.scriptor:vocal_max_cost": "[Scriptor] Vocal Max Spell Cost",
   "gamerule.scriptor:vocal_hunger_threshold": "[Scriptor] Min Cost For Hunger",
   "gamerule.scriptor:vocal_damage_threshold": "[Scriptor] Min Cost for Damage",
+  "gamerule.scriptor:vocal_cooldown_multiplier": "[Scriptor] Vocal Cooldown Multiplier",
+  "gamerule.scriptor:tome_cooldown_multiplier": "[Scriptor] Tome Cooldown Multiplier",
+  "gamerule.scriptor:casting_lectern_cooldown_multiplier": "[Scriptor] Casting Lectern Cooldown Multiplier",
 
   "tome.scriptor.big_ups": "Big Ups",
   "tome.scriptor.breathless": "Breathless",
