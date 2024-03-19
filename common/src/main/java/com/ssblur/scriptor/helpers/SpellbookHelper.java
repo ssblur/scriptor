@@ -40,8 +40,10 @@ public class SpellbookHelper {
         return true;
       }
       spell.cast(new SpellbookTargetable(itemStack, player, player.getInventory().selected).withTargetItem(false));
-      if(!player.isCreative())
-        addCooldown(player, (int) Math.round(spell.cost() * 7));
+      if(!player.isCreative()) {
+		double adjustedcost = spell.cost() * (double) ( (double) level.getGameRules().getInt(ScriptorGameRules.TOME_COOLDOWN_MULTIPLIER) / (double) 100);
+        addCooldown(player, (int) Math.round(adjustedcost * 7));
+	  }
       return false;
     }
     return true;

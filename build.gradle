@@ -23,7 +23,7 @@ subprojects {
         // mappings "net.fabricmc:yarn:1.19.2+build.3:v2"
     }
 
-  tasks.register("signedJar") {
+   tasks.register("signedJar") {
     def output = buildDir.toPath()
             .resolve("libs")
             .resolve(remapJar.archiveFileName.get().replace(".jar", "-sgd.jar"))
@@ -32,7 +32,7 @@ subprojects {
     outputs.file new File(output)
 
     dependsOn remapJar
-
+	/*
     doLast {
       System.out.println("Signing jar...")
 
@@ -59,8 +59,8 @@ subprojects {
               input,
               alias
       ].execute()
-      jarsigner.waitFor()
-    }
+      jarsigner.waitFor() 
+   } */
   }
 }
 

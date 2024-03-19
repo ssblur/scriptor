@@ -7,7 +7,7 @@ architectury {
     platformSetupLoomIde()
     fabric()
 }
-
+/*
 modrinth {
     token = System.getenv("MODRINTH_TOKEN")
     projectId = "scriptor-magicae"
@@ -26,6 +26,7 @@ modrinth {
     syncBodyFrom = rootProject.file("README.md").text
 }
 tasks.modrinth.dependsOn tasks.named("signedJar")
+*/
 
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
