@@ -39,7 +39,7 @@ public class SpellChatEvents implements ChatEvent.Received {
           if (level.getGameRules().getInt(ScriptorGameRules.VOCAL_MAX_COST) >= 0 && cost > level.getGameRules().getInt(ScriptorGameRules.VOCAL_MAX_COST))
             player.sendSystemMessage(Component.translatable("extra.scriptor.mute"));
 		
-		  double adjustedCost = (int) Math.round( (double)cost * ( (double) level.getGameRules().getInt(ScriptorGameRules.VOCAL_COOLDOWN_MULTIPLIER) / (double) 100 ) );
+		  int adjustedCost = (int) Math.round( (double)cost * ( (double) level.getGameRules().getInt(ScriptorGameRules.VOCAL_COOLDOWN_MULTIPLIER) / (double) 100 ) );
 		  if (!player.isCreative()) {
 			  player.addEffect(new MobEffectInstance(ScriptorEffects.HOARSE.get(), adjustedCost));
 			  if (adjustedCost > level.getGameRules().getInt(ScriptorGameRules.VOCAL_HUNGER_THRESHOLD))
