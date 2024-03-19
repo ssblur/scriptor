@@ -39,13 +39,13 @@ public class SpellChatEvents implements ChatEvent.Received {
           if (level.getGameRules().getInt(ScriptorGameRules.VOCAL_MAX_COST) >= 0 && cost > level.getGameRules().getInt(ScriptorGameRules.VOCAL_MAX_COST))
             player.sendSystemMessage(Component.translatable("extra.scriptor.mute"));
 		
-		  cost = (int) Math.round( (double)cost * ( (double) level.getGameRules().getInt(ScriptorGameRules.VOCAL_COOLDOWN_MULTIPLIER) / (double) 100 ) );
+		  double adjustedCost = (int) Math.round( (double)cost * ( (double) level.getGameRules().getInt(ScriptorGameRules.VOCAL_COOLDOWN_MULTIPLIER) / (double) 100 ) );
 		  if (!player.isCreative()) {
-			  player.addEffect(new MobEffectInstance(ScriptorEffects.HOARSE.get(), cost));
-			  if (cost > level.getGameRules().getInt(ScriptorGameRules.VOCAL_HUNGER_THRESHOLD))
-				player.addEffect(new MobEffectInstance(MobEffects.HUNGER, 2*(cost - level.getGameRules().getInt(ScriptorGameRules.VOCAL_HUNGER_THRESHOLD))));
-			  if (cost > level.getGameRules().getInt(ScriptorGameRules.VOCAL_DAMAGE_THRESHOLD))
-				player.hurt(Objects.requireNonNull(ScriptorDamage.overload(player)), (cost - level.getGameRules().getInt(ScriptorGameRules.VOCAL_DAMAGE_THRESHOLD) * 0.75f) / 100f);
+			  player.addEffect(new MobEffectInstance(ScriptorEffects.HOARSE.get(), adjustedCost));
+			  if (adjustedCost > level.getGameRules().getInt(ScriptorGameRules.VOCAL_HUNGER_THRESHOLD))
+				player.addEffect(new MobEffectInstance(MobEffects.HUNGER, 2*(adjustedCost - level.getGameRules().getInt(ScriptorGameRules.VOCAL_HUNGER_THRESHOLD))));
+			  if (adjustedCost > level.getGameRules().getInt(ScriptorGameRules.VOCAL_DAMAGE_THRESHOLD))
+				player.hurt(Objects.requireNonNull(ScriptorDamage.overload(player)), (adjustedCost - level.getGameRules().getInt(ScriptorGameRules.VOCAL_DAMAGE_THRESHOLD) * 0.75f) / 100f);
 		  }
           if(player.getHealth() > 0)
             spell.cast(new EntityTargetable(player));
