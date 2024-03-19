@@ -32,7 +32,7 @@ subprojects {
     outputs.file new File(output)
 
     dependsOn remapJar
-	/*
+	
     doLast {
       System.out.println("Signing jar...")
 
@@ -61,7 +61,7 @@ subprojects {
       ].execute()
       jarsigner.waitFor()
     }
-	*/
+	
   }
 }
 
