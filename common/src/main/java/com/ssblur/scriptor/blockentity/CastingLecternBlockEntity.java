@@ -99,7 +99,7 @@ public class CastingLecternBlockEntity extends BlockEntity {
         var text = compound.getList("pages", Tag.TAG_STRING);
         Spell spell = DictionarySavedData.computeIfAbsent(server).parse(LimitedBookSerializer.decodeText(text));
         if(spell != null) {
-          if(spell.cost() > 20) {
+          if(spell.cost() > level.getGameRules().getInt(ScriptorGameRules.CASTING_LECTERN_MAX_COST)) {
             ParticleNetwork.fizzle(level, getBlockPos());
             level.playSound(null, this.getBlockPos(), SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
             cooldown += (int) Math.round(200.0D * ( (double) level.getGameRules().getInt(ScriptorGameRules.CASTING_LECTERN_COOLDOWN_MULTIPLIER) / (double) 100));
