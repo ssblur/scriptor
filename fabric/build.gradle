@@ -27,6 +27,7 @@ modrinth {
 }
 tasks.modrinth.dependsOn tasks.named("signedJar")
 
+
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
 }
