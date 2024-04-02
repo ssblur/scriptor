@@ -18,7 +18,6 @@ public class LecternBlockEntitySpellbookMixin {
   public void hasBook(CallbackInfoReturnable<Boolean> info) {
     if(((LecternBlockEntity) (Object) this).getBook().is(ScriptorItems.SPELLBOOK.get())) {
       info.setReturnValue(true);
-      info.cancel();
     }
   }
 
