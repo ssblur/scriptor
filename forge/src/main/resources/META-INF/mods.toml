@@ -11,7 +11,7 @@ authors = "SSBlur"
 description = '''
 Knowledge is power!
 '''
-#logoFile = "icon.png"
+logoFile = "icon.png"
 
 [[dependencies.scriptor]]
 modId = "minecraft"
