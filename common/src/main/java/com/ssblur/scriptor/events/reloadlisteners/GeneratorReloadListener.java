@@ -47,7 +47,18 @@ public class GeneratorReloadListener extends ScriptorReloadListener {
     TokenGeneratorRegistry.INSTANCE.registerGenerator(resourceLocation, generatorGenerator.create(object.get("parameters").getAsJsonObject()));
 
     if(object.has("default") && object.get("default").getAsBoolean())
-      TokenGeneratorRegistry.INSTANCE.registerDefaultGenerator(resourceLocation);
+      if(
+        TokenGeneratorRegistry.INSTANCE.getDefaultGenerator() == null
+          || TokenGeneratorRegistry.INSTANCE.getDefaultGenerator().getNamespace().equals("scriptor")
+          || !resourceLocation.getNamespace().equals("scriptor")
+      )
+        TokenGeneratorRegistry.INSTANCE.registerDefaultGenerator(resourceLocation);
+      else
+        ScriptorMod.LOGGER.warn(
+          "Skipping registration of default generator at {}; A default generator outside the 'scriptor' namespace was already registered.",
+          resourceLocation
+        );
+
     ScriptorMod.LOGGER.info("Loaded custom generator at {}", resourceLocation);
   }
 }

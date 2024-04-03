@@ -22,6 +22,11 @@ public class GeneratorBindingReloadListener extends ScriptorReloadListener {
   public void loadResource(ResourceLocation resourceLocation, JsonElement jsonElement) {
     GeneratorBindings bindings = GSON.fromJson(jsonElement, BINDINGS);
     for(var binding: bindings.bindings())
-      TokenGeneratorRegistry.INSTANCE.registerBinding(binding.word(), new ResourceLocation(bindings.generator()), binding.parameters());
+      if(
+        TokenGeneratorRegistry.INSTANCE.getBinding(binding.word()) == null
+          || TokenGeneratorRegistry.INSTANCE.getBinding(binding.word()).getNamespace().equals("scriptor")
+          || !resourceLocation.getNamespace().equals("scriptor")
+      )
+        TokenGeneratorRegistry.INSTANCE.registerBinding(binding.word(), new ResourceLocation(bindings.generator()), binding.parameters());
   }
 }
