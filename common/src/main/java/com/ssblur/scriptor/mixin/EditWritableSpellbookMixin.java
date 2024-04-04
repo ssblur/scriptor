@@ -28,7 +28,8 @@ public class EditWritableSpellbookMixin {
 
   }
 
-  private void signBook(FilteredText arg, List<FilteredText> list, int i) {
+  @Inject(method = "signBook", at = @At("HEAD"))
+  private void signBook(FilteredText arg, List<FilteredText> list, int i, CallbackInfo ci) {
     var self = (ServerGamePacketListenerImpl) (Object) this;
     var invoker = (ServerGamePacketInvoker) self;
     ItemStack itemstack = self.player.getInventory().getItem(i);
