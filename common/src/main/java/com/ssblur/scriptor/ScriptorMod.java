@@ -10,6 +10,7 @@ import com.ssblur.scriptor.effect.ScriptorEffects;
 import com.ssblur.scriptor.enchant.ScriptorEnchantments;
 import com.ssblur.scriptor.entity.ScriptorEntities;
 import com.ssblur.scriptor.events.ScriptorEvents;
+import com.ssblur.scriptor.gamerules.ScriptorGameRules;
 import com.ssblur.scriptor.item.ScriptorItems;
 import com.ssblur.scriptor.loot.ScriptorLoot;
 import com.ssblur.scriptor.particle.ScriptorParticles;

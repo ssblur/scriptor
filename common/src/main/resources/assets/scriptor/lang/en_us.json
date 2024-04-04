@@ -230,6 +230,7 @@
   "command.scriptor.community_mode_give_scrap": "Community mode is active; Scraps cannot be given.",
   "command.scriptor.magic_name": "Magic",
   "command.scriptor.no_item_commands_creative": "Due to limitations in the engine, custom spells cannot be cast on items while in creative mode.",
+  "command.scriptor.unheard": "Nobody else heard that.",
 
   "gamerule.scriptor:tome_max_cost": "[Scriptor] Tome Max Spell Cost",
   "gamerule.scriptor:vocal_max_cost": "[Scriptor] Vocal Max Spell Cost",

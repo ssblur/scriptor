@@ -1,8 +1,8 @@
 package com.ssblur.scriptor.helpers;
 
-import com.ssblur.scriptor.ScriptorGameRules;
 import com.ssblur.scriptor.advancement.ScriptorAdvancements;
 import com.ssblur.scriptor.data.DictionarySavedData;
+import com.ssblur.scriptor.gamerules.ScriptorGameRules;
 import com.ssblur.scriptor.helpers.targetable.SpellbookTargetable;
 import com.ssblur.scriptor.word.Spell;
 import net.minecraft.nbt.Tag;
@@ -41,7 +41,7 @@ public class SpellbookHelper {
       }
       spell.cast(new SpellbookTargetable(itemStack, player, player.getInventory().selected).withTargetItem(false));
       if(!player.isCreative()) {
-		double adjustedCost = spell.cost() * (double) ( (double) level.getGameRules().getInt(ScriptorGameRules.TOME_COOLDOWN_MULTIPLIER) / (double) 100);
+		double adjustedCost = spell.cost() * ((double) level.getGameRules().getInt(ScriptorGameRules.TOME_COOLDOWN_MULTIPLIER) / (double) 100);
         addCooldown(player, (int) Math.round(adjustedCost * 7));
 	  }
       return false;

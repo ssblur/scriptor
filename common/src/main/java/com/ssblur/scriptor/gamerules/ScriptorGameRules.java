@@ -1,4 +1,4 @@
-package com.ssblur.scriptor;
+package com.ssblur.scriptor.gamerules;
 
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.GameRules.Category;
@@ -14,7 +14,8 @@ public class ScriptorGameRules {
   public static Key<IntegerValue> VOCAL_DAMAGE_THRESHOLD;
   public static Key<IntegerValue> VOCAL_COOLDOWN_MULTIPLIER;
   public static Key<IntegerValue> TOME_COOLDOWN_MULTIPLIER;
-  public static Key<IntegerValue> CASTING_LECTERN_COOLDOWN_MULTIPLIER;	
+  public static Key<IntegerValue> CASTING_LECTERN_COOLDOWN_MULTIPLIER;
+
 
   public static void register() {
     TOME_MAX_COST = GameRules.register("scriptor:tome_max_cost", Category.MISC, IntegerValue.create(50));
@@ -26,5 +27,7 @@ public class ScriptorGameRules {
     VOCAL_COOLDOWN_MULTIPLIER = GameRules.register("scriptor:vocal_cooldown_multiplier", Category.MISC, IntegerValue.create(100));
     TOME_COOLDOWN_MULTIPLIER = GameRules.register("scriptor:tome_cooldown_multiplier", Category.MISC, IntegerValue.create(100));
     CASTING_LECTERN_COOLDOWN_MULTIPLIER = GameRules.register("scriptor:casting_lectern_cooldown_multiplier", Category.MISC, IntegerValue.create(100));
+
+    ChatRules.register();
   }
 }
