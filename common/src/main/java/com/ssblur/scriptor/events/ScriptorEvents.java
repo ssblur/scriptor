@@ -4,6 +4,7 @@ import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.events.network.ScriptorNetwork;
 import com.ssblur.scriptor.events.reloadlisteners.*;
 import dev.architectury.event.events.client.ClientRawInputEvent;
+import dev.architectury.event.events.client.ClientTickEvent;
 import dev.architectury.event.events.common.ChatEvent;
 import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.event.events.common.LootEvent;
@@ -21,6 +22,7 @@ public class ScriptorEvents {
     LootEvent.MODIFY_LOOT_TABLE.register(new AddLootEvent());
     LifecycleEvent.SERVER_LEVEL_LOAD.register(new PreloadDictionary());
     PlayerEvent.PLAYER_JOIN.register(new PlayerJoinedEvent());
+    ClientTickEvent.ClientLevel.CLIENT_LEVEL_POST.register(new ClientLevelTickEvent());
 
     ReloadListenerRegistry.register(PackType.SERVER_DATA, TomeReloadListener.INSTANCE);
     ReloadListenerRegistry.register(PackType.SERVER_DATA, ReagentReloadListener.INSTANCE);

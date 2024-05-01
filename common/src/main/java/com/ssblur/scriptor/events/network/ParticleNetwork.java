@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.events.network;
 
+import com.ssblur.scriptor.helpers.ParticleQueue;
 import dev.architectury.networking.NetworkManager;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
@@ -59,14 +60,11 @@ public class ParticleNetwork {
       switch(type) {
         case FIZZLE, WITHER -> {
           for (int i = 0; i < 9; i++)
-            client.level.addParticle(
+            ParticleQueue.queue(
               new DustParticleOptions(type.color, 1.0f),
               pos.getX() - 0.25f + random.nextFloat(1.5f),
               pos.getY() + 0.5f + random.nextFloat(0.7f),
-              pos.getZ() - 0.25f + random.nextFloat(1.5f),
-              0,
-              0,
-              0
+              pos.getZ() - 0.25f + random.nextFloat(1.5f)
             );
         }
       }
