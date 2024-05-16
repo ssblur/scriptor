@@ -19,7 +19,7 @@ public class ScrollNetwork {
       if(tag == null) return;
 
       var list = tag.getList("items", Tag.TAG_COMPOUND);
-      if(list == null) return;
+      if(list == null || list.size() == 0) return;
 
       int slot = tag.getInt("active_slot");
       slot = slot + direction + list.size();
