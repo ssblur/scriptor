@@ -129,13 +129,32 @@ public record Spell(
     double scalar = 1;
     double discount = 0;
 
+    double subCount = 0;
+    double sub = 0;
+
     for(var d: words()) {
       var cost = d.cost();
       switch (cost.type()){
-        case ADDITIVE -> sum += cost.cost();
+        case ADDITIVE -> {
+          if(sum < 0) {
+            subCount++;
+            sub += cost.cost();
+          } else {
+            sum += cost.cost();
+          }
+        }
         case MULTIPLICATIVE -> scalar *= cost.cost();
         case ADDITIVE_POST -> discount += cost.cost();
       }
+    }
+
+    if(subCount > 0) {
+      double squeeze = 0.5d;
+      double denominator = Math.pow(squeeze, subCount);
+      denominator = squeeze - denominator;
+      denominator = 1 - denominator;
+      sub = sub / denominator;
+      sum -= sub;
     }
 
     var out = sum * scalar;
