@@ -14,6 +14,7 @@ public class ScriptorBlocks {
   public static final RegistrySupplier<Block> RUNE = BLOCKS.register("rune", RuneBlock::new);
   public static final RegistrySupplier<Block> LIGHT = BLOCKS.register("light", LightBlock::new);
   public static final RegistrySupplier<Block> CHALK = BLOCKS.register("chalk", ChalkBlock::new);
+  public static final RegistrySupplier<Block> ENGRAVING = BLOCKS.register("engraving", EngravingBlock::new);
   public static final RegistrySupplier<Block> CASTING_LECTERN = BLOCKS.register("casting_lectern", CastingLecternBlock::new);
 
   public static final RegistrySupplier<Block> WHITE_MAGIC_BLOCK = BLOCKS.register("white_magic_block",

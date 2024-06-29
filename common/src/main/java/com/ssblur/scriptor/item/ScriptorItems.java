@@ -100,6 +100,8 @@ public class ScriptorItems {
     new Scrap(new Item.Properties()));
   public static final RegistrySupplier<Item> CHALK = ITEMS.register("chalk", () ->
     new Chalk(new Item.Properties().arch$tab(ScriptorTabs.SCRIPTOR_TAB)));
+  public static final RegistrySupplier<Item> ENGRAVING_TOOL = ITEMS.register("engraving_tool", () ->
+    new EngravingTool(new Item.Properties().arch$tab(ScriptorTabs.SCRIPTOR_TAB)));
 
   public static final RegistrySupplier<Item> TOME_TIER1 = ITEMS.register("tome_tier1", () ->
     new AncientSpellbook(new Item.Properties(), 1));

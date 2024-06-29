@@ -1,6 +1,8 @@
 package com.ssblur.scriptor.block;
 
+import com.ssblur.scriptor.blockentity.CastingLecternBlockEntity;
 import com.ssblur.scriptor.blockentity.ChalkBlockEntity;
+import com.ssblur.scriptor.blockentity.EngravingBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -11,6 +13,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -18,40 +22,26 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class ChalkBlock extends Block implements EntityBlock {
-  public ChalkBlock() {
+public class EngravingBlock extends ChalkBlock {
+  public EngravingBlock() {
     super(
       Properties.of()
-        .instabreak()
+        .destroyTime(5f)
         .noLootTable()
         .sound(SoundType.STONE)
         .noCollission()
     );
   }
 
-  public ChalkBlock(Properties properties) {
-    super(properties);
-  }
-
-  @SuppressWarnings("deprecation")
+  @Nullable
   @Override
-  public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
-    return Shapes.box(0, 0, 0, 1, 0.0625, 1);
+  public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+    return new EngravingBlockEntity(blockPos, blockState);
   }
 
   @Nullable
   @Override
-  public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-    return new ChalkBlockEntity(blockPos, blockState);
-  }
-
-  @SuppressWarnings("deprecation")
-  @Override
-  public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
-    if(level.getBlockEntity(blockPos) instanceof ChalkBlockEntity blockEntity) {
-      blockEntity.cast();
-      return InteractionResult.SUCCESS;
-    }
-    return super.use(blockState, level, blockPos, player, interactionHand, blockHitResult);
+  public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
+    return EngravingBlockEntity::tick;
   }
 }

@@ -16,6 +16,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,6 +28,12 @@ public class ChalkBlockEntity extends BlockEntity {
   Direction facing;
   public ChalkBlockEntity(BlockPos blockPos, BlockState blockState) {
     super(ScriptorBlockEntities.CHALK.get(), blockPos, blockState);
+    word = "";
+    facing = Direction.EAST;
+  }
+
+  public ChalkBlockEntity(BlockEntityType blockEntityType, BlockPos blockPos, BlockState blockState) {
+    super(blockEntityType, blockPos, blockState);
     word = "";
     facing = Direction.EAST;
   }
