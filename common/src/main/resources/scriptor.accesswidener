@@ -4,3 +4,4 @@ accessible field    net/minecraft/world/level/storage/DimensionDataStorage      
 accessible method   net/minecraft/world/level/block/entity/LecternBlockEntity   createCommandSourceStack    (Lnet/minecraft/world/entity/player/Player;)Lnet/minecraft/commands/CommandSourceStack;
 accessible method   net/minecraft/client/gui/screens/inventory/BookViewScreen   loadPages                   (Lnet/minecraft/nbt/CompoundTag;)Ljava/util/List;
 accessible field    net/minecraft/client/gui/screens/inventory/BookViewScreen   bookAccess                  Lnet/minecraft/client/gui/screens/inventory/BookViewScreen$BookAccess;
+accessible field    net/minecraft/client/renderer/block/BlockRenderDispatcher   blockColors                 Lnet/minecraft/client/color/block/BlockColors;

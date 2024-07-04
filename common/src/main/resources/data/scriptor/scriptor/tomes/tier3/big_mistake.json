@@ -1,0 +1,14 @@
+{
+  "name": "tome.scriptor.big_mistake",
+  "author": "Bigs",
+  "tier": 3,
+  "spell": {
+    "subject": "self",
+    "spells": [
+      {
+        "action": "wild_phasing",
+        "descriptors": []
+      }
+    ]
+  }
+}

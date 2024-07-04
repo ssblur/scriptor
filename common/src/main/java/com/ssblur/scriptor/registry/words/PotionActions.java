@@ -2,9 +2,7 @@ package com.ssblur.scriptor.registry.words;
 
 import com.ssblur.scriptor.api.word.Action;
 import com.ssblur.scriptor.api.word.Word;
-import com.ssblur.scriptor.word.action.potions.PotionAction;
-import com.ssblur.scriptor.word.action.potions.StrengthAction;
-import com.ssblur.scriptor.word.action.potions.WitherAction;
+import com.ssblur.scriptor.word.action.potions.*;
 import net.minecraft.world.effect.MobEffects;
 
 public class PotionActions {
@@ -38,4 +36,7 @@ public class PotionActions {
     new PotionAction(MobEffects.WEAKNESS, 50, 1d/3d, new Word.Cost(6, Word.COSTTYPE.ADDITIVE)));
   public final Action HERO_POTION = INSTANCE.register("hero",
     new PotionAction(MobEffects.HERO_OF_THE_VILLAGE, 120, 1d/6d, new Word.Cost(100, Word.COSTTYPE.ADDITIVE)));
+  public final Action PHASING_POTION = INSTANCE.register("phasing", new PhasingAction());
+  public final Action WILD_PHASING_POTION = INSTANCE.register("wild_phasing", new WildPhasingAction());
+
 }

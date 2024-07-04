@@ -51,6 +51,8 @@
 
   "effect.scriptor.hoarse": "Hoarse",
   "effect.scriptor.mute": "Mute",
+  "effect.scriptor.phasing": "Phasing",
+  "effect.scriptor.wild_phasing": "Uncontrollable Phasing",
 
   "death.attack.overload": "%1$s was overwhelmed by magical forces.",
   "death.attack.overload.player": "%1$s was overwhelmed by magical forces.",
@@ -159,6 +161,8 @@
   "action.scriptor.night_vision": "This spell lights the target's eyes.",
   "action.scriptor.weakness": "This spell weakens the target's arms.",
   "action.scriptor.hero": "This spell makes the target beloved.",
+  "action.scriptor.phasing": "This spell makes the target ethereal.",
+  "action.scriptor.wild_phasing": "This spell makes the target's form waver.",
 
   "extra.scriptor.fizzle": "The tome starts to warm in your hand, then fizzles.",
   "extra.scriptor.tome_use": "You dust off the tome...",
@@ -286,5 +290,7 @@
   "tome.scriptor.arcane_sniper": "Arcane Sniper",
   "tome.scriptor.cheap_trick": "A Cheap Trick",
   "tome.scriptor.power_overwhelming": "Touch of Death",
-  "tome.scriptor.growth": "Green Thumb"
+  "tome.scriptor.growth": "Green Thumb",
+  "tome.scriptor.big_mistake": "Big Mistake",
+  "tome.scriptor.wall_walker": "Walter's Wall Walker"
 }

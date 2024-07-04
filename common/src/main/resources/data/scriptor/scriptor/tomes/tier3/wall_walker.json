@@ -1,0 +1,23 @@
+{
+  "name": "tome.scriptor.wall_walker",
+  "author": "Walter",
+  "tier": 3,
+  "spell": {
+    "subject": "touch",
+    "spells": [
+      {
+        "action": "phasing",
+        "descriptors": [
+          "chain",
+          "chain",
+          "chain",
+          "chain",
+          "chain",
+          "chain",
+          "chain",
+          "long"
+        ]
+      }
+    ]
+  }
+}

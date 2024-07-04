@@ -40,6 +40,11 @@ public class ScriptorBlockEntities {
     () -> BlockEntityType.Builder.of(CastingLecternBlockEntity::new, ScriptorBlocks.CASTING_LECTERN.get()).build(null)
   );
 
+  public static final RegistrySupplier<BlockEntityType<PhasedBlockBlockEntity>> PHASED_BLOCK = BLOCK_ENTITIES.register(
+    "phased_block",
+    () -> BlockEntityType.Builder.of(PhasedBlockBlockEntity::new, ScriptorBlocks.PHASED_BLOCK.get()).build(null)
+  );
+
   public static void register() {
     BLOCK_ENTITIES.register();
 
@@ -52,6 +57,7 @@ public class ScriptorBlockEntities {
     BlockEntityRendererRegistry.register(ENGRAVING.get(), EngravingBlockEntityRenderer::new);
     BlockEntityRendererRegistry.register(CASTING_LECTERN.get(), CastingLecternBlockEntityRenderer::new);
     BlockEntityRendererRegistry.register(LIGHT.get(), LightBlockEntityRenderer::new);
+    BlockEntityRendererRegistry.register(PHASED_BLOCK.get(), PhasedBlockBlockEntityRenderer::new);
   }
 
 }
