@@ -100,7 +100,10 @@ public class ParticleNetwork {
               MagicParticleData.magic(r, g, b),
               pos.x(),
               pos.y(),
-              pos.z()
+              pos.z(),
+              0,
+              0,
+              0
             );
           }
         }
