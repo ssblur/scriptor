@@ -1,6 +1,0 @@
-{
-  "type": "scriptor:spellbook",
-  "base": "scriptor:spellbook_white",
-  "addition": "minecraft:magenta_dye",
-  "result": "scriptor:spellbook_magenta"
-}
