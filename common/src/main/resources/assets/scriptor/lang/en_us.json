@@ -52,7 +52,7 @@
   "effect.scriptor.hoarse": "Hoarse",
   "effect.scriptor.mute": "Mute",
   "effect.scriptor.phasing": "Phasing",
-  "effect.scriptor.wild_phasing": "Uncontrollable Phasing",
+  "effect.scriptor.wild_phasing": "Out of Phase",
 
   "death.attack.overload": "%1$s was overwhelmed by magical forces.",
   "death.attack.overload.player": "%1$s was overwhelmed by magical forces.",
