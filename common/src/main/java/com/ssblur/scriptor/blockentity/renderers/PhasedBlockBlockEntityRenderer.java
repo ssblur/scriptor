@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.ssblur.scriptor.blockentity.CastingLecternBlockEntity;
 import com.ssblur.scriptor.blockentity.PhasedBlockBlockEntity;
+import com.ssblur.scriptor.mixin.BlockRenderDispatcherAccessor;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -52,7 +53,7 @@ public class PhasedBlockBlockEntityRenderer  implements BlockEntityRenderer<Phas
     var pose = poseStack.last();
 
 
-    int color = dispatcher.blockColors.getColor(blockState, null, null, 0);
+    int color = ((BlockRenderDispatcherAccessor) dispatcher).getBlockColors().getColor(blockState, null, null, 0);
     float r = (color >> 16 & 0xFF) / 255.0f;
     float g = (color >> 8 & 0xFF) / 255.0f;
     float b = (color & 0xFF) / 255.0f;
