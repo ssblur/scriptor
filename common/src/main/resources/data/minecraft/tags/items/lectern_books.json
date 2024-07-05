@@ -1,6 +1,21 @@
 {
   "replace": false,
   "values": [
-    "scriptor:spellbook"
+    "scriptor:spellbook",
+    "scriptor:spellbook_black",
+    "scriptor:spellbook_blue",
+    "scriptor:spellbook_brown",
+    "scriptor:spellbook_cyan",
+    "scriptor:spellbook_gray",
+    "scriptor:spellbook_green",
+    "scriptor:spellbook_light_blue",
+    "scriptor:spellbook_light_gray",
+    "scriptor:spellbook_lime",
+    "scriptor:spellbook_magenta",
+    "scriptor:spellbook_orange",
+    "scriptor:spellbook_pink",
+    "scriptor:spellbook_red",
+    "scriptor:spellbook_white",
+    "scriptor:spellbook_yellow"
   ]
 }
