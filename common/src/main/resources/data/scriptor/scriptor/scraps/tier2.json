@@ -12,6 +12,8 @@
     "descriptor:color.scriptor.intersex",
     "descriptor:color.scriptor.agender",
     "descriptor:color.scriptor.bi",
-    "descriptor:rainbow"
+    "descriptor:rainbow",
+    "action:bound_shovel",
+    "action:bound_pickaxe"
   ]
 }

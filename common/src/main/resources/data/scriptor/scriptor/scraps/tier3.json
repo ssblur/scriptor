@@ -2,6 +2,8 @@
   "tier": 3,
   "keys": [
     "descriptor:caster_first_empty",
-    "descriptor:caster_first_filled"
+    "descriptor:caster_first_filled",
+    "action:bound_axe",
+    "action:bound_pickaxe"
   ]
 }

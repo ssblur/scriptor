@@ -23,6 +23,11 @@
   "item.scriptor.book_of_books": "Book of Books",
   "item.scriptor.book_of_books_2": "Book of Books [%1$s]",
   "item.scriptor.writable_spellbook": "Spellbook and Quill",
+  "item.scriptor.bound_sword": "Bound Sword",
+  "item.scriptor.bound_axe": "Bound Axe",
+  "item.scriptor.bound_shovel": "Bound Shovel",
+  "item.scriptor.bound_pickaxe": "Bound Pickaxe",
+  "item.scriptor.bound_hoe": "Bound Hoe",
 
   "block.scriptor.casting_lectern": "Casting Lectern",
 
