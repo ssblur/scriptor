@@ -8,13 +8,12 @@
       {
         "action": "phasing",
         "descriptors": [
-          "chain",
-          "chain",
-          "chain",
-          "chain",
-          "chain",
-          "chain",
-          "chain",
+          "move_left",
+          "move_down",
+          "copy_up",
+          "copy_up",
+          "copy_right",
+          "copy_right",
           "long"
         ]
       }

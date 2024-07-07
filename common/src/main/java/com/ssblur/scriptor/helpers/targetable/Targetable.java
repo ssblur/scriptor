@@ -8,6 +8,7 @@ import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
 
+@SuppressWarnings("unused")
 public class Targetable {
   Vec3 targetPos;
   BlockPos origin;
@@ -88,6 +89,8 @@ public class Targetable {
   }
 
   public Targetable simpleCopy() {
-    return new Targetable(level, targetPos);
+    var out = new Targetable(level, targetPos);
+    out.setFacing(getFacing());
+    return out;
   }
 }

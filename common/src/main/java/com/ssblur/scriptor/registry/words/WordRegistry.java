@@ -6,6 +6,7 @@ import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.api.word.Subject;
 import com.ssblur.scriptor.api.word.Word;
 
+@SuppressWarnings("unused")
 public class WordRegistry {
   public static final WordRegistry INSTANCE = new WordRegistry();
 
@@ -13,6 +14,7 @@ public class WordRegistry {
   public static final PotionActions POTION_ACTIONS = new PotionActions();
   public static final ColorDescriptors COLOR_DESCRIPTORS = new ColorDescriptors();
   public static final Descriptors DESCRIPTORS = new Descriptors();
+  public static final OffsetDescriptors OFFSET_DESCRIPTORS = new OffsetDescriptors();
   public static final InventoryDescriptors INVENTORY_DESCRIPTORS = new InventoryDescriptors();
   public static final Subjects SUBJECTS = new Subjects();
 
