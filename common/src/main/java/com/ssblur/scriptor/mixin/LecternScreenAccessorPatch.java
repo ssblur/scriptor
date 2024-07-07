@@ -2,6 +2,7 @@ package com.ssblur.scriptor.mixin;
 
 import com.ssblur.scriptor.helpers.SpellbookAccess;
 import com.ssblur.scriptor.item.ScriptorItems;
+import com.ssblur.scriptor.item.Spellbook;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screens.inventory.LecternScreen;
@@ -18,7 +19,7 @@ public class LecternScreenAccessorPatch {
   void bookChanged(CallbackInfo info) {
     var self = (LecternScreen) (Object) this;
     ItemStack itemStack = self.getMenu().getBook();
-    if(itemStack.is(ScriptorItems.SPELLBOOK.get()))
+    if(itemStack.getItem() instanceof Spellbook)
       self.setBookAccess(new SpellbookAccess(itemStack));
   }
 }

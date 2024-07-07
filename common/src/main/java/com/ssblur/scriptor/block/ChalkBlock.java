@@ -29,6 +29,10 @@ public class ChalkBlock extends Block implements EntityBlock {
     );
   }
 
+  public ChalkBlock(Properties properties) {
+    super(properties);
+  }
+
   @SuppressWarnings("deprecation")
   @Override
   public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {

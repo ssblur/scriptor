@@ -2,14 +2,19 @@ package com.ssblur.scriptor.item;
 
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.block.ScriptorBlocks;
+import com.ssblur.scriptor.item.bound.BoundAxe;
+import com.ssblur.scriptor.item.bound.BoundSword;
+import com.ssblur.scriptor.item.bound.BoundTool;
 import com.ssblur.scriptor.item.casters.CoordinateCasterCrystal;
 import com.ssblur.scriptor.item.casters.PlayerCasterCrystal;
 import com.ssblur.scriptor.tabs.ScriptorTabs;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Tiers;
 
 @SuppressWarnings("UnstableApiUsage")
 public class ScriptorItems {
@@ -100,6 +105,8 @@ public class ScriptorItems {
     new Scrap(new Item.Properties()));
   public static final RegistrySupplier<Item> CHALK = ITEMS.register("chalk", () ->
     new Chalk(new Item.Properties().arch$tab(ScriptorTabs.SCRIPTOR_TAB)));
+  public static final RegistrySupplier<Item> ENGRAVING_TOOL = ITEMS.register("engraving_tool", () ->
+    new EngravingTool(new Item.Properties().arch$tab(ScriptorTabs.SCRIPTOR_TAB)));
 
   public static final RegistrySupplier<Item> TOME_TIER1 = ITEMS.register("tome_tier1", () ->
     new AncientSpellbook(new Item.Properties(), 1));
@@ -135,6 +142,15 @@ public class ScriptorItems {
     new PlayerCasterCrystal(new Item.Properties().arch$tab(ScriptorTabs.SCRIPTOR_TAB)));
   public static final RegistrySupplier<Item> COORDINATE_CASTING_CRYSTAL = ITEMS.register("coordinate_casting_crystal", () ->
     new CoordinateCasterCrystal(new Item.Properties().arch$tab(ScriptorTabs.SCRIPTOR_TAB)));
+
+  public static final RegistrySupplier<Item> BOUND_SWORD = ITEMS.register("bound_sword", () ->
+    new BoundSword(Tiers.STONE, 3, -2.4f, new Item.Properties().durability(Integer.MAX_VALUE).arch$tab(ScriptorTabs.SCRIPTOR_TAB)));
+  public static final RegistrySupplier<Item> BOUND_AXE = ITEMS.register("bound_axe", () ->
+    new BoundAxe(Tiers.STONE, 6, -2.4f, new Item.Properties().durability(Integer.MAX_VALUE).arch$tab(ScriptorTabs.SCRIPTOR_TAB)));
+  public static final RegistrySupplier<Item> BOUND_SHOVEL = ITEMS.register("bound_shovel", () ->
+    new BoundTool(1, -2.4f, Tiers.STONE, BlockTags.MINEABLE_WITH_SHOVEL, new Item.Properties().durability(Integer.MAX_VALUE).arch$tab(ScriptorTabs.SCRIPTOR_TAB)));
+  public static final RegistrySupplier<Item> BOUND_PICKAXE = ITEMS.register("bound_pickaxe", () ->
+    new BoundTool(1, -2.4f, Tiers.STONE, BlockTags.MINEABLE_WITH_PICKAXE, new Item.Properties().durability(Integer.MAX_VALUE).arch$tab(ScriptorTabs.SCRIPTOR_TAB)));
 
   public static final RegistrySupplier<Item> CASTING_LECTERN = ITEMS.register("casting_lectern", () ->
     new BlockItem(ScriptorBlocks.CASTING_LECTERN.get(), new Item.Properties().arch$tab(ScriptorTabs.SCRIPTOR_TAB)));

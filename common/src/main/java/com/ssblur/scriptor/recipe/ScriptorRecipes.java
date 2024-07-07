@@ -16,5 +16,8 @@ public class ScriptorRecipes {
   public static final RegistrySupplier<RecipeSerializer<?>> SPELLBOOK = RECIPES.register("spellbook",
     SpellbookRecipe.Serializer::new);
 
+  public static final RegistrySupplier<RecipeSerializer<?>> SPELLBOOK_DYEING = RECIPES.register("spellbook_dyeing",
+    SpellbookDyeingRecipe.Serializer::new);
+
   public static void register() { RECIPES.register(); }
 }

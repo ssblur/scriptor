@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "scriptor:item/bound_sword",
+    "layer1": "scriptor:item/bound_sword_overlay"
+  },
+  "display": {}
+}

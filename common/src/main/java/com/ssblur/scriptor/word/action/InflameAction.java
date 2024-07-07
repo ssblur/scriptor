@@ -33,7 +33,7 @@ public class InflameAction extends Action {
       var container = new SimpleContainer(1);
       container.addItem(itemTargetable.getTargetItem());
       var recipe = check.getRecipeFor(container, itemTargetable.getLevel());
-      if(recipe.isPresent() && recipe.get().value().getIngredients().size() > 0 && recipe.get().value().getIngredients().get(0).getItems().length > 0) {
+      if(recipe.isPresent() && !recipe.get().value().getIngredients().isEmpty() && recipe.get().value().getIngredients().get(0).getItems().length > 0) {
         int count = recipe.get().value().getIngredients().get(0).getItems()[0].getCount();
         itemTargetable.getTargetItem().shrink(count);
 

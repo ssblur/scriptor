@@ -2,10 +2,7 @@ package com.ssblur.scriptor.blockentity;
 
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.block.ScriptorBlocks;
-import com.ssblur.scriptor.blockentity.renderers.CastingLecternBlockEntityRenderer;
-import com.ssblur.scriptor.blockentity.renderers.ChalkBlockEntityRenderer;
-import com.ssblur.scriptor.blockentity.renderers.LightBlockEntityRenderer;
-import com.ssblur.scriptor.blockentity.renderers.RuneBlockEntityRenderer;
+import com.ssblur.scriptor.blockentity.renderers.*;
 import dev.architectury.platform.Platform;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
@@ -33,9 +30,24 @@ public class ScriptorBlockEntities {
     () -> BlockEntityType.Builder.of(ChalkBlockEntity::new, ScriptorBlocks.CHALK.get()).build(null)
   );
 
+  public static final RegistrySupplier<BlockEntityType<EngravingBlockEntity>> ENGRAVING = BLOCK_ENTITIES.register(
+    "engraving",
+    () -> BlockEntityType.Builder.of(EngravingBlockEntity::new, ScriptorBlocks.ENGRAVING.get()).build(null)
+  );
+
   public static final RegistrySupplier<BlockEntityType<CastingLecternBlockEntity>> CASTING_LECTERN = BLOCK_ENTITIES.register(
     "casting_lectern",
     () -> BlockEntityType.Builder.of(CastingLecternBlockEntity::new, ScriptorBlocks.CASTING_LECTERN.get()).build(null)
+  );
+
+  public static final RegistrySupplier<BlockEntityType<PhasedBlockBlockEntity>> PHASED_BLOCK = BLOCK_ENTITIES.register(
+    "phased_block",
+    () -> BlockEntityType.Builder.of(PhasedBlockBlockEntity::new, ScriptorBlocks.PHASED_BLOCK.get()).build(null)
+  );
+
+  public static final RegistrySupplier<BlockEntityType<GenerateBlockEntity>> GENERATE = BLOCK_ENTITIES.register(
+    "generate",
+    () -> BlockEntityType.Builder.of(GenerateBlockEntity::new, ScriptorBlocks.GENERATE.get()).build(null)
   );
 
   public static void register() {
@@ -47,8 +59,10 @@ public class ScriptorBlockEntities {
   public static void registerRenderers() {
     BlockEntityRendererRegistry.register(RUNE.get(), RuneBlockEntityRenderer::new);
     BlockEntityRendererRegistry.register(CHALK.get(), ChalkBlockEntityRenderer::new);
+    BlockEntityRendererRegistry.register(ENGRAVING.get(), EngravingBlockEntityRenderer::new);
     BlockEntityRendererRegistry.register(CASTING_LECTERN.get(), CastingLecternBlockEntityRenderer::new);
     BlockEntityRendererRegistry.register(LIGHT.get(), LightBlockEntityRenderer::new);
+    BlockEntityRendererRegistry.register(PHASED_BLOCK.get(), PhasedBlockBlockEntityRenderer::new);
   }
 
 }

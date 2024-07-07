@@ -19,7 +19,12 @@ public class ExplosionAction extends Action {
 
     ServerLevel level = (ServerLevel) targetable.getLevel();
     var pos = targetable.getTargetPos();
-    level.explode(null, pos.x, pos.y + .25, pos.z, strength, Level.ExplosionInteraction.TNT);
+
+    float power = 0;
+    for(int i = 1; i <= strength; i++)
+      power += 1.5f / strength;
+
+    level.explode(null, pos.x, pos.y + .25, pos.z, power, Level.ExplosionInteraction.TNT);
   }
 
   @Override

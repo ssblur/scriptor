@@ -5,10 +5,7 @@ import com.ssblur.scriptor.events.network.ScriptorNetwork;
 import com.ssblur.scriptor.events.reloadlisteners.*;
 import dev.architectury.event.events.client.ClientRawInputEvent;
 import dev.architectury.event.events.client.ClientTickEvent;
-import dev.architectury.event.events.common.ChatEvent;
-import dev.architectury.event.events.common.LifecycleEvent;
-import dev.architectury.event.events.common.LootEvent;
-import dev.architectury.event.events.common.PlayerEvent;
+import dev.architectury.event.events.common.*;
 import dev.architectury.platform.Platform;
 import dev.architectury.registry.ReloadListenerRegistry;
 import net.fabricmc.api.EnvType;
@@ -22,6 +19,7 @@ public class ScriptorEvents {
     LootEvent.MODIFY_LOOT_TABLE.register(new AddLootEvent());
     LifecycleEvent.SERVER_LEVEL_LOAD.register(new PreloadDictionary());
     PlayerEvent.PLAYER_JOIN.register(new PlayerJoinedEvent());
+    TickEvent.PLAYER_POST.register(new PlayerTickEvent());
     ClientTickEvent.ClientLevel.CLIENT_LEVEL_POST.register(new ClientLevelTickEvent());
 
     ReloadListenerRegistry.register(PackType.SERVER_DATA, TomeReloadListener.INSTANCE);
@@ -32,6 +30,7 @@ public class ScriptorEvents {
     ReloadListenerRegistry.register(PackType.SERVER_DATA, GeneratorBindingReloadListener.INSTANCE);
     ReloadListenerRegistry.register(PackType.SERVER_DATA, ArtifactReloadListener.INSTANCE);
     ReloadListenerRegistry.register(PackType.SERVER_DATA, WordReloadListener.INSTANCE);
+    ReloadListenerRegistry.register(PackType.SERVER_DATA, EngravingReloadListener.INSTANCE);
 
     if(Platform.getEnv() == EnvType.CLIENT) {
       ClientRawInputEvent.MOUSE_SCROLLED.register(new ScrollEvent());

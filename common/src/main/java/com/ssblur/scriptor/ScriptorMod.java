@@ -10,6 +10,7 @@ import com.ssblur.scriptor.effect.ScriptorEffects;
 import com.ssblur.scriptor.enchant.ScriptorEnchantments;
 import com.ssblur.scriptor.entity.ScriptorEntities;
 import com.ssblur.scriptor.events.ScriptorEvents;
+import com.ssblur.scriptor.feature.ScriptorFeatures;
 import com.ssblur.scriptor.gamerules.ScriptorGameRules;
 import com.ssblur.scriptor.item.ScriptorItems;
 import com.ssblur.scriptor.loot.ScriptorLoot;
@@ -28,7 +29,6 @@ public class ScriptorMod {
   public static final String MOD_ID = "scriptor";
   public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
   public static final Supplier<RegistrarManager> REGISTRIES = Suppliers.memoize(() -> RegistrarManager.get(MOD_ID));
-
 
   // Please don't mess with this, I'm not adding anticheat but it's no fun );
   public static boolean COMMUNITY_MODE = false;
@@ -53,6 +53,7 @@ public class ScriptorMod {
     ScriptorParticles.register();
     ScriptorLoot.register();
     ScriptorGameRules.register();
+    ScriptorFeatures.register();
 
     registerCommands();
   }

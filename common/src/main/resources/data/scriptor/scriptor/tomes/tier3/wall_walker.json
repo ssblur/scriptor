@@ -1,0 +1,22 @@
+{
+  "name": "tome.scriptor.wall_walker",
+  "author": "Oats Holland",
+  "tier": 3,
+  "spell": {
+    "subject": "touch",
+    "spells": [
+      {
+        "action": "phasing",
+        "descriptors": [
+          "move_left",
+          "move_down",
+          "copy_up",
+          "copy_up",
+          "copy_right",
+          "copy_right",
+          "long"
+        ]
+      }
+    ]
+  }
+}

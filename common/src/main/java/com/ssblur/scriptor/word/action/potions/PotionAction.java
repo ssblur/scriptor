@@ -40,7 +40,7 @@ public class PotionAction extends Action {
     // Maybe add poison-tipped enchant?
 
     if(targetable instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof LivingEntity living)
-      living.addEffect(new MobEffectInstance(mobEffect, (int) duration, (int) Math.floor(strength)));
+      living.addEffect(new MobEffectInstance(mobEffect, (int) Math.round(duration), (int) Math.floor(strength)));
     else
       applyToPosition(caster, targetable, descriptors, strength, duration);
   }
