@@ -17,6 +17,7 @@ public class ScriptorBlocks {
   public static final RegistrySupplier<Block> ENGRAVING = BLOCKS.register("engraving", EngravingBlock::new);
   public static final RegistrySupplier<Block> CASTING_LECTERN = BLOCKS.register("casting_lectern", CastingLecternBlock::new);
   public static final RegistrySupplier<Block> PHASED_BLOCK = BLOCKS.register("phased_block", PhasedBlock::new);
+  public static final RegistrySupplier<Block> GENERATE = BLOCKS.register("generate", GenerateBlock::new);
 
   public static final RegistrySupplier<Block> WHITE_MAGIC_BLOCK = BLOCKS.register("white_magic_block",
     () -> new MagicBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE)));

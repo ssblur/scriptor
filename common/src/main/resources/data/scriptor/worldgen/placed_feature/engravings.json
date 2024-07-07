@@ -1,0 +1,18 @@
+{
+  "feature": "scriptor:engraving",
+  "placement": [
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 64
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "WORLD_SURFACE"
+    },
+    {
+      "type": "minecraft:random_offset",
+      "y_spread": -8,
+      "xz_spread": 0
+    }
+  ]
+}

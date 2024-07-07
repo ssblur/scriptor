@@ -30,6 +30,7 @@ public class ScriptorEvents {
     ReloadListenerRegistry.register(PackType.SERVER_DATA, GeneratorBindingReloadListener.INSTANCE);
     ReloadListenerRegistry.register(PackType.SERVER_DATA, ArtifactReloadListener.INSTANCE);
     ReloadListenerRegistry.register(PackType.SERVER_DATA, WordReloadListener.INSTANCE);
+    ReloadListenerRegistry.register(PackType.SERVER_DATA, EngravingReloadListener.INSTANCE);
 
     if(Platform.getEnv() == EnvType.CLIENT) {
       ClientRawInputEvent.MOUSE_SCROLLED.register(new ScrollEvent());

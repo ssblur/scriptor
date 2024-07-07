@@ -45,6 +45,11 @@ public class ScriptorBlockEntities {
     () -> BlockEntityType.Builder.of(PhasedBlockBlockEntity::new, ScriptorBlocks.PHASED_BLOCK.get()).build(null)
   );
 
+  public static final RegistrySupplier<BlockEntityType<GenerateBlockEntity>> GENERATE = BLOCK_ENTITIES.register(
+    "generate",
+    () -> BlockEntityType.Builder.of(GenerateBlockEntity::new, ScriptorBlocks.GENERATE.get()).build(null)
+  );
+
   public static void register() {
     BLOCK_ENTITIES.register();
 

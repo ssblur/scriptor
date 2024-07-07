@@ -1,27 +1,17 @@
 package com.ssblur.scriptor.blockentity;
 
-import com.ssblur.scriptor.block.ChalkBlock;
 import com.ssblur.scriptor.data.DictionarySavedData;
 import com.ssblur.scriptor.events.network.ParticleNetwork;
-import com.ssblur.scriptor.gamerules.ScriptorGameRules;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.Spell;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EngravingBlockEntity extends ChalkBlockEntity {
@@ -33,7 +23,7 @@ public class EngravingBlockEntity extends ChalkBlockEntity {
   public void cast(List<BlockPos> visited, String words, boolean primary) {
     if(cooldown > 0) {
       ParticleNetwork.fizzle(level, getBlockPos());
-      level.playSound(null, visited.get(0), SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
+      level.playSound(null, this.getBlockPos(), SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
       return;
     }
 
@@ -79,6 +69,10 @@ public class EngravingBlockEntity extends ChalkBlockEntity {
         level.playSound(null, visited.get(0), SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
       }
     }
+  }
+
+  public int getCooldown() {
+    return cooldown;
   }
 
   public static <T extends BlockEntity> void tick(Level level, BlockPos pos, BlockState state, T entity) {

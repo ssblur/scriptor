@@ -5,8 +5,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.math.Axis;
 import com.ssblur.scriptor.ScriptorMod;
+import com.ssblur.scriptor.block.EngravingBlock;
 import com.ssblur.scriptor.block.ScriptorBlocks;
-import com.ssblur.scriptor.blockentity.ChalkBlockEntity;
 import com.ssblur.scriptor.blockentity.EngravingBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -147,11 +147,14 @@ public class EngravingBlockEntityRenderer implements BlockEntityRenderer<Engravi
     var width = font.width(text);
     matrix.translate(-width * 0.5f, -6f, 0f);
 
+    int color = 0x404040;
+    if(blockEntity.getBlockState().getValue(EngravingBlock.HIGHLIGHT) && blockEntity.getCooldown() <= 0)
+      color = 0xFFB600;
     font.drawInBatch(
       text,
       0,
       0,
-      0x404040,
+      color,
       false,
       matrix.last().pose(),
       buffers,
