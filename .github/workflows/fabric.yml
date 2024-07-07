@@ -48,11 +48,7 @@ jobs:
 
           modrinth-project-id: "scriptor-magicae"
           modrinth-token: "${{ secrets.MODRINTH_TOKEN }}"
-          modrinth-dependencies:
-            - project_id: "architectury-api"
-              dependency_type: "required"
-            - project_id: "fabric-api"
-              dependency_type: "required"
+          modrinth-dependencies: '[{"project_id": "architectury-api", "dependency_type": "required"},{"project_id": "fabric-api", "dependency_type": "required"}]'
 
           jar-signing-store: ${{ secrets.JAR_SIGNING_STORE }}
           jar-signing-alias: ${{ secrets.JAR_SIGNING_ALIAS }}
