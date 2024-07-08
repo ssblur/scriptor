@@ -20,7 +20,6 @@ public class ScriptorEvents {
     LifecycleEvent.SERVER_LEVEL_LOAD.register(new PreloadDictionary());
     PlayerEvent.PLAYER_JOIN.register(new PlayerJoinedEvent());
     TickEvent.PLAYER_POST.register(new PlayerTickEvent());
-    ClientTickEvent.ClientLevel.CLIENT_LEVEL_POST.register(new ClientLevelTickEvent());
 
     ReloadListenerRegistry.register(PackType.SERVER_DATA, TomeReloadListener.INSTANCE);
     ReloadListenerRegistry.register(PackType.SERVER_DATA, ReagentReloadListener.INSTANCE);
@@ -34,6 +33,7 @@ public class ScriptorEvents {
 
     if(Platform.getEnv() == EnvType.CLIENT) {
       ClientRawInputEvent.MOUSE_SCROLLED.register(new ScrollEvent());
+      ClientTickEvent.ClientLevel.CLIENT_LEVEL_POST.register(new ClientLevelTickEvent());
 
       ScriptorEventsExpectPlatform.registerClientEvents();
     }

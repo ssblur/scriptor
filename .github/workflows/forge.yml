@@ -28,19 +28,22 @@ jobs:
       - name: Cleanup
         run: |
           rm */build/libs/scriptor-*-dev-shadow.jar
-          bash -c 'for file in fabric/build/libs/*.jar; do mv "$file" "${file%.jar}-fabric.jar"; done'
           bash -c 'for file in forge/build/libs/*.jar; do mv "$file" "${file%.jar}-forge.jar"; done'
       - name: Extract Tag Version
         id: tag
         run: echo "version=${GITHUB_REF:11}" >> $GITHUB_OUTPUT
       - name: Deploy
-        uses: ssblur/minecraft-publish@970e65141a6c69d7b6f08f3ff0aa84d3fc356e6d
+        uses: ssblur/minecraft-publish@9a49b2ef0e5cb630041f0a113341ac6b81eb570c
         with:
           mod-file: forge/build/libs/scriptor-${{ steps.tag.outputs.version }}-forge.jar
           version-name: "${{ steps.tag.outputs.version }}-forge"
           minecraft-version: 1.20.4
           mod-loader: forge
           changelog: ${{ steps.changelog.outputs.changelog }}
+          dependencies: |
+            architectury-api
+
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
           curse-project-id: "817436"
           curse-token: "${{ secrets.CURSEFORGE_TOKEN }}"
@@ -48,7 +51,6 @@ jobs:
 
           modrinth-project-id: "scriptor-magicae"
           modrinth-token: "${{ secrets.MODRINTH_TOKEN }}"
-          modrinth-dependencies: '[{"project_id": "architectury-api", "dependency_type": "required"},{"project_id": "fabric-api", "dependency_type": "required"}]'
 
           jar-signing-store: ${{ secrets.JAR_SIGNING_STORE }}
           jar-signing-alias: ${{ secrets.JAR_SIGNING_ALIAS }}
