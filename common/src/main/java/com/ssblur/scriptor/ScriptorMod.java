@@ -1,7 +1,6 @@
 package com.ssblur.scriptor;
 
 import com.google.common.base.Suppliers;
-import com.ssblur.scriptor.advancement.ScriptorAdvancements;
 import com.ssblur.scriptor.block.ScriptorBlocks;
 import com.ssblur.scriptor.blockentity.ScriptorBlockEntities;
 import com.ssblur.scriptor.commands.DumpDictionaryCommand;
@@ -40,7 +39,6 @@ public class ScriptorMod {
 
   public static void init() {
     ScriptorTabs.register();
-    ScriptorAdvancements.register();
     ScriptorBlocks.register();
     ScriptorBlockEntities.register();
     ScriptorItems.register();

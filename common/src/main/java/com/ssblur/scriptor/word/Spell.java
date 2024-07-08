@@ -1,6 +1,5 @@
 package com.ssblur.scriptor.word;
 
-import com.ssblur.scriptor.advancement.ScriptorAdvancements;
 import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.api.word.Subject;
 import com.ssblur.scriptor.api.word.Word;
@@ -13,7 +12,6 @@ import com.ssblur.scriptor.word.descriptor.CastDescriptor;
 import com.ssblur.scriptor.word.descriptor.focus.FocusDescriptor;
 import com.ssblur.scriptor.word.descriptor.target.TargetDescriptor;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 
@@ -77,7 +75,6 @@ public record Spell(
         if (cast.cannotCast(caster)) {
           if (caster instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof Player player) {
             player.sendSystemMessage(Component.translatable("extra.scriptor.condition_not_met"));
-            ScriptorAdvancements.FIZZLE.get().trigger((ServerPlayer) player);
           }
           if(!caster.getLevel().isClientSide)
             ParticleNetwork.fizzle(caster.getLevel(), caster.getTargetBlockPos());
