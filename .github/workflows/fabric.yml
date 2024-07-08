@@ -38,7 +38,7 @@ jobs:
           mod-file: fabric/build/libs/scriptor-${{ steps.tag.outputs.version }}-fabric.jar
           version-name: "${{ steps.tag.outputs.version }}-forge"
           minecraft-version: 1.20.1
-          mod-loader: forge
+          mod-loader: fabric
           changelog: ${{ steps.changelog.outputs.changelog }}
           dependencies: |
             architectury-api
