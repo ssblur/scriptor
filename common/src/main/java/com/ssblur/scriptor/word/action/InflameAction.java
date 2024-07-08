@@ -33,8 +33,8 @@ public class InflameAction extends Action {
       var container = new SimpleContainer(1);
       container.addItem(itemTargetable.getTargetItem());
       var recipe = check.getRecipeFor(container, itemTargetable.getLevel());
-      if(recipe.isPresent() && !recipe.get().value().getIngredients().isEmpty() && recipe.get().value().getIngredients().get(0).getItems().length > 0) {
-        int count = recipe.get().value().getIngredients().get(0).getItems()[0].getCount();
+      if(recipe.isPresent() && !recipe.get().getIngredients().isEmpty() && recipe.get().getIngredients().get(0).getItems().length > 0) {
+        int count = recipe.get().getIngredients().get(0).getItems()[0].getCount();
         itemTargetable.getTargetItem().shrink(count);
 
         var pos = itemTargetable.getTargetPos();
@@ -43,7 +43,7 @@ public class InflameAction extends Action {
           pos.x(),
           pos.y() + 1,
           pos.z(),
-          recipe.get().value().getResultItem(targetable.getLevel().registryAccess())
+          recipe.get().getResultItem(targetable.getLevel().registryAccess())
         );
         caster.getLevel().addFreshEntity(entity);
       }
@@ -56,10 +56,10 @@ public class InflameAction extends Action {
       var container = new SimpleContainer(1);
       container.addItem(itemTarget);
       var recipe = check.getRecipeFor(container, targetable.getLevel());
-      if(recipe.isPresent() && recipe.get().value().getIngredients().size() > 0 && recipe.get().value().getIngredients().get(0).getItems().length > 0) {
-        int count = recipe.get().value().getIngredients().get(0).getItems()[0].getCount();
+      if(recipe.isPresent() && recipe.get().getIngredients().size() > 0 && recipe.get().getIngredients().get(0).getItems().length > 0) {
+        int count = recipe.get().getIngredients().get(0).getItems()[0].getCount();
         itemTarget.shrink(count);
-        ItemTargetableHelper.depositItemStack(targetable, recipe.get().value().getResultItem(targetable.getLevel().registryAccess()));
+        ItemTargetableHelper.depositItemStack(targetable, recipe.get().getResultItem(targetable.getLevel().registryAccess()));
         return;
       }
     }

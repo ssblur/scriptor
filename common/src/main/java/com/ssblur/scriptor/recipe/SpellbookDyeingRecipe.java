@@ -1,8 +1,6 @@
 package com.ssblur.scriptor.recipe;
 
 import com.google.gson.JsonObject;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.ssblur.scriptor.item.ObfuscatedSpellbook;
 import com.ssblur.scriptor.item.ScriptorItems;
 import com.ssblur.scriptor.item.Spellbook;
@@ -21,21 +19,17 @@ import net.minecraft.world.level.Level;
 import java.util.Objects;
 
 public class SpellbookDyeingRecipe extends CustomRecipe {
-  public static Codec<SpellbookDyeingRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-    Codec.STRING.fieldOf("addition").forGetter(data -> ScriptorItems.ITEMS.getRegistrar().getId(data.addition).toString()),
-    Codec.STRING.fieldOf("result").forGetter(data -> ScriptorItems.ITEMS.getRegistrar().getId(data.result).toString())
-  ).apply(instance, SpellbookDyeingRecipe::new));
 
   Item addition;
   Item result;
-  public SpellbookDyeingRecipe(Item addition, Item result) {
-    super(CraftingBookCategory.MISC);
+  public SpellbookDyeingRecipe(ResourceLocation resourceLocation, Item addition, Item result) {
+    super(resourceLocation, CraftingBookCategory.MISC);
     this.result = result;
     this.addition = addition;
   }
 
-  public SpellbookDyeingRecipe(String addition, String result) {
-    super(CraftingBookCategory.MISC);
+  public SpellbookDyeingRecipe(ResourceLocation resourceLocation, String addition, String result) {
+    super(resourceLocation, CraftingBookCategory.MISC);
     this.result = ScriptorItems.ITEMS.getRegistrar().get(new ResourceLocation(result));
     this.addition = ScriptorItems.ITEMS.getRegistrar().get(new ResourceLocation(addition));
 
@@ -89,16 +83,11 @@ public class SpellbookDyeingRecipe extends CustomRecipe {
       var addition = ScriptorItems.ITEMS.getRegistrar().get(new ResourceLocation(jsonObject.get("addition").getAsString()));
 
       assert result != null && addition != null;
-      return new SpellbookDyeingRecipe(addition, result);
+      return new SpellbookDyeingRecipe(resourceLocation, addition, result);
     }
 
     @Override
-    public Codec<SpellbookDyeingRecipe> codec() {
-      return CODEC;
-    }
-
-    @Override
-    public SpellbookDyeingRecipe fromNetwork(FriendlyByteBuf buf) {
+    public SpellbookDyeingRecipe fromNetwork(ResourceLocation resourceLocation, FriendlyByteBuf buf) {
       var nbt = buf.readNbt();
       assert nbt != null;
       var result = ScriptorItems.ITEMS.getRegistrar().get(new ResourceLocation(nbt.getString("r")));
@@ -106,7 +95,7 @@ public class SpellbookDyeingRecipe extends CustomRecipe {
       var addition = ScriptorItems.ITEMS.getRegistrar().get(new ResourceLocation(nbt.getString("a")));
 
       assert result != null && base != null && addition != null;
-      return new SpellbookDyeingRecipe(addition, result);
+      return new SpellbookDyeingRecipe(resourceLocation, addition, result);
     }
 
     public void toNetwork(FriendlyByteBuf buf, SpellbookDyeingRecipe craftingRecipe) {

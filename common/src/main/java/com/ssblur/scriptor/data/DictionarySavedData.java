@@ -17,7 +17,6 @@ import com.ssblur.scriptor.word.Spell;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
 import org.jetbrains.annotations.Nullable;
@@ -361,7 +360,8 @@ public class DictionarySavedData extends SavedData {
     ServerLevel server = level.getServer().getLevel(Level.OVERWORLD);
     Objects.requireNonNull(server);
     return server.getDataStorage().computeIfAbsent(
-      new Factory<>(DictionarySavedData::new, DictionarySavedData::load, DataFixTypes.SAVED_DATA_MAP_DATA),
+      DictionarySavedData::load,
+      DictionarySavedData::new,
       ScriptorMod.COMMUNITY_MODE ? "scriptor_community_dictionary" : "scriptor_dictionary"
     );
   }

@@ -58,8 +58,8 @@ public class ParticleNetwork {
 
     out.writeEnum(TYPE.MAGIC);
     out.writeInt(color);
-    out.writeVec3(from);
-    out.writeVec3(to);
+    out.writeVector3f(new Vector3f((float) from.x, (float) from.y, (float) from.z));
+    out.writeVector3f(new Vector3f((float) to.x, (float) to.y, (float) to.z));
 
     NetworkManager.sendToPlayers(
       level.players().stream().map(player -> (ServerPlayer) player).toList(),
@@ -91,11 +91,11 @@ public class ParticleNetwork {
           int g = (c & 0x00ff00) >> 8;
           int b = c & 0x0000ff;
 
-          var from = buf.readVec3();
-          var to = buf.readVec3();
-          Vec3 pos;
-          for (double i = 1; i < 10; i++) {
-            pos = from.lerp(to, i / 10d);
+          var from = buf.readVector3f();
+          var to = buf.readVector3f();
+          Vector3f pos;
+          for (float i = 1; i < 10; i++) {
+            pos = from.lerp(to, i / 10f);
             ParticleQueue.queue(
               MagicParticleData.magic(r, g, b),
               pos.x(),

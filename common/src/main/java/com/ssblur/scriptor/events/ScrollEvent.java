@@ -9,7 +9,7 @@ import net.minecraft.world.InteractionHand;
 
 public class ScrollEvent implements ClientRawInputEvent.MouseScrolled {
   @Override
-  public EventResult mouseScrolled(Minecraft client, double amountX, double amountY) {
+  public EventResult mouseScrolled(Minecraft client, double amountY) {
     var player = client.player;
     if(player != null && player.isShiftKeyDown()) {
       if(player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof BookOfBooks) {

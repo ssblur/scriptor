@@ -19,7 +19,7 @@ public class WildPhasingStatusEffect extends MobEffect {
   }
 
   @Override
-  public boolean shouldApplyEffectTickThisTick(int i, int j) {
+  public boolean isDurationEffectTick(int i, int j) {
     return true;
   }
 }
