@@ -36,9 +36,9 @@ jobs:
         uses: ssblur/minecraft-publish@v1
         with:
           mod-file: fabric/build/libs/scriptor-${{ steps.tag.outputs.version }}-fabric.jar
-          version-name: "${{ steps.tag.outputs.version }}-forge"
+          version-name: "${{ steps.tag.outputs.version }}-fabric"
           minecraft-version: 1.20.4
-          mod-loader: forge
+          mod-loader: fabric
           changelog: ${{ steps.changelog.outputs.changelog }}
           dependencies: |
             architectury-api
