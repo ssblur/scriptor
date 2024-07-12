@@ -71,7 +71,7 @@ public class SpellbookDyeingRecipe extends CustomRecipe {
 
   @Override
   public RecipeSerializer<?> getSerializer() {
-    return ScriptorRecipes.SPELLBOOK.get();
+    return ScriptorRecipes.SPELLBOOK_DYEING.get();
   }
 
   public static class Serializer implements RecipeSerializer<SpellbookDyeingRecipe> {
