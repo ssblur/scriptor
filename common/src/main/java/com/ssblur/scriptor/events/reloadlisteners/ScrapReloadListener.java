@@ -95,8 +95,6 @@ public class ScrapReloadListener extends ScriptorReloadListener {
       scriptor.putBoolean("community", true);
 
     var itemStack = new ItemStack(ScriptorItems.SCRAP.get());
-    var tag = itemStack.getOrCreateTag();
-    tag.put("scriptor", scriptor);
 
     return itemStack;
   }

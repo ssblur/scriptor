@@ -7,7 +7,7 @@ import com.ssblur.scriptor.helpers.targetable.Targetable;
 
 public class WildPhasingAction extends PotionAction {
   public WildPhasingAction() {
-    super(ScriptorEffects.WILD_PHASING.get(), 20, 1d/3d, new Cost(15, COSTTYPE.ADDITIVE));
+    super(ScriptorEffects.WILD_PHASING, 20, 1d/3d, new Cost(15, COSTTYPE.ADDITIVE));
   }
 
   @Override

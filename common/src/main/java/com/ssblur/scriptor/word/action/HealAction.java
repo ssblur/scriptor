@@ -10,7 +10,6 @@ import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.descriptor.power.StrengthDescriptor;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobType;
 
 public class HealAction extends Action {
   @Override
@@ -43,7 +42,7 @@ public class HealAction extends Action {
       Entity entity = entityTargetable.getTargetEntity();
       Entity source = caster instanceof EntityTargetable casterEntity ? casterEntity.getTargetEntity() : entity;
       if(entity instanceof LivingEntity target)
-        if(target.getMobType() == MobType.UNDEAD)
+        if(target.isInvertedHealAndHarm())
           target.hurt(ScriptorDamage.magic(source, source), (float) strength);
         else
           target.heal((float) strength);

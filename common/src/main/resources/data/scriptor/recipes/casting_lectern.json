@@ -17,6 +17,7 @@
     }
   },
   "result": {
-    "item": "scriptor:casting_lectern"
+    "id": "scriptor:casting_lectern",
+    "count": 1
   }
 }

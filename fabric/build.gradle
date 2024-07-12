@@ -1,31 +1,11 @@
 plugins {
-    id "com.github.johnrengelman.shadow" version "7.1.2"
-    id "com.modrinth.minotaur" version "2.+"
+    id "com.github.johnrengelman.shadow"
 }
 
 architectury {
     platformSetupLoomIde()
     fabric()
 }
-
-modrinth {
-    token = System.getenv("MODRINTH_TOKEN")
-    projectId = "scriptor-magicae"
-    versionNumber = version
-    versionName = version + "-FABRIC"
-    changelog = (System.getenv("CHANGELOG") ?: "Could not load changelog").replace("\n", "\n\n")
-    versionType = "release"
-    uploadFile = tasks.named("signedJar").get().outputs.files.singleFile
-    gameVersions = [rootProject.minecraft_version]
-    loaders = ["fabric"]
-    dependencies {
-        required.project "architectury-api"
-        required.project "fabric-api"
-        optional.project "patchouli"
-    }
-    syncBodyFrom = rootProject.file("README.md").text
-}
-tasks.modrinth.dependsOn tasks.named("signedJar")
 
 
 loom {
@@ -41,15 +21,13 @@ configurations {
 }
 
 dependencies {
-    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
-    modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
-    // Remove the next line if you don't want to depend on the API
-    modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}"
+  modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
+  modImplementation "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
+  // Remove the next line if you don't want to depend on the API
+  modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}"
 
-    common(project(path: ":common", configuration: "namedElements")) { transitive false }
-    shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
-    common(project(path: ":fabric-like", configuration: "namedElements")) { transitive false }
-    shadowCommon(project(path: ":fabric-like", configuration: "transformProductionFabric")) { transitive false }
+  common(project(path: ":common", configuration: "namedElements")) { transitive false }
+  shadowCommon(project(path: ":common", configuration: "transformProductionFabric"))
 }
 
 processResources {

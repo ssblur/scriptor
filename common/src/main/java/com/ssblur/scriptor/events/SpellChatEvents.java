@@ -28,10 +28,10 @@ public class SpellChatEvents implements ChatEvent.Received {
       if (level instanceof ServerLevel server) {
         Spell spell = DictionarySavedData.computeIfAbsent(server).parse(sentence);
         if (spell != null) {
-          if (player.hasEffect(ScriptorEffects.HOARSE.get())) {
+          if (player.hasEffect(ScriptorEffects.HOARSE)) {
             player.sendSystemMessage(Component.translatable("extra.scriptor.hoarse"));
             return EventResult.interruptFalse();
-          } else if (player.hasEffect(ScriptorEffects.MUTE.get())) {
+          } else if (player.hasEffect(ScriptorEffects.MUTE)) {
             player.sendSystemMessage(Component.translatable("extra.scriptor.mute"));
             return EventResult.interruptFalse();
           }
@@ -43,7 +43,7 @@ public class SpellChatEvents implements ChatEvent.Received {
 		
 		  int adjustedCost = (int) Math.round( (double)cost * ( (double) level.getGameRules().getInt(ScriptorGameRules.VOCAL_COOLDOWN_MULTIPLIER) / (double) 100 ) );
 		  if (!player.isCreative()) {
-			  player.addEffect(new MobEffectInstance(ScriptorEffects.HOARSE.get(), adjustedCost));
+			  player.addEffect(new MobEffectInstance(ScriptorEffects.HOARSE, adjustedCost));
 			  if (adjustedCost > level.getGameRules().getInt(ScriptorGameRules.VOCAL_HUNGER_THRESHOLD))
 				  player.addEffect(new MobEffectInstance(MobEffects.HUNGER, 2*(adjustedCost - level.getGameRules().getInt(ScriptorGameRules.VOCAL_HUNGER_THRESHOLD))));
 			  if (adjustedCost > level.getGameRules().getInt(ScriptorGameRules.VOCAL_DAMAGE_THRESHOLD))

@@ -1,5 +1,10 @@
 {
   "type": "scriptor:spellbook_dyeing",
-  "addition": "minecraft:cyan_dye",
-  "result": "scriptor:spellbook_cyan"
+  "addition": {
+    "item": "minecraft:cyan_dye"
+  },
+  "result": {
+    "id": "scriptor:spellbook_cyan",
+    "count": 1
+  }
 }

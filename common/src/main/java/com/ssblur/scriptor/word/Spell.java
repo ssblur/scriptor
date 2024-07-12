@@ -5,7 +5,7 @@ import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.api.word.Subject;
 import com.ssblur.scriptor.api.word.Word;
 import com.ssblur.scriptor.effect.ScriptorEffects;
-import com.ssblur.scriptor.events.network.ParticleNetwork;
+import com.ssblur.scriptor.events.network.client.ParticleNetwork;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.descriptor.AfterCastDescriptor;
@@ -65,7 +65,7 @@ public record Spell(
    */
   public void cast(Targetable caster) {
     if(caster instanceof EntityTargetable entity && entity.getTargetEntity() instanceof LivingEntity living)
-      if(living.hasEffect(ScriptorEffects.MUTE.get())) {
+      if(living.hasEffect(ScriptorEffects.MUTE)) {
         if(living instanceof Player player)
           player.sendSystemMessage(Component.translatable("extra.scriptor.mute"));
         return;

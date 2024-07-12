@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.mixin;
 
 import com.ssblur.scriptor.ScriptorMod;
-import com.ssblur.scriptor.events.network.ConfigNetwork;
+import com.ssblur.scriptor.events.network.client.ReceiveConfigNetwork;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.players.PlayerList;
 import org.spongepowered.asm.mixin.Mixin;
@@ -22,6 +22,6 @@ public class ReloadResourcesMixin {
     Collection<String> collection,
     CallbackInfoReturnable<CompletableFuture<Void>> info
   ) {
-    ConfigNetwork.sendCommunityMode(this.playerList.getPlayers(), ScriptorMod.COMMUNITY_MODE);
+    ReceiveConfigNetwork.sendCommunityMode(this.playerList.getPlayers(), ScriptorMod.COMMUNITY_MODE);
   }
 }

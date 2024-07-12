@@ -1,6 +1,13 @@
 {
   "type": "scriptor:spellbook",
-  "base": "minecraft:written_book",
-  "addition": "scriptor:spellbook_binder",
-  "result": "scriptor:spellbook"
+  "base": {
+    "item": "minecraft:written_book"
+  },
+  "addition": {
+    "item": "scriptor:spellbook_binder"
+  },
+  "result": {
+    "id": "scriptor:spellbook",
+    "count": 1
+  }
 }

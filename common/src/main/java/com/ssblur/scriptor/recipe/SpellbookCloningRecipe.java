@@ -2,11 +2,13 @@ package com.ssblur.scriptor.recipe;
 
 import com.ssblur.scriptor.item.ScriptorItems;
 import com.ssblur.scriptor.item.Spellbook;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.WrittenBookContent;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -28,8 +30,8 @@ public class SpellbookCloningRecipe extends CustomRecipe {
           paperCount++;
         else if(container.getItem(slot).getItem() instanceof Spellbook) {
           var item = container.getItem(slot);
-          var tag = item.getTag();
-          if(tag != null && tag.getInt("generation") < 2)
+          var book = item.get(DataComponents.WRITTEN_BOOK_CONTENT);
+          if(book != null && book.generation() < 2)
             spellbookCount++;
         } else if(container.getItem(slot).getItem() == ScriptorItems.SPELLBOOK_BINDER.get())
           binderCount++;
@@ -41,16 +43,17 @@ public class SpellbookCloningRecipe extends CustomRecipe {
   }
 
   @Override
-  public ItemStack assemble(CraftingContainer container, RegistryAccess access) {
+  public ItemStack assemble(CraftingContainer container, HolderLookup.Provider access) {
     ItemStack spellbook = ItemStack.EMPTY;
     for(int slot = 0; slot < container.getContainerSize(); slot++)
       if(container.getItem(slot).getItem() instanceof Spellbook)
         spellbook = container.getItem(slot);
     var copy = spellbook.copy();
-    var tag = copy.getTag();
-    if(tag != null) {
-      tag.putInt("generation", tag.getInt("generation") + 1);
-    }
+    var book = copy.get(DataComponents.WRITTEN_BOOK_CONTENT);
+    copy.set(
+      DataComponents.WRITTEN_BOOK_CONTENT,
+      new WrittenBookContent(book.title(), book.author(), book.generation(), book.pages(), book.resolved())
+    );
 
     return copy;
   }

@@ -65,7 +65,7 @@ public class InflameAction extends Action {
     }
 
     if(targetable instanceof EntityTargetable entityTargetable) {
-      entityTargetable.getTargetEntity().setSecondsOnFire((int) Math.round(seconds));
+      entityTargetable.getTargetEntity().setRemainingFireTicks((int) Math.round(seconds * 20));
     } else {
       BlockPos pos = targetable.getTargetBlockPos();
       Level level = targetable.getLevel();

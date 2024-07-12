@@ -12,10 +12,11 @@ public class WildPhasingStatusEffect extends MobEffect {
   }
 
   @Override
-  public void applyEffectTick(LivingEntity entity, int amplifier) {
+  public boolean applyEffectTick(LivingEntity entity, int amplifier) {
     if(!(entity instanceof Player)) {
       entity.setPos(entity.position().add(new Vec3(0, -0.05, 0)));
     }
+    return true;
   }
 
   @Override

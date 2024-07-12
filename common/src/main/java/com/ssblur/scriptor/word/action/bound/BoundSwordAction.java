@@ -3,22 +3,19 @@ package com.ssblur.scriptor.word.action.bound;
 import com.ssblur.scriptor.api.word.Action;
 import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.color.CustomColors;
-import com.ssblur.scriptor.color.interfaces.Colorable;
-import com.ssblur.scriptor.color.interfaces.ColorableBlock;
-import com.ssblur.scriptor.color.interfaces.ColorableItem;
+import com.ssblur.scriptor.data_components.ScriptorDataComponents;
 import com.ssblur.scriptor.helpers.ItemTargetableHelper;
-import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.item.ScriptorItems;
-import com.ssblur.scriptor.registry.colorable.ColorableBlockRegistry;
 import com.ssblur.scriptor.word.descriptor.duration.DurationDescriptor;
 import com.ssblur.scriptor.word.descriptor.power.StrengthDescriptor;
-import dev.architectury.registry.client.rendering.ColorHandlerRegistry;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.DyedItemColor;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 
 public class BoundSwordAction extends Action {
   @Override
@@ -34,22 +31,22 @@ public class BoundSwordAction extends Action {
 
     var itemStack = new ItemStack(ScriptorItems.BOUND_SWORD.get());
 
-    var tag = new CompoundTag();
+    itemStack.set(DataComponents.DYED_COLOR, new DyedItemColor(CustomColors.getColor(descriptors), false));
+    itemStack.set(ScriptorDataComponents.EXPIRES, caster.getLevel().getGameTime() + (long) Math.floor(duration * 80));
 
-    var display = new CompoundTag();
-    display.putInt("color", CustomColors.getColor(descriptors));
-    tag.put("display", display);
-
-    var scriptor = new CompoundTag();
-    scriptor.putLong("expire", caster.getLevel().getGameTime() + (long) Math.floor(duration * 80));
-    tag.put("scriptor", scriptor);
-
-    itemStack.setTag(tag);
-
-    itemStack.addAttributeModifier(
-      Attributes.ATTACK_DAMAGE,
-      new AttributeModifier("Bound Sword", strength,
-        AttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND
+    final double finalStrength = strength;
+    itemStack.update(
+      DataComponents.ATTRIBUTE_MODIFIERS,
+      ItemAttributeModifiers.EMPTY,
+      modifiers -> modifiers.withModifierAdded(
+        Attributes.ATTACK_DAMAGE,
+        new AttributeModifier(
+          "Bound Sword",
+          finalStrength,
+          AttributeModifier.Operation.ADD_VALUE
+        ),
+        EquipmentSlotGroup.MAINHAND
+      )
     );
 
     ItemTargetableHelper.depositItemStack(targetable, itemStack);

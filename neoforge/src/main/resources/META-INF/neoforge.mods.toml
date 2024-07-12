@@ -1,0 +1,38 @@
+modLoader = "javafml"
+loaderVersion = "[2,)"
+#issueTrackerURL = ""
+license = "WTFPL"
+
+[[mods]]
+modId = "scriptor"
+version = "${version}"
+displayName = "Scriptor"
+authors = "SSBlur"
+description = '''
+Knowledge is power!
+'''
+logoFile = "icon.png"
+
+[[dependencies.scriptor]]
+modId = "neoforge"
+type = "required"
+versionRange = "[20.5,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.scriptor]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.20.5,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.scriptor]]
+modId = "architectury"
+type = "required"
+versionRange = "[12.0.28,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[mixins]]
+config = "scriptor.mixins.json"

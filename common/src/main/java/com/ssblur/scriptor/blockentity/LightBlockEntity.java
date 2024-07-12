@@ -2,6 +2,7 @@ package com.ssblur.scriptor.blockentity;
 
 import com.ssblur.scriptor.color.interfaces.Colorable;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -34,22 +35,22 @@ public class LightBlockEntity extends BlockEntity implements Colorable {
   }
 
   @Override
-  public CompoundTag getUpdateTag() {
-    var tag = super.getUpdateTag();
+  public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
+    var tag = super.getUpdateTag(provider);
     tag.putInt("com/ssblur/scriptor/color", color);
     return tag;
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
     color = tag.getInt("com/ssblur/scriptor/color");
     setChanged();
   }
 
   @Override
-  protected void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
+  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
 
     tag.putInt("com/ssblur/scriptor/color", color);
   }

@@ -1,7 +1,8 @@
 package com.ssblur.scriptor.item;
 
-import com.ssblur.scriptor.events.network.ChalkNetwork;
+import com.ssblur.scriptor.events.network.server.ChalkNetwork;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -10,7 +11,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class Chalk extends Item {
   }
 
   @Override
-  public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> list, TooltipFlag tooltipFlag) {
+  public void appendHoverText(ItemStack itemStack, TooltipContext level, List<Component> list, TooltipFlag tooltipFlag) {
     super.appendHoverText(itemStack, level, list, tooltipFlag);
     if(!hasName(itemStack)) {
       list.add(Component.translatable("extra.scriptor.chalk_unnamed_1").withStyle(ChatFormatting.RED));
@@ -39,10 +39,7 @@ public class Chalk extends Item {
   }
 
   public static boolean hasName(ItemStack itemStack) {
-    if(itemStack.hasTag()) {
-      var display = itemStack.getTagElement("display");
-      return display != null && display.getString("Name") != null && !display.getString("Name").isEmpty();
-    }
-    return false;
+    var name = itemStack.get(DataComponents.CUSTOM_NAME);
+    return name != null;
   }
 }

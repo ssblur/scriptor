@@ -1,15 +1,13 @@
 package com.ssblur.scriptor.events;
 
-import com.ssblur.scriptor.block.ScriptorBlocks;
 import com.ssblur.scriptor.blockentity.PhasedBlockBlockEntity;
+import com.ssblur.scriptor.data_components.ScriptorDataComponents;
 import com.ssblur.scriptor.effect.ScriptorEffects;
-import dev.architectury.event.events.common.PlayerEvent;
 import dev.architectury.event.events.common.TickEvent;
 import net.minecraft.core.Vec3i;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 public class PlayerTickEvent implements TickEvent.Player {
@@ -17,9 +15,9 @@ public class PlayerTickEvent implements TickEvent.Player {
   public void tick(net.minecraft.world.entity.player.Player entity) {
     var level = entity.level();
 
-    if(entity.hasEffect(ScriptorEffects.PHASING.get()))
+    if(entity.hasEffect(ScriptorEffects.PHASING))
       phase(entity, 0);
-    if(entity.hasEffect(ScriptorEffects.WILD_PHASING.get()))
+    if(entity.hasEffect(ScriptorEffects.WILD_PHASING))
       phase(entity, -2);
 
     for(var item: entity.getInventory().items)
@@ -40,16 +38,9 @@ public class PlayerTickEvent implements TickEvent.Player {
     var level = entity.level();
 
     if(item.getCount() > 0) {
-      var scriptor = item.getTagElement("scriptor");
-
-      // Expire bound items
-      if (scriptor != null) {
-        if (scriptor.contains("expire"))
-          if (scriptor.getLong("expire") <= level.getGameTime()) {
-            item.setCount(0);
-            level.playSound(null, entity.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS);
-          }
-
+      if (item.has(ScriptorDataComponents.EXPIRES) && item.get(ScriptorDataComponents.EXPIRES) <= level.getGameTime()) {
+        item.setCount(0);
+        level.playSound(null, entity.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS);
       }
     }
   }

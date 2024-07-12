@@ -52,7 +52,7 @@ public class SwapAction extends Action {
 
           itemStack.shrink(1);
           toInventory.getContainer().setItem(slot, newItemStack);
-        } else if(ItemStack.isSameItemSameTags(itemStack2, itemStack)) {
+        } else if(ItemStack.isSameItemSameComponents(itemStack2, itemStack)) {
           itemStack.shrink(1);
           itemStack2.grow(1);
         }
@@ -75,7 +75,7 @@ public class SwapAction extends Action {
         if(itemStack2.isEmpty()) {
           itemStack.shrink(1);
           toInventory.getContainer().setItem(slot, newItemStack);
-        } else if(ItemStack.isSameItemSameTags(itemStack2, itemStack)) {
+        } else if(ItemStack.isSameItemSameComponents(itemStack2, itemStack)) {
           itemStack.shrink(1);
           itemStack2.grow(1);
         }

@@ -2,6 +2,7 @@ package com.ssblur.scriptor.data;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.MinecraftServer;
@@ -79,16 +80,15 @@ public class PlayerSpellsSavedData extends SavedData {
   }
 
   @Override
-  public CompoundTag save(CompoundTag tag) {
-    var result = CODEC.encodeStart(NbtOps.INSTANCE, this).get().left();
-    result.ifPresent(value -> tag.put("scriptor:obtained_spells", value));
+  public CompoundTag save(CompoundTag tag, HolderLookup.Provider provider) {
+    var result = CODEC.encodeStart(NbtOps.INSTANCE, this).ifSuccess(value -> tag.put("scriptor:obtained_spells", value));
     return tag;
   }
 
-  public static PlayerSpellsSavedData load(CompoundTag tag) {
+  public static PlayerSpellsSavedData load(CompoundTag tag, HolderLookup.Provider provider) {
     var input = tag.get("scriptor:obtained_spells");
     if(input != null) {
-      var result = CODEC.decode(NbtOps.INSTANCE, input).get().left();
+      var result = CODEC.decode(NbtOps.INSTANCE, input).result();
       if(result.isPresent() && result.get().getFirst() != null)
         return result.get().getFirst();
     }

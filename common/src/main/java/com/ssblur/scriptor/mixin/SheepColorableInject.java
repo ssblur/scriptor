@@ -20,7 +20,7 @@ public class SheepColorableInject implements Colorable {
 
     var colorfulSheep = ScriptorEntities.COLORFUL_SHEEP_TYPE.get().spawn(
       (ServerLevel) self.level(),
-      tag,
+      null,
       null,
       self.getOnPos(),
       MobSpawnType.CONVERSION,

@@ -6,6 +6,7 @@ import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.Spell;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -46,15 +47,15 @@ public class RuneBlockEntity extends BlockEntity implements Colorable {
   }
 
   @Override
-  public CompoundTag getUpdateTag() {
-    var tag = super.getUpdateTag();
+  public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
+    var tag = super.getUpdateTag(provider);
     tag.putInt("com/ssblur/scriptor/color", color);
     return tag;
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
     color = tag.getInt("com/ssblur/scriptor/color");
 
     if(tag.contains("spell"))
@@ -69,8 +70,8 @@ public class RuneBlockEntity extends BlockEntity implements Colorable {
   }
 
   @Override
-  protected void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
+  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
 
     if(level instanceof ServerLevel server && spell != null)
       tag.putString("spell", DictionarySavedData.computeIfAbsent(server).generate(spell));

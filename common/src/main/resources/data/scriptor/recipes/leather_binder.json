@@ -12,7 +12,7 @@
     }
   ],
   "result": {
-    "item": "scriptor:leather_binder",
+    "id": "scriptor:leather_binder",
     "count": 2
   }
 }

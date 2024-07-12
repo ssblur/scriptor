@@ -1,6 +1,6 @@
 package com.ssblur.scriptor.events;
 
-import com.ssblur.scriptor.events.network.ScrollNetwork;
+import com.ssblur.scriptor.events.network.server.ScrollNetwork;
 import com.ssblur.scriptor.item.BookOfBooks;
 import dev.architectury.event.EventResult;
 import dev.architectury.event.events.client.ClientRawInputEvent;

@@ -6,7 +6,7 @@
     }
   ],
   "result": {
-    "item": "scriptor:player_casting_crystal",
+    "id": "scriptor:player_casting_crystal",
     "count": 1
   }
 }

@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:item/handheld",
+  "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "scriptor:item/bound_axe",
     "layer1": "scriptor:item/bound_axe_overlay"

@@ -15,7 +15,7 @@
     }
   ],
   "result": {
-    "item": "scriptor:spellbook_binder",
+    "id": "scriptor:spellbook_binder",
     "count": 2
   }
 }

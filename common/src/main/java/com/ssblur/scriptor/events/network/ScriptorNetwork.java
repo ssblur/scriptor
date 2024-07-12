@@ -1,6 +1,8 @@
 package com.ssblur.scriptor.events.network;
 
 import com.ssblur.scriptor.ScriptorMod;
+import com.ssblur.scriptor.events.network.client.*;
+import com.ssblur.scriptor.events.network.server.*;
 import dev.architectury.networking.NetworkManager;
 import dev.architectury.platform.Platform;
 import net.fabricmc.api.EnvType;
@@ -22,23 +24,29 @@ public class ScriptorNetwork {
   public static final ResourceLocation CLIENT_PARTICLE = new ResourceLocation(MOD_ID, "client_particle");
   public static final ResourceLocation CLIENT_FLAG = new ResourceLocation(MOD_ID, "client_flag");
   public static final ResourceLocation SERVER_SCROLL_NETWORK = new ResourceLocation(MOD_ID, "server_scroll_networkc");
+
   public static void register() {
-    NetworkManager.registerReceiver(NetworkManager.Side.C2S, SERVER_RETURN_TRACE_DATA, TraceNetwork::returnTraceData);
-    NetworkManager.registerReceiver(NetworkManager.Side.C2S, SERVER_RECEIVE_CHALK_MESSAGE, ChalkNetwork::receiveChalkMessage);
-    NetworkManager.registerReceiver(NetworkManager.Side.C2S, SERVER_CURSOR_USE_BOOK, EnchantNetwork::useBook);
-    NetworkManager.registerReceiver(NetworkManager.Side.C2S, SERVER_CURSOR_USE_BOOK_CREATIVE, EnchantNetwork::useBookCreative);
-    NetworkManager.registerReceiver(NetworkManager.Side.C2S, SERVER_CURSOR_USE_SCROLL, IdentifyNetwork::useScroll);
-    NetworkManager.registerReceiver(NetworkManager.Side.C2S, SERVER_CURSOR_USE_SCROLL_CREATIVE, IdentifyNetwork::useScrollCreative);
-    NetworkManager.registerReceiver(NetworkManager.Side.C2S, SERVER_SCROLL_NETWORK, ScrollNetwork::scrollBook);
+    register(new ServerTraceNetwork());
+    register(new ChalkNetwork());
+    register(new ServerUseBookNetwork());
+    register(new ServerCreativeEnchantNetwork());
+    register(new ServerIdentifyNetwork());
+    register(new CreativeIdentifyNetwork());
+    register(new ScrollNetwork());
 
     if(Platform.getEnv() == EnvType.CLIENT) {
-      NetworkManager.registerReceiver(NetworkManager.Side.S2C, CLIENT_GET_TRACE_DATA, TraceNetwork::getTraceData);
-      NetworkManager.registerReceiver(NetworkManager.Side.S2C, CLIENT_GET_HITSCAN_DATA, TraceNetwork::getExtendedTraceData);
-      NetworkManager.registerReceiver(NetworkManager.Side.S2C, CLIENT_CURSOR_RETURN_SCROLL_CREATIVE, IdentifyNetwork::receiveDataCreative);
-      NetworkManager.registerReceiver(NetworkManager.Side.S2C, CLIENT_CURSOR_RETURN_BOOK_CREATIVE, EnchantNetwork::returnBookCreative);
-      NetworkManager.registerReceiver(NetworkManager.Side.S2C, CLIENT_COLOR_RECEIVE, ColorNetwork::receiveColor);
-      NetworkManager.registerReceiver(NetworkManager.Side.S2C, CLIENT_PARTICLE, ParticleNetwork::getParticles);
-      NetworkManager.registerReceiver(NetworkManager.Side.S2C, CLIENT_FLAG, ConfigNetwork::receiveFlagMessage);
+      register(new ClientTraceNetwork());
+      register(new ClientExtendedTraceNetwork());
+      register(new ClientCreativeBookNetwork());
+      register(new ClientIdentifyNetwork());
+      register(new ReceiveColorNetwork());
+      register(new ParticleNetwork());
+      register(new ReceiveConfigNetwork());
     }
   }
+
+  public static void register(ScriptorNetworkInterface networkInterface) {
+    NetworkManager.registerReceiver(networkInterface.side(), networkInterface.type(), networkInterface.streamCodec(), networkInterface::receive);
+  }
+
 }

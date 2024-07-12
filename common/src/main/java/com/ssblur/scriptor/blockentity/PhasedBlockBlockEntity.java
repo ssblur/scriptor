@@ -1,9 +1,8 @@
 package com.ssblur.scriptor.blockentity;
 
-import com.ssblur.scriptor.block.PhasedBlock;
 import com.ssblur.scriptor.block.ScriptorBlocks;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.protocol.Packet;
@@ -33,7 +32,7 @@ public class PhasedBlockBlockEntity extends BlockEntity {
     if(countdown <= 0 && level != null) {
       level.setBlockAndUpdate(getBlockPos(), blockState);
       if(data != null) {
-        var entity = BlockEntity.loadStatic(getBlockPos(), blockState, data);
+        var entity = BlockEntity.loadStatic(getBlockPos(), blockState, data, level.registryAccess());
         if(entity != null)
           level.setBlockEntity(entity);
       }
@@ -64,7 +63,7 @@ public class PhasedBlockBlockEntity extends BlockEntity {
     var newEntity = new PhasedBlockBlockEntity(pos, newState);
     newEntity.blockState = state;
     if(entity != null)
-      newEntity.data = entity.saveWithFullMetadata();
+      newEntity.data = entity.saveWithFullMetadata(level.registryAccess());
     newEntity.countdown = duration;
 
     level.removeBlockEntity(pos);
@@ -81,17 +80,17 @@ public class PhasedBlockBlockEntity extends BlockEntity {
   }
 
   @Override
-  public CompoundTag getUpdateTag() {
-    var tag = super.getUpdateTag();
+  public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
+    var tag = super.getUpdateTag(provider);
 
-    saveAdditional(tag);
+    saveAdditional(tag, provider);
 
     return tag;
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
 
     data = tag.getCompound("data");
     var state = tag.get("blockState");
@@ -103,8 +102,8 @@ public class PhasedBlockBlockEntity extends BlockEntity {
   }
 
   @Override
-  protected void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
+  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
 
     if(data != null)
       tag.put("data", data);

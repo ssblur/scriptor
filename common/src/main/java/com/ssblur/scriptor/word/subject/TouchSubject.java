@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.word.subject;
 
 import com.ssblur.scriptor.api.word.Subject;
-import com.ssblur.scriptor.events.network.TraceNetwork;
+import com.ssblur.scriptor.events.network.server.ServerTraceNetwork;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.LecternTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
@@ -20,7 +20,7 @@ public class TouchSubject extends Subject {
   public CompletableFuture<List<Targetable>> getTargets(Targetable caster, Spell spell) {
     var result = new CompletableFuture<List<Targetable>>();
     if(caster instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof Player player) {
-      TraceNetwork.requestTraceData(player, target -> result.complete(List.of(target)));
+      ServerTraceNetwork.requestTraceData(player, target -> result.complete(List.of(target)));
     } else if(caster instanceof LecternTargetable) {
       var pos = caster.getTargetBlockPos().relative(caster.getFacing());
       var entities = caster.getLevel().getEntitiesOfClass(

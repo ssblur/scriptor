@@ -5,9 +5,11 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
 import com.ssblur.scriptor.data.DictionarySavedData;
+import com.ssblur.scriptor.data_components.ScriptorDataComponents;
 import com.ssblur.scriptor.events.reloadlisteners.ArtifactReloadListener;
 import com.ssblur.scriptor.loot.ScriptorLoot;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
@@ -24,12 +26,8 @@ public class ArtifactItemFunction implements LootItemFunction {
     var artifact = ArtifactReloadListener.INSTANCE.getRandomArtifact();
     String spell = DictionarySavedData.computeIfAbsent(lootContext.getLevel()).generate(artifact.getSpell());
 
-    var tag = itemStack.getOrCreateTag();
-    var scriptor = new CompoundTag();
-    scriptor.putString("spell", spell);
-    scriptor.putString("title", artifact.getName());
-    tag.put("scriptor", scriptor);
-
+    itemStack.set(ScriptorDataComponents.SPELL, spell);
+    itemStack.set(DataComponents.CUSTOM_NAME, Component.translatable(artifact.getName()));
     return itemStack;
   }
   public static class ArtifactSerializer implements Codec<ArtifactItemFunction> {

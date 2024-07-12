@@ -66,13 +66,6 @@ public class ScriptorProjectile extends Entity {
   }
 
   @Override
-  protected void defineSynchedData() {
-    entityData.define(COLOR, 0xa020f0);
-    entityData.define(DURATION, 120);
-    entityData.define(OWNER, 0);
-  }
-
-  @Override
   protected void readAdditionalSaveData(CompoundTag compoundTag) {
     CompoundTag tag = compoundTag.getCompound("scriptor:projectile_data");
     entityData.set(COLOR, tag.getInt("com/ssblur/scriptor/color"));
@@ -94,9 +87,33 @@ public class ScriptorProjectile extends Entity {
   }
 
   @Override
+  protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    builder.define(COLOR, 0xa020f0);
+    builder.define(DURATION, 120);
+    builder.define(OWNER, 0);
+  }
+
+  @Override
   public void tick() {
     var level = level();
     if (level.isClientSide) return;
+
+//    int c = CustomColors.getColor(getColor(), level.getGameTime());
+//    int r, g, b;
+//    r = (c & 0xff0000) >> 16;
+//    g = (c & 0x00ff00) >> 8;
+//    b = c & 0x0000ff;
+//
+//    var particle = MagicParticleData.magic(r, g, b);
+//    level.addParticle(
+//      particle,
+//      getX(),
+//      getY(),
+//      getZ(),
+//      0,
+//      0,
+//      0
+//    );
 
     int duration = entityData.get(DURATION);
     var owner = level.getEntity(entityData.get(OWNER));

@@ -7,7 +7,7 @@
       "translate": "advancement.scriptor.tier_4_desc"
     },
     "icon": {
-      "item": "scriptor:tome_tier4"
+      "id": "scriptor:tome_tier4"
     },
     "frame": "challenge",
     "show_toast": true,
@@ -16,7 +16,9 @@
   },
   "criteria": {
     "collect": {
-      "conditions": {},
+      "conditions": {
+        "player": []
+      },
       "trigger": "scriptor:tome4_collect"
     }
   },

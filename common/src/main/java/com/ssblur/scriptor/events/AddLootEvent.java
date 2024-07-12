@@ -4,19 +4,18 @@ import com.ssblur.scriptor.helpers.loot.ArtifactItemFunction;
 import com.ssblur.scriptor.item.ScriptorItems;
 import dev.architectury.event.events.common.LootEvent;
 import dev.architectury.registry.registries.RegistrySupplier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.storage.loot.LootDataManager;
 import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 
 public class AddLootEvent implements LootEvent.ModifyLootTable {
-
   record LootItemRecord(ResourceLocation location, float chance, LootItemFunction.Builder... builders) {}
 
   static HashMap<RegistrySupplier<Item>, LootItemRecord[]> pools = new HashMap<>();
@@ -122,7 +121,7 @@ public class AddLootEvent implements LootEvent.ModifyLootTable {
   }
 
   @Override
-  public void modifyLootTable(@Nullable LootDataManager lootTables, ResourceLocation id, LootEvent.LootTableModificationContext context, boolean builtin) {
+  public void modifyLootTable(ResourceKey<LootTable> id, LootEvent.LootTableModificationContext context, boolean builtin) {
     if(builtin) {
       for(var pool: pools.keySet())
         for(var i: pools.get(pool))
