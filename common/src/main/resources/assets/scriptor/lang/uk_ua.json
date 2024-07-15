@@ -256,7 +256,7 @@
   "gamerule.scriptor:tome_cooldown_multiplier": "[Scriptor] Множник Затримки Фоліанту",
   "gamerule.scriptor:casting_lectern_cooldown_multiplier": "[Scriptor] Множник Затримки Лекторія Чаклунства",
 
-  "tome.scriptor.big_ups": "Велиуий Ріст",
+  "tome.scriptor.big_ups": "Великий Ріст",
   "tome.scriptor.breathless": "Затамованний Подих",
   "tome.scriptor.bring_bolt": "Ланцюг Скорпіона",
   "tome.scriptor.disabled_example": "Вимкненй Фоліант",
@@ -273,7 +273,7 @@
   "tome.scriptor.slow_bolt": "Повільний Заряд",
   "tome.scriptor.swap_bolt": "Дивний Снаряд Фараша",
   "tome.scriptor.teleport_bolt": "Пуля-Потяг",
-  "tome.scriptor.touch_break": "Розбити Блок",
+  "tome.scriptor.touch_break": "Руйнування Блоку",
   "tome.scriptor.buffering": "Буферизація",
   "tome.scriptor.delivery": "Доставка",
   "tome.scriptor.mine": "Простецька Міна Підмайстра",
