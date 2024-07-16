@@ -37,7 +37,7 @@ jobs:
         with:
           mod-file: neoforge/build/libs/scriptor-${{ steps.tag.outputs.version }}-neoforge.jar
           version-name: "${{ steps.tag.outputs.version }}-neoforge"
-          minecraft-version: 1.20.6
+          minecraft-version: 1.21
           mod-loader: neoforge
           changelog: ${{ steps.changelog.outputs.changelog }}
           dependencies: |

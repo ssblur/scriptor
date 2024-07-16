@@ -22,7 +22,7 @@ public class ScriptorProjectileRenderer extends EntityRenderer<ScriptorProjectil
 
   @Override
   public ResourceLocation getTextureLocation(ScriptorProjectile entity) {
-    return new ResourceLocation(ScriptorMod.MOD_ID, "textures/item/tome.png");
+    return ScriptorMod.location("textures/item/tome.png");
   }
 
   @Override

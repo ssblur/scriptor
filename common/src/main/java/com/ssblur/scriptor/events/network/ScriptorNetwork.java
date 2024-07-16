@@ -10,20 +10,20 @@ import net.minecraft.resources.ResourceLocation;
 
 public class ScriptorNetwork {
   public static final String MOD_ID = ScriptorMod.MOD_ID;
-  public static final ResourceLocation CLIENT_GET_TRACE_DATA = new ResourceLocation(MOD_ID, "client_get_touch_data");
-  public static final ResourceLocation CLIENT_GET_HITSCAN_DATA = new ResourceLocation(MOD_ID, "client_get_hitscan_data");
-  public static final ResourceLocation SERVER_RETURN_TRACE_DATA = new ResourceLocation(MOD_ID, "server_return_touch_data");
-  public static final ResourceLocation SERVER_RECEIVE_CHALK_MESSAGE = new ResourceLocation(MOD_ID, "server_receive_chalk_message");
-  public static final ResourceLocation SERVER_CURSOR_USE_BOOK = new ResourceLocation(MOD_ID, "server_cursor_use_book");
-  public static final ResourceLocation SERVER_CURSOR_USE_BOOK_CREATIVE = new ResourceLocation(MOD_ID, "server_cursor_use_bookc");
-  public static final ResourceLocation CLIENT_CURSOR_RETURN_BOOK_CREATIVE = new ResourceLocation(MOD_ID, "client_cursor_return_bookc");
-  public static final ResourceLocation SERVER_CURSOR_USE_SCROLL = new ResourceLocation(MOD_ID, "server_cursor_use_scroll");
-  public static final ResourceLocation SERVER_CURSOR_USE_SCROLL_CREATIVE = new ResourceLocation(MOD_ID, "server_cursor_use_scrollc");
-  public static final ResourceLocation CLIENT_CURSOR_RETURN_SCROLL_CREATIVE = new ResourceLocation(MOD_ID, "client_cursor_return_scrollc");
-  public static final ResourceLocation CLIENT_COLOR_RECEIVE = new ResourceLocation(MOD_ID, "client_color_receivec");
-  public static final ResourceLocation CLIENT_PARTICLE = new ResourceLocation(MOD_ID, "client_particle");
-  public static final ResourceLocation CLIENT_FLAG = new ResourceLocation(MOD_ID, "client_flag");
-  public static final ResourceLocation SERVER_SCROLL_NETWORK = new ResourceLocation(MOD_ID, "server_scroll_networkc");
+  public static final ResourceLocation CLIENT_GET_TRACE_DATA = ResourceLocation.tryBuild(MOD_ID, "client_get_touch_data");
+  public static final ResourceLocation CLIENT_GET_HITSCAN_DATA = ResourceLocation.tryBuild(MOD_ID, "client_get_hitscan_data");
+  public static final ResourceLocation SERVER_RETURN_TRACE_DATA = ResourceLocation.tryBuild(MOD_ID, "server_return_touch_data");
+  public static final ResourceLocation SERVER_RECEIVE_CHALK_MESSAGE = ResourceLocation.tryBuild(MOD_ID, "server_receive_chalk_message");
+  public static final ResourceLocation SERVER_CURSOR_USE_BOOK = ResourceLocation.tryBuild(MOD_ID, "server_cursor_use_book");
+  public static final ResourceLocation SERVER_CURSOR_USE_BOOK_CREATIVE = ResourceLocation.tryBuild(MOD_ID, "server_cursor_use_bookc");
+  public static final ResourceLocation CLIENT_CURSOR_RETURN_BOOK_CREATIVE = ResourceLocation.tryBuild(MOD_ID, "client_cursor_return_bookc");
+  public static final ResourceLocation SERVER_CURSOR_USE_SCROLL = ResourceLocation.tryBuild(MOD_ID, "server_cursor_use_scroll");
+  public static final ResourceLocation SERVER_CURSOR_USE_SCROLL_CREATIVE = ResourceLocation.tryBuild(MOD_ID, "server_cursor_use_scrollc");
+  public static final ResourceLocation CLIENT_CURSOR_RETURN_SCROLL_CREATIVE = ResourceLocation.tryBuild(MOD_ID, "client_cursor_return_scrollc");
+  public static final ResourceLocation CLIENT_COLOR_RECEIVE = ResourceLocation.tryBuild(MOD_ID, "client_color_receivec");
+  public static final ResourceLocation CLIENT_PARTICLE = ResourceLocation.tryBuild(MOD_ID, "client_particle");
+  public static final ResourceLocation CLIENT_FLAG = ResourceLocation.tryBuild(MOD_ID, "client_flag");
+  public static final ResourceLocation SERVER_SCROLL_NETWORK = ResourceLocation.tryBuild(MOD_ID, "server_scroll_networkc");
 
   public static void register() {
     register(new ServerTraceNetwork());

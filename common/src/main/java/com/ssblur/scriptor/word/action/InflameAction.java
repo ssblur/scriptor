@@ -10,11 +10,11 @@ import com.ssblur.scriptor.word.descriptor.duration.DurationDescriptor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -30,9 +30,7 @@ public class InflameAction extends Action {
 
     if(targetable instanceof ItemTargetable itemTargetable && itemTargetable.shouldTargetItem()) {
       var check = RecipeManager.createCheck(RecipeType.SMELTING);
-      var container = new SimpleContainer(1);
-      container.addItem(itemTargetable.getTargetItem());
-      var recipe = check.getRecipeFor(container, itemTargetable.getLevel());
+      var recipe = check.getRecipeFor(new SingleRecipeInput(itemTargetable.getTargetItem()), itemTargetable.getLevel());
       if(recipe.isPresent() && !recipe.get().value().getIngredients().isEmpty() && recipe.get().value().getIngredients().get(0).getItems().length > 0) {
         int count = recipe.get().value().getIngredients().get(0).getItems()[0].getCount();
         itemTargetable.getTargetItem().shrink(count);
@@ -53,9 +51,7 @@ public class InflameAction extends Action {
     var itemTarget = ItemTargetableHelper.getTargetItemStack(targetable);
     if(!itemTarget.isEmpty()) {
       var check = RecipeManager.createCheck(RecipeType.SMELTING);
-      var container = new SimpleContainer(1);
-      container.addItem(itemTarget);
-      var recipe = check.getRecipeFor(container, targetable.getLevel());
+      var recipe = check.getRecipeFor(new SingleRecipeInput(itemTarget), targetable.getLevel());
       if(recipe.isPresent() && recipe.get().value().getIngredients().size() > 0 && recipe.get().value().getIngredients().get(0).getItems().length > 0) {
         int count = recipe.get().value().getIngredients().get(0).getItems()[0].getCount();
         itemTarget.shrink(count);

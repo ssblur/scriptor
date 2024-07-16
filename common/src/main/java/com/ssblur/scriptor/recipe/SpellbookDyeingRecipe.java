@@ -7,12 +7,8 @@ import com.ssblur.scriptor.item.Spellbook;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
-import net.minecraft.world.item.crafting.CustomRecipe;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
@@ -26,19 +22,19 @@ public class SpellbookDyeingRecipe extends CustomRecipe {
   }
 
   @Override
-  public boolean matches(CraftingContainer container, Level level) {
+  public boolean matches(CraftingInput container, Level level) {
     return
-      container.hasAnyMatching(itemStack ->
+      container.items().stream().anyMatch(itemStack ->
         itemStack.getItem() instanceof Spellbook
           && !(itemStack.getItem() instanceof ObfuscatedSpellbook)
       )
-      && container.hasAnyMatching(itemStack -> addition.test(itemStack));
+      &&  container.items().stream().anyMatch(itemStack -> addition.test(itemStack));
   }
 
   @Override
-  public ItemStack assemble(CraftingContainer container, HolderLookup.Provider access) {
+  public ItemStack assemble(CraftingInput container, HolderLookup.Provider access) {
     ItemStack craftingBase = null;
-    for(var item: container.getItems())
+    for(var item: container.items())
       if(item.getItem() instanceof Spellbook
         && !(item.getItem() instanceof ObfuscatedSpellbook)) {
         if (craftingBase == null)

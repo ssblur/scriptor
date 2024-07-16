@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.word.action.bound;
 
+import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.api.word.Action;
 import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.color.CustomColors;
@@ -41,7 +42,7 @@ public class BoundSwordAction extends Action {
       modifiers -> modifiers.withModifierAdded(
         Attributes.ATTACK_DAMAGE,
         new AttributeModifier(
-          "Bound Sword",
+          ScriptorMod.location("bound_sword"),
           finalStrength,
           AttributeModifier.Operation.ADD_VALUE
         ),

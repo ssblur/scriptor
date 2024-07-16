@@ -18,10 +18,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 public class ChalkBlockEntityRenderer implements BlockEntityRenderer<ChalkBlockEntity> {
-  static ResourceLocation magicCircleS = new ResourceLocation(ScriptorMod.MOD_ID, "textures/entity/chalk_edge.png");
-  static ResourceLocation magicCircleE = new ResourceLocation(ScriptorMod.MOD_ID, "textures/entity/chalk_edge_2.png");
-  static ResourceLocation magicCircleN = new ResourceLocation(ScriptorMod.MOD_ID, "textures/entity/chalk_edge_3.png");
-  static ResourceLocation magicCircleW = new ResourceLocation(ScriptorMod.MOD_ID, "textures/entity/chalk_edge_4.png");
+  static ResourceLocation magicCircleS = ScriptorMod.location("textures/entity/chalk_edge.png");
+  static ResourceLocation magicCircleE = ScriptorMod.location("textures/entity/chalk_edge_2.png");
+  static ResourceLocation magicCircleN = ScriptorMod.location("textures/entity/chalk_edge_3.png");
+  static ResourceLocation magicCircleW = ScriptorMod.location("textures/entity/chalk_edge_4.png");
   static RenderType circleLayerN =
     RenderType
       .create(
@@ -34,7 +34,7 @@ public class ChalkBlockEntityRenderer implements BlockEntityRenderer<ChalkBlockE
         RenderType.CompositeState.builder().setTextureState(new RenderStateShard.TextureStateShard(magicCircleN, false, false))
           .setCullState(new RenderStateShard.CullStateShard(false))
           .setLightmapState(new RenderStateShard.LightmapStateShard(true))
-          .setShaderState(RenderStateShard.POSITION_COLOR_TEX_SHADER)
+          .setShaderState(RenderStateShard.POSITION_COLOR_TEX_LIGHTMAP_SHADER)
           .createCompositeState(true)
       );
   static RenderType circleLayerS =
@@ -49,7 +49,7 @@ public class ChalkBlockEntityRenderer implements BlockEntityRenderer<ChalkBlockE
         RenderType.CompositeState.builder().setTextureState(new RenderStateShard.TextureStateShard(magicCircleS, false, false))
           .setCullState(new RenderStateShard.CullStateShard(false))
           .setLightmapState(new RenderStateShard.LightmapStateShard(true))
-          .setShaderState(RenderStateShard.POSITION_COLOR_TEX_SHADER)
+          .setShaderState(RenderStateShard.POSITION_COLOR_TEX_LIGHTMAP_SHADER)
           .createCompositeState(true)
       );
   static RenderType circleLayerE =
@@ -64,7 +64,7 @@ public class ChalkBlockEntityRenderer implements BlockEntityRenderer<ChalkBlockE
         RenderType.CompositeState.builder().setTextureState(new RenderStateShard.TextureStateShard(magicCircleE, false, false))
           .setCullState(new RenderStateShard.CullStateShard(false))
           .setLightmapState(new RenderStateShard.LightmapStateShard(true))
-          .setShaderState(RenderStateShard.POSITION_COLOR_TEX_SHADER)
+          .setShaderState(RenderStateShard.POSITION_COLOR_TEX_LIGHTMAP_SHADER)
           .createCompositeState(true)
       );
   static RenderType circleLayerW =
@@ -79,7 +79,7 @@ public class ChalkBlockEntityRenderer implements BlockEntityRenderer<ChalkBlockE
         RenderType.CompositeState.builder().setTextureState(new RenderStateShard.TextureStateShard(magicCircleW, false, false))
           .setCullState(new RenderStateShard.CullStateShard(false))
           .setLightmapState(new RenderStateShard.LightmapStateShard(true))
-          .setShaderState(RenderStateShard.POSITION_COLOR_TEX_SHADER)
+          .setShaderState(RenderStateShard.POSITION_COLOR_TEX_LIGHTMAP_SHADER)
           .createCompositeState(true)
       );
 
@@ -104,34 +104,34 @@ public class ChalkBlockEntityRenderer implements BlockEntityRenderer<ChalkBlockE
     var pose = matrix.last().pose();
     if(level.getBlockState(pos.north()).is(ScriptorBlocks.CHALK.get())) {
       var buffer = buffers.getBuffer(circleLayerN);
-      buffer.vertex(pose, 0, 0, 1).color(255, 255, 255, 255).uv(0, 1).uv2(0xF000F0).endVertex();
-      buffer.vertex(pose, 1, 0, 1).color(255, 255, 255, 255).uv(1, 1).uv2(0xF000F0).endVertex();
-      buffer.vertex(pose, 1, 0, 0).color(255, 255, 255, 255).uv(1, 0).uv2(0xF000F0).endVertex();
-      buffer.vertex(pose, 0, 0, 0).color(255, 255, 255, 255).uv(0, 0).uv2(0xF000F0).endVertex();
+      buffer.addVertex(pose, 0, 0, 1).setColor(255, 255, 255, 255).setUv(0, 1).setLight(0xF000F0);
+      buffer.addVertex(pose, 1, 0, 1).setColor(255, 255, 255, 255).setUv(1, 1).setLight(0xF000F0);
+      buffer.addVertex(pose, 1, 0, 0).setColor(255, 255, 255, 255).setUv(1, 0).setLight(0xF000F0);
+      buffer.addVertex(pose, 0, 0, 0).setColor(255, 255, 255, 255).setUv(0, 0).setLight(0xF000F0);
     }
 
     if(level.getBlockState(pos.south()).is(ScriptorBlocks.CHALK.get())) {
       var buffer = buffers.getBuffer(circleLayerS);
-      buffer.vertex(pose, 0, 0, 1).color(255, 255, 255, 255).uv(0, 1).uv2(0xF000F0).endVertex();
-      buffer.vertex(pose, 1, 0, 1).color(255, 255, 255, 255).uv(1, 1).uv2(0xF000F0).endVertex();
-      buffer.vertex(pose, 1, 0, 0).color(255, 255, 255, 255).uv(1, 0).uv2(0xF000F0).endVertex();
-      buffer.vertex(pose, 0, 0, 0).color(255, 255, 255, 255).uv(0, 0).uv2(0xF000F0).endVertex();
+      buffer.addVertex(pose, 0, 0, 1).setColor(255, 255, 255, 255).setUv(0, 1).setLight(0xF000F0);
+      buffer.addVertex(pose, 1, 0, 1).setColor(255, 255, 255, 255).setUv(1, 1).setLight(0xF000F0);
+      buffer.addVertex(pose, 1, 0, 0).setColor(255, 255, 255, 255).setUv(1, 0).setLight(0xF000F0);
+      buffer.addVertex(pose, 0, 0, 0).setColor(255, 255, 255, 255).setUv(0, 0).setLight(0xF000F0);
     }
 
     if(level.getBlockState(pos.east()).is(ScriptorBlocks.CHALK.get())) {
       var buffer = buffers.getBuffer(circleLayerE);
-      buffer.vertex(pose, 0, 0, 1).color(255, 255, 255, 255).uv(0, 1).uv2(0xF000F0).endVertex();
-      buffer.vertex(pose, 1, 0, 1).color(255, 255, 255, 255).uv(1, 1).uv2(0xF000F0).endVertex();
-      buffer.vertex(pose, 1, 0, 0).color(255, 255, 255, 255).uv(1, 0).uv2(0xF000F0).endVertex();
-      buffer.vertex(pose, 0, 0, 0).color(255, 255, 255, 255).uv(0, 0).uv2(0xF000F0).endVertex();
+      buffer.addVertex(pose, 0, 0, 1).setColor(255, 255, 255, 255).setUv(0, 1).setLight(0xF000F0);
+      buffer.addVertex(pose, 1, 0, 1).setColor(255, 255, 255, 255).setUv(1, 1).setLight(0xF000F0);
+      buffer.addVertex(pose, 1, 0, 0).setColor(255, 255, 255, 255).setUv(1, 0).setLight(0xF000F0);
+      buffer.addVertex(pose, 0, 0, 0).setColor(255, 255, 255, 255).setUv(0, 0).setLight(0xF000F0);
     }
 
     if(level.getBlockState(pos.west()).is(ScriptorBlocks.CHALK.get())) {
       var buffer = buffers.getBuffer(circleLayerW);
-      buffer.vertex(pose, 0, 0, 1).color(255, 255, 255, 255).uv(0, 1).uv2(0xF000F0).endVertex();
-      buffer.vertex(pose, 1, 0, 1).color(255, 255, 255, 255).uv(1, 1).uv2(0xF000F0).endVertex();
-      buffer.vertex(pose, 1, 0, 0).color(255, 255, 255, 255).uv(1, 0).uv2(0xF000F0).endVertex();
-      buffer.vertex(pose, 0, 0, 0).color(255, 255, 255, 255).uv(0, 0).uv2(0xF000F0).endVertex();
+      buffer.addVertex(pose, 0, 0, 1).setColor(255, 255, 255, 255).setUv(0, 1).setLight(0xF000F0);
+      buffer.addVertex(pose, 1, 0, 1).setColor(255, 255, 255, 255).setUv(1, 1).setLight(0xF000F0);
+      buffer.addVertex(pose, 1, 0, 0).setColor(255, 255, 255, 255).setUv(1, 0).setLight(0xF000F0);
+      buffer.addVertex(pose, 0, 0, 0).setColor(255, 255, 255, 255).setUv(0, 0).setLight(0xF000F0);
     }
 
     matrix.translate(0.5f, 0f, 0.5f);

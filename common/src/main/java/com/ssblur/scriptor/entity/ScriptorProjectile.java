@@ -4,9 +4,6 @@ import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -79,11 +76,6 @@ public class ScriptorProjectile extends Entity {
     tag.putInt("com/ssblur/scriptor/color", entityData.get(COLOR));
     tag.putInt("duration", entityData.get(DURATION));
     tag.putInt("owner", entityData.get(OWNER));
-  }
-
-  @Override
-  public Packet<ClientGamePacketListener> getAddEntityPacket() {
-    return new ClientboundAddEntityPacket(this, entityData.get(OWNER));
   }
 
   @Override

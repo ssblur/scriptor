@@ -64,7 +64,7 @@ public class LimitedBookSerializer {
   public static ItemStack createSpellbook(String author, String title, String text, @Nullable String item) {
     ItemStack itemStack;
     if(item != null)
-      itemStack = new ItemStack(Objects.requireNonNull(ScriptorItems.ITEMS.getRegistrar().get(new ResourceLocation(item))));
+      itemStack = new ItemStack(Objects.requireNonNull(ScriptorItems.ITEMS.getRegistrar().get(ResourceLocation.parse(item))));
     else
       itemStack = new ItemStack(ScriptorItems.SPELLBOOK.get());
     itemStack.setCount(1);

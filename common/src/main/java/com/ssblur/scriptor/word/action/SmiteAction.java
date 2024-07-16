@@ -2,7 +2,6 @@ package com.ssblur.scriptor.word.action;
 
 import com.ssblur.scriptor.api.word.Action;
 import com.ssblur.scriptor.api.word.Descriptor;
-import com.ssblur.scriptor.enchant.ChargedEnchant;
 import com.ssblur.scriptor.helpers.ItemTargetableHelper;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
@@ -23,7 +22,7 @@ public class SmiteAction extends Action {
 
     var itemTarget = ItemTargetableHelper.getTargetItemStack(targetable);
     if(!itemTarget.isEmpty()) {
-      ChargedEnchant.chargeItem(itemTarget, strength);
+//      ChargedEnchant.chargeItem(itemTarget, strength);
       return;
     }
 

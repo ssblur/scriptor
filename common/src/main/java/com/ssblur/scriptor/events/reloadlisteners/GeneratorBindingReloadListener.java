@@ -27,6 +27,6 @@ public class GeneratorBindingReloadListener extends ScriptorReloadListener {
           || TokenGeneratorRegistry.INSTANCE.getBinding(binding.word()).getNamespace().equals("scriptor")
           || !resourceLocation.getNamespace().equals("scriptor")
       )
-        TokenGeneratorRegistry.INSTANCE.registerBinding(binding.word(), new ResourceLocation(bindings.generator()), binding.parameters());
+        TokenGeneratorRegistry.INSTANCE.registerBinding(binding.word(), ResourceLocation.parse(bindings.generator()), binding.parameters());
   }
 }

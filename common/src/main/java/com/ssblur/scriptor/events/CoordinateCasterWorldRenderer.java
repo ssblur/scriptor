@@ -1,10 +1,7 @@
 package com.ssblur.scriptor.events;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.Tesselator;
-import com.mojang.blaze3d.vertex.VertexFormat;
+import com.mojang.blaze3d.vertex.*;
 import com.ssblur.scriptor.item.ScriptorItems;
 import com.ssblur.scriptor.item.casters.CoordinateCasterCrystal;
 import net.minecraft.client.Minecraft;
@@ -31,7 +28,7 @@ public class CoordinateCasterWorldRenderer {
 
   public static void render(PoseStack matrix, ItemStack item) {
     var tesselator = Tesselator.getInstance();
-    var builder = tesselator.getBuilder();
+    BufferBuilder builder;
     var camera = Minecraft.getInstance().gameRenderer.getMainCamera();
     var pose = matrix.last().pose();
 
@@ -60,63 +57,63 @@ public class CoordinateCasterWorldRenderer {
         case EAST -> xo -= 1;
       }
       if(direction.getAxis() == Direction.Axis.Z) {
-        builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+        builder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 
-        builder.vertex(
+        builder.addVertex(
           pose,
           x,
           y,
           z
-        ).color(BOX_COLOR).endVertex();
-        builder.vertex(
+        ).setColor(BOX_COLOR);
+        builder.addVertex(
           pose,
           xo,
           y,
           z
-        ).color(BOX_COLOR).endVertex();
-        builder.vertex(
+        ).setColor(BOX_COLOR);
+        builder.addVertex(
           pose,
           xo,
           yo,
           z
-        ).color(BOX_COLOR).endVertex();
-        builder.vertex(
+        ).setColor(BOX_COLOR);
+        builder.addVertex(
           pose,
           x,
           yo,
           z
-        ).color(BOX_COLOR).endVertex();
+        ).setColor(BOX_COLOR);
 
-        tesselator.end();
+        builder.build();
       } else {
-        builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+        builder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 
-        builder.vertex(
+        builder.addVertex(
           pose,
           x,
           y,
           z
-        ).color(BOX_COLOR).endVertex();
-        builder.vertex(
+        ).setColor(BOX_COLOR);
+        builder.addVertex(
           pose,
           x,
           y,
           zo
-        ).color(BOX_COLOR).endVertex();
-        builder.vertex(
+        ).setColor(BOX_COLOR);
+        builder.addVertex(
           pose,
           xo,
           yo,
           zo
-        ).color(BOX_COLOR).endVertex();
-        builder.vertex(
+        ).setColor(BOX_COLOR);
+        builder.addVertex(
           pose,
           xo,
           yo,
           z
-        ).color(BOX_COLOR).endVertex();
+        ).setColor(BOX_COLOR);
 
-        tesselator.end();
+        builder.build();
       }
     }
 

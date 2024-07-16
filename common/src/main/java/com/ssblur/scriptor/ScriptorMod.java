@@ -8,7 +8,6 @@ import com.ssblur.scriptor.commands.DumpDictionaryCommand;
 import com.ssblur.scriptor.commands.DumpWordCommand;
 import com.ssblur.scriptor.data_components.ScriptorDataComponents;
 import com.ssblur.scriptor.effect.ScriptorEffects;
-import com.ssblur.scriptor.enchant.ScriptorEnchantments;
 import com.ssblur.scriptor.entity.ScriptorEntities;
 import com.ssblur.scriptor.events.ScriptorEvents;
 import com.ssblur.scriptor.feature.ScriptorFeatures;
@@ -41,7 +40,7 @@ public class ScriptorMod {
   }
 
   public static ResourceLocation location(String path) {
-    return new ResourceLocation(MOD_ID, path);
+    return ResourceLocation.tryBuild(MOD_ID, path);
   }
 
   public static void init() {
@@ -53,7 +52,6 @@ public class ScriptorMod {
     ScriptorEntities.register();
     ScriptorEvents.register();
     ScriptorEffects.register();
-    ScriptorEnchantments.register();
     ScriptorTrades.register();
     ScriptorRecipes.register();
     ScriptorParticles.register();

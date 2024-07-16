@@ -17,7 +17,8 @@ public class NetherDescriptor extends Descriptor implements TargetDescriptor {
     for(var targetable: targetables) {
       var level = targetable.getLevel();
       if(!(level instanceof ServerLevel server)) continue;
-      if(!server.getServer().isNetherEnabled()) return targetables;
+      var nether = server.getServer().getLevel(Level.NETHER);
+      if(nether == null || !server.getServer().isLevelEnabled(nether)) return targetables;
       if(level.dimension() != Level.OVERWORLD && level.dimension() != Level.NETHER) {
         list.add(targetable);
         continue;
