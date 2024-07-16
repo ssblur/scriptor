@@ -1,8 +1,12 @@
 package com.ssblur.scriptor.item;
 
-import com.ssblur.scriptor.events.network.IdentifyNetwork;
+import com.ssblur.scriptor.events.network.server.CreativeIdentifyNetwork;
+import com.ssblur.scriptor.events.network.server.ServerIdentifyNetwork;
+import com.ssblur.scriptor.helpers.LimitedBookSerializer;
+import dev.architectury.networking.NetworkManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
@@ -10,8 +14,6 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -29,17 +31,19 @@ public class IdentifyScroll extends Item {
       if (!level.isClientSide) return true;
 
       if(player.isCreative()) {
-        IdentifyNetwork.clientUseScrollCreative(slot.getItem(), slot.index);
+        var book = slot.getItem().get(DataComponents.WRITTEN_BOOK_CONTENT);
+        var spell = LimitedBookSerializer.decodeText(book);
+        NetworkManager.sendToServer(new CreativeIdentifyNetwork.Payload(slot.index, spell));
         player.getCooldowns().addCooldown(this, 10);
       } else
-        IdentifyNetwork.clientUseScroll(slot.index);
+        NetworkManager.sendToServer(new ServerIdentifyNetwork.Payload(slot.index));
       return true;
     }
     return false;
   }
 
   @Override
-  public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> list, TooltipFlag tooltipFlag) {
+  public void appendHoverText(ItemStack itemStack, TooltipContext level, List<Component> list, TooltipFlag tooltipFlag) {
     super.appendHoverText(itemStack, level, list, tooltipFlag);
     list.add(Component.translatable("extra.scriptor.use_identify"));
   }

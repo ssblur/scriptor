@@ -12,7 +12,7 @@
     }
   ],
   "result": {
-    "item": "scriptor:player_tag",
+    "id": "scriptor:player_tag",
     "count": 1
   }
 }

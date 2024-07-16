@@ -2,8 +2,8 @@ package com.ssblur.scriptor.word.subject;
 
 import com.ssblur.scriptor.api.word.Subject;
 import com.ssblur.scriptor.color.CustomColors;
-import com.ssblur.scriptor.events.network.ParticleNetwork;
-import com.ssblur.scriptor.events.network.TraceNetwork;
+import com.ssblur.scriptor.events.network.client.ParticleNetwork;
+import com.ssblur.scriptor.events.network.server.ServerTraceNetwork;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.LecternTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
@@ -22,7 +22,7 @@ public class HitscanSubject extends Subject {
   public CompletableFuture<List<Targetable>> getTargets(Targetable caster, Spell spell) {
     var result = new CompletableFuture<List<Targetable>>();
     if(caster instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof Player player) {
-      TraceNetwork.requestExtendedTraceData(player, target -> {
+      ServerTraceNetwork.requestExtendedTraceData(player, target -> {
         int color = CustomColors.getColor(spell.deduplicatedDescriptorsForSubjects());
         ParticleNetwork.magicTrail(target.getLevel(), color, player.getEyePosition(), target.getTargetPos());
         result.complete(List.of(target));

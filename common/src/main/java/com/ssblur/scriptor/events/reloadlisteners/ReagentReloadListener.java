@@ -54,7 +54,7 @@ public class ReagentReloadListener extends ScriptorReloadListener {
       "reagent." + resourceLocation.toShortLanguageKey(),
       WordRegistry.INSTANCE.register(
         "reagent." + resourceLocation.toShortLanguageKey(),
-        new ReagentDescriptor(ScriptorItems.ITEMS.getRegistrar().get(new ResourceLocation(resource.item)), resource.cost)
+        new ReagentDescriptor(ScriptorItems.ITEMS.getRegistrar().get(ResourceLocation.parse(resource.item)), resource.cost)
       )
     );
   }

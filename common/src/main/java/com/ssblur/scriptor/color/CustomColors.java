@@ -2,7 +2,12 @@ package com.ssblur.scriptor.color;
 
 import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.word.descriptor.color.ColorDescriptor;
+import dev.architectury.platform.Platform;
+import net.fabricmc.api.EnvType;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -99,6 +104,19 @@ public class CustomColors {
 
   public static int getColor(Descriptor[] descriptors) {
     return getColor(Arrays.stream(descriptors).toList());
+  }
+
+  public static int getColor(ItemStack itemStack) {
+    long tick = 0;
+
+    if(Platform.getEnv() == EnvType.CLIENT)
+      tick = Minecraft.getInstance().level.getGameTime();
+
+
+    var dye = itemStack.get(DataComponents.DYED_COLOR);
+    if (dye != null)
+      return 0xff000000 + CustomColors.getColor(dye.rgb(), tick);
+    return 0xffa020f0;
   }
 
   static int ease(int from, int to, float partial) {

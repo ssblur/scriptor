@@ -6,16 +6,17 @@ import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.descriptor.duration.DurationDescriptor;
 import com.ssblur.scriptor.word.descriptor.power.StrengthDescriptor;
+import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 
 public class PotionAction extends Action {
-  MobEffect mobEffect;
+  Holder<MobEffect> mobEffect;
   double durationScale;
   double strengthScale;
   Cost cost;
-  public PotionAction(MobEffect mobEffect, double durationScale, double strengthScale, Cost cost) {
+  public PotionAction(Holder<MobEffect> mobEffect, double durationScale, double strengthScale, Cost cost) {
     this.mobEffect = mobEffect;
     this.durationScale = durationScale;
     this.strengthScale = strengthScale;

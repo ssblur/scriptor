@@ -1,12 +1,13 @@
 package com.ssblur.scriptor.blockentity;
 
 import com.ssblur.scriptor.data.DictionarySavedData;
-import com.ssblur.scriptor.events.network.ParticleNetwork;
+import com.ssblur.scriptor.events.network.client.ParticleNetwork;
 import com.ssblur.scriptor.gamerules.ScriptorGameRules;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.Spell;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -93,24 +94,24 @@ public class ChalkBlockEntity extends BlockEntity {
   }
 
   @Override
-  public CompoundTag getUpdateTag() {
-    var tag = super.getUpdateTag();
+  public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
+    var tag = super.getUpdateTag(provider);
     tag.putString("scriptor:word", word);
     tag.putInt("scriptor:facing", facing.ordinal());
     return tag;
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
     word = tag.getString("scriptor:word");
     facing = Direction.values()[tag.getInt("scriptor:facing")];
     setChanged();
   }
 
   @Override
-  protected void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
+  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
 
     tag.putString("scriptor:word", word);
     tag.putInt("scriptor:facing", facing.ordinal());

@@ -1,5 +1,10 @@
 {
   "type": "scriptor:spellbook_dyeing",
-  "addition": "minecraft:light_blue_dye",
-  "result": "scriptor:spellbook_light_blue"
+  "addition": {
+    "item": "minecraft:light_blue_dye"
+  },
+  "result": {
+    "id": "scriptor:spellbook_light_blue",
+    "count": 1
+  }
 }

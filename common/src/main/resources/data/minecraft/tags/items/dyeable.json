@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "scriptor:bound_sword",
+    "scriptor:bound_axe",
+    "scriptor:bound_shovel",
+    "scriptor:bound_pickaxe"
+  ]
+}

@@ -3,24 +3,24 @@ package com.ssblur.scriptor.item;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.ssblur.scriptor.ScriptorMod;
-import com.ssblur.scriptor.events.network.EnchantNetwork;
+import com.ssblur.scriptor.data_components.ScriptorDataComponents;
+import com.ssblur.scriptor.events.network.server.ServerUseBookNetwork;
 import com.ssblur.scriptor.helpers.ComponentHelper;
 import com.ssblur.scriptor.helpers.LimitedBookSerializer;
 import com.ssblur.scriptor.helpers.SpellbookHelper;
 import com.ssblur.scriptor.item.interfaces.ItemWithCustomRenderer;
+import dev.architectury.networking.NetworkManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.resources.language.I18n;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
-import net.minecraft.util.StringUtil;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.HumanoidArm;
@@ -31,7 +31,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.WrittenBookItem;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,18 +39,6 @@ public class Spellbook extends WrittenBookItem implements ItemWithCustomRenderer
   public Spellbook(Properties properties) {
     super(properties);
     SpellbookHelper.SPELLBOOKS.add(this);
-  }
-
-  @Override
-  public Component getName(ItemStack itemStack) {
-    CompoundTag tag = itemStack.getTag();
-    if (tag != null) {
-      String string = tag.getString("title");
-      if (!StringUtil.isNullOrEmpty(string)) {
-        return Component.translatable(string);
-      }
-    }
-    return super.getName(itemStack);
   }
 
   @Override
@@ -66,6 +53,16 @@ public class Spellbook extends WrittenBookItem implements ItemWithCustomRenderer
     return InteractionResultHolder.fail(player.getItemInHand(interactionHand));
   }
 
+  @Override
+  public Component getName(ItemStack itemStack) {
+    String string;
+    String title = itemStack.get(ScriptorDataComponents.TOME_NAME);
+    if (title != null) {
+      return Component.translatable(title);
+    }
+    return super.getName(itemStack);
+  }
+
   public boolean overrideStackedOnOther(ItemStack itemStack, Slot slot, ClickAction clickAction, Player player) {
     if (clickAction == ClickAction.SECONDARY && !slot.getItem().isEmpty() && !(slot.getItem().getItem() instanceof BookOfBooks)) {
       if(player.getCooldowns().isOnCooldown(this)) return true;
@@ -73,25 +70,22 @@ public class Spellbook extends WrittenBookItem implements ItemWithCustomRenderer
       if(!level.isClientSide) return true;
 
       if(player.isCreative())
-        EnchantNetwork.clientUseBookCreative(itemStack, slot.index);
+        return false; // TODO:
       else
-        EnchantNetwork.clientUseBook(slot.index);
+        NetworkManager.sendToServer(new ServerUseBookNetwork.Payload(slot.index));
       return true;
     }
     return false;
   }
 
   @Override
-  public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> list, TooltipFlag tooltipFlag) {
+  public void appendHoverText(ItemStack itemStack, TooltipContext level, List<Component> list, TooltipFlag tooltipFlag) {
     super.appendHoverText(itemStack, level, list, tooltipFlag);
 
-    if(itemStack.getTag() != null && itemStack.getTag().getCompound("scriptor") != null) {
-      CompoundTag tag = itemStack.getTag();
-
-      var scriptor = tag.getCompound("scriptor");
-      if(scriptor.contains("identified")) {
+    var identified = itemStack.get(ScriptorDataComponents.IDENTIFIED);
+    if(identified != null) {
         if(Screen.hasShiftDown())
-          for(var key: scriptor.getCompound("identified").getAllKeys()) {
+          for(var key: identified) {
             String[] parts = key.split(":", 2);
             if(parts.length == 2)
               ComponentHelper.updateTooltipWith(list,parts[0] + ".scriptor." + parts[1]);
@@ -99,9 +93,7 @@ public class Spellbook extends WrittenBookItem implements ItemWithCustomRenderer
               ScriptorMod.LOGGER.error("Invalid Identify entry: " + key);
           }
         else
-          list.add(Component.translatable("extra.scriptor.tome_identified"));
-      }
-
+          ComponentHelper.updateTooltipWith(list, "extra.scriptor.tome_identified");
       ComponentHelper.addCommunityDisclaimer(list, itemStack);
     }
   }
@@ -197,21 +189,18 @@ public class Spellbook extends WrittenBookItem implements ItemWithCustomRenderer
 
   public void drawPage(ItemStack itemStack, int page, PoseStack matrix, MultiBufferSource buffer, int lightLevel) {
     var font = Minecraft.getInstance().font;
-    var tag = itemStack.getTag();
-    if(tag != null && tag.contains("pages")) {
-      var pages = tag.getList("pages", Tag.TAG_STRING);
+    var tag = itemStack.get(DataComponents.WRITTEN_BOOK_CONTENT);
+    if(tag != null) {
+      var pages = tag.pages();
       List<FormattedCharSequence> sequence = new ArrayList<>();
       if (page >= pages.size()) {
-        if (tag.contains("title")) {
-          if(I18n.exists(tag.getString("title")))
-            sequence.addAll(font.split(FormattedText.of(I18n.get(tag.getString("title"))), 80));
-          else
-            sequence.addAll(font.split(FormattedText.of(tag.getString("title")), 80));
-        }
-        if (tag.contains("author"))
-          sequence.addAll(font.split(FormattedText.of("By " + tag.getString("author")), 80));
+        if(I18n.exists(tag.title().raw()))
+          sequence.addAll(font.split(FormattedText.of(I18n.get(tag.title().raw())), 80));
+        else
+          sequence.addAll(font.split(FormattedText.of(tag.title().raw()), 80));
+        sequence.addAll(font.split(FormattedText.of("By " + tag.author()), 80));
       } else
-        sequence = font.split(FormattedText.of(LimitedBookSerializer.decodeText(pages.getString(page))), 80);
+        sequence = font.split(FormattedText.of(LimitedBookSerializer.decodeText(tag)), 80);
       for (int iter = 0; iter < sequence.size(); iter++)
         Minecraft.getInstance().font.drawInBatch(
           sequence.get(iter),

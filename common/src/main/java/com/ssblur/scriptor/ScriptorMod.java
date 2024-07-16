@@ -6,8 +6,8 @@ import com.ssblur.scriptor.block.ScriptorBlocks;
 import com.ssblur.scriptor.blockentity.ScriptorBlockEntities;
 import com.ssblur.scriptor.commands.DumpDictionaryCommand;
 import com.ssblur.scriptor.commands.DumpWordCommand;
+import com.ssblur.scriptor.data_components.ScriptorDataComponents;
 import com.ssblur.scriptor.effect.ScriptorEffects;
-import com.ssblur.scriptor.enchant.ScriptorEnchantments;
 import com.ssblur.scriptor.entity.ScriptorEntities;
 import com.ssblur.scriptor.events.ScriptorEvents;
 import com.ssblur.scriptor.feature.ScriptorFeatures;
@@ -20,6 +20,7 @@ import com.ssblur.scriptor.tabs.ScriptorTabs;
 import com.ssblur.scriptor.trade.ScriptorTrades;
 import dev.architectury.event.events.common.CommandRegistrationEvent;
 import dev.architectury.registry.registries.RegistrarManager;
+import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -38,6 +39,10 @@ public class ScriptorMod {
     CommandRegistrationEvent.EVENT.register(DumpWordCommand::register);
   }
 
+  public static ResourceLocation location(String path) {
+    return ResourceLocation.tryBuild(MOD_ID, path);
+  }
+
   public static void init() {
     ScriptorTabs.register();
     ScriptorAdvancements.register();
@@ -47,13 +52,13 @@ public class ScriptorMod {
     ScriptorEntities.register();
     ScriptorEvents.register();
     ScriptorEffects.register();
-    ScriptorEnchantments.register();
     ScriptorTrades.register();
     ScriptorRecipes.register();
     ScriptorParticles.register();
     ScriptorLoot.register();
     ScriptorGameRules.register();
     ScriptorFeatures.register();
+    ScriptorDataComponents.register();
 
     registerCommands();
   }

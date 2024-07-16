@@ -15,7 +15,7 @@
     }
   ],
   "result": {
-    "item": "scriptor:writable_spellbook",
+    "id": "scriptor:writable_spellbook",
     "count": 1
   }
 }

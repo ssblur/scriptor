@@ -2,7 +2,7 @@ package com.ssblur.scriptor.blockentity;
 
 import com.ssblur.scriptor.block.CastingLecternBlock;
 import com.ssblur.scriptor.data.DictionarySavedData;
-import com.ssblur.scriptor.events.network.ParticleNetwork;
+import com.ssblur.scriptor.events.network.client.ParticleNetwork;
 import com.ssblur.scriptor.gamerules.ScriptorGameRules;
 import com.ssblur.scriptor.helpers.LimitedBookSerializer;
 import com.ssblur.scriptor.helpers.targetable.LecternTargetable;
@@ -10,9 +10,10 @@ import com.ssblur.scriptor.item.casters.CasterCrystal;
 import com.ssblur.scriptor.word.Spell;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -69,24 +70,24 @@ public class CastingLecternBlockEntity extends BlockEntity {
   }
 
   @Override
-  public CompoundTag getUpdateTag() {
-    var tag = super.getUpdateTag();
-    saveAdditional(tag);
+  public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
+    var tag = super.getUpdateTag(provider);
+    saveAdditional(tag, provider);
     return tag;
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
     items = NonNullList.withSize(2, ItemStack.EMPTY);
-    ContainerHelper.loadAllItems(tag, items);
+    ContainerHelper.loadAllItems(tag, items, provider);
     setChanged();
   }
 
   @Override
-  protected void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
-    ContainerHelper.saveAllItems(tag, items);
+  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
+    ContainerHelper.saveAllItems(tag, items, provider);
   }
 
   public void tick() {
@@ -94,10 +95,9 @@ public class CastingLecternBlockEntity extends BlockEntity {
     cooldown = Math.max(0, cooldown - 1);
     if(level.getDirectSignalTo(getBlockPos()) == 0 && !getSpellbook().isEmpty() && cooldown == 0) {
       var item = getSpellbook();
-      Tag tag = item.getTag();
-      if(tag instanceof CompoundTag compound && level instanceof ServerLevel server) {
-        var text = compound.getList("pages", Tag.TAG_STRING);
-        Spell spell = DictionarySavedData.computeIfAbsent(server).parse(LimitedBookSerializer.decodeText(text));
+      var tag = item.get(DataComponents.WRITTEN_BOOK_CONTENT);
+      if(tag != null && level instanceof ServerLevel server) {
+        Spell spell = DictionarySavedData.computeIfAbsent(server).parse(LimitedBookSerializer.decodeText(tag));
         if(spell != null) {
           if(spell.cost() > level.getGameRules().getInt(ScriptorGameRules.CASTING_LECTERN_MAX_COST)) {
             ParticleNetwork.fizzle(level, getBlockPos());

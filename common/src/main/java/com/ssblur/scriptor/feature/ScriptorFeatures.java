@@ -26,7 +26,7 @@ public class ScriptorFeatures {
       (biomeContext, mutable) ->
         mutable.getGenerationProperties().addFeature(
           GenerationStep.Decoration.RAW_GENERATION,
-          ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation("scriptor", "engravings"))
+          ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.tryBuild("scriptor", "engravings"))
     ));
   }
 }

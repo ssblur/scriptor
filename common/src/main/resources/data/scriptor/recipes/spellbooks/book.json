@@ -1,0 +1,13 @@
+{
+  "type": "scriptor:spellbook",
+  "base": {
+    "item": "scriptor:spellbook"
+  },
+  "addition": {
+    "item": "scriptor:leather_binder"
+  },
+  "result": {
+    "id": "minecraft:written_book",
+    "count": 1
+  }
+}

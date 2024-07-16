@@ -5,7 +5,7 @@ import com.ssblur.scriptor.data.DictionarySavedData;
 import com.ssblur.scriptor.gamerules.ScriptorGameRules;
 import com.ssblur.scriptor.helpers.targetable.SpellbookTargetable;
 import com.ssblur.scriptor.word.Spell;
-import net.minecraft.nbt.Tag;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -22,14 +22,13 @@ public class SpellbookHelper {
   public static List<Item> SPELLBOOKS = new ArrayList<>();
 
   public static boolean castFromItem(ItemStack itemStack, Player player) {
-    var compound = itemStack.getTag();
+    var text = itemStack.get(DataComponents.WRITTEN_BOOK_CONTENT);
     var level = player.level();
-    if(compound == null || !(level instanceof ServerLevel server))
+    if(text == null || !(level instanceof ServerLevel server))
       return false;
 
     level.playSound(null, player.blockPosition(), SoundEvents.EVOKER_CAST_SPELL, SoundSource.PLAYERS, 0.4F, level.getRandom().nextFloat() * 1.2F + 0.6F);
 
-    var text = compound.getList("pages", Tag.TAG_STRING);
     Spell spell = DictionarySavedData.computeIfAbsent(server).parse(LimitedBookSerializer.decodeText(text));
     if(spell != null) {
       if(spell.cost() > level.getGameRules().getInt(ScriptorGameRules.TOME_MAX_COST)) {

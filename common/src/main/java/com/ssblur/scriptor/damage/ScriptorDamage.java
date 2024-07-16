@@ -4,7 +4,6 @@ import com.ssblur.scriptor.ScriptorMod;
 import dev.architectury.registry.registries.DeferredRegister;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.damagesource.DamageType;
@@ -13,8 +12,8 @@ import net.minecraft.world.entity.Entity;
 public class ScriptorDamage {
   public static final DeferredRegister<DamageType> DAMAGE_TYPES = DeferredRegister.create(ScriptorMod.MOD_ID, Registries.DAMAGE_TYPE);
 
-  public static final ResourceKey<DamageType> SACRIFICE = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(ScriptorMod.MOD_ID, "sacrifice"));
-  public static final ResourceKey<DamageType> OVERLOAD = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(ScriptorMod.MOD_ID, "overload"));
+  public static final ResourceKey<DamageType> SACRIFICE = ResourceKey.create(Registries.DAMAGE_TYPE, ScriptorMod.location("sacrifice"));
+  public static final ResourceKey<DamageType> OVERLOAD = ResourceKey.create(Registries.DAMAGE_TYPE, ScriptorMod.location("overload"));
 
   public static DamageSource sacrifice(Entity entity) {
     var level = entity.level();

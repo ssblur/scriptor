@@ -17,7 +17,7 @@ public class ScriptorTabs {
   public static final String MOD_ID = ScriptorMod.MOD_ID;
   public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(ScriptorMod.MOD_ID, Registries.CREATIVE_MODE_TAB);
   public static final RegistrySupplier<CreativeModeTab> SCRIPTOR_TAB = TABS.register(
-    new ResourceLocation(MOD_ID, "scriptor_tab"),
+    ResourceLocation.tryBuild(MOD_ID, "scriptor_tab"),
     () ->
       CreativeTabRegistry.create(
         Component.translatable("itemGroup.scriptor.scriptor_tab"),

@@ -14,6 +14,7 @@ import com.ssblur.scriptor.registry.TokenGeneratorRegistry;
 import com.ssblur.scriptor.registry.words.WordRegistry;
 import com.ssblur.scriptor.word.PartialSpell;
 import com.ssblur.scriptor.word.Spell;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.level.ServerLevel;
@@ -336,16 +337,15 @@ public class DictionarySavedData extends SavedData {
   }
 
   @Override
-  public CompoundTag save(CompoundTag tag) {
-    var result = worldCodec.encodeStart(NbtOps.INSTANCE, this).get().left();
-    result.ifPresent(value -> tag.put("scriptor:dictionary", value));
+  public CompoundTag save(CompoundTag tag, HolderLookup.Provider provider) {
+    var result = worldCodec.encodeStart(NbtOps.INSTANCE, this).ifSuccess(value -> tag.put("scriptor:dictionary", value));
     return tag;
   }
 
-  public static DictionarySavedData load(CompoundTag tag) {
+  public static DictionarySavedData load(CompoundTag tag, HolderLookup.Provider provider) {
     var input = tag.get("scriptor:dictionary");
     if(input != null) {
-      var result = worldCodec.decode(NbtOps.INSTANCE, input).get().left();
+      var result = worldCodec.decode(NbtOps.INSTANCE, input).result();
       if(result.isPresent() && result.get().getFirst() != null)
         return result.get().getFirst();
     }

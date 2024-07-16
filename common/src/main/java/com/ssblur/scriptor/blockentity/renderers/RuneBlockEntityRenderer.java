@@ -15,8 +15,8 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
 public class RuneBlockEntityRenderer implements BlockEntityRenderer<RuneBlockEntity> {
-  static ResourceLocation magicCircle = new ResourceLocation(ScriptorMod.MOD_ID, "textures/entity/magic_circle.png");
-  static ResourceLocation emptyCircle = new ResourceLocation(ScriptorMod.MOD_ID, "textures/entity/empty_circle.png");
+  static ResourceLocation magicCircle = ScriptorMod.location("textures/entity/magic_circle.png");
+  static ResourceLocation emptyCircle = ScriptorMod.location("textures/entity/empty_circle.png");
   static RenderType magicLayer =
     RenderType
       .create(
@@ -29,7 +29,7 @@ public class RuneBlockEntityRenderer implements BlockEntityRenderer<RuneBlockEnt
         RenderType.CompositeState.builder().setTextureState(new RenderStateShard.TextureStateShard(magicCircle, false, false))
           .setCullState(new RenderStateShard.CullStateShard(false))
           .setLightmapState(new RenderStateShard.LightmapStateShard(true))
-          .setShaderState(RenderStateShard.POSITION_COLOR_TEX_SHADER)
+          .setShaderState(RenderStateShard.POSITION_COLOR_TEX_LIGHTMAP_SHADER)
           .createCompositeState(true)
       );
   static RenderType emptyLayer =
@@ -44,7 +44,7 @@ public class RuneBlockEntityRenderer implements BlockEntityRenderer<RuneBlockEnt
         RenderType.CompositeState.builder().setTextureState(new RenderStateShard.TextureStateShard(emptyCircle, false, false))
           .setCullState(new RenderStateShard.CullStateShard(false))
           .setLightmapState(new RenderStateShard.LightmapStateShard(true))
-          .setShaderState(RenderStateShard.POSITION_COLOR_TEX_SHADER)
+          .setShaderState(RenderStateShard.POSITION_COLOR_TEX_LIGHTMAP_SHADER)
           .createCompositeState(true)
       );
 
@@ -74,38 +74,38 @@ public class RuneBlockEntityRenderer implements BlockEntityRenderer<RuneBlockEnt
     double R = 0.5;
     float x = (float) (R * Math.cos(rot));
     float y = (float) (R * Math.sin(rot));
-    buffer.vertex(pose, x + 0.5f, 0, y + 0.5f).color(r, g, b, 255).uv(0, 1).uv2(0xF000F0).endVertex();
+    buffer.addVertex(pose, x + 0.5f, 0, y + 0.5f).setColor(r, g, b, 255).setUv(0, 1).setLight(0xF000F0);
     rot += (Math.PI / 2);
     x = (float) (R * Math.cos(rot));
     y = (float) (R * Math.sin(rot));
-    buffer.vertex(pose, x + 0.5f, 0, y + 0.5f).color(r, g, b, 255).uv(1, 1).uv2(0xF000F0).endVertex();
+    buffer.addVertex(pose, x + 0.5f, 0, y + 0.5f).setColor(r, g, b, 255).setUv(1, 1).setLight(0xF000F0);
     rot += (Math.PI / 2);
     x = (float) (R * Math.cos(rot));
     y = (float) (R * Math.sin(rot));
-    buffer.vertex(pose, x + 0.5f, 0, y + 0.5f).color(r, g, b, 255).uv(1, 0).uv2(0xF000F0).endVertex();
+    buffer.addVertex(pose, x + 0.5f, 0, y + 0.5f).setColor(r, g, b, 255).setUv(1, 0).setLight(0xF000F0);
     rot += (Math.PI / 2);
     x = (float) (R * Math.cos(rot));
     y = (float) (R * Math.sin(rot));
-    buffer.vertex(pose, x + 0.5f, 0, y + 0.5f).color(r, g, b, 255).uv(0, 0).uv2(0xF000F0).endVertex();
+    buffer.addVertex(pose, x + 0.5f, 0, y + 0.5f).setColor(r, g, b, 255).setUv(0, 0).setLight(0xF000F0);
 
     buffer = buffers.getBuffer(emptyLayer);
     R = 0.2;
     rot *= -1;
     x = (float) (R * Math.cos(rot));
     y = (float) (R * Math.sin(rot));
-    buffer.vertex(pose, x + 0.5f, 0, y + 0.5f).color(r, g, b, 255).uv(0, 1).uv2(0xF000F0).endVertex();
+    buffer.addVertex(pose, x + 0.5f, 0, y + 0.5f).setColor(r, g, b, 255).setUv(0, 1).setLight(0xF000F0);
     rot += (Math.PI / 2);
     x = (float) (R * Math.cos(rot));
     y = (float) (R * Math.sin(rot));
-    buffer.vertex(pose, x + 0.5f, 0, y + 0.5f).color(r, g, b, 255).uv(1, 1).uv2(0xF000F0).endVertex();
+    buffer.addVertex(pose, x + 0.5f, 0, y + 0.5f).setColor(r, g, b, 255).setUv(1, 1).setLight(0xF000F0);
     rot += (Math.PI / 2);
     x = (float) (R * Math.cos(rot));
     y = (float) (R * Math.sin(rot));
-    buffer.vertex(pose, x + 0.5f, 0, y + 0.5f).color(r, g, b, 255).uv(1, 0).uv2(0xF000F0).endVertex();
+    buffer.addVertex(pose, x + 0.5f, 0, y + 0.5f).setColor(r, g, b, 255).setUv(1, 0).setLight(0xF000F0);
     rot += (Math.PI / 2);
     x = (float) (R * Math.cos(rot));
     y = (float) (R * Math.sin(rot));
-    buffer.vertex(pose, x + 0.5f, 0, y + 0.5f).color(r, g, b, 255).uv(0, 0).uv2(0xF000F0).endVertex();
+    buffer.addVertex(pose, x + 0.5f, 0, y + 0.5f).setColor(r, g, b, 255).setUv(0, 0).setLight(0xF000F0);
 
     matrix.popPose();
   }

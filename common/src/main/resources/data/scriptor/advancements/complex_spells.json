@@ -1,7 +1,9 @@
 {
   "criteria": {
     "collect": {
-      "conditions": {},
+      "conditions": {
+        "player": []
+      },
       "trigger": "scriptor:complex_spell"
     }
   }

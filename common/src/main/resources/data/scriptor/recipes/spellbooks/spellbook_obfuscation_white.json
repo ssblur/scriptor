@@ -1,6 +1,13 @@
 {
   "type": "scriptor:spellbook",
-  "base": "scriptor:spellbook_white",
-  "addition": "minecraft:glow_ink_sac",
-  "result": "scriptor:obfuscated_spellbook_white"
+  "base": {
+    "item": "scriptor:spellbook_white"
+  },
+  "addition": {
+    "item": "minecraft:glow_ink_sac"
+  },
+  "result": {
+    "id": "scriptor:obfuscated_spellbook_white",
+    "count": 1
+  }
 }

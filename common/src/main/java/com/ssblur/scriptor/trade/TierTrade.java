@@ -6,6 +6,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,7 +34,7 @@ public class TierTrade implements VillagerTrades.ItemListing {
     }
 
     return new MerchantOffer(
-      new ItemStack(book, 1),
+      new ItemCost(book, 1),
       new ItemStack(book2, 2),
       1,
       15,

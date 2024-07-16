@@ -17,6 +17,7 @@
     }
   },
   "result": {
-    "item": "scriptor:book_of_books"
+    "id": "scriptor:book_of_books",
+    "count": 1
   }
 }

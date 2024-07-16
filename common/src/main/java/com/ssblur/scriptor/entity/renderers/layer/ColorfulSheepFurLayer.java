@@ -16,7 +16,7 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class ColorfulSheepFurLayer extends RenderLayer<ColorfulSheep, SheepModel<ColorfulSheep>> {
-  private static final ResourceLocation SHEEP_FUR_LOCATION = new ResourceLocation("textures/entity/sheep/sheep_fur.png");
+  private static final ResourceLocation SHEEP_FUR_LOCATION = ResourceLocation.tryBuild("minecraft", "textures/entity/sheep/sheep_fur.png");
   private final SheepFurModel<ColorfulSheep> model;
 
   public ColorfulSheepFurLayer(RenderLayerParent<ColorfulSheep, SheepModel<ColorfulSheep>> renderLayerParent, EntityModelSet entityModelSet) {
@@ -44,7 +44,7 @@ public class ColorfulSheepFurLayer extends RenderLayer<ColorfulSheep, SheepModel
           model.prepareMobModel(sheep, f, g, h);
           model.setupAnim(sheep, f, g, j, k, l);
           VertexConsumer vertexConsumer = multiBufferSource.getBuffer(RenderType.outline(SHEEP_FUR_LOCATION));
-          model.renderToBuffer(poseStack, vertexConsumer, i, LivingEntityRenderer.getOverlayCoords(sheep, 0f), 0f, 0f, 0f, 1f);
+          model.renderToBuffer(poseStack, vertexConsumer, i, LivingEntityRenderer.getOverlayCoords(sheep, 0f), 0x00000000);
         }
       } else {
         var color = sheep.getColorArray();
@@ -62,9 +62,7 @@ public class ColorfulSheepFurLayer extends RenderLayer<ColorfulSheep, SheepModel
           k,
           l,
           h,
-          ((float) color.getRed()) / 255f,
-          ((float) color.getGreen()) / 255f,
-          ((float) color.getBlue()) / 255f
+          color.getRGB()
         );
       }
   }

@@ -4,7 +4,7 @@ import com.ssblur.scriptor.api.word.Subject;
 import com.ssblur.scriptor.block.ScriptorBlocks;
 import com.ssblur.scriptor.blockentity.RuneBlockEntity;
 import com.ssblur.scriptor.color.CustomColors;
-import com.ssblur.scriptor.events.network.TraceNetwork;
+import com.ssblur.scriptor.events.network.server.ServerTraceNetwork;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.Spell;
@@ -22,7 +22,7 @@ public class RuneSubject extends Subject implements InventorySubject{
   public CompletableFuture<List<Targetable>> getTargets(Targetable caster, Spell spell) {
     var result = new CompletableFuture<List<Targetable>>();
     if(caster instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof Player player) {
-      TraceNetwork.requestTraceData(player, target -> {
+      ServerTraceNetwork.requestTraceData(player, target -> {
         int color = CustomColors.getColor(spell.deduplicatedDescriptorsForSubjects());
         BlockPos pos = target.getTargetBlockPos();
         Level level = caster.getLevel();

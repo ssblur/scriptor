@@ -1,5 +1,10 @@
 {
   "type": "scriptor:spellbook_dyeing",
-  "addition": "minecraft:magenta_dye",
-  "result": "scriptor:spellbook_magenta"
+  "addition": {
+    "item": "minecraft:magenta_dye"
+  },
+  "result": {
+    "id": "scriptor:spellbook_magenta",
+    "count": 1
+  }
 }

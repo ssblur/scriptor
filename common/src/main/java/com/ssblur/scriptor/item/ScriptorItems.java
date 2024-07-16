@@ -13,6 +13,7 @@ import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DiggerItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tiers;
 
@@ -144,13 +145,13 @@ public class ScriptorItems {
     new CoordinateCasterCrystal(new Item.Properties().arch$tab(ScriptorTabs.SCRIPTOR_TAB)));
 
   public static final RegistrySupplier<Item> BOUND_SWORD = ITEMS.register("bound_sword", () ->
-    new BoundSword(Tiers.STONE, 3, -2.4f, new Item.Properties().durability(Integer.MAX_VALUE).arch$tab(ScriptorTabs.SCRIPTOR_TAB)));
-  public static final RegistrySupplier<Item> BOUND_AXE = ITEMS.register("bound_axe", () ->
-    new BoundAxe(Tiers.STONE, 6, -2.4f, new Item.Properties().durability(Integer.MAX_VALUE).arch$tab(ScriptorTabs.SCRIPTOR_TAB)));
-  public static final RegistrySupplier<Item> BOUND_SHOVEL = ITEMS.register("bound_shovel", () ->
-    new BoundTool(1, -2.4f, Tiers.STONE, BlockTags.MINEABLE_WITH_SHOVEL, new Item.Properties().durability(Integer.MAX_VALUE).arch$tab(ScriptorTabs.SCRIPTOR_TAB)));
-  public static final RegistrySupplier<Item> BOUND_PICKAXE = ITEMS.register("bound_pickaxe", () ->
-    new BoundTool(1, -2.4f, Tiers.STONE, BlockTags.MINEABLE_WITH_PICKAXE, new Item.Properties().durability(Integer.MAX_VALUE).arch$tab(ScriptorTabs.SCRIPTOR_TAB)));
+    new BoundSword(Tiers.STONE, new Item.Properties().durability(Integer.MAX_VALUE).arch$tab(ScriptorTabs.SCRIPTOR_TAB)));
+  public static final RegistrySupplier<DiggerItem> BOUND_AXE = ITEMS.register("bound_axe", () ->
+    new BoundAxe(Tiers.STONE, new Item.Properties().durability(Integer.MAX_VALUE).arch$tab(ScriptorTabs.SCRIPTOR_TAB)));
+  public static final RegistrySupplier<DiggerItem> BOUND_SHOVEL = ITEMS.register("bound_shovel", () ->
+    new BoundTool(Tiers.STONE, BlockTags.MINEABLE_WITH_SHOVEL, new Item.Properties().durability(Integer.MAX_VALUE).arch$tab(ScriptorTabs.SCRIPTOR_TAB)));
+  public static final RegistrySupplier<DiggerItem> BOUND_PICKAXE = ITEMS.register("bound_pickaxe", () ->
+    new BoundTool(Tiers.STONE, BlockTags.MINEABLE_WITH_PICKAXE, new Item.Properties().durability(Integer.MAX_VALUE).arch$tab(ScriptorTabs.SCRIPTOR_TAB)));
 
   public static final RegistrySupplier<Item> CASTING_LECTERN = ITEMS.register("casting_lectern", () ->
     new BlockItem(ScriptorBlocks.CASTING_LECTERN.get(), new Item.Properties().arch$tab(ScriptorTabs.SCRIPTOR_TAB)));

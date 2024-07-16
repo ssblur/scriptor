@@ -48,9 +48,9 @@ public class ColorfulSheep extends Sheep implements Colorable {
 
   private static final EntityDataAccessor<Integer> DATA_COLOR = SynchedEntityData.defineId(ColorfulSheep.class, EntityDataSerializers.INT);
 
-  protected void defineSynchedData() {
-    super.defineSynchedData();
-    this.entityData.define(DATA_COLOR, 0xFFFFFF);
+  protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    super.defineSynchedData(builder);
+    builder.define(DATA_COLOR, 0xFFFFFF);
   }
 
   public ColorfulSheep(EntityType<? extends ColorfulSheep> entityType, Level level) {
@@ -107,8 +107,8 @@ public class ColorfulSheep extends Sheep implements Colorable {
 
   @Nullable
   @Override
-  public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
+  public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData) {
     this.setColor(0xFFFFFF);
-    return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
+    return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData);
   }
 }

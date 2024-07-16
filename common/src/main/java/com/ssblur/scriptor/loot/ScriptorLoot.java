@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.loot;
 
+import com.mojang.serialization.MapCodec;
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.helpers.loot.ArtifactItemFunction;
 import dev.architectury.registry.registries.DeferredRegister;
@@ -8,10 +9,10 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 
 public class ScriptorLoot {
-  public static final DeferredRegister<LootItemFunctionType> LOOT_ITEM_FUNCTION_TYPES = DeferredRegister.create(ScriptorMod.MOD_ID, Registries.LOOT_FUNCTION_TYPE);
+  public static final DeferredRegister<LootItemFunctionType<?>> LOOT_ITEM_FUNCTION_TYPES = DeferredRegister.create(ScriptorMod.MOD_ID, Registries.LOOT_FUNCTION_TYPE);
 
-  public static final RegistrySupplier<LootItemFunctionType> ARTIFACT = LOOT_ITEM_FUNCTION_TYPES.register("artifact",
-    () -> new LootItemFunctionType(new ArtifactItemFunction.ArtifactSerializer())
+  public static final RegistrySupplier<LootItemFunctionType<ArtifactItemFunction>> ARTIFACT = LOOT_ITEM_FUNCTION_TYPES.register("artifact",
+    () -> new LootItemFunctionType(MapCodec.assumeMapUnsafe(new ArtifactItemFunction.ArtifactSerializer()))
   );
 
   public static void register() {

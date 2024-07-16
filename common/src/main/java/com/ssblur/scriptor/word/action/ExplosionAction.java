@@ -11,7 +11,7 @@ public class ExplosionAction extends Action {
   @Override
   public void apply(Targetable caster, Targetable targetable, Descriptor[] descriptors) {
     if(targetable.getLevel().isClientSide) return;
-    int strength = 2;
+    double strength = 2;
     for(var d: descriptors) {
       if(d instanceof StrengthDescriptor strengthDescriptor)
         strength += strengthDescriptor.strengthModifier();
@@ -20,9 +20,7 @@ public class ExplosionAction extends Action {
     ServerLevel level = (ServerLevel) targetable.getLevel();
     var pos = targetable.getTargetPos();
 
-    float power = 0;
-    for(int i = 1; i <= strength; i++)
-      power += 1.5f / strength;
+    float power = (float) (Math.log(strength) / Math.log(1.45));
 
     level.explode(null, pos.x, pos.y + .25, pos.z, power, Level.ExplosionInteraction.TNT);
   }

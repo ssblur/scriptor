@@ -2,7 +2,6 @@ package com.ssblur.scriptor.block;
 
 import com.ssblur.scriptor.blockentity.ChalkBlockEntity;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
@@ -45,13 +44,12 @@ public class ChalkBlock extends Block implements EntityBlock {
     return new ChalkBlockEntity(blockPos, blockState);
   }
 
-  @SuppressWarnings("deprecation")
   @Override
-  public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+  public InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
     if(level.getBlockEntity(blockPos) instanceof ChalkBlockEntity blockEntity) {
       blockEntity.cast();
       return InteractionResult.SUCCESS;
     }
-    return super.use(blockState, level, blockPos, player, interactionHand, blockHitResult);
+    return super.useWithoutItem(blockState, level, blockPos, player, blockHitResult);
   }
 }

@@ -1,17 +1,16 @@
 package com.ssblur.scriptor.item.casters;
 
+import com.ssblur.scriptor.data_components.ScriptorDataComponents;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.UUID;
@@ -23,8 +22,9 @@ public class PlayerCasterCrystal extends CasterCrystal {
 
   @Override
   public List<Targetable> getTargetables(ItemStack itemStack, Level level) {
-    if(itemStack.getTag() != null && itemStack.getTag().contains("playerUUID")){
-      var player = level.getPlayerByUUID(UUID.fromString(itemStack.getTag().getString("playerUUID")));
+    var uuid = itemStack.get(ScriptorDataComponents.PLAYER_FOCUS);
+    if(uuid != null){
+      var player = level.getPlayerByUUID(UUID.fromString(uuid));
       if(player != null)
         return List.of(new EntityTargetable(player));
     }
@@ -32,21 +32,17 @@ public class PlayerCasterCrystal extends CasterCrystal {
   }
 
   @Override
-  public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> list, TooltipFlag tooltipFlag) {
-    super.appendHoverText(itemStack, level, list, tooltipFlag);
+  public void appendHoverText(ItemStack itemStack, TooltipContext context, List<Component> list, TooltipFlag tooltipFlag) {
+    super.appendHoverText(itemStack, context, list, tooltipFlag);
 
     list.add(Component.translatable("lore.scriptor.player_crystal_1").withStyle(ChatFormatting.GRAY));
-    if(itemStack.getTag() != null && itemStack.getTag().contains("playerUUID")) {
-      var uuid = itemStack.getTag().getString("playerUUID");
-      if(level != null && level.getPlayerByUUID(UUID.fromString(uuid)) != null) {
-        list.add(Component.translatable(
-          "lore.scriptor.player_crystal_2",
-          level.getPlayerByUUID(UUID.fromString(uuid)).getName()
-        ).withStyle(ChatFormatting.GRAY));
-      } else {
-        list.add(Component.translatable("lore.scriptor.player_crystal_3"));
-        list.add(Component.literal("(" + uuid + ")"));
-      }
+
+    var name = itemStack.get(ScriptorDataComponents.PLAYER_NAME);
+    if(name != null) {
+      list.add(Component.translatable(
+        "lore.scriptor.player_crystal_2",
+        name
+      ).withStyle(ChatFormatting.GRAY));
       list.add(Component.translatable("lore.scriptor.crystal_reset").withStyle(ChatFormatting.GRAY));
     }
   }
@@ -56,10 +52,9 @@ public class PlayerCasterCrystal extends CasterCrystal {
     var result = super.use(level, player, interactionHand);
 
     if(!level.isClientSide) {
-      ServerLevel server = (ServerLevel) level;
-
       ItemStack itemStack = player.getItemInHand(interactionHand);
-      itemStack.getOrCreateTag().putString("playerUUID", player.getStringUUID());
+      itemStack.set(ScriptorDataComponents.PLAYER_FOCUS, player.getStringUUID());
+      itemStack.set(ScriptorDataComponents.PLAYER_NAME, player.getDisplayName().getString());
     }
 
     return result;

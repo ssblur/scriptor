@@ -7,13 +7,15 @@ import com.ssblur.scriptor.helpers.targetable.InventoryTargetable;
 import com.ssblur.scriptor.helpers.targetable.ItemTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.TicketType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ChunkPos;
+
+import java.util.Set;
 
 public class SwapAction extends Action {
   @Override
@@ -52,7 +54,7 @@ public class SwapAction extends Action {
 
           itemStack.shrink(1);
           toInventory.getContainer().setItem(slot, newItemStack);
-        } else if(ItemStack.isSameItemSameTags(itemStack2, itemStack)) {
+        } else if(ItemStack.isSameItemSameComponents(itemStack2, itemStack)) {
           itemStack.shrink(1);
           itemStack2.grow(1);
         }
@@ -75,7 +77,7 @@ public class SwapAction extends Action {
         if(itemStack2.isEmpty()) {
           itemStack.shrink(1);
           toInventory.getContainer().setItem(slot, newItemStack);
-        } else if(ItemStack.isSameItemSameTags(itemStack2, itemStack)) {
+        } else if(ItemStack.isSameItemSameComponents(itemStack2, itemStack)) {
           itemStack.shrink(1);
           itemStack2.grow(1);
         }
@@ -91,14 +93,12 @@ public class SwapAction extends Action {
       var level = living.level();
       if (level != to.getLevel()) {
         var toLevel = (ServerLevel) to.getLevel();
-        if(living instanceof ServerPlayer player) {
-          toLevel.getChunkSource().addRegionTicket(TicketType.POST_TELEPORT, new ChunkPos(to.getTargetBlockPos()), 1, player.getId());
-          player.teleportTo(toLevel, to.getTargetPos().x, to.getTargetPos().y, to.getTargetPos().z, player.getYRot(), player.getXRot());
-          player.stopRiding();
-          if(player.isSleeping()) player.stopSleepInBed(true, true);
+        toLevel.getChunkSource().addRegionTicket(TicketType.POST_TELEPORT, new ChunkPos(to.getTargetBlockPos()), 1, living.getId());
+        living.teleportTo(toLevel, to.getTargetPos().x, to.getTargetPos().y, to.getTargetPos().z, Set.of(), living.getYRot(), living.getXRot());
+        living.stopRiding();
+        if(living instanceof Player player) {
+          if (living.isSleeping()) player.stopSleepInBed(true, true);
           player.onUpdateAbilities();
-        } else {
-          living.changeDimension(toLevel);
         }
       }
 

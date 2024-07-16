@@ -8,7 +8,7 @@
       "text": "Uncover an ancient tome."
     },
     "icon": {
-      "item": "minecraft:book"
+      "id": "minecraft:book"
     },
     "frame": "task",
     "show_toast": true,
@@ -18,7 +18,9 @@
   },
   "criteria": {
     "collect": {
-      "conditions": {},
+      "conditions": {
+        "player": []
+      },
       "trigger": "scriptor:tome_collect"
     }
   },

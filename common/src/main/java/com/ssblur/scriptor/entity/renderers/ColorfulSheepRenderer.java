@@ -12,7 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 
 @Environment(EnvType.CLIENT)
 public class ColorfulSheepRenderer extends MobRenderer<ColorfulSheep, SheepModel<ColorfulSheep>> {
-  private static final ResourceLocation SHEEP_LOCATION = new ResourceLocation("textures/entity/sheep/sheep.png");
+  private static final ResourceLocation SHEEP_LOCATION = ResourceLocation.parse("textures/entity/sheep/sheep.png");
 
   public ColorfulSheepRenderer(EntityRendererProvider.Context context) {
     super(context, new SheepModel<>(context.bakeLayer(ModelLayers.SHEEP)), 0.7F);

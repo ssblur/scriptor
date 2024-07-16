@@ -1,5 +1,10 @@
 {
   "type": "scriptor:spellbook_dyeing",
-  "addition": "minecraft:lime_dye",
-  "result": "scriptor:spellbook_lime"
+  "addition": {
+    "item": "minecraft:lime_dye"
+  },
+  "result": {
+    "id": "scriptor:spellbook_lime",
+    "count": 1
+  }
 }

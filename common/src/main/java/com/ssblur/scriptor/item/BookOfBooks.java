@@ -1,14 +1,13 @@
 package com.ssblur.scriptor.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.ssblur.scriptor.data_components.BookOfBooksData;
+import com.ssblur.scriptor.data_components.ScriptorDataComponents;
 import com.ssblur.scriptor.helpers.SpellbookHelper;
 import com.ssblur.scriptor.item.interfaces.ItemWithCustomRenderer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -20,7 +19,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +31,7 @@ public class BookOfBooks extends Item implements ItemWithCustomRenderer {
     SpellbookHelper.SPELLBOOKS.add(this);
   }
 
+  @Override
   public boolean overrideOtherStackedOnMe(ItemStack book, ItemStack itemStack, Slot slot, ClickAction clickAction, Player player, SlotAccess slotAccess) {
     if (clickAction != ClickAction.SECONDARY || !slot.allowModification(player))
       return false;
@@ -68,7 +67,7 @@ public class BookOfBooks extends Item implements ItemWithCustomRenderer {
   }
 
   @Override
-  public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> list, TooltipFlag tooltipFlag) {
+  public void appendHoverText(ItemStack itemStack, TooltipContext level, List<Component> list, TooltipFlag tooltipFlag) {
     super.appendHoverText(itemStack, level, list, tooltipFlag);
 
     var inventory = getInventory(itemStack);
@@ -88,32 +87,24 @@ public class BookOfBooks extends Item implements ItemWithCustomRenderer {
   }
 
   static List<ItemStack> getInventory(ItemStack book) {
-    var tag = book.getOrCreateTag().getCompound("scriptor");
-    if(tag == null) {
-      tag = new CompoundTag();
-      book.getOrCreateTag().put("scriptor", tag);
-    }
+    var data = book.get(ScriptorDataComponents.BOOK_OF_BOOKS);
 
-    if(!tag.contains("items"))
-      tag.put("items", new ListTag());
+    if(data == null)
+      return List.of();
 
-    var list = tag.getList("items", Tag.TAG_COMPOUND);
-    List<ItemStack> out = new ArrayList<>();
-    for(var item: list)
-      out.add(ItemStack.of((CompoundTag) item));
-    return out;
+    return data.items();
   }
 
   static int getActiveSlot(ItemStack book) {
-    var tag = book.getTagElement("scriptor");
-    if(tag == null) return 0;
-    return tag.getInt("active_slot");
+    var data = book.get(ScriptorDataComponents.BOOK_OF_BOOKS);
+    if(data == null) return 0;
+    return data.active();
   }
 
   static ItemStack getActiveItem(ItemStack book) {
     int slot = getActiveSlot(book);
     var inventory = getInventory(book);
-    if(inventory.size() == 0) return ItemStack.EMPTY;
+    if(inventory.isEmpty()) return ItemStack.EMPTY;
     if(inventory.size() <= slot) return inventory.get(inventory.size() - 1);
     return inventory.get(slot);
   }
@@ -121,40 +112,30 @@ public class BookOfBooks extends Item implements ItemWithCustomRenderer {
   static void remove(ItemStack book, SlotAccess slotAccess) {
     if(!slotAccess.get().isEmpty()) return;
 
-    var tag = book.getOrCreateTag().getCompound("scriptor");
-    if(tag == null) {
-      tag = new CompoundTag();
-      book.getOrCreateTag().put("scriptor", tag);
-    }
+    var data = book.get(ScriptorDataComponents.BOOK_OF_BOOKS);
+    if(data == null) return;
 
-    if(!tag.contains("items"))
-      tag.put("items", new ListTag());
-
-    var list = tag.getList("items", Tag.TAG_COMPOUND);
-    if(list.size() == 0) return;
+    var list = new ArrayList<>(data.items());
+    if(list.isEmpty()) return;
 
     var item = list.remove(list.size() - 1);
-    slotAccess.set(ItemStack.of((CompoundTag) item));
+    book.set(ScriptorDataComponents.BOOK_OF_BOOKS, new BookOfBooksData(list, data.active()));
+    slotAccess.set(item);
   }
 
   static void add(ItemStack book, ItemStack item) {
     if(item.isEmpty()) return;
+    var insert = item.copy();
+    item.shrink(1);
 
-    var tag = book.getOrCreateTag().getCompound("scriptor");
-    if(tag == null) {
-      tag = new CompoundTag();
-    }
+    var data = book.get(ScriptorDataComponents.BOOK_OF_BOOKS);
+    if(data == null)
+      data = new BookOfBooksData(List.of(), 0);
 
-    if(!tag.contains("items"))
-      tag.put("items", new ListTag());
+    var list = new ArrayList<>(data.items());
 
-    var list = tag.getList("items", Tag.TAG_COMPOUND);
-    var compound = new CompoundTag();
-    item.save(compound);
-    list.add(compound);
-    item.setCount(0);
-
-    book.getOrCreateTag().put("scriptor", tag);
+    list.add(insert);
+    book.set(ScriptorDataComponents.BOOK_OF_BOOKS, new BookOfBooksData(list, data.active()));
   }
 
   @Override

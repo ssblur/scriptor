@@ -40,7 +40,7 @@ public interface InventoryTargetable {
     return getFirstMatchingSlot(
       item -> item.isEmpty()
         || (
-          ItemStack.isSameItemSameTags(item, itemStack)
+          ItemStack.isSameItemSameComponents(item, itemStack)
             && (item.getCount() + itemStack.getCount()) <= item.getMaxStackSize()
       )
     );
@@ -49,7 +49,7 @@ public interface InventoryTargetable {
   default int getFirstMatchingSlotNotEmpty(ItemStack itemStack) {
     return getFirstMatchingSlot(
       item ->
-        ItemStack.isSameItemSameTags(item, itemStack)
+        ItemStack.isSameItemSameComponents(item, itemStack)
           && (item.getCount() + itemStack.getCount()) <= item.getMaxStackSize()
     );
   }

@@ -14,7 +14,7 @@
     }
   },
   "result": {
-    "item": "scriptor:casting_crystal",
+    "id": "scriptor:casting_crystal",
     "count": 1
   }
 }

@@ -7,7 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -43,11 +43,9 @@ public class CastingLecternBlock extends Block implements EntityBlock {
     this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
   }
 
-  @SuppressWarnings("deprecation")
   @Override
-  public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+  public ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
     BlockEntity blockEntity = level.getBlockEntity(blockPos);
-    ItemStack itemStack = player.getItemInHand(interactionHand);
 
     if(!level.isClientSide && blockEntity instanceof CastingLecternBlockEntity lectern)
       if(itemStack.isEmpty()) {
@@ -61,13 +59,13 @@ public class CastingLecternBlock extends Block implements EntityBlock {
       } else if (itemStack.getItem() instanceof Spellbook)  {
         player.setItemInHand(interactionHand, lectern.getSpellbook());
         lectern.setSpellbook(itemStack);
-        return InteractionResult.PASS;
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
       } else if (itemStack.getItem() instanceof CasterCrystal)  {
         player.setItemInHand(interactionHand, lectern.getFocus());
         lectern.setFocus(itemStack);
-        return InteractionResult.PASS;
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
       }
-    return InteractionResult.CONSUME;
+    return ItemInteractionResult.CONSUME;
   }
 
   @Override
