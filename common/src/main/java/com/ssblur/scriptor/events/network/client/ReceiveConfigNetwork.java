@@ -10,6 +10,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
+import org.jetbrains.annotations.NotNull;
 
 public class ReceiveConfigNetwork implements ScriptorNetworkInterface<ReceiveConfigNetwork.Payload> {
   @Override
@@ -36,7 +37,7 @@ public class ReceiveConfigNetwork implements ScriptorNetworkInterface<ReceiveCon
     }
   }
 
-  enum FLAGS {
+  public enum FLAGS {
     COMMUNITY
   }
 
@@ -65,6 +66,7 @@ public class ReceiveConfigNetwork implements ScriptorNetworkInterface<ReceiveCon
     );
 
     @Override
+    @NotNull
     public Type<Payload> type() {
       return TYPE;
     }

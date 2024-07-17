@@ -16,7 +16,6 @@ public class PlayerJoinedEvent implements PlayerEvent.PlayerJoin {
     ReceiveConfigNetwork.sendCommunityMode(player, ScriptorMod.COMMUNITY_MODE);
 
     PlayerSpellsSavedData.computeIfAbsent(player);
-
     ReceiveColorNetwork.syncColors(player);
   }
 }

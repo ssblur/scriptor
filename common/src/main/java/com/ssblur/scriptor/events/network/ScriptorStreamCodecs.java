@@ -33,7 +33,7 @@ public class ScriptorStreamCodecs {
     buf -> new UUID(buf.readLong(), buf.readLong())
   );
 
-  public static final <T extends Enum<T>> StreamCodec<FriendlyByteBuf, T> fromEnum(Class<T> c) {
+  public static <T extends Enum<T>> StreamCodec<FriendlyByteBuf, T> fromEnum(Class<T> c) {
     return StreamCodec.of(FriendlyByteBuf::writeEnum, e -> e.readEnum(c));
   }
 //    (boolean bl, Vec3 vec3, Direction direction, BlockPos blockPos, boolean bl2)
