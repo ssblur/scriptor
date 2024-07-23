@@ -10,7 +10,6 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 
 public class ScriptorNetwork {
-  public static final String MOD_ID = ScriptorMod.MOD_ID;
   public static final ResourceLocation CLIENT_GET_TRACE_DATA = ScriptorMod.location("client_get_touch_data");
   public static final ResourceLocation CLIENT_GET_HITSCAN_DATA = ScriptorMod.location("client_get_hitscan_data");
   public static final ResourceLocation SERVER_RETURN_TRACE_DATA = ScriptorMod.location("server_return_touch_data");
