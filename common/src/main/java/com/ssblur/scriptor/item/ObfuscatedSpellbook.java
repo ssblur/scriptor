@@ -17,6 +17,7 @@ public class ObfuscatedSpellbook extends Spellbook {
   }
 
   public void drawPage(ItemStack itemStack, int page, PoseStack matrix, MultiBufferSource buffer, int lightLevel) {
+    if(matrix == null) return;
     var font = Minecraft.getInstance().font;
     List<FormattedCharSequence> sequence = font.split(FormattedText.of("§k" + "*".repeat(400)), 80);
     for (int iter = 0; iter < sequence.size(); iter++)

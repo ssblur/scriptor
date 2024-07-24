@@ -188,6 +188,7 @@ public class Spellbook extends WrittenBookItem implements ItemWithCustomRenderer
   }
 
   public void drawPage(ItemStack itemStack, int page, PoseStack matrix, MultiBufferSource buffer, int lightLevel) {
+    if(matrix == null) return;
     var font = Minecraft.getInstance().font;
     var tag = itemStack.get(DataComponents.WRITTEN_BOOK_CONTENT);
     if(tag != null) {

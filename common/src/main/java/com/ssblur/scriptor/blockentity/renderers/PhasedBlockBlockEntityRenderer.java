@@ -19,6 +19,7 @@ public class PhasedBlockBlockEntityRenderer  implements BlockEntityRenderer<Phas
   }
   @Override
   public void render(PhasedBlockBlockEntity blockEntity, float f, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j) {
+    if(poseStack == null) return;
     var blockState = blockEntity.getPhasedBlockState();
     var level = blockEntity.getLevel();
 

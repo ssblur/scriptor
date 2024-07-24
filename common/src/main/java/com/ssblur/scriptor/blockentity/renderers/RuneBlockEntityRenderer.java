@@ -54,6 +54,7 @@ public class RuneBlockEntityRenderer implements BlockEntityRenderer<RuneBlockEnt
   @Override
   public void render(RuneBlockEntity rune, float tickDelta, PoseStack matrix, MultiBufferSource buffers, int light, int j) {
     if(rune.getLevel() == null) return;
+    if(matrix == null) return;
     matrix.pushPose();
 
     int c = CustomColors.getColor(rune.color, rune.getLevel().getGameTime() + tickDelta);

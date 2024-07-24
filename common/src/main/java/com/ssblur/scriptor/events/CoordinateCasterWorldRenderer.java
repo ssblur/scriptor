@@ -27,10 +27,12 @@ public class CoordinateCasterWorldRenderer {
   }
 
   public static void render(PoseStack matrix, ItemStack item) {
+    if(matrix == null) return;
     var tesselator = Tesselator.getInstance();
     BufferBuilder builder;
     var camera = Minecraft.getInstance().gameRenderer.getMainCamera();
-    var pose = matrix.last().pose();
+    var last = matrix.last();
+    var pose = last.pose();
 
     matrix.pushPose();
     RenderSystem.disableDepthTest();

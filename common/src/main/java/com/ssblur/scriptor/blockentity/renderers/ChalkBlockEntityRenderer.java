@@ -87,6 +87,7 @@ public class ChalkBlockEntityRenderer implements BlockEntityRenderer<ChalkBlockE
 
   @Override
   public void render(ChalkBlockEntity blockEntity, float tickDelta, PoseStack matrix, MultiBufferSource buffers, int light, int j) {
+    if(matrix == null) return;
     var level = blockEntity.getLevel();
     var pos = blockEntity.getBlockPos();
     if(level == null) return;
