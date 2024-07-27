@@ -125,7 +125,7 @@ public class AddLootEvent implements LootEvent.ModifyLootTable {
     if(builtin) {
       for(var pool: pools.keySet())
         for(var i: pools.get(pool))
-          if(id.equals(i.location)) {
+          if(id.location().equals(i.location)) {
             LootPool.Builder builder = LootPool.lootPool();
             builder.when(LootItemRandomChanceCondition.randomChance(i.chance));
             builder.add(LootItem.lootTableItem(pool.get()));
