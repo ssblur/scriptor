@@ -139,6 +139,20 @@
   "descriptor.scriptor.caster_first_filled": "This spell focuses on the first filled slot in the caster's inventory",
   "descriptor.scriptor.caster_first_matching": "This spell focuses on the first valid slot in the caster's inventory",
 
+  "descriptor.scriptor.copy_left": "This spell's targets are copied over one block to the left",
+  "descriptor.scriptor.copy_right": "This spell's targets are copied over one block to the right",
+  "descriptor.scriptor.copy_forwards": "This spell's targets are copied over one block forwards",
+  "descriptor.scriptor.copy_backwards": "This spell's targets are copied over one block backwards",
+  "descriptor.scriptor.copy_up": "This spell's targets are copied over one block up",
+  "descriptor.scriptor.copy_down": "This spell's targets are copied over one block down",
+
+  "descriptor.scriptor.move_left": "This spell's targets are moved over one block to the left",
+  "descriptor.scriptor.move_right": "This spell's targets are moved over one block to the right",
+  "descriptor.scriptor.move_forwards": "This spell's targets are moved over one block forwards",
+  "descriptor.scriptor.move_backwards": "This spell's targets are moved over one block backwards",
+  "descriptor.scriptor.move_up": "This spell's targets are moved over one block up",
+  "descriptor.scriptor.move_down": "This spell's targets are moved over one block down",
+
   "action.scriptor.inflame": "This spell heats or sets the target on fire.",
   "action.scriptor.light": "This spell places a light where it is cast.",
   "action.scriptor.heal": "This spell heals or repairs the target.",
