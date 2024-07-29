@@ -69,7 +69,8 @@ public class LimitedBookSerializer {
     itemStack.setCount(1);
     itemStack.set(
       DataComponents.WRITTEN_BOOK_CONTENT,
-      new WrittenBookContent(Filterable.passThrough(title), author, 0, encodeText(text), false)
+      // Supply "Spellbook" as title because some tome names surpass the written book title cap.
+      new WrittenBookContent(Filterable.passThrough("Spellbook"), author, 0, encodeText(text), false)
     );
     itemStack.set(ScriptorDataComponents.TOME_NAME, title);
     if(ScriptorMod.COMMUNITY_MODE)
