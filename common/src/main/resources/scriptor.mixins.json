@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "BlockRenderDispatcherAccessor",
+    "DimensionDataStorageAccessor",
     "GiveCommandCommunityMixin",
     "LecternBlockEntitySpellbookMixin",
     "ReloadResourcesMixin",

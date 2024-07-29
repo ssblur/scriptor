@@ -2,6 +2,7 @@ package com.ssblur.scriptor.data;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.ssblur.scriptor.mixin.DimensionDataStorageAccessor;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
@@ -111,11 +112,10 @@ public class PlayerSpellsSavedData extends SavedData {
     if(server == null) return null;
 
     try {
-      var storage = server.getDataStorage();
-      if(storage == null) return null;
+      var storage = (DimensionDataStorageAccessor) server.getDataStorage();
 
-      if(!Files.exists(storage.dataFolder.toPath().resolve("scriptor_players")))
-        Files.createDirectory(storage.dataFolder.toPath().resolve("scriptor_players"));
+      if(!Files.exists(storage.getDataFolder().toPath().resolve("scriptor_players")))
+        Files.createDirectory(storage.getDataFolder().toPath().resolve("scriptor_players"));
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
