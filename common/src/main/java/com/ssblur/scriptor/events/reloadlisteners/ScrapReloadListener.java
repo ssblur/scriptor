@@ -5,9 +5,11 @@ import com.google.gson.JsonElement;
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.data.DictionarySavedData;
 import com.ssblur.scriptor.data.PlayerSpellsSavedData;
+import com.ssblur.scriptor.data_components.ScriptorDataComponents;
 import com.ssblur.scriptor.helpers.resource.ScrapResource;
 import com.ssblur.scriptor.item.ScriptorItems;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
@@ -87,14 +89,12 @@ public class ScrapReloadListener extends ScriptorReloadListener {
 
   public ItemStack getRandomScrap(int tier, Player player) {
     var key = getRandomScrapWord(tier, player);
-
-    var scriptor = new CompoundTag();
-    scriptor.putString("spell", key);
-    scriptor.putString("word", DictionarySavedData.computeIfAbsent((ServerLevel) player.level()).getWord(key));
-    if(ScriptorMod.COMMUNITY_MODE)
-      scriptor.putBoolean("community", true);
-
     var itemStack = new ItemStack(ScriptorItems.SCRAP.get());
+
+    itemStack.set(ScriptorDataComponents.SPELL, key);
+    itemStack.set(DataComponents.ITEM_NAME, Component.literal(DictionarySavedData.computeIfAbsent((ServerLevel) player.level()).getWord(key)));
+    if(ScriptorMod.COMMUNITY_MODE)
+      itemStack.set(ScriptorDataComponents.COMMUNITY_MODE, true);
 
     return itemStack;
   }
