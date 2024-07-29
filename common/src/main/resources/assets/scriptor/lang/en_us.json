@@ -146,12 +146,12 @@
   "descriptor.scriptor.copy_up": "This spell's targets are copied over one block up",
   "descriptor.scriptor.copy_down": "This spell's targets are copied over one block down",
 
-  "descriptor.scriptor.move_left": "This spell's targets are moved over one block to the left",
-  "descriptor.scriptor.move_right": "This spell's targets are moved over one block to the right",
-  "descriptor.scriptor.move_forwards": "This spell's targets are moved over one block forwards",
-  "descriptor.scriptor.move_backwards": "This spell's targets are moved over one block backwards",
-  "descriptor.scriptor.move_up": "This spell's targets are moved over one block up",
-  "descriptor.scriptor.move_down": "This spell's targets are moved over one block down",
+  "descriptor.scriptor.move_left": "This spell's targets are moved one block to the left",
+  "descriptor.scriptor.move_right": "This spell's targets are moved one block to the right",
+  "descriptor.scriptor.move_forwards": "This spell's targets are moved one block forwards",
+  "descriptor.scriptor.move_backwards": "This spell's targets are moved one block backwards",
+  "descriptor.scriptor.move_up": "This spell's targets are moved one block up",
+  "descriptor.scriptor.move_down": "This spell's targets are moved one block down",
 
   "action.scriptor.inflame": "This spell heats or sets the target on fire.",
   "action.scriptor.light": "This spell places a light where it is cast.",
