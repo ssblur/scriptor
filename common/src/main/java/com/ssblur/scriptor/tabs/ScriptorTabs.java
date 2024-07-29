@@ -2,6 +2,7 @@ package com.ssblur.scriptor.tabs;
 
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.item.ScriptorItems;
+import dev.architectury.platform.Platform;
 import dev.architectury.registry.CreativeTabOutput;
 import dev.architectury.registry.CreativeTabRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
@@ -30,16 +31,17 @@ public class ScriptorTabs {
   public static void register() {
     TABS.register();
 
-    CreativeTabRegistry.modify(SCRIPTOR_TAB, (FeatureFlagSet flags, CreativeTabOutput output, boolean canUseGameMasterBlocks) -> {
-      if(!ScriptorMod.COMMUNITY_MODE) {
-        output.accept(ScriptorItems.TOME_TIER1.get());
-        output.accept(ScriptorItems.TOME_TIER2.get());
-        output.accept(ScriptorItems.TOME_TIER3.get());
-        output.accept(ScriptorItems.TOME_TIER4.get());
-        output.accept(ScriptorItems.SCRAP_TIER1.get());
-        output.accept(ScriptorItems.SCRAP_TIER2.get());
-        output.accept(ScriptorItems.SCRAP_TIER3.get());
-      }
-    });
+    if(!Platform.isNeoForge())
+      CreativeTabRegistry.modify(SCRIPTOR_TAB, (FeatureFlagSet flags, CreativeTabOutput output, boolean canUseGameMasterBlocks) -> {
+        if(!ScriptorMod.COMMUNITY_MODE) {
+          ScriptorItems.TOME_TIER1.listen(output::accept);
+          ScriptorItems.TOME_TIER2.listen(output::accept);
+          ScriptorItems.TOME_TIER3.listen(output::accept);
+          ScriptorItems.TOME_TIER4.listen(output::accept);
+          ScriptorItems.SCRAP_TIER1.listen(output::accept);
+          ScriptorItems.SCRAP_TIER2.listen(output::accept);
+          ScriptorItems.SCRAP_TIER3.listen(output::accept);
+        }
+      });
   }
 }

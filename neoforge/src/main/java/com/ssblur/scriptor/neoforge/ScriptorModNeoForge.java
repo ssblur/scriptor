@@ -12,6 +12,7 @@ import net.neoforged.neoforge.common.NeoForge;
 public final class ScriptorModNeoForge {
     public ScriptorModNeoForge(IEventBus bus) {
       bus.addListener(ScriptorModClientEvents::register);
+      bus.addListener(ScriptorModClientEvents::buildCreativeTab);
       ScriptorMod.init();
       if(Platform.getEnv() == Dist.CLIENT)
         NeoForge.EVENT_BUS.register(ScriptorEventsExpectPlatformImpl.class);
