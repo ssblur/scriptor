@@ -58,6 +58,7 @@
   "effect.scriptor.mute": "Mute",
   "effect.scriptor.phasing": "Phasing",
   "effect.scriptor.wild_phasing": "Out of Phase",
+  "effect.scriptor.silver_tongue": "Silver Tongue",
 
   "death.attack.overload": "%1$s was overwhelmed by magical forces.",
   "death.attack.overload.player": "%1$s was overwhelmed by magical forces.",

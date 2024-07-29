@@ -2,6 +2,7 @@ package com.ssblur.scriptor.events;
 
 import com.ssblur.scriptor.damage.ScriptorDamage;
 import com.ssblur.scriptor.data.DictionarySavedData;
+import com.ssblur.scriptor.effect.EmpoweredStatusEffect;
 import com.ssblur.scriptor.effect.ScriptorEffects;
 import com.ssblur.scriptor.gamerules.ChatRules;
 import com.ssblur.scriptor.gamerules.ScriptorGameRules;
@@ -37,6 +38,12 @@ public class SpellChatEvents implements ChatEvent.Received {
           }
 
           int cost = (int) Math.round(spell.cost() * 30);
+          float costScale = 1.0f;
+          for(var instance: player.getActiveEffects())
+            if(instance.getEffect().value() instanceof EmpoweredStatusEffect empoweredStatusEffect)
+              for(int i = 0; i <= instance.getAmplifier(); i++)
+                costScale *= empoweredStatusEffect.getScale();
+          cost = Math.round(((float) cost) * costScale);
 
           if (level.getGameRules().getInt(ScriptorGameRules.VOCAL_MAX_COST) >= 0 && cost > level.getGameRules().getInt(ScriptorGameRules.VOCAL_MAX_COST))
             player.sendSystemMessage(Component.translatable("extra.scriptor.mute"));

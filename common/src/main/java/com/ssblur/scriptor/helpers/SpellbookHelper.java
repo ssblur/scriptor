@@ -2,6 +2,7 @@ package com.ssblur.scriptor.helpers;
 
 import com.ssblur.scriptor.advancement.ScriptorAdvancements;
 import com.ssblur.scriptor.data.DictionarySavedData;
+import com.ssblur.scriptor.effect.EmpoweredStatusEffect;
 import com.ssblur.scriptor.gamerules.ScriptorGameRules;
 import com.ssblur.scriptor.helpers.targetable.SpellbookTargetable;
 import com.ssblur.scriptor.word.Spell;
@@ -40,7 +41,12 @@ public class SpellbookHelper {
       }
       spell.cast(new SpellbookTargetable(itemStack, player, player.getInventory().selected).withTargetItem(false));
       if(!player.isCreative()) {
-		double adjustedCost = spell.cost() * ((double) level.getGameRules().getInt(ScriptorGameRules.TOME_COOLDOWN_MULTIPLIER) / (double) 100);
+        double costScale = 1.0;
+        for(var instance: player.getActiveEffects())
+          if(instance.getEffect().value() instanceof EmpoweredStatusEffect empoweredStatusEffect)
+            for(int i = 0; i <= instance.getAmplifier(); i++)
+              costScale *= empoweredStatusEffect.getScale();
+		    double adjustedCost = costScale * spell.cost() * ((double) level.getGameRules().getInt(ScriptorGameRules.TOME_COOLDOWN_MULTIPLIER) / (double) 100);
         addCooldown(player, (int) Math.round(adjustedCost * 7));
 	  }
       return false;

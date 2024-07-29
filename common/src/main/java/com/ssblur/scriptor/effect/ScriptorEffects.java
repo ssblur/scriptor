@@ -12,6 +12,7 @@ public class ScriptorEffects {
   public static final RegistrySupplier<MobEffect> MUTE = EFFECTS.register("mute", MuteStatusEffect::new);
   public static final RegistrySupplier<MobEffect> PHASING = EFFECTS.register("phasing", PhasingStatusEffect::new);
   public static final RegistrySupplier<MobEffect> WILD_PHASING = EFFECTS.register("wild_phasing", WildPhasingStatusEffect::new);
+  public static final RegistrySupplier<MobEffect> SILVER_TONGUE = EFFECTS.register("silver_tongue", () -> new EmpoweredStatusEffect(0.8f));
 
   public static void register() {
     EFFECTS.register();
