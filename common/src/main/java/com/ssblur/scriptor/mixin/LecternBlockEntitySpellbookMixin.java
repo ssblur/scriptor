@@ -1,6 +1,6 @@
 package com.ssblur.scriptor.mixin;
 
-import com.ssblur.scriptor.item.ScriptorItems;
+import com.ssblur.scriptor.item.ScriptorTags;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -16,7 +16,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class LecternBlockEntitySpellbookMixin {
   @Inject(method = "hasBook", at = @At("HEAD"), cancellable = true)
   public void hasBook(CallbackInfoReturnable<Boolean> info) {
-    if(((LecternBlockEntity) (Object) this).getBook().is(ScriptorItems.SPELLBOOK.get())) {
+    var self = (LecternBlockEntity) (Object) this;
+    if(self.getBook().is(ScriptorTags.READABLE_SPELLBOOKS)) {
       info.setReturnValue(true);
     }
   }
@@ -24,7 +25,7 @@ public class LecternBlockEntitySpellbookMixin {
   @Inject(method = "resolveBook", at = @At("HEAD"))
   private void resolveBook(ItemStack itemStack, @Nullable Player player, CallbackInfoReturnable<ItemStack> info) {
     var self = ((LecternBlockEntity) (Object) this);
-    if (self.getLevel() instanceof ServerLevel && itemStack.is(ScriptorItems.SPELLBOOK.get())) {
+    if (self.getLevel() instanceof ServerLevel && itemStack.is(ScriptorTags.READABLE_SPELLBOOKS)) {
       WrittenBookItem.resolveBookComponents(itemStack, self.createCommandSourceStack(player), player);
     }
   }
