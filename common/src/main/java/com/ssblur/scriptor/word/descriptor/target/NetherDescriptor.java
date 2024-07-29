@@ -11,7 +11,7 @@ import java.util.List;
 
 public class NetherDescriptor extends Descriptor implements TargetDescriptor {
   @Override
-  public List<Targetable> modifyTargets(List<Targetable> targetables) {
+  public List<Targetable> modifyTargets(List<Targetable> targetables, Targetable owner) {
     List<Targetable> list = new ArrayList<>();
 
     for(var targetable: targetables) {

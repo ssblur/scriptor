@@ -9,16 +9,25 @@ import org.jetbrains.annotations.Nullable;
 
 public class InventoryEntityTargetable extends EntityTargetable implements InventoryTargetable {
   int slot;
+  boolean isSelf;
   public InventoryEntityTargetable(Entity entity, int slot) {
+    this(entity, slot, false);
+  }
+
+  public InventoryEntityTargetable(Entity entity, int slot, boolean isSelf) {
     super(entity);
     this.slot = slot;
+    this.isSelf = isSelf;
   }
 
   @Override
   public @Nullable Container getContainer() {
     if(targetEntity instanceof Container container)
       return container;
-    if(targetEntity instanceof Player player && player.level().getGameRules().getBoolean(ScriptorGameRules.CAN_TARGET_PLAYER_INVENTORIES))
+    if(
+      targetEntity instanceof Player player &&
+        (player.level().getGameRules().getBoolean(ScriptorGameRules.CAN_TARGET_PLAYER_INVENTORIES) || isSelf)
+    )
       return player.getInventory();
     if(targetEntity instanceof AbstractHorse horse)
       return horse.inventory;

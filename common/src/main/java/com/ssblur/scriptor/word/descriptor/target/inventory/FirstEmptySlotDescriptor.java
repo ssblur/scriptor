@@ -15,7 +15,7 @@ public class FirstEmptySlotDescriptor extends Descriptor implements TargetDescri
   }
 
   @Override
-  public List<Targetable> modifyTargets(List<Targetable> targetables) {
+  public List<Targetable> modifyTargets(List<Targetable> targetables, Targetable owner) {
     targetables.forEach(targetable -> {
       if(targetable instanceof InventoryTargetable inventoryTargetable)
         inventoryTargetable.useFirstMatchingSlot(ItemStack::isEmpty);

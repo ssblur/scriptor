@@ -21,8 +21,8 @@ public class ChainDescriptor extends Descriptor implements TargetDescriptor {
   }
 
   @Override
-  public List<Targetable> modifyTargets(List<Targetable> targetables) {
-    if(targetables.size() == 0) return targetables;
+  public List<Targetable> modifyTargets(List<Targetable> targetables, Targetable owner) {
+    if(targetables.isEmpty()) return targetables;
     targetables = new ArrayList<>(targetables);
 
     Random random = new Random();

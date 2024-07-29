@@ -17,7 +17,7 @@ public class OffsetDescriptor extends Descriptor implements TargetDescriptor {
   }
 
   @Override
-  public List<Targetable> modifyTargets(List<Targetable> targetables) {
+  public List<Targetable> modifyTargets(List<Targetable> targetables, Targetable owner) {
     List<Targetable> output = new ArrayList<>();
     for(var targetable: targetables) {
       for (var transform: transforms)

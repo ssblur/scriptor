@@ -35,7 +35,7 @@ public record Spell(
     assert spells.length >= 1;
     for(var descriptor: spells[0].deduplicatedDescriptors()) {
       if (descriptor instanceof TargetDescriptor cast)
-        targets = cast.modifyTargets(targets);
+        targets = cast.modifyTargets(targets, caster);
       if (descriptor instanceof FocusDescriptor focus)
         caster = focus.modifyFocus(caster);
     }

@@ -14,7 +14,7 @@ public class FirstFilledSlotDescriptor extends Descriptor implements TargetDescr
   }
 
   @Override
-  public List<Targetable> modifyTargets(List<Targetable> targetables) {
+  public List<Targetable> modifyTargets(List<Targetable> targetables, Targetable owner) {
     targetables.forEach(targetable -> {
       if(targetable instanceof InventoryTargetable inventoryTargetable)
         inventoryTargetable.useFirstFilledSlot();
