@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.helpers.targetable;
 
+import com.ssblur.scriptor.gamerules.ScriptorGameRules;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
@@ -17,7 +18,7 @@ public class InventoryEntityTargetable extends EntityTargetable implements Inven
   public @Nullable Container getContainer() {
     if(targetEntity instanceof Container container)
       return container;
-    if(targetEntity instanceof Player player)
+    if(targetEntity instanceof Player player && player.level().getGameRules().getBoolean(ScriptorGameRules.CAN_TARGET_PLAYER_INVENTORIES))
       return player.getInventory();
     if(targetEntity instanceof AbstractHorse horse)
       return horse.inventory;
