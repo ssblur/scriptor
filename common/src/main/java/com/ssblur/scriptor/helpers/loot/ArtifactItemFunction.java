@@ -27,7 +27,7 @@ public class ArtifactItemFunction implements LootItemFunction {
     String spell = DictionarySavedData.computeIfAbsent(lootContext.getLevel()).generate(artifact.getSpell());
 
     itemStack.set(ScriptorDataComponents.SPELL, spell);
-    itemStack.set(DataComponents.CUSTOM_NAME, Component.translatable(artifact.getName()));
+    itemStack.set(DataComponents.ITEM_NAME, Component.translatable(artifact.getName()));
     return itemStack;
   }
   public static class ArtifactSerializer implements Codec<ArtifactItemFunction> {

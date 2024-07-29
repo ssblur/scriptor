@@ -39,7 +39,7 @@ public class Chalk extends Item {
   }
 
   public static boolean hasName(ItemStack itemStack) {
-    var name = itemStack.get(DataComponents.CUSTOM_NAME);
+    var name = itemStack.get(DataComponents.ITEM_NAME);
     return name != null;
   }
 }
