@@ -14,7 +14,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 public class LimitedBookSerializer {
   public static String decodeText(WrittenBookContent text) {
@@ -70,7 +69,7 @@ public class LimitedBookSerializer {
     itemStack.setCount(1);
     itemStack.set(
       DataComponents.WRITTEN_BOOK_CONTENT,
-      new WrittenBookContent(new Filterable<>("Spellbook", Optional.of("spellbook")), author, 0, encodeText(text), false)
+      new WrittenBookContent(Filterable.passThrough(title), author, 0, encodeText(text), false)
     );
     itemStack.set(ScriptorDataComponents.TOME_NAME, title);
     if(ScriptorMod.COMMUNITY_MODE)

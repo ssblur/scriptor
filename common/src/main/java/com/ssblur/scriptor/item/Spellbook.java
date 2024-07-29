@@ -195,10 +195,11 @@ public class Spellbook extends WrittenBookItem implements ItemWithCustomRenderer
       var pages = tag.pages();
       List<FormattedCharSequence> sequence = new ArrayList<>();
       if (page >= pages.size()) {
-        if(I18n.exists(tag.title().raw()))
-          sequence.addAll(font.split(FormattedText.of(I18n.get(tag.title().raw())), 80));
+        var title = itemStack.get(ScriptorDataComponents.TOME_NAME);
+        if(title != null)
+          sequence.addAll(font.split(FormattedText.of(I18n.get(title)), 80));
         else
-          sequence.addAll(font.split(FormattedText.of(tag.title().raw()), 80));
+          sequence.addAll(font.split(FormattedText.of(tag.title().get(true)), 80));
         sequence.addAll(font.split(FormattedText.of("By " + tag.author()), 80));
       } else
         sequence = font.split(FormattedText.of(LimitedBookSerializer.decodeText(tag)), 80);
