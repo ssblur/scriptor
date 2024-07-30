@@ -50,7 +50,7 @@ public class SpellChatEvents implements ChatEvent.Received {
 		
 		  int adjustedCost = (int) Math.round( (double)cost * ( (double) level.getGameRules().getInt(ScriptorGameRules.VOCAL_COOLDOWN_MULTIPLIER) / (double) 100 ) );
 		  if (!player.isCreative()) {
-			  player.addEffect(new MobEffectInstance(ScriptorEffects.HOARSE, adjustedCost));
+        player.addEffect(new MobEffectInstance(ScriptorEffects.get(ScriptorEffects.HOARSE), adjustedCost));
 			  if (adjustedCost > level.getGameRules().getInt(ScriptorGameRules.VOCAL_HUNGER_THRESHOLD))
 				  player.addEffect(new MobEffectInstance(MobEffects.HUNGER, 2*(adjustedCost - level.getGameRules().getInt(ScriptorGameRules.VOCAL_HUNGER_THRESHOLD))));
 			  if (adjustedCost > level.getGameRules().getInt(ScriptorGameRules.VOCAL_DAMAGE_THRESHOLD))
