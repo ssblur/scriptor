@@ -8,6 +8,7 @@
     "GiveCommandCommunityMixin",
     "LecternBlockEntitySpellbookMixin",
     "ReloadResourcesMixin",
+    "ServerGamePacketListenerImplMixin",
     "SheepColorableInject"
   ],
   "client": [
