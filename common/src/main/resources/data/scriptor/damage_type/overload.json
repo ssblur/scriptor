@@ -1,5 +1,5 @@
 {
   "message_id": "overload",
-  "scaling": "always",
+  "scaling": "never",
   "exhaustion": 0
 }

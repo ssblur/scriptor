@@ -1,5 +1,5 @@
 {
   "message_id": "sacrifice",
-  "scaling": "always",
+  "scaling": "never",
   "exhaustion": 0
 }
