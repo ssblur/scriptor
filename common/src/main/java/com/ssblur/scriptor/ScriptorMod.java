@@ -1,6 +1,7 @@
 package com.ssblur.scriptor;
 
 import com.google.common.base.Suppliers;
+import com.ssblur.scriptor.advancement.ScriptorAdvancements;
 import com.ssblur.scriptor.block.ScriptorBlocks;
 import com.ssblur.scriptor.blockentity.ScriptorBlockEntities;
 import com.ssblur.scriptor.commands.DumpDictionaryCommand;
@@ -19,6 +20,7 @@ import com.ssblur.scriptor.tabs.ScriptorTabs;
 import com.ssblur.scriptor.trade.ScriptorTrades;
 import dev.architectury.event.events.common.CommandRegistrationEvent;
 import dev.architectury.registry.registries.RegistrarManager;
+import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -52,7 +54,12 @@ public class ScriptorMod {
     ScriptorLoot.register();
     ScriptorGameRules.register();
     ScriptorFeatures.register();
+    ScriptorAdvancements.register();
 
     registerCommands();
+  }
+
+  public static ResourceLocation location(String path) {
+    return new ResourceLocation(MOD_ID, path);
   }
 }

@@ -3,10 +3,12 @@ package com.ssblur.scriptor.events.reloadlisteners;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.JsonElement;
 import com.ssblur.scriptor.ScriptorMod;
+import com.ssblur.scriptor.advancement.ScriptorAdvancements;
 import com.ssblur.scriptor.data.PlayerSpellsSavedData;
 import com.ssblur.scriptor.helpers.resource.TomeResource;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.entity.player.Player;
@@ -77,8 +79,23 @@ public class TomeReloadListener extends ScriptorReloadListener {
     if(data != null) {
       var spells = data.getTier(tier);
 
-      if (keys.size() <= spells.size())
+      if (keys.size() <= spells.size()) {
+        switch(tier) {
+          case 1:
+            ScriptorAdvancements.TOME_1.trigger((ServerPlayer) player);
+            break;
+          case 2:
+            ScriptorAdvancements.TOME_2.trigger((ServerPlayer) player);
+            break;
+          case 3:
+            ScriptorAdvancements.TOME_3.trigger((ServerPlayer) player);
+            break;
+          case 4:
+            ScriptorAdvancements.TOME_4.trigger((ServerPlayer) player);
+            break;
+        }
         return tomes.get(tier).get(keys.toArray(new ResourceLocation[]{})[RANDOM.nextInt(keys.size())]);
+      }
 
       var keysArray = keys.toArray(new ResourceLocation[]{});
       int maxAttempts = 10;
