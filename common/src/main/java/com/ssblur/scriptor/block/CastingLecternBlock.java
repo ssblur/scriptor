@@ -15,9 +15,9 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -35,9 +35,7 @@ public class CastingLecternBlock extends Block implements EntityBlock {
   public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
   public CastingLecternBlock() {
     super(
-      Properties.of()
-        .sound(SoundType.WOOD)
-        .strength(0.2f)
+      Properties.ofFullCopy(Blocks.ACACIA_PLANKS)
         .noOcclusion()
     );
     this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
@@ -107,7 +105,6 @@ public class CastingLecternBlock extends Block implements EntityBlock {
     return EntityBlock.super.getListener(serverLevel, blockEntity);
   }
 
-  @SuppressWarnings("deprecation")
   @Override
   public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
     return Shapes.box(0.0625, 0, 0.0625, 0.875, 0.9375, 0.875);

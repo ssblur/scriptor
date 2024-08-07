@@ -316,5 +316,7 @@
   "tome.scriptor.power_overwhelming": "Touch of Death",
   "tome.scriptor.growth": "Green Thumb",
   "tome.scriptor.big_mistake": "Out of Touch",
-  "tome.scriptor.wall_walker": "Portable Hole"
+  "tome.scriptor.wall_walker": "Portable Hole",
+
+  "tag.item.scriptor.readable_spellbooks": "Spellbooks (Readable)"
 }
