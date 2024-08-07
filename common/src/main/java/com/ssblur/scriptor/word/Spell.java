@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.word;
 
+import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.advancement.ScriptorAdvancements;
 import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.api.word.Subject;
@@ -50,9 +51,7 @@ public record Spell(
     var targetFuture = new CompletableFuture<List<Targetable>>();
 
     targetFuture.whenComplete((targets, throwable) -> {
-      if(throwable != null)
-        throwable.printStackTrace();
-      else
+      if(throwable == null)
         castOnTargets(caster, targets);
     });
 
@@ -65,7 +64,7 @@ public record Spell(
    */
   public void cast(Targetable caster) {
     if(caster instanceof EntityTargetable entity && entity.getTargetEntity() instanceof LivingEntity living)
-      if(living.hasEffect(ScriptorEffects.MUTE)) {
+      if(living.hasEffect(ScriptorEffects.get(ScriptorEffects.MUTE))) {
         if(living instanceof Player player)
           player.sendSystemMessage(Component.translatable("extra.scriptor.mute"));
         return;
@@ -99,15 +98,12 @@ public record Spell(
         var targets = targetFuture.get();
         castOnTargets(finalCaster, targets);
       } catch (InterruptedException | ExecutionException e) {
-        e.printStackTrace();
+        ScriptorMod.LOGGER.error(e);
       }
     } else {
       targetFuture.whenComplete((targets, throwable) -> {
-        if(throwable != null)
-          throwable.printStackTrace();
-        else {
+        if(throwable == null)
           castOnTargets(finalCaster, targets);
-        }
       });
     }
   }

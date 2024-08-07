@@ -7,7 +7,7 @@ import com.ssblur.scriptor.helpers.targetable.Targetable;
 
 public class PhasingAction extends PotionAction {
   public PhasingAction() {
-    super(ScriptorEffects.PHASING, 20, 1d, new Cost(8, COSTTYPE.ADDITIVE));
+    super(ScriptorEffects.get(ScriptorEffects.PHASING), 20, 1d, new Cost(8, COSTTYPE.ADDITIVE));
   }
 
   @Override

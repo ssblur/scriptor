@@ -29,10 +29,10 @@ public class SpellChatEvents implements ChatEvent.Received {
       if (level instanceof ServerLevel server) {
         Spell spell = DictionarySavedData.computeIfAbsent(server).parse(sentence);
         if (spell != null) {
-          if (player.hasEffect(ScriptorEffects.HOARSE)) {
+          if (player.hasEffect(ScriptorEffects.get(ScriptorEffects.HOARSE))) {
             player.sendSystemMessage(Component.translatable("extra.scriptor.hoarse"));
             return EventResult.interruptFalse();
-          } else if (player.hasEffect(ScriptorEffects.MUTE)) {
+          } else if (player.hasEffect(ScriptorEffects.get(ScriptorEffects.MUTE))) {
             player.sendSystemMessage(Component.translatable("extra.scriptor.mute"));
             return EventResult.interruptFalse();
           }
