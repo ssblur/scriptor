@@ -6,6 +6,7 @@ import com.ssblur.scriptor.item.ScriptorItems;
 import com.ssblur.scriptor.item.ScriptorTags;
 import com.ssblur.scriptor.recipe.SpellbookCloningRecipe;
 import com.ssblur.scriptor.recipe.SpellbookDyeingRecipe;
+import com.ssblur.scriptor.recipe.SpellbookRecipe;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
@@ -45,8 +46,8 @@ public class ScriptorJEIIntegration implements IModPlugin {
     var manager = level.getRecipeManager();
 
     manager.getAllRecipesFor(RecipeType.CRAFTING).forEach(holder -> {
-      if(holder.value() instanceof SpellbookDyeingRecipe recipe) {
-        registration.addRecipes(
+      switch (holder.value()) {
+        case SpellbookDyeingRecipe recipe -> registration.addRecipes(
           RecipeTypes.CRAFTING,
           List.of(
             new RecipeHolder<>(
@@ -64,8 +65,7 @@ public class ScriptorJEIIntegration implements IModPlugin {
             )
           )
         );
-      } else if (holder.value() instanceof SpellbookCloningRecipe recipe) {
-        registration.addRecipes(
+        case SpellbookCloningRecipe recipe -> registration.addRecipes(
           RecipeTypes.CRAFTING,
           SpellbookHelper.SPELLBOOKS.stream().<RecipeHolder<CraftingRecipe>>map(spellbook ->
             new RecipeHolder<>(
@@ -86,6 +86,26 @@ public class ScriptorJEIIntegration implements IModPlugin {
             )
           ).toList()
         );
+        case SpellbookRecipe recipe -> registration.addRecipes(
+          RecipeTypes.CRAFTING,
+          SpellbookHelper.SPELLBOOKS.stream().<RecipeHolder<CraftingRecipe>>map(spellbook ->
+            new RecipeHolder<>(
+              holder.id(),
+              new ShapelessRecipe(
+                holder.id().getPath(),
+                recipe.category(),
+                recipe.result,
+                NonNullList.of(
+                  Ingredient.of(ItemStack.EMPTY),
+                  recipe.base,
+                  recipe.addition
+                )
+              )
+            )
+          ).toList()
+        );
+        default -> {
+        }
       }
     });
   }
