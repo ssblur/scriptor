@@ -2,6 +2,8 @@ package com.ssblur.scriptor.integration.jei;
 
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.helpers.SpellbookHelper;
+import com.ssblur.scriptor.item.BookOfBooks;
+import com.ssblur.scriptor.item.ObfuscatedSpellbook;
 import com.ssblur.scriptor.item.ScriptorItems;
 import com.ssblur.scriptor.item.ScriptorTags;
 import com.ssblur.scriptor.recipe.SpellbookCloningRecipe;
@@ -67,7 +69,9 @@ public class ScriptorJEIIntegration implements IModPlugin {
         );
         case SpellbookCloningRecipe recipe -> registration.addRecipes(
           RecipeTypes.CRAFTING,
-          SpellbookHelper.SPELLBOOKS.stream().<RecipeHolder<CraftingRecipe>>map(spellbook ->
+          SpellbookHelper.SPELLBOOKS.stream()
+            .filter(book -> !(book instanceof ObfuscatedSpellbook || book instanceof BookOfBooks))
+            .<RecipeHolder<CraftingRecipe>>map(spellbook ->
             new RecipeHolder<>(
               holder.id(),
               new ShapelessRecipe(
@@ -88,20 +92,22 @@ public class ScriptorJEIIntegration implements IModPlugin {
         );
         case SpellbookRecipe recipe -> registration.addRecipes(
           RecipeTypes.CRAFTING,
-          SpellbookHelper.SPELLBOOKS.stream().<RecipeHolder<CraftingRecipe>>map(spellbook ->
-            new RecipeHolder<>(
-              holder.id(),
-              new ShapelessRecipe(
-                holder.id().getPath(),
-                recipe.category(),
-                recipe.result,
-                NonNullList.of(
-                  Ingredient.of(ItemStack.EMPTY),
-                  recipe.base,
-                  recipe.addition
+          SpellbookHelper.SPELLBOOKS.stream()
+            .filter(book -> !(book instanceof ObfuscatedSpellbook || book instanceof BookOfBooks))
+            .<RecipeHolder<CraftingRecipe>>map(spellbook ->
+              new RecipeHolder<>(
+                holder.id(),
+                new ShapelessRecipe(
+                  holder.id().getPath(),
+                  recipe.category(),
+                  recipe.result,
+                  NonNullList.of(
+                    Ingredient.of(ItemStack.EMPTY),
+                    recipe.base,
+                    recipe.addition
+                  )
                 )
               )
-            )
           ).toList()
         );
         default -> {
