@@ -11,9 +11,9 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 public class SpellbookRecipe extends CustomRecipe {
-  Ingredient base;
-  Ingredient addition;
-  ItemStack result;
+  public Ingredient base;
+  public Ingredient addition;
+  public ItemStack result;
   public SpellbookRecipe(Ingredient base, Ingredient addition, ItemStack result) {
     super(CraftingBookCategory.MISC);
     this.result = result;

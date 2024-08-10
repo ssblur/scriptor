@@ -26,6 +26,15 @@ public class ScriptorTabs {
           new ItemStack(ScriptorItems.TOME_TIER4.get())
       )
   );
+  public static final RegistrySupplier<CreativeModeTab> SCRIPTOR_SPELLBOOKS_TAB = TABS.register(
+    ResourceLocation.tryBuild(MOD_ID, "scriptor_spellbooks"),
+    () ->
+      CreativeTabRegistry.create(
+        Component.translatable("itemGroup.scriptor.scriptor_spellbooks"),
+        () ->
+          new ItemStack(ScriptorItems.SPELLBOOK.get())
+      )
+  );
 
   @SuppressWarnings("UnstableApiUsage")
   public static void register() {

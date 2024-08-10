@@ -9,7 +9,9 @@ import com.ssblur.scriptor.helpers.ComponentHelper;
 import com.ssblur.scriptor.helpers.LimitedBookSerializer;
 import com.ssblur.scriptor.helpers.SpellbookHelper;
 import com.ssblur.scriptor.item.interfaces.ItemWithCustomRenderer;
+import com.ssblur.scriptor.tabs.ScriptorTabs;
 import dev.architectury.networking.NetworkManager;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.Screen;
@@ -32,12 +34,14 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.WrittenBookItem;
 import net.minecraft.world.level.Level;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Spellbook extends WrittenBookItem implements ItemWithCustomRenderer {
+  @SuppressWarnings("UnstableApiUsage")
   public Spellbook(Properties properties) {
-    super(properties);
+    super(properties.arch$tab(ScriptorTabs.SCRIPTOR_SPELLBOOKS_TAB));
     SpellbookHelper.SPELLBOOKS.add(this);
   }
 
@@ -55,7 +59,6 @@ public class Spellbook extends WrittenBookItem implements ItemWithCustomRenderer
 
   @Override
   public Component getName(ItemStack itemStack) {
-    String string;
     String title = itemStack.get(ScriptorDataComponents.TOME_NAME);
     if (title != null) {
       return Component.translatable(title);
@@ -81,6 +84,9 @@ public class Spellbook extends WrittenBookItem implements ItemWithCustomRenderer
   @Override
   public void appendHoverText(ItemStack itemStack, TooltipContext level, List<Component> list, TooltipFlag tooltipFlag) {
     super.appendHoverText(itemStack, level, list, tooltipFlag);
+
+    if(itemStack.get(DataComponents.WRITTEN_BOOK_CONTENT) == null)
+      list.add(Component.translatable("lore.scriptor.no_spell").withStyle(ChatFormatting.GRAY));
 
     var identified = itemStack.get(ScriptorDataComponents.IDENTIFIED);
     if(identified != null) {
@@ -187,8 +193,8 @@ public class Spellbook extends WrittenBookItem implements ItemWithCustomRenderer
     return false;
   }
 
-  public void drawPage(ItemStack itemStack, int page, PoseStack matrix, MultiBufferSource buffer, int lightLevel) {
-    if(matrix == null) return;
+  public void drawPage(ItemStack itemStack, int page, @Nullable PoseStack matrix, MultiBufferSource buffer, int lightLevel) {
+    if(matrix == null) return; // Prevents Sodium crash
     var font = Minecraft.getInstance().font;
     var tag = itemStack.get(DataComponents.WRITTEN_BOOK_CONTENT);
     if(tag != null) {
@@ -217,9 +223,5 @@ public class Spellbook extends WrittenBookItem implements ItemWithCustomRenderer
           lightLevel
         );
     }
-  }
-
-  public boolean isFoil(ItemStack itemStack) {
-    return itemStack.isEnchanted();
   }
 }

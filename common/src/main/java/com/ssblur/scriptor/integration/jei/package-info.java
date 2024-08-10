@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package com.ssblur.scriptor.recipe;
+package com.ssblur.scriptor.integration.jei;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
 

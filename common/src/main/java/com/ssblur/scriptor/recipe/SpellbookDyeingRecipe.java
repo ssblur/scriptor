@@ -13,8 +13,8 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 public class SpellbookDyeingRecipe extends CustomRecipe {
-  Ingredient addition;
-  ItemStack result;
+  public Ingredient addition;
+  public ItemStack result;
   public SpellbookDyeingRecipe(Ingredient addition, ItemStack result) {
     super(CraftingBookCategory.MISC);
     this.result = result;
