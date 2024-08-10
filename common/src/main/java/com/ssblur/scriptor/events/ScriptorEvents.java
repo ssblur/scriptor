@@ -5,6 +5,7 @@ import com.ssblur.scriptor.events.network.ScriptorNetwork;
 import com.ssblur.scriptor.events.reloadlisteners.*;
 import dev.architectury.event.events.client.ClientRawInputEvent;
 import dev.architectury.event.events.client.ClientTickEvent;
+import dev.architectury.event.events.client.ClientTooltipEvent;
 import dev.architectury.event.events.common.*;
 import dev.architectury.platform.Platform;
 import dev.architectury.registry.ReloadListenerRegistry;
@@ -20,6 +21,7 @@ public class ScriptorEvents {
     LifecycleEvent.SERVER_LEVEL_LOAD.register(new PreloadDictionary());
     PlayerEvent.PLAYER_JOIN.register(new PlayerJoinedEvent());
     TickEvent.PLAYER_POST.register(new PlayerTickEvent());
+    EntityEvent.LIVING_HURT.register(new EntityDamagedEvent());
 
     ReloadListenerRegistry.register(PackType.SERVER_DATA, TomeReloadListener.INSTANCE);
     ReloadListenerRegistry.register(PackType.SERVER_DATA, ReagentReloadListener.INSTANCE);
@@ -34,6 +36,7 @@ public class ScriptorEvents {
     if(Platform.getEnv() == EnvType.CLIENT) {
       ClientRawInputEvent.MOUSE_SCROLLED.register(new ScrollEvent());
       ClientTickEvent.ClientLevel.CLIENT_LEVEL_POST.register(new ClientLevelTickEvent());
+      ClientTooltipEvent.ITEM.register(new AddLoreEvent());
 
       ScriptorEventsExpectPlatform.registerClientEvents();
     }

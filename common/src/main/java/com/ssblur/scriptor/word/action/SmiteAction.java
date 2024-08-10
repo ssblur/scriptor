@@ -2,6 +2,7 @@ package com.ssblur.scriptor.word.action;
 
 import com.ssblur.scriptor.api.word.Action;
 import com.ssblur.scriptor.api.word.Descriptor;
+import com.ssblur.scriptor.data_components.ScriptorDataComponents;
 import com.ssblur.scriptor.helpers.ItemTargetableHelper;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
@@ -14,7 +15,7 @@ import net.minecraft.world.entity.LightningBolt;
 public class SmiteAction extends Action {
   @Override
   public void apply(Targetable caster, Targetable targetable, Descriptor[] descriptors) {
-    int strength = 1;
+    double strength = 1;
     for(var d: descriptors) {
       if(d instanceof StrengthDescriptor strengthDescriptor)
         strength += strengthDescriptor.strengthModifier();
@@ -22,7 +23,7 @@ public class SmiteAction extends Action {
 
     var itemTarget = ItemTargetableHelper.getTargetItemStack(targetable);
     if(!itemTarget.isEmpty()) {
-//      ChargedEnchant.chargeItem(itemTarget, strength);
+      itemTarget.set(ScriptorDataComponents.CHARGES, (int) Math.floor(strength));
       return;
     }
 

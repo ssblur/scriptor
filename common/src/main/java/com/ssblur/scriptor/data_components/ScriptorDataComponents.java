@@ -15,6 +15,7 @@ public class ScriptorDataComponents {
 
   public static final DataComponentType<Long> EXPIRES = registerLong("expires");
   public static final DataComponentType<Boolean> COMMUNITY_MODE = registerBool("community_mode");
+  public static final DataComponentType<Integer> CHARGES = registerInt("charge");
   public static final DataComponentType<String> SPELL = register("spell",
     builder -> builder.persistent(Codec.STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8)
   );
@@ -56,6 +57,14 @@ public class ScriptorDataComponents {
   private static DataComponentType<Boolean> registerBool(String name) {
     var builder = DataComponentType.<Boolean>builder();
     builder.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL);
+    var componentType = builder.build();
+    COMPONENTS.register(name, () -> componentType);
+    return componentType;
+  }
+
+  private static DataComponentType<Integer> registerInt(String name) {
+    var builder = DataComponentType.<Integer>builder();
+    builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT);
     var componentType = builder.build();
     COMPONENTS.register(name, () -> componentType);
     return componentType;
