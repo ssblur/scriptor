@@ -11,6 +11,7 @@ import com.ssblur.scriptor.helpers.SpellbookHelper;
 import com.ssblur.scriptor.item.interfaces.ItemWithCustomRenderer;
 import com.ssblur.scriptor.tabs.ScriptorTabs;
 import dev.architectury.networking.NetworkManager;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.Screen;
@@ -83,6 +84,9 @@ public class Spellbook extends WrittenBookItem implements ItemWithCustomRenderer
   @Override
   public void appendHoverText(ItemStack itemStack, TooltipContext level, List<Component> list, TooltipFlag tooltipFlag) {
     super.appendHoverText(itemStack, level, list, tooltipFlag);
+
+    if(itemStack.get(DataComponents.WRITTEN_BOOK_CONTENT) == null)
+      list.add(Component.translatable("lore.scriptor.no_spell").withStyle(ChatFormatting.GRAY));
 
     var identified = itemStack.get(ScriptorDataComponents.IDENTIFIED);
     if(identified != null) {

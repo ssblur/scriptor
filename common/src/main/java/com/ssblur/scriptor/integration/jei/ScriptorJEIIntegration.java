@@ -16,6 +16,7 @@ import mezz.jei.api.registration.IModIngredientRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -46,6 +47,20 @@ public class ScriptorJEIIntegration implements IModPlugin {
     var level = Minecraft.getInstance().level;
     assert level != null;
     var manager = level.getRecipeManager();
+
+    registration.addItemStackInfo(
+      SpellbookHelper.SPELLBOOKS.stream().map(ItemStack::new).toList(),
+      Component.translatable("info.scriptor.spellbook_1"),
+      Component.translatable("info.scriptor.spellbook_2"),
+      Component.translatable("info.scriptor.spellbook_3")
+    );
+
+    registration.addItemStackInfo(
+      List.of(new ItemStack(ScriptorItems.BOOK_OF_BOOKS)),
+      Component.translatable("info.scriptor.book_of_books_1"),
+      Component.translatable("info.scriptor.book_of_books_2"),
+      Component.translatable("info.scriptor.book_of_books_3")
+    );
 
     manager.getAllRecipesFor(RecipeType.CRAFTING).forEach(holder -> {
       switch (holder.value()) {

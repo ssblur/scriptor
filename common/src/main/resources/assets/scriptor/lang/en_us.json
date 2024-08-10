@@ -255,6 +255,7 @@
   "lore.scriptor.not_community_1": "This was not generated in Community Mode.",
   "lore.scriptor.not_community_2": "This was generated in Community Mode.",
   "lore.scriptor.not_community_3": "It likely will not work.",
+  "lore.scriptor.no_spell": "No spell is written within...",
 
   "itemGroup.scriptor.scriptor_tab": "Scriptor Magicae",
   "itemGroup.scriptor.scriptor_spellbooks": "Scriptor Magicae Spellbooks",
@@ -349,5 +350,12 @@
   "tome.scriptor.big_mistake": "Out of Touch",
   "tome.scriptor.wall_walker": "Portable Hole",
 
-  "tag.item.scriptor.readable_spellbooks": "Spellbooks (Readable)"
+  "tag.item.scriptor.readable_spellbooks": "Spellbooks (Readable)",
+
+  "info.scriptor.spellbook_1": "Spellbooks can be crafted or obtained from Tomes.",
+  "info.scriptor.spellbook_2": "You can write one with a Spellbook and Quill or by converting a Written Book.",
+  "info.scriptor.spellbook_3": "Spellbooks must be written with a valid spell to be used.",
+  "info.scriptor.book_of_books_1": "A Book of Books can be used to store and directly cast numerous books.",
+  "info.scriptor.book_of_books_2": "To insert a book into a Book of Books, hold it in your mouse cursor and right click on the Book of Books.",
+  "info.scriptor.book_of_books_3": "To remove a book from a Book of Books, right click on the Book of Books with your mouse cursor."
 }
