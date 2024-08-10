@@ -9,7 +9,9 @@
     "LecternBlockEntitySpellbookMixin",
     "ReloadResourcesMixin",
     "ServerGamePacketListenerImplMixin",
-    "SheepColorableInject"
+    "SheepAccessor",
+    "SheepColorableInject",
+    "SheepMatingMixin"
   ],
   "client": [
     "BlockItemColorableInject",

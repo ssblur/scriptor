@@ -2,18 +2,22 @@ package com.ssblur.scriptor.entity;
 
 import com.ssblur.scriptor.color.CustomColors;
 import com.ssblur.scriptor.color.interfaces.Colorable;
+import com.ssblur.scriptor.mixin.SheepAccessor;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -110,5 +114,20 @@ public class ColorfulSheep extends Sheep implements Colorable {
   public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData) {
     this.setColor(0xFFFFFF);
     return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData);
+  }
+
+  protected void registerGoals() {
+    EatBlockGoal eatBlockGoal = new EatBlockGoal(this);
+    ((SheepAccessor) this).setEatBlockGoal(eatBlockGoal);
+    this.goalSelector.addGoal(0, new FloatGoal(this));
+    this.goalSelector.addGoal(1, new PanicGoal(this, 1.25));
+    this.goalSelector.addGoal(2, new BreedGoal(this, 1.0, Sheep.class));
+    this.goalSelector.addGoal(2, new BreedGoal(this, 1.0));
+    this.goalSelector.addGoal(3, new TemptGoal(this, 1.1, itemStack -> itemStack.is(ItemTags.SHEEP_FOOD), false));
+    this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1));
+    this.goalSelector.addGoal(5, eatBlockGoal);
+    this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0));
+    this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0f));
+    this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
   }
 }
