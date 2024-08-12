@@ -9,7 +9,6 @@ import com.ssblur.scriptor.helpers.targetable.LecternTargetable;
 import com.ssblur.scriptor.item.casters.CasterCrystal;
 import com.ssblur.scriptor.word.Spell;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
@@ -26,7 +25,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
 
 public class CastingLecternBlockEntity extends BlockEntity {
   public static final int SPELLBOOK_SLOT = 0;
@@ -108,13 +106,11 @@ public class CastingLecternBlockEntity extends BlockEntity {
           var state = level.getBlockState(getBlockPos());
           var direction = state.getValue(CastingLecternBlock.FACING).getOpposite();
           var blockPos = this.getBlockPos();
-          float offsetX = direction.getAxis() == Direction.Axis.X ? Math.signum(blockPos.getX()) : 0.5f;
-          float offsetZ = direction.getAxis() == Direction.Axis.Z ? Math.signum(blockPos.getZ()) : 0.5f;
-          var pos = new Vector3f(blockPos.getX() + offsetX, blockPos.getY() + 0.49f, blockPos.getZ() + offsetZ);
+          var pos = blockPos.getCenter();
           var target = new LecternTargetable(this.getLevel(), pos).setFacing(direction);
           if(getFocus().getItem() instanceof CasterCrystal crystal) {
             var foci = crystal.getTargetables(getFocus(), level);
-            if(foci.size() > 0) {
+            if(!foci.isEmpty()) {
               focusTarget++;
               focusTarget %= foci.size();
               var focus = foci.get(focusTarget);

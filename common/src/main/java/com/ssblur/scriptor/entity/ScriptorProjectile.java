@@ -90,6 +90,12 @@ public class ScriptorProjectile extends Entity {
     var level = level();
     if (level.isClientSide) return;
 
+    setDeltaMovement(getDeltaMovement().x, getDeltaMovement().y, getDeltaMovement().z);
+    setPos(position().add(getDeltaMovement()));
+
+    if(this.origin != null)
+      if (this.position().distanceTo(this.origin) <= 1) return;
+
 //    int c = CustomColors.getColor(getColor(), level.getGameTime());
 //    int r, g, b;
 //    r = (c & 0xff0000) >> 16;
@@ -141,8 +147,5 @@ public class ScriptorProjectile extends Entity {
         new Targetable(this.level(), blockHitResult.getBlockPos().offset(blockHitResult.getDirection().getNormal()))
           .setFacing(blockHitResult.getDirection())
       ));
-
-    setDeltaMovement(getDeltaMovement().x, getDeltaMovement().y, getDeltaMovement().z);
-    setPos(position().add(getDeltaMovement()));
   }
 }
