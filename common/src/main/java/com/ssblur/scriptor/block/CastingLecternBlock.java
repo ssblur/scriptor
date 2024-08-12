@@ -66,18 +66,6 @@ public class CastingLecternBlock extends Block implements EntityBlock {
     return ItemInteractionResult.CONSUME;
   }
 
-  @Override
-  public BlockState playerWillDestroy(Level level, BlockPos blockPos, BlockState blockState, Player player) {
-    var result = super.playerWillDestroy(level, blockPos, blockState, player);
-    if(level.getBlockEntity(blockPos) instanceof CastingLecternBlockEntity lectern) {
-      for(var item: lectern.getItems()) {
-        var entity = new ItemEntity(level, blockPos.getX() + 0.5f, blockPos.getY() + 0.5f, blockPos.getZ() + 0.5f, item);
-        level.addFreshEntity(entity);
-      }
-    }
-    return result;
-  }
-
   public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
     return this.defaultBlockState().setValue(FACING, blockPlaceContext.getHorizontalDirection().getOpposite());
   }
@@ -108,5 +96,18 @@ public class CastingLecternBlock extends Block implements EntityBlock {
   @Override
   public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
     return Shapes.box(0.0625, 0, 0.0625, 0.875, 0.9375, 0.875);
+  }
+
+  @Override
+  protected void onRemove(BlockState blockState, Level level, BlockPos blockPos, BlockState blockState2, boolean bl) {
+    if(!level.isClientSide) {
+      if(level.getBlockEntity(blockPos) instanceof CastingLecternBlockEntity lectern) {
+        for (var item : lectern.getItems()) {
+          var entity = new ItemEntity(level, blockPos.getX() + 0.5f, blockPos.getY() + 0.5f, blockPos.getZ() + 0.5f, item);
+          level.addFreshEntity(entity);
+        }
+      }
+    }
+    super.onRemove(blockState, level, blockPos, blockState2, bl);
   }
 }
