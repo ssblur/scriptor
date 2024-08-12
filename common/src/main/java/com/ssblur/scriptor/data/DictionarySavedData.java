@@ -140,6 +140,7 @@ public class DictionarySavedData extends SavedData {
    * @return The matching word key
    * null if no matches
    */
+  @Nullable
   public String parseWord(String word) {
     return words.inverse().get(word);
   }
@@ -150,7 +151,8 @@ public class DictionarySavedData extends SavedData {
    * @return The matching word
    * null if no matches
    */
-  public String getWord(String key) {
+  @Nullable
+  public String getWord(@Nullable String key) {
     return words.get(key);
   }
 
@@ -160,7 +162,8 @@ public class DictionarySavedData extends SavedData {
    * @return The matching key
    * null if no matches
    */
-  public String getKey(Word word) {
+  @Nullable
+  public String getKey(@Nullable Word word) {
     var key = WordRegistry.INSTANCE.getKey(word);
     if(key != null)
       if(word instanceof Action)
@@ -179,7 +182,8 @@ public class DictionarySavedData extends SavedData {
    * @return The matching word
    * null if no matches
    */
-  public String getWord(Word word) {
+  @Nullable
+  public String getWord(@Nullable Word word) {
     return getWord(getKey(word));
   }
 
@@ -199,7 +203,7 @@ public class DictionarySavedData extends SavedData {
     int position = 0;
     int tokenPosition = 0;
     try {
-      String[] tokens = text.split("\s");
+      String[] tokens = text.split("[\\n\\r\\s]+");
 
       Subject subject = null;
       List<PartialSpell> spells = new ArrayList<>();
@@ -280,6 +284,7 @@ public class DictionarySavedData extends SavedData {
    * @return The associated Spell
    * null if invalid
    */
+  @Nullable
   public List<String> parseComponents(String text) {
     var spell = parse(text);
     if(spell != null) {
@@ -338,10 +343,11 @@ public class DictionarySavedData extends SavedData {
 
   @Override
   public CompoundTag save(CompoundTag tag, HolderLookup.Provider provider) {
-    var result = worldCodec.encodeStart(NbtOps.INSTANCE, this).ifSuccess(value -> tag.put("scriptor:dictionary", value));
+    worldCodec.encodeStart(NbtOps.INSTANCE, this).ifSuccess(value -> tag.put("scriptor:dictionary", value));
     return tag;
   }
 
+  @Nullable
   public static DictionarySavedData load(CompoundTag tag, HolderLookup.Provider provider) {
     var input = tag.get("scriptor:dictionary");
     if(input != null) {
