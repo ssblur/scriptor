@@ -366,5 +366,7 @@
   "info.scriptor.spellbook_3": "Spellbooks must be written with a valid spell to be used.",
   "info.scriptor.book_of_books_1": "A Book of Books can be used to store and directly cast numerous books.",
   "info.scriptor.book_of_books_2": "To insert a book into a Book of Books, hold it in your mouse cursor and right click on the Book of Books.",
-  "info.scriptor.book_of_books_3": "To remove a book from a Book of Books, right click on the Book of Books with your mouse cursor."
+  "info.scriptor.book_of_books_3": "To remove a book from a Book of Books, right click on the Book of Books with your mouse cursor.",
+  "info.scriptor.bound_tool_1": "This tool can only be summoned using magic.",
+  "info.scriptor.bound_tool_2": "After a brief period, it will unravel and vanish."
 }
