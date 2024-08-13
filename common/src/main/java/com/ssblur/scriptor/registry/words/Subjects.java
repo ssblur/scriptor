@@ -3,6 +3,7 @@ package com.ssblur.scriptor.registry.words;
 import com.ssblur.scriptor.api.word.Subject;
 import com.ssblur.scriptor.word.subject.*;
 
+@SuppressWarnings("unused")
 public class Subjects {
   private static final WordRegistry INSTANCE = WordRegistry.INSTANCE;
 

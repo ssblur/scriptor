@@ -3,12 +3,13 @@ package com.ssblur.scriptor.registry.words;
 import com.ssblur.scriptor.api.word.Action;
 import com.ssblur.scriptor.item.ScriptorItems;
 import com.ssblur.scriptor.word.action.*;
-import com.ssblur.scriptor.word.action.bound.BoundToolAction;
 import com.ssblur.scriptor.word.action.bound.BoundSwordAction;
+import com.ssblur.scriptor.word.action.bound.BoundToolAction;
 import com.ssblur.scriptor.word.action.teleport.BringAction;
 import com.ssblur.scriptor.word.action.teleport.GotoAction;
 import com.ssblur.scriptor.word.action.teleport.SwapAction;
 
+@SuppressWarnings("unused")
 public class Actions {
   private static final WordRegistry INSTANCE = WordRegistry.INSTANCE;
 

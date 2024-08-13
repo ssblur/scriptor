@@ -1,0 +1,20 @@
+{
+  "name": "tome.scriptor.death_save",
+  "author": "Medi S.",
+  "item": "scriptor:spellbook_pink",
+  "tier": 4,
+  "spell": {
+    "subject": "self",
+    "spells": [
+      {
+        "action": "heal",
+        "descriptors": [
+          "stacking_strong",
+          "stacking_strong",
+          "stacking_strong",
+          "critical"
+        ]
+      }
+    ]
+  }
+}

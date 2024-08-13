@@ -139,7 +139,8 @@
   "descriptor.scriptor.cheap": "For some reason, this spell costs less than most.",
   "descriptor.scriptor.blood_cost": "You feel a brutal efficiency in this spell. It may hurt to use.",
   "descriptor.scriptor.healthy": "This spell seems to demand perfect health.",
-  "descriptor.scriptor.poisoned": "You must be poisoned to channel this spell..",
+  "descriptor.scriptor.poisoned": "You must be poisoned to channel this spell.",
+  "descriptor.scriptor.critical": "This spell pulls power from the caster's grave injuries.",
 
   "descriptor.scriptor.white": "The words glow white.",
   "descriptor.scriptor.light_gray": "This contains unremarkable light gray text.",
@@ -349,6 +350,7 @@
   "tome.scriptor.growth": "Green Thumb",
   "tome.scriptor.big_mistake": "Out of Touch",
   "tome.scriptor.wall_walker": "Portable Hole",
+  "tome.scriptor.death_save": "Death Save",
 
   "tag.item.scriptor.readable_spellbooks": "Spellbooks (Readable)",
 

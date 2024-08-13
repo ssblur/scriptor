@@ -5,6 +5,7 @@ import com.ssblur.scriptor.api.word.Word;
 import com.ssblur.scriptor.word.action.potions.*;
 import net.minecraft.world.effect.MobEffects;
 
+@SuppressWarnings("unused")
 public class PotionActions {
   private static final WordRegistry INSTANCE = WordRegistry.INSTANCE;
 
