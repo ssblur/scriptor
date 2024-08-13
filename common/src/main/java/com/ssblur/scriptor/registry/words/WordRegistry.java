@@ -16,6 +16,8 @@ public class WordRegistry {
   public static final Descriptors DESCRIPTORS = new Descriptors();
   public static final OffsetDescriptors OFFSET_DESCRIPTORS = new OffsetDescriptors();
   public static final InventoryDescriptors INVENTORY_DESCRIPTORS = new InventoryDescriptors();
+  public static final DiscountDescriptors DISCOUNT_DESCRIPTORS = new DiscountDescriptors();
+  public static final PowerDescriptors POWER_DESCRIPTORS = new PowerDescriptors();
   public static final Subjects SUBJECTS = new Subjects();
 
   public HashBiMap<String, Action> actionRegistry = HashBiMap.create();

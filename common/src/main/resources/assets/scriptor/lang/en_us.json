@@ -116,9 +116,11 @@
   "descriptor.scriptor.fast": "This spell seems faster than usual.",
   "descriptor.scriptor.slow": "This spell seems slower than usual.",
   "descriptor.scriptor.chain": "This spell reaches out to nearby targets.",
+  "descriptor.scriptor.nether": "The target is changed to a different plane.",
+
   "descriptor.scriptor.blood_power": "You sense a wicked power in this spell. It may hurt to use.",
   "descriptor.scriptor.overwhelming": "The strength of this spell overwhelms the caster.",
-  "descriptor.scriptor.nether": "The target is changed to a different plane.",
+  "descriptor.scriptor.solar_power": "This spell is strengthened during the day.",
 
   "descriptor.scriptor.reagent.scriptor.amethyst": "This spell consumes Amethysts",
   "descriptor.scriptor.reagent.scriptor.gold": "This spell consumes Gold Ingots",
@@ -351,6 +353,7 @@
   "tome.scriptor.big_mistake": "Out of Touch",
   "tome.scriptor.wall_walker": "Portable Hole",
   "tome.scriptor.death_save": "Death Save",
+  "tome.scriptor.solar_power": "Solar Power",
 
   "tag.item.scriptor.readable_spellbooks": "Spellbooks (Readable)",
 
