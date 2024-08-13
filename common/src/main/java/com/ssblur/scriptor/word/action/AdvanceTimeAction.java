@@ -20,5 +20,5 @@ public class AdvanceTimeAction extends Action {
     serverLevel.setDayTime(serverLevel.getDayTime() + (long) (1000 * strength));
   }
   @Override
-  public Cost cost() { return new Cost(24, COSTTYPE.ADDITIVE); }
+  public Cost cost() { return new Cost(52, COSTTYPE.ADDITIVE); }
 }
