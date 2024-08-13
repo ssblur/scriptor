@@ -143,6 +143,7 @@
   "descriptor.scriptor.healthy": "This spell seems to demand perfect health.",
   "descriptor.scriptor.poisoned": "You must be poisoned to channel this spell.",
   "descriptor.scriptor.critical": "This spell pulls power from the caster's grave injuries.",
+  "descriptor.scriptor.night": "This spell only works under cover of night.",
 
   "descriptor.scriptor.white": "The words glow white.",
   "descriptor.scriptor.light_gray": "This contains unremarkable light gray text.",
@@ -198,6 +199,7 @@
   "action.scriptor.harm": "This spell harms the target.",
   "action.scriptor.color": "This spell changes the target's color.",
   "action.scriptor.place": "This spell places a block.",
+  "action.scriptor.time": "This spell marches the clock forwards.",
 
   "action.scriptor.poison": "This spell poisons the target.",
   "action.scriptor.slow": "This spell slows the target.",

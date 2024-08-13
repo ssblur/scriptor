@@ -25,6 +25,7 @@ public class Actions {
   public final Action PLACE = INSTANCE.register("place", new PlaceBlockAction());
   public final Action HARM = INSTANCE.register("harm", new HarmAction());
   public final Action COLOR = INSTANCE.register("color", new ColorAction());
+  public final Action TIME = INSTANCE.register("time", new AdvanceTimeAction());
 
   public final Action BOUND_SWORD = INSTANCE.register("bound_sword", new BoundSwordAction());
   public final Action BOUND_AXE = INSTANCE.register("bound_axe", new BoundToolAction(ScriptorItems.BOUND_AXE));
