@@ -15,6 +15,7 @@ public class BloodCostDescriptor extends Descriptor implements CastDescriptor {
   @Override
   public boolean cannotCast(Targetable caster) {
     if(caster instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof LivingEntity living) {
+      living.invulnerableTime = 0;
       living.hurt(ScriptorDamage.sacrifice(living), 1.0f);
       living.invulnerableTime = 0;
       return !living.isAlive();
