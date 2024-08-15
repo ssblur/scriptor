@@ -10,7 +10,7 @@ import net.minecraft.world.entity.LivingEntity;
 public class PoisonDescriptor extends Descriptor implements CastDescriptor {
   @Override
   public Cost cost() {
-    return new Cost(0.5d, COSTTYPE.MULTIPLICATIVE);
+    return new Cost(0.7d, COSTTYPE.MULTIPLICATIVE);
   }
 
   @Override
