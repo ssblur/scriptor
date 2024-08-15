@@ -12,6 +12,12 @@
     },
     {
       "item": "minecraft:paper"
+    },
+    {
+      "item": "minecraft:feather"
+    },
+    {
+      "item": "minecraft:ink_sac"
     }
   ],
   "result": {
