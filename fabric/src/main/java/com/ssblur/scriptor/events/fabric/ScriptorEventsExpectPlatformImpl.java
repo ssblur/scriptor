@@ -6,9 +6,9 @@ import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 
 public class ScriptorEventsExpectPlatformImpl extends ScriptorExpectPlatform {
   public static void registerClientEvents() {
-    WorldRenderEvents.BEFORE_ENTITIES.register(context -> {
-      Thread.yield();
+    WorldRenderEvents.AFTER_ENTITIES.register(context -> {
       CoordinateCasterWorldRenderer.render(context.matrixStack());
+      Thread.yield();
     });
   }
 }

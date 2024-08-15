@@ -10,15 +10,16 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 public class CoordinateCasterWorldRenderer {
   static final int BOX_COLOR = 0xffff5064;
 
 
-  public static void render(PoseStack matrix) {
+  public static void render(@Nullable PoseStack matrix) {
     var player = Minecraft.getInstance().player;
-    ItemStack item;
-    if (player != null) {
+
+    if (player != null && matrix != null) {
       if (player.getItemInHand(InteractionHand.MAIN_HAND).getItem() == ScriptorItems.COORDINATE_CASTING_CRYSTAL.get())
         render(matrix, player.getItemInHand(InteractionHand.MAIN_HAND));
       if (player.getItemInHand(InteractionHand.OFF_HAND).getItem() == ScriptorItems.COORDINATE_CASTING_CRYSTAL.get())
@@ -27,9 +28,9 @@ public class CoordinateCasterWorldRenderer {
   }
 
   public static void render(PoseStack matrix, ItemStack item) {
-    if(matrix == null) return;
     var tesselator = Tesselator.getInstance();
     BufferBuilder builder;
+    MeshData mesh;
     var camera = Minecraft.getInstance().gameRenderer.getMainCamera();
     var last = matrix.last();
     var pose = last.pose();
@@ -39,7 +40,6 @@ public class CoordinateCasterWorldRenderer {
     RenderSystem.enableBlend();
     RenderSystem.setShader(GameRenderer::getPositionColorShader);
     RenderSystem.disableCull();
-
     for(var pair: CoordinateCasterCrystal.getCoordinates(item)) {
       BlockPos pos = pair.getLeft();
       Direction direction = pair.getRight();
@@ -58,6 +58,7 @@ public class CoordinateCasterWorldRenderer {
         case WEST -> x += 1;
         case EAST -> xo -= 1;
       }
+
       if(direction.getAxis() == Direction.Axis.Z) {
         builder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 
@@ -86,7 +87,7 @@ public class CoordinateCasterWorldRenderer {
           z
         ).setColor(BOX_COLOR);
 
-        builder.build();
+        mesh = builder.build();
       } else {
         builder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 
@@ -115,7 +116,11 @@ public class CoordinateCasterWorldRenderer {
           z
         ).setColor(BOX_COLOR);
 
-        builder.build();
+        mesh = builder.build();
+      }
+
+      if(mesh != null) {
+        BufferUploader.drawWithShader(mesh);
       }
     }
 

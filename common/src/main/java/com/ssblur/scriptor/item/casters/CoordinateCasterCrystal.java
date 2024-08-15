@@ -5,7 +5,6 @@ import com.ssblur.scriptor.events.network.server.ServerTraceNetwork;
 import com.ssblur.scriptor.helpers.ComponentHelper;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -65,8 +64,6 @@ public class CoordinateCasterCrystal extends CasterCrystal {
   @Override
   public void appendHoverText(ItemStack itemStack, TooltipContext level, List<Component> list, TooltipFlag tooltipFlag) {
     super.appendHoverText(itemStack, level, list, tooltipFlag);
-    var font = Minecraft.getInstance().font;
-
     var coordinates = getCoordinates(itemStack);
     for(var pair: coordinates) {
       var coordinate = pair.getLeft();
@@ -98,8 +95,11 @@ public class CoordinateCasterCrystal extends CasterCrystal {
     var list = itemStack.get(ScriptorDataComponents.COORDINATES);
     if(list == null)
       list = new ArrayList<>();
-    if(list.size() < 4)
+    if(list.size() < 4) {
+      list = new ArrayList<>(list);
       list.add(List.of(pos.getX(), pos.getY(), pos.getZ(), direction.ordinal()));
+    }
+    itemStack.set(ScriptorDataComponents.COORDINATES, list);
   }
 
   public static List<BlockPosDirection> getCoordinates(ItemStack itemStack) {
