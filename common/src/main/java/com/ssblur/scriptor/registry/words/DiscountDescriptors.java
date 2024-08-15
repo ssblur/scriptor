@@ -16,4 +16,5 @@ public class DiscountDescriptors {
   public final Descriptor CRITICAL = INSTANCE.register("critical", new CriticalDescriptor());
   public final Descriptor NIGHT = INSTANCE.register("night", new NightDiscountDescriptor());
   public final Descriptor RAIN = INSTANCE.register("rain", new RainDiscountDescriptor());
+  public final Descriptor CLEAR_SKIES = INSTANCE.register("clear_skies", new ClearDiscountDescriptor());
 }

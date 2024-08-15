@@ -10,6 +10,7 @@
         "action": "strength",
         "descriptors": [
           "solar_power",
+          "clear_skies",
           "long"
         ]
       }
