@@ -11,6 +11,7 @@ public class DiscountDescriptors {
   public final Descriptor CHEAP = INSTANCE.register("cheap", new CheapDescriptor());
   public final Descriptor HEALTHY = INSTANCE.register("healthy", new HealthyDescriptor());
   public final Descriptor POISONED = INSTANCE.register("poisoned", new PoisonDescriptor());
+  public final Descriptor WEAKENED = INSTANCE.register("weakened", new WeakDescriptor());
   public final Descriptor CRITICAL = INSTANCE.register("critical", new CriticalDescriptor());
   public final Descriptor NIGHT = INSTANCE.register("night", new NightDiscountDescriptor());
   public final Descriptor RAIN = INSTANCE.register("rain", new RainDiscountDescriptor());
