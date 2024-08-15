@@ -1,0 +1,14 @@
+{
+  "name": "Despair",
+  "spell": {
+    "subject": "self",
+    "spells": [
+      {
+        "action": "rain",
+        "descriptors": [
+          "massive_strong"
+        ]
+      }
+    ]
+  }
+}

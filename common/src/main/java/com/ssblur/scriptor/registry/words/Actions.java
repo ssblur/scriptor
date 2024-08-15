@@ -27,6 +27,7 @@ public class Actions {
   public final Action COLOR = INSTANCE.register("color", new ColorAction());
   public final Action TIME = INSTANCE.register("time", new AdvanceTimeAction());
   public final Action CLEAR_WEATHER = INSTANCE.register("clear_weather", new ClearWeatherAction());
+  public final Action RAIN = INSTANCE.register("rain", new RainAction());
 
   public final Action BOUND_SWORD = INSTANCE.register("bound_sword", new BoundSwordAction());
   public final Action BOUND_AXE = INSTANCE.register("bound_axe", new BoundToolAction(ScriptorItems.BOUND_AXE));

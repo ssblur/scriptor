@@ -17,7 +17,7 @@ public class ClearWeatherAction extends Action {
     }
 
     var serverLevel = (ServerLevel) targetable.getLevel();
-    serverLevel.setWeatherParameters((int) strength * 200, 0, false, false);
+    serverLevel.setWeatherParameters((int) strength * 2000, 0, false, false);
   }
   @Override
   public Cost cost() { return new Cost(51, COSTTYPE.ADDITIVE); }

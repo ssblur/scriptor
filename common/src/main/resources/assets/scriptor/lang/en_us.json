@@ -202,6 +202,7 @@
   "action.scriptor.place": "This spell places a block.",
   "action.scriptor.time": "This spell marches the clock forwards.",
   "action.scriptor.clear_weather": "The clouds part when this spell is cast.",
+  "action.scriptor.rain": "This spell summons a storm.",
 
   "action.scriptor.poison": "This spell poisons the target.",
   "action.scriptor.slow": "This spell slows the target.",
