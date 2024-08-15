@@ -4,19 +4,20 @@ import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.descriptor.CastDescriptor;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 
-public class PoisonDescriptor extends Descriptor implements CastDescriptor {
+public class CriticalDescriptor extends Descriptor implements CastDescriptor {
   @Override
   public Cost cost() {
-    return new Cost(0.7d, COSTTYPE.MULTIPLICATIVE);
+    return Cost.multiply(0.3);
   }
 
   @Override
   public boolean cannotCast(Targetable caster) {
-    if(caster instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof LivingEntity living)
-      return !living.hasEffect(MobEffects.POISON);
-    return true;
+    return !(
+      caster instanceof EntityTargetable entityTargetable
+      && entityTargetable.getTargetEntity() instanceof LivingEntity entity
+      && entity.getHealth() <= 2.0f
+    );
   }
 }

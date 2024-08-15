@@ -18,6 +18,7 @@
     "descriptor:move_up",
     "descriptor:copy_down",
     "descriptor:copy_left",
-    "descriptor:move_right"
+    "descriptor:move_right",
+    "descriptor:weakened"
   ]
 }

@@ -3,12 +3,13 @@ package com.ssblur.scriptor.registry.words;
 import com.ssblur.scriptor.api.word.Action;
 import com.ssblur.scriptor.item.ScriptorItems;
 import com.ssblur.scriptor.word.action.*;
-import com.ssblur.scriptor.word.action.bound.BoundToolAction;
 import com.ssblur.scriptor.word.action.bound.BoundSwordAction;
+import com.ssblur.scriptor.word.action.bound.BoundToolAction;
 import com.ssblur.scriptor.word.action.teleport.BringAction;
 import com.ssblur.scriptor.word.action.teleport.GotoAction;
 import com.ssblur.scriptor.word.action.teleport.SwapAction;
 
+@SuppressWarnings("unused")
 public class Actions {
   private static final WordRegistry INSTANCE = WordRegistry.INSTANCE;
 
@@ -24,6 +25,9 @@ public class Actions {
   public final Action PLACE = INSTANCE.register("place", new PlaceBlockAction());
   public final Action HARM = INSTANCE.register("harm", new HarmAction());
   public final Action COLOR = INSTANCE.register("color", new ColorAction());
+  public final Action TIME = INSTANCE.register("time", new AdvanceTimeAction());
+  public final Action CLEAR_WEATHER = INSTANCE.register("clear_weather", new ClearWeatherAction());
+  public final Action RAIN = INSTANCE.register("rain", new RainAction());
 
   public final Action BOUND_SWORD = INSTANCE.register("bound_sword", new BoundSwordAction());
   public final Action BOUND_AXE = INSTANCE.register("bound_axe", new BoundToolAction(ScriptorItems.BOUND_AXE));

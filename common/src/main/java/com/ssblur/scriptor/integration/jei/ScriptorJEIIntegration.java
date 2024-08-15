@@ -62,6 +62,17 @@ public class ScriptorJEIIntegration implements IModPlugin {
       Component.translatable("info.scriptor.book_of_books_3")
     );
 
+    registration.addItemStackInfo(
+      List.of(
+        new ItemStack(ScriptorItems.BOUND_SWORD),
+        new ItemStack(ScriptorItems.BOUND_AXE.get()),
+        new ItemStack(ScriptorItems.BOUND_PICKAXE.get()),
+        new ItemStack(ScriptorItems.BOUND_SHOVEL.get())
+      ),
+      Component.translatable("info.scriptor.bound_tool_1"),
+      Component.translatable("info.scriptor.bound_tool_2")
+    );
+
     manager.getAllRecipesFor(RecipeType.CRAFTING).forEach(holder -> {
       switch (holder.value()) {
         case SpellbookDyeingRecipe recipe -> registration.addRecipes(

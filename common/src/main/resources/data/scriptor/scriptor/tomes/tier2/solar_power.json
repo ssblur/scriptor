@@ -1,0 +1,19 @@
+{
+  "name": "tome.scriptor.solar_power",
+  "author": "Sard Cho",
+  "item": "scriptor:spellbook_green",
+  "tier": 2,
+  "spell": {
+    "subject": "self",
+    "spells": [
+      {
+        "action": "strength",
+        "descriptors": [
+          "solar_power",
+          "clear_skies",
+          "long"
+        ]
+      }
+    ]
+  }
+}

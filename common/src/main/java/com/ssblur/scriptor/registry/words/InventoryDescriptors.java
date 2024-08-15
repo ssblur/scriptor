@@ -10,6 +10,7 @@ import com.ssblur.scriptor.word.descriptor.target.inventory.FirstFilledSlotDescr
 import com.ssblur.scriptor.word.descriptor.target.inventory.IgnoreTargetedSlotDescriptor;
 import com.ssblur.scriptor.word.descriptor.target.inventory.InventoryDescriptor;
 
+@SuppressWarnings("unused")
 public class InventoryDescriptors {
   private static final WordRegistry INSTANCE = WordRegistry.INSTANCE;
 
