@@ -37,7 +37,7 @@ jobs:
         with:
           mod-file: fabric/build/libs/scriptor-${{ steps.tag.outputs.version }}-fabric.jar
           version-name: "${{ steps.tag.outputs.version }}-fabric"
-          minecraft-version: 1.21
+          minecraft-version: 1.21.1
           mod-loader: fabric
           changelog: ${{ steps.changelog.outputs.changelog }}
           dependencies: |
