@@ -17,7 +17,7 @@ public class PotionActions {
     new PotionAction(MobEffects.REGENERATION, 30, 1d/3d, new Word.Cost(8, Word.COSTTYPE.ADDITIVE)));
   public final Action WITHER_POTION = INSTANCE.register("wither", new WitherAction());
   public final Action SATURATION_POTION = INSTANCE.register("saturation",
-    new PotionAction(MobEffects.SATURATION, 10, 1d/3d, new Word.Cost(4, Word.COSTTYPE.ADDITIVE)));
+    new PotionAction(MobEffects.SATURATION, 4, 1d/3d, new Word.Cost(10, Word.COSTTYPE.ADDITIVE)));
   public final Action SPEED_POTION = INSTANCE.register("speed",
     new PotionAction(MobEffects.MOVEMENT_SPEED, 80, 1d/2d, new Word.Cost(6, Word.COSTTYPE.ADDITIVE)));
   public final Action HASTE_POTION = INSTANCE.register("haste",
