@@ -27,9 +27,12 @@ public class LecternTargetable extends Targetable implements InventoryTargetable
 
   @Override
   public @Nullable Container getContainer() {
-    if(level.getBlockEntity(getTargetBlockPos()) instanceof CastingLecternBlockEntity)
-      if(level.getBlockEntity(getTargetBlockPos().below()) instanceof Container container)
+    if(level.getBlockEntity(getTargetBlockPos()) instanceof CastingLecternBlockEntity lectern) {
+      if (level.getBlockEntity(getTargetBlockPos().below()) instanceof Container container)
         return container;
+      else if(level.getBlockEntity(getTargetBlockPos().relative(this.getFacing().getOpposite())) instanceof Container container)
+        return container;
+    }
     return null;
   }
 
