@@ -17,6 +17,9 @@
   "entrypoints": {
     "main": [
       "com.ssblur.scriptor.fabric.ScriptorModFabric"
+    ],
+    "emi": [
+      "com.ssblur.scriptor.integration.emi.ScriptorEMIIntegration"
     ]
   },
   "depends": {

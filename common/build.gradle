@@ -15,6 +15,9 @@ dependencies {
   compileOnly 'com.google.code.findbugs:jsr305:3.0.1'
 
   modCompileOnlyApi "mezz.jei:jei-${minecraft_version}-common-api:${rootProject.jei_version}"
+
+  // EMI
+  modCompileOnlyApi "dev.emi:emi-xplat-intermediary:${emi_version}:api"
 }
 
 publishing {
