@@ -25,7 +25,7 @@ public class NetherDescriptor extends Descriptor implements TargetDescriptor {
       }
 
       var targetLevel = server.getServer().getLevel(level.dimension() == Level.NETHER ? Level.OVERWORLD : Level.NETHER);
-      double scale = level.dimension() == Level.NETHER ? 4d : 0.25d;
+      double scale = level.dimension() == Level.NETHER ? 8d : 0.125d;
       var pos = targetable.getTargetPos();
       var x = pos.x * scale;
       var z = pos.z * scale;
