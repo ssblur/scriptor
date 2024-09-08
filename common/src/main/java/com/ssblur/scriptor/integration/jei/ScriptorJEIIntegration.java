@@ -1,7 +1,6 @@
 package com.ssblur.scriptor.integration.jei;
 
 import com.ssblur.scriptor.ScriptorMod;
-import com.ssblur.scriptor.helpers.SpellbookHelper;
 import com.ssblur.scriptor.integration.recipes.RecipeIntegration;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -10,7 +9,6 @@ import mezz.jei.api.registration.IModIngredientRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.NonNullList;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
@@ -41,12 +39,12 @@ public class ScriptorJEIIntegration implements IModPlugin {
     assert level != null;
     var manager = level.getRecipeManager();
 
-    RecipeIntegration.registerItemInfo(((location, items, components) -> registration.addItemStackInfo(
-      SpellbookHelper.SPELLBOOKS.stream().map(ItemStack::new).toList(),
-      Component.translatable("info.scriptor.spellbook_1"),
-      Component.translatable("info.scriptor.spellbook_2"),
-      Component.translatable("info.scriptor.spellbook_3")
-    )));
+    RecipeIntegration.registerItemInfo((location, itemStacks, components) -> {
+      registration.addItemStackInfo(
+        itemStacks,
+        components
+      );
+    });
 
     RecipeIntegration.registerRecipes(() -> manager.getAllRecipesFor(RecipeType.CRAFTING), ((ingredients, result, id) -> {
       var list = NonNullList.of(
