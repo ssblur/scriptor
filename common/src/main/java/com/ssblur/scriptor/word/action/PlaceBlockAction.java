@@ -3,12 +3,16 @@ package com.ssblur.scriptor.word.action;
 import com.ssblur.scriptor.api.word.Action;
 import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.color.CustomColors;
+import com.ssblur.scriptor.events.network.client.ParticleNetwork;
 import com.ssblur.scriptor.helpers.ItemTargetableHelper;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
+import com.ssblur.scriptor.mixin.BlockPlaceContextAccessor;
 import com.ssblur.scriptor.registry.colorable.ColorableBlockRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
 
 public class PlaceBlockAction extends Action {
   @Override
@@ -32,9 +36,19 @@ public class PlaceBlockAction extends Action {
     );
 
     if(itemFocus.getItem() instanceof BlockItem blockItem) {
-      itemFocus.shrink(1);
-      var block = blockItem.getBlock();
-      level.setBlock(pos, block.defaultBlockState(), 11);
+      var status = blockItem.place(
+        BlockPlaceContextAccessor.createBlockPlaceContext(
+          level,
+          null,
+          InteractionHand.MAIN_HAND,
+          itemFocus,
+          new BlockHitResult(targetable.getTargetPos(), targetable.getFacing(), targetable.getTargetBlockPos(), false)
+        )
+      );
+      if(status.consumesAction())
+        itemFocus.shrink(1);
+      else
+        ParticleNetwork.fizzle(level, targetable.getTargetBlockPos());
     } else {
       ColorableBlockRegistry.DYE_COLORABLE_BLOCKS.MAGIC_BLOCK.setColor(color, level, pos);
     }
