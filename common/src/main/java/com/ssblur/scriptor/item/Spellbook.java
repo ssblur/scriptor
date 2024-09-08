@@ -47,6 +47,9 @@ public class Spellbook extends WrittenBookItem implements ItemWithCustomRenderer
 
   @Override
   public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
+    if(level.isClientSide)
+      return InteractionResultHolder.success(player.getItemInHand(interactionHand));
+
     var result = super.use(level, player, interactionHand);
 
     var item = player.getItemInHand(interactionHand);
