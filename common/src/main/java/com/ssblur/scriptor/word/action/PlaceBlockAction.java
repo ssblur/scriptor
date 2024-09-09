@@ -3,7 +3,7 @@ package com.ssblur.scriptor.word.action;
 import com.ssblur.scriptor.api.word.Action;
 import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.color.CustomColors;
-import com.ssblur.scriptor.events.network.client.ParticleNetwork;
+import com.ssblur.scriptor.events.network.ParticleNetwork;
 import com.ssblur.scriptor.helpers.ItemTargetableHelper;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.mixin.BlockPlaceContextAccessor;
