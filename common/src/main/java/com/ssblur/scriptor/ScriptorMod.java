@@ -4,6 +4,7 @@ import com.google.common.base.Suppliers;
 import com.ssblur.scriptor.advancement.ScriptorAdvancements;
 import com.ssblur.scriptor.block.ScriptorBlocks;
 import com.ssblur.scriptor.blockentity.ScriptorBlockEntities;
+import com.ssblur.scriptor.commands.DebugCommand;
 import com.ssblur.scriptor.commands.DumpDictionaryCommand;
 import com.ssblur.scriptor.commands.DumpWordCommand;
 import com.ssblur.scriptor.data_components.ScriptorDataComponents;
@@ -26,6 +27,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.function.Supplier;
 
+@SuppressWarnings("unused")
 public class ScriptorMod {
   public static final String MOD_ID = "scriptor";
   public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
@@ -37,6 +39,7 @@ public class ScriptorMod {
   public static void registerCommands() {
     CommandRegistrationEvent.EVENT.register(DumpDictionaryCommand::register);
     CommandRegistrationEvent.EVENT.register(DumpWordCommand::register);
+    CommandRegistrationEvent.EVENT.register(DebugCommand::register);
   }
 
   public static ResourceLocation location(String path) {
