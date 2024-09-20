@@ -184,21 +184,4 @@ public record Spell(
     assert spells.length >= 1;
     return spells[0].deduplicatedDescriptors();
   }
-
-  public Descriptor[] deduplicatedDescriptorsForAccumulation() {
-    int length = 0;
-    int index = 0;
-
-    for(var spell: spells)
-      length += spell.deduplicatedDescriptors().length;
-
-    Descriptor[] descriptors = new Descriptor[length];
-
-    for(var spell: spells) {
-      System.arraycopy(spell.deduplicatedDescriptors(), 0, descriptors, index, descriptors.length);
-      index += descriptors.length;
-    }
-
-    return descriptors;
-  }
 }

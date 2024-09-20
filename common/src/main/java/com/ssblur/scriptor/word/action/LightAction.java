@@ -20,14 +20,14 @@ import net.minecraft.world.level.block.state.BlockState;
 public class LightAction extends Action {
   @Override
   public void apply(Targetable caster, Targetable targetable, Descriptor[] descriptors) {
-    int seconds = 6;
+    double seconds = 6;
     for(var d: descriptors) {
       if(d instanceof DurationDescriptor durationDescriptor)
         seconds += 3 * durationDescriptor.durationModifier();
     }
 
     if(targetable instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof LivingEntity living) {
-      living.addEffect(new MobEffectInstance(MobEffects.GLOWING, seconds));
+      living.addEffect(new MobEffectInstance(MobEffects.GLOWING, (int) Math.floor(seconds)));
       return;
     }
 
