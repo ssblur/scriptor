@@ -23,6 +23,7 @@ public class Actions {
   public final Action BRING = INSTANCE.register("bring", new BringAction());
   public final Action BREAK = INSTANCE.register("break", new BreakBlockAction());
   public final Action PLACE = INSTANCE.register("place", new PlaceBlockAction());
+  public final Action CREATE_WATER = INSTANCE.register("create_water", new CreateWaterAction());
   public final Action HARM = INSTANCE.register("harm", new HarmAction());
   public final Action COLOR = INSTANCE.register("color", new ColorAction());
   public final Action TIME = INSTANCE.register("time", new AdvanceTimeAction());

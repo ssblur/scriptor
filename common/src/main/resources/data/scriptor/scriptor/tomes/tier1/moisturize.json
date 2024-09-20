@@ -1,0 +1,14 @@
+{
+  "name": "tome.scriptor.moisturize",
+  "author": "Rim",
+  "tier": 1,
+  "spell": {
+    "subject": "touch",
+    "spells": [
+      {
+        "action": "create_water",
+        "descriptors": []
+      }
+    ]
+  }
+}
