@@ -158,7 +158,7 @@ public class CustomColors {
     int g = (c >> 8) & 0xFF;
     int r = (c >> 16) & 0xFF;
 
-    int cD, bD, gD, rD, aD, d;
+    int cD, bD, gD, rD, d;
     for(var dye: DyeColor.values()) {
       cD = dye.getFireworkColor();
       bD = cD & 0xFF;

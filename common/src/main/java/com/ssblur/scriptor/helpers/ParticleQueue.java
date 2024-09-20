@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.particles.ParticleOptions;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,11 +55,10 @@ public class ParticleQueue {
    * Should only be called from within the level render thread.
    * @param instance The local level to add particles to
    */
-  public void process(ClientLevel instance) {
-    var level = Minecraft.getInstance().level;
-    while(level != null && !queue.isEmpty()) {
+  public void process(@Nullable ClientLevel instance) {
+    while(instance != null && !queue.isEmpty()) {
       var item = queue.removeFirst();
-      level.addParticle(item.particleOptions, item.x, item.y, item.z, item.vx, item.vy, item.vz);
+      instance.addParticle(item.particleOptions, item.x, item.y, item.z, item.vx, item.vy, item.vz);
     }
 
   }
