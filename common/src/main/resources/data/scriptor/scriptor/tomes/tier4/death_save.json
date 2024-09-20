@@ -9,8 +9,7 @@
       {
         "action": "heal",
         "descriptors": [
-          "stacking_strong",
-          "stacking_strong",
+          "repeat_3",
           "stacking_strong",
           "critical"
         ]

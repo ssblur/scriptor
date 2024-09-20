@@ -191,6 +191,11 @@
   "descriptor.scriptor.move_up": "This spell's targets are moved one block up",
   "descriptor.scriptor.move_down": "This spell's targets are moved one block down",
 
+  "descriptor.scriptor.repeat_2": "A word in this spell repeats the next word twice",
+  "descriptor.scriptor.repeat_3": "A word in this spell repeats the next word thrice",
+  "descriptor.scriptor.repeat_5": "A word in this spell repeats the next word five times",
+  "descriptor.scriptor.repeat_7": "A word in this spell repeats the next word seven times",
+
   "action.scriptor.inflame": "This spell heats or sets the target on fire.",
   "action.scriptor.light": "This spell places a light where it is cast.",
   "action.scriptor.heal": "This spell heals or repairs the target.",

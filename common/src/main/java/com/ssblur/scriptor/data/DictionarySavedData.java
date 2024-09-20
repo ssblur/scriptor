@@ -14,6 +14,7 @@ import com.ssblur.scriptor.registry.TokenGeneratorRegistry;
 import com.ssblur.scriptor.registry.words.WordRegistry;
 import com.ssblur.scriptor.word.PartialSpell;
 import com.ssblur.scriptor.word.Spell;
+import com.ssblur.scriptor.word.descriptor.structure.RepeatDescriptor;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
@@ -187,6 +188,10 @@ public class DictionarySavedData extends SavedData {
     return getWord(getKey(word));
   }
 
+  static void fail(String text, String message) {
+    ScriptorMod.LOGGER.debug("Failed to process spell with text: \"" + text + "\"");
+    ScriptorMod.LOGGER.debug("\t{}", message);
+  }
 
   /**
    * Attempt to parse a String into a Spell
@@ -202,6 +207,7 @@ public class DictionarySavedData extends SavedData {
     }
     int position = 0;
     int tokenPosition = 0;
+    int duplicates = 1;
     try {
       String[] tokens = text.split("[\\n\\r\\s]+");
 
@@ -227,9 +233,12 @@ public class DictionarySavedData extends SavedData {
         String wordData = parseWord(tokens[tokenPosition]);
         switch (word) {
           case ACTION -> {
+            if(duplicates > 1) {
+              fail(text, "Duplicate descriptor ahead of an action");
+              return null;
+            }
             if (wordData == null) {
-              ScriptorMod.LOGGER.debug("Failed to process spell with text: \"" + text + "\"");
-              ScriptorMod.LOGGER.debug("No word found for \"" + tokens[tokenPosition] + "\", action expected");
+              fail(text, "No word found for \"" + tokens[tokenPosition] + "\", action expected");
               return null;
             }
             action = WordRegistry.INSTANCE.actionRegistry.get(wordData.substring(7));
@@ -245,15 +254,24 @@ public class DictionarySavedData extends SavedData {
               position++;
               continue;
             }
-            descriptors.add(descriptor);
+            if(descriptor instanceof RepeatDescriptor repeatDescriptor)
+              duplicates *= repeatDescriptor.count;
+            else {
+              for (int i = 0; i < duplicates; i++)
+                descriptors.add(descriptor);
+              duplicates = 1;
+            }
 
             tokenPosition++;
             continue;
           }
           case SUBJECT -> {
+            if(duplicates > 1) {
+              fail(text, "Duplicate descriptor ahead of a subject");
+              return null;
+            }
             if (wordData == null) {
-              ScriptorMod.LOGGER.debug("Failed to process spell with text: \"" + text + "\"");
-              ScriptorMod.LOGGER.debug("Subject " + tokens[tokenPosition] + " not found");
+              fail(text, "Subject " + tokens[tokenPosition] + " not found");
               return null;
             }
             subject = WordRegistry.INSTANCE.subjectRegistry.get(wordData.substring(8));
@@ -274,7 +292,7 @@ public class DictionarySavedData extends SavedData {
       ScriptorMod.LOGGER.error("Error:", e);
       ScriptorMod.LOGGER.warn("==========================================================");
     }
-    ScriptorMod.LOGGER.debug("Failed to process spell with text: \"" + text + "\"");
+    fail(text, "Failed to process a complete spell");
     return null;
   }
 

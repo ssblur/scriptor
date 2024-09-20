@@ -9,13 +9,7 @@
         "action": "heal",
         "descriptors": [
           "yellow",
-          "stacking_strong",
-          "stacking_strong",
-          "stacking_strong",
-          "stacking_strong",
-          "stacking_strong",
-          "stacking_strong",
-          "stacking_strong",
+          "repeat_7",
           "stacking_strong",
           "reagent.scriptor.gold"
         ]
