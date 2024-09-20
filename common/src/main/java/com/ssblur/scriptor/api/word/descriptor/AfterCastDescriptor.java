@@ -1,4 +1,4 @@
-package com.ssblur.scriptor.word.descriptor;
+package com.ssblur.scriptor.api.word.descriptor;
 
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 

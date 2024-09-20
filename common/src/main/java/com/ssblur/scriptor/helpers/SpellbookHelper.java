@@ -22,6 +22,13 @@ import java.util.List;
 public class SpellbookHelper {
   public static List<Item> SPELLBOOKS = new ArrayList<>();
 
+  /**
+   * Casts a spell from an item with a Written Book component.
+   * @param itemStack The itemstack to cast from.
+   *                  Fails if this does not have a Written Book component.
+   * @param player The player casting the spell.
+   * @return true if casting succeeded
+   */
   public static boolean castFromItem(ItemStack itemStack, Player player) {
     var text = itemStack.get(DataComponents.WRITTEN_BOOK_CONTENT);
     var level = player.level();

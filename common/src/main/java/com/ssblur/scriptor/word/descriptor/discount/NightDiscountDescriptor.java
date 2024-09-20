@@ -2,7 +2,7 @@ package com.ssblur.scriptor.word.descriptor.discount;
 
 import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
-import com.ssblur.scriptor.word.descriptor.CastDescriptor;
+import com.ssblur.scriptor.api.word.descriptor.CastDescriptor;
 
 
 public class NightDiscountDescriptor extends Descriptor implements CastDescriptor {

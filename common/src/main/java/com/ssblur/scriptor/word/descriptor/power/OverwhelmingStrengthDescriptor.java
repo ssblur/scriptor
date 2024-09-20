@@ -1,10 +1,11 @@
 package com.ssblur.scriptor.word.descriptor.power;
 
 import com.ssblur.scriptor.api.word.Descriptor;
+import com.ssblur.scriptor.api.word.descriptor.StrengthDescriptor;
 import com.ssblur.scriptor.effect.ScriptorEffects;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
-import com.ssblur.scriptor.word.descriptor.CastDescriptor;
+import com.ssblur.scriptor.api.word.descriptor.CastDescriptor;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 

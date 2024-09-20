@@ -3,7 +3,7 @@ package com.ssblur.scriptor.word.descriptor.focus.inventory;
 import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.helpers.targetable.InventoryTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
-import com.ssblur.scriptor.word.descriptor.focus.FocusDescriptor;
+import com.ssblur.scriptor.api.word.descriptor.FocusDescriptor;
 
 public class CasterFirstFilledSlotDescriptor extends Descriptor implements FocusDescriptor {
   @Override

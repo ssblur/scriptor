@@ -1,6 +1,7 @@
 package com.ssblur.scriptor.word.descriptor.duration;
 
 import com.ssblur.scriptor.api.word.Descriptor;
+import com.ssblur.scriptor.api.word.descriptor.DurationDescriptor;
 
 public class SimpleDurationDescriptor extends Descriptor implements DurationDescriptor {
   Cost cost;

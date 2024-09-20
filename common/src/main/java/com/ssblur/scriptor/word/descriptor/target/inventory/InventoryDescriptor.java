@@ -5,7 +5,7 @@ import com.ssblur.scriptor.helpers.targetable.ContainerTargetable;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.InventoryEntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
-import com.ssblur.scriptor.word.descriptor.target.TargetDescriptor;
+import com.ssblur.scriptor.api.word.descriptor.TargetDescriptor;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
 

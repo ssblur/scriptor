@@ -3,7 +3,7 @@ package com.ssblur.scriptor.word.descriptor.target.inventory;
 import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.helpers.targetable.InventoryTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
-import com.ssblur.scriptor.word.descriptor.target.TargetDescriptor;
+import com.ssblur.scriptor.api.word.descriptor.TargetDescriptor;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;

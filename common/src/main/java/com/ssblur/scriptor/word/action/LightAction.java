@@ -7,7 +7,7 @@ import com.ssblur.scriptor.blockentity.LightBlockEntity;
 import com.ssblur.scriptor.color.CustomColors;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
-import com.ssblur.scriptor.word.descriptor.duration.DurationDescriptor;
+import com.ssblur.scriptor.api.word.descriptor.DurationDescriptor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
