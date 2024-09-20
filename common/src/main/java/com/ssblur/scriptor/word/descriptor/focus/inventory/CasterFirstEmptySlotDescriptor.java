@@ -3,7 +3,7 @@ package com.ssblur.scriptor.word.descriptor.focus.inventory;
 import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.helpers.targetable.InventoryTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
-import com.ssblur.scriptor.word.descriptor.focus.FocusDescriptor;
+import com.ssblur.scriptor.api.word.descriptor.FocusDescriptor;
 import net.minecraft.world.item.ItemStack;
 
 public class CasterFirstEmptySlotDescriptor extends Descriptor implements FocusDescriptor {

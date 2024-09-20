@@ -1,6 +1,7 @@
 package com.ssblur.scriptor.word.descriptor.target;
 
 import com.ssblur.scriptor.api.word.Descriptor;
+import com.ssblur.scriptor.api.word.descriptor.TargetDescriptor;
 import com.ssblur.scriptor.helpers.MathHelper;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;

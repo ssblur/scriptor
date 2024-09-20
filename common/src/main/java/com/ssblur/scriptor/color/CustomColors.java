@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.color;
 
 import com.ssblur.scriptor.api.word.Descriptor;
-import com.ssblur.scriptor.word.descriptor.color.ColorDescriptor;
+import com.ssblur.scriptor.api.word.descriptor.ColorDescriptor;
 import dev.architectury.platform.Platform;
 import net.fabricmc.api.EnvType;
 import net.minecraft.client.Minecraft;

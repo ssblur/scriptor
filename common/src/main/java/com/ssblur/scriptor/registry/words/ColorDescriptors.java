@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.registry.words;
 
 import com.ssblur.scriptor.api.word.Descriptor;
-import com.ssblur.scriptor.word.descriptor.color.ColorDescriptor;
+import com.ssblur.scriptor.api.word.descriptor.ColorDescriptor;
 
 @SuppressWarnings("unused")
 public class ColorDescriptors {

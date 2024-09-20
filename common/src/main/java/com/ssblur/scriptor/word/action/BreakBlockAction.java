@@ -5,7 +5,7 @@ import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.helpers.ItemTargetableHelper;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
-import com.ssblur.scriptor.word.descriptor.power.StrengthDescriptor;
+import com.ssblur.scriptor.api.word.descriptor.StrengthDescriptor;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;

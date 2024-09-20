@@ -14,7 +14,7 @@ import com.ssblur.scriptor.registry.TokenGeneratorRegistry;
 import com.ssblur.scriptor.registry.words.WordRegistry;
 import com.ssblur.scriptor.word.PartialSpell;
 import com.ssblur.scriptor.word.Spell;
-import com.ssblur.scriptor.word.descriptor.structure.RepeatDescriptor;
+import com.ssblur.scriptor.api.word.descriptor.RepeatDescriptor;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;

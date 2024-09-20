@@ -7,8 +7,8 @@ import com.ssblur.scriptor.entity.ScriptorEntities;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.Spell;
-import com.ssblur.scriptor.word.descriptor.SpeedDescriptor;
-import com.ssblur.scriptor.word.descriptor.duration.DurationDescriptor;
+import com.ssblur.scriptor.api.word.descriptor.SpeedDescriptor;
+import com.ssblur.scriptor.api.word.descriptor.DurationDescriptor;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.List;

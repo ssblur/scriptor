@@ -5,7 +5,7 @@ import com.ssblur.scriptor.helpers.targetable.ContainerTargetable;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.InventoryEntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
-import com.ssblur.scriptor.word.descriptor.focus.FocusDescriptor;
+import com.ssblur.scriptor.api.word.descriptor.FocusDescriptor;
 import net.minecraft.world.Container;
 
 public class CasterInventoryDescriptor  extends Descriptor implements FocusDescriptor {
