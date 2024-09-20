@@ -3,6 +3,7 @@ package com.ssblur.scriptor.registry.words;
 import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.word.descriptor.SpeedDurationDescriptor;
 import com.ssblur.scriptor.word.descriptor.duration.SimpleDurationDescriptor;
+import com.ssblur.scriptor.word.descriptor.structure.RepeatDescriptor;
 import com.ssblur.scriptor.word.descriptor.target.ChainDescriptor;
 import com.ssblur.scriptor.word.descriptor.target.NetherDescriptor;
 
@@ -19,4 +20,9 @@ public class Descriptors {
   public final Descriptor CHAIN = INSTANCE.register("chain", new ChainDescriptor());
 
   public final Descriptor NETHER = INSTANCE.register("nether", new NetherDescriptor());
+
+  public final Descriptor REPEAT_2 = INSTANCE.register("repeat_2", new RepeatDescriptor(2));
+  public final Descriptor REPEAT_3 = INSTANCE.register("repeat_3", new RepeatDescriptor(3));
+  public final Descriptor REPEAT_5 = INSTANCE.register("repeat_5", new RepeatDescriptor(5));
+  public final Descriptor REPEAT_7 = INSTANCE.register("repeat_7", new RepeatDescriptor(7));
 }

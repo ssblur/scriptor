@@ -8,13 +8,9 @@
       {
         "action": "break",
         "descriptors": [
-          "chain",
-          "chain",
-          "chain",
-          "chain",
-          "chain",
-          "chain",
-          "chain",
+          "repeat_2",
+          "repeat_2",
+          "repeat_2",
           "chain",
           "healthy"
         ]
