@@ -19,4 +19,9 @@ public class RepeatDescriptor extends Descriptor {
   public Cost cost() {
     return Cost.add(0);
   }
+
+  @Override
+  public boolean allowsDuplicates() {
+    return true;
+  }
 }
