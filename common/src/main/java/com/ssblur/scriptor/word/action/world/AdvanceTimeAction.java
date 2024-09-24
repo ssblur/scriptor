@@ -1,4 +1,4 @@
-package com.ssblur.scriptor.word.action;
+package com.ssblur.scriptor.word.action.world;
 
 import com.ssblur.scriptor.api.word.Action;
 import com.ssblur.scriptor.api.word.Descriptor;
@@ -6,7 +6,7 @@ import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.api.word.descriptor.StrengthDescriptor;
 import net.minecraft.server.level.ServerLevel;
 
-public class ClearWeatherAction extends Action {
+public class AdvanceTimeAction extends Action {
   @Override
   public void apply(Targetable caster, Targetable targetable, Descriptor[] descriptors) {
     if(targetable.getLevel().isClientSide) return;
@@ -17,8 +17,8 @@ public class ClearWeatherAction extends Action {
     }
 
     var serverLevel = (ServerLevel) targetable.getLevel();
-    serverLevel.setWeatherParameters((int) strength * 2000, 0, false, false);
+    serverLevel.setDayTime(serverLevel.getDayTime() + (long) (1000 * strength));
   }
   @Override
-  public Cost cost() { return new Cost(51, COSTTYPE.ADDITIVE); }
+  public Cost cost() { return new Cost(52, COSTTYPE.ADDITIVE); }
 }

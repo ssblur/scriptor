@@ -8,6 +8,8 @@ import com.ssblur.scriptor.word.action.bound.BoundToolAction;
 import com.ssblur.scriptor.word.action.teleport.BringAction;
 import com.ssblur.scriptor.word.action.teleport.GotoAction;
 import com.ssblur.scriptor.word.action.teleport.SwapAction;
+import com.ssblur.scriptor.word.action.world.*;
+import com.ssblur.scriptor.word.action.world.block.*;
 
 @SuppressWarnings("unused")
 public class Actions {
