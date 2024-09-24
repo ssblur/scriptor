@@ -22,7 +22,14 @@ public class HealAction extends Action {
 
     strength = Math.max(strength, 0);
 
-    var itemTarget = ItemTargetableHelper.getTargetItemStack(targetable, false, itemStack -> !itemStack.isEmpty() && itemStack.isDamageableItem());
+    var itemTarget = ItemTargetableHelper.getTargetItemStack(
+      targetable,
+      false,
+      itemStack ->
+        !itemStack.isEmpty() &&
+        itemStack.isDamageableItem() &&
+        itemStack.isDamaged()
+    );
     if (itemTarget.isDamageableItem()) {
       itemTarget.setDamageValue(itemTarget.getDamageValue() - (int) Math.round(strength));
       return;
@@ -32,7 +39,7 @@ public class HealAction extends Action {
       var item = itemTargetable.getTargetItem();
       if(item != null && !item.isEmpty()) {
         if(item.isDamageableItem()) {
-          item.setDamageValue(item.getDamageValue() - (int) Math.round(strength));
+          item.setDamageValue(item.getDamageValue() - (int) Math.round(strength * 2));
           return;
         }
       }
