@@ -1,4 +1,4 @@
-package com.ssblur.scriptor.word.action;
+package com.ssblur.scriptor.word.action.world.block;
 
 import com.ssblur.scriptor.api.word.Action;
 import com.ssblur.scriptor.api.word.Descriptor;
