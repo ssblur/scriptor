@@ -39,7 +39,8 @@ public class SpellbookHelper {
 
     Spell spell = DictionarySavedData.computeIfAbsent(server).parse(LimitedBookSerializer.decodeText(text));
     if(spell != null) {
-      if(spell.cost() > level.getGameRules().getInt(ScriptorGameRules.TOME_MAX_COST)) {
+      int maxCost = level.getGameRules().getInt(ScriptorGameRules.TOME_MAX_COST);
+      if(spell.cost() > maxCost || maxCost == -1) {
         player.sendSystemMessage(Component.translatable("extra.scriptor.fizzle"));
         ScriptorAdvancements.FIZZLE.get().trigger((ServerPlayer) player);
         if(!player.isCreative())
