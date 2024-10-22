@@ -45,9 +45,7 @@ public class PlaceBlockAction extends Action {
           new BlockHitResult(targetable.getTargetPos(), targetable.getFacing(), targetable.getTargetBlockPos(), false)
         )
       );
-      if(status.consumesAction())
-        itemFocus.shrink(1);
-      else
+      if(!status.shouldSwing())
         ParticleNetwork.fizzle(level, targetable.getTargetBlockPos());
     } else {
       ColorableBlockRegistry.DYE_COLORABLE_BLOCKS.MAGIC_BLOCK.setColor(color, level, pos);
