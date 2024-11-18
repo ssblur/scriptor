@@ -19,13 +19,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.List;
 
 @Mixin(ServerGamePacketListenerImpl.class)
-public abstract class ServerGamePacketListenerImplMixin {
+public abstract class ScriptorServerGamePacketListenerImplMixin {
   @Shadow public ServerPlayer player;
 
   @Shadow protected abstract Filterable<String> filterableFromOutgoing(FilteredText filteredText);
 
   @Inject(method = "signBook", at = @At("HEAD"), cancellable = true)
-  private void signBook(FilteredText filteredText, List<FilteredText> list, int i, CallbackInfo info) {
+  private void scriptor$signBook(FilteredText filteredText, List<FilteredText> list, int i, CallbackInfo info) {
     ItemStack itemStack = this.player.getInventory().getItem(i);
     if (itemStack.is(ScriptorItems.WRITABLE_SPELLBOOK.get())) {
       ItemStack itemStack2 = itemStack.transmuteCopy(ScriptorItems.SPELLBOOK.get());

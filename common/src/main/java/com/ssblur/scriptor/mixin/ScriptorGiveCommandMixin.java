@@ -16,9 +16,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Collection;
 
 @Mixin(GiveCommand.class)
-public class GiveCommandCommunityMixin {
+public class ScriptorGiveCommandMixin {
   @Inject(method = "giveItem", at = @At("HEAD"), cancellable = true)
-  private static void bookChanged(
+  private static void scriptor$giveItem(
     CommandSourceStack commandSourceStack,
     ItemInput itemInput,
     Collection<ServerPlayer> collection,

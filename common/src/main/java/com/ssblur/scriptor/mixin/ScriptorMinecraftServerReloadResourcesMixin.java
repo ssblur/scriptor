@@ -14,11 +14,11 @@ import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 
 @Mixin(MinecraftServer.class)
-public class ReloadResourcesMixin {
+public class ScriptorMinecraftServerReloadResourcesMixin {
   @Shadow private PlayerList playerList;
 
   @Inject(method = "reloadResources", at = @At("HEAD"))
-  private void bookChanged(
+  private void scriptor$reloadResources(
     Collection<String> collection,
     CallbackInfoReturnable<CompletableFuture<Void>> info
   ) {

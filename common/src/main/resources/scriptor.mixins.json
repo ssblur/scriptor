@@ -6,18 +6,18 @@
     "BlockPlaceContextAccessor",
     "BlockRenderDispatcherAccessor",
     "DimensionDataStorageAccessor",
-    "GiveCommandCommunityMixin",
-    "LecternBlockEntitySpellbookMixin",
-    "ReloadResourcesMixin",
-    "ServerGamePacketListenerImplMixin",
+    "ScriptorAnimalMixin",
+    "ScriptorGiveCommandMixin",
+    "ScriptorLecternBlockEntityMixin",
+    "ScriptorMinecraftServerReloadResourcesMixin",
+    "ScriptorServerGamePacketListenerImplMixin",
     "SheepAccessor",
-    "SheepColorableInject",
-    "SheepMatingMixin"
+    "SheepColorableInject"
   ],
   "client": [
     "BlockItemColorableInject",
-    "BookViewScreenSpellbookMixin",
-    "ItemWithCustomRendererMixin"
+    "ScriptorBookViewScreenMixin",
+    "ScriptorItemInHandRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

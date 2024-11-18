@@ -16,9 +16,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin(ItemInHandRenderer.class)
-public class ItemWithCustomRendererMixin {
+public class ScriptorItemInHandRendererMixin {
   @Inject(method = "renderArmWithItem", at = @At("HEAD"), cancellable = true)
-  public void render(
+  public void scriptor$renderArmWithItem(
     AbstractClientPlayer player,
     float i,
     float pitch,

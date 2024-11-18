@@ -16,6 +16,7 @@ public class ScriptorDataComponents {
   public static final DataComponentType<Long> EXPIRES = registerLong("expires");
   public static final DataComponentType<Boolean> COMMUNITY_MODE = registerBool("community_mode");
   public static final DataComponentType<Integer> CHARGES = registerInt("charge");
+  public static final DataComponentType<Integer> TOOL_MINING_LEVEL = registerInt("tool_mining_level");
   public static final DataComponentType<String> SPELL = register("spell",
     builder -> builder.persistent(Codec.STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8)
   );

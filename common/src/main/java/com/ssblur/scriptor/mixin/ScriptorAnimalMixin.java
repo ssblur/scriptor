@@ -12,12 +12,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.List;
 
 @Mixin(Animal.class)
-public class SheepMatingMixin {
+public class ScriptorAnimalMixin {
   @Unique
   List<Class<?>> scriptor$SHEEP = List.of(Sheep.class, ColorfulSheep.class);
 
   @Inject(method = "canMate", at = @At("RETURN"), cancellable = true)
-  private void canMate(Animal animal, CallbackInfoReturnable<Boolean> info) {
+  private void scriptor$canMate(Animal animal, CallbackInfoReturnable<Boolean> info) {
     var self = (Animal) (Object) this;
     if(scriptor$SHEEP.contains(self.getClass()) && scriptor$SHEEP.contains(animal.getClass()))
       info.setReturnValue(true);

@@ -13,9 +13,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LecternBlockEntity.class)
-public class LecternBlockEntitySpellbookMixin {
+public class ScriptorLecternBlockEntityMixin {
   @Inject(method = "hasBook", at = @At("HEAD"), cancellable = true)
-  public void hasBook(CallbackInfoReturnable<Boolean> info) {
+  public void scriptor$hasBook(CallbackInfoReturnable<Boolean> info) {
     var self = (LecternBlockEntity) (Object) this;
     if(self.getBook().is(ScriptorTags.READABLE_SPELLBOOKS)) {
       info.setReturnValue(true);
@@ -23,7 +23,7 @@ public class LecternBlockEntitySpellbookMixin {
   }
 
   @Inject(method = "resolveBook", at = @At("HEAD"))
-  private void resolveBook(ItemStack itemStack, @Nullable Player player, CallbackInfoReturnable<ItemStack> info) {
+  private void scriptor$resolveBook(ItemStack itemStack, @Nullable Player player, CallbackInfoReturnable<ItemStack> info) {
     var self = ((LecternBlockEntity) (Object) this);
     if (self.getLevel() instanceof ServerLevel && itemStack.is(ScriptorTags.READABLE_SPELLBOOKS)) {
       WrittenBookItem.resolveBookComponents(itemStack, self.createCommandSourceStack(player), player);
