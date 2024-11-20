@@ -30,7 +30,7 @@ public class PhasedBlockBlockEntity extends BlockEntity {
   public void tick() {
     countdown--;
     if(countdown <= 0 && level != null) {
-      level.setBlockAndUpdate(getBlockPos(), blockState);
+      level.setBlock(getBlockPos(), blockState, 22);
       if(data != null && !level.isClientSide) {
         var entity = BlockEntity.loadStatic(getBlockPos(), blockState, data, level.registryAccess());
         if(entity != null)
