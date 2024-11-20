@@ -67,7 +67,7 @@ public class PhasedBlockBlockEntity extends BlockEntity {
     newEntity.countdown = duration;
 
     level.removeBlockEntity(pos);
-    level.setBlockAndUpdate(pos, newState);
+    level.setBlock(pos, newState, 22);
     level.setBlockEntity(newEntity);
 
     level.sendBlockUpdated(pos, newState, newState, 7);
