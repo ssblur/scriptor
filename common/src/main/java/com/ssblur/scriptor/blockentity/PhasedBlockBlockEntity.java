@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.blockentity;
 
+import com.ssblur.scriptor.block.ScriptorBlockTags;
 import com.ssblur.scriptor.block.ScriptorBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -9,7 +10,6 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
@@ -57,7 +57,7 @@ public class PhasedBlockBlockEntity extends BlockEntity {
     var state = level.getBlockState(pos);
     var entity = level.getBlockEntity(pos);
 
-    if(state.is(Blocks.BEDROCK) || state.liquid() || state.isAir()) return;
+    if(state.is(ScriptorBlockTags.DO_NOT_PHASE) || state.liquid() || state.isAir()) return;
 
     var newState = ScriptorBlocks.PHASED_BLOCK.get().defaultBlockState();
     var newEntity = new PhasedBlockBlockEntity(pos, newState);

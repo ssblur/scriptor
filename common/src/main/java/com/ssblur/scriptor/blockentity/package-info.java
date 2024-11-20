@@ -1,4 +1,7 @@
 @ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 package com.ssblur.scriptor.blockentity;
+
+import net.minecraft.MethodsReturnNonnullByDefault;
 
 import javax.annotation.ParametersAreNonnullByDefault;
