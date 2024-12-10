@@ -40,13 +40,13 @@ public class EngravingResource {
     List<PartialSpell> spells = new ArrayList<>();
 
     for(var spell: spell.spells) {
-      Action action = WordRegistry.INSTANCE.actionRegistry.get(spell.action);
+      Action action = WordRegistry.INSTANCE.getActionRegistry().get(spell.action);
       if (action == null)
         throw new WordNotFoundException(spell.action);
 
       ArrayList<Descriptor> descriptors = new ArrayList<>();
       for (String string : spell.descriptors) {
-        Descriptor descriptor = WordRegistry.INSTANCE.descriptorRegistry.get(string);
+        Descriptor descriptor = WordRegistry.INSTANCE.getDescriptorRegistry().get(string);
         if (descriptor == null)
           throw new WordNotFoundException(string);
         descriptors.add(descriptor);
@@ -55,7 +55,7 @@ public class EngravingResource {
       spells.add(new PartialSpell(action, descriptors.toArray(Descriptor[]::new)));
     }
 
-    Subject subject = WordRegistry.INSTANCE.subjectRegistry.get(spell.subject);
+    Subject subject = WordRegistry.INSTANCE.getSubjectRegistry().get(spell.subject);
     if(subject == null)
       throw new WordNotFoundException(spell.subject);
 

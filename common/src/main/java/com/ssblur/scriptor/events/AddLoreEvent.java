@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.events;
 
 import com.google.common.base.MoreObjects;
-import com.ssblur.scriptor.data_components.ScriptorDataComponents;
+import com.ssblur.scriptor.data.components.ScriptorDataComponents;
 import dev.architectury.event.events.client.ClientTooltipEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;

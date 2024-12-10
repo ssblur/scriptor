@@ -1,6 +1,6 @@
 package com.ssblur.scriptor.events.network.client;
 
-import com.ssblur.scriptor.data_components.ScriptorDataComponents;
+import com.ssblur.scriptor.data.components.ScriptorDataComponents;
 import com.ssblur.scriptor.events.network.ScriptorNetwork;
 import com.ssblur.scriptor.events.network.ScriptorNetworkInterface;
 import dev.architectury.networking.NetworkManager;

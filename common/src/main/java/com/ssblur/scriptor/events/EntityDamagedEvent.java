@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.events;
 
 import com.google.common.base.MoreObjects;
-import com.ssblur.scriptor.data_components.ScriptorDataComponents;
+import com.ssblur.scriptor.data.components.ScriptorDataComponents;
 import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.EntityEvent;
 import net.minecraft.world.damagesource.DamageSource;

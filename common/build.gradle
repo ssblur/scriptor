@@ -1,3 +1,7 @@
+plugins {
+  id 'org.jetbrains.kotlin.jvm'
+}
+
 architectury {
     common(rootProject.enabled_platforms.split(","))
 }
@@ -12,12 +16,16 @@ dependencies {
   modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
   // Remove the next line if you don't want to depend on the API
   modImplementation "dev.architectury:architectury:${rootProject.architectury_version}"
+
+  modCompileOnlyApi "com.ssblur.unfocused:unfocused-common:${rootProject.unfocused_version}" changing true
+
   compileOnly 'com.google.code.findbugs:jsr305:3.0.1'
 
   modCompileOnlyApi "mezz.jei:jei-${minecraft_version}-common-api:${rootProject.jei_version}"
 
   // EMI
   modCompileOnlyApi "dev.emi:emi-xplat-intermediary:${emi_version}:api"
+
 }
 
 publishing {
@@ -32,4 +40,12 @@ publishing {
     repositories {
         // Add repositories to publish to here.
     }
+}
+
+repositories {
+  mavenCentral()
+}
+
+kotlin {
+  jvmToolchain(21)
 }

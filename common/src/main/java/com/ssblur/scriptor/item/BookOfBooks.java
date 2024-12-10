@@ -1,8 +1,8 @@
 package com.ssblur.scriptor.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.ssblur.scriptor.data_components.BookOfBooksData;
-import com.ssblur.scriptor.data_components.ScriptorDataComponents;
+import com.ssblur.scriptor.data.components.BookOfBooksData;
+import com.ssblur.scriptor.data.components.ScriptorDataComponents;
 import com.ssblur.scriptor.helpers.SpellbookHelper;
 import com.ssblur.scriptor.item.interfaces.ItemWithCustomRenderer;
 import net.minecraft.ChatFormatting;
@@ -92,13 +92,13 @@ public class BookOfBooks extends Item implements ItemWithCustomRenderer {
     if(data == null)
       return List.of();
 
-    return data.items();
+    return data.items;
   }
 
   static int getActiveSlot(ItemStack book) {
     var data = book.get(ScriptorDataComponents.BOOK_OF_BOOKS);
     if(data == null) return 0;
-    return data.active();
+    return data.active;
   }
 
   static ItemStack getActiveItem(ItemStack book) {
@@ -115,11 +115,11 @@ public class BookOfBooks extends Item implements ItemWithCustomRenderer {
     var data = book.get(ScriptorDataComponents.BOOK_OF_BOOKS);
     if(data == null) return;
 
-    var list = new ArrayList<>(data.items());
+    var list = new ArrayList<>(data.items);
     if(list.isEmpty()) return;
 
     var item = list.remove(list.size() - 1);
-    book.set(ScriptorDataComponents.BOOK_OF_BOOKS, new BookOfBooksData(list, data.active()));
+    book.set(ScriptorDataComponents.BOOK_OF_BOOKS, new BookOfBooksData(list, data.active));
     slotAccess.set(item);
   }
 
@@ -132,10 +132,10 @@ public class BookOfBooks extends Item implements ItemWithCustomRenderer {
     if(data == null)
       data = new BookOfBooksData(List.of(), 0);
 
-    var list = new ArrayList<>(data.items());
+    var list = new ArrayList<>(data.items);
 
     list.add(insert);
-    book.set(ScriptorDataComponents.BOOK_OF_BOOKS, new BookOfBooksData(list, data.active()));
+    book.set(ScriptorDataComponents.BOOK_OF_BOOKS, new BookOfBooksData(list, data.active));
   }
 
   @Override

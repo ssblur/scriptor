@@ -1,11 +1,11 @@
 package com.ssblur.scriptor.events;
 
-import com.ssblur.scriptor.damage.ScriptorDamage;
+import com.ssblur.scriptor.ScriptorDamage;
+import com.ssblur.scriptor.config.ChatRules;
+import com.ssblur.scriptor.config.ScriptorGameRules;
 import com.ssblur.scriptor.data.DictionarySavedData;
 import com.ssblur.scriptor.effect.EmpoweredStatusEffect;
 import com.ssblur.scriptor.effect.ScriptorEffects;
-import com.ssblur.scriptor.gamerules.ChatRules;
-import com.ssblur.scriptor.gamerules.ScriptorGameRules;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.word.Spell;
 import dev.architectury.event.EventResult;
@@ -29,10 +29,10 @@ public class SpellChatEvents implements ChatEvent.Received {
       if (level instanceof ServerLevel server) {
         Spell spell = DictionarySavedData.computeIfAbsent(server).parse(sentence);
         if (spell != null) {
-          if (player.hasEffect(ScriptorEffects.get(ScriptorEffects.HOARSE))) {
+          if (player.hasEffect(ScriptorEffects.INSTANCE.getHOARSE())) {
             player.sendSystemMessage(Component.translatable("extra.scriptor.hoarse"));
             return EventResult.interruptFalse();
-          } else if (player.hasEffect(ScriptorEffects.get(ScriptorEffects.MUTE))) {
+          } else if (player.hasEffect(ScriptorEffects.INSTANCE.getMUTE())) {
             player.sendSystemMessage(Component.translatable("extra.scriptor.mute"));
             return EventResult.interruptFalse();
           }
@@ -50,7 +50,7 @@ public class SpellChatEvents implements ChatEvent.Received {
 		
 		  int adjustedCost = (int) Math.round( (double)cost * ( (double) level.getGameRules().getInt(ScriptorGameRules.VOCAL_COOLDOWN_MULTIPLIER) / (double) 100 ) );
 		  if (!player.isCreative()) {
-        player.addEffect(new MobEffectInstance(ScriptorEffects.get(ScriptorEffects.HOARSE), adjustedCost));
+        player.addEffect(new MobEffectInstance(ScriptorEffects.INSTANCE.getHOARSE(), adjustedCost));
 			  if (adjustedCost > level.getGameRules().getInt(ScriptorGameRules.VOCAL_HUNGER_THRESHOLD))
 				  player.addEffect(new MobEffectInstance(MobEffects.HUNGER, 2*(adjustedCost - level.getGameRules().getInt(ScriptorGameRules.VOCAL_HUNGER_THRESHOLD))));
 			  if (adjustedCost > level.getGameRules().getInt(ScriptorGameRules.VOCAL_DAMAGE_THRESHOLD))

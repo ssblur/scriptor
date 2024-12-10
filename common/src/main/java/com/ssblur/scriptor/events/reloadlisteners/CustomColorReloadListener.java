@@ -36,7 +36,7 @@ public class CustomColorReloadListener extends ScriptorReloadListener {
     assert json.has("color");
 
     var name = resourceLocation.toShortLanguageKey();
-    ScriptorMod.LOGGER.info("Loaded custom color " + name);
+    ScriptorMod.INSTANCE.getLOGGER().info("Loaded custom color " + name);
     if(json.get("color") instanceof JsonArray array) {
       int[] colors = array
         .asList()
@@ -44,14 +44,14 @@ public class CustomColorReloadListener extends ScriptorReloadListener {
         .map(element -> Integer.parseInt(element.getAsString(), 16))
         .mapToInt(i -> i)
         .toArray();
-      int index = CustomColors.registerWithEasing(name, colors);
+      int index = CustomColors.INSTANCE.registerWithEasing(name, colors);
       cache.add(new Triplet<>(index, name, colors));
       WordRegistry.INSTANCE.register(
         "color." + resourceLocation.toShortLanguageKey(),
         new CustomColorDescriptor(name)
       );
     } else if(json.get("color").isJsonPrimitive()) {
-      CustomColors.registerWithEasing(
+      CustomColors.INSTANCE.registerWithEasing(
         name,
         new int[]{
           Integer.parseInt(json.get("color").getAsString(), 16)

@@ -1,7 +1,6 @@
 package com.ssblur.scriptor.word.action.potions;
 
 import com.ssblur.scriptor.api.word.Descriptor;
-import com.ssblur.scriptor.api.word.Word;
 import com.ssblur.scriptor.events.network.client.ParticleNetwork;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import net.minecraft.world.effect.MobEffects;
@@ -12,7 +11,7 @@ import java.util.Random;
 public class WitherAction extends PotionAction {
   static final Random RANDOM = new Random();
   public WitherAction() {
-    super(MobEffects.WITHER, 30, 1d/3d, new Word.Cost(12, Word.COSTTYPE.ADDITIVE));
+    super(MobEffects.WITHER, 30, 1d/3d, new Cost(12, COSTTYPE.ADDITIVE));
   }
 
   @Override

@@ -1,6 +1,6 @@
 package com.ssblur.scriptor.item.casters;
 
-import com.ssblur.scriptor.data_components.ScriptorDataComponents;
+import com.ssblur.scriptor.data.components.ScriptorDataComponents;
 import com.ssblur.scriptor.events.network.server.ServerTraceNetwork;
 import com.ssblur.scriptor.helpers.ComponentHelper;
 import com.ssblur.scriptor.helpers.targetable.Targetable;

@@ -1,7 +1,6 @@
 package com.ssblur.scriptor.word.action.potions;
 
 import com.ssblur.scriptor.api.word.Descriptor;
-import com.ssblur.scriptor.api.word.Word;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BoneMealItem;
@@ -9,7 +8,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class StrengthAction extends PotionAction {
   public StrengthAction() {
-    super(MobEffects.DAMAGE_BOOST, 40, 1d/3d, new Word.Cost(9, Word.COSTTYPE.ADDITIVE));
+    super(MobEffects.DAMAGE_BOOST, 40, 1d/3d, new Cost(9, COSTTYPE.ADDITIVE));
   }
 
   @Override

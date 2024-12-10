@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 
 @SuppressWarnings("ConstantConditions")
 public class ScriptorBlockEntities {
-  public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ScriptorMod.MOD_ID, Registries.BLOCK_ENTITY_TYPE);
+  public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ScriptorMod.INSTANCE.MOD_ID, Registries.BLOCK_ENTITY_TYPE);
 
   public static final RegistrySupplier<BlockEntityType<RuneBlockEntity>> RUNE = BLOCK_ENTITIES.register(
     "rune",

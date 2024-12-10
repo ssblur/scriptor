@@ -23,7 +23,7 @@ public class HitscanSubject extends Subject {
     var result = new CompletableFuture<List<Targetable>>();
     if(caster instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof Player player) {
       ServerTraceNetwork.requestExtendedTraceData(player, target -> {
-        int color = CustomColors.getColor(spell.deduplicatedDescriptorsForSubjects());
+        int color = CustomColors.INSTANCE.getColor(spell.deduplicatedDescriptorsForSubjects());
         ParticleNetwork.magicTrail(target.getLevel(), color, player.getEyePosition(), target.getTargetPos());
         result.complete(List.of(target));
       });

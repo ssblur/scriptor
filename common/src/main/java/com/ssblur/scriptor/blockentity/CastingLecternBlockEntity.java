@@ -1,9 +1,9 @@
 package com.ssblur.scriptor.blockentity;
 
 import com.ssblur.scriptor.block.CastingLecternBlock;
+import com.ssblur.scriptor.config.ScriptorGameRules;
 import com.ssblur.scriptor.data.DictionarySavedData;
 import com.ssblur.scriptor.events.network.client.ParticleNetwork;
-import com.ssblur.scriptor.gamerules.ScriptorGameRules;
 import com.ssblur.scriptor.helpers.LimitedBookSerializer;
 import com.ssblur.scriptor.helpers.targetable.LecternTargetable;
 import com.ssblur.scriptor.item.casters.CasterCrystal;

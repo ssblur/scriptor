@@ -5,6 +5,6 @@ import com.ssblur.scriptor.color.CustomColors;
 
 public class CustomColorDescriptor extends ColorDescriptor {
   public CustomColorDescriptor(String color) {
-    super(CustomColors.getKey(color));
+    super(CustomColors.INSTANCE.getKey(color));
   }
 }

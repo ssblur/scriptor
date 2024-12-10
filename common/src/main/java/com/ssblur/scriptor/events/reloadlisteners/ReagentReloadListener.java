@@ -44,7 +44,7 @@ public class ReagentReloadListener extends ScriptorReloadListener {
   @Override
   public void loadResource(ResourceLocation resourceLocation, JsonElement jsonElement) {
     ReagentResource resource = GSON.fromJson(jsonElement, REAGENT_TYPE);
-    ScriptorMod.LOGGER.info(
+    ScriptorMod.INSTANCE.getLOGGER().info(
       "Loaded reagent {}. Item: {} Cost: {}",
       resourceLocation.toShortLanguageKey(),
       resource.item,
@@ -54,7 +54,7 @@ public class ReagentReloadListener extends ScriptorReloadListener {
       "reagent." + resourceLocation.toShortLanguageKey(),
       WordRegistry.INSTANCE.register(
         "reagent." + resourceLocation.toShortLanguageKey(),
-        new ReagentDescriptor(ScriptorItems.ITEMS.getRegistrar().get(ResourceLocation.parse(resource.item)), resource.cost)
+        new ReagentDescriptor(ScriptorItems.INSTANCE.getITEMS().getRegistrar().get(ResourceLocation.parse(resource.item)), resource.cost)
       )
     );
   }

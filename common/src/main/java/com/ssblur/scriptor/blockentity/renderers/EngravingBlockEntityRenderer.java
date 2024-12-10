@@ -19,10 +19,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 public class EngravingBlockEntityRenderer implements BlockEntityRenderer<EngravingBlockEntity> {
-  static ResourceLocation magicCircleS = ScriptorMod.location("textures/entity/engraving_edge.png");
-  static ResourceLocation magicCircleE = ScriptorMod.location("textures/entity/engraving_edge_2.png");
-  static ResourceLocation magicCircleN = ScriptorMod.location("textures/entity/engraving_edge_3.png");
-  static ResourceLocation magicCircleW = ScriptorMod.location("textures/entity/engraving_edge_4.png");
+  static ResourceLocation magicCircleS = ScriptorMod.INSTANCE.location("textures/entity/engraving_edge.png");
+  static ResourceLocation magicCircleE = ScriptorMod.INSTANCE.location("textures/entity/engraving_edge_2.png");
+  static ResourceLocation magicCircleN = ScriptorMod.INSTANCE.location("textures/entity/engraving_edge_3.png");
+  static ResourceLocation magicCircleW = ScriptorMod.INSTANCE.location("textures/entity/engraving_edge_4.png");
   static RenderType circleLayerN =
     RenderType
       .create(
@@ -71,7 +71,7 @@ public class EngravingBlockEntityRenderer implements BlockEntityRenderer<Engravi
   static RenderType circleLayerW =
     RenderType
       .create(
-        ScriptorMod.MOD_ID + ":engraving_edge_west",
+        ScriptorMod.INSTANCE.MOD_ID + ":engraving_edge_west",
         DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP,
         VertexFormat.Mode.QUADS,
         64,

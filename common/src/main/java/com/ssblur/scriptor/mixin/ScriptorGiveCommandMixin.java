@@ -25,10 +25,10 @@ public class ScriptorGiveCommandMixin {
     int i,
     CallbackInfoReturnable<Integer> info
   ) {
-    if(ScriptorMod.COMMUNITY_MODE && itemInput.getItem() instanceof AncientSpellbook) {
+    if(ScriptorMod.INSTANCE.getCOMMUNITY_MODE() && itemInput.getItem() instanceof AncientSpellbook) {
       collection.forEach(player -> player.sendSystemMessage(Component.translatable("command.scriptor.community_mode_give_tome")));
       info.setReturnValue(0);
-    } else if(ScriptorMod.COMMUNITY_MODE && itemInput.getItem() instanceof AncientScrap) {
+    } else if(ScriptorMod.INSTANCE.getCOMMUNITY_MODE() && itemInput.getItem() instanceof AncientScrap) {
       collection.forEach(player -> player.sendSystemMessage(Component.translatable("command.scriptor.community_mode_give_scrap")));
       info.setReturnValue(0);
     }

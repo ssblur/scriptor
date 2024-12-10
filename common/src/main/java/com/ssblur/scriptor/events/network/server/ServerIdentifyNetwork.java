@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.events.network.server;
 
 import com.ssblur.scriptor.data.DictionarySavedData;
-import com.ssblur.scriptor.data_components.ScriptorDataComponents;
+import com.ssblur.scriptor.data.components.ScriptorDataComponents;
 import com.ssblur.scriptor.events.network.ScriptorNetwork;
 import com.ssblur.scriptor.events.network.ScriptorNetworkInterface;
 import com.ssblur.scriptor.helpers.LimitedBookSerializer;

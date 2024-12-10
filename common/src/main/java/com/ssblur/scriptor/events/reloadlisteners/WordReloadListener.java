@@ -54,7 +54,7 @@ public class WordReloadListener extends ScriptorReloadListener {
   @Override
   public void loadResource(ResourceLocation resourceLocation, JsonElement jsonElement) {
     WordResource resource = GSON.fromJson(jsonElement, WORD_TYPE);
-    ScriptorMod.LOGGER.info(
+    ScriptorMod.INSTANCE.getLOGGER().info(
       "Loaded word {}. Cost: {}",
       resourceLocation.toShortLanguageKey(),
       resource.cost

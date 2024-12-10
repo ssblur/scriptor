@@ -44,7 +44,7 @@ public class ServerUseBookNetwork implements ScriptorNetworkInterface<ServerUseB
     if (text != null && level instanceof ServerLevel server) {
       Spell spell = DictionarySavedData.computeIfAbsent(server).parse(LimitedBookSerializer.decodeText(text));
       if (spell == null) return;
-      if (spell.subject() instanceof InventorySubject subject) {
+      if (spell.subject instanceof InventorySubject subject) {
         subject.castOnItem(spell, player, item);
         player.getCooldowns().addCooldown(carried.getItem(), (int) Math.round(spell.cost() * 7));
       }

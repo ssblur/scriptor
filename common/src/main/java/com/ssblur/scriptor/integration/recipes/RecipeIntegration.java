@@ -32,7 +32,7 @@ public class RecipeIntegration {
 
   public static void registerItemInfo(InformationRegistrar informationRegistrar) {
     informationRegistrar.register(
-      ScriptorMod.location("spellbook_info"),
+      ScriptorMod.INSTANCE.location("spellbook_info"),
       SpellbookHelper.SPELLBOOKS.stream().map(ItemStack::new).toList(),
       Component.translatable("info.scriptor.spellbook_1"),
       Component.translatable("info.scriptor.spellbook_2"),
@@ -40,20 +40,20 @@ public class RecipeIntegration {
     );
 
     informationRegistrar.register(
-      ScriptorMod.location("book_of_books_info"),
-      List.of(new ItemStack(ScriptorItems.BOOK_OF_BOOKS)),
+      ScriptorMod.INSTANCE.location("book_of_books_info"),
+      List.of(new ItemStack(ScriptorItems.INSTANCE.getBOOK_OF_BOOKS())),
       Component.translatable("info.scriptor.book_of_books_1"),
       Component.translatable("info.scriptor.book_of_books_2"),
       Component.translatable("info.scriptor.book_of_books_3")
     );
 
     informationRegistrar.register(
-      ScriptorMod.location("bound_tool_info"),
+      ScriptorMod.INSTANCE.location("bound_tool_info"),
       List.of(
-        new ItemStack(ScriptorItems.BOUND_SWORD),
-        new ItemStack(ScriptorItems.BOUND_AXE.get()),
-        new ItemStack(ScriptorItems.BOUND_PICKAXE.get()),
-        new ItemStack(ScriptorItems.BOUND_SHOVEL.get())
+        new ItemStack(ScriptorItems.INSTANCE.getBOUND_SWORD()),
+        new ItemStack(ScriptorItems.INSTANCE.getBOUND_AXE().get()),
+        new ItemStack(ScriptorItems.INSTANCE.getBOUND_PICKAXE().get()),
+        new ItemStack(ScriptorItems.INSTANCE.getBOUND_SHOVEL().get())
       ),
       Component.translatable("info.scriptor.bound_tool_1"),
       Component.translatable("info.scriptor.bound_tool_2")
@@ -61,12 +61,12 @@ public class RecipeIntegration {
   }
 
   public static void registerRecipes(RecipesHolder recipesHolder, ShapelessRecipeRegistrar shapelessRecipeRegistrar) {
-    var registrar = ScriptorItems.ITEMS.getRegistrar();
+    var registrar = ScriptorItems.INSTANCE.getITEMS().getRegistrar();
     recipesHolder.recipes().forEach(holder -> {
         switch (holder.value()) {
           case SpellbookDyeingRecipe recipe -> shapelessRecipeRegistrar.register(
             List.of(
-              Ingredient.of(ScriptorTags.READABLE_SPELLBOOKS),
+              Ingredient.of(ScriptorTags.INSTANCE.getREADABLE_SPELLBOOKS()),
               recipe.addition
             ),
             recipe.result,
@@ -78,7 +78,7 @@ public class RecipeIntegration {
               Ingredient.of(new ItemStack(Items.PAPER)),
               Ingredient.of(new ItemStack(Items.PAPER)),
               Ingredient.of(new ItemStack(Items.PAPER)),
-              Ingredient.of(new ItemStack(ScriptorItems.SPELLBOOK_BINDER))
+              Ingredient.of(new ItemStack(ScriptorItems.INSTANCE.getSPELLBOOK_BINDER()))
             ),
             new ItemStack(spellbook),
             holder.id().withPath(holder.id().getPath() + registrar.getId(spellbook).toLanguageKey())

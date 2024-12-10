@@ -5,7 +5,7 @@ import com.google.gson.JsonElement;
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.data.DictionarySavedData;
 import com.ssblur.scriptor.data.PlayerSpellsSavedData;
-import com.ssblur.scriptor.data_components.ScriptorDataComponents;
+import com.ssblur.scriptor.data.components.ScriptorDataComponents;
 import com.ssblur.scriptor.helpers.resource.ScrapResource;
 import com.ssblur.scriptor.item.ScriptorItems;
 import net.minecraft.core.component.DataComponents;
@@ -52,7 +52,7 @@ public class ScrapReloadListener extends ScriptorReloadListener {
   public String getRandomScrapWord(int tier, Player player) {
     var keys = getTier(tier).keySet();
 
-    if(ScriptorMod.COMMUNITY_MODE) {
+    if(ScriptorMod.INSTANCE.getCOMMUNITY_MODE()) {
       var level = player.level();
       if(level instanceof ServerLevel serverLevel) {
         int bracket = (int) serverLevel.getSeed() % 5;
@@ -89,11 +89,11 @@ public class ScrapReloadListener extends ScriptorReloadListener {
 
   public ItemStack getRandomScrap(int tier, Player player) {
     var key = getRandomScrapWord(tier, player);
-    var itemStack = new ItemStack(ScriptorItems.SCRAP.get());
+    var itemStack = new ItemStack(ScriptorItems.INSTANCE.getSCRAP().get());
 
     itemStack.set(ScriptorDataComponents.SPELL, key);
     itemStack.set(DataComponents.ITEM_NAME, Component.literal(DictionarySavedData.computeIfAbsent((ServerLevel) player.level()).getWord(key)));
-    if(ScriptorMod.COMMUNITY_MODE)
+    if(ScriptorMod.INSTANCE.getCOMMUNITY_MODE())
       itemStack.set(ScriptorDataComponents.COMMUNITY_MODE, true);
 
     return itemStack;

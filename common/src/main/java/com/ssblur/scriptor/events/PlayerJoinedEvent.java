@@ -11,9 +11,9 @@ import net.minecraft.server.level.ServerPlayer;
 public class PlayerJoinedEvent implements PlayerEvent.PlayerJoin {
   @Override
   public void join(ServerPlayer player) {
-    if(ScriptorMod.COMMUNITY_MODE)
+    if(ScriptorMod.INSTANCE.getCOMMUNITY_MODE())
       ScriptorAdvancements.COMMUNITY.get().trigger(player);
-    ReceiveConfigNetwork.sendCommunityMode(player, ScriptorMod.COMMUNITY_MODE);
+    ReceiveConfigNetwork.sendCommunityMode(player, ScriptorMod.INSTANCE.getCOMMUNITY_MODE());
 
     PlayerSpellsSavedData.computeIfAbsent(player);
     ReceiveColorNetwork.syncColors(player);

@@ -12,7 +12,7 @@ public class BoundAxe extends AxeItem {
     super(tier, properties);
 
     if(Platform.getEnv() == EnvType.CLIENT)
-      ColorHandlerRegistry.registerItemColors((itemStack, t) -> t == 1 ? CustomColors.getColor(itemStack) : 0xFFFFFFFF, this);
+      ColorHandlerRegistry.registerItemColors((itemStack, t) -> t == 1 ? CustomColors.INSTANCE.getColor(itemStack) : 0xFFFFFFFF, this);
   }
 
 }

@@ -6,6 +6,6 @@ import net.fabricmc.api.ModInitializer;
 public class ScriptorModFabric implements ModInitializer {
     @Override
     public void onInitialize() {
-        ScriptorMod.init();
+      ScriptorMod.INSTANCE.init();
     }
 }

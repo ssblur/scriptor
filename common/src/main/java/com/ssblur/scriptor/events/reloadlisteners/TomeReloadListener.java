@@ -55,7 +55,7 @@ public class TomeReloadListener extends ScriptorReloadListener {
   public TomeResource getRandomTome(int tier, Player player) {
     var keys = tomes.get(tier).keySet();
 
-    if(ScriptorMod.COMMUNITY_MODE) {
+    if(ScriptorMod.INSTANCE.getCOMMUNITY_MODE()) {
       var level = player.level();
       if(level instanceof ServerLevel serverLevel) {
         int bracket = (int) serverLevel.getSeed() % 5;

@@ -2,10 +2,10 @@ package com.ssblur.scriptor.events.reloadlisteners;
 
 import com.google.gson.JsonElement;
 import com.ssblur.scriptor.ScriptorMod;
-import com.ssblur.scriptor.exceptions.InvalidGeneratorException;
-import com.ssblur.scriptor.exceptions.MissingRequiredElementException;
+import com.ssblur.scriptor.error.InvalidGeneratorException;
+import com.ssblur.scriptor.error.MissingRequiredElementException;
+import com.ssblur.scriptor.item.ScriptorTabs;
 import com.ssblur.scriptor.registry.TokenGeneratorRegistry;
-import com.ssblur.scriptor.tabs.ScriptorTabs;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.profiling.ProfilerFiller;
@@ -20,7 +20,7 @@ public class GeneratorReloadListener extends ScriptorReloadListener {
 
   @Override
   protected void apply(Map<ResourceLocation, JsonElement> objects, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
-    ScriptorMod.COMMUNITY_MODE = false;
+    ScriptorMod.INSTANCE.setCOMMUNITY_MODE(false);
     super.apply(objects, resourceManager, profilerFiller);
   }
 
@@ -37,8 +37,8 @@ public class GeneratorReloadListener extends ScriptorReloadListener {
       throw new InvalidGeneratorException(generator, resourceLocation);
 
     if(generator.equals("community")) {
-      ScriptorMod.LOGGER.info("Community mode generator loaded, locking down debug features.");
-      ScriptorMod.COMMUNITY_MODE = true;
+      ScriptorMod.INSTANCE.getLOGGER().info("Community mode generator loaded, locking down debug features.");
+      ScriptorMod.INSTANCE.setCOMMUNITY_MODE(true);
 
       var tab = ScriptorTabs.SCRIPTOR_TAB.get();
     }
@@ -48,17 +48,17 @@ public class GeneratorReloadListener extends ScriptorReloadListener {
 
     if(object.has("default") && object.get("default").getAsBoolean())
       if(
-        TokenGeneratorRegistry.INSTANCE.getDefaultGenerator() == null
-          || TokenGeneratorRegistry.INSTANCE.getDefaultGenerator().getNamespace().equals("scriptor")
+        TokenGeneratorRegistry.INSTANCE.defaultGenerator == null
+          || TokenGeneratorRegistry.INSTANCE.defaultGenerator.getNamespace().equals("scriptor")
           || !resourceLocation.getNamespace().equals("scriptor")
       )
         TokenGeneratorRegistry.INSTANCE.registerDefaultGenerator(resourceLocation);
       else
-        ScriptorMod.LOGGER.warn(
+        ScriptorMod.INSTANCE.getLOGGER().warn(
           "Skipping registration of default generator at {}; A default generator outside the 'scriptor' namespace was already registered.",
           resourceLocation
         );
 
-    ScriptorMod.LOGGER.info("Loaded custom generator at {}", resourceLocation);
+    ScriptorMod.INSTANCE.getLOGGER().info("Loaded custom generator at {}", resourceLocation);
   }
 }

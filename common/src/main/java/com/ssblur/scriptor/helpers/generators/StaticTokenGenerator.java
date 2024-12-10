@@ -3,7 +3,7 @@ package com.ssblur.scriptor.helpers.generators;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.ssblur.scriptor.exceptions.MissingRequiredElementException;
+import com.ssblur.scriptor.error.MissingRequiredElementException;
 import com.ssblur.scriptor.registry.TokenGeneratorRegistry;
 import org.jetbrains.annotations.Nullable;
 
@@ -40,7 +40,7 @@ public class StaticTokenGenerator extends TokenGenerator{
           token = shorten(token);
           break;
         case FALLBACK:
-          return TokenGeneratorRegistry.INSTANCE.getGenerator(TokenGeneratorRegistry.INSTANCE.getDefaultGenerator()).generateToken(key, null);
+          return TokenGeneratorRegistry.INSTANCE.getGenerator(TokenGeneratorRegistry.INSTANCE.defaultGenerator).generateToken(key, null);
       }
     usedTokens.put(token, true);
     return token;

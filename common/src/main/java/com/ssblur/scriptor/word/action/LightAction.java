@@ -31,7 +31,7 @@ public class LightAction extends Action {
       return;
     }
 
-    int color = CustomColors.getColor(descriptors);
+    int color = CustomColors.INSTANCE.getColor(descriptors);
     BlockPos pos = targetable.getTargetBlockPos();
     Level level = targetable.getLevel();
 

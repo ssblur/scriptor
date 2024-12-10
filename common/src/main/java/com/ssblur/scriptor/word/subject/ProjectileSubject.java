@@ -24,7 +24,7 @@ public class ProjectileSubject extends Subject {
   public CompletableFuture<List<Targetable>> getTargets(Targetable caster, Spell spell) {
     CompletableFuture<List<Targetable>> future = new CompletableFuture<>();
 
-    int color = CustomColors.getColor(spell.deduplicatedDescriptorsForSubjects());
+    int color = CustomColors.INSTANCE.getColor(spell.deduplicatedDescriptorsForSubjects());
     double duration = 12;
     double speed = 1;
     for(Descriptor d: spell.deduplicatedDescriptorsForSubjects()) {

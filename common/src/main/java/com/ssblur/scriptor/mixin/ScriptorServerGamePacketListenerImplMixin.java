@@ -1,6 +1,6 @@
 package com.ssblur.scriptor.mixin;
 
-import com.ssblur.scriptor.data_components.ScriptorDataComponents;
+import com.ssblur.scriptor.data.components.ScriptorDataComponents;
 import com.ssblur.scriptor.item.ScriptorItems;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
@@ -27,8 +27,8 @@ public abstract class ScriptorServerGamePacketListenerImplMixin {
   @Inject(method = "signBook", at = @At("HEAD"), cancellable = true)
   private void scriptor$signBook(FilteredText filteredText, List<FilteredText> list, int i, CallbackInfo info) {
     ItemStack itemStack = this.player.getInventory().getItem(i);
-    if (itemStack.is(ScriptorItems.WRITABLE_SPELLBOOK.get())) {
-      ItemStack itemStack2 = itemStack.transmuteCopy(ScriptorItems.SPELLBOOK.get());
+    if (itemStack.is(ScriptorItems.INSTANCE.getWRITABLE_SPELLBOOK().get())) {
+      ItemStack itemStack2 = itemStack.transmuteCopy(ScriptorItems.INSTANCE.getSPELLBOOK().get());
       itemStack2.remove(DataComponents.WRITABLE_BOOK_CONTENT);
       List<Filterable<Component>> list2 = list.stream().map(
         (filteredTextx) -> this.filterableFromOutgoing(filteredTextx).map(x -> (Component) Component.literal(x))

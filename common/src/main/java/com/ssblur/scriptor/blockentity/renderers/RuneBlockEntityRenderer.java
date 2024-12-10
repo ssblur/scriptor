@@ -15,8 +15,8 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
 public class RuneBlockEntityRenderer implements BlockEntityRenderer<RuneBlockEntity> {
-  static ResourceLocation magicCircle = ScriptorMod.location("textures/entity/magic_circle.png");
-  static ResourceLocation emptyCircle = ScriptorMod.location("textures/entity/empty_circle.png");
+  static ResourceLocation magicCircle = ScriptorMod.INSTANCE.location("textures/entity/magic_circle.png");
+  static ResourceLocation emptyCircle = ScriptorMod.INSTANCE.location("textures/entity/empty_circle.png");
   static RenderType magicLayer =
     RenderType
       .create(
@@ -35,7 +35,7 @@ public class RuneBlockEntityRenderer implements BlockEntityRenderer<RuneBlockEnt
   static RenderType emptyLayer =
     RenderType
       .create(
-        ScriptorMod.MOD_ID + ":circle",
+        ScriptorMod.INSTANCE.MOD_ID + ":circle",
         DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP,
         VertexFormat.Mode.QUADS,
         64,
@@ -57,7 +57,7 @@ public class RuneBlockEntityRenderer implements BlockEntityRenderer<RuneBlockEnt
     if(matrix == null) return;
     matrix.pushPose();
 
-    int c = CustomColors.getColor(rune.color, rune.getLevel().getGameTime() + tickDelta);
+    int c = CustomColors.INSTANCE.getColor(rune.color, rune.getLevel().getGameTime() + tickDelta);
     int r, g, b;
     var mc = Minecraft.getInstance();
     assert mc.level != null;

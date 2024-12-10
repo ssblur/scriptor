@@ -20,9 +20,9 @@ public class CoordinateCasterWorldRenderer {
     var player = Minecraft.getInstance().player;
 
     if (player != null && matrix != null) {
-      if (player.getItemInHand(InteractionHand.MAIN_HAND).getItem() == ScriptorItems.COORDINATE_CASTING_CRYSTAL.get())
+      if (player.getItemInHand(InteractionHand.MAIN_HAND).getItem() == ScriptorItems.INSTANCE.getCOORDINATE_CASTING_CRYSTAL().get())
         render(matrix, player.getItemInHand(InteractionHand.MAIN_HAND));
-      if (player.getItemInHand(InteractionHand.OFF_HAND).getItem() == ScriptorItems.COORDINATE_CASTING_CRYSTAL.get())
+      if (player.getItemInHand(InteractionHand.OFF_HAND).getItem() == ScriptorItems.INSTANCE.getCOORDINATE_CASTING_CRYSTAL().get())
         render(matrix, player.getItemInHand(InteractionHand.OFF_HAND));
     }
   }

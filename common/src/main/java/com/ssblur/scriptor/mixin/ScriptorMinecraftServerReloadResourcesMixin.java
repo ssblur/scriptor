@@ -22,6 +22,6 @@ public class ScriptorMinecraftServerReloadResourcesMixin {
     Collection<String> collection,
     CallbackInfoReturnable<CompletableFuture<Void>> info
   ) {
-    ReceiveConfigNetwork.sendCommunityMode(this.playerList.getPlayers(), ScriptorMod.COMMUNITY_MODE);
+    ReceiveConfigNetwork.sendCommunityMode(this.playerList.getPlayers(), ScriptorMod.INSTANCE.getCOMMUNITY_MODE());
   }
 }

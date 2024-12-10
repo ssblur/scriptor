@@ -1,8 +1,8 @@
 package com.ssblur.scriptor.word.action;
 
+import com.ssblur.scriptor.ScriptorDamage;
 import com.ssblur.scriptor.api.word.Action;
 import com.ssblur.scriptor.api.word.Descriptor;
-import com.ssblur.scriptor.damage.ScriptorDamage;
 import com.ssblur.scriptor.helpers.ItemTargetableHelper;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;
 import com.ssblur.scriptor.helpers.targetable.ItemTargetable;

@@ -16,9 +16,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(BookViewScreen.class)
 public class ScriptorBookViewScreenMixin {
   @Unique
-  private static final ResourceLocation BOOK_LOCATION_NEW = ScriptorMod.location("textures/gui/book.png");
+  private static final ResourceLocation BOOK_LOCATION_NEW = ScriptorMod.INSTANCE.location("textures/gui/book.png");
   @Unique
-  private static final ResourceLocation BOOK_LOCATION_DISABLED = ScriptorMod.location("textures/gui/book_disabled.png");
+  private static final ResourceLocation BOOK_LOCATION_DISABLED = ScriptorMod.INSTANCE.location("textures/gui/book_disabled.png");
 
   @Inject(
     method = "renderBackground",

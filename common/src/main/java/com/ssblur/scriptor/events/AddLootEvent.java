@@ -3,7 +3,7 @@ package com.ssblur.scriptor.events;
 import com.ssblur.scriptor.helpers.loot.ArtifactItemFunction;
 import com.ssblur.scriptor.item.ScriptorItems;
 import dev.architectury.event.events.common.LootEvent;
-import dev.architectury.registry.registries.RegistrySupplier;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -18,7 +18,7 @@ import java.util.HashMap;
 public class AddLootEvent implements LootEvent.ModifyLootTable {
   record LootItemRecord(ResourceLocation location, float chance, LootItemFunction.Builder... builders) {}
 
-  static HashMap<RegistrySupplier<Item>, LootItemRecord[]> pools = new HashMap<>();
+  static HashMap<Holder<Item>, LootItemRecord[]> pools = new HashMap<>();
 
   static {
     LootItemRecord[] tier1 = new LootItemRecord[]{
@@ -32,8 +32,8 @@ public class AddLootEvent implements LootEvent.ModifyLootTable {
       new LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/ruined_portal"), 0.3f),
       new LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/simple_dungeon"), 0.6f),
     };
-    pools.put(ScriptorItems.TOME_TIER1, tier1);
-    pools.put(ScriptorItems.SCRAP_TIER1, tier1);
+    pools.put(ScriptorItems.INSTANCE.getTOME_TIER1(), tier1);
+    pools.put(ScriptorItems.INSTANCE.getSCRAP_TIER1(), tier1);
 
     LootItemRecord[] tier2 = new LootItemRecord[]{
       new LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/woodland_mansion"), 0.3f),
@@ -49,8 +49,8 @@ public class AddLootEvent implements LootEvent.ModifyLootTable {
       new LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/ancient_city"), 0.8f),
       new LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/ancient_city_ice_box"), 0.6f),
     };
-    pools.put(ScriptorItems.TOME_TIER2, tier2);
-    pools.put(ScriptorItems.SCRAP_TIER2, tier2);
+    pools.put(ScriptorItems.INSTANCE.getTOME_TIER2(), tier2);
+    pools.put(ScriptorItems.INSTANCE.getSCRAP_TIER2(), tier2);
 
     LootItemRecord[] tier3 = new LootItemRecord[]{
       new LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/stronghold_library"), 1f),
@@ -63,11 +63,11 @@ public class AddLootEvent implements LootEvent.ModifyLootTable {
       new LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/ancient_city_ice_box"), 0.6f),
       new LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/nether_bridge"), 0.6f),
     };
-    pools.put(ScriptorItems.TOME_TIER3, tier3);
-    pools.put(ScriptorItems.SCRAP_TIER3, tier3);
+    pools.put(ScriptorItems.INSTANCE.getTOME_TIER3(), tier3);
+    pools.put(ScriptorItems.INSTANCE.getSCRAP_TIER3(), tier3);
 
     pools.put(
-      ScriptorItems.TOME_TIER4,
+      ScriptorItems.INSTANCE.getTOME_TIER4(),
       new LootItemRecord[]{
         new LootItemRecord(ResourceLocation.tryBuild("minecraft", "entities/ender_dragon"), 1f),
         new LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/end_city_treasure"), 0.9f),
@@ -75,7 +75,7 @@ public class AddLootEvent implements LootEvent.ModifyLootTable {
     );
 
     pools.put(
-      ScriptorItems.IDENTIFY_SCROLL,
+      ScriptorItems.INSTANCE.getIDENTIFY_SCROLL(),
       new LootItemRecord[]{
         new LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/end_city_treasure"), 0.3f),
         new LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/bastion_other"), 0.3f),
@@ -114,10 +114,10 @@ public class AddLootEvent implements LootEvent.ModifyLootTable {
       new LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/ocean_ruin_cold"), 0.1f / numberOfArtifacts, ArtifactItemFunction::new),
       new LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/desert_pyramid"), 0.1f / numberOfArtifacts, ArtifactItemFunction::new),
     };
-    pools.put(ScriptorItems.ARTIFACT_1, artifacts);
-    pools.put(ScriptorItems.ARTIFACT_2, artifacts);
-    pools.put(ScriptorItems.ARTIFACT_3, artifacts);
-    pools.put(ScriptorItems.ARTIFACT_4, artifacts);
+    pools.put(ScriptorItems.INSTANCE.getARTIFACT_1(), artifacts);
+    pools.put(ScriptorItems.INSTANCE.getARTIFACT_2(), artifacts);
+    pools.put(ScriptorItems.INSTANCE.getARTIFACT_3(), artifacts);
+    pools.put(ScriptorItems.INSTANCE.getARTIFACT_4(), artifacts);
   }
 
   @Override
@@ -128,7 +128,7 @@ public class AddLootEvent implements LootEvent.ModifyLootTable {
           if(id.location().equals(i.location)) {
             LootPool.Builder builder = LootPool.lootPool();
             builder.when(LootItemRandomChanceCondition.randomChance(i.chance));
-            builder.add(LootItem.lootTableItem(pool.get()));
+            builder.add(LootItem.lootTableItem(pool.value()));
             for(var b: i.builders)
               builder.apply(b);
 

@@ -43,16 +43,16 @@ public class ClientCreativeBookNetwork implements ScriptorNetworkInterface<Clien
       var split = i.replace("\"", "").split(":", 2);
 
       switch (split[0]) {
-        case "action" -> action = WordRegistry.INSTANCE.actionRegistry.get(split[1]);
-        case "descriptor" -> descriptor.add(WordRegistry.INSTANCE.descriptorRegistry.get(split[1]));
-        case "subject" -> subject = WordRegistry.INSTANCE.subjectRegistry.get(split[1]);
+        case "action" -> action = WordRegistry.INSTANCE.getActionRegistry().get(split[1]);
+        case "descriptor" -> descriptor.add(WordRegistry.INSTANCE.getDescriptorRegistry().get(split[1]));
+        case "subject" -> subject = WordRegistry.INSTANCE.getSubjectRegistry().get(split[1]);
       }
     }
     Spell spell = new Spell(subject, new PartialSpell(action, descriptor.toArray(new Descriptor[0])));
     var player = context.getPlayer();
     var item = player.containerMenu.getItems().get(value.slot);
     var carried = player.containerMenu.getCarried();
-    if(spell.subject() instanceof InventorySubject inventorySubject) {
+    if(spell.subject instanceof InventorySubject inventorySubject) {
       inventorySubject.castOnItem(spell, player, item);
       player.getCooldowns().addCooldown(carried.getItem(), 5);
     }

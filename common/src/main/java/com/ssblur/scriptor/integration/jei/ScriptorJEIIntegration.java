@@ -23,7 +23,7 @@ public class ScriptorJEIIntegration implements IModPlugin {
 
   @Override
   public ResourceLocation getPluginUid() {
-    return ScriptorMod.location("jei_base");
+    return ScriptorMod.INSTANCE.location("jei_base");
   }
 
   @Override

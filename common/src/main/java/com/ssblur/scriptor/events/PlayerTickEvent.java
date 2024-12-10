@@ -1,6 +1,6 @@
 package com.ssblur.scriptor.events;
 
-import com.ssblur.scriptor.data_components.ScriptorDataComponents;
+import com.ssblur.scriptor.data.components.ScriptorDataComponents;
 import dev.architectury.event.events.common.TickEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;

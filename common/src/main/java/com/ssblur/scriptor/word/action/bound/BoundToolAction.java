@@ -3,7 +3,7 @@ package com.ssblur.scriptor.word.action.bound;
 import com.ssblur.scriptor.api.word.Action;
 import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.color.CustomColors;
-import com.ssblur.scriptor.data_components.ScriptorDataComponents;
+import com.ssblur.scriptor.data.components.ScriptorDataComponents;
 import com.ssblur.scriptor.helpers.ItemTargetableHelper;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.word.descriptor.duration.DurationDescriptor;
@@ -47,7 +47,7 @@ public class BoundToolAction extends Action {
 
     var itemStack = new ItemStack(this.item.get());
 
-    itemStack.set(DataComponents.DYED_COLOR, new DyedItemColor(CustomColors.getColor(descriptors), false));
+    itemStack.set(DataComponents.DYED_COLOR, new DyedItemColor(CustomColors.INSTANCE.getColor(descriptors), false));
     itemStack.set(ScriptorDataComponents.EXPIRES, caster.getLevel().getGameTime() + (long) Math.floor(duration * 80));
     int finalStrength = (int) (strength * 0.666f);
     int finalToolLevel = finalStrength / 2;

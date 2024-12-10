@@ -14,7 +14,7 @@ import com.ssblur.scriptor.registry.colorable.ColorableBlockRegistry;
 public class ColorAction extends Action {
   @Override
   public void apply(Targetable caster, Targetable targetable, Descriptor[] descriptors) {
-    int color = CustomColors.getColor(descriptors);
+    int color = CustomColors.INSTANCE.getColor(descriptors);
     if(targetable instanceof EntityTargetable entityTargetable) {
       if(entityTargetable.getTargetEntity() instanceof Colorable colorable) {
         colorable.setColor(color);
@@ -44,8 +44,8 @@ public class ColorAction extends Action {
     var block = targetable.getLevel().getBlockState(targetable.getOffsetBlockPos()).getBlock();
     if(block instanceof ColorableBlock colorable) {
       colorable.setColor(color, targetable.getLevel(), targetable.getOffsetBlockPos());
-    } else if(ColorableBlockRegistry.has(block)) {
-      ColorableBlockRegistry.get(block).setColor(color, targetable.getLevel(), targetable.getOffsetBlockPos());
+    } else if(ColorableBlockRegistry.INSTANCE.has(block)) {
+      ColorableBlockRegistry.INSTANCE.get(block).setColor(color, targetable.getLevel(), targetable.getOffsetBlockPos());
     }
   }
 

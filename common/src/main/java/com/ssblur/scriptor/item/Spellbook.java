@@ -3,13 +3,12 @@ package com.ssblur.scriptor.item;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.ssblur.scriptor.ScriptorMod;
-import com.ssblur.scriptor.data_components.ScriptorDataComponents;
+import com.ssblur.scriptor.data.components.ScriptorDataComponents;
 import com.ssblur.scriptor.events.network.server.ServerUseBookNetwork;
 import com.ssblur.scriptor.helpers.ComponentHelper;
 import com.ssblur.scriptor.helpers.LimitedBookSerializer;
 import com.ssblur.scriptor.helpers.SpellbookHelper;
 import com.ssblur.scriptor.item.interfaces.ItemWithCustomRenderer;
-import com.ssblur.scriptor.tabs.ScriptorTabs;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -99,7 +98,7 @@ public class Spellbook extends WrittenBookItem implements ItemWithCustomRenderer
             if(parts.length == 2)
               ComponentHelper.updateTooltipWith(list,parts[0] + ".scriptor." + parts[1]);
             else
-              ScriptorMod.LOGGER.error("Invalid Identify entry: " + key);
+              ScriptorMod.INSTANCE.getLOGGER().error("Invalid Identify entry: " + key);
           }
         else
           ComponentHelper.updateTooltipWith(list, "extra.scriptor.tome_identified");

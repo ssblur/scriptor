@@ -45,7 +45,7 @@ public class AncientSpellbook extends Item {
 
       var resource = TomeReloadListener.INSTANCE.getRandomTome(tier, player);
 
-      if(resource.getSpell().spells().length > 1)
+      if(resource.getSpell().spells.length > 1)
         ScriptorAdvancements.COMPLEX_SPELL.get().trigger((ServerPlayer) player);
 
       Spell spell = resource.getSpell();

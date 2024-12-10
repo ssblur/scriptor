@@ -13,7 +13,7 @@ public final class ScriptorModNeoForge {
     public ScriptorModNeoForge(IEventBus bus) {
       bus.addListener(ScriptorModClientEvents::register);
       bus.addListener(ScriptorModClientEvents::buildCreativeTab);
-      ScriptorMod.init();
+      ScriptorMod.INSTANCE.init();
       if(Platform.getEnv() == Dist.CLIENT)
         NeoForge.EVENT_BUS.register(ScriptorEventsExpectPlatformImpl.class);
     }

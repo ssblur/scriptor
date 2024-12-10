@@ -23,7 +23,7 @@ public class RuneSubject extends Subject implements InventorySubject{
     var result = new CompletableFuture<List<Targetable>>();
     if(caster instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof Player player) {
       ServerTraceNetwork.requestTraceData(player, target -> {
-        int color = CustomColors.getColor(spell.deduplicatedDescriptorsForSubjects());
+        int color = CustomColors.INSTANCE.getColor(spell.deduplicatedDescriptorsForSubjects());
         BlockPos pos = target.getTargetBlockPos();
         Level level = caster.getLevel();
 
@@ -41,7 +41,7 @@ public class RuneSubject extends Subject implements InventorySubject{
         }
       });
     } else {
-      int color = CustomColors.getColor(spell.deduplicatedDescriptorsForSubjects());
+      int color = CustomColors.INSTANCE.getColor(spell.deduplicatedDescriptorsForSubjects());
 
       BlockPos pos = caster.getTargetBlockPos();
       Level level = caster.getLevel();

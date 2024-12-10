@@ -1,6 +1,6 @@
 package com.ssblur.scriptor.helpers.targetable;
 
-import com.ssblur.scriptor.gamerules.ScriptorGameRules;
+import com.ssblur.scriptor.config.ScriptorGameRules;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;

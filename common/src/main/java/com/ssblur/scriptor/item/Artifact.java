@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.item;
 
 import com.ssblur.scriptor.data.DictionarySavedData;
-import com.ssblur.scriptor.data_components.ScriptorDataComponents;
+import com.ssblur.scriptor.data.components.ScriptorDataComponents;
 import com.ssblur.scriptor.helpers.targetable.SpellbookTargetable;
 import com.ssblur.scriptor.word.Spell;
 import net.minecraft.ChatFormatting;

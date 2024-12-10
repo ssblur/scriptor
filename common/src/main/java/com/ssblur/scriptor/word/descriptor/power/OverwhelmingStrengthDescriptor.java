@@ -26,7 +26,7 @@ public class OverwhelmingStrengthDescriptor extends Descriptor implements CastDe
   @Override
   public boolean cannotCast(Targetable caster) {
     if(caster instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof LivingEntity living) {
-      living.addEffect(new MobEffectInstance(ScriptorEffects.get(ScriptorEffects.MUTE), 20 * 60));
+      living.addEffect(new MobEffectInstance(ScriptorEffects.INSTANCE.getMUTE(), 20 * 60));
       return false;
     }
     return true;

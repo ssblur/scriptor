@@ -86,7 +86,7 @@ public class DictionarySavedData extends SavedData {
       words.put("other:and", token);
     }
 
-    for(var word: WordRegistry.INSTANCE.actionRegistry.keySet()) {
+    for(var word: WordRegistry.INSTANCE.getActionRegistry().keySet()) {
       if(containsKey("action:" + word))
         continue;
 
@@ -97,7 +97,7 @@ public class DictionarySavedData extends SavedData {
       words.put("action:" + word, token);
     }
 
-    for(var word: WordRegistry.INSTANCE.descriptorRegistry.keySet()) {
+    for(var word: WordRegistry.INSTANCE.getDescriptorRegistry().keySet()) {
       if(containsKey("descriptor:" + word))
         continue;
 
@@ -107,7 +107,7 @@ public class DictionarySavedData extends SavedData {
 
       words.put("descriptor:" + word, token);
     }
-    for(var word: WordRegistry.INSTANCE.subjectRegistry.keySet()) {
+    for(var word: WordRegistry.INSTANCE.getSubjectRegistry().keySet()) {
       if(containsKey("subject:" + word))
         continue;
 
@@ -122,7 +122,7 @@ public class DictionarySavedData extends SavedData {
   public DictionarySavedData() {
     WORD[] basicStructure = new WORD[]{WORD.SUBJECT, WORD.ACTION, WORD.DESCRIPTOR};
     List<WORD> structure = Arrays.asList(basicStructure);
-    if(!ScriptorMod.COMMUNITY_MODE)
+    if(!ScriptorMod.INSTANCE.getCOMMUNITY_MODE())
       Collections.shuffle(structure);
 
     spellStructure = new ArrayList<>();
@@ -197,7 +197,7 @@ public class DictionarySavedData extends SavedData {
   @Nullable
   public Spell parse(@Nullable String text) {
     if(text == null) {
-      ScriptorMod.LOGGER.warn("No text provided to parser!");
+      ScriptorMod.INSTANCE.getLOGGER().warn("No text provided to parser!");
       return null;
     }
     int position = 0;
@@ -228,11 +228,11 @@ public class DictionarySavedData extends SavedData {
         switch (word) {
           case ACTION -> {
             if (wordData == null) {
-              ScriptorMod.LOGGER.debug("Failed to process spell with text: \"" + text + "\"");
-              ScriptorMod.LOGGER.debug("No word found for \"" + tokens[tokenPosition] + "\", action expected");
+              ScriptorMod.INSTANCE.getLOGGER().debug("Failed to process spell with text: \"" + text + "\"");
+              ScriptorMod.INSTANCE.getLOGGER().debug("No word found for \"" + tokens[tokenPosition] + "\", action expected");
               return null;
             }
-            action = WordRegistry.INSTANCE.actionRegistry.get(wordData.substring(7));
+            action = WordRegistry.INSTANCE.getActionRegistry().get(wordData.substring(7));
           }
           case DESCRIPTOR -> {
             // Descriptors aren't required. If there are none, roll forward as necessary and continue.
@@ -240,7 +240,7 @@ public class DictionarySavedData extends SavedData {
               position++;
               continue;
             }
-            Descriptor descriptor = WordRegistry.INSTANCE.descriptorRegistry.get(wordData.substring(11));
+            Descriptor descriptor = WordRegistry.INSTANCE.getDescriptorRegistry().get(wordData.substring(11));
             if (descriptor == null) {
               position++;
               continue;
@@ -252,11 +252,11 @@ public class DictionarySavedData extends SavedData {
           }
           case SUBJECT -> {
             if (wordData == null) {
-              ScriptorMod.LOGGER.debug("Failed to process spell with text: \"" + text + "\"");
-              ScriptorMod.LOGGER.debug("Subject " + tokens[tokenPosition] + " not found");
+              ScriptorMod.INSTANCE.getLOGGER().debug("Failed to process spell with text: \"" + text + "\"");
+              ScriptorMod.INSTANCE.getLOGGER().debug("Subject " + tokens[tokenPosition] + " not found");
               return null;
             }
-            subject = WordRegistry.INSTANCE.subjectRegistry.get(wordData.substring(8));
+            subject = WordRegistry.INSTANCE.getSubjectRegistry().get(wordData.substring(8));
           }
         }
 
@@ -269,12 +269,12 @@ public class DictionarySavedData extends SavedData {
         return new Spell(subject, spells.toArray(PartialSpell[]::new));
       }
     } catch (Exception e) {
-      ScriptorMod.LOGGER.warn("==========================================================");
-      ScriptorMod.LOGGER.warn("The below error did NOT cause a crash, this is debug info!");
-      ScriptorMod.LOGGER.error("Error:", e);
-      ScriptorMod.LOGGER.warn("==========================================================");
+      ScriptorMod.INSTANCE.getLOGGER().warn("==========================================================");
+      ScriptorMod.INSTANCE.getLOGGER().warn("The below error did NOT cause a crash, this is debug info!");
+      ScriptorMod.INSTANCE.getLOGGER().error("Error:", e);
+      ScriptorMod.INSTANCE.getLOGGER().warn("==========================================================");
     }
-    ScriptorMod.LOGGER.debug("Failed to process spell with text: \"" + text + "\"");
+    ScriptorMod.INSTANCE.getLOGGER().debug("Failed to process spell with text: \"" + text + "\"");
     return null;
   }
 
@@ -289,10 +289,10 @@ public class DictionarySavedData extends SavedData {
     var spell = parse(text);
     if(spell != null) {
       List<String> list = new ArrayList<>();
-      list.add(getKey(spell.subject()));
-      for(var partialSpell: spell.spells()) {
-        list.add(getKey(partialSpell.action()));
-        for(var descriptor: partialSpell.descriptors())
+      list.add(getKey(spell.subject));
+      for(var partialSpell: spell.spells) {
+        list.add(getKey(partialSpell.action));
+        for(var descriptor: partialSpell.descriptors)
           list.add(getKey(descriptor));
       }
       return list;
@@ -307,23 +307,23 @@ public class DictionarySavedData extends SavedData {
    * @return A String to describe a spell
    */
   public String generate(Spell spell) {
-    assert spell.spells().length >= 1;
+    assert spell.spells.length >= 1;
     StringBuilder descriptorBuilder = new StringBuilder();
-    for(Descriptor descriptor: spell.spells()[0].deduplicatedDescriptors()) {
+    for(Descriptor descriptor: spell.spells[0].deduplicatedDescriptors()) {
       descriptorBuilder.append(" ").append(getWord(descriptor));
     }
 
     StringBuilder builder = new StringBuilder();
     for(WORD w: spellStructure) {
       if(w == WORD.ACTION)
-        builder.append(" ").append(getWord(spell.spells()[0].action()));
+        builder.append(" ").append(getWord(spell.spells[0].action));
       else if(w == WORD.SUBJECT)
-        builder.append(" ").append(getWord(spell.subject()));
+        builder.append(" ").append(getWord(spell.subject));
       else if(w == WORD.DESCRIPTOR)
         builder.append(descriptorBuilder);
     }
 
-    for(var partialSpell: Arrays.stream(spell.spells()).skip(1).toList()) {
+    for(var partialSpell: Arrays.stream(spell.spells).skip(1).toList()) {
       builder.append(" ").append(getWord("other:and"));
       descriptorBuilder = new StringBuilder();
       for(Descriptor descriptor: partialSpell.deduplicatedDescriptors()) {
@@ -332,7 +332,7 @@ public class DictionarySavedData extends SavedData {
 
       for(WORD w: spellStructure) {
         if(w == WORD.ACTION)
-          builder.append(" ").append(getWord(partialSpell.action()));
+          builder.append(" ").append(getWord(partialSpell.action));
         else if(w == WORD.DESCRIPTOR)
           builder.append(descriptorBuilder);
       }
@@ -368,13 +368,13 @@ public class DictionarySavedData extends SavedData {
     Objects.requireNonNull(server);
     return server.getDataStorage().computeIfAbsent(
       new Factory<>(DictionarySavedData::new, DictionarySavedData::load, DataFixTypes.SAVED_DATA_MAP_DATA),
-      ScriptorMod.COMMUNITY_MODE ? "scriptor_community_dictionary" : "scriptor_dictionary"
+      ScriptorMod.INSTANCE.getCOMMUNITY_MODE() ? "scriptor_community_dictionary" : "scriptor_dictionary"
     );
   }
 
   @Override
   public String toString() {
-    if(ScriptorMod.COMMUNITY_MODE)
+    if(ScriptorMod.INSTANCE.getCOMMUNITY_MODE())
       return "DictionarySavedData[COMMUNITY_MODE=true]";
 
     var builder = new StringBuilder();

@@ -18,7 +18,7 @@ public class LightBlockEntityRenderer implements BlockEntityRenderer<LightBlockE
   public void render(LightBlockEntity light, float tickDelta, PoseStack matrix, MultiBufferSource buffers, int lightLevel, int j) {
     if(light.getLevel() == null) return;
 
-    int c = CustomColors.getColor(light.getColor(), light.getLevel().getGameTime() + tickDelta);
+    int c = CustomColors.INSTANCE.getColor(light.getColor(), light.getLevel().getGameTime() + tickDelta);
     float r = ((float) ((c & 0xff0000) >> 16)) / 255;
     float g = ((float) ((c & 0x00ff00) >> 8)) / 255;
     float b = ((float) (c & 0x0000ff)) / 255;

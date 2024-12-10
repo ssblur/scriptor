@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 public class ScriptorBlocks {
-  public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ScriptorMod.MOD_ID, Registries.BLOCK);
+  public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ScriptorMod.INSTANCE.MOD_ID, Registries.BLOCK);
 
   public static final RegistrySupplier<Block> RUNE = BLOCKS.register("rune", RuneBlock::new);
   public static final RegistrySupplier<Block> LIGHT = BLOCKS.register("light", LightBlock::new);

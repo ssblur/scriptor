@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.events.network.server;
 
-import com.ssblur.scriptor.data_components.BookOfBooksData;
-import com.ssblur.scriptor.data_components.ScriptorDataComponents;
+import com.ssblur.scriptor.data.components.BookOfBooksData;
+import com.ssblur.scriptor.data.components.ScriptorDataComponents;
 import com.ssblur.scriptor.events.network.ScriptorNetwork;
 import com.ssblur.scriptor.events.network.ScriptorNetworkInterface;
 import com.ssblur.scriptor.item.BookOfBooks;
@@ -44,10 +44,10 @@ public class ScrollNetwork implements ScriptorNetworkInterface<ScrollNetwork.Pay
       var book = item.get(ScriptorDataComponents.BOOK_OF_BOOKS);
 
       if(book == null) return;
-      var list = book.items();
+      var list = book.items;
       if(list == null || list.isEmpty()) return;
 
-      int slot = book.active();
+      int slot = book.active;
       slot = slot + direction + list.size();
       slot = slot % list.size();
       item.set(ScriptorDataComponents.BOOK_OF_BOOKS, new BookOfBooksData(list, slot));

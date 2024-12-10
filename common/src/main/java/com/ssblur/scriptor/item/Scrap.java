@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.item;
 
 import com.ssblur.scriptor.ScriptorMod;
-import com.ssblur.scriptor.data_components.ScriptorDataComponents;
+import com.ssblur.scriptor.data.components.ScriptorDataComponents;
 import com.ssblur.scriptor.helpers.ComponentHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -25,7 +25,7 @@ public class Scrap extends Item {
       if (parts.length == 2)
         ComponentHelper.updateTooltipWith(list, parts[0] + ".scriptor." + parts[1]);
       else
-        ScriptorMod.LOGGER.error("Invalid Identify entry: {}", key);
+        ScriptorMod.INSTANCE.getLOGGER().error("Invalid Identify entry: {}", key);
     }
 
     ComponentHelper.addCommunityDisclaimer(list, itemStack);

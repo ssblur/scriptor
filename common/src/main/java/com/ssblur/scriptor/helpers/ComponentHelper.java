@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.helpers;
 
 import com.ssblur.scriptor.ScriptorMod;
-import com.ssblur.scriptor.data_components.ScriptorDataComponents;
+import com.ssblur.scriptor.data.components.ScriptorDataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
@@ -65,10 +65,10 @@ public class ComponentHelper {
   }
 
   public static void addCommunityDisclaimer(List<Component> list, ItemStack itemStack) {
-    if(itemStack.getOrDefault(ScriptorDataComponents.COMMUNITY_MODE, false) && !ScriptorMod.COMMUNITY_MODE) {
+    if(itemStack.getOrDefault(ScriptorDataComponents.COMMUNITY_MODE, false) && !ScriptorMod.INSTANCE.getCOMMUNITY_MODE()) {
       list.add(Component.translatable("lore.scriptor.not_community_2").withStyle(ChatFormatting.RED));
       list.add(Component.translatable("lore.scriptor.not_community_3").withStyle(ChatFormatting.RED));
-    } else if(ScriptorMod.COMMUNITY_MODE) {
+    } else if(ScriptorMod.INSTANCE.getCOMMUNITY_MODE()) {
       list.add(Component.translatable("lore.scriptor.not_community_1").withStyle(ChatFormatting.RED));
       list.add(Component.translatable("lore.scriptor.not_community_3").withStyle(ChatFormatting.RED));
     }

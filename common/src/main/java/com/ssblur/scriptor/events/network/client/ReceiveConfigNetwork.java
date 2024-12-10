@@ -32,7 +32,7 @@ public class ReceiveConfigNetwork implements ScriptorNetworkInterface<ReceiveCon
   public void receive(Payload value, NetworkManager.PacketContext context) {
     var flag = value.key;
     switch(flag) {
-      case COMMUNITY -> ScriptorMod.COMMUNITY_MODE = value.value;
+      case COMMUNITY -> ScriptorMod.INSTANCE.setCOMMUNITY_MODE(value.value);
       default -> {}
     }
   }

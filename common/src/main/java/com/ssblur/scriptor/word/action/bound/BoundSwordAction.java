@@ -4,7 +4,7 @@ import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.api.word.Action;
 import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.color.CustomColors;
-import com.ssblur.scriptor.data_components.ScriptorDataComponents;
+import com.ssblur.scriptor.data.components.ScriptorDataComponents;
 import com.ssblur.scriptor.helpers.ItemTargetableHelper;
 import com.ssblur.scriptor.helpers.targetable.Targetable;
 import com.ssblur.scriptor.item.ScriptorItems;
@@ -30,9 +30,9 @@ public class BoundSwordAction extends Action {
         duration += durationDescriptor.durationModifier();
     }
 
-    var itemStack = new ItemStack(ScriptorItems.BOUND_SWORD.get());
+    var itemStack = new ItemStack(ScriptorItems.INSTANCE.getBOUND_SWORD().get());
 
-    itemStack.set(DataComponents.DYED_COLOR, new DyedItemColor(CustomColors.getColor(descriptors), false));
+    itemStack.set(DataComponents.DYED_COLOR, new DyedItemColor(CustomColors.INSTANCE.getColor(descriptors), false));
     itemStack.set(ScriptorDataComponents.EXPIRES, caster.getLevel().getGameTime() + (long) Math.floor(duration * 80));
 
     final double finalStrength = strength;
@@ -42,7 +42,7 @@ public class BoundSwordAction extends Action {
       modifiers -> modifiers.withModifierAdded(
         Attributes.ATTACK_DAMAGE,
         new AttributeModifier(
-          ScriptorMod.location("bound_sword"),
+          ScriptorMod.INSTANCE.location("bound_sword"),
           finalStrength,
           AttributeModifier.Operation.ADD_VALUE
         ),

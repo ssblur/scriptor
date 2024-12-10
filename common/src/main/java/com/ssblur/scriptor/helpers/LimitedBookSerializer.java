@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.helpers;
 
 import com.ssblur.scriptor.ScriptorMod;
-import com.ssblur.scriptor.data_components.ScriptorDataComponents;
+import com.ssblur.scriptor.data.components.ScriptorDataComponents;
 import com.ssblur.scriptor.item.ScriptorItems;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
@@ -63,9 +63,9 @@ public class LimitedBookSerializer {
   public static ItemStack createSpellbook(String author, String title, String text, @Nullable String item) {
     ItemStack itemStack;
     if(item != null)
-      itemStack = new ItemStack(Objects.requireNonNull(ScriptorItems.ITEMS.getRegistrar().get(ResourceLocation.parse(item))));
+      itemStack = new ItemStack(Objects.requireNonNull(ScriptorItems.INSTANCE.getITEMS().getRegistrar().get(ResourceLocation.parse(item))));
     else
-      itemStack = new ItemStack(ScriptorItems.SPELLBOOK.get());
+      itemStack = new ItemStack(ScriptorItems.INSTANCE.getSPELLBOOK().get());
     itemStack.setCount(1);
     itemStack.set(
       DataComponents.WRITTEN_BOOK_CONTENT,
@@ -73,7 +73,7 @@ public class LimitedBookSerializer {
       new WrittenBookContent(Filterable.passThrough("Spellbook"), author, 0, encodeText(text), false)
     );
     itemStack.set(ScriptorDataComponents.TOME_NAME, title);
-    if(ScriptorMod.COMMUNITY_MODE)
+    if(ScriptorMod.INSTANCE.getCOMMUNITY_MODE())
       itemStack.set(ScriptorDataComponents.COMMUNITY_MODE, true);
 
     return itemStack;
