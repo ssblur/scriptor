@@ -1,11 +1,14 @@
 package com.ssblur.scriptor.item.tools
 
-import com.ssblur.scriptor.events.network.server.ChalkNetwork
+import com.ssblur.scriptor.network.server.ScriptorNetworkC2S
+import com.ssblur.scriptor.network.server.ScriptorNetworkC2S.ReceiveChalk
+import net.minecraft.client.Minecraft
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
+import net.minecraft.world.phys.BlockHitResult
 
 class EngravingTool(properties: Properties) : Chalk(properties) {
     override fun use(
@@ -13,7 +16,12 @@ class EngravingTool(properties: Properties) : Chalk(properties) {
         player: Player,
         interactionHand: InteractionHand
     ): InteractionResultHolder<ItemStack> {
-        if (level.isClientSide) ChalkNetwork.sendChalkMessage(true)
+        if (level.isClientSide) {
+            val client = Minecraft.getInstance()
+            val hit = client.hitResult
+            if (hit is BlockHitResult)
+                ScriptorNetworkC2S.RECEIVE_CHALK(ReceiveChalk(hit, true))
+        }
 
         return InteractionResultHolder.success(player.getItemInHand(interactionHand))
     }

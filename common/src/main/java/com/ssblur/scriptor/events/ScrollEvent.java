@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.events;
 
-import com.ssblur.scriptor.events.network.server.ScrollNetwork;
 import com.ssblur.scriptor.item.books.BookOfBooks;
+import com.ssblur.scriptor.network.server.ScriptorNetworkC2S;
 import dev.architectury.event.EventResult;
 import dev.architectury.event.events.client.ClientRawInputEvent;
 import net.minecraft.client.Minecraft;
@@ -13,10 +13,10 @@ public class ScrollEvent implements ClientRawInputEvent.MouseScrolled {
     var player = client.player;
     if(player != null && player.isShiftKeyDown()) {
       if(player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof BookOfBooks) {
-        ScrollNetwork.sendScroll(InteractionHand.MAIN_HAND, amountY);
+        ScriptorNetworkC2S.INSTANCE.getSCROLL_NETWORK().invoke(new ScriptorNetworkC2S.Scroll(InteractionHand.MAIN_HAND, amountY));
         return EventResult.interruptFalse();
       } else if (player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof BookOfBooks) {
-        ScrollNetwork.sendScroll(InteractionHand.OFF_HAND, amountY);
+        ScriptorNetworkC2S.INSTANCE.getSCROLL_NETWORK().invoke(new ScriptorNetworkC2S.Scroll(InteractionHand.OFF_HAND, amountY));
         return EventResult.interruptFalse();
       }
     }

@@ -1,9 +1,9 @@
 package com.ssblur.scriptor.item.books
 
-import com.ssblur.scriptor.events.network.server.CreativeIdentifyNetwork
-import com.ssblur.scriptor.events.network.server.ServerIdentifyNetwork
 import com.ssblur.scriptor.helpers.LimitedBookSerializer
-import dev.architectury.networking.NetworkManager
+import com.ssblur.scriptor.network.server.ScriptorNetworkC2S
+import com.ssblur.scriptor.network.server.ScriptorNetworkC2S.CreativeIdentify
+import com.ssblur.scriptor.network.server.ScriptorNetworkC2S.Identify
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
 import net.minecraft.core.component.DataComponents
@@ -32,9 +32,9 @@ class IdentifyScroll(properties: Properties) : Item(properties) {
             if (player.isCreative) {
                 val book = slot.item.get(DataComponents.WRITTEN_BOOK_CONTENT)
                 val spell = LimitedBookSerializer.decodeText(book!!)
-                NetworkManager.sendToServer(CreativeIdentifyNetwork.Payload(slot.index, spell))
+                ScriptorNetworkC2S.USE_SCROLL_CREATIVE(CreativeIdentify(slot.index, spell))
                 player.cooldowns.addCooldown(this, 10)
-            } else NetworkManager.sendToServer(ServerIdentifyNetwork.Payload(slot.index))
+            } else ScriptorNetworkC2S.USE_SCROLL(Identify(slot.index))
             return true
         }
         return false

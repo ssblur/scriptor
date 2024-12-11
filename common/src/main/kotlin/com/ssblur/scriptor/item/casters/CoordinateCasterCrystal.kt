@@ -1,9 +1,9 @@
 package com.ssblur.scriptor.item.casters
 
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
-import com.ssblur.scriptor.events.network.server.ServerTraceNetwork
 import com.ssblur.scriptor.helpers.ComponentHelper
 import com.ssblur.scriptor.helpers.targetable.Targetable
+import com.ssblur.scriptor.network.server.TraceNetwork
 import net.minecraft.ChatFormatting
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
@@ -93,7 +93,7 @@ class CoordinateCasterCrystal(properties: Properties) : CasterCrystal(properties
 
         if (!level.isClientSide) {
             val itemStack = player.getItemInHand(interactionHand)
-            ServerTraceNetwork.requestTraceData(player) { target: Targetable ->
+            TraceNetwork.requestTraceData(player) { target: Targetable ->
                 addCoordinate(
                     itemStack,
                     target.targetBlockPos,

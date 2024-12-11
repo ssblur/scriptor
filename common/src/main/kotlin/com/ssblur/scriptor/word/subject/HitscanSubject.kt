@@ -3,10 +3,10 @@ package com.ssblur.scriptor.word.subject
 import com.ssblur.scriptor.api.word.Subject
 import com.ssblur.scriptor.color.CustomColors.getColor
 import com.ssblur.scriptor.events.network.client.ParticleNetwork
-import com.ssblur.scriptor.events.network.server.ServerTraceNetwork
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable
 import com.ssblur.scriptor.helpers.targetable.LecternTargetable
 import com.ssblur.scriptor.helpers.targetable.Targetable
+import com.ssblur.scriptor.network.server.TraceNetwork
 import com.ssblur.scriptor.word.Spell
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
@@ -19,7 +19,7 @@ class HitscanSubject : Subject() {
         val result = CompletableFuture<List<Targetable>>()
         if (caster is EntityTargetable && caster.targetEntity is Player) {
             val player = caster.targetEntity as Player
-            ServerTraceNetwork.requestExtendedTraceData(player) { target: Targetable ->
+            TraceNetwork.requestExtendedTraceData(player) { target: Targetable ->
                 val color = getColor(spell.deduplicatedDescriptorsForSubjects())
                 ParticleNetwork.magicTrail(target.level, color, player.eyePosition, target.targetPos)
                 result.complete(listOf(target))

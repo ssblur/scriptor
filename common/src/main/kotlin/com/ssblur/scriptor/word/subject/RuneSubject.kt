@@ -4,9 +4,9 @@ import com.ssblur.scriptor.api.word.Subject
 import com.ssblur.scriptor.block.ScriptorBlocks
 import com.ssblur.scriptor.blockentity.RuneBlockEntity
 import com.ssblur.scriptor.color.CustomColors.getColor
-import com.ssblur.scriptor.events.network.server.ServerTraceNetwork
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable
 import com.ssblur.scriptor.helpers.targetable.Targetable
+import com.ssblur.scriptor.network.server.TraceNetwork
 import com.ssblur.scriptor.word.Spell
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
@@ -17,7 +17,7 @@ class RuneSubject : Subject(), InventorySubject {
         val result = CompletableFuture<List<Targetable>>()
         if (caster is EntityTargetable && caster.targetEntity is Player) {
             val player = caster.targetEntity as Player
-            ServerTraceNetwork.requestTraceData(player) { target: Targetable ->
+            TraceNetwork.requestTraceData(player) { target: Targetable ->
                 val color = getColor(spell.deduplicatedDescriptorsForSubjects())
                 val pos = target.targetBlockPos
                 val level = caster.level

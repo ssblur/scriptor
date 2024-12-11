@@ -3,7 +3,7 @@ package com.ssblur.scriptor.events.network.client;
 import com.ssblur.scriptor.events.network.ScriptorNetwork;
 import com.ssblur.scriptor.events.network.ScriptorNetworkInterface;
 import com.ssblur.scriptor.events.network.ScriptorStreamCodecs;
-import com.ssblur.scriptor.events.network.server.ServerTraceNetwork;
+import com.ssblur.scriptor.network.server.TraceNetwork;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -14,7 +14,6 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 
-import java.util.Optional;
 import java.util.UUID;
 
 public class ClientExtendedTraceNetwork implements ScriptorNetworkInterface<ClientExtendedTraceNetwork.Payload> {
@@ -52,43 +51,42 @@ public class ClientExtendedTraceNetwork implements ScriptorNetworkInterface<Clie
     );
     if (entityHitResult != null && entityHitResult.getType() != HitResult.Type.MISS) {
       if (blockHitResult.getType() != HitResult.Type.MISS && blockHitResult.distanceTo(player) < entityHitResult.distanceTo(player)) {
-
-        NetworkManager.sendToServer(new ServerTraceNetwork.Payload(
+        TraceNetwork.INSTANCE.getRETURN_TRACE_DATA().invoke(new TraceNetwork.Payload(
           value.uuid,
-          ServerTraceNetwork.TYPE.BLOCK,
-          Optional.of(blockHitResult),
+          TraceNetwork.TYPE.BLOCK,
+          blockHitResult,
           0,
-          Optional.empty()
+          null
         ));
         return;
       }
       Entity entity = entityHitResult.getEntity();
-      NetworkManager.sendToServer(new ServerTraceNetwork.Payload(
+      TraceNetwork.INSTANCE.getRETURN_TRACE_DATA().invoke(new TraceNetwork.Payload(
         value.uuid,
-        ServerTraceNetwork.TYPE.ENTITY,
-        Optional.of(blockHitResult),
+        TraceNetwork.TYPE.ENTITY,
+        blockHitResult,
         entity.getId(),
-        Optional.of(entity.getUUID())
+        entity.getUUID()
       ));
       return;
     }
     if (blockHitResult.getType() != HitResult.Type.MISS) {
-      NetworkManager.sendToServer(new ServerTraceNetwork.Payload(
+      TraceNetwork.INSTANCE.getRETURN_TRACE_DATA().invoke(new TraceNetwork.Payload(
         value.uuid,
-        ServerTraceNetwork.TYPE.BLOCK,
-        Optional.of(blockHitResult),
+        TraceNetwork.TYPE.BLOCK,
+        blockHitResult,
         0,
-        Optional.empty()
+        null
       ));
       return;
     }
 
-    NetworkManager.sendToServer(new ServerTraceNetwork.Payload(
+    TraceNetwork.INSTANCE.getRETURN_TRACE_DATA().invoke(new TraceNetwork.Payload(
       value.uuid,
-      ServerTraceNetwork.TYPE.MISS,
-      Optional.of(blockHitResult),
+      TraceNetwork.TYPE.MISS,
+      blockHitResult,
       0,
-      Optional.empty()
+      null
     ));
   }
 

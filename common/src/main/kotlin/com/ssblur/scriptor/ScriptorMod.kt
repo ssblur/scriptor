@@ -16,6 +16,7 @@ import com.ssblur.scriptor.feature.ScriptorFeatures
 import com.ssblur.scriptor.item.ScriptorItems
 import com.ssblur.scriptor.item.ScriptorLoot
 import com.ssblur.scriptor.item.ScriptorTabs
+import com.ssblur.scriptor.network.server.ScriptorNetworkC2S
 import com.ssblur.scriptor.particle.ScriptorParticles
 import com.ssblur.scriptor.recipe.ScriptorRecipes
 import com.ssblur.scriptor.trade.ScriptorTrades
@@ -74,6 +75,7 @@ object ScriptorMod: ModInitializer("scriptor") {
         ScriptorGameRules.register()
         ScriptorFeatures.register()
         ScriptorDataComponents.register()
+        ScriptorNetworkC2S.register()
 
         registerCommands()
     }

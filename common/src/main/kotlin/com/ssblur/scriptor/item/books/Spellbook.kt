@@ -4,13 +4,13 @@ import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.math.Axis
 import com.ssblur.scriptor.ScriptorMod.LOGGER
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
-import com.ssblur.scriptor.events.network.server.ServerUseBookNetwork
 import com.ssblur.scriptor.helpers.ComponentHelper
 import com.ssblur.scriptor.helpers.LimitedBookSerializer
 import com.ssblur.scriptor.helpers.SpellbookHelper
 import com.ssblur.scriptor.item.ScriptorTabs
 import com.ssblur.scriptor.item.interfaces.ItemWithCustomRenderer
-import dev.architectury.networking.NetworkManager
+import com.ssblur.scriptor.network.server.ScriptorNetworkC2S
+import com.ssblur.scriptor.network.server.ScriptorNetworkC2S.UseBook
 import net.minecraft.ChatFormatting
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.Font
@@ -76,9 +76,8 @@ open class Spellbook(properties: Properties) :
             if (player.cooldowns.isOnCooldown(this)) return true
             val level = player.level()
             if (!level.isClientSide) return true
-
             if (player.isCreative) return false // TODO:
-            else NetworkManager.sendToServer(ServerUseBookNetwork.Payload(slot.index))
+            else ScriptorNetworkC2S.USE_BOOK(UseBook(slot.index))
             return true
         }
         return false

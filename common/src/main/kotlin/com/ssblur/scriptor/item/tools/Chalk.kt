@@ -1,7 +1,9 @@
 package com.ssblur.scriptor.item.tools
 
-import com.ssblur.scriptor.events.network.server.ChalkNetwork
+import com.ssblur.scriptor.network.server.ScriptorNetworkC2S
+import com.ssblur.scriptor.network.server.ScriptorNetworkC2S.ReceiveChalk
 import net.minecraft.ChatFormatting
+import net.minecraft.client.Minecraft
 import net.minecraft.core.component.DataComponents
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
@@ -11,6 +13,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
+import net.minecraft.world.phys.BlockHitResult
 
 open class Chalk(properties: Properties) : Item(properties) {
     override fun appendHoverText(
@@ -31,11 +34,14 @@ open class Chalk(properties: Properties) : Item(properties) {
         player: Player,
         interactionHand: InteractionHand
     ): InteractionResultHolder<ItemStack> {
-        val result = super.use(level, player, interactionHand)
+        if (level.isClientSide) {
+            val client = Minecraft.getInstance()
+            val hit = client.hitResult
+            if (hit is BlockHitResult)
+                ScriptorNetworkC2S.RECEIVE_CHALK(ReceiveChalk(hit, false))
+        }
 
-        if (level.isClientSide) ChalkNetwork.sendChalkMessage()
-
-        return result
+        return InteractionResultHolder.success(player.getItemInHand(interactionHand))
     }
 
     companion object {

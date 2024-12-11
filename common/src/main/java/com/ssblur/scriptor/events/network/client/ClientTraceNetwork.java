@@ -3,7 +3,7 @@ package com.ssblur.scriptor.events.network.client;
 import com.ssblur.scriptor.events.network.ScriptorNetwork;
 import com.ssblur.scriptor.events.network.ScriptorNetworkInterface;
 import com.ssblur.scriptor.events.network.ScriptorStreamCodecs;
-import com.ssblur.scriptor.events.network.server.ServerTraceNetwork;
+import com.ssblur.scriptor.network.server.TraceNetwork;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -15,7 +15,6 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import java.util.Objects;
-import java.util.Optional;
 import java.util.UUID;
 
 public class ClientTraceNetwork implements ScriptorNetworkInterface<ClientTraceNetwork.Payload> {
@@ -42,32 +41,32 @@ public class ClientTraceNetwork implements ScriptorNetworkInterface<ClientTraceN
     switch (Objects.requireNonNull(hit).getType()) {
       case BLOCK -> {
         BlockHitResult blockHit = (BlockHitResult) hit;
-        NetworkManager.sendToServer(new ServerTraceNetwork.Payload(
+        TraceNetwork.INSTANCE.getRETURN_TRACE_DATA().invoke(new TraceNetwork.Payload(
           value.uuid,
-          ServerTraceNetwork.TYPE.BLOCK,
-          Optional.of(blockHit),
+          TraceNetwork.TYPE.BLOCK,
+          blockHit,
           0,
-          Optional.empty()
+          null
         ));
       }
       case ENTITY -> {
         EntityHitResult entityHit = (EntityHitResult) hit;
         Entity entity = entityHit.getEntity();
-        NetworkManager.sendToServer(new ServerTraceNetwork.Payload(
+        TraceNetwork.INSTANCE.getRETURN_TRACE_DATA().invoke(new TraceNetwork.Payload(
           value.uuid,
-          ServerTraceNetwork.TYPE.ENTITY,
-          Optional.empty(),
+          TraceNetwork.TYPE.ENTITY,
+          null,
           entity.getId(),
-          Optional.of(entity.getUUID())
+          entity.getUUID()
         ));
       }
       default ->
-        NetworkManager.sendToServer(new ServerTraceNetwork.Payload(
+        TraceNetwork.INSTANCE.getRETURN_TRACE_DATA().invoke(new TraceNetwork.Payload(
           value.uuid,
-          ServerTraceNetwork.TYPE.MISS,
-          Optional.empty(),
+          TraceNetwork.TYPE.MISS,
+          null,
           0,
-          Optional.empty()
+          null
         ));
     }
 
