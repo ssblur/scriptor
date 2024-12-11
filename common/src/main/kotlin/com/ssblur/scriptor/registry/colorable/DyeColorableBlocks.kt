@@ -6,29 +6,17 @@ import net.minecraft.world.item.DyeColor
 import net.minecraft.world.level.block.Blocks
 
 object DyeColorableBlocks {
-    @JvmField
     val WOOL = DyeColorableBlock()
-    @JvmField
     val CARPET = DyeColorableBlock()
-    @JvmField
     val TERRACOTTA = DyeColorableBlock()
-    @JvmField
     val GLAZED_TERRACOTTA = DyeColorableBlock()
-    @JvmField
     val STAINED_GLASS = DyeColorableBlock()
-    @JvmField
     val STAINED_GLASS_PANE = DyeColorableBlock()
-    @JvmField
     val CONCRETE_POWDER = DyeColorableBlock()
-    @JvmField
     val CONCRETE = DyeColorableBlock()
-    @JvmField
     val CANDLE = DyeColorableBlock()
-    @JvmField
     val BED = DyeColorableBlock()
-    @JvmField
     val SHULKER_BOX = DyeColorableBlock()
-    @JvmField
     val MAGIC_BLOCK = DyeColorableBlock()
 
     init {

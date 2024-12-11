@@ -2,9 +2,9 @@ package com.ssblur.scriptor.helpers
 
 import com.ssblur.scriptor.ScriptorMod.COMMUNITY_MODE
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
-import com.ssblur.scriptor.item.ScriptorItems.ITEMS
 import com.ssblur.scriptor.item.ScriptorItems.SPELLBOOK
 import net.minecraft.core.component.DataComponents
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.network.Filterable
@@ -58,7 +58,7 @@ object LimitedBookSerializer {
     }
 
     fun createSpellbook(author: String?, title: String?, text: String, item: String?): ItemStack {
-        val itemStack = if (item != null) ItemStack(ITEMS.registrar[ResourceLocation.parse(item)]!!)
+        val itemStack = if (item != null) ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.parse(item)))
         else ItemStack(SPELLBOOK.get())
         itemStack.count = 1
         itemStack.set(
@@ -71,7 +71,5 @@ object LimitedBookSerializer {
         return itemStack
     }
 
-    fun filterable(page: String): Filterable<Component> {
-        return Filterable.passThrough(Component.literal(page))
-    }
+    fun filterable(page: String): Filterable<Component> = Filterable.passThrough(Component.literal(page))
 }

@@ -9,8 +9,6 @@ import net.minecraft.core.BlockPos
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.Vec3i
 import net.minecraft.nbt.CompoundTag
-import net.minecraft.network.protocol.Packet
-import net.minecraft.network.protocol.game.ClientGamePacketListener
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.Entity
@@ -24,33 +22,25 @@ import java.util.concurrent.CompletableFuture
 
 class RuneBlockEntity(blockPos: BlockPos, blockState: BlockState) :
     BlockEntity(ScriptorBlockEntities.RUNE.get(), blockPos, blockState), Colorable {
-    @JvmField
     var owner: Entity? = null
     var ownerUUID: UUID? = null
-
-    // Keep the Spell for Serialization and to rebuild future if reloaded.
-    @JvmField
-    var spell: Spell? = null
+    var spell: Spell? = null // Keep the Spell for Serialization and to rebuild future if reloaded.
     var spellText: String? = null
-    @JvmField
     var future: CompletableFuture<List<Targetable>>? = null
-    @JvmField
-    var color: Int = 0
+    var runeColor: Int = 0
     var unloadedSpell: Boolean = true
 
-    override fun getUpdatePacket(): Packet<ClientGamePacketListener>? {
-        return ClientboundBlockEntityDataPacket.create(this)
-    }
+    override fun getUpdatePacket() = ClientboundBlockEntityDataPacket.create(this)
 
     override fun getUpdateTag(provider: HolderLookup.Provider): CompoundTag {
         val tag = super.getUpdateTag(provider)
-        tag.putInt("scriptor:color", color)
+        tag.putInt("scriptor:color", runeColor)
         return tag
     }
 
     public override fun loadAdditional(tag: CompoundTag, provider: HolderLookup.Provider) {
         super.loadAdditional(tag, provider)
-        color = tag.getInt("scriptor:color")
+        runeColor = tag.getInt("scriptor:color")
 
         if (tag.contains("spell")) spellText = tag.getString("spell")
         else unloadedSpell = false
@@ -67,12 +57,11 @@ class RuneBlockEntity(blockPos: BlockPos, blockState: BlockState) :
             tag.putString("spell", DictionarySavedData.computeIfAbsent(level as ServerLevel).generate(spell!!))
         if (owner != null) tag.putString("owner", owner!!.stringUUID)
         else if (ownerUUID != null) tag.putString("owner", ownerUUID.toString())
-        tag.putInt("scriptor:color", color)
+        tag.putInt("scriptor:color", runeColor)
     }
 
     fun tick() {
-        if (level == null) return
-        if (level!!.isClientSide) return
+        if (level == null || level!!.isClientSide) return
 
         if (level!!.gameTime % 40 == 0L && owner == null)
             if (ownerUUID != null && level!!.getPlayerByUUID(ownerUUID!!) != null) {
@@ -133,7 +122,7 @@ class RuneBlockEntity(blockPos: BlockPos, blockState: BlockState) :
     }
 
     override fun setColor(color: Int) {
-        this.color = color
+        this.runeColor = color
         setChanged()
         if (level != null) level!!.sendBlockUpdated(blockPos, blockState, blockState, 2)
     }

@@ -12,7 +12,6 @@ class ArtifactResource {
     class PartialSpellResource(var action: String, var descriptors: List<String>)
     class SpellResource(var subject: String, var spells: List<PartialSpellResource>)
 
-    @JvmField
     var name: String? = null
     var isDisabled: Boolean = false
     var spell: SpellResource? = null

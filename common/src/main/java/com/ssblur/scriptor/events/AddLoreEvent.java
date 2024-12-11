@@ -13,7 +13,7 @@ import java.util.List;
 public class AddLoreEvent implements ClientTooltipEvent.Item {
   @Override
   public void append(ItemStack stack, List<Component> lines, Item.TooltipContext tooltipContext, TooltipFlag flag) {
-    int charges = MoreObjects.firstNonNull(stack.get(ScriptorDataComponents.CHARGES), 0);
+    int charges = MoreObjects.firstNonNull(stack.get(ScriptorDataComponents.INSTANCE.getCHARGES()), 0);
     if(charges > 0) {
       if(charges <= 10)
         lines.add(Component.translatable("enchantment.scriptor.charged").append(" ").append(Component.translatable("enchantment.level." + charges)));

@@ -34,7 +34,7 @@ public abstract class ScriptorServerGamePacketListenerImplMixin {
         (filteredTextx) -> this.filterableFromOutgoing(filteredTextx).map(x -> (Component) Component.literal(x))
       ).toList();
       itemStack2.set(DataComponents.WRITTEN_BOOK_CONTENT, new WrittenBookContent(this.filterableFromOutgoing(filteredText), this.player.getName().getString(), 0, list2, true));
-      itemStack2.set(ScriptorDataComponents.TOME_NAME, filteredText.filtered());
+      itemStack2.set(ScriptorDataComponents.INSTANCE.getTOME_NAME(), filteredText.filtered());
       this.player.getInventory().setItem(i, itemStack2);
       info.cancel();
     }

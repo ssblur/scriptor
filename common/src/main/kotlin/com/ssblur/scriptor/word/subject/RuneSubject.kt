@@ -30,7 +30,7 @@ class RuneSubject : Subject(), InventorySubject {
                     entity.owner = player
                     entity.future = result
                     entity.spell = spell
-                    entity.color = color
+                    entity.runeColor = color
                     entity.setChanged()
                 }
             }
@@ -50,7 +50,7 @@ class RuneSubject : Subject(), InventorySubject {
             if (entity is RuneBlockEntity) {
                 entity.future = result
                 entity.spell = spell
-                entity.color = color
+                entity.runeColor = color
                 entity.setChanged()
             }
         }

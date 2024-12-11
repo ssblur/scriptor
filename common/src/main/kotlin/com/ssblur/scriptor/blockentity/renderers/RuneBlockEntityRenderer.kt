@@ -29,7 +29,7 @@ class RuneBlockEntityRenderer(context: BlockEntityRendererProvider.Context?) : B
         if (matrix == null) return
         matrix.pushPose()
 
-        val c = getColor(rune.color, rune.level!!.gameTime + tickDelta)
+        val c = getColor(rune.runeColor, rune.level!!.gameTime + tickDelta)
         val mc = Minecraft.getInstance()
         checkNotNull(mc.level)
         val r = c and 0xff0000 shr 16

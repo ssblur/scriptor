@@ -39,7 +39,6 @@ class EngravingBlock : ChalkBlock(
     }
 
     companion object {
-        @JvmField
         val HIGHLIGHT: BooleanProperty = BooleanProperty.create("highlight")
     }
 }

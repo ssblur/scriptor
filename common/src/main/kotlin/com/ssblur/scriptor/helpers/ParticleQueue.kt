@@ -3,8 +3,7 @@ package com.ssblur.scriptor.helpers
 import net.minecraft.client.Minecraft
 import net.minecraft.core.particles.ParticleOptions
 
-class ParticleQueue {
-    @JvmRecord
+object ParticleQueue {
     data class Entry(
         val particleOptions: ParticleOptions,
         val d: Double,
@@ -25,21 +24,15 @@ class ParticleQueue {
         }
     }
 
-    companion object {
-        @JvmField
-        val INSTANCE: ParticleQueue = ParticleQueue()
-        @JvmStatic
-        @JvmOverloads
-        fun queue(
-            particleOptions: ParticleOptions,
-            d: Double,
-            e: Double,
-            f: Double,
-            g: Double = 0.0,
-            h: Double = 0.0,
-            i: Double = 0.0
-        ) {
-            INSTANCE.queue.add(Entry(particleOptions, d, e, f, g, h, i))
-        }
+    fun queue(
+        particleOptions: ParticleOptions,
+        d: Double,
+        e: Double,
+        f: Double,
+        g: Double = 0.0,
+        h: Double = 0.0,
+        i: Double = 0.0
+    ) {
+        queue.add(Entry(particleOptions, d, e, f, g, h, i))
     }
 }

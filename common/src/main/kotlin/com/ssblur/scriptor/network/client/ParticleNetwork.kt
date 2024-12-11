@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.network.client
 
 import com.ssblur.scriptor.ScriptorMod.location
-import com.ssblur.scriptor.helpers.ParticleQueue.Companion.queue
+import com.ssblur.scriptor.helpers.ParticleQueue.queue
 import com.ssblur.scriptor.particle.MagicParticleData.Companion.magic
 import com.ssblur.unfocused.network.NetworkManager
 import net.minecraft.core.BlockPos

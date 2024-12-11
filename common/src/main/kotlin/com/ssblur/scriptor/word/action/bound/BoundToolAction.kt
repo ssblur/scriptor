@@ -12,7 +12,7 @@ import net.minecraft.core.component.DataComponents
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.TagKey
-import net.minecraft.world.item.DiggerItem
+import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.component.DyedItemColor
 import net.minecraft.world.item.component.Tool
@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.Block
 import java.util.function.Supplier
 import kotlin.math.floor
 
-class BoundToolAction(var item: Supplier<DiggerItem>, var tags: List<TagKey<Block>>) : Action() {
+class BoundToolAction(var item: Supplier<Item>, var tags: List<TagKey<Block>>) : Action() {
     override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>) {
         var strength = 6f
         var duration = 4.0

@@ -41,9 +41,7 @@ class GenerateBlock : Block(Properties.of().air()), EntityBlock {
     }
 
     companion object {
-        @JvmField
         val FEATURE: EnumProperty<Feature> = EnumProperty.create("feature", Feature::class.java)
-
         fun generateEngraving() = ScriptorBlocks.GENERATE.get().defaultBlockState().setValue(FEATURE, Feature.ENGRAVING)
     }
 }

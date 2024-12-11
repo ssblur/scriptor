@@ -21,7 +21,7 @@ public class PlayerTickEvent implements TickEvent.Player {
     var level = entity.level();
 
     if(item.getCount() > 0) {
-      if (item.has(ScriptorDataComponents.EXPIRES) && item.get(ScriptorDataComponents.EXPIRES) <= level.getGameTime()) {
+      if (item.has(ScriptorDataComponents.INSTANCE.getEXPIRES()) && item.get(ScriptorDataComponents.INSTANCE.getEXPIRES()) <= level.getGameTime()) {
         item.setCount(0);
         level.playSound(null, entity.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS);
       }

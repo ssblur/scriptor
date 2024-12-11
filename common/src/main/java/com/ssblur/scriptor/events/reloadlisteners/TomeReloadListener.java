@@ -80,14 +80,14 @@ public class TomeReloadListener extends ScriptorReloadListener {
     if(data != null) {
       var spells = data.getTier(tier);
 
-      ScriptorAdvancements.TOME.get().trigger((ServerPlayer) player);
+      ScriptorAdvancements.INSTANCE.getTOME().get().trigger((ServerPlayer) player);
       if (keys.size() <= spells.size())
         return tomes.get(tier).get(keys.toArray(new ResourceLocation[]{})[RANDOM.nextInt(keys.size())]);
       else if (keys.size() <= spells.size() + 1) {
-        if (tier == 1) ScriptorAdvancements.TOME_1.get().trigger((ServerPlayer) player);
-        if (tier == 2) ScriptorAdvancements.TOME_2.get().trigger((ServerPlayer) player);
-        if (tier == 3) ScriptorAdvancements.TOME_3.get().trigger((ServerPlayer) player);
-        if (tier == 4) ScriptorAdvancements.TOME_4.get().trigger((ServerPlayer) player);
+        if (tier == 1) ScriptorAdvancements.INSTANCE.getTOME_1().get().trigger((ServerPlayer) player);
+        if (tier == 2) ScriptorAdvancements.INSTANCE.getTOME_2().get().trigger((ServerPlayer) player);
+        if (tier == 3) ScriptorAdvancements.INSTANCE.getTOME_3().get().trigger((ServerPlayer) player);
+        if (tier == 4) ScriptorAdvancements.INSTANCE.getTOME_4().get().trigger((ServerPlayer) player);
       }
 
 

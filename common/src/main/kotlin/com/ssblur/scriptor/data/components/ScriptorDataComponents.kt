@@ -12,39 +12,28 @@ object ScriptorDataComponents {
     val COMPONENTS: DeferredRegister<DataComponentType<*>> =
         DeferredRegister.create(ScriptorMod.MOD_ID, Registries.DATA_COMPONENT_TYPE)
 
-    @JvmField
     val EXPIRES: DataComponentType<Long> = registerLong("expires")
-    @JvmField
     val COMMUNITY_MODE: DataComponentType<Boolean> = registerBool("community_mode")
-    @JvmField
     val CHARGES: DataComponentType<Int> = registerInt("charge")
-    @JvmField
     val TOOL_MINING_LEVEL: DataComponentType<Int> = registerInt("tool_mining_level")
-    @JvmField
     val SPELL: DataComponentType<String?> = register("spell") { builder ->
         builder.persistent(Codec.STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8)
     }
-    @JvmField
     val PLAYER_FOCUS = register("player_focus") { builder ->
         builder.persistent(Codec.STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8)
     }
-    @JvmField
     val PLAYER_NAME: DataComponentType<String?> = register("player_name") { builder ->
         builder.persistent(Codec.STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8)
     }
-    @JvmField
     val TOME_NAME: DataComponentType<String?> = register("tome_name") { builder ->
         builder.persistent(Codec.STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8)
     }
-    @JvmField
     val BOOK_OF_BOOKS: DataComponentType<BookOfBooksData> = register("book_of_books") { builder ->
         builder.persistent(BookOfBooksData.CODEC).networkSynchronized(BookOfBooksData.STREAM_CODEC)
     }
-    @JvmField
     val IDENTIFIED: DataComponentType<List<String>?> = register("identified"){ builder ->
         builder.persistent(Codec.STRING.listOf()).networkSynchronized(ByteBufCodecs.STRING_UTF8.apply(ByteBufCodecs.list()))
     }
-    @JvmField
     val COORDINATES: DataComponentType<List<List<Int>>?> = register("coordinates") { builder ->
         builder.persistent(Codec.INT.listOf().listOf()).networkSynchronized(ByteBufCodecs.INT.apply(ByteBufCodecs.list()).apply(ByteBufCodecs.list()))
     }

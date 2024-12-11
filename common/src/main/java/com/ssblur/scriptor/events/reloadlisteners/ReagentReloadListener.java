@@ -4,9 +4,9 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.JsonElement;
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.api.word.Descriptor;
-import com.ssblur.scriptor.item.ScriptorItems;
 import com.ssblur.scriptor.registry.words.WordRegistry;
 import com.ssblur.scriptor.word.descriptor.discount.ReagentDescriptor;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.profiling.ProfilerFiller;
@@ -44,17 +44,12 @@ public class ReagentReloadListener extends ScriptorReloadListener {
   @Override
   public void loadResource(ResourceLocation resourceLocation, JsonElement jsonElement) {
     ReagentResource resource = GSON.fromJson(jsonElement, REAGENT_TYPE);
-    ScriptorMod.INSTANCE.getLOGGER().info(
-      "Loaded reagent {}. Item: {} Cost: {}",
-      resourceLocation.toShortLanguageKey(),
-      resource.item,
-      resource.cost
-    );
+    ScriptorMod.INSTANCE.getLOGGER().info("Loaded reagent {}: {}", resourceLocation, resource);
     words.put(
       "reagent." + resourceLocation.toShortLanguageKey(),
       WordRegistry.INSTANCE.register(
         "reagent." + resourceLocation.toShortLanguageKey(),
-        new ReagentDescriptor(ScriptorItems.INSTANCE.getITEMS().getRegistrar().get(ResourceLocation.parse(resource.item)), resource.cost)
+        new ReagentDescriptor(BuiltInRegistries.ITEM.get(ResourceLocation.parse(resource.item)), resource.cost)
       )
     );
   }

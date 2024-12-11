@@ -12,10 +12,10 @@ public class EntityDamagedEvent implements EntityEvent.LivingHurt {
   public EventResult hurt(LivingEntity entity, DamageSource source, float amount) {
     var weapon = source.getWeaponItem();
     if(weapon != null) {
-      int data = MoreObjects.firstNonNull(weapon.get(ScriptorDataComponents.CHARGES), 0);
+      int data = MoreObjects.firstNonNull(weapon.get(ScriptorDataComponents.INSTANCE.getCHARGES()), 0);
       if (data > 0) {
         entity.setHealth(entity.getHealth() - 3);
-        weapon.set(ScriptorDataComponents.CHARGES, data - 1);
+        weapon.set(ScriptorDataComponents.INSTANCE.getCHARGES(), data - 1);
       }
     }
     return EventResult.pass();

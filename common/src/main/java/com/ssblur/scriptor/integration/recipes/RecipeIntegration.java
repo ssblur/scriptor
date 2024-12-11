@@ -7,6 +7,7 @@ import com.ssblur.scriptor.item.ScriptorTags;
 import com.ssblur.scriptor.recipe.SpellbookCloningRecipe;
 import com.ssblur.scriptor.recipe.SpellbookDyeingRecipe;
 import com.ssblur.scriptor.recipe.SpellbookRecipe;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -61,15 +62,14 @@ public class RecipeIntegration {
   }
 
   public static void registerRecipes(RecipesHolder recipesHolder, ShapelessRecipeRegistrar shapelessRecipeRegistrar) {
-    var registrar = ScriptorItems.INSTANCE.getITEMS().getRegistrar();
     recipesHolder.recipes().forEach(holder -> {
         switch (holder.value()) {
           case SpellbookDyeingRecipe recipe -> shapelessRecipeRegistrar.register(
             List.of(
               Ingredient.of(ScriptorTags.INSTANCE.getREADABLE_SPELLBOOKS()),
-              recipe.addition
+              recipe.getAddition()
             ),
-            recipe.result,
+            recipe.getResult(),
             holder.id()
           );
           case SpellbookCloningRecipe ignored -> SpellbookHelper.INSTANCE.getSPELLBOOKS().forEach(spellbook -> shapelessRecipeRegistrar.register(
@@ -81,7 +81,7 @@ public class RecipeIntegration {
               Ingredient.of(new ItemStack(ScriptorItems.INSTANCE.getSPELLBOOK_BINDER()))
             ),
             new ItemStack(spellbook),
-            holder.id().withPath(holder.id().getPath() + registrar.getId(spellbook).toLanguageKey())
+            holder.id().withPath(holder.id().getPath() + BuiltInRegistries.ITEM.getResourceKey(spellbook).get().location().toLanguageKey())
           ));
           case SpellbookRecipe recipe -> shapelessRecipeRegistrar.register(
             List.of(

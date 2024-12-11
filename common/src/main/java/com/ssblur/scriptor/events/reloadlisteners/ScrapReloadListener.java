@@ -88,13 +88,13 @@ public class ScrapReloadListener extends ScriptorReloadListener {
     var key = getRandomScrapWord(tier, player);
     var itemStack = new ItemStack(ScriptorItems.INSTANCE.getSCRAP().get());
 
-    itemStack.set(ScriptorDataComponents.SPELL, key);
+    itemStack.set(ScriptorDataComponents.INSTANCE.getSPELL(), key);
     itemStack.set(
       DataComponents.ITEM_NAME,
       Component.literal(Objects.requireNonNull(DictionarySavedData.computeIfAbsent((ServerLevel) player.level()).getWord(key)))
     );
     if(ScriptorMod.INSTANCE.getCOMMUNITY_MODE())
-      itemStack.set(ScriptorDataComponents.COMMUNITY_MODE, true);
+      itemStack.set(ScriptorDataComponents.INSTANCE.getCOMMUNITY_MODE(), true);
 
     return itemStack;
   }

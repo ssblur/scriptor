@@ -14,7 +14,7 @@ public class PlayerJoinedEvent implements PlayerEvent.PlayerJoin {
   @Override
   public void join(ServerPlayer player) {
     if(ScriptorMod.INSTANCE.getCOMMUNITY_MODE())
-      ScriptorAdvancements.COMMUNITY.get().trigger(player);
+      ScriptorAdvancements.INSTANCE.getCOMMUNITY().get().trigger(player);
 
     ScriptorNetworkS2C.INSTANCE.getFlag().invoke(
       new ScriptorNetworkS2C.Flag(ScriptorNetworkS2C.FLAGS.COMMUNITY, ScriptorMod.INSTANCE.getCOMMUNITY_MODE()),

@@ -32,28 +32,17 @@ object Actions {
     )
     val RAIN = register("rain", RainAction())
 
-    val BOUND_SWORD = register("bound_sword",
-        BoundSwordAction()
-    )
+    val BOUND_SWORD = register("bound_sword", BoundSwordAction())
     val BOUND_AXE = register(
         "bound_axe",
-        BoundToolAction(
-            ScriptorItems.BOUND_AXE,
-            listOf(TagKey.create(Registries.BLOCK, ResourceLocation.withDefaultNamespace("mineable/axe")))
-        )
+        BoundToolAction(ScriptorItems.BOUND_AXE, listOf(TagKey.create(Registries.BLOCK, ResourceLocation.withDefaultNamespace("mineable/axe"))))
     )
     val BOUND_SHOVEL = register(
         "bound_shovel",
-        BoundToolAction(
-            ScriptorItems.BOUND_SHOVEL,
-            listOf(TagKey.create(Registries.BLOCK, ResourceLocation.withDefaultNamespace("mineable/shovel")))
-        )
+        BoundToolAction(ScriptorItems.BOUND_SHOVEL, listOf(TagKey.create(Registries.BLOCK, ResourceLocation.withDefaultNamespace("mineable/shovel"))))
     )
     val BOUND_PICKAXE = register(
         "bound_pickaxe",
-        BoundToolAction(
-            ScriptorItems.BOUND_PICKAXE,
-            listOf(TagKey.create(Registries.BLOCK, ResourceLocation.withDefaultNamespace("mineable/pickaxe")))
-        )
+        BoundToolAction(ScriptorItems.BOUND_PICKAXE, listOf(TagKey.create(Registries.BLOCK, ResourceLocation.withDefaultNamespace("mineable/pickaxe"))))
     )
 }
