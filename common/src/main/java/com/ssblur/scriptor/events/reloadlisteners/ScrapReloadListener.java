@@ -3,9 +3,9 @@ package com.ssblur.scriptor.events.reloadlisteners;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.JsonElement;
 import com.ssblur.scriptor.ScriptorMod;
-import com.ssblur.scriptor.data.DictionarySavedData;
-import com.ssblur.scriptor.data.PlayerSpellsSavedData;
 import com.ssblur.scriptor.data.components.ScriptorDataComponents;
+import com.ssblur.scriptor.data.saved_data.DictionarySavedData;
+import com.ssblur.scriptor.data.saved_data.PlayerSpellsSavedData;
 import com.ssblur.scriptor.helpers.resource.ScrapResource;
 import com.ssblur.scriptor.item.ScriptorItems;
 import net.minecraft.core.component.DataComponents;
@@ -36,11 +36,11 @@ public class ScrapReloadListener extends ScriptorReloadListener {
   @Override
   public void loadResource(ResourceLocation resourceLocation, JsonElement jsonElement) {
     ScrapResource resource = GSON.fromJson(jsonElement, SCRAP_TYPE);
-    if(!tiers.containsKey(resource.getTier()))
-      tiers.put(resource.getTier(), new HashMap<>());
+    if(!tiers.containsKey(resource.tier))
+      tiers.put(resource.tier, new HashMap<>());
     if(!resource.isDisabled())
-      for(var key: resource.getKeys())
-        tiers.get(resource.getTier()).put(resourceLocation.withSuffix("." + key.replace(":", ".")), key);
+      for(var key: resource.keys)
+        tiers.get(resource.tier).put(resourceLocation.withSuffix("." + key.replace(":", ".")), key);
   }
 
   public HashMap<ResourceLocation, String> getTier(int tier) {
@@ -92,7 +92,10 @@ public class ScrapReloadListener extends ScriptorReloadListener {
     var itemStack = new ItemStack(ScriptorItems.INSTANCE.getSCRAP().get());
 
     itemStack.set(ScriptorDataComponents.SPELL, key);
-    itemStack.set(DataComponents.ITEM_NAME, Component.literal(DictionarySavedData.computeIfAbsent((ServerLevel) player.level()).getWord(key)));
+    itemStack.set(
+      DataComponents.ITEM_NAME,
+      Component.literal(DictionarySavedData.computeIfAbsent((ServerLevel) player.level()).getWord(key))
+    );
     if(ScriptorMod.INSTANCE.getCOMMUNITY_MODE())
       itemStack.set(ScriptorDataComponents.COMMUNITY_MODE, true);
 

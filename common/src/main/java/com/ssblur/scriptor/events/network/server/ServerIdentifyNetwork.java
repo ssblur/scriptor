@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.events.network.server;
 
-import com.ssblur.scriptor.data.DictionarySavedData;
 import com.ssblur.scriptor.data.components.ScriptorDataComponents;
+import com.ssblur.scriptor.data.saved_data.DictionarySavedData;
 import com.ssblur.scriptor.events.network.ScriptorNetwork;
 import com.ssblur.scriptor.events.network.ScriptorNetworkInterface;
 import com.ssblur.scriptor.helpers.LimitedBookSerializer;
@@ -18,7 +18,7 @@ import java.util.List;
 
 public class ServerIdentifyNetwork implements ScriptorNetworkInterface<ServerIdentifyNetwork.Payload> {
   @Override
-  public CustomPacketPayload.Type type() {
+  public CustomPacketPayload.Type<ServerIdentifyNetwork.Payload> type() {
     return Payload.TYPE;
   }
 

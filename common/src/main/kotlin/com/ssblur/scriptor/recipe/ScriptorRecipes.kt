@@ -4,7 +4,6 @@ import com.ssblur.scriptor.ScriptorMod
 import dev.architectury.registry.registries.DeferredRegister
 import dev.architectury.registry.registries.RegistrySupplier
 import net.minecraft.core.registries.Registries
-import net.minecraft.world.item.crafting.CraftingBookCategory
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer
 
@@ -15,7 +14,7 @@ object ScriptorRecipes {
     @JvmField
     val SPELLBOOK_CLONING: RegistrySupplier<RecipeSerializer<*>> = RECIPES.register(
         "spellbook_cloning"
-    ) { SimpleCraftingRecipeSerializer { category: CraftingBookCategory? -> SpellbookCloningRecipe(category) } }
+    ) { SimpleCraftingRecipeSerializer { category -> SpellbookCloningRecipe(category) } }
 
     @JvmField
     val SPELLBOOK: RegistrySupplier<RecipeSerializer<*>> = RECIPES.register(

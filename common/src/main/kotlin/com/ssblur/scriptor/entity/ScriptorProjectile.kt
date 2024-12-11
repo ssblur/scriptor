@@ -17,7 +17,7 @@ import net.minecraft.world.phys.HitResult
 import net.minecraft.world.phys.Vec3
 import java.util.concurrent.CompletableFuture
 
-class ScriptorProjectile(entityType: EntityType<ScriptorProjectile?>?, level: Level?) : Entity(entityType, level) {
+class ScriptorProjectile(entityType: EntityType<ScriptorProjectile?>, level: Level) : Entity(entityType, level) {
     @JvmField
     var completable: CompletableFuture<List<Targetable>>? = null
     var origin: Vec3? = null
@@ -41,7 +41,7 @@ class ScriptorProjectile(entityType: EntityType<ScriptorProjectile?>?, level: Le
     }
 
     fun setOwner(owner: Entity) {
-        entityData.set(OWNER, owner.id)
+        setOwner(owner.id)
     }
 
     fun setOrigin(origin: BlockPos?) {
@@ -51,14 +51,14 @@ class ScriptorProjectile(entityType: EntityType<ScriptorProjectile?>?, level: Le
 
     override fun readAdditionalSaveData(compoundTag: CompoundTag) {
         val tag = compoundTag.getCompound("scriptor:projectile_data")
-        entityData.set(COLOR, tag.getInt("com/ssblur/scriptor/color"))
+        entityData.set(COLOR, tag.getInt("scriptor:color"))
         entityData.set(DURATION, tag.getInt("duration"))
         entityData.set(OWNER, tag.getInt("owner"))
     }
 
     override fun addAdditionalSaveData(compoundTag: CompoundTag) {
         val tag = compoundTag.getCompound("scriptor:projectile_data")
-        tag.putInt("com/ssblur/scriptor/color", entityData.get(COLOR))
+        tag.putInt("scriptor:color", entityData.get(COLOR))
         tag.putInt("duration", entityData.get(DURATION))
         tag.putInt("owner", entityData.get(OWNER))
     }
@@ -76,7 +76,7 @@ class ScriptorProjectile(entityType: EntityType<ScriptorProjectile?>?, level: Le
         setDeltaMovement(deltaMovement.x, deltaMovement.y, deltaMovement.z)
         setPos(position().add(deltaMovement))
 
-        if (this.origin != null) if (position().distanceTo(this.origin) <= 1) return
+        if (this.origin != null) if (position().distanceTo(this.origin!!) <= 1) return
 
         //    int c = CustomColors.getColor(getColor(), level.getGameTime());
 //    int r, g, b;
@@ -95,7 +95,6 @@ class ScriptorProjectile(entityType: EntityType<ScriptorProjectile?>?, level: Le
 //      0
 //    );
         val duration = entityData.get(DURATION)
-        val owner = level.getEntity(entityData.get(OWNER))
         if (tickCount > duration || completable == null || completable!!.isDone
         ) {
             remove(RemovalReason.KILLED)
@@ -119,13 +118,18 @@ class ScriptorProjectile(entityType: EntityType<ScriptorProjectile?>?, level: Le
             val entity = entityHitResult.entity
             if(entity is LivingEntity)
                 completable!!.complete(
-                    java.util.List.of<Targetable>(EntityTargetable(entity))
+                    java.util.List.of<Targetable>(
+                        EntityTargetable(entity)
+                    )
                 )
         } else if (blockHitResult.type != HitResult.Type.MISS
             && !(origin != null && blockHitResult.type == HitResult.Type.BLOCK && origin!!.distanceToSqr(dest) < 0.55)
         ) completable!!.complete(
             java.util.List.of(
-                Targetable(this.level(), blockHitResult.blockPos.offset(blockHitResult.direction.normal))
+                Targetable(
+                    this.level(),
+                    blockHitResult.blockPos.offset(blockHitResult.direction.normal)
+                )
                     .setFacing(blockHitResult.direction)
             )
         )

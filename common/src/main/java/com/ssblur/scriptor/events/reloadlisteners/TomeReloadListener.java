@@ -4,7 +4,7 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.JsonElement;
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.advancement.ScriptorAdvancements;
-import com.ssblur.scriptor.data.PlayerSpellsSavedData;
+import com.ssblur.scriptor.data.saved_data.PlayerSpellsSavedData;
 import com.ssblur.scriptor.helpers.resource.TomeResource;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -16,6 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import java.lang.reflect.Type;
 import java.util.*;
 
+@SuppressWarnings("unused")
 public class TomeReloadListener extends ScriptorReloadListener {
   static Type TOME_TYPE = new TypeToken<TomeResource>() {}.getType();
   static Random RANDOM = new Random();
@@ -41,10 +42,10 @@ public class TomeReloadListener extends ScriptorReloadListener {
 
   public void loadResource(ResourceLocation resourceLocation, JsonElement jsonElement) {
     TomeResource resource = GSON.fromJson(jsonElement, TOME_TYPE);
-    if(!tomes.containsKey(resource.getTier()))
-      tomes.put(resource.getTier(), new HashMap<>());
+    if(!tomes.containsKey(resource.tier))
+      tomes.put(resource.tier, new HashMap<>());
     keys.add(resourceLocation);
-    tomes.get(resource.getTier()).put(resourceLocation, resource);
+    tomes.get(resource.tier).put(resourceLocation, resource);
   }
 
   public TomeResource getRandomTome(int tier) {

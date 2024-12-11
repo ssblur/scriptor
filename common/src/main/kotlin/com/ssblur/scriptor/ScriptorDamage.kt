@@ -9,6 +9,7 @@ import net.minecraft.world.damagesource.DamageSources
 import net.minecraft.world.damagesource.DamageType
 import net.minecraft.world.entity.Entity
 
+@Suppress("unused")
 object ScriptorDamage {
     val DAMAGE_TYPES: DeferredRegister<DamageType> = DeferredRegister.create(ScriptorMod.MOD_ID, Registries.DAMAGE_TYPE)
 
@@ -17,7 +18,7 @@ object ScriptorDamage {
     val OVERLOAD: ResourceKey<DamageType> = ResourceKey.create(Registries.DAMAGE_TYPE, ScriptorMod.location("overload"))
 
     @JvmStatic
-    fun sacrifice(entity: Entity): DamageSource? {
+    fun sacrifice(entity: Entity): DamageSource {
         val level = entity.level()
         return level.registryAccess().registry(Registries.DAMAGE_TYPE).map { damageTypes: Registry<DamageType> ->
             DamageSource(
@@ -25,8 +26,7 @@ object ScriptorDamage {
                     SACRIFICE
                 ), entity
             )
-        }
-            .orElse(null)
+        }.orElseThrow()
     }
 
     @JvmStatic

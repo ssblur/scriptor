@@ -1,7 +1,6 @@
 package com.ssblur.scriptor
 
 import com.google.common.base.Suppliers
-import com.mojang.brigadier.CommandDispatcher
 import com.ssblur.scriptor.advancement.ScriptorAdvancements
 import com.ssblur.scriptor.block.ScriptorBlocks
 import com.ssblur.scriptor.blockentity.ScriptorBlockEntities
@@ -23,7 +22,6 @@ import com.ssblur.scriptor.trade.ScriptorTrades
 import com.ssblur.unfocused.ModInitializer
 import dev.architectury.event.events.common.CommandRegistrationEvent
 import dev.architectury.registry.registries.RegistrarManager
-import net.minecraft.commands.CommandSourceStack
 import org.apache.logging.log4j.LogManager
 import java.util.function.Supplier
 
@@ -37,27 +35,27 @@ object ScriptorMod: ModInitializer("scriptor") {
     var COMMUNITY_MODE = false
 
     fun registerCommands() {
-        CommandRegistrationEvent.EVENT.register(dev.architectury.event.events.common.CommandRegistrationEvent { dispatcher: CommandDispatcher<CommandSourceStack?>?, registry: net.minecraft.commands.CommandBuildContext?, selection: net.minecraft.commands.Commands.CommandSelection? ->
+        CommandRegistrationEvent.EVENT.register { dispatcher, registry, selection ->
             DumpDictionaryCommand.register(
                 dispatcher,
                 registry,
                 selection
             )
-        })
-        CommandRegistrationEvent.EVENT.register(dev.architectury.event.events.common.CommandRegistrationEvent { dispatcher: CommandDispatcher<CommandSourceStack?>?, registry: net.minecraft.commands.CommandBuildContext?, selection: net.minecraft.commands.Commands.CommandSelection? ->
+        }
+        CommandRegistrationEvent.EVENT.register { dispatcher, registry, selection ->
             DumpWordCommand.register(
                 dispatcher,
                 registry,
                 selection
             )
-        })
-        CommandRegistrationEvent.EVENT.register(dev.architectury.event.events.common.CommandRegistrationEvent { dispatcher: CommandDispatcher<CommandSourceStack?>?, ignoredRegistry: net.minecraft.commands.CommandBuildContext?, ignoredSelection: net.minecraft.commands.Commands.CommandSelection? ->
+        }
+        CommandRegistrationEvent.EVENT.register { dispatcher, registry, selection ->
             DebugCommand.register(
                 dispatcher,
-                ignoredRegistry,
-                ignoredSelection
+                registry,
+                selection
             )
-        })
+        }
     }
 
     fun init() {

@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.recipe
 
 import com.ssblur.scriptor.item.ScriptorItems.SPELLBOOK_BINDER
-import com.ssblur.scriptor.item.Spellbook
+import com.ssblur.scriptor.item.books.Spellbook
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.NonNullList
 import net.minecraft.core.component.DataComponents
@@ -14,7 +14,7 @@ import net.minecraft.world.item.crafting.CustomRecipe
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
 
-class SpellbookCloningRecipe(category: CraftingBookCategory?) : CustomRecipe(category) {
+class SpellbookCloningRecipe(category: CraftingBookCategory) : CustomRecipe(category) {
     override fun matches(container: CraftingInput, level: Level): Boolean {
         var paperCount = 0
         var binderCount = 0

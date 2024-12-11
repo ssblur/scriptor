@@ -33,24 +33,25 @@ class Spell(
   @JvmField val subject: Subject,
   @JvmField vararg val spells: PartialSpell
 ) {
-    fun castOnTargets(caster: Targetable?, targets: List<Targetable?>) {
-        var caster = caster
-        var targets = targets
-        assert(spells.size >= 1)
-        for (descriptor in spells[0].deduplicatedDescriptors()) {
-            if (descriptor is TargetDescriptor) targets = descriptor.modifyTargets(targets, caster)
-            if (descriptor is FocusDescriptor) caster = descriptor.modifyFocus(caster)
-        }
+    fun castOnTargets(originalCaster: Targetable, originalTargets: List<Targetable>) {
+        assert(spells.isNotEmpty())
 
-        for (target in targets) {
-            for (spell in spells) spell.action.apply(caster, target, spells[0].deduplicatedDescriptors())
+        for (spell in spells) {
+            var caster = originalCaster
+            var targets = originalTargets
+            for (descriptor in spell.deduplicatedDescriptors()) {
+                if (descriptor is TargetDescriptor) targets = descriptor.modifyTargets(targets, caster)
+                if (descriptor is FocusDescriptor) caster = descriptor.modifyFocus(caster)
+            }
+            for(target in targets)
+                spell.action.apply(caster, target, spell.deduplicatedDescriptors())
         }
     }
 
-    fun createFuture(caster: Targetable?): CompletableFuture<List<Targetable?>> {
-        val targetFuture = CompletableFuture<List<Targetable?>>()
+    fun createFuture(caster: Targetable): CompletableFuture<List<Targetable>> {
+        val targetFuture = CompletableFuture<List<Targetable>>()
 
-        targetFuture.whenComplete { targets: List<Targetable?>, throwable: Throwable? ->
+        targetFuture.whenComplete { targets, throwable ->
             if (throwable == null) castOnTargets(caster, targets)
         }
 
@@ -59,11 +60,11 @@ class Spell(
 
     /**
      * Casts this spell.
-     * @param caster The entity which cast this spell.
+     * @param originalCaster The entity which cast this spell.
      */
-    fun cast(caster: Targetable) {
+    fun cast(originalCaster: Targetable) {
         var entity: Entity? = null
-        var caster = caster
+        var caster = originalCaster
         if(caster is EntityTargetable) {
             entity = caster.targetEntity
             if (entity is LivingEntity)
@@ -75,37 +76,36 @@ class Spell(
 
         assert(spells.size >= 1)
         for (descriptor in spells[0].deduplicatedDescriptors()) {
-            if (descriptor is CastDescriptor) if (descriptor.cannotCast(caster)) {
-                if (entity is Player) {
-                    entity.sendSystemMessage(Component.translatable("extra.scriptor.condition_not_met"))
-                    ScriptorAdvancements.FIZZLE.get().trigger(entity as ServerPlayer)
+            if (descriptor is CastDescriptor)
+                if (descriptor.cannotCast(caster)) {
+                    if (entity is Player) {
+                        entity.sendSystemMessage(Component.translatable("extra.scriptor.condition_not_met"))
+                        ScriptorAdvancements.FIZZLE.get().trigger(entity as ServerPlayer)
+                    }
+                    if (!caster.level.isClientSide) ParticleNetwork.fizzle(caster.level, caster.targetBlockPos)
+                    return
                 }
-                if (!caster.level.isClientSide) ParticleNetwork.fizzle(caster.level, caster.targetBlockPos)
-                return
-            }
             if (descriptor is FocusDescriptor) caster = descriptor.modifyFocus(caster)
         }
 
         val targetFuture = subject.getTargets(caster, this)
 
-        for (descriptor in spells[0].deduplicatedDescriptors()) if (descriptor is AfterCastDescriptor) descriptor.afterCast(
-            caster
-        )
+        for (descriptor in spells[0].deduplicatedDescriptors())
+            if (descriptor is AfterCastDescriptor) descriptor.afterCast(caster)
 
         val finalCaster = caster.finalTargetable
         if (targetFuture.isDone) {
             try {
                 val targets = targetFuture.get()
-                castOnTargets(finalCaster, targets)
+                castOnTargets(finalCaster!!, targets)
             } catch (e: InterruptedException) {
                 LOGGER.error(e)
             } catch (e: ExecutionException) {
                 LOGGER.error(e)
             }
         } else {
-            targetFuture.whenComplete { targets: List<Targetable?>, throwable: Throwable? ->
-                if (throwable == null) castOnTargets(finalCaster, targets)
-            }
+            println(targetFuture)
+            targetFuture.whenComplete { targets, throwable -> throwable ?: castOnTargets(finalCaster!!, targets) }
         }
     }
 
@@ -113,7 +113,7 @@ class Spell(
      * Casts this spell with a specified list of Targetables.
      * @param caster The entity which cast this spell.
      */
-    fun cast(caster: Targetable?, vararg targetables: Targetable?) {
+    fun cast(caster: Targetable, vararg targetables: Targetable) {
         castOnTargets(caster, Arrays.stream(targetables).toList())
     }
 
@@ -143,6 +143,7 @@ class Spell(
 
                 COSTTYPE.MULTIPLICATIVE -> scalar *= cost.cost
                 COSTTYPE.ADDITIVE_POST -> discount += cost.cost
+                null -> {}
             }
         }
 
@@ -183,21 +184,5 @@ class Spell(
     fun deduplicatedDescriptorsForSubjects(): Array<Descriptor> {
         assert(spells.size >= 1)
         return spells[0].deduplicatedDescriptors()
-    }
-
-    fun deduplicatedDescriptorsForAccumulation(): Array<Descriptor?> {
-        var length = 0
-        var index = 0
-
-        for (spell in spells) length += spell.deduplicatedDescriptors().size
-
-        val descriptors = arrayOfNulls<Descriptor>(length)
-
-        for (spell in spells) {
-            System.arraycopy(spell.deduplicatedDescriptors(), 0, descriptors, index, descriptors.size)
-            index += descriptors.size
-        }
-
-        return descriptors
     }
 }

@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.events;
 
 import com.ssblur.scriptor.events.network.server.ScrollNetwork;
-import com.ssblur.scriptor.item.BookOfBooks;
+import com.ssblur.scriptor.item.books.BookOfBooks;
 import dev.architectury.event.EventResult;
 import dev.architectury.event.events.client.ClientRawInputEvent;
 import net.minecraft.client.Minecraft;

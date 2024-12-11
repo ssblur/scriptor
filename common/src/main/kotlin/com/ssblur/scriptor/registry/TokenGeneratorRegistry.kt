@@ -5,6 +5,7 @@ import com.ssblur.scriptor.helpers.generators.*
 import com.ssblur.scriptor.helpers.generators.TokenGenerator.TokenGeneratorGenerator
 import net.minecraft.resources.ResourceLocation
 
+@Suppress("unused")
 object TokenGeneratorRegistry {
     var generators: HashMap<ResourceLocation?, TokenGenerator> = HashMap()
     var generatorBindings: HashMap<String, ResourceLocation?> = HashMap()
@@ -48,8 +49,8 @@ object TokenGeneratorRegistry {
         return getGenerator(getBinding(word))!!.generateToken(word, `object`)
     }
 
-    val MIXED_GROUP: TokenGeneratorGenerator = registerGeneratorGenerator("mixed_groups", TokenGeneratorGenerator { MixedGroupGenerator(it) })
-    val STATIC_TOKEN: TokenGeneratorGenerator = registerGeneratorGenerator("static_token", TokenGeneratorGenerator { StaticTokenGenerator(it) })
-    val COMMUNITY: TokenGeneratorGenerator = registerGeneratorGenerator("community", TokenGeneratorGenerator { CommunityModeGenerator(it) })
-    val DEBUG: TokenGeneratorGenerator = registerGeneratorGenerator("debug", TokenGeneratorGenerator { DebugGenerator(it) })
+    val MIXED_GROUP: TokenGeneratorGenerator = registerGeneratorGenerator("mixed_groups") { MixedGroupGenerator(it) }
+    val STATIC_TOKEN: TokenGeneratorGenerator = registerGeneratorGenerator("static_token") { StaticTokenGenerator(it) }
+    val COMMUNITY: TokenGeneratorGenerator = registerGeneratorGenerator("community") { CommunityModeGenerator(it) }
+    val DEBUG: TokenGeneratorGenerator = registerGeneratorGenerator("debug") { DebugGenerator(it) }
 }

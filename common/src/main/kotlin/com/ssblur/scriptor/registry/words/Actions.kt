@@ -11,7 +11,6 @@ import com.ssblur.scriptor.word.action.teleport.SwapAction
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.TagKey
-import java.util.List
 
 @Suppress("unused")
 object Actions {
@@ -28,29 +27,33 @@ object Actions {
     val HARM = register("harm", HarmAction())
     val COLOR = register("color", ColorAction())
     val TIME = register("time", AdvanceTimeAction())
-    val CLEAR_WEATHER = register("clear_weather", ClearWeatherAction())
+    val CLEAR_WEATHER = register("clear_weather",
+        ClearWeatherAction()
+    )
     val RAIN = register("rain", RainAction())
 
-    val BOUND_SWORD = register("bound_sword", BoundSwordAction())
+    val BOUND_SWORD = register("bound_sword",
+        BoundSwordAction()
+    )
     val BOUND_AXE = register(
         "bound_axe",
         BoundToolAction(
             ScriptorItems.BOUND_AXE,
-            List.of(TagKey.create(Registries.BLOCK, ResourceLocation.withDefaultNamespace("mineable/axe")))
+            listOf(TagKey.create(Registries.BLOCK, ResourceLocation.withDefaultNamespace("mineable/axe")))
         )
     )
     val BOUND_SHOVEL = register(
         "bound_shovel",
         BoundToolAction(
             ScriptorItems.BOUND_SHOVEL,
-            List.of(TagKey.create(Registries.BLOCK, ResourceLocation.withDefaultNamespace("mineable/shovel")))
+            listOf(TagKey.create(Registries.BLOCK, ResourceLocation.withDefaultNamespace("mineable/shovel")))
         )
     )
     val BOUND_PICKAXE = register(
         "bound_pickaxe",
         BoundToolAction(
             ScriptorItems.BOUND_PICKAXE,
-            List.of(TagKey.create(Registries.BLOCK, ResourceLocation.withDefaultNamespace("mineable/pickaxe")))
+            listOf(TagKey.create(Registries.BLOCK, ResourceLocation.withDefaultNamespace("mineable/pickaxe")))
         )
     )
 }

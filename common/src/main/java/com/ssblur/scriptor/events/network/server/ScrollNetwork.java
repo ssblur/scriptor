@@ -4,8 +4,9 @@ import com.ssblur.scriptor.data.components.BookOfBooksData;
 import com.ssblur.scriptor.data.components.ScriptorDataComponents;
 import com.ssblur.scriptor.events.network.ScriptorNetwork;
 import com.ssblur.scriptor.events.network.ScriptorNetworkInterface;
-import com.ssblur.scriptor.item.BookOfBooks;
+import com.ssblur.scriptor.item.books.BookOfBooks;
 import dev.architectury.networking.NetworkManager;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -45,7 +46,7 @@ public class ScrollNetwork implements ScriptorNetworkInterface<ScrollNetwork.Pay
 
       if(book == null) return;
       var list = book.items;
-      if(list == null || list.isEmpty()) return;
+      if(list.isEmpty()) return;
 
       int slot = book.active;
       slot = slot + direction + list.size();
@@ -64,6 +65,7 @@ public class ScrollNetwork implements ScriptorNetworkInterface<ScrollNetwork.Pay
       Payload::new
     );
 
+    @MethodsReturnNonnullByDefault
     @Override
     public Type<Payload> type() {
       return TYPE;

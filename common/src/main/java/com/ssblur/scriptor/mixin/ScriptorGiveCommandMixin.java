@@ -1,8 +1,8 @@
 package com.ssblur.scriptor.mixin;
 
 import com.ssblur.scriptor.ScriptorMod;
-import com.ssblur.scriptor.item.AncientScrap;
-import com.ssblur.scriptor.item.AncientSpellbook;
+import com.ssblur.scriptor.item.books.AncientScrap;
+import com.ssblur.scriptor.item.books.AncientSpellbook;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.item.ItemInput;
 import net.minecraft.network.chat.Component;

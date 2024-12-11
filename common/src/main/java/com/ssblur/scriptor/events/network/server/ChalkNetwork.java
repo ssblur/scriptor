@@ -6,7 +6,7 @@ import com.ssblur.scriptor.blockentity.EngravingBlockEntity;
 import com.ssblur.scriptor.events.network.ScriptorNetwork;
 import com.ssblur.scriptor.events.network.ScriptorNetworkInterface;
 import com.ssblur.scriptor.events.network.ScriptorStreamCodecs;
-import com.ssblur.scriptor.item.Chalk;
+import com.ssblur.scriptor.item.tools.Chalk;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -57,8 +57,8 @@ public class ChalkNetwork implements ScriptorNetworkInterface<ChalkNetwork.Paylo
       else
         blockEntity = new ChalkBlockEntity(pos, level.getBlockState(pos));
 
-      blockEntity.setWord(text);
-      blockEntity.setFacing(player.getDirection());
+      blockEntity.word = text;
+      blockEntity.facing = player.getDirection();
       level.setBlockEntity(blockEntity);
 
       var blockState = level.getBlockState(pos);

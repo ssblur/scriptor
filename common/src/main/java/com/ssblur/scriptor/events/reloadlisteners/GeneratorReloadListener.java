@@ -4,7 +4,6 @@ import com.google.gson.JsonElement;
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.error.InvalidGeneratorException;
 import com.ssblur.scriptor.error.MissingRequiredElementException;
-import com.ssblur.scriptor.item.ScriptorTabs;
 import com.ssblur.scriptor.registry.TokenGeneratorRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -39,19 +38,16 @@ public class GeneratorReloadListener extends ScriptorReloadListener {
     if(generator.equals("community")) {
       ScriptorMod.INSTANCE.getLOGGER().info("Community mode generator loaded, locking down debug features.");
       ScriptorMod.INSTANCE.setCOMMUNITY_MODE(true);
-
-      var tab = ScriptorTabs.SCRIPTOR_TAB.get();
     }
 
     var generatorGenerator = TokenGeneratorRegistry.INSTANCE.getGeneratorGenerator(generator);
-    TokenGeneratorRegistry.INSTANCE.registerGenerator(resourceLocation, generatorGenerator.create(object.get("parameters").getAsJsonObject()));
+    if(generatorGenerator != null)
+      TokenGeneratorRegistry.INSTANCE.registerGenerator(resourceLocation, generatorGenerator.create(object.get("parameters").getAsJsonObject()));
 
     if(object.has("default") && object.get("default").getAsBoolean())
-      if(
-        TokenGeneratorRegistry.INSTANCE.defaultGenerator == null
-          || TokenGeneratorRegistry.INSTANCE.defaultGenerator.getNamespace().equals("scriptor")
-          || !resourceLocation.getNamespace().equals("scriptor")
-      )
+      if(TokenGeneratorRegistry.defaultGenerator == null
+          || TokenGeneratorRegistry.defaultGenerator.getNamespace().equals("scriptor")
+          || !resourceLocation.getNamespace().equals("scriptor"))
         TokenGeneratorRegistry.INSTANCE.registerDefaultGenerator(resourceLocation);
       else
         ScriptorMod.INSTANCE.getLOGGER().warn(

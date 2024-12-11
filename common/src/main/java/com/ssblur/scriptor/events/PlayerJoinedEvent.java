@@ -2,7 +2,7 @@ package com.ssblur.scriptor.events;
 
 import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.advancement.ScriptorAdvancements;
-import com.ssblur.scriptor.data.PlayerSpellsSavedData;
+import com.ssblur.scriptor.data.saved_data.PlayerSpellsSavedData;
 import com.ssblur.scriptor.events.network.client.ReceiveColorNetwork;
 import com.ssblur.scriptor.events.network.client.ReceiveConfigNetwork;
 import dev.architectury.event.events.common.PlayerEvent;

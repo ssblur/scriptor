@@ -3,7 +3,7 @@ package com.ssblur.scriptor.events;
 import com.ssblur.scriptor.ScriptorDamage;
 import com.ssblur.scriptor.config.ChatRules;
 import com.ssblur.scriptor.config.ScriptorGameRules;
-import com.ssblur.scriptor.data.DictionarySavedData;
+import com.ssblur.scriptor.data.saved_data.DictionarySavedData;
 import com.ssblur.scriptor.effect.EmpoweredStatusEffect;
 import com.ssblur.scriptor.effect.ScriptorEffects;
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable;

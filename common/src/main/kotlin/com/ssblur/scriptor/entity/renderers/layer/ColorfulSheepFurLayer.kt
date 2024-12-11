@@ -15,16 +15,16 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer
 import net.minecraft.resources.ResourceLocation
 
 class ColorfulSheepFurLayer(
-    renderLayerParent: RenderLayerParent<ColorfulSheep?, SheepModel<ColorfulSheep?>?>?,
+    renderLayerParent: RenderLayerParent<ColorfulSheep?, SheepModel<ColorfulSheep?>?>,
     entityModelSet: EntityModelSet
-) : RenderLayer<ColorfulSheep?, SheepModel<ColorfulSheep?>?>(renderLayerParent) {
+) : RenderLayer<ColorfulSheep, SheepModel<ColorfulSheep?>?>(renderLayerParent) {
     private val model = SheepFurModel<ColorfulSheep>(entityModelSet.bakeLayer(ModelLayers.SHEEP_FUR))
 
     override fun render(
         poseStack: PoseStack,
         multiBufferSource: MultiBufferSource,
         i: Int,
-        sheep: ColorfulSheep?,
+        sheep: ColorfulSheep,
         f: Float,
         g: Float,
         h: Float,
@@ -32,7 +32,7 @@ class ColorfulSheepFurLayer(
         k: Float,
         l: Float
     ) {
-        if (sheep?.isSheared == true) {
+        if (sheep.isSheared) {
             val minecraft = Minecraft.getInstance()
             if (minecraft.shouldEntityAppearGlowing(sheep)) {
                 parentModel?.copyPropertiesTo(model)
@@ -48,7 +48,7 @@ class ColorfulSheepFurLayer(
                 )
             }
         } else {
-            val color = sheep?.colorArray
+            val color = sheep.colorArray
             coloredCutoutModelCopyLayerRender(
                 parentModel,
                 model,
@@ -63,12 +63,12 @@ class ColorfulSheepFurLayer(
                 k,
                 l,
                 h,
-                color?.rgb ?: 0x0
+                color.rgb
             )
         }
     }
 
     companion object {
-        private val SHEEP_FUR_LOCATION = ResourceLocation.tryBuild("minecraft", "textures/entity/sheep/sheep_fur.png")
+        private val SHEEP_FUR_LOCATION = ResourceLocation.withDefaultNamespace("textures/entity/sheep/sheep_fur.png")
     }
 }

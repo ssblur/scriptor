@@ -23,7 +23,7 @@ object ScriptorEntities {
         "projectile"
     ) {
         EntityType.Builder.of(
-            { entityType: EntityType<ScriptorProjectile?>?, level: Level? -> ScriptorProjectile(entityType, level) },
+            { entityType, level -> ScriptorProjectile(entityType, level) },
             MobCategory.MISC
         )
             .clientTrackingRange(8)

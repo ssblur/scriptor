@@ -2,8 +2,8 @@ package com.ssblur.scriptor.recipe
 
 import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
-import com.ssblur.scriptor.item.ObfuscatedSpellbook
-import com.ssblur.scriptor.item.Spellbook
+import com.ssblur.scriptor.item.books.ObfuscatedSpellbook
+import com.ssblur.scriptor.item.books.Spellbook
 import net.minecraft.core.HolderLookup
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.StreamCodec

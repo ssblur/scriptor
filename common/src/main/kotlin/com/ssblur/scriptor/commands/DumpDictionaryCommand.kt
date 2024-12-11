@@ -4,7 +4,7 @@ import com.mojang.brigadier.Command
 import com.mojang.brigadier.CommandDispatcher
 import com.mojang.brigadier.context.CommandContext
 import com.ssblur.scriptor.ScriptorMod.COMMUNITY_MODE
-import com.ssblur.scriptor.data.DictionarySavedData
+import com.ssblur.scriptor.data.saved_data.DictionarySavedData
 import net.minecraft.commands.CommandBuildContext
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
@@ -16,12 +16,9 @@ object DumpDictionaryCommand {
     fun register(
         dispatcher: CommandDispatcher<CommandSourceStack?>,
         registry: CommandBuildContext?,
-        selection: Commands.CommandSelection?
-    ) {
+        selection: Commands.CommandSelection?) {
         dispatcher.register(
-            Commands.literal("dump_dictionary")
-                .requires { s: CommandSourceStack -> s.hasPermission(4) }
-                .executes { execute(it) }
+            Commands.literal("dump_dictionary").requires { it.hasPermission(4) }.executes { execute(it) }
         )
     }
 
@@ -30,9 +27,7 @@ object DumpDictionaryCommand {
             val player = command.source.entity as Player
             if (COMMUNITY_MODE) player.sendSystemMessage(Component.translatable("command.scriptor.community_mode"))
             else player.sendSystemMessage(
-                Component.literal(
-                    DictionarySavedData.computeIfAbsent(player.level() as ServerLevel).toString()
-                )
+                Component.literal(DictionarySavedData.computeIfAbsent(player.level() as ServerLevel).toString())
             )
         }
         return Command.SINGLE_SUCCESS
