@@ -13,7 +13,6 @@ object ScriptorLoot {
     val LOOT_ITEM_FUNCTION_TYPES: DeferredRegister<LootItemFunctionType<*>> =
         DeferredRegister.create(ScriptorMod.MOD_ID, Registries.LOOT_FUNCTION_TYPE)
 
-    @JvmField
     val ARTIFACT: RegistrySupplier<LootItemFunctionType<ArtifactItemFunction?>> =
         LOOT_ITEM_FUNCTION_TYPES.register("artifact") {
             LootItemFunctionType(
@@ -23,7 +22,5 @@ object ScriptorLoot {
             )
         }
 
-    fun register() {
-        LOOT_ITEM_FUNCTION_TYPES.register()
-    }
+    fun register() = LOOT_ITEM_FUNCTION_TYPES.register()
 }

@@ -7,9 +7,9 @@ import com.ssblur.scriptor.api.word.Subject
 import com.ssblur.scriptor.api.word.Word
 import com.ssblur.scriptor.api.word.Word.COSTTYPE
 import com.ssblur.scriptor.effect.ScriptorEffects.MUTE
-import com.ssblur.scriptor.events.network.client.ParticleNetwork
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable
 import com.ssblur.scriptor.helpers.targetable.Targetable
+import com.ssblur.scriptor.network.client.ParticleNetwork
 import com.ssblur.scriptor.word.descriptor.AfterCastDescriptor
 import com.ssblur.scriptor.word.descriptor.CastDescriptor
 import com.ssblur.scriptor.word.descriptor.focus.FocusDescriptor
@@ -19,7 +19,6 @@ import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
-import java.util.*
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ExecutionException
 import kotlin.math.pow
@@ -29,10 +28,7 @@ import kotlin.math.pow
  * @param subject The target of a spell
  * @param spells Groups of descriptors and actions
  */
-class Spell(
-  @JvmField val subject: Subject,
-  @JvmField vararg val spells: PartialSpell
-) {
+class Spell(val subject: Subject, vararg val spells: PartialSpell) {
     fun castOnTargets(originalCaster: Targetable, originalTargets: List<Targetable>) {
         assert(spells.isNotEmpty())
 
@@ -50,11 +46,7 @@ class Spell(
 
     fun createFuture(caster: Targetable): CompletableFuture<List<Targetable>> {
         val targetFuture = CompletableFuture<List<Targetable>>()
-
-        targetFuture.whenComplete { targets, throwable ->
-            if (throwable == null) castOnTargets(caster, targets)
-        }
-
+        targetFuture.whenComplete { targets, throwable -> if (throwable == null) castOnTargets(caster, targets) }
         return targetFuture
     }
 
@@ -74,7 +66,7 @@ class Spell(
                 }
         }
 
-        assert(spells.size >= 1)
+        assert(spells.isNotEmpty())
         for (descriptor in spells[0].deduplicatedDescriptors()) {
             if (descriptor is CastDescriptor)
                 if (descriptor.cannotCast(caster)) {
@@ -87,35 +79,22 @@ class Spell(
                 }
             if (descriptor is FocusDescriptor) caster = descriptor.modifyFocus(caster)
         }
-
         val targetFuture = subject.getTargets(caster, this)
-
         for (descriptor in spells[0].deduplicatedDescriptors())
             if (descriptor is AfterCastDescriptor) descriptor.afterCast(caster)
 
-        val finalCaster = caster.finalTargetable
         if (targetFuture.isDone) {
-            try {
-                val targets = targetFuture.get()
-                castOnTargets(finalCaster!!, targets)
-            } catch (e: InterruptedException) {
-                LOGGER.error(e)
-            } catch (e: ExecutionException) {
-                LOGGER.error(e)
-            }
-        } else {
-            println(targetFuture)
-            targetFuture.whenComplete { targets, throwable -> throwable ?: castOnTargets(finalCaster!!, targets) }
-        }
+            try { castOnTargets(caster.finalTargetable!!, targetFuture.get()) }
+            catch (e: InterruptedException) { LOGGER.error(e) }
+            catch (e: ExecutionException) { LOGGER.error(e) }
+        } else targetFuture.whenComplete { targets, throwable -> throwable ?: castOnTargets(caster.finalTargetable!!, targets) }
     }
 
     /**
      * Casts this spell with a specified list of Targetables.
      * @param caster The entity which cast this spell.
      */
-    fun cast(caster: Targetable, vararg targetables: Targetable) {
-        castOnTargets(caster, Arrays.stream(targetables).toList())
-    }
+    fun cast(caster: Targetable, vararg targetables: Targetable) = castOnTargets(caster, targetables.toList())
 
     /**
      * The cost for this spell, generally affects cooldowns / material cost.
@@ -125,7 +104,6 @@ class Spell(
         var sum = 0.0
         var scalar = 1.0
         var discount = 0.0
-
         var subCount = 0.0
         var sub = 0.0
 
@@ -136,31 +114,22 @@ class Spell(
                     if (sum < 0) {
                         subCount++
                         sub += cost.cost
-                    } else {
-                        sum += cost.cost
-                    }
+                    } else sum += cost.cost
                 }
 
                 COSTTYPE.MULTIPLICATIVE -> scalar *= cost.cost
                 COSTTYPE.ADDITIVE_POST -> discount += cost.cost
-                null -> {}
             }
         }
 
         if (subCount > 0) {
             val squeeze = 0.5
-            var denominator: Double = squeeze.pow(subCount)
-            denominator = squeeze - denominator
-            denominator = 1 - denominator
-            sub = sub / denominator
-            sum -= sub
+            val denominator = 1 - (squeeze - squeeze.pow(subCount))
+            sum -= sub / denominator
         }
 
-        var out = sum * scalar
-        out += discount
-        return out
+        return sum * scalar + discount
     }
-
 
     private fun words(): Array<Word?> {
         var length = 1
@@ -181,8 +150,5 @@ class Spell(
         return words
     }
 
-    fun deduplicatedDescriptorsForSubjects(): Array<Descriptor> {
-        assert(spells.size >= 1)
-        return spells[0].deduplicatedDescriptors()
-    }
+    fun deduplicatedDescriptorsForSubjects(): Array<Descriptor> = spells[0].deduplicatedDescriptors()
 }

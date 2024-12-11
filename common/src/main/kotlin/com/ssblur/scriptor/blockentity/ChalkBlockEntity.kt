@@ -2,8 +2,8 @@ package com.ssblur.scriptor.blockentity
 
 import com.ssblur.scriptor.config.ScriptorGameRules
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData
-import com.ssblur.scriptor.events.network.client.ParticleNetwork
 import com.ssblur.scriptor.helpers.targetable.Targetable
+import com.ssblur.scriptor.network.client.ParticleNetwork
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
@@ -20,9 +20,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 
 open class ChalkBlockEntity : BlockEntity {
-    @JvmField
     var word: String
-    @JvmField
     var facing: Direction
 
     constructor(blockPos: BlockPos, blockState: BlockState) : super(
@@ -43,9 +41,7 @@ open class ChalkBlockEntity : BlockEntity {
         facing = Direction.EAST
     }
 
-    fun cast() {
-        this.cast(ArrayList(), "", true)
-    }
+    fun cast() = this.cast(ArrayList(), "", true)
 
     open fun cast(visited: MutableList<BlockPos>, initialWords: String, primary: Boolean) {
         var words = initialWords
@@ -55,22 +51,18 @@ open class ChalkBlockEntity : BlockEntity {
             (level!!.getBlockEntity(blockPos.north()) as ChalkBlockEntity).cast(visited, "$words $word", primary)
             continued = true
         }
-
         if (!visited.contains(blockPos.south()) && level!!.getBlockEntity(blockPos.south()) is ChalkBlockEntity) {
             (level!!.getBlockEntity(blockPos.south()) as ChalkBlockEntity).cast(visited, "$words $word", !continued && primary)
             continued = true
         }
-
         if (!visited.contains(blockPos.east()) && level!!.getBlockEntity(blockPos.east()) is ChalkBlockEntity) {
             (level!!.getBlockEntity(blockPos.east()) as ChalkBlockEntity).cast(visited, "$words $word", !continued && primary)
             continued = true
         }
-
         if (!visited.contains(blockPos.west()) && level!!.getBlockEntity(blockPos.west()) is ChalkBlockEntity) {
             (level!!.getBlockEntity(blockPos.west()) as ChalkBlockEntity).cast(visited, "$words $word", !continued && primary)
             continued = true
         }
-
         if (continued) return
 
         if (level is ServerLevel) {
@@ -97,9 +89,7 @@ open class ChalkBlockEntity : BlockEntity {
         }
     }
 
-    override fun getUpdatePacket(): Packet<ClientGamePacketListener>? {
-        return ClientboundBlockEntityDataPacket.create(this)
-    }
+    override fun getUpdatePacket(): Packet<ClientGamePacketListener>? = ClientboundBlockEntityDataPacket.create(this)
 
     override fun getUpdateTag(provider: HolderLookup.Provider): CompoundTag {
         val tag = super.getUpdateTag(provider)

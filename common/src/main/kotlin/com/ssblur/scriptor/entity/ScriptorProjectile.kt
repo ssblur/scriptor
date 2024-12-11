@@ -18,13 +18,8 @@ import net.minecraft.world.phys.Vec3
 import java.util.concurrent.CompletableFuture
 
 class ScriptorProjectile(entityType: EntityType<ScriptorProjectile?>, level: Level) : Entity(entityType, level) {
-    @JvmField
     var completable: CompletableFuture<List<Targetable>>? = null
     var origin: Vec3? = null
-
-    fun setCompletable(completable: CompletableFuture<List<Targetable>>?) {
-        this.completable = completable
-    }
 
     var color: Int
         get() = entityData.get(COLOR)
@@ -95,15 +90,13 @@ class ScriptorProjectile(entityType: EntityType<ScriptorProjectile?>, level: Lev
 //      0
 //    );
         val duration = entityData.get(DURATION)
-        if (tickCount > duration || completable == null || completable!!.isDone
-        ) {
+        if (tickCount > duration || completable == null || completable!!.isDone) {
             remove(RemovalReason.KILLED)
             return
         }
 
         var dest = position().add(deltaMovement)
-        val blockHitResult =
-            level.clip(ClipContext(position(), dest, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this))
+        val blockHitResult = level.clip(ClipContext(position(), dest, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this))
         if (blockHitResult.type != HitResult.Type.MISS) dest = blockHitResult.location
         val entityHitResult = ProjectileUtil.getEntityHitResult(
             level(),
@@ -111,39 +104,23 @@ class ScriptorProjectile(entityType: EntityType<ScriptorProjectile?>, level: Lev
             position(),
             dest,
             boundingBox.expandTowards(deltaMovement).inflate(1.0)
-        ) { e: Entity? -> true }
+        ) { _: Entity? -> true }
 
 
         if (entityHitResult != null) {
             val entity = entityHitResult.entity
             if(entity is LivingEntity)
-                completable!!.complete(
-                    java.util.List.of<Targetable>(
-                        EntityTargetable(entity)
-                    )
-                )
+                completable!!.complete(listOf(EntityTargetable(entity)))
         } else if (blockHitResult.type != HitResult.Type.MISS
-            && !(origin != null && blockHitResult.type == HitResult.Type.BLOCK && origin!!.distanceToSqr(dest) < 0.55)
-        ) completable!!.complete(
-            java.util.List.of(
-                Targetable(
-                    this.level(),
-                    blockHitResult.blockPos.offset(blockHitResult.direction.normal)
-                )
-                    .setFacing(blockHitResult.direction)
-            )
-        )
+            && !(origin != null && blockHitResult.type == HitResult.Type.BLOCK && origin!!.distanceToSqr(dest) < 0.55))
+            completable!!.complete(listOf(
+                Targetable(level(), blockHitResult.blockPos.offset(blockHitResult.direction.normal)).setFacing(blockHitResult.direction)
+            ))
     }
 
     companion object {
-        private val DURATION: EntityDataAccessor<Int> = SynchedEntityData.defineId(
-            ScriptorProjectile::class.java, EntityDataSerializers.INT
-        )
-        private val COLOR: EntityDataAccessor<Int> = SynchedEntityData.defineId(
-            ScriptorProjectile::class.java, EntityDataSerializers.INT
-        )
-        private val OWNER: EntityDataAccessor<Int> = SynchedEntityData.defineId(
-            ScriptorProjectile::class.java, EntityDataSerializers.INT
-        )
+        private val DURATION: EntityDataAccessor<Int> = SynchedEntityData.defineId(ScriptorProjectile::class.java, EntityDataSerializers.INT)
+        private val COLOR: EntityDataAccessor<Int> = SynchedEntityData.defineId(ScriptorProjectile::class.java, EntityDataSerializers.INT)
+        private val OWNER: EntityDataAccessor<Int> = SynchedEntityData.defineId(ScriptorProjectile::class.java, EntityDataSerializers.INT)
     }
 }

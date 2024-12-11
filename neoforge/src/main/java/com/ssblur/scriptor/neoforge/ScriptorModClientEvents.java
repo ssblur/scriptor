@@ -14,7 +14,7 @@ public class ScriptorModClientEvents {
   }
 
   public static void buildCreativeTab(BuildCreativeModeTabContentsEvent event) {
-    if(!ScriptorMod.INSTANCE.getCOMMUNITY_MODE() && event.getTab() == ScriptorTabs.SCRIPTOR_TAB.get()) {
+    if(!ScriptorMod.INSTANCE.getCOMMUNITY_MODE() && event.getTab() == ScriptorTabs.INSTANCE.getSCRIPTOR_TAB().get()) {
       event.accept(ScriptorItems.INSTANCE.getTOME_TIER1().get());
       event.accept(ScriptorItems.INSTANCE.getTOME_TIER2().get());
       event.accept(ScriptorItems.INSTANCE.getTOME_TIER3().get());

@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.item.tools
 
 import com.ssblur.scriptor.network.server.ScriptorNetworkC2S
-import com.ssblur.scriptor.network.server.ScriptorNetworkC2S.ReceiveChalk
+import com.ssblur.scriptor.network.server.ScriptorNetworkC2S.SendChalk
 import net.minecraft.ChatFormatting
 import net.minecraft.client.Minecraft
 import net.minecraft.core.component.DataComponents
@@ -38,7 +38,7 @@ open class Chalk(properties: Properties) : Item(properties) {
             val client = Minecraft.getInstance()
             val hit = client.hitResult
             if (hit is BlockHitResult)
-                ScriptorNetworkC2S.RECEIVE_CHALK(ReceiveChalk(hit, false))
+                ScriptorNetworkC2S.sendChalk(SendChalk(hit, false))
         }
 
         return InteractionResultHolder.success(player.getItemInHand(interactionHand))

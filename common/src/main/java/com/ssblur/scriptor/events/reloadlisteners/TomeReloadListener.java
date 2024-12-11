@@ -42,10 +42,10 @@ public class TomeReloadListener extends ScriptorReloadListener {
 
   public void loadResource(ResourceLocation resourceLocation, JsonElement jsonElement) {
     TomeResource resource = GSON.fromJson(jsonElement, TOME_TYPE);
-    if(!tomes.containsKey(resource.tier))
-      tomes.put(resource.tier, new HashMap<>());
+    if(!tomes.containsKey(resource.getTier()))
+      tomes.put(resource.getTier(), new HashMap<>());
     keys.add(resourceLocation);
-    tomes.get(resource.tier).put(resourceLocation, resource);
+    tomes.get(resource.getTier()).put(resourceLocation, resource);
   }
 
   public TomeResource getRandomTome(int tier) {

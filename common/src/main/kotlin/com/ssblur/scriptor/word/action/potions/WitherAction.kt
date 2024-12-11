@@ -1,8 +1,8 @@
 package com.ssblur.scriptor.word.action.potions
 
 import com.ssblur.scriptor.api.word.Descriptor
-import com.ssblur.scriptor.events.network.client.ParticleNetwork
 import com.ssblur.scriptor.helpers.targetable.Targetable
+import com.ssblur.scriptor.network.client.ParticleNetwork
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.level.block.CropBlock
 import java.util.*

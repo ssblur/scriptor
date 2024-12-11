@@ -1,7 +1,6 @@
 package com.ssblur.scriptor.events;
 
 import com.ssblur.scriptor.ScriptorMod;
-import com.ssblur.scriptor.events.network.ScriptorNetwork;
 import com.ssblur.scriptor.events.reloadlisteners.*;
 import dev.architectury.event.events.client.ClientRawInputEvent;
 import dev.architectury.event.events.client.ClientTickEvent;
@@ -13,7 +12,7 @@ import net.fabricmc.api.EnvType;
 import net.minecraft.server.packs.PackType;
 
 public class ScriptorEvents {
-  public static final String MOD_ID = ScriptorMod.INSTANCE.MOD_ID;
+  public static final String MOD_ID = ScriptorMod.MOD_ID;
 
   public static void register() {
     ChatEvent.RECEIVED.register(new SpellChatEvents());
@@ -40,7 +39,5 @@ public class ScriptorEvents {
 
       ScriptorEventsExpectPlatform.registerClientEvents();
     }
-
-    ScriptorNetwork.register();
   }
 }

@@ -3,10 +3,10 @@ package com.ssblur.scriptor.word.action
 import com.ssblur.scriptor.api.word.Action
 import com.ssblur.scriptor.api.word.Descriptor
 import com.ssblur.scriptor.color.CustomColors.getColor
-import com.ssblur.scriptor.events.network.client.ParticleNetwork
 import com.ssblur.scriptor.helpers.ItemTargetableHelper
 import com.ssblur.scriptor.helpers.targetable.Targetable
 import com.ssblur.scriptor.mixin.BlockPlaceContextAccessor
+import com.ssblur.scriptor.network.client.ParticleNetwork
 import com.ssblur.scriptor.registry.colorable.ColorableBlockRegistry.DYE_COLORABLE_BLOCKS
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult

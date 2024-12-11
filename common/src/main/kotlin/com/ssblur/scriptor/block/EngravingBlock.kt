@@ -31,7 +31,7 @@ class EngravingBlock : ChalkBlock(
         blockState: BlockState,
         blockEntityType: BlockEntityType<T>
     ) = BlockEntityTicker { tickerLevel, pos, state, entity: T ->
-        EngravingBlockEntity.tick(tickerLevel, pos, state, entity as BlockEntity)
+        EngravingBlockEntity.tick(tickerLevel, entity as BlockEntity)
     }
 
     override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {

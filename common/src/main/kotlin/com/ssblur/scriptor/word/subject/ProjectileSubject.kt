@@ -42,7 +42,7 @@ class ProjectileSubject : Subject() {
         projectile.setOrigin(caster.origin)
         projectile.setDuration(Math.round(10 * duration).toInt())
         projectile.color = color
-        projectile.setCompletable(future)
+        projectile.completable = future
         caster.level.addFreshEntity(projectile)
 
         return future

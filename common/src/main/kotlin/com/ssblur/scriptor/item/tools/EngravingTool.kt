@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.item.tools
 
 import com.ssblur.scriptor.network.server.ScriptorNetworkC2S
-import com.ssblur.scriptor.network.server.ScriptorNetworkC2S.ReceiveChalk
+import com.ssblur.scriptor.network.server.ScriptorNetworkC2S.SendChalk
 import net.minecraft.client.Minecraft
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
@@ -20,7 +20,7 @@ class EngravingTool(properties: Properties) : Chalk(properties) {
             val client = Minecraft.getInstance()
             val hit = client.hitResult
             if (hit is BlockHitResult)
-                ScriptorNetworkC2S.RECEIVE_CHALK(ReceiveChalk(hit, true))
+                ScriptorNetworkC2S.sendChalk(SendChalk(hit, true))
         }
 
         return InteractionResultHolder.success(player.getItemInHand(interactionHand))

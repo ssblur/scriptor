@@ -17,6 +17,7 @@ classes/
 .vscode
 .settings
 *.launch
+*.salive
 
 .env
 .env.ps1

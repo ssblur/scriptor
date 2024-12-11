@@ -33,7 +33,7 @@ public class RecipeIntegration {
   public static void registerItemInfo(InformationRegistrar informationRegistrar) {
     informationRegistrar.register(
       ScriptorMod.INSTANCE.location("spellbook_info"),
-      SpellbookHelper.SPELLBOOKS.stream().map(ItemStack::new).toList(),
+      SpellbookHelper.INSTANCE.getSPELLBOOKS().stream().map(ItemStack::new).toList(),
       Component.translatable("info.scriptor.spellbook_1"),
       Component.translatable("info.scriptor.spellbook_2"),
       Component.translatable("info.scriptor.spellbook_3")
@@ -72,7 +72,7 @@ public class RecipeIntegration {
             recipe.result,
             holder.id()
           );
-          case SpellbookCloningRecipe ignored -> SpellbookHelper.SPELLBOOKS.forEach(spellbook -> shapelessRecipeRegistrar.register(
+          case SpellbookCloningRecipe ignored -> SpellbookHelper.INSTANCE.getSPELLBOOKS().forEach(spellbook -> shapelessRecipeRegistrar.register(
             List.of(
               Ingredient.of(spellbook),
               Ingredient.of(new ItemStack(Items.PAPER)),
@@ -85,10 +85,10 @@ public class RecipeIntegration {
           ));
           case SpellbookRecipe recipe -> shapelessRecipeRegistrar.register(
             List.of(
-              recipe.base,
-              recipe.addition
+              recipe.getBase(),
+              recipe.getAddition()
             ),
-            recipe.result,
+            recipe.getResult(),
             holder.id()
           );
           default -> {

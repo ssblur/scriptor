@@ -77,7 +77,7 @@ open class Spellbook(properties: Properties) :
             val level = player.level()
             if (!level.isClientSide) return true
             if (player.isCreative) return false // TODO:
-            else ScriptorNetworkC2S.USE_BOOK(UseBook(slot.index))
+            else ScriptorNetworkC2S.useBook(UseBook(slot.index))
             return true
         }
         return false

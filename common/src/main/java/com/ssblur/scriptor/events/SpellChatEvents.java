@@ -45,27 +45,27 @@ public class SpellChatEvents implements ChatEvent.Received {
                 costScale *= empoweredStatusEffect.getScale();
           cost = Math.round(((float) cost) * costScale);
 
-          if (level.getGameRules().getInt(ScriptorGameRules.VOCAL_MAX_COST) >= 0 && cost > level.getGameRules().getInt(ScriptorGameRules.VOCAL_MAX_COST))
+          if (level.getGameRules().getInt(ScriptorGameRules.INSTANCE.getVOCAL_MAX_COST()) >= 0 && cost > level.getGameRules().getInt(ScriptorGameRules.INSTANCE.getVOCAL_MAX_COST()))
             player.sendSystemMessage(Component.translatable("extra.scriptor.mute"));
 		
-		  int adjustedCost = (int) Math.round( (double)cost * ( (double) level.getGameRules().getInt(ScriptorGameRules.VOCAL_COOLDOWN_MULTIPLIER) / (double) 100 ) );
+		  int adjustedCost = (int) Math.round( (double)cost * ( (double) level.getGameRules().getInt(ScriptorGameRules.INSTANCE.getVOCAL_COOLDOWN_MULTIPLIER()) / (double) 100 ) );
 		  if (!player.isCreative()) {
         player.addEffect(new MobEffectInstance(ScriptorEffects.INSTANCE.getHOARSE(), adjustedCost));
-			  if (adjustedCost > level.getGameRules().getInt(ScriptorGameRules.VOCAL_HUNGER_THRESHOLD))
-				  player.addEffect(new MobEffectInstance(MobEffects.HUNGER, 2*(adjustedCost - level.getGameRules().getInt(ScriptorGameRules.VOCAL_HUNGER_THRESHOLD))));
-			  if (adjustedCost > level.getGameRules().getInt(ScriptorGameRules.VOCAL_DAMAGE_THRESHOLD))
-				  player.hurt(Objects.requireNonNull(ScriptorDamage.overload(player)), (adjustedCost - level.getGameRules().getInt(ScriptorGameRules.VOCAL_DAMAGE_THRESHOLD) * 0.75f) / 100f);
+			  if (adjustedCost > level.getGameRules().getInt(ScriptorGameRules.INSTANCE.getVOCAL_HUNGER_THRESHOLD()))
+				  player.addEffect(new MobEffectInstance(MobEffects.HUNGER, 2*(adjustedCost - level.getGameRules().getInt(ScriptorGameRules.INSTANCE.getVOCAL_HUNGER_THRESHOLD()))));
+			  if (adjustedCost > level.getGameRules().getInt(ScriptorGameRules.INSTANCE.getVOCAL_DAMAGE_THRESHOLD()))
+				  player.hurt(Objects.requireNonNull(ScriptorDamage.overload(player)), (adjustedCost - level.getGameRules().getInt(ScriptorGameRules.INSTANCE.getVOCAL_DAMAGE_THRESHOLD()) * 0.75f) / 100f);
 		  }
         if(player.getHealth() > 0)
           spell.cast(new EntityTargetable(player));
 
-        if(!server.getGameRules().getBoolean(ChatRules.SHOW_SPELLS_IN_CHAT))
+        if(!server.getGameRules().getBoolean(ChatRules.INSTANCE.getSHOW_SPELLS_IN_CHAT()))
           return EventResult.interruptFalse();
         }
       }
 
-      if (level instanceof ServerLevel server && server.getGameRules().getBoolean(ChatRules.PROXIMITY_CHAT)) {
-        int distance = server.getGameRules().getInt(ChatRules.PROXIMITY_RANGE);
+      if (level instanceof ServerLevel server && server.getGameRules().getBoolean(ChatRules.INSTANCE.getPROXIMITY_CHAT())) {
+        int distance = server.getGameRules().getInt(ChatRules.INSTANCE.getPROXIMITY_RANGE());
         var name = player.getDisplayName();
         Component message;
         if(name == null)

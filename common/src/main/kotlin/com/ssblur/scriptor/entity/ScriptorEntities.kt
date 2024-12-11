@@ -18,7 +18,6 @@ import net.minecraft.world.level.Level
 object ScriptorEntities {
     val ENTITY_TYPES: DeferredRegister<EntityType<*>> =
         DeferredRegister.create(ScriptorMod.MOD_ID, Registries.ENTITY_TYPE)
-    @JvmField
     val PROJECTILE_TYPE: RegistrySupplier<EntityType<ScriptorProjectile?>> = ENTITY_TYPES.register(
         "projectile"
     ) {
@@ -30,7 +29,6 @@ object ScriptorEntities {
             .sized(0.25f, 0.25f)
             .build("projectile")
     }
-    @JvmField
     val COLORFUL_SHEEP_TYPE: RegistrySupplier<EntityType<ColorfulSheep?>> = ENTITY_TYPES.register(
         "colorful_sheep"
     ) {

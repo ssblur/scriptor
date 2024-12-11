@@ -3,11 +3,8 @@ package com.ssblur.scriptor.config
 import net.minecraft.world.level.GameRules
 
 object ChatRules {
-    @JvmField
     var PROXIMITY_CHAT: GameRules.Key<GameRules.BooleanValue>? = null
-    @JvmField
     var SHOW_SPELLS_IN_CHAT: GameRules.Key<GameRules.BooleanValue>? = null
-    @JvmField
     var PROXIMITY_RANGE: GameRules.Key<GameRules.IntegerValue>? = null
 
     fun register() {

@@ -2,10 +2,10 @@ package com.ssblur.scriptor.word.subject
 
 import com.ssblur.scriptor.api.word.Subject
 import com.ssblur.scriptor.color.CustomColors.getColor
-import com.ssblur.scriptor.events.network.client.ParticleNetwork
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable
 import com.ssblur.scriptor.helpers.targetable.LecternTargetable
 import com.ssblur.scriptor.helpers.targetable.Targetable
+import com.ssblur.scriptor.network.client.ParticleNetwork
 import com.ssblur.scriptor.network.server.TraceNetwork
 import com.ssblur.scriptor.word.Spell
 import net.minecraft.world.entity.LivingEntity

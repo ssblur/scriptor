@@ -45,8 +45,8 @@ public class GeneratorReloadListener extends ScriptorReloadListener {
       TokenGeneratorRegistry.INSTANCE.registerGenerator(resourceLocation, generatorGenerator.create(object.get("parameters").getAsJsonObject()));
 
     if(object.has("default") && object.get("default").getAsBoolean())
-      if(TokenGeneratorRegistry.defaultGenerator == null
-          || TokenGeneratorRegistry.defaultGenerator.getNamespace().equals("scriptor")
+      if(TokenGeneratorRegistry.INSTANCE.getDefaultGenerator() == null
+          || TokenGeneratorRegistry.INSTANCE.getDefaultGenerator().getNamespace().equals("scriptor")
           || !resourceLocation.getNamespace().equals("scriptor"))
         TokenGeneratorRegistry.INSTANCE.registerDefaultGenerator(resourceLocation);
       else

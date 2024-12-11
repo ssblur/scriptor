@@ -11,7 +11,6 @@ object TokenGeneratorRegistry {
     var generatorBindings: HashMap<String, ResourceLocation?> = HashMap()
     var generatorBindingConfig: HashMap<String, JsonObject?> = HashMap()
     var generatorGenerators: HashMap<String, TokenGeneratorGenerator> = HashMap()
-    @JvmField
     var defaultGenerator: ResourceLocation? = null
 
     fun registerGeneratorGenerator(key: String, generatorGenerator: TokenGeneratorGenerator): TokenGeneratorGenerator {

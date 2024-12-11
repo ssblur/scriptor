@@ -3,10 +3,10 @@ package com.ssblur.scriptor.blockentity
 import com.ssblur.scriptor.block.CastingLecternBlock
 import com.ssblur.scriptor.config.ScriptorGameRules
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData
-import com.ssblur.scriptor.events.network.client.ParticleNetwork
 import com.ssblur.scriptor.helpers.LimitedBookSerializer
 import com.ssblur.scriptor.helpers.targetable.LecternTargetable
 import com.ssblur.scriptor.item.casters.CasterCrystal
+import com.ssblur.scriptor.network.client.ParticleNetwork
 import net.minecraft.core.BlockPos
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.NonNullList
@@ -129,7 +129,7 @@ class CastingLecternBlockEntity(blockPos: BlockPos, blockState: BlockState) :
         const val SPELLBOOK_SLOT: Int = 0
         const val CASTING_FOCUS_SLOT: Int = 1
 
-        fun tick(level: Level, @Suppress("unused") blockPos: BlockPos?, @Suppress("unused") blockState: BlockState?, blockEntity: BlockEntity) {
+        fun tick(level: Level, blockEntity: BlockEntity) {
             if (level.isClientSide) return
             if (blockEntity is CastingLecternBlockEntity) blockEntity.tick()
         }

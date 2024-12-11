@@ -1,8 +1,8 @@
 package com.ssblur.scriptor.blockentity
 
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData
-import com.ssblur.scriptor.events.network.client.ParticleNetwork
 import com.ssblur.scriptor.helpers.targetable.Targetable
+import com.ssblur.scriptor.network.client.ParticleNetwork
 import net.minecraft.core.BlockPos
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.sounds.SoundEvents
@@ -14,7 +14,6 @@ import kotlin.math.max
 
 class EngravingBlockEntity(blockPos: BlockPos, blockState: BlockState) :
     ChalkBlockEntity(ScriptorBlockEntities.ENGRAVING.get(), blockPos, blockState) {
-    @JvmField
     var cooldown: Int = 0
     override fun cast(visited: MutableList<BlockPos>, initialWords: String, primary: Boolean) {
         var words = initialWords
@@ -84,7 +83,7 @@ class EngravingBlockEntity(blockPos: BlockPos, blockState: BlockState) :
     }
 
     companion object {
-        fun <T : BlockEntity?> tick(level: Level, @Suppress("unused") pos: BlockPos?, @Suppress("unused") state: BlockState?, entity: T) {
+        fun <T : BlockEntity?> tick(level: Level, entity: T) {
             if (level.isClientSide) return
             if (entity is EngravingBlockEntity) entity.cooldown = max(0.0, (entity.cooldown - 1).toDouble()).toInt()
         }

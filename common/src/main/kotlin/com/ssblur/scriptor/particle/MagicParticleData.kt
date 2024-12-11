@@ -15,7 +15,6 @@ class MagicParticleData protected constructor(val r: Int, val g: Int, val b: Int
     }
 
     companion object {
-        @JvmField
         val CODEC: MapCodec<MagicParticleData> =
             RecordCodecBuilder.mapCodec { instance: RecordCodecBuilder.Instance<MagicParticleData> ->
                 instance.group(
@@ -24,16 +23,12 @@ class MagicParticleData protected constructor(val r: Int, val g: Int, val b: Int
                     Codec.INT.fieldOf("b").forGetter { data: MagicParticleData -> data.b }
                 ).apply(instance) { r: Int, g: Int, b: Int -> MagicParticleData(r, g, b) }
             }
-
-        @JvmField
         val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, MagicParticleData> = StreamCodec.composite(
             ByteBufCodecs.INT, { magicParticleData: MagicParticleData -> magicParticleData.r },
             ByteBufCodecs.INT, { magicParticleData: MagicParticleData -> magicParticleData.g },
             ByteBufCodecs.INT, { magicParticleData: MagicParticleData -> magicParticleData.b },
             { r: Int, g: Int, b: Int -> MagicParticleData(r, g, b) }
         )
-
-        @JvmStatic
         fun magic(r: Int, g: Int, b: Int): MagicParticleData {
             return MagicParticleData(r, g, b)
         }

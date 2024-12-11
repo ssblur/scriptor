@@ -9,7 +9,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.*
 import net.minecraft.world.level.Level
 
-class SpellbookRecipe(@JvmField var base: Ingredient, @JvmField var addition: Ingredient, @JvmField var result: ItemStack) : CustomRecipe(
+class SpellbookRecipe(var base: Ingredient, var addition: Ingredient, var result: ItemStack) : CustomRecipe(
     CraftingBookCategory.MISC
 ) {
     override fun matches(container: CraftingInput, level: Level): Boolean {

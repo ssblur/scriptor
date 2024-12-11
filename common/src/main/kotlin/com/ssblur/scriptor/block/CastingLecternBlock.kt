@@ -79,7 +79,10 @@ class CastingLecternBlock : Block(Properties.ofFullCopy(Blocks.ACACIA_PLANKS).no
         blockState: BlockState,
         blockEntityType: BlockEntityType<T>
     ): BlockEntityTicker<T> = BlockEntityTicker {
-        tickerLevel, pos: BlockPos?, state: BlockState?, entity -> CastingLecternBlockEntity.tick(tickerLevel, pos, state, entity as BlockEntity)
+        tickerLevel, pos: BlockPos?, state: BlockState?, entity -> CastingLecternBlockEntity.tick(
+        tickerLevel,
+        entity as BlockEntity
+    )
     }
 
     public override fun getShape(
@@ -115,7 +118,6 @@ class CastingLecternBlock : Block(Properties.ofFullCopy(Blocks.ACACIA_PLANKS).no
     }
 
     companion object {
-        @JvmField
         val FACING: DirectionProperty = HorizontalDirectionalBlock.FACING
     }
 }

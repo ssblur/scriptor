@@ -1,33 +1,33 @@
 package com.ssblur.scriptor.network.server
 
 import com.ssblur.scriptor.ScriptorMod.location
-import com.ssblur.scriptor.events.network.client.ClientExtendedTraceNetwork
-import com.ssblur.scriptor.events.network.client.ClientTraceNetwork
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable
 import com.ssblur.scriptor.helpers.targetable.Targetable
+import com.ssblur.scriptor.network.client.ScriptorNetworkS2C.ExtendedTrace
+import com.ssblur.scriptor.network.client.ScriptorNetworkS2C.Trace
+import com.ssblur.scriptor.network.client.ScriptorNetworkS2C.extendedTrace
+import com.ssblur.scriptor.network.client.ScriptorNetworkS2C.trace
+import com.ssblur.unfocused.extension.ServerLevelExtension.runOnce
 import com.ssblur.unfocused.network.NetworkManager
 import io.netty.buffer.Unpooled
 import net.minecraft.core.RegistryAccess
 import net.minecraft.network.RegistryFriendlyByteBuf
-import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.phys.BlockHitResult
 import java.util.*
 
 object TraceNetwork {
     enum class TYPE {BLOCK, ENTITY, MISS}
-    fun interface TraceCallback {
-        fun run(target: Targetable)
-    }
+    fun interface TraceCallback { fun run(target: Targetable) }
     data class TraceQueue(val player: Player, val callback: TraceCallback)
-    var queue: HashMap<UUID, TraceQueue> = HashMap()
+    private var queue: HashMap<UUID, TraceQueue> = HashMap()
 
     fun requestTraceData(player: Player, callback: (Targetable) -> Unit) {
         val uuid = UUID.randomUUID()
         val out = RegistryFriendlyByteBuf(Unpooled.buffer(), RegistryAccess.EMPTY)
         out.writeUUID(uuid)
         queue[uuid] = TraceQueue(player, callback)
-        dev.architectury.networking.NetworkManager.sendToPlayer(player as ServerPlayer, ClientTraceNetwork.Payload(uuid))
+        trace(Trace(uuid), listOf(player))
     }
 
     fun requestExtendedTraceData(player: Player, callback: TraceCallback) {
@@ -35,7 +35,7 @@ object TraceNetwork {
         val out = RegistryFriendlyByteBuf(Unpooled.buffer(), RegistryAccess.EMPTY)
         out.writeUUID(uuid)
         queue[uuid] = TraceQueue(player, callback)
-        dev.architectury.networking.NetworkManager.sendToPlayer(player as ServerPlayer, ClientExtendedTraceNetwork.Payload(uuid))
+        extendedTrace(ExtendedTrace(uuid), listOf(player))
     }
 
     fun validateAndRun(uuid: UUID, player: Player, targetable: Targetable) {
@@ -49,38 +49,24 @@ object TraceNetwork {
     }
 
     data class Payload(val uuid: UUID, val traceType: TYPE, val blockHitResult: BlockHitResult?, val entityId: Int, val entityUUID: UUID?)
-    val RETURN_TRACE_DATA = NetworkManager.registerC2S(
-        location("server_return_trace_data"),
-        Payload::class
-    ) { payload, player ->
-        val uuid: UUID = payload.uuid
-
-        val type: TYPE = payload.traceType
-        when (type) {
+    val returnTrace = NetworkManager.registerC2S(location("server_return_trace_data"), Payload::class) { payload, player ->
+        when (payload.traceType) {
             TYPE.BLOCK -> {
-                val result: BlockHitResult = payload.blockHitResult!!
+                val result = payload.blockHitResult!!
                 val pos = result.blockPos.relative(result.direction)
                 val targetable = Targetable(player.level(), pos).setFacing(result.direction)
 
-                player.serverLevel().server.addTickable { validateAndRun(uuid, player, targetable) }
+                player.serverLevel().runOnce { validateAndRun(payload.uuid, player, targetable) }
             }
-
             TYPE.ENTITY -> {
-                val entityId: Int = payload.entityId
-                val entityUUID: UUID = payload.entityUUID!!
-                val level = player.level()
-                val entity = level.getEntity(entityId)
-                if (entity != null && entity.uuid == entityUUID) player.serverLevel().server.addTickable {
-                    validateAndRun(
-                        uuid,
-                        player,
-                        EntityTargetable(entity)
-                    )
+                val level = player.serverLevel()
+                val entity = level.getEntity(payload.entityId)
+                if (entity != null && entity.uuid == payload.entityUUID) level.runOnce {
+                    validateAndRun(payload.uuid, player, EntityTargetable(entity))
                 }
-                else player.serverLevel().server.addTickable { validateAndDrop(uuid, player) }
+                else level.runOnce { validateAndDrop(payload.uuid, player) }
             }
-
-            else -> player.serverLevel().server.addTickable { validateAndDrop(uuid, player) }
+            else -> player.serverLevel().runOnce { validateAndDrop(payload.uuid, player) }
         }
     }
 }

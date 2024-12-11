@@ -16,7 +16,6 @@ class TomeResource {
     var author: String? = null
     var spell: SpellResource? = null
     var item: String? = null
-    @JvmField
     var tier: Int = 0
 
     fun generateSpell(): Spell {

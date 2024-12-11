@@ -17,7 +17,6 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 
 object SpellbookHelper {
-    @JvmField
     var SPELLBOOKS: List<Item> = ArrayList()
 
     fun castFromItem(itemStack: ItemStack, player: Player): Boolean {

@@ -13,10 +13,10 @@ public class ScrollEvent implements ClientRawInputEvent.MouseScrolled {
     var player = client.player;
     if(player != null && player.isShiftKeyDown()) {
       if(player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof BookOfBooks) {
-        ScriptorNetworkC2S.INSTANCE.getSCROLL_NETWORK().invoke(new ScriptorNetworkC2S.Scroll(InteractionHand.MAIN_HAND, amountY));
+        ScriptorNetworkC2S.INSTANCE.getScroll().invoke(new ScriptorNetworkC2S.Scroll(InteractionHand.MAIN_HAND, amountY));
         return EventResult.interruptFalse();
       } else if (player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof BookOfBooks) {
-        ScriptorNetworkC2S.INSTANCE.getSCROLL_NETWORK().invoke(new ScriptorNetworkC2S.Scroll(InteractionHand.OFF_HAND, amountY));
+        ScriptorNetworkC2S.INSTANCE.getScroll().invoke(new ScriptorNetworkC2S.Scroll(InteractionHand.OFF_HAND, amountY));
         return EventResult.interruptFalse();
       }
     }

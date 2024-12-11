@@ -16,10 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class ScrapReloadListener extends ScriptorReloadListener {
   static Random RANDOM = new Random();
@@ -36,11 +33,11 @@ public class ScrapReloadListener extends ScriptorReloadListener {
   @Override
   public void loadResource(ResourceLocation resourceLocation, JsonElement jsonElement) {
     ScrapResource resource = GSON.fromJson(jsonElement, SCRAP_TYPE);
-    if(!tiers.containsKey(resource.tier))
-      tiers.put(resource.tier, new HashMap<>());
+    if(!tiers.containsKey(resource.getTier()))
+      tiers.put(resource.getTier(), new HashMap<>());
     if(!resource.isDisabled())
-      for(var key: resource.keys)
-        tiers.get(resource.tier).put(resourceLocation.withSuffix("." + key.replace(":", ".")), key);
+      for(var key: resource.getKeys())
+        tiers.get(resource.getTier()).put(resourceLocation.withSuffix("." + key.replace(":", ".")), key);
   }
 
   public HashMap<ResourceLocation, String> getTier(int tier) {
@@ -94,7 +91,7 @@ public class ScrapReloadListener extends ScriptorReloadListener {
     itemStack.set(ScriptorDataComponents.SPELL, key);
     itemStack.set(
       DataComponents.ITEM_NAME,
-      Component.literal(DictionarySavedData.computeIfAbsent((ServerLevel) player.level()).getWord(key))
+      Component.literal(Objects.requireNonNull(DictionarySavedData.computeIfAbsent((ServerLevel) player.level()).getWord(key)))
     );
     if(ScriptorMod.INSTANCE.getCOMMUNITY_MODE())
       itemStack.set(ScriptorDataComponents.COMMUNITY_MODE, true);
