@@ -8,7 +8,12 @@ import com.ssblur.scriptor.advancement.ScriptorAdvancements.TOME_2
 import com.ssblur.scriptor.advancement.ScriptorAdvancements.TOME_3
 import com.ssblur.scriptor.advancement.ScriptorAdvancements.TOME_4
 import com.ssblur.scriptor.data.saved_data.PlayerSpellsSavedData.Companion.computeIfAbsent
-import com.ssblur.scriptor.helpers.resource.TomeResource
+import com.ssblur.scriptor.error.WordNotFoundException
+import com.ssblur.scriptor.registry.words.WordRegistry.actionRegistry
+import com.ssblur.scriptor.registry.words.WordRegistry.descriptorRegistry
+import com.ssblur.scriptor.registry.words.WordRegistry.subjectRegistry
+import com.ssblur.scriptor.word.PartialSpell
+import com.ssblur.scriptor.word.Spell
 import com.ssblur.unfocused.data.DataLoaderRegistry.registerSimpleDataLoader
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
@@ -18,6 +23,27 @@ import kotlin.math.min
 import kotlin.random.Random
 
 object Tomes {
+    class TomeResource {
+        class PartialSpellResource(var action: String, var descriptors: List<String>)
+        class SpellResource(var subject: String, var spells: List<PartialSpellResource>)
+
+        var name: String = "items.scriptor.spellbook"
+        var author: String? = null
+        var spell: SpellResource? = null
+        var item: String? = null
+        var tier: Int = 0
+
+        fun getSpell(): Spell {
+            val spells = mutableListOf<PartialSpell>()
+            for (spell in spell!!.spells) {
+                val action = actionRegistry[spell.action] ?: throw WordNotFoundException(spell.action)
+                val descriptors = spell.descriptors.map{ descriptorRegistry[it] ?: throw WordNotFoundException(it) }
+                spells += PartialSpell(action, *descriptors.toTypedArray())
+            }
+            return Spell(subjectRegistry[spell!!.subject] ?: throw WordNotFoundException(spell!!.subject), *spells.toTypedArray())
+        }
+    }
+
     val tomes = ScriptorMod.registerSimpleDataLoader("scriptor/tomes", TomeResource::class)
     val random = Random(System.nanoTime())
     fun tier(tier: Int) = tomes.entries.filter { it.value.tier == tier }.toTypedArray()

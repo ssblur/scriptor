@@ -22,20 +22,13 @@ class ArtifactItemFunction : LootItemFunction {
 
     override fun apply(itemStack: ItemStack, lootContext: LootContext): ItemStack {
         val artifact = Artifacts.getRandomArtifact()
-        val spell = computeIfAbsent(lootContext.level).generate(artifact.getSpell())
-
-        itemStack.set(ScriptorDataComponents.SPELL, spell)
+        itemStack[ScriptorDataComponents.SPELL] = computeIfAbsent(lootContext.level).generate(artifact.getSpell())
         itemStack[DataComponents.ITEM_NAME] = Component.translatable(artifact.name ?: "")
         return itemStack
     }
 
     class ArtifactSerializer : Codec<ArtifactItemFunction> {
-        override fun <T> decode(ops: DynamicOps<T>, input: T): DataResult<Pair<ArtifactItemFunction, T>> {
-            return DataResult.success(null)
-        }
-
-        override fun <T> encode(input: ArtifactItemFunction, ops: DynamicOps<T>, prefix: T): DataResult<T> {
-            return DataResult.success(null)
-        }
+        override fun <T> decode(ops: DynamicOps<T>, input: T): DataResult<Pair<ArtifactItemFunction, T>> = DataResult.success(null)
+        override fun <T> encode(input: ArtifactItemFunction, ops: DynamicOps<T>, prefix: T): DataResult<T> = DataResult.success(null)
     }
 }
