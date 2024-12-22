@@ -1,7 +1,6 @@
 package com.ssblur.scriptor.blockentity
 
 import com.mojang.datafixers.util.Pair
-import com.ssblur.scriptor.block.ScriptorBlockTags
 import com.ssblur.scriptor.block.ScriptorBlocks
 import net.minecraft.core.BlockPos
 import net.minecraft.core.HolderLookup
@@ -103,7 +102,7 @@ class PhasedBlockBlockEntity(blockPos: BlockPos, blockState: BlockState) :
             val state = level.getBlockState(pos)
             val entity = level.getBlockEntity(pos)
 
-            if (state.`is`(ScriptorBlockTags.DO_NOT_PHASE) || state.liquid() || state.isAir) return
+            if (state.`is`(ScriptorBlocks.DO_NOT_PHASE) || state.liquid() || state.isAir) return
 
             val newState = ScriptorBlocks.PHASED_BLOCK.get().defaultBlockState()
             val newEntity = PhasedBlockBlockEntity(pos, newState)

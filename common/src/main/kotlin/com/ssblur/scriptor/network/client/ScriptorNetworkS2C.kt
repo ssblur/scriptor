@@ -110,5 +110,7 @@ object ScriptorNetworkS2C {
         }
     }
 
-    fun register() {}
+    fun register() {
+        ParticleNetwork
+    }
 }

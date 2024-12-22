@@ -11,9 +11,11 @@ import com.ssblur.scriptor.word.Spell;
 import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.ChatEvent;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import org.jetbrains.annotations.Nullable;
@@ -50,7 +52,7 @@ public class SpellChatEvents implements ChatEvent.Received {
 		
 		  int adjustedCost = (int) Math.round( (double)cost * ( (double) level.getGameRules().getInt(ScriptorGameRules.INSTANCE.getVOCAL_COOLDOWN_MULTIPLIER()) / (double) 100 ) );
 		  if (!player.isCreative()) {
-        player.addEffect(new MobEffectInstance(ScriptorEffects.INSTANCE.getHOARSE(), adjustedCost));
+        player.addEffect(new MobEffectInstance(ScriptorEffects.INSTANCE.getHOARSE().ref(), adjustedCost));
 			  if (adjustedCost > level.getGameRules().getInt(ScriptorGameRules.INSTANCE.getVOCAL_HUNGER_THRESHOLD()))
 				  player.addEffect(new MobEffectInstance(MobEffects.HUNGER, 2*(adjustedCost - level.getGameRules().getInt(ScriptorGameRules.INSTANCE.getVOCAL_HUNGER_THRESHOLD()))));
 			  if (adjustedCost > level.getGameRules().getInt(ScriptorGameRules.INSTANCE.getVOCAL_DAMAGE_THRESHOLD()))

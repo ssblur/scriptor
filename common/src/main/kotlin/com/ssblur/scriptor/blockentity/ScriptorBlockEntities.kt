@@ -49,7 +49,7 @@ object ScriptorBlockEntities {
         BlockEntityType.Builder.of(
             { blockPos: BlockPos, blockState: BlockState ->
                 CastingLecternBlockEntity(blockPos, blockState)
-            }, ScriptorBlocks.CASTING_LECTERN.get()
+            }, ScriptorBlocks.CASTING_LECTERN.first.get()
         ).build(null)
     }
 

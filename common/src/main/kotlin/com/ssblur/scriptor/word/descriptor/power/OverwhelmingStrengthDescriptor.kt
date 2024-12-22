@@ -20,7 +20,7 @@ class OverwhelmingStrengthDescriptor : Descriptor(), CastDescriptor, StrengthDes
     override fun cannotCast(caster: Targetable?): Boolean {
         if (caster is EntityTargetable && caster.targetEntity is LivingEntity) {
             val living = caster.targetEntity as LivingEntity
-            living.addEffect(MobEffectInstance(MUTE, 20 * 60))
+            living.addEffect(MobEffectInstance(MUTE.ref(), 20 * 60))
             return false
         }
         return true

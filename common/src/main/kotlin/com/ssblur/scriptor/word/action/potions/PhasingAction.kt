@@ -6,7 +6,7 @@ import com.ssblur.scriptor.effect.ScriptorEffects.PHASING
 import com.ssblur.scriptor.helpers.targetable.Targetable
 import kotlin.math.floor
 
-class PhasingAction : PotionAction(PHASING, 20.0, 1.0, Cost(8.0, COSTTYPE.ADDITIVE)) {
+class PhasingAction : PotionAction(PHASING.ref(), 20.0, 1.0, Cost(8.0, COSTTYPE.ADDITIVE)) {
     override fun applyToPosition(
         caster: Targetable?,
         targetable: Targetable?,

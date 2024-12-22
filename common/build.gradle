@@ -17,7 +17,7 @@ dependencies {
   // Remove the next line if you don't want to depend on the API
   modImplementation "dev.architectury:architectury:${rootProject.architectury_version}"
 
-  modCompileOnlyApi "com.ssblur.unfocused:unfocused-common:${rootProject.unfocused_version}" changing true
+  modCompileOnlyApi("com.ssblur.unfocused:unfocused-common:${rootProject.unfocused_version}")
 
   compileOnly 'com.google.code.findbugs:jsr305:3.0.1'
 

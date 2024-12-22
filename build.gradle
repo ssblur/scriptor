@@ -6,6 +6,10 @@ buildscript {
   dependencies {
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
   }
+  configurations.configureEach {
+    resolutionStrategy.cacheDynamicVersionsFor 15, 'minutes'
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+  }
 }
 
 plugins {
@@ -37,42 +41,49 @@ subprojects {
 }
 
 allprojects {
-    apply plugin: "java"
-    apply plugin: "architectury-plugin"
-    apply plugin: "maven-publish"
-    apply plugin: "com.palantir.git-version"
-
-    archivesBaseName = rootProject.archives_base_name
-    def matcher = gitVersion() =~ /^v(\d+\.\d+\.\d+.*)/
-    matcher.find()
-    if(matcher.groupCount() >= 1)
-        version = matcher.group(1)
-    else
-        version = "dev"
-    group = rootProject.maven_group
-
-    repositories {
-      // Add repositories to retrieve artifacts from in here.
-      // You should only use this when depending on other mods because
-      // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-      // See https://docs.gradle.org/current/userguide/declaring_repositories.html
-      // for more information about repositories.
-      maven { url "https://mvn.blur.lol/snapshots" }
-      maven { url 'https://maven.blamejared.com' }
-      maven {
-        name = "TerraformersMC"
-        url = "https://maven.terraformersmc.com/"
-      }
+  apply plugin: "java"
+  apply plugin: "architectury-plugin"
+  apply plugin: "maven-publish"
+  apply plugin: "com.palantir.git-version"
+  buildscript {
+    configurations.configureEach {
+      resolutionStrategy.cacheDynamicVersionsFor 1, 'minutes'
+      resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
     }
+  }
 
-    tasks.withType(JavaCompile).configureEach {
-      it.options.encoding = "UTF-8"
-      it.options.release = 21
-    }
+  archivesBaseName = rootProject.archives_base_name
+  def matcher = gitVersion() =~ /^v(\d+\.\d+\.\d+.*)/
+  matcher.find()
+  if(matcher.groupCount() >= 1)
+      version = matcher.group(1)
+  else
+      version = "dev"
+  group = rootProject.maven_group
 
-    java {
-      withSourcesJar()
+  repositories {
+    // Add repositories to retrieve artifacts from in here.
+    // You should only use this when depending on other mods because
+    // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
+    // See https://docs.gradle.org/current/userguide/declaring_repositories.html
+    // for more information about repositories.
+    maven { url "https://mvn.blur.lol/snapshots" }
+    maven { url "https://mvn.blur.lol/releases" }
+    maven { url 'https://maven.blamejared.com' }
+    maven {
+      name = "TerraformersMC"
+      url = "https://maven.terraformersmc.com/"
     }
+  }
+
+  tasks.withType(JavaCompile).configureEach {
+    it.options.encoding = "UTF-8"
+    it.options.release = 21
+  }
+
+  java {
+    withSourcesJar()
+  }
 }
 
 dependencies {
