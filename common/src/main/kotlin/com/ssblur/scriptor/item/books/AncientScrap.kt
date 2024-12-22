@@ -1,6 +1,6 @@
 package com.ssblur.scriptor.item.books
 
-import com.ssblur.scriptor.events.reloadlisteners.ScrapReloadListener
+import com.ssblur.scriptor.resources.Scraps
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
@@ -35,7 +35,7 @@ class AncientScrap(properties: Properties, var tier: Int) : Item(properties) {
             player.cooldowns.addCooldown(this, 20)
 
             // Generate and distribute scrap
-            val scrap = ScrapReloadListener.INSTANCE.getRandomScrap(tier, player)
+            val scrap = Scraps.getRandomScrapItem(tier, player)
 
 
             if (!player.addItem(scrap)) {

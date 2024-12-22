@@ -20,6 +20,7 @@ import com.ssblur.scriptor.network.client.ScriptorNetworkS2C
 import com.ssblur.scriptor.network.server.ScriptorNetworkC2S
 import com.ssblur.scriptor.particle.ScriptorParticles
 import com.ssblur.scriptor.recipe.ScriptorRecipes
+import com.ssblur.scriptor.resources.ScriptorResources
 import com.ssblur.scriptor.trade.ScriptorTrades
 import com.ssblur.unfocused.ModInitializer
 import dev.architectury.event.events.common.CommandRegistrationEvent
@@ -78,6 +79,7 @@ object ScriptorMod: ModInitializer("scriptor") {
         ScriptorDataComponents.register()
         ScriptorNetworkC2S.register()
         ScriptorNetworkS2C.register()
+        ScriptorResources.register()
 
         registerCommands()
     }

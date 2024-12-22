@@ -4,7 +4,7 @@ import com.ssblur.scriptor.block.EngravingBlock
 import com.ssblur.scriptor.block.GenerateBlock
 import com.ssblur.scriptor.block.ScriptorBlocks
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData
-import com.ssblur.scriptor.events.reloadlisteners.EngravingReloadListener
+import com.ssblur.scriptor.resources.Engravings
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.server.level.ServerLevel
@@ -20,7 +20,7 @@ class GenerateBlockEntity(blockPos: BlockPos, blockState: BlockState) :
         fun generateEngraving(level: ServerLevel, pos: BlockPos) {
             val random = Random()
 
-            val engraving = EngravingReloadListener.INSTANCE.randomEngraving
+            val engraving = Engravings.getRandomEngraving()
             val words = DictionarySavedData.computeIfAbsent(level)
                 .generate(engraving.generateSpell())
                 .split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
@@ -72,7 +72,7 @@ class GenerateBlockEntity(blockPos: BlockPos, blockState: BlockState) :
             level.setBlockEntity(entity)
         }
 
-        fun <T : BlockEntity?> tick(level: Level, pos: BlockPos, state: BlockState, @Suppress("unused") entity: T) {
+        fun <T : BlockEntity?> tick(level: Level, pos: BlockPos, state: BlockState, entity: T) {
             if (level.isClientSide) return
 
             if (state.getValue(GenerateBlock.FEATURE) == GenerateBlock.Feature.ENGRAVING) {

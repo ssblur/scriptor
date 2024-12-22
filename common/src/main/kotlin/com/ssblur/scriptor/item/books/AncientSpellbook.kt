@@ -2,8 +2,8 @@ package com.ssblur.scriptor.item.books
 
 import com.ssblur.scriptor.advancement.ScriptorAdvancements
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData.Companion.computeIfAbsent
-import com.ssblur.scriptor.events.reloadlisteners.TomeReloadListener
 import com.ssblur.scriptor.helpers.LimitedBookSerializer
+import com.ssblur.scriptor.resources.Tomes
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
@@ -41,8 +41,7 @@ class AncientSpellbook(properties: Properties, var tier: Int) : Item(properties)
             player.sendSystemMessage(Component.translatable("extra.scriptor.tome_use"))
             player.cooldowns.addCooldown(this, 20)
 
-            val resource = TomeReloadListener.INSTANCE.getRandomTome(tier, player)
-
+            val resource = Tomes.getRandomTome(tier, player)
             if (resource.generateSpell().spells.size > 1) ScriptorAdvancements.COMPLEX_SPELL.get().trigger(player as ServerPlayer)
 
             val spell = resource.generateSpell()
