@@ -9,7 +9,10 @@
     }
   ],
   "result": {
-    "id": "scriptor:patchouli_book",
-    "count": 1
+    "components": {
+      "patchouli:book": "scriptor:scriptor_guide"
+    },
+    "count": 1,
+    "id": "patchouli:guide_book"
   }
 }
