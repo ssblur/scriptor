@@ -3,22 +3,17 @@ package com.ssblur.scriptor.entity
 import com.ssblur.scriptor.ScriptorMod
 import com.ssblur.scriptor.entity.renderers.ColorfulSheepRenderer
 import com.ssblur.scriptor.entity.renderers.ScriptorProjectileRenderer
-import dev.architectury.platform.Platform
-import dev.architectury.registry.client.level.entity.EntityRendererRegistry
-import dev.architectury.registry.level.entity.EntityAttributeRegistry
-import dev.architectury.registry.registries.DeferredRegister
-import dev.architectury.registry.registries.RegistrySupplier
+import com.ssblur.unfocused.entity.EntityAttributes.registerEntityAttributes
+import com.ssblur.unfocused.rendering.EntityRendering.registerEntityRenderer
 import net.fabricmc.api.EnvType
-import net.minecraft.core.registries.Registries
+import net.fabricmc.api.Environment
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.MobCategory
 import net.minecraft.world.entity.animal.Sheep
 import net.minecraft.world.level.Level
 
 object ScriptorEntities {
-    val ENTITY_TYPES: DeferredRegister<EntityType<*>> =
-        DeferredRegister.create(ScriptorMod.MOD_ID, Registries.ENTITY_TYPE)
-    val PROJECTILE_TYPE: RegistrySupplier<EntityType<ScriptorProjectile?>> = ENTITY_TYPES.register(
+    val PROJECTILE_TYPE = ScriptorMod.registerEntity(
         "projectile"
     ) {
         EntityType.Builder.of(
@@ -29,11 +24,11 @@ object ScriptorEntities {
             .sized(0.25f, 0.25f)
             .build("projectile")
     }
-    val COLORFUL_SHEEP_TYPE: RegistrySupplier<EntityType<ColorfulSheep?>> = ENTITY_TYPES.register(
+    val COLORFUL_SHEEP_TYPE = ScriptorMod.registerEntity(
         "colorful_sheep"
     ) {
         EntityType.Builder.of(
-            { entityType: EntityType<ColorfulSheep?>?, level: Level? -> ColorfulSheep(entityType, level) },
+            { entityType, level: Level? -> ColorfulSheep(entityType, level) },
             MobCategory.CREATURE
         )
             .clientTrackingRange(10)
@@ -41,18 +36,13 @@ object ScriptorEntities {
             .build("colorful_sheep")
     }
 
+    @Environment(EnvType.CLIENT)
     fun registerRenderers() {
-        if (Platform.getEnv() == EnvType.CLIENT) {
-            EntityRendererRegistry.register(PROJECTILE_TYPE) { ScriptorProjectileRenderer(it) }
-            EntityRendererRegistry.register(COLORFUL_SHEEP_TYPE) { ColorfulSheepRenderer(it) }
-        }
+        ScriptorMod.registerEntityRenderer(PROJECTILE_TYPE) { ScriptorProjectileRenderer(it) }
+        ScriptorMod.registerEntityRenderer(COLORFUL_SHEEP_TYPE) { ColorfulSheepRenderer(it) }
     }
 
     fun register() {
-        ENTITY_TYPES.register()
-
-        EntityAttributeRegistry.register(COLORFUL_SHEEP_TYPE) { Sheep.createAttributes() }
-
-        registerRenderers()
+        ScriptorMod.registerEntityAttributes(COLORFUL_SHEEP_TYPE){ Sheep.createAttributes() }
     }
 }

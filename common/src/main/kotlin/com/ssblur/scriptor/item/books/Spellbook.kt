@@ -11,6 +11,7 @@ import com.ssblur.scriptor.item.ScriptorTabs
 import com.ssblur.scriptor.item.interfaces.ItemWithCustomRenderer
 import com.ssblur.scriptor.network.server.ScriptorNetworkC2S
 import com.ssblur.scriptor.network.server.ScriptorNetworkC2S.UseBook
+import com.ssblur.unfocused.tab.CreativeTabs.tab
 import net.minecraft.ChatFormatting
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.Font
@@ -36,9 +37,10 @@ import net.minecraft.world.level.Level
 
 @Suppress("unstable")
 open class Spellbook(properties: Properties) :
-    WrittenBookItem(properties.`arch$tab`(ScriptorTabs.SCRIPTOR_SPELLBOOKS_TAB)),
+    WrittenBookItem(properties),
     ItemWithCustomRenderer {
     init {
+        tab(ScriptorTabs.SCRIPTOR_SPELLBOOKS_TAB)
         SpellbookHelper.SPELLBOOKS += this
     }
 

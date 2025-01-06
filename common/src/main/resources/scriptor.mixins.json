@@ -4,7 +4,6 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "BlockPlaceContextAccessor",
-    "BlockRenderDispatcherAccessor",
     "DimensionDataStorageAccessor",
     "ScriptorAnimalMixin",
     "ScriptorGiveCommandMixin",
@@ -16,6 +15,7 @@
   ],
   "client": [
     "BlockItemColorableInject",
+    "BlockRenderDispatcherAccessor",
     "ScriptorBookViewScreenMixin",
     "ScriptorItemInHandRendererMixin"
   ],

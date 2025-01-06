@@ -14,7 +14,7 @@ class GenericScriptorTrigger(var location: ResourceLocation) :
     SimpleCriterionTrigger<GenericScriptorTrigger.Instance>() {
     fun trigger(player: ServerPlayer?) {
         try {
-            this.trigger(player) { instance: Instance? -> true }
+            this.trigger(player!!) { instance: Instance? -> true }
         } catch (e: NullPointerException) {
             LOGGER.error("An error occurred while trying to award an advancement:")
             LOGGER.error(e)
@@ -25,7 +25,7 @@ class GenericScriptorTrigger(var location: ResourceLocation) :
         return Instance.CODEC
     }
 
-
+    @Suppress("unused")
     class Instance : SimpleInstance {
         var player: ContextAwarePredicate?
 
@@ -41,9 +41,7 @@ class GenericScriptorTrigger(var location: ResourceLocation) :
             this.player = null
         }
 
-        override fun player(): Optional<ContextAwarePredicate> {
-            return Optional.ofNullable(player)
-        }
+        override fun player(): Optional<ContextAwarePredicate> =  Optional.ofNullable(player)
 
         companion object {
             var CODEC: Codec<Instance> = RecordCodecBuilder.create { instance: RecordCodecBuilder.Instance<Instance> ->

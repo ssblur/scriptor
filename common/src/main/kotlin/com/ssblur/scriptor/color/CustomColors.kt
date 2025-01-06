@@ -2,8 +2,6 @@ package com.ssblur.scriptor.color
 
 import com.ssblur.scriptor.api.word.Descriptor
 import com.ssblur.scriptor.word.descriptor.color.ColorDescriptor
-import dev.architectury.platform.Platform
-import net.fabricmc.api.EnvType
 import net.minecraft.client.Minecraft
 import net.minecraft.core.component.DataComponents
 import net.minecraft.world.item.DyeColor
@@ -26,8 +24,8 @@ object CustomColors {
 
         // Rainbow
         // it can be gay too, as a treat.
-        register("rainbow") { tick: Float ->
-            var tick = tick
+        register("rainbow") { t: Float ->
+            var tick = t
             var s = tick % 31
             s /= 93f
             s += 0.75f
@@ -104,18 +102,14 @@ object CustomColors {
     }
 
     fun getColor(itemStack: ItemStack): Int {
-        var tick: Long = 0
-
-        if (Platform.getEnv() == EnvType.CLIENT) tick = Minecraft.getInstance().level!!.gameTime
-
-
+        val tick = Minecraft.getInstance().level!!.gameTime
         val dye = itemStack.get(DataComponents.DYED_COLOR)
         if (dye != null) return -0x1000000 + getColor(dye.rgb(), tick.toFloat())
         return -0x5fdf10
     }
 
-    fun ease(from: Int, to: Int, partial: Float): Int {
-        var partial = partial
+    fun ease(from: Int, to: Int, p: Float): Int {
+        var partial = p
         partial = partial.pow(5.0f)
         val bA = from and 0xFF
         val gA = (from shr 8) and 0xFF
@@ -159,7 +153,6 @@ object CustomColors {
         var bD: Int
         var gD: Int
         var rD: Int
-        var aD: Int
         var d: Int
         for (dye in DyeColor.entries) {
             cD = dye.fireworkColor

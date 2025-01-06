@@ -2,7 +2,6 @@ package com.ssblur.scriptor.block
 
 import com.ssblur.scriptor.ScriptorMod
 import com.ssblur.unfocused.helper.ColorHelper
-import net.minecraft.core.registries.Registries
 import net.minecraft.tags.TagKey
 import net.minecraft.world.level.block.Block
 
@@ -18,8 +17,7 @@ object ScriptorBlocks {
     val GENERATE = ScriptorMod.registerBlock("generate") { GenerateBlock() }
 
     val MAGIC_BLOCKS = ColorHelper.forEachColor{
-        ScriptorMod.registerBlock(it.nameAllLowerCase + "_magic_block")
-            { MagicBlock(it.dyeColor) }
+        ScriptorMod.registerBlock(it.nameAllLowerCase + "_magic_block") { MagicBlock(it.dyeColor) }
     }
 
     fun register() {}

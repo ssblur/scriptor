@@ -18,6 +18,9 @@
     "main": [
       "com.ssblur.scriptor.fabric.ScriptorModFabric"
     ],
+    "client": [
+      "com.ssblur.scriptor.fabric.ScriptorModFabricClient"
+    ],
     "emi": [
       "com.ssblur.scriptor.integration.emi.ScriptorEMIIntegration"
     ]

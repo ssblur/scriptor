@@ -15,16 +15,16 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer
 import net.minecraft.resources.ResourceLocation
 
 class ColorfulSheepFurLayer(
-    renderLayerParent: RenderLayerParent<ColorfulSheep?, SheepModel<ColorfulSheep?>?>,
+    renderLayerParent: RenderLayerParent<ColorfulSheep, SheepModel<ColorfulSheep>?>,
     entityModelSet: EntityModelSet
-) : RenderLayer<ColorfulSheep?, SheepModel<ColorfulSheep?>?>(renderLayerParent) {
+) : RenderLayer<ColorfulSheep, SheepModel<ColorfulSheep>?>(renderLayerParent) {
     private val model = SheepFurModel<ColorfulSheep>(entityModelSet.bakeLayer(ModelLayers.SHEEP_FUR))
 
     override fun render(
         poseStack: PoseStack,
         multiBufferSource: MultiBufferSource,
         i: Int,
-        sheep: ColorfulSheep?,
+        sheep: ColorfulSheep,
         f: Float,
         g: Float,
         h: Float,
@@ -32,7 +32,7 @@ class ColorfulSheepFurLayer(
         k: Float,
         l: Float
     ) {
-        if (sheep!!.isSheared) {
+        if (sheep.isSheared) {
             val minecraft = Minecraft.getInstance()
             if (minecraft.shouldEntityAppearGlowing(sheep)) {
                 parentModel?.copyPropertiesTo(model)

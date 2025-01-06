@@ -16,11 +16,8 @@ object ScriptorRegistry {
      * @param word The word to register.
      * Supports Actions, Subjects, and Descriptors.
      * @see Action
-     *
      * @see Subject
-     *
      * @see Descriptor
-     *
      * @return The word passed in.
      * For chaining and static assignment.
      */
@@ -38,11 +35,8 @@ object ScriptorRegistry {
      * @param word The word to register.
      * Supports Actions, Subjects, and Descriptors.
      * @see Action
-     *
      * @see Subject
-     *
      * @see Descriptor
-     *
      * @return The word passed in.
      * For chaining and static assignment.
      */

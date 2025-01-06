@@ -1,7 +1,6 @@
 package com.ssblur.scriptor.item
 
 import com.ssblur.scriptor.ScriptorMod.registerItem
-import com.ssblur.scriptor.block.ScriptorBlocks
 import com.ssblur.scriptor.item.books.*
 import com.ssblur.scriptor.item.casters.CoordinateCasterCrystal
 import com.ssblur.scriptor.item.casters.PlayerCasterCrystal
@@ -11,8 +10,8 @@ import com.ssblur.scriptor.item.tools.bound.BoundAxe
 import com.ssblur.scriptor.item.tools.bound.BoundSword
 import com.ssblur.scriptor.item.tools.bound.BoundTool
 import com.ssblur.unfocused.helper.ColorHelper
+import com.ssblur.unfocused.tab.CreativeTabs.tab
 import net.minecraft.tags.BlockTags
-import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.DyeColor
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.Tiers
@@ -36,20 +35,20 @@ object ScriptorItems {
     val ARTIFACT_4 = registerItem("artifact_4") { Artifact(Item.Properties()) }
 
     val BOOK_OF_BOOKS = registerItem("book_of_books") {
-        BookOfBooks(Item.Properties().stacksTo(1).`arch$tab`(ScriptorTabs.SCRIPTOR_TAB), 8)
-    }
+        BookOfBooks(Item.Properties().stacksTo(1), 8)
+    }.tab(ScriptorTabs.SCRIPTOR_TAB)
     val SPELLBOOK_BINDER = registerItem("spellbook_binder") {
-        Item(Item.Properties().`arch$tab`(ScriptorTabs.SCRIPTOR_TAB))
-    }
+        Item(Item.Properties())
+    }.tab(ScriptorTabs.SCRIPTOR_TAB)
     val LEATHER_BINDER = registerItem("leather_binder") {
-        Item(Item.Properties().`arch$tab`(ScriptorTabs.SCRIPTOR_TAB))
-    }
+        Item(Item.Properties())
+    }.tab(ScriptorTabs.SCRIPTOR_TAB)
     val WRITABLE_SPELLBOOK = registerItem("writable_spellbook") {
-        WritableSpellbook(Item.Properties().`arch$tab`(ScriptorTabs.SCRIPTOR_TAB))
-    }
+        WritableSpellbook(Item.Properties())
+    }.tab(ScriptorTabs.SCRIPTOR_TAB)
     val SCRAP = registerItem("scrap") { Scrap(Item.Properties()) }
-    val CHALK = registerItem("chalk") { Chalk(Item.Properties().`arch$tab`(ScriptorTabs.SCRIPTOR_TAB)) }
-    val ENGRAVING_TOOL = registerItem("engraving_tool") { EngravingTool(Item.Properties().`arch$tab`(ScriptorTabs.SCRIPTOR_TAB)) }
+    val CHALK = registerItem("chalk") { Chalk(Item.Properties()) }.tab(ScriptorTabs.SCRIPTOR_TAB)
+    val ENGRAVING_TOOL = registerItem("engraving_tool") { EngravingTool(Item.Properties()) }.tab(ScriptorTabs.SCRIPTOR_TAB)
 
     val TOME_TIER1 = registerItem("tome_tier1") { AncientSpellbook(Item.Properties(), 1) }
     val TOME_TIER2 = registerItem("tome_tier2") { AncientSpellbook(Item.Properties(), 2) }
@@ -60,40 +59,40 @@ object ScriptorItems {
     val SCRAP_TIER2 = registerItem("scrap_tier2") { AncientScrap(Item.Properties(), 2) }
     val SCRAP_TIER3 = registerItem("scrap_tier3") { AncientScrap(Item.Properties(), 3) }
 
-    val IDENTIFY_SCROLL = registerItem("identify_scroll") { IdentifyScroll(Item.Properties().`arch$tab`(ScriptorTabs.SCRIPTOR_TAB)) }
+    val IDENTIFY_SCROLL = registerItem("identify_scroll") { IdentifyScroll(Item.Properties()) }.tab(ScriptorTabs.SCRIPTOR_TAB)
 
     val EMPTY_CASTING_CRYSTAL = registerItem("empty_casting_crystal") {
-        Ingredient(Item.Properties().`arch$tab`(ScriptorTabs.SCRIPTOR_TAB), "lore.scriptor.ingredient", "lore.scriptor.needs_charge")
-    }
+        Ingredient(Item.Properties(), "lore.scriptor.ingredient", "lore.scriptor.needs_charge")
+    }.tab(ScriptorTabs.SCRIPTOR_TAB)
     val CASTING_CRYSTAL = registerItem("casting_crystal") {
-        Ingredient(Item.Properties().`arch$tab`(ScriptorTabs.SCRIPTOR_TAB), "lore.scriptor.ingredient")
-    }
+        Ingredient(Item.Properties(), "lore.scriptor.ingredient")
+    }.tab(ScriptorTabs.SCRIPTOR_TAB)
     val COORDINATE_TAG = registerItem("coordinate_tag") {
-        Ingredient(Item.Properties().`arch$tab`(ScriptorTabs.SCRIPTOR_TAB), "lore.scriptor.ingredient", "lore.scriptor.ingredient_tag")
-    }
+        Ingredient(Item.Properties(), "lore.scriptor.ingredient", "lore.scriptor.ingredient_tag")
+    }.tab(ScriptorTabs.SCRIPTOR_TAB)
     val PLAYER_TAG = registerItem("player_tag") {
-        Ingredient(Item.Properties().`arch$tab`(ScriptorTabs.SCRIPTOR_TAB), "lore.scriptor.ingredient", "lore.scriptor.ingredient_tag")
+        Ingredient(Item.Properties(), "lore.scriptor.ingredient", "lore.scriptor.ingredient_tag")
     }
 
     val PLAYER_CASTING_CRYSTAL = registerItem("player_casting_crystal") {
-        PlayerCasterCrystal(Item.Properties().`arch$tab`(ScriptorTabs.SCRIPTOR_TAB))
-    }
+        PlayerCasterCrystal(Item.Properties())
+    }.tab(ScriptorTabs.SCRIPTOR_TAB)
     val COORDINATE_CASTING_CRYSTAL = registerItem("coordinate_casting_crystal") {
-        CoordinateCasterCrystal(Item.Properties().`arch$tab`(ScriptorTabs.SCRIPTOR_TAB))
-    }
+        CoordinateCasterCrystal(Item.Properties())
+    }.tab(ScriptorTabs.SCRIPTOR_TAB)
 
     val BOUND_SWORD = registerItem("bound_sword") {
-        BoundSword(Tiers.STONE, Item.Properties().durability(Int.MAX_VALUE).`arch$tab`(ScriptorTabs.SCRIPTOR_TAB))
-    }
+        BoundSword(Tiers.STONE, Item.Properties().durability(Int.MAX_VALUE))
+    }.tab(ScriptorTabs.SCRIPTOR_TAB)
     val BOUND_AXE = registerItem("bound_axe") {
-        BoundAxe(Tiers.STONE, Item.Properties().durability(Int.MAX_VALUE).`arch$tab`(ScriptorTabs.SCRIPTOR_TAB))
-    }
+        BoundAxe(Tiers.STONE, Item.Properties().durability(Int.MAX_VALUE))
+    }.tab(ScriptorTabs.SCRIPTOR_TAB)
     val BOUND_SHOVEL = registerItem("bound_shovel") {
-        BoundTool(Tiers.STONE, BlockTags.MINEABLE_WITH_SHOVEL, Item.Properties().durability(Int.MAX_VALUE).`arch$tab`(ScriptorTabs.SCRIPTOR_TAB))
-    }
+        BoundTool(Tiers.STONE, BlockTags.MINEABLE_WITH_SHOVEL, Item.Properties().durability(Int.MAX_VALUE))
+    }.tab(ScriptorTabs.SCRIPTOR_TAB)
     val BOUND_PICKAXE = registerItem("bound_pickaxe") {
-        BoundTool(Tiers.STONE, BlockTags.MINEABLE_WITH_PICKAXE, Item.Properties().durability(Int.MAX_VALUE).`arch$tab`(ScriptorTabs.SCRIPTOR_TAB))
-    }
+        BoundTool(Tiers.STONE, BlockTags.MINEABLE_WITH_PICKAXE, Item.Properties().durability(Int.MAX_VALUE))
+    }.tab(ScriptorTabs.SCRIPTOR_TAB)
 
     fun register() {}
 }

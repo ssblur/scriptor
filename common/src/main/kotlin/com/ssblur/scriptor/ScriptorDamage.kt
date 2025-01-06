@@ -1,6 +1,5 @@
 package com.ssblur.scriptor
 
-import dev.architectury.registry.registries.DeferredRegister
 import net.minecraft.core.Registry
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
@@ -11,8 +10,6 @@ import net.minecraft.world.entity.Entity
 
 @Suppress("unused")
 object ScriptorDamage {
-    val DAMAGE_TYPES: DeferredRegister<DamageType> = DeferredRegister.create(ScriptorMod.MOD_ID, Registries.DAMAGE_TYPE)
-
     val SACRIFICE: ResourceKey<DamageType> =
         ResourceKey.create(Registries.DAMAGE_TYPE, ScriptorMod.location("sacrifice"))
     val OVERLOAD: ResourceKey<DamageType> = ResourceKey.create(Registries.DAMAGE_TYPE, ScriptorMod.location("overload"))

@@ -12,7 +12,7 @@ import net.minecraft.resources.ResourceLocation
 
 @Environment(EnvType.CLIENT)
 class ColorfulSheepRenderer(context: EntityRendererProvider.Context) :
-    MobRenderer<ColorfulSheep?, SheepModel<ColorfulSheep?>?>(
+    MobRenderer<ColorfulSheep, SheepModel<ColorfulSheep>?>(
         context, SheepModel(
             context.bakeLayer(
                 ModelLayers.SHEEP
@@ -23,7 +23,7 @@ class ColorfulSheepRenderer(context: EntityRendererProvider.Context) :
         this.addLayer(ColorfulSheepFurLayer(this, context.modelSet))
     }
 
-    override fun getTextureLocation(sheep: ColorfulSheep?): ResourceLocation {
+    override fun getTextureLocation(sheep: ColorfulSheep): ResourceLocation {
         return SHEEP_LOCATION
     }
 
