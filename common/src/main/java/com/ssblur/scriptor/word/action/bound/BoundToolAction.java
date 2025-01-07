@@ -54,7 +54,7 @@ public class BoundToolAction extends Action {
     itemStack.set(ScriptorDataComponents.TOOL_MINING_LEVEL, finalToolLevel);
     itemStack.update(
       DataComponents.TOOL,
-      new Tool(List.of(), finalStrength, 1),
+      new Tool(List.of(), 1, 1),
       tool -> {
         List<Tool.Rule> rules = new ArrayList<>();
         if(finalToolLevel < 1)
@@ -72,7 +72,7 @@ public class BoundToolAction extends Action {
         rules.addAll(
           this.tags.stream().map(tag -> Tool.Rule.minesAndDrops(tag, finalStrength)).toList()
         );
-        return new Tool(rules, finalStrength, tool.damagePerBlock());
+        return new Tool(rules, 1, tool.damagePerBlock());
       }
     );
 
