@@ -16,6 +16,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
@@ -31,7 +32,7 @@ public class TraceNetwork {
     void run(Targetable target);
   }
 
-  record TraceQueue(Player player, TraceCallback callback) {}
+  record TraceQueue(WeakReference<Player> player, TraceCallback callback) {}
 
   static HashMap<UUID, TraceQueue> queue = new HashMap<>();
 
@@ -39,7 +40,7 @@ public class TraceNetwork {
     UUID uuid = UUID.randomUUID();
     FriendlyByteBuf out = new FriendlyByteBuf(Unpooled.buffer());
     out.writeUUID(uuid);
-    queue.put(uuid, new TraceQueue(player, callback));
+    queue.put(uuid, new TraceQueue(new WeakReference<>(player), callback));
     NetworkManager.sendToPlayer((ServerPlayer) player, ScriptorNetwork.CLIENT_GET_TRACE_DATA, out);
   }
 
@@ -47,19 +48,19 @@ public class TraceNetwork {
     UUID uuid = UUID.randomUUID();
     FriendlyByteBuf out = new FriendlyByteBuf(Unpooled.buffer());
     out.writeUUID(uuid);
-    queue.put(uuid, new TraceQueue(player, callback));
+    queue.put(uuid, new TraceQueue(new WeakReference<>(player), callback));
     NetworkManager.sendToPlayer((ServerPlayer) player, ScriptorNetwork.CLIENT_GET_HITSCAN_DATA, out);
   }
 
   public static void validateAndRun(UUID uuid, Player player, Targetable targetable) {
     var queueItem = queue.get(uuid);
-    if(queueItem.player == player)
+    if(queueItem.player.get() == player)
       queueItem.callback.run(targetable);
   }
 
   public static void validateAndDrop(UUID uuid, Player player) {
     var queueItem = queue.get(uuid);
-    if(queueItem.player == player)
+    if(queueItem.player.get() == player)
       queue.remove(uuid);
   }
 
