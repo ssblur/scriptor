@@ -59,23 +59,15 @@ public class BoundToolAction extends Action {
         List<Tool.Rule> rules = new ArrayList<>();
         if(finalToolLevel < 1)
           rules.add(Tool.Rule.deniesDrops(NEEDS_STONE_TOOL));
-        else
-          rules.add(Tool.Rule.minesAndDrops(NEEDS_STONE_TOOL, finalStrength));
 
         if(finalToolLevel < 2)
           rules.add(Tool.Rule.deniesDrops(NEEDS_IRON_TOOL));
-        else
-          rules.add(Tool.Rule.minesAndDrops(NEEDS_IRON_TOOL, finalStrength));
 
         if(finalToolLevel < 3)
           rules.add(Tool.Rule.deniesDrops(NEEDS_DIAMOND_TOOL));
-        else
-          rules.add(Tool.Rule.minesAndDrops(NEEDS_DIAMOND_TOOL, finalStrength));
 
         if(finalToolLevel < 4)
           rules.add(Tool.Rule.deniesDrops(NEEDS_NETHERITE_TOOL));
-        else
-          rules.add(Tool.Rule.minesAndDrops(NEEDS_NETHERITE_TOOL, finalStrength));
 
         rules.addAll(
           this.tags.stream().map(tag -> Tool.Rule.minesAndDrops(tag, finalStrength)).toList()
