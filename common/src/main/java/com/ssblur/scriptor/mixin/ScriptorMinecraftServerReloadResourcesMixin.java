@@ -22,9 +22,10 @@ public class ScriptorMinecraftServerReloadResourcesMixin {
     Collection<String> collection,
     CallbackInfoReturnable<CompletableFuture<Void>> info
   ) {
-    ScriptorNetworkS2C.INSTANCE.getFlag().invoke(
-      new ScriptorNetworkS2C.Flag(ScriptorNetworkS2C.FLAGS.COMMUNITY, ScriptorMod.INSTANCE.getCOMMUNITY_MODE()),
-      this.playerList.getPlayers()
-    );
+    if(this.playerList != null)
+      ScriptorNetworkS2C.INSTANCE.getFlag().invoke(
+        new ScriptorNetworkS2C.Flag(ScriptorNetworkS2C.FLAGS.COMMUNITY, ScriptorMod.INSTANCE.getCOMMUNITY_MODE()),
+        this.playerList.getPlayers()
+      );
   }
 }
