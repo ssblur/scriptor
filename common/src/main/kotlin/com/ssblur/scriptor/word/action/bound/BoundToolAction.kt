@@ -45,16 +45,9 @@ class BoundToolAction(var item: Supplier<Item>, var tags: List<TagKey<Block>>) :
         ) { tool: Tool ->
             val rules: MutableList<Tool.Rule> = ArrayList()
             if (finalToolLevel < 1) rules.add(Tool.Rule.deniesDrops(NEEDS_STONE_TOOL))
-            else rules.add(Tool.Rule.minesAndDrops(NEEDS_STONE_TOOL, finalStrength.toFloat()))
-
             if (finalToolLevel < 2) rules.add(Tool.Rule.deniesDrops(NEEDS_IRON_TOOL))
-            else rules.add(Tool.Rule.minesAndDrops(NEEDS_IRON_TOOL, finalStrength.toFloat()))
-
             if (finalToolLevel < 3) rules.add(Tool.Rule.deniesDrops(NEEDS_DIAMOND_TOOL))
-            else rules.add(Tool.Rule.minesAndDrops(NEEDS_DIAMOND_TOOL, finalStrength.toFloat()))
-
             if (finalToolLevel < 4) rules.add(Tool.Rule.deniesDrops(NEEDS_NETHERITE_TOOL))
-            else rules.add(Tool.Rule.minesAndDrops(NEEDS_NETHERITE_TOOL, finalStrength.toFloat()))
 
             rules.addAll(
                 tags.stream().map { Tool.Rule.minesAndDrops(it, finalStrength.toFloat()) }
