@@ -39,9 +39,9 @@ class BoundToolAction(var item: Supplier<Item>, var tags: List<TagKey<Block>>) :
         val finalStrength = (strength * 0.666f).toInt()
         val finalToolLevel = finalStrength / 2
         itemStack.set(ScriptorDataComponents.TOOL_MINING_LEVEL, finalToolLevel)
-        itemStack.update<Tool>(
+        itemStack.update(
             DataComponents.TOOL,
-            Tool(listOf<Tool.Rule>(), finalStrength.toFloat(), 1)
+            Tool(listOf<Tool.Rule>(), 1f, 1)
         ) { tool: Tool ->
             val rules: MutableList<Tool.Rule> = ArrayList()
             if (finalToolLevel < 1) rules.add(Tool.Rule.deniesDrops(NEEDS_STONE_TOOL))
@@ -60,7 +60,7 @@ class BoundToolAction(var item: Supplier<Item>, var tags: List<TagKey<Block>>) :
                 tags.stream().map { Tool.Rule.minesAndDrops(it, finalStrength.toFloat()) }
                     .toList()
             )
-            Tool(rules, finalStrength.toFloat(), tool.damagePerBlock())
+            Tool(rules, 1f, tool.damagePerBlock())
         }
 
         ItemTargetableHelper.depositItemStack(targetable, itemStack)
