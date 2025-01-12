@@ -1,28 +1,21 @@
 package com.ssblur.scriptor.feature
 
 import com.ssblur.scriptor.ScriptorMod
-import dev.architectury.registry.level.biome.BiomeModifications
-import net.minecraft.core.registries.Registries
-import net.minecraft.resources.ResourceKey
-import net.minecraft.resources.ResourceLocation
-import net.minecraft.tags.BiomeTags
-import net.minecraft.world.level.levelgen.GenerationStep
+import com.ssblur.scriptor.block.GenerateBlock
+import net.minecraft.world.level.levelgen.feature.Feature
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration
 
 @Suppress("unused")
 object ScriptorFeatures {
     val ENGRAVING_FEATURE = ScriptorMod.registerFeature("engraving") {
-        ScriptorInscriptionsFeature(NoneFeatureConfiguration.CODEC)
+        object: Feature<NoneFeatureConfiguration?>(NoneFeatureConfiguration.CODEC) {
+            override fun place(context: FeaturePlaceContext<NoneFeatureConfiguration?>): Boolean {
+                println("attempting to place engraving")
+                return context.level().setBlock(context.origin(), GenerateBlock.generateEngraving(), 0)
+            }
+        }
     }
 
-    fun register() {
-        BiomeModifications.addProperties(
-            { biome -> biome.hasTag(BiomeTags.IS_OVERWORLD) },
-            { _, mutable ->
-                mutable.generationProperties.addFeature(
-                    GenerationStep.Decoration.RAW_GENERATION,
-                    ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath("scriptor", "engravings"))
-                )
-            })
-    }
+    fun register() {}
 }

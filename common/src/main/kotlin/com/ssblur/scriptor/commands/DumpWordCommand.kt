@@ -26,8 +26,9 @@ object DumpWordCommand {
         "and"
     )
 
+    @Suppress("unused_parameter")
     fun register(
-        dispatcher: CommandDispatcher<CommandSourceStack?>,
+        dispatcher: CommandDispatcher<CommandSourceStack>,
         registry: CommandBuildContext?,
         selection: Commands.CommandSelection?
     ) {

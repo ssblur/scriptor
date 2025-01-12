@@ -46,7 +46,7 @@ open class Chalk(properties: Properties) : Item(properties) {
 
     companion object {
         fun hasName(itemStack: ItemStack): Boolean {
-            val name = itemStack.get(DataComponents.ITEM_NAME)
+            val name = itemStack[DataComponents.CUSTOM_NAME]
             return name != null
         }
     }

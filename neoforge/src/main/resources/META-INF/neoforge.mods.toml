@@ -28,9 +28,9 @@ ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.scriptor]]
-modId = "architectury"
+modId = "unfocused"
 type = "required"
-versionRange = "[12.0.28,)"
+versionRange = "[0.1.32,)"
 ordering = "AFTER"
 side = "BOTH"
 

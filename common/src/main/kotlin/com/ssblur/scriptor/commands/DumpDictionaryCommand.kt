@@ -12,9 +12,10 @@ import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.player.Player
 
+@Suppress("unused_parameter")
 object DumpDictionaryCommand {
     fun register(
-        dispatcher: CommandDispatcher<CommandSourceStack?>,
+        dispatcher: CommandDispatcher<CommandSourceStack>,
         registry: CommandBuildContext?,
         selection: Commands.CommandSelection?) {
         dispatcher.register(

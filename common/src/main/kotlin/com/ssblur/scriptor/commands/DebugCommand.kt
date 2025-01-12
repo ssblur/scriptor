@@ -15,10 +15,11 @@ import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Player
 
 object DebugCommand {
+    @Suppress("unused_parameter")
     fun register(
-        dispatcher: CommandDispatcher<CommandSourceStack?>,
-        ignoredRegistry: CommandBuildContext?,
-        ignoredSelection: Commands.CommandSelection?
+        dispatcher: CommandDispatcher<CommandSourceStack>,
+        registry: CommandBuildContext?,
+        selection: Commands.CommandSelection?
     ) {
         dispatcher.register(
             Commands.literal("scriptor_debug")

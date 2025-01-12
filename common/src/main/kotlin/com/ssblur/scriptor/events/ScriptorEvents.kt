@@ -12,10 +12,10 @@ import com.ssblur.scriptor.resources.Colors.cache
 import com.ssblur.unfocused.event.common.EntityDamagedEvent
 import com.ssblur.unfocused.event.common.PlayerJoinedEvent
 import com.ssblur.unfocused.event.common.ServerStartEvent
-import dev.architectury.platform.Platform
 import net.fabricmc.api.EnvType
+import net.fabricmc.api.Environment
 
-object ScriptorUnfocusedEvents {
+object ScriptorEvents {
     fun register() {
         ServerStartEvent.register{ computeIfAbsent(it.overworld()) }
         PlayerJoinedEvent.register{ player ->
@@ -37,7 +37,13 @@ object ScriptorUnfocusedEvents {
         }
         SpellChat
         PlayerTick
+        AddLootEvent
 
-        if(Platform.getEnv() == EnvType.CLIENT) ScriptorClientEvents
+        try{ clientRegister() } catch (_: NoSuchMethodError) {}
+    }
+
+    @Environment(EnvType.CLIENT)
+    fun clientRegister() {
+        ScriptorClientEvents
     }
 }

@@ -41,8 +41,8 @@ jobs:
           mod-loader: fabric
           changelog: ${{ steps.changelog.outputs.changelog }}
           dependencies: |
-            architectury-api
             fabric-api
+            unfocused
 
           github-token: ${{ secrets.GITHUB_TOKEN }}
 

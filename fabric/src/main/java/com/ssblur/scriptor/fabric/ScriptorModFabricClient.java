@@ -9,7 +9,7 @@ public class ScriptorModFabricClient implements ClientModInitializer {
   @Override
   public void onInitializeClient() {
     WorldRenderEvents.AFTER_ENTITIES.register(context -> {
-      CoordinateCasterWorldRenderer.render(context.matrixStack());
+      CoordinateCasterWorldRenderer.INSTANCE.render(context.matrixStack());
       Thread.yield();
     });
     ScriptorMod.INSTANCE.clientInit();

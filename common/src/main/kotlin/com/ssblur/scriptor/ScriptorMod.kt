@@ -11,7 +11,6 @@ import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.effect.ScriptorEffects
 import com.ssblur.scriptor.entity.ScriptorEntities
 import com.ssblur.scriptor.events.ScriptorEvents
-import com.ssblur.scriptor.events.ScriptorUnfocusedEvents
 import com.ssblur.scriptor.feature.ScriptorFeatures
 import com.ssblur.scriptor.item.ScriptorItems
 import com.ssblur.scriptor.item.ScriptorLoot
@@ -23,7 +22,7 @@ import com.ssblur.scriptor.recipe.ScriptorRecipes
 import com.ssblur.scriptor.resources.ScriptorResources
 import com.ssblur.scriptor.trade.ScriptorTrades
 import com.ssblur.unfocused.ModInitializer
-import dev.architectury.event.events.common.CommandRegistrationEvent
+import com.ssblur.unfocused.command.CommandRegistration.registerCommand
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
 import org.apache.logging.log4j.LogManager
@@ -37,21 +36,21 @@ object ScriptorMod: ModInitializer("scriptor") {
     var COMMUNITY_MODE = false
 
     fun registerCommands() {
-        CommandRegistrationEvent.EVENT.register { dispatcher, registry, selection ->
+        registerCommand { dispatcher, registry, selection ->
             DumpDictionaryCommand.register(
                 dispatcher,
                 registry,
                 selection
             )
         }
-        CommandRegistrationEvent.EVENT.register { dispatcher, registry, selection ->
+        registerCommand  { dispatcher, registry, selection ->
             DumpWordCommand.register(
                 dispatcher,
                 registry,
                 selection
             )
         }
-        CommandRegistrationEvent.EVENT.register { dispatcher, registry, selection ->
+        registerCommand  { dispatcher, registry, selection ->
             DebugCommand.register(
                 dispatcher,
                 registry,
@@ -68,7 +67,6 @@ object ScriptorMod: ModInitializer("scriptor") {
         ScriptorItems.register()
         ScriptorEntities.register()
         ScriptorEvents.register()
-        ScriptorUnfocusedEvents.register()
         ScriptorEffects.register()
         ScriptorTrades.register()
         ScriptorRecipes.register()
