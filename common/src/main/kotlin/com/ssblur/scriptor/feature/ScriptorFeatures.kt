@@ -11,7 +11,6 @@ object ScriptorFeatures {
     val ENGRAVING_FEATURE = ScriptorMod.registerFeature("engraving") {
         object: Feature<NoneFeatureConfiguration?>(NoneFeatureConfiguration.CODEC) {
             override fun place(context: FeaturePlaceContext<NoneFeatureConfiguration?>): Boolean {
-                println("attempting to place engraving")
                 return context.level().setBlock(context.origin(), GenerateBlock.generateEngraving(), 0)
             }
         }

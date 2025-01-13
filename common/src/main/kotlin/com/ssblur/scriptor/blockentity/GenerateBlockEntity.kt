@@ -59,7 +59,6 @@ class GenerateBlockEntity(blockPos: BlockPos, blockState: BlockState) :
         fun <T : BlockEntity?> tick(level: Level, pos: BlockPos, state: BlockState, entity: T) {
             if (level.isClientSide) return
 
-            println("generating")
             if (state.getValue(GenerateBlock.FEATURE) == GenerateBlock.Feature.ENGRAVING) {
                 generateEngraving(level as ServerLevel, pos)
             }
