@@ -1,0 +1,14 @@
+{
+  "name": "tome.scriptor.conjure_water",
+  "author": "Steve",
+  "tier": 1,
+  "spell": {
+    "subject": "touch",
+    "spells": [
+      {
+        "action": "conjure_water",
+        "descriptors": []
+      }
+    ]
+  }
+}
