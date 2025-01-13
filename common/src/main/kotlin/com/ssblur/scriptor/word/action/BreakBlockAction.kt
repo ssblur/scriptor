@@ -32,11 +32,12 @@ class BreakBlockAction : Action() {
         val state = targetable.level.getBlockState(pos)
         if (state.block.defaultDestroyTime() < 0) return
         val level = targetable.level
-        val tags = state.block.`arch$holder`().tags().collect(Collectors.toSet())
+        @Suppress("redundantsuppression", "deprecation")
+        val tags = state.block.builtInRegistryHolder().tags().collect(Collectors.toSet())
         var neededStrength = 0
         for (tag in tags) {
-            if (toolLevelsList.containsKey(tag.location().toString())) neededStrength =
-                toolLevelsList[tag.location().toString()]!!
+            if (toolLevelsList.containsKey(tag.location().toString()))
+                neededStrength = toolLevelsList[tag.location().toString()]!!
         }
         if (strength > neededStrength) if (caster is EntityTargetable) {
             if (caster.targetEntity is Player)

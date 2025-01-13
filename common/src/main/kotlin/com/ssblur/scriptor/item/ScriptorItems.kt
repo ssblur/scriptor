@@ -48,7 +48,7 @@ object ScriptorItems {
     }.tab(ScriptorTabs.SCRIPTOR_TAB)
     val SCRAP = registerItem("scrap") { Scrap(Item.Properties()) }
     val CHALK = registerItem("chalk") { Chalk(Item.Properties()) }.tab(ScriptorTabs.SCRIPTOR_TAB)
-    val ENGRAVING_TOOL = registerItem("engraving_tool") { EngravingTool(Item.Properties()) }.tab(ScriptorTabs.SCRIPTOR_TAB)
+    val ENGRAVING_TOOL = registerItem("engraving_tool") { EngravingTool(Item.Properties()) }
 
     val TOME_TIER1 = registerItem("tome_tier1") { AncientSpellbook(Item.Properties(), 1) }
     val TOME_TIER2 = registerItem("tome_tier2") { AncientSpellbook(Item.Properties(), 2) }
