@@ -1,7 +1,7 @@
 modLoader = "javafml"
 loaderVersion = "[2,)"
 #issueTrackerURL = ""
-license = "WTFPL"
+license = "CC0-1.0"
 
 [[mods]]
 modId = "scriptor"
@@ -23,7 +23,7 @@ side = "BOTH"
 [[dependencies.scriptor]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.20.6,)"
+versionRange = "[1.21.0,)"
 ordering = "NONE"
 side = "BOTH"
 
