@@ -6,7 +6,7 @@ import com.ssblur.scriptor.blockentity.ScriptorBlockEntities
 import com.ssblur.scriptor.commands.DebugCommand
 import com.ssblur.scriptor.commands.DumpDictionaryCommand
 import com.ssblur.scriptor.commands.DumpWordCommand
-import com.ssblur.scriptor.config.ScriptorGameRules
+import com.ssblur.scriptor.config.ScriptorConfig
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.effect.ScriptorEffects
 import com.ssblur.scriptor.entity.ScriptorEntities
@@ -72,7 +72,7 @@ object ScriptorMod: ModInitializer("scriptor") {
         ScriptorRecipes.register()
         ScriptorParticles.register()
         ScriptorLoot.register()
-        ScriptorGameRules.register()
+        ScriptorConfig.register()
         ScriptorFeatures.register()
         ScriptorDataComponents.register()
         ScriptorNetworkC2S.register()

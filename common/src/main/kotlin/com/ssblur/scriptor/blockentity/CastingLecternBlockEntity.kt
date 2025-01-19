@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.blockentity
 
 import com.ssblur.scriptor.block.CastingLecternBlock
-import com.ssblur.scriptor.config.ScriptorGameRules
+import com.ssblur.scriptor.config.ScriptorConfig
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData
 import com.ssblur.scriptor.helpers.LimitedBookSerializer
 import com.ssblur.scriptor.helpers.targetable.LecternTargetable
@@ -83,7 +83,7 @@ class CastingLecternBlockEntity(blockPos: BlockPos, blockState: BlockState) :
             if (tag != null) {
                 val spell = DictionarySavedData.computeIfAbsent(server).parse(LimitedBookSerializer.decodeText(tag))
                 if (spell != null) {
-                    if (spell.cost() > server.gameRules.getInt(ScriptorGameRules.CASTING_LECTERN_MAX_COST!!)) {
+                    if (spell.cost() > ScriptorConfig.CASTING_LECTERN_MAX_COST()) {
                         ParticleNetwork.fizzle(level!!, blockPos)
                         server.playSound(
                             null,
@@ -93,9 +93,7 @@ class CastingLecternBlockEntity(blockPos: BlockPos, blockState: BlockState) :
                             1.0f,
                             server.getRandom().nextFloat() * 0.4f + 0.8f
                         )
-                        cooldown += Math.round(
-                            200.0 * (server.gameRules.getInt(ScriptorGameRules.CASTING_LECTERN_COOLDOWN_MULTIPLIER!!).toDouble() / 100.0)
-                        ).toInt()
+                        cooldown += Math.round(200.0 * (ScriptorConfig.CASTING_LECTERN_COOLDOWN_MULTIPLIER().toDouble() / 100.0)).toInt()
                         return
                     }
                     val state = server.getBlockState(blockPos)
@@ -116,8 +114,7 @@ class CastingLecternBlockEntity(blockPos: BlockPos, blockState: BlockState) :
                     }
                     spell.cast(target)
                     cooldown += Math.round(
-                        spell.cost() * 10.0 * (server.gameRules
-                            .getInt(ScriptorGameRules.CASTING_LECTERN_COOLDOWN_MULTIPLIER!!).toDouble() / 100.0)
+                        spell.cost() * 10.0 * (ScriptorConfig.CASTING_LECTERN_COOLDOWN_MULTIPLIER().toDouble() / 100.0)
                     ).toInt()
                 }
             }

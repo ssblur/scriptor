@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.helpers
 
 import com.ssblur.scriptor.advancement.ScriptorAdvancements
-import com.ssblur.scriptor.config.ScriptorGameRules
+import com.ssblur.scriptor.config.ScriptorConfig
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData.Companion.computeIfAbsent
 import com.ssblur.scriptor.effect.EmpoweredStatusEffect
 import com.ssblur.scriptor.helpers.LimitedBookSerializer.decodeText
@@ -35,15 +35,12 @@ object SpellbookHelper {
 
         val spell = computeIfAbsent(level).parse(decodeText(text))
         if (spell != null) {
-            if (spell.cost() > level.getGameRules().getInt(ScriptorGameRules.TOME_MAX_COST!!)) {
+            if (spell.cost() > ScriptorConfig.TOME_MAX_COST()) {
                 player.sendSystemMessage(Component.translatable("extra.scriptor.fizzle"))
                 ScriptorAdvancements.FIZZLE.get().trigger(player as ServerPlayer)
                 if (!player.isCreative()) addCooldown(
                     player,
-                    Math.round(
-                        350.0 * (level.getGameRules().getInt(ScriptorGameRules.TOME_COOLDOWN_MULTIPLIER!!)
-                            .toDouble() / 100.0)
-                    ).toInt()
+                    Math.round(350.0 * ScriptorConfig.TOME_COOLDOWN_MULTIPLIER().toDouble() / 100.0).toInt()
                 )
                 return true
             }
@@ -54,8 +51,7 @@ object SpellbookHelper {
                     if (instance.effect.value() is EmpoweredStatusEffect)
                         for (i in 0..instance.amplifier) costScale *= (instance.effect.value() as EmpoweredStatusEffect).scale.toDouble()
                 val adjustedCost =
-                    costScale * spell.cost() * (level.getGameRules().getInt(ScriptorGameRules.TOME_COOLDOWN_MULTIPLIER!!)
-                        .toDouble() / 100.0)
+                    costScale * spell.cost() * (ScriptorConfig.TOME_COOLDOWN_MULTIPLIER().toDouble() / 100.0)
                 addCooldown(player, Math.round(adjustedCost * 7).toInt())
             }
             return false

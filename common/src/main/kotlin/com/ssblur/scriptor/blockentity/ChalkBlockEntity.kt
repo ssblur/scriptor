@@ -1,6 +1,6 @@
 package com.ssblur.scriptor.blockentity
 
-import com.ssblur.scriptor.config.ScriptorGameRules
+import com.ssblur.scriptor.config.ScriptorConfig
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData
 import com.ssblur.scriptor.helpers.targetable.Targetable
 import com.ssblur.scriptor.network.client.ParticleNetwork
@@ -69,7 +69,7 @@ open class ChalkBlockEntity : BlockEntity {
             val server = level as ServerLevel
             words = "$words $word"
             val spell = DictionarySavedData.computeIfAbsent(server).parse(words.trim { it <= ' ' })
-            if (spell != null && spell.cost() < server.getGameRules().getInt(ScriptorGameRules.CHALK_MAX_COST!!)) {
+            if (spell != null && spell.cost() < ScriptorConfig.CHALK_MAX_COST()) {
                 val target = Targetable(server, blockPos)
                 target.setFacing(facing)
                 for (block in visited) server.setBlockAndUpdate(block, Blocks.AIR.defaultBlockState())

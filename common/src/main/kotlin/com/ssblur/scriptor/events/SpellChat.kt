@@ -1,13 +1,7 @@
 package com.ssblur.scriptor.events
 
 import com.ssblur.scriptor.ScriptorDamage.overload
-import com.ssblur.scriptor.config.ChatRules.PROXIMITY_CHAT
-import com.ssblur.scriptor.config.ChatRules.PROXIMITY_RANGE
-import com.ssblur.scriptor.config.ChatRules.SHOW_SPELLS_IN_CHAT
-import com.ssblur.scriptor.config.ScriptorGameRules.VOCAL_COOLDOWN_MULTIPLIER
-import com.ssblur.scriptor.config.ScriptorGameRules.VOCAL_DAMAGE_THRESHOLD
-import com.ssblur.scriptor.config.ScriptorGameRules.VOCAL_HUNGER_THRESHOLD
-import com.ssblur.scriptor.config.ScriptorGameRules.VOCAL_MAX_COST
+import com.ssblur.scriptor.config.ScriptorConfig
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData.Companion.computeIfAbsent
 import com.ssblur.scriptor.effect.EmpoweredStatusEffect
 import com.ssblur.scriptor.effect.ScriptorEffects.HOARSE
@@ -48,24 +42,24 @@ object SpellChat {
                                 costScale *= (instance.effect.value() as EmpoweredStatusEffect).scale
                     cost = Math.round((cost.toFloat()) * costScale)
 
-                    if (level.getGameRules().getInt(VOCAL_MAX_COST!!) >= 0 && cost > level.getGameRules().getInt(VOCAL_MAX_COST!!))
+                    if (ScriptorConfig.VOCAL_MAX_COST() in 0..<cost)
                         player.sendSystemMessage(Component.translatable("extra.scriptor.mute"))
 
-                    val adjustedCost = Math.round(cost * (level.getGameRules().getInt(VOCAL_COOLDOWN_MULTIPLIER!!) / 100.0)).toInt()
+                    val adjustedCost = Math.round(cost * (ScriptorConfig.VOCAL_COOLDOWN_MULTIPLIER() / 100.0)).toInt()
                     if (!player.isCreative) {
                         player.addEffect(MobEffectInstance(HOARSE.ref(), adjustedCost))
-                        if (adjustedCost > level.getGameRules().getInt(VOCAL_HUNGER_THRESHOLD!!))
-                            player.addEffect(MobEffectInstance(MobEffects.HUNGER, 2 * (adjustedCost - level.getGameRules().getInt(VOCAL_HUNGER_THRESHOLD!!))))
-                        if (adjustedCost > level.getGameRules().getInt(VOCAL_DAMAGE_THRESHOLD!!))
-                            player.hurt(overload(player)!!, (adjustedCost - level.getGameRules().getInt(VOCAL_DAMAGE_THRESHOLD!!) * 0.75f) / 100f)
+                        if (adjustedCost > ScriptorConfig.VOCAL_HUNGER_THRESHOLD())
+                            player.addEffect(MobEffectInstance(MobEffects.HUNGER, 2 * (adjustedCost - ScriptorConfig.VOCAL_HUNGER_THRESHOLD())))
+                        if (adjustedCost > ScriptorConfig.VOCAL_DAMAGE_THRESHOLD())
+                            player.hurt(overload(player)!!, (adjustedCost - ScriptorConfig.VOCAL_DAMAGE_THRESHOLD() * 0.75f) / 100f)
                     }
                     if (player.health > 0) spell.cast(EntityTargetable(player))
-                    if (!level.getGameRules().getBoolean(SHOW_SPELLS_IN_CHAT!!)) return@register it.cancel()
+                    if (!ScriptorConfig.SHOW_SPELLS_IN_CHAT()) return@register it.cancel()
                 }
             }
 
-            if (level is ServerLevel && level.getGameRules().getBoolean(PROXIMITY_CHAT!!)) {
-                val distance = level.getGameRules().getInt(PROXIMITY_RANGE!!)
+            if (level is ServerLevel && ScriptorConfig.PROXIMITY_CHAT()) {
+                val distance = ScriptorConfig.PROXIMITY_RANGE()
                 val name = player.displayName
                 val message: Component =
                     if (name == null) Component.literal("> ").append(component)
