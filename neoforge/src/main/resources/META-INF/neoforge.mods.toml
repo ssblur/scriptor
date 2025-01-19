@@ -30,7 +30,7 @@ side = "BOTH"
 [[dependencies.scriptor]]
 modId = "unfocused"
 type = "required"
-versionRange = "[0.1.32,)"
+versionRange = "[${unfocused_version},)"
 ordering = "AFTER"
 side = "BOTH"
 
