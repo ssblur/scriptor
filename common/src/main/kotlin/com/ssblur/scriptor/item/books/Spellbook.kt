@@ -51,12 +51,9 @@ open class Spellbook(properties: Properties) :
     ): InteractionResultHolder<ItemStack> {
         if (level.isClientSide) return InteractionResultHolder.success(player.getItemInHand(interactionHand))
 
-        val result = super.use(level, player, interactionHand)
-
         val item = player.getItemInHand(interactionHand)
-        val castResult = SpellbookHelper.castFromItem(item, player)
+        SpellbookHelper.castFromItem(item, player)
 
-        if (castResult) return result
         return InteractionResultHolder.fail(player.getItemInHand(interactionHand))
     }
 
@@ -78,7 +75,7 @@ open class Spellbook(properties: Properties) :
             if (player.cooldowns.isOnCooldown(this)) return true
             val level = player.level()
             if (!level.isClientSide) return true
-            if (player.isCreative) return false // TODO:
+            if (player.isCreative) return false // TODO
             else ScriptorNetworkC2S.useBook(UseBook(slot.index))
             return true
         }

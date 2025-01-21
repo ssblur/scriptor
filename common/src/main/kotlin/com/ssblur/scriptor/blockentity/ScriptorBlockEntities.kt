@@ -48,13 +48,7 @@ object ScriptorBlockEntities {
     }
 
     val PHASED_BLOCK = ScriptorMod.registerBlockEntity("phased_block") {
-        BlockEntityType.Builder.of(
-            { blockPos: BlockPos?, blockState: BlockState? ->
-                PhasedBlockBlockEntity(
-                    blockPos!!, blockState!!
-                )
-            }, ScriptorBlocks.PHASED_BLOCK.get()
-        ).build(null)
+        BlockEntityType.Builder.of(::PhasedBlockBlockEntity, ScriptorBlocks.PHASED_BLOCK.get()).build(null)
     }
 
     val GENERATE = ScriptorMod.registerBlockEntity("generate") {

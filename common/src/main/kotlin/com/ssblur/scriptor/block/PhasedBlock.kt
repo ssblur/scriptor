@@ -1,6 +1,7 @@
 package com.ssblur.scriptor.block
 
 import com.ssblur.scriptor.blockentity.PhasedBlockBlockEntity
+import com.ssblur.scriptor.blockentity.ScriptorBlockEntities
 import net.minecraft.core.BlockPos
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.level.BlockGetter
@@ -32,15 +33,11 @@ class PhasedBlock : Block(
     ) = Shapes.box(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
 
     override fun newBlockEntity(blockPos: BlockPos, blockState: BlockState): BlockEntity =
-        PhasedBlockBlockEntity(blockPos, blockState)
+        ScriptorBlockEntities.PHASED_BLOCK.get().create(blockPos, blockState)!!
 
     override fun <T : BlockEntity?> getTicker(
         level: Level,
         blockState: BlockState,
         blockEntityType: BlockEntityType<T>
-    ) = BlockEntityTicker { tickerLevel: Level?, pos: BlockPos?, state: BlockState?, entity: T ->
-        PhasedBlockBlockEntity.tick(
-            entity
-        )
-    }
+    ) = BlockEntityTicker { tickerLevel: Level?, pos: BlockPos?, state: BlockState?, entity: T -> PhasedBlockBlockEntity.tick(entity) }
 }

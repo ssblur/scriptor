@@ -1,6 +1,5 @@
 package com.ssblur.scriptor.blockentity
 
-import com.mojang.datafixers.util.Pair
 import com.ssblur.scriptor.block.ScriptorBlocks
 import net.minecraft.core.BlockPos
 import net.minecraft.core.HolderLookup
@@ -13,6 +12,7 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
+import kotlin.math.max
 import kotlin.math.min
 
 class PhasedBlockBlockEntity(blockPos: BlockPos, blockState: BlockState) :
@@ -30,17 +30,22 @@ class PhasedBlockBlockEntity(blockPos: BlockPos, blockState: BlockState) :
     fun tick() {
         countdown--
         if (countdown <= 0 && level != null && phasedBlockState != null) {
-            level!!.setBlock(blockPos, phasedBlockState!!, 22)
+            if(level!!.isClientSide) return
+            level!!.setBlockAndUpdate(blockPos, phasedBlockState!!)
             if (data != null && !level!!.isClientSide) {
                 val entity = loadStatic(blockPos, phasedBlockState!!, data!!, level!!.registryAccess())
                 if (entity != null) level!!.setBlockEntity(entity)
+            } else {
+                level!!.removeBlockEntity(blockPos)
             }
+//            level!!.sendBlockUpdated(blockPos, blockState, phasedBlockState!!, 7)
         }
     }
 
-    override fun getUpdatePacket(): Packet<ClientGamePacketListener>? {
-        return ClientboundBlockEntityDataPacket.create(this)
-    }
+    override fun getUpdatePacket(): Packet<ClientGamePacketListener>? =
+        ClientboundBlockEntityDataPacket.create(this) { entity, provider ->
+            entity.getUpdateTag(provider)
+        }
 
     override fun getUpdateTag(provider: HolderLookup.Provider): CompoundTag {
         val tag = super.getUpdateTag(provider)
@@ -55,8 +60,7 @@ class PhasedBlockBlockEntity(blockPos: BlockPos, blockState: BlockState) :
 
         data = tag.getCompound("data")
         val state = tag["blockState"]
-        BlockState.CODEC.decode(NbtOps.INSTANCE, state).result()
-            .ifPresent { result: Pair<BlockState?, Tag> -> phasedBlockState = result.first }
+        BlockState.CODEC.decode(NbtOps.INSTANCE, state).result().ifPresent { result -> phasedBlockState = result.first }
 
         setChanged()
     }
@@ -72,21 +76,19 @@ class PhasedBlockBlockEntity(blockPos: BlockPos, blockState: BlockState) :
 
     val anim: Float
         get() {
-            if (level == null) return 0f
+            if (level == null) return ANIM_FLOOR
 
             if (created == -1L) created = level!!.gameTime
 
-            val f = (ANIM_DURATION.toFloat()) / 5f
-            val anim = min(
-                ANIM_DURATION.toDouble(),
-                (level!!.gameTime - created).toDouble()
-            ).toLong()
-            if (countdown == -1) return anim / ANIM_DURATION.toFloat()
-            return (min(anim.toDouble(), (countdown * f).toDouble()) / ANIM_DURATION.toFloat()).toFloat()
+            var anim = level!!.gameTime - created
+            anim = min(anim, ANIM_DURATION)
+            return (anim.toFloat() / ANIM_DURATION) * ANIM_DIFF + ANIM_FLOOR
         }
 
     companion object {
-        const val ANIM_DURATION: Int = 5
+        const val ANIM_DURATION = 5L
+        const val ANIM_FLOOR = 0.2f
+        const val ANIM_DIFF = 1f - ANIM_FLOOR
         fun <T : BlockEntity?> tick(entity: T) {
             if (entity is PhasedBlockBlockEntity) entity.tick()
         }
@@ -94,27 +96,23 @@ class PhasedBlockBlockEntity(blockPos: BlockPos, blockState: BlockState) :
         @JvmStatic
         @JvmOverloads
         fun phase(level: Level, pos: BlockPos, duration: Int = 5) {
-            if (level.getBlockEntity(pos) is PhasedBlockBlockEntity) {
-                (level.getBlockEntity(pos) as PhasedBlockBlockEntity).countdown = duration
+            val entity = level.getBlockEntity(pos)
+            if (entity is PhasedBlockBlockEntity) {
+                entity.countdown = max(duration, entity.countdown)
                 return
             }
 
             val state = level.getBlockState(pos)
-            val entity = level.getBlockEntity(pos)
-
             if (state.`is`(ScriptorBlocks.DO_NOT_PHASE) || state.liquid() || state.isAir) return
 
             val newState = ScriptorBlocks.PHASED_BLOCK.get().defaultBlockState()
-            val newEntity = PhasedBlockBlockEntity(pos, newState)
+            level.setBlockAndUpdate(pos, newState)
+            val newEntity = ScriptorBlockEntities.PHASED_BLOCK.get().getBlockEntity(level, pos)!!
             newEntity.phasedBlockState = state
             if (entity != null) newEntity.data = entity.saveWithFullMetadata(level.registryAccess())
             newEntity.countdown = duration
 
-            level.removeBlockEntity(pos)
-            level.setBlock(pos, newState, 22)
-            level.setBlockEntity(newEntity)
-
-            level.sendBlockUpdated(pos, newState, newState, 7)
+            level.sendBlockUpdated(pos, newState, newState, 3)
         }
     }
 }
