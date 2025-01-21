@@ -1,6 +1,7 @@
 package com.ssblur.scriptor.block
 
-import com.ssblur.scriptor.blockentity.LightBlockEntity
+import com.ssblur.scriptor.blockentity.ScriptorBlockEntities
+import com.ssblur.unfocused.extension.BlockEntityTypeExtension.create
 import net.minecraft.core.BlockPos
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.block.Block
@@ -27,5 +28,5 @@ class LightBlock : Block(
     ): VoxelShape = Shapes.box(0.25, 0.25, 0.25, 0.75, 0.75, 0.75)
 
     override fun newBlockEntity(blockPos: BlockPos, blockState: BlockState) =
-        LightBlockEntity(blockPos, blockState)
+        ScriptorBlockEntities.LIGHT.create(blockPos, blockState)
 }

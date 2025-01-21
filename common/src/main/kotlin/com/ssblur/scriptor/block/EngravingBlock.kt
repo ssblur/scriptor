@@ -1,6 +1,8 @@
 package com.ssblur.scriptor.block
 
 import com.ssblur.scriptor.blockentity.EngravingBlockEntity
+import com.ssblur.scriptor.blockentity.ScriptorBlockEntities
+import com.ssblur.unfocused.extension.BlockEntityTypeExtension.create
 import net.minecraft.core.BlockPos
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
@@ -24,7 +26,7 @@ class EngravingBlock : ChalkBlock(
     }
 
     override fun newBlockEntity(blockPos: BlockPos, blockState: BlockState): BlockEntity =
-        EngravingBlockEntity(blockPos, blockState)
+        ScriptorBlockEntities.ENGRAVING.create(blockPos, blockState)!!
 
     override fun <T : BlockEntity?> getTicker(
         level: Level,

@@ -1,6 +1,8 @@
 package com.ssblur.scriptor.block
 
 import com.ssblur.scriptor.blockentity.RuneBlockEntity
+import com.ssblur.scriptor.blockentity.ScriptorBlockEntities
+import com.ssblur.unfocused.extension.BlockEntityTypeExtension.create
 import net.minecraft.core.BlockPos
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
@@ -29,7 +31,7 @@ class RuneBlock : Block(
     ) = Shapes.box(0.0, 0.0, 0.0, 1.0, 0.0625, 1.0)
 
     override fun newBlockEntity(blockPos: BlockPos, blockState: BlockState) =
-        RuneBlockEntity(blockPos, blockState)
+        ScriptorBlockEntities.RUNE.create(blockPos, blockState)
 
     override fun <T : BlockEntity?> getTicker(
         level: Level,

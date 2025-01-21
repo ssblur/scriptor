@@ -1,57 +1,27 @@
 package com.ssblur.scriptor.particle
 
 import net.minecraft.client.multiplayer.ClientLevel
+import net.minecraft.client.particle.ParticleProvider
 import net.minecraft.client.particle.ParticleRenderType
+import net.minecraft.client.particle.SpriteSet
 import net.minecraft.client.particle.TextureSheetParticle
 
-class MagicParticle : TextureSheetParticle {
-    constructor(
-        level: ClientLevel?,
-        d: Double,
-        e: Double,
-        f: Double,
-        xd: Double,
-        yd: Double,
-        zd: Double,
-        size: Float,
-        red: Float,
-        green: Float,
-        blue: Float,
-        age: Float
-    ) : super(level, d, e, f, 0.0, 0.0, 0.0) {
+
+class MagicParticle(
+    data: MagicParticleData,
+    level: ClientLevel,
+    d: Double,
+    e: Double,
+    f: Double,
+    xd: Double,
+    yd: Double,
+    zd: Double,
+    spriteSet: SpriteSet
+) : TextureSheetParticle(level, d, e, f, 0.0, 0.0, 0.0) {
+    init {
         this.xd = xd + (Math.random() / 20 - 0.025f)
         this.yd = yd + (Math.random() / 20 - 0.025f)
         this.zd = zd + (Math.random() / 20 - 0.025f)
-
-        this.rCol = red / 255f
-        this.gCol = green / 255f
-        this.bCol = blue / 255f
-        this.alpha = 1.0f
-        this.gravity = 0f
-        this.quadSize = size
-        this.lifetime = ((Math.random() * 0.4 + 0.6) * 30 * age).toInt()
-        this.xo = x
-        this.yo = y
-        this.zo = z
-        this.hasPhysics = true
-
-        setSize(0.01f, 0.01f)
-    }
-
-    constructor(
-        data: MagicParticleData,
-        level: ClientLevel?,
-        d: Double,
-        e: Double,
-        f: Double,
-        xd: Double,
-        yd: Double,
-        zd: Double
-    ) : super(level, d, e, f, 0.0, 0.0, 0.0) {
-        this.xd = xd + (Math.random() / 20 - 0.025f)
-        this.yd = yd + (Math.random() / 20 - 0.025f)
-        this.zd = zd + (Math.random() / 20 - 0.025f)
-
         this.rCol = data.r / 255f
         this.gCol = data.g / 255f
         this.bCol = data.b / 255f
@@ -63,8 +33,8 @@ class MagicParticle : TextureSheetParticle {
         this.yo = y
         this.zo = z
         this.hasPhysics = true
-
-        setSize(0.01f, 0.01f)
+        setSize(0.05f, 0.05f)
+        setSpriteFromAge(spriteSet)
     }
 
     override fun tick() {
@@ -88,6 +58,19 @@ class MagicParticle : TextureSheetParticle {
     }
 
     override fun getRenderType(): ParticleRenderType {
-        return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT
+        return ParticleRenderType.PARTICLE_SHEET_LIT
+    }
+
+    class Provider(val spriteSet: SpriteSet): ParticleProvider.Sprite<MagicParticleData> {
+        override fun createParticle(
+            data: MagicParticleData,
+            level: ClientLevel,
+            d: Double,
+            e: Double,
+            f: Double,
+            g: Double,
+            h: Double,
+            i: Double
+        ): TextureSheetParticle = MagicParticle(data, level, d, e, f, g, h, i, spriteSet)
     }
 }

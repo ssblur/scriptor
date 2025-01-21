@@ -1,6 +1,8 @@
 package com.ssblur.scriptor.block
 
 import com.ssblur.scriptor.blockentity.GenerateBlockEntity
+import com.ssblur.scriptor.blockentity.ScriptorBlockEntities
+import com.ssblur.unfocused.extension.BlockEntityTypeExtension.create
 import net.minecraft.core.BlockPos
 import net.minecraft.util.StringRepresentable
 import net.minecraft.world.level.Level
@@ -28,7 +30,7 @@ class GenerateBlock : Block(Properties.of().air()), EntityBlock {
     }
 
     override fun newBlockEntity(blockPos: BlockPos, blockState: BlockState): BlockEntity =
-        GenerateBlockEntity(blockPos, blockState)
+        ScriptorBlockEntities.GENERATE.create(blockPos, blockState)!!
 
     override fun <T : BlockEntity?> getTicker(
         level: Level,

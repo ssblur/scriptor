@@ -1,8 +1,10 @@
 package com.ssblur.scriptor.block
 
 import com.ssblur.scriptor.blockentity.CastingLecternBlockEntity
+import com.ssblur.scriptor.blockentity.ScriptorBlockEntities
 import com.ssblur.scriptor.item.books.Spellbook
 import com.ssblur.scriptor.item.casters.CasterCrystal
+import com.ssblur.unfocused.extension.BlockEntityTypeExtension.create
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.InteractionHand
@@ -71,7 +73,7 @@ class CastingLecternBlock : Block(Properties.ofFullCopy(Blocks.ACACIA_PLANKS).no
     }
 
     override fun newBlockEntity(blockPos: BlockPos, blockState: BlockState): BlockEntity {
-        return CastingLecternBlockEntity(blockPos, blockState)
+        return ScriptorBlockEntities.CASTING_LECTERN.create(blockPos, blockState)!!
     }
 
     override fun <T : BlockEntity> getTicker(

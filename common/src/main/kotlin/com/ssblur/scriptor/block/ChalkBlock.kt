@@ -1,6 +1,8 @@
 package com.ssblur.scriptor.block
 
 import com.ssblur.scriptor.blockentity.ChalkBlockEntity
+import com.ssblur.scriptor.blockentity.ScriptorBlockEntities
+import com.ssblur.unfocused.extension.BlockEntityTypeExtension.create
 import net.minecraft.core.BlockPos
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.player.Player
@@ -37,7 +39,7 @@ open class ChalkBlock : Block, EntityBlock {
     }
 
     override fun newBlockEntity(blockPos: BlockPos, blockState: BlockState): BlockEntity? {
-        return ChalkBlockEntity(blockPos, blockState)
+        return ScriptorBlockEntities.CHALK.create(blockPos, blockState)
     }
 
     public override fun useWithoutItem(
