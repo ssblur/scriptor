@@ -10,7 +10,6 @@ import net.minecraft.world.entity.Entity
 import net.minecraft.world.level.Explosion
 import net.minecraft.world.level.ExplosionDamageCalculator
 import net.minecraft.world.level.Level
-import kotlin.math.ln
 
 class ExplosionAction : Action() {
     internal class ExplosionActionDamageCalculator(val caster: Targetable) : ExplosionDamageCalculator() {
@@ -33,7 +32,7 @@ class ExplosionAction : Action() {
         val level = targetable.level as ServerLevel
         val pos = targetable.targetPos
 
-        val power = (ln(strength) / ln(1.45)).toFloat()
+        val power = Math.pow(strength, 0.7).toFloat()
 
         level.explode(
             null,
