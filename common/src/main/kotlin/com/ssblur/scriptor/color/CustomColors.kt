@@ -170,5 +170,5 @@ object CustomColors {
     }
 
     data class RGB(val r: Int, val g: Int, val b: Int)
-    fun Int.splitIntoRGB(): RGB = RGB(this and 0xFF, (this shr 8) and 0xFF, (this shr 16) and 0xFF)
+    fun Int.splitIntoRGB(): RGB = RGB((this shr 16) and 0xFF, (this shr 8) and 0xFF,  this and 0xFF)
 }
