@@ -3,6 +3,7 @@ package com.ssblur.scriptor.entity.renderers
 import com.mojang.blaze3d.vertex.PoseStack
 import com.ssblur.scriptor.ScriptorMod
 import com.ssblur.scriptor.color.CustomColors
+import com.ssblur.scriptor.color.CustomColors.splitIntoRGB
 import com.ssblur.scriptor.entity.ScriptorProjectile
 import com.ssblur.scriptor.particle.MagicParticleData
 import net.minecraft.client.Minecraft
@@ -31,21 +32,14 @@ class ScriptorProjectileRenderer(context: EntityRendererProvider.Context) :
         entity.setPos(entity.position().add(entity.deltaMovement.scale(tickDelta.toDouble())))
 
         val level = Minecraft.getInstance().level!!
-        val c = CustomColors.getColor(entity.color, level.gameTime.toFloat())
-        val r = c and 0xff0000 shr 16
-        val g = c and 0x00ff00 shr 8
-        val b = c and 0x0000ff
-
-        val d = entity.deltaMovement
-        val xd = d.x * tickDelta
-        val yd = d.y * tickDelta
-        val zd = d.z * tickDelta
+        val (r, g, b) = CustomColors.getColor(entity.color, level.gameTime.toFloat()).splitIntoRGB()
+        val d = entity.deltaMovement.scale(tickDelta.toDouble())
 
         level.addParticle(
             MagicParticleData.magic(r, g, b),
-            entity.x + xd,
-            entity.y + yd,
-            entity.z + zd,
+            entity.x + d.x,
+            entity.y + d.y,
+            entity.z + d.z,
             0.0,
             0.0,
             0.0

@@ -128,8 +128,8 @@ object CustomColors {
     }
 
     fun createCustomColor(list: IntArray): Function<Float, Int> {
-        return Function { tick: Float ->
-            var tick = tick
+        return Function { t: Float ->
+            var tick = t
             val partial = tick % 60 / 60
             tick /= 60f
             tick %= list.size.toFloat()
@@ -168,4 +168,7 @@ object CustomColors {
 
         return dyeColor
     }
+
+    data class RGB(val r: Int, val g: Int, val b: Int)
+    fun Int.splitIntoRGB(): RGB = RGB(this and 0xFF, (this shr 8) and 0xFF, (this shr 16) and 0xFF)
 }
