@@ -30,9 +30,8 @@ class ScriptorProjectileRenderer(context: EntityRendererProvider.Context) :
         super.render(entity, yaw, tickDelta, poseStack, multiBufferSource, lightLevel)
         entity.setPos(entity.position().add(entity.deltaMovement.scale(tickDelta.toDouble())))
 
-        val mc = Minecraft.getInstance()
-        checkNotNull(mc.level)
-        val c = CustomColors.getColor(entity.color, mc.level!!.gameTime.toFloat())
+        val level = Minecraft.getInstance().level!!
+        val c = CustomColors.getColor(entity.color, level.gameTime.toFloat())
         val r = c and 0xff0000 shr 16
         val g = c and 0x00ff00 shr 8
         val b = c and 0x0000ff
@@ -42,18 +41,14 @@ class ScriptorProjectileRenderer(context: EntityRendererProvider.Context) :
         val yd = d.y * tickDelta
         val zd = d.z * tickDelta
 
-        val level = Minecraft.getInstance().level
-        if (level != null) {
-        val particle = MagicParticleData.magic(r, g, b)
-            level.addParticle(
-                particle,
-                entity.x + xd,
-                entity.y + yd,
-                entity.z + zd,
-                0.0,
-                0.0,
-                0.0
-            )
-        }
+        level.addParticle(
+            MagicParticleData.magic(r, g, b),
+            entity.x + xd,
+            entity.y + yd,
+            entity.z + zd,
+            0.0,
+            0.0,
+            0.0
+        )
     }
 }
