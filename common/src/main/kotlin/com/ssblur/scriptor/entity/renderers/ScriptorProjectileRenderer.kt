@@ -4,17 +4,16 @@ import com.mojang.blaze3d.vertex.PoseStack
 import com.ssblur.scriptor.ScriptorMod
 import com.ssblur.scriptor.color.CustomColors
 import com.ssblur.scriptor.entity.ScriptorProjectile
+import com.ssblur.scriptor.particle.MagicParticleData
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.entity.EntityRenderer
 import net.minecraft.client.renderer.entity.EntityRendererProvider
-import net.minecraft.core.particles.DustParticleOptions
 import net.minecraft.resources.ResourceLocation
-import org.joml.Vector3f
 import javax.annotation.ParametersAreNonnullByDefault
 
 @ParametersAreNonnullByDefault
-class ScriptorProjectileRenderer(context: EntityRendererProvider.Context?) :
+class ScriptorProjectileRenderer(context: EntityRendererProvider.Context) :
     EntityRenderer<ScriptorProjectile>(context) {
     override fun getTextureLocation(entity: ScriptorProjectile): ResourceLocation {
         return ScriptorMod.location("textures/item/tome.png")
@@ -45,10 +44,7 @@ class ScriptorProjectileRenderer(context: EntityRendererProvider.Context?) :
 
         val level = Minecraft.getInstance().level
         if (level != null) {
-//      var particle = MagicParticleData.magic(r, g, b);
-            // TODO: fix magic particles
-            val particle =
-                DustParticleOptions(Vector3f((r.toFloat()) / 255f, (g.toFloat()) / 255f, (b.toFloat()) / 255f), 0.5f)
+        val particle = MagicParticleData.magic(r, g, b)
             level.addParticle(
                 particle,
                 entity.x + xd,

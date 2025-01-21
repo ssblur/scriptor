@@ -28,7 +28,7 @@ class MagicParticle(
         this.alpha = 1.0f
         this.gravity = 0f
         this.quadSize = 1.0f
-        this.lifetime = ((Math.random() * 0.4 + 0.6) * 30 * age).toInt()
+        this.lifetime = ((Math.random() * 0.4 + 0.6) * 20).toInt()
         this.xo = x
         this.yo = y
         this.zo = z

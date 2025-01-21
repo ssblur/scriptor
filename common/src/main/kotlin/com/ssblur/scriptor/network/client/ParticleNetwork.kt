@@ -35,8 +35,9 @@ object ParticleNetwork {
                 val g = (c and 0x00ff00) shr 8
                 val b = c and 0x0000ff
 
-                for (i in 1..9) {
-                    val pos = payload.from.lerp(payload.to!!, i / 10.0)
+                val steps = 16.0
+                for (i in 1..steps.toInt()) {
+                    val pos = payload.from.lerp(payload.to!!, i / steps)
                     queue(magic(r, g, b), pos.x(), pos.y(), pos.z(), 0.0, 0.0, 0.0)
                 }
             }
@@ -48,5 +49,5 @@ object ParticleNetwork {
     fun wither(level: Level, pos: BlockPos) =
         send(Payload(TYPE.WITHER, 0, Vec3(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble())), level.players())
     fun magicTrail(level: Level, color: Int, from: Vec3, to: Vec3) =
-        send(Payload(TYPE.WITHER, color, from, to), level.players())
+        send(Payload(TYPE.MAGIC, color, from, to), level.players())
 }
