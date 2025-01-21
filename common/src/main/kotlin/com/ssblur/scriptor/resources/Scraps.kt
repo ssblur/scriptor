@@ -67,8 +67,12 @@ object Scraps {
         val scrap = getRandomScrap(t, player)
         val itemStack = ItemStack(ScriptorItems.SCRAP)
 
-        itemStack.set(ScriptorDataComponents.SPELL, scrap)
-        itemStack.set(DataComponents.ITEM_NAME, Component.literal(computeIfAbsent((player.level() as ServerLevel)).getWord(scrap)!!))
+        itemStack[ScriptorDataComponents.SPELL] = scrap
+        val word = computeIfAbsent((player.level() as ServerLevel)).getWord(scrap)
+        if(word != null)
+            itemStack[DataComponents.ITEM_NAME] = Component.literal(word)
+        else
+            itemStack[DataComponents.ITEM_NAME] = Component.literal("Invalid word: $scrap")
         if (COMMUNITY_MODE) itemStack.set(ScriptorDataComponents.COMMUNITY_MODE, true)
 
         return itemStack
