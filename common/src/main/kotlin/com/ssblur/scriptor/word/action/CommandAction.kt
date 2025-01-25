@@ -18,6 +18,7 @@ import net.minecraft.world.entity.MobSpawnType
 import net.minecraft.world.entity.decoration.ArmorStand
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.phys.Vec2
+import java.util.Locale
 
 @Suppress("unused")
 class CommandAction @JvmOverloads constructor(
@@ -110,6 +111,7 @@ class CommandAction @JvmOverloads constructor(
         } else {
             for (i in blockTargetCommand) commandToParse.add(
                 String.format(
+				    Locale.US,
                     "execute positioned %f %f %f in %s run %s",
                     pos.x,
                     pos.y,
