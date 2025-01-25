@@ -1,0 +1,43 @@
+{
+  "name": "法术书",
+  "icon": "scriptor:spellbook",
+  "category": "scriptor:casting",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": [
+        "法术书是大多数法师的主要施法媒介。",
+        "$(br2)",
+        "如果要说这种施法方式的优点，那就是高效和方便。",
+        "$(br)",
+        "当人类使用法术书施法时，冷却时间只有吟唱施法的70%。"
+      ]
+    },
+    {
+      "type": "patchouli:text",
+      "text": [
+        "（此外，施法者还不必每次都诵读完整的咒语，显然非常方便。）"
+      ]
+    },
+    {
+      "type": "patchouli:text",
+      "text": [
+        "尽管如此，魔法书也有一个主要缺点：",
+        "$(br)",
+        "$(#ff0000)灵活性差$()",
+        "$(br2)",
+        "每本法术书合订本的所能容纳的法术有限，而法术一旦添加到合订本中便不可回溯，",
+		"出于对这种原因的考量，一些法师宁愿只写下自己最喜欢的法术，然后根据其他情况临时制作法术。"
+      ]
+    },
+    {
+      "type": "patchouli:relations",
+      "title": "制作",
+      "entries": [
+        "scriptor:crafting/books",
+        "scriptor:crafting/obfuscation"
+      ],
+      "text": "通过以上条目了解制作和定制魔法书的更多信息。"
+    }
+  ]
+}

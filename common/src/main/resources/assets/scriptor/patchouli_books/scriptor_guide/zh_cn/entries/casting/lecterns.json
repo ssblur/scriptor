@@ -1,0 +1,33 @@
+{
+  "name": "施法讲台",
+  "icon": "scriptor:casting_lectern",
+  "category": "scriptor:casting",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": [
+        "施法讲台可用于自动施放写在$(l:casting/spellbooks)法术书$(/l)的法术。",
+        "$(br2)",
+        "有关制作的信息，请参阅$(l:crafting/lecterns)施法讲台$(/l)."
+      ]
+    },
+    {
+      "type": "patchouli:text",
+      "text": [
+        "施法讲台的默认施法方向为讲台背面。",
+        "在没有红石信号的情况下，讲台会在冷却时间结束后继续自动施法。",
+        "$(br2)",
+        "通过讲台施法并不能提高施法速度，其施法效率与吟唱施法相同。"
+      ]
+    },
+    {
+      "type": "patchouli:relations",
+      "title": "相关",
+      "entries": [
+        "scriptor:crafting/lecterns",
+        "scriptor:advanced/crystals"
+      ],
+      "text": "查看本页链接的条目！"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "name": "修饰",
+  "icon": "scriptor:scrap_tier3",
+  "category": "scriptor:basics",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": [
+        "$(l)修饰$()，也有人称之为修饰符，是咒语中的一个可选但功能强大的组成部分。",
+        "$(br2)",
+        "通过添加修饰可以实现多种目标，比如修改咒语的强度、改变咒语的目标，甚至降低咒语的冷却时间和代价！",
+        "咒语中的每个$(l:basics/actions)行为$(/l)都能够与任意数量的修饰符配对。"
+      ]
+    },
+    {
+      "type": "patchouli:relations",
+      "entries": [
+        "scriptor:basics/actions"
+      ],
+      "title": "行为",
+      "text": [
+        "每个行为可与多种修饰配对",
+        "$(br)",
+        "通过阅读以上章节了解咒语是如何实现特定功能的。"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "魔法粉笔",
+  "icon": "minecraft:glow_ink_sac",
+  "category": "scriptor:crafting",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": [
+        "粉笔的制作非常简单，只需将两块方解石组合在一起即可。",
+        "$(br2)",
+        "制作完成后，在铁砧上为其重命名，就能将其与咒语联系起来。"
+      ]
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "粉笔",
+      "recipe": "scriptor:chalk"
+    }
+  ]
+}
