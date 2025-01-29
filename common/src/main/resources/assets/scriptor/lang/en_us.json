@@ -259,6 +259,7 @@
   "lore.scriptor.coordinate_crystal_1": "Right click to attune to a position",
   "lore.scriptor.coordinate_crystal_2": "Right click to add a position",
   "lore.scriptor.coordinate_crystal_3": "Position: %1$s, %2$s, %3$s",
+  "lore.scriptor.crystal_focus": "(This modifies a spell's focus, not its target)",
   "lore.scriptor.crystal_reset": "Craft to reset",
   "lore.scriptor.active_book": "%1$s [Active]",
   "lore.scriptor.empty_book_1": "Load a Spellbook by right-clicking",

@@ -82,6 +82,9 @@ class CoordinateCasterCrystal(properties: Properties) : CasterCrystal(properties
             )
             list.add(Component.translatable("lore.scriptor.crystal_reset").withStyle(ChatFormatting.GRAY))
         }
+
+        list.add(Component.translatable("lore.scriptor.crystal_focus").withStyle(ChatFormatting.GRAY))
+
     }
 
     override fun use(
