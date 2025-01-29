@@ -1,11 +1,17 @@
 pluginManagement {
-    repositories {
-        maven { url "https://maven.fabricmc.net/" }
-        maven { url "https://maven.architectury.dev/" }
-        maven { url "https://files.minecraftforge.net/maven/" }
-        gradlePluginPortal()
-        mavenCentral()
-    }
+  repositories {
+    maven { url "https://maven.fabricmc.net/" }
+    maven { url "https://maven.architectury.dev/" }
+    maven { url "https://files.minecraftforge.net/maven/" }
+    mavenLocal()
+    maven { url "https://mvn.blur.lol/snapshots" }
+    maven { url "https://mvn.blur.lol/releases" }
+    gradlePluginPortal()
+    mavenCentral()
+  }
+  plugins {
+    id 'org.jetbrains.kotlin.jvm' version '2.0.0'
+  }
 }
 
 rootProject.name = 'scriptor'

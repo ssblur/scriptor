@@ -18,7 +18,7 @@ public class SheepColorableInject implements Colorable {
     self.addAdditionalSaveData(tag);
     tag.putInt("scriptor:color", color);
 
-    var colorfulSheep = ScriptorEntities.COLORFUL_SHEEP_TYPE.get().spawn(
+    var colorfulSheep = ScriptorEntities.INSTANCE.getCOLORFUL_SHEEP_TYPE().get().spawn(
       (ServerLevel) self.level(),
       null,
       null,

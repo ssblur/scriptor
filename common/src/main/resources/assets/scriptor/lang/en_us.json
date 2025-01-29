@@ -203,6 +203,7 @@
   "action.scriptor.harm": "This spell harms the target.",
   "action.scriptor.color": "This spell changes the target's color.",
   "action.scriptor.place": "This spell places a block.",
+  "action.scriptor.conjure_water": "This spell conjures water.",
   "action.scriptor.time": "This spell marches the clock forwards.",
   "action.scriptor.clear_weather": "The clouds part when this spell is cast.",
   "action.scriptor.rain": "This spell summons a storm.",
@@ -231,7 +232,7 @@
 
   "action.scriptor.action.scriptor.command_test": "No test [English]",
 
-  "extra.scriptor.fizzle": "The tome starts to warm in your hand, then fizzles.",
+  "extra.scriptor.fizzle": "The tome starts to warm in your hand, then fizzles. It appears it costs too much to be cast this way.",
   "extra.scriptor.tome_use": "You dust off the tome...",
   "extra.scriptor.tome_description": "Right click to uncover a spell.",
   "extra.scriptor.tome_tier": "Tier %1$s",
@@ -258,6 +259,7 @@
   "lore.scriptor.coordinate_crystal_1": "Right click to attune to a position",
   "lore.scriptor.coordinate_crystal_2": "Right click to add a position",
   "lore.scriptor.coordinate_crystal_3": "Position: %1$s, %2$s, %3$s",
+  "lore.scriptor.crystal_focus": "(This modifies a spell's focus, not its target)",
   "lore.scriptor.crystal_reset": "Craft to reset",
   "lore.scriptor.active_book": "%1$s [Active]",
   "lore.scriptor.empty_book_1": "Load a Spellbook by right-clicking",
@@ -330,6 +332,7 @@
   "tome.scriptor.immolate": "Immolate",
   "tome.scriptor.light": "Magelight",
   "tome.scriptor.projectile_place": "Emplacement",
+  "tome.scriptor.conjure_water": "Exusion",
   "tome.scriptor.slow_bolt": "Lag Bolt",
   "tome.scriptor.swap_bolt": "Faurash's Freaky Missile",
   "tome.scriptor.teleport_bolt": "Train Bullet",

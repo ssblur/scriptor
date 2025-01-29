@@ -14,8 +14,8 @@ public class BlockItemColorableInject implements ColorableItem {
     var self = (BlockItem) (Object) this;
     if(self.getBlock() instanceof ColorableBlock colorable) {
       return colorable.setColor(color, itemStack);
-    } else if(ColorableBlockRegistry.has(self.getBlock())) {
-      return ColorableBlockRegistry.get(self.getBlock()).setColor(color, itemStack);
+    } else if(ColorableBlockRegistry.INSTANCE.has(self.getBlock())) {
+      return ColorableBlockRegistry.INSTANCE.get(self.getBlock()).setColor(color, itemStack);
     }
     return ItemStack.EMPTY;
   }

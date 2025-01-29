@@ -17,7 +17,7 @@ public class ScriptorLecternBlockEntityMixin {
   @Inject(method = "hasBook", at = @At("HEAD"), cancellable = true)
   public void scriptor$hasBook(CallbackInfoReturnable<Boolean> info) {
     var self = (LecternBlockEntity) (Object) this;
-    if(self.getBook().is(ScriptorTags.READABLE_SPELLBOOKS)) {
+    if(self.getBook().is(ScriptorTags.INSTANCE.getREADABLE_SPELLBOOKS())) {
       info.setReturnValue(true);
     }
   }
@@ -25,7 +25,7 @@ public class ScriptorLecternBlockEntityMixin {
   @Inject(method = "resolveBook", at = @At("HEAD"))
   private void scriptor$resolveBook(ItemStack itemStack, @Nullable Player player, CallbackInfoReturnable<ItemStack> info) {
     var self = ((LecternBlockEntity) (Object) this);
-    if (self.getLevel() instanceof ServerLevel && itemStack.is(ScriptorTags.READABLE_SPELLBOOKS)) {
+    if (self.getLevel() instanceof ServerLevel && itemStack.is(ScriptorTags.INSTANCE.getREADABLE_SPELLBOOKS())) {
       WrittenBookItem.resolveBookComponents(itemStack, self.createCommandSourceStack(player), player);
     }
   }

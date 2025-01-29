@@ -11,12 +11,15 @@
     "homepage": "https://ssblur.com/mods/scriptor",
     "sources": "https://github.com/ssblur/scriptor"
   },
-  "license": "GPL",
+  "license": "CC0-1.0",
   "icon": "assets/scriptor/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
       "com.ssblur.scriptor.fabric.ScriptorModFabric"
+    ],
+    "client": [
+      "com.ssblur.scriptor.fabric.ScriptorModFabricClient"
     ],
     "emi": [
       "com.ssblur.scriptor.integration.emi.ScriptorEMIIntegration"
@@ -25,7 +28,7 @@
   "depends": {
     "fabric": "*",
     "minecraft": ">=1.19.2",
-    "architectury": ">=6.2.43"
+    "unfocused": ">=${unfocused_version}"
   },
   "mixins": [
     "scriptor.mixins.json"

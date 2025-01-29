@@ -41,13 +41,14 @@ jobs:
           mod-loader: fabric
           changelog: ${{ steps.changelog.outputs.changelog }}
           dependencies: |
-            architectury-api
             fabric-api
+            unfocused
 
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
           curse-project-id: "817436"
           curse-token: "${{ secrets.CURSEFORGE_TOKEN }}"
+          curse-relations: "unfocused:requiredDependency"
 
           modrinth-project-id: "scriptor-magicae"
           modrinth-token: "${{ secrets.MODRINTH_TOKEN }}"

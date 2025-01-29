@@ -7,6 +7,7 @@ import com.ssblur.scriptor.item.ScriptorTags;
 import com.ssblur.scriptor.recipe.SpellbookCloningRecipe;
 import com.ssblur.scriptor.recipe.SpellbookDyeingRecipe;
 import com.ssblur.scriptor.recipe.SpellbookRecipe;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -32,28 +33,28 @@ public class RecipeIntegration {
 
   public static void registerItemInfo(InformationRegistrar informationRegistrar) {
     informationRegistrar.register(
-      ScriptorMod.location("spellbook_info"),
-      SpellbookHelper.SPELLBOOKS.stream().map(ItemStack::new).toList(),
+      ScriptorMod.INSTANCE.location("spellbook_info"),
+      SpellbookHelper.INSTANCE.getSPELLBOOKS().stream().map(ItemStack::new).toList(),
       Component.translatable("info.scriptor.spellbook_1"),
       Component.translatable("info.scriptor.spellbook_2"),
       Component.translatable("info.scriptor.spellbook_3")
     );
 
     informationRegistrar.register(
-      ScriptorMod.location("book_of_books_info"),
-      List.of(new ItemStack(ScriptorItems.BOOK_OF_BOOKS)),
+      ScriptorMod.INSTANCE.location("book_of_books_info"),
+      List.of(new ItemStack(ScriptorItems.INSTANCE.getBOOK_OF_BOOKS())),
       Component.translatable("info.scriptor.book_of_books_1"),
       Component.translatable("info.scriptor.book_of_books_2"),
       Component.translatable("info.scriptor.book_of_books_3")
     );
 
     informationRegistrar.register(
-      ScriptorMod.location("bound_tool_info"),
+      ScriptorMod.INSTANCE.location("bound_tool_info"),
       List.of(
-        new ItemStack(ScriptorItems.BOUND_SWORD),
-        new ItemStack(ScriptorItems.BOUND_AXE.get()),
-        new ItemStack(ScriptorItems.BOUND_PICKAXE.get()),
-        new ItemStack(ScriptorItems.BOUND_SHOVEL.get())
+        new ItemStack(ScriptorItems.INSTANCE.getBOUND_SWORD()),
+        new ItemStack(ScriptorItems.INSTANCE.getBOUND_AXE().get()),
+        new ItemStack(ScriptorItems.INSTANCE.getBOUND_PICKAXE().get()),
+        new ItemStack(ScriptorItems.INSTANCE.getBOUND_SHOVEL().get())
       ),
       Component.translatable("info.scriptor.bound_tool_1"),
       Component.translatable("info.scriptor.bound_tool_2")
@@ -61,34 +62,33 @@ public class RecipeIntegration {
   }
 
   public static void registerRecipes(RecipesHolder recipesHolder, ShapelessRecipeRegistrar shapelessRecipeRegistrar) {
-    var registrar = ScriptorItems.ITEMS.getRegistrar();
     recipesHolder.recipes().forEach(holder -> {
         switch (holder.value()) {
           case SpellbookDyeingRecipe recipe -> shapelessRecipeRegistrar.register(
             List.of(
-              Ingredient.of(ScriptorTags.READABLE_SPELLBOOKS),
-              recipe.addition
+              Ingredient.of(ScriptorTags.INSTANCE.getREADABLE_SPELLBOOKS()),
+              recipe.getAddition()
             ),
-            recipe.result,
+            recipe.getResult(),
             holder.id()
           );
-          case SpellbookCloningRecipe ignored -> SpellbookHelper.SPELLBOOKS.forEach(spellbook -> shapelessRecipeRegistrar.register(
+          case SpellbookCloningRecipe ignored -> SpellbookHelper.INSTANCE.getSPELLBOOKS().forEach(spellbook -> shapelessRecipeRegistrar.register(
             List.of(
               Ingredient.of(spellbook),
               Ingredient.of(new ItemStack(Items.PAPER)),
               Ingredient.of(new ItemStack(Items.PAPER)),
               Ingredient.of(new ItemStack(Items.PAPER)),
-              Ingredient.of(new ItemStack(ScriptorItems.SPELLBOOK_BINDER))
+              Ingredient.of(new ItemStack(ScriptorItems.INSTANCE.getSPELLBOOK_BINDER()))
             ),
             new ItemStack(spellbook),
-            holder.id().withPath(holder.id().getPath() + registrar.getId(spellbook).toLanguageKey())
+            holder.id().withPath(holder.id().getPath() + BuiltInRegistries.ITEM.getResourceKey(spellbook).get().location().toLanguageKey())
           ));
           case SpellbookRecipe recipe -> shapelessRecipeRegistrar.register(
             List.of(
-              recipe.base,
-              recipe.addition
+              recipe.getBase(),
+              recipe.getAddition()
             ),
-            recipe.result,
+            recipe.getResult(),
             holder.id()
           );
           default -> {
