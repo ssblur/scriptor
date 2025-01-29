@@ -27,7 +27,7 @@ class InflameAction : Action() {
             val check = RecipeManager.createCheck(RecipeType.SMELTING)
             val recipe = check.getRecipeFor(SingleRecipeInput(targetable.targetItem), targetable.level)
             if (recipe.isPresent && !recipe.get().value().ingredients.isEmpty() && recipe.get()
-                    .value().ingredients[0].items.size > 0
+                    .value().ingredients[0].items.isNotEmpty()
             ) {
                 val count = recipe.get().value().ingredients[0].items[0].count
                 targetable.targetItem.shrink(count)
@@ -50,7 +50,7 @@ class InflameAction : Action() {
             val check = RecipeManager.createCheck(RecipeType.SMELTING)
             val recipe = check.getRecipeFor(SingleRecipeInput(itemTarget), targetable.level)
             if (recipe.isPresent && recipe.get().value().ingredients.size > 0 && recipe.get()
-                    .value().ingredients[0].items.size > 0
+                    .value().ingredients[0].items.isNotEmpty()
             ) {
                 val count = recipe.get().value().ingredients[0].items[0].count
                 itemTarget.shrink(count)
@@ -92,7 +92,5 @@ class InflameAction : Action() {
         }
     }
 
-    override fun cost(): Cost {
-        return Cost(2.0, COSTTYPE.ADDITIVE)
-    }
+    override fun cost() = Cost(2.0, COSTTYPE.ADDITIVE)
 }

@@ -41,7 +41,5 @@ class TouchSubject : Subject() {
         return result
     }
 
-    override fun cost(): Cost {
-        return Cost(1.0, COSTTYPE.ADDITIVE)
-    }
+  override fun cost() = Cost(1.0, COSTTYPE.ADDITIVE)
 }

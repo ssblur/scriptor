@@ -7,12 +7,6 @@ import com.ssblur.scriptor.word.descriptor.target.TargetDescriptor
 import net.minecraft.world.item.ItemStack
 
 class FirstEmptySlotDescriptor: Descriptor(), TargetDescriptor {
-  @Override
-  override fun cost(): Cost {
-    return Cost(0.0, COSTTYPE.ADDITIVE)
-  }
-
-  @Override
   override fun modifyTargets(originalTargetables: List<Targetable>, owner: Targetable): List<Targetable> {
     originalTargetables.forEach{
       if(it is InventoryTargetable)
@@ -21,6 +15,6 @@ class FirstEmptySlotDescriptor: Descriptor(), TargetDescriptor {
     return originalTargetables
   }
 
-  @Override
   override fun replacesSubjectCost() = false
+  override fun cost() = Cost(0.0, COSTTYPE.ADDITIVE)
 }

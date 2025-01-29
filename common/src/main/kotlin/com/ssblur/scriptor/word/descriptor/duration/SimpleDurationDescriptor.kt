@@ -6,17 +6,9 @@ open class SimpleDurationDescriptor(cost: Int, var duration: Double) : Descripto
     var cost: Cost = Cost(cost.toDouble(), COSTTYPE.ADDITIVE)
     var duplicates: Boolean = false
 
-    override fun cost(): Cost {
-        return cost
-    }
-
-    override fun durationModifier(): Double {
-        return duration
-    }
-
-    override fun allowsDuplicates(): Boolean {
-        return duplicates
-    }
+    override fun cost() = cost
+    override fun durationModifier() = duration
+    override fun allowsDuplicates() = duplicates
 
     fun allowDuplication(): SimpleDurationDescriptor {
         this.duplicates = true

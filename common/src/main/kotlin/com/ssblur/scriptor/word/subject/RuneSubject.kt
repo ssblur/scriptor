@@ -57,9 +57,7 @@ class RuneSubject : Subject(), InventorySubject {
         return result
     }
 
-    override fun cost(): Cost {
-        return Cost(1.0, COSTTYPE.ADDITIVE)
-    }
+  override fun cost() = Cost(1.0, COSTTYPE.ADDITIVE)
 
     override fun castOnItem(spell: Spell, player: Player, slot: ItemStack) {
         // add a one-time cast

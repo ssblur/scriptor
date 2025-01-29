@@ -48,7 +48,5 @@ class LightAction : Action() {
         )
     }
 
-    override fun cost(): Cost {
-        return Cost(2.0, COSTTYPE.ADDITIVE)
-    }
+    override fun cost() = Cost(2.0, COSTTYPE.ADDITIVE)
 }

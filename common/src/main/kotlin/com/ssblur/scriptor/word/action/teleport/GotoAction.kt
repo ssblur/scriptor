@@ -10,7 +10,5 @@ class GotoAction : SwapAction() {
         teleport(caster, targetable)
     }
 
-    override fun cost(): Cost {
-        return Cost(6.0, COSTTYPE.ADDITIVE)
-    }
+    override fun cost() = Cost(6.0, COSTTYPE.ADDITIVE)
 }

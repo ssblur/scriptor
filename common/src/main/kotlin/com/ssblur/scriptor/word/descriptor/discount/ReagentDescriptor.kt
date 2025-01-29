@@ -12,9 +12,7 @@ import net.minecraft.world.item.Item
 import kotlin.math.min
 
 class ReagentDescriptor(var item: Item, var cost: Int) : Descriptor(), CastDescriptor, AfterCastDescriptor {
-    override fun cost(): Cost {
-        return Cost.add(-cost.toDouble())
-    }
+    override fun cost() = Cost.add(-cost.toDouble())
 
     override fun cannotCast(caster: Targetable?): Boolean {
         val c = runningTotals.getOrDefault(item, 0) + 1
@@ -30,9 +28,7 @@ class ReagentDescriptor(var item: Item, var cost: Int) : Descriptor(), CastDescr
         return true
     }
 
-    override fun allowsDuplicates(): Boolean {
-        return true
-    }
+    override fun allowsDuplicates() = true
 
     override fun afterCast(caster: Targetable?) {
         var c = runningTotals.getOrDefault(item, 0)

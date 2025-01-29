@@ -14,9 +14,7 @@ import net.minecraft.world.item.BlockItem
 import net.minecraft.world.phys.BlockHitResult
 
 class PlaceBlockAction : Action() {
-    override fun cost(): Cost {
-        return Cost(1.5, COSTTYPE.ADDITIVE)
-    }
+    override fun cost() = Cost(1.5, COSTTYPE.ADDITIVE)
 
     override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>) {
         val color = getColor(descriptors)

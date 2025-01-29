@@ -8,9 +8,7 @@ import com.ssblur.scriptor.word.descriptor.CastDescriptor
 import net.minecraft.world.entity.LivingEntity
 
 class BloodCostDescriptor : Descriptor(), CastDescriptor {
-    override fun cost(): Cost {
-        return Cost(-2.0, COSTTYPE.ADDITIVE_POST)
-    }
+    override fun cost() = Cost(-2.0, COSTTYPE.ADDITIVE_POST)
 
     override fun cannotCast(caster: Targetable?): Boolean {
         if (caster is EntityTargetable && caster.targetEntity is LivingEntity) {
@@ -23,7 +21,5 @@ class BloodCostDescriptor : Descriptor(), CastDescriptor {
         return true
     }
 
-    override fun allowsDuplicates(): Boolean {
-        return true
-    }
+    override fun allowsDuplicates() = true
 }

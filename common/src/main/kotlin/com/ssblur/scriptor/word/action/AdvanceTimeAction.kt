@@ -18,7 +18,5 @@ class AdvanceTimeAction : Action() {
         serverLevel.dayTime = serverLevel.dayTime + (1000 * strength).toLong()
     }
 
-    override fun cost(): Cost {
-        return Cost(52.0, COSTTYPE.ADDITIVE)
-    }
+    override fun cost() = Cost(52.0, COSTTYPE.ADDITIVE)
 }

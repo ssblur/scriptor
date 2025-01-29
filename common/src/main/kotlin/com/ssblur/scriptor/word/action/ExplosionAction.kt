@@ -47,7 +47,5 @@ class ExplosionAction : Action() {
         )
     }
 
-    override fun cost(): Cost {
-        return Cost(16.0, COSTTYPE.ADDITIVE)
-    }
+    override fun cost() = Cost(16.0, COSTTYPE.ADDITIVE)
 }

@@ -55,7 +55,5 @@ class BoundSwordAction : Action() {
         ItemTargetableHelper.depositItemStack(targetable, itemStack)
     }
 
-    override fun cost(): Cost {
-        return Cost(6.0, COSTTYPE.ADDITIVE)
-    }
+    override fun cost() = Cost(6.0, COSTTYPE.ADDITIVE)
 }

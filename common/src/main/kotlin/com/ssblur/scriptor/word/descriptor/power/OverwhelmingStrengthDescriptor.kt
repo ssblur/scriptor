@@ -9,13 +9,8 @@ import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.entity.LivingEntity
 
 class OverwhelmingStrengthDescriptor : Descriptor(), CastDescriptor, StrengthDescriptor {
-    override fun cost(): Cost {
-        return COST
-    }
-
-    override fun strengthModifier(): Double {
-        return 20.0
-    }
+  override fun cost() = Cost(0.0, COSTTYPE.ADDITIVE)
+  override fun strengthModifier() = 20.0
 
     override fun cannotCast(caster: Targetable?): Boolean {
         if (caster is EntityTargetable && caster.targetEntity is LivingEntity) {
@@ -24,9 +19,5 @@ class OverwhelmingStrengthDescriptor : Descriptor(), CastDescriptor, StrengthDes
             return false
         }
         return true
-    }
-
-    companion object {
-        var COST: Cost = Cost(0.0, COSTTYPE.ADDITIVE)
     }
 }

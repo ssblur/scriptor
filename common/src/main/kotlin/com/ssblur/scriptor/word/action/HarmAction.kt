@@ -50,7 +50,5 @@ class HarmAction : Action() {
         }
     }
 
-    override fun cost(): Cost {
-        return Cost.add(3.0)
-    }
+    override fun cost() = Cost.add(3.0)
 }

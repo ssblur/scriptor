@@ -6,12 +6,6 @@ import com.ssblur.scriptor.helpers.targetable.Targetable
 import com.ssblur.scriptor.word.descriptor.target.TargetDescriptor
 
 class FirstFilledSlotDescriptor: Descriptor(), TargetDescriptor {
-  @Override
-  override fun cost(): Cost {
-    return Cost(0.0, COSTTYPE.ADDITIVE)
-  }
-
-  @Override
   override fun modifyTargets(originalTargetables: List<Targetable>, owner: Targetable): List<Targetable> {
     originalTargetables.forEach{
       if(it is InventoryTargetable)
@@ -20,6 +14,6 @@ class FirstFilledSlotDescriptor: Descriptor(), TargetDescriptor {
     return originalTargetables
   }
 
-  @Override
+  override fun cost() = Cost(0.0, COSTTYPE.ADDITIVE)
   override fun replacesSubjectCost() = false
 }

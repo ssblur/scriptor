@@ -9,14 +9,15 @@ import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
 
 object Reagents {
-    data class Reagent(val item: String, val cost: Int)
-    init {
-        ScriptorMod.registerDataLoader("scriptor/reagents", Reagent::class) { reagent, location ->
-            LOGGER.info("Loaded reagent {}: {} / {}", location, reagent.item, reagent.cost)
-            register(
-                "reagent." + location.toShortLanguageKey(),
-                ReagentDescriptor(BuiltInRegistries.ITEM[ResourceLocation.parse(reagent.item)], reagent.cost)
-            )
-        }
+  data class Reagent(val item: String, val cost: Int)
+
+  init {
+    ScriptorMod.registerDataLoader("scriptor/reagents", Reagent::class) { reagent, location ->
+      LOGGER.info("Loaded reagent {}: {} / {}", location, reagent.item, reagent.cost)
+      register(
+        "reagent." + location.toShortLanguageKey(),
+        ReagentDescriptor(BuiltInRegistries.ITEM[ResourceLocation.parse(reagent.item)], reagent.cost)
+      )
     }
+  }
 }

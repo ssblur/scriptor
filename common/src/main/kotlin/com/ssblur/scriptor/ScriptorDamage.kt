@@ -40,8 +40,6 @@ object ScriptorDamage {
     }
 
     @JvmStatic
-    fun magic(entity: Entity, entity2: Entity?): DamageSource {
-        val level = entity.level()
-        return DamageSources(level.registryAccess()).indirectMagic(entity, entity2)
-    }
+    fun magic(entity: Entity, entity2: Entity?) =
+      DamageSources(entity.level().registryAccess()).indirectMagic(entity, entity2)
 }

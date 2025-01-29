@@ -10,11 +10,6 @@ import net.minecraft.world.Container
 
 class InventoryDescriptor: Descriptor(), TargetDescriptor {
   @Override
-  override fun cost(): Cost {
-    return Cost(0.0, COSTTYPE.ADDITIVE)
-  }
-
-  @Override
   override fun modifyTargets(originalTargetables: List<Targetable>, owner: Targetable): List<Targetable> {
       val ownerEntity = if (owner is EntityTargetable) owner.targetEntity else null
       return originalTargetables.stream().map { targetable: Targetable ->
@@ -34,6 +29,6 @@ class InventoryDescriptor: Descriptor(), TargetDescriptor {
       }.toList()
   }
 
-  @Override
   override fun replacesSubjectCost() = false
+  override fun cost() = Cost(0.0, COSTTYPE.ADDITIVE)
 }

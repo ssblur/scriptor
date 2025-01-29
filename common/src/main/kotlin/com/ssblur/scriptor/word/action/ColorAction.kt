@@ -50,7 +50,5 @@ class ColorAction : Action() {
         }
     }
 
-    override fun cost(): Cost {
-        return Cost(8.0, COSTTYPE.ADDITIVE)
-    }
+    override fun cost() = Cost(8.0, COSTTYPE.ADDITIVE)
 }

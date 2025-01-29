@@ -12,9 +12,7 @@ import java.util.*
 import java.util.concurrent.CompletableFuture
 
 class StormSubject : Subject() {
-    override fun cost(): Cost {
-        return Cost(8.0, COSTTYPE.MULTIPLICATIVE)
-    }
+  override fun cost() = Cost(8.0, COSTTYPE.MULTIPLICATIVE)
 
     override fun getTargets(caster: Targetable, spell: Spell): CompletableFuture<List<Targetable>> {
         val targets = ArrayList<Targetable>()

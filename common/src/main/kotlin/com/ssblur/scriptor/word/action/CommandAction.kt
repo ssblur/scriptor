@@ -18,7 +18,7 @@ import net.minecraft.world.entity.MobSpawnType
 import net.minecraft.world.entity.decoration.ArmorStand
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.phys.Vec2
-import java.util.Locale
+import java.util.*
 
 @Suppress("unused")
 class CommandAction @JvmOverloads constructor(
@@ -43,9 +43,7 @@ class CommandAction @JvmOverloads constructor(
         this.blockTargetCommand.add(blockTargetCommand)
     }
 
-    override fun cost(): Cost {
-        return Cost.add(cost)
-    }
+    override fun cost() = Cost.add(cost)
 
     override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>) {
         // @caster is a fake selector that's replaced at runtime.

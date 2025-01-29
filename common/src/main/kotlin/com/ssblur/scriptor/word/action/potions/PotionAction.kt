@@ -49,7 +49,5 @@ open class PotionAction(
     ) {
     }
 
-    override fun cost(): Cost {
-        return this.cost
-    }
+    override fun cost() = this.cost
 }

@@ -38,7 +38,5 @@ class RainAction : Action() {
         }
     }
 
-    override fun cost(): Cost {
-        return Cost(51.0, COSTTYPE.ADDITIVE)
-    }
+    override fun cost() = Cost(51.0, COSTTYPE.ADDITIVE)
 }

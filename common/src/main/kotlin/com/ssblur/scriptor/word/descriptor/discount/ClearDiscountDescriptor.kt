@@ -5,15 +5,7 @@ import com.ssblur.scriptor.helpers.targetable.Targetable
 import com.ssblur.scriptor.word.descriptor.CastDescriptor
 
 class ClearDiscountDescriptor : Descriptor(), CastDescriptor {
-    override fun cost(): Cost {
-        return Cost(0.9, COSTTYPE.MULTIPLICATIVE)
-    }
-
-    override fun cannotCast(caster: Targetable?): Boolean {
-        return caster!!.level.isRainingAt(caster.targetBlockPos)
-    }
-
-    override fun allowsDuplicates(): Boolean {
-        return false
-    }
+    override fun cost() = Cost(0.9, COSTTYPE.MULTIPLICATIVE)
+    override fun cannotCast(caster: Targetable?) = caster!!.level.isRainingAt(caster.targetBlockPos)
+    override fun allowsDuplicates() = false
 }

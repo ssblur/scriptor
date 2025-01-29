@@ -48,9 +48,7 @@ class BreakBlockAction : Action() {
         }
     }
 
-    override fun cost(): Cost {
-        return Cost(1.0, COSTTYPE.ADDITIVE)
-    }
+    override fun cost() = Cost(1.0, COSTTYPE.ADDITIVE)
 
     companion object {
         var toolLevelsList: HashMap<String, Int> = HashMap()

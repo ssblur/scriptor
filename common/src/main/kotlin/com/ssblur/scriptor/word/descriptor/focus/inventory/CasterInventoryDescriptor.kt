@@ -9,9 +9,7 @@ import com.ssblur.scriptor.word.descriptor.focus.FocusDescriptor
 import net.minecraft.world.Container
 
 class CasterInventoryDescriptor : Descriptor(), FocusDescriptor {
-    override fun cost(): Cost {
-        return Cost(0.0, COSTTYPE.ADDITIVE)
-    }
+  override fun cost() = Cost(0.0, COSTTYPE.ADDITIVE)
 
     override fun modifyFocus(targetable: Targetable): Targetable {
         if (targetable is ContainerTargetable) return targetable

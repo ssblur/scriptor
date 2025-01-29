@@ -59,9 +59,7 @@ class BoundToolAction(var item: Supplier<Item>, var tags: List<TagKey<Block>>) :
         ItemTargetableHelper.depositItemStack(targetable, itemStack)
     }
 
-    override fun cost(): Cost {
-        return Cost(6.0, COSTTYPE.ADDITIVE)
-    }
+    override fun cost() = Cost(6.0, COSTTYPE.ADDITIVE)
 
     companion object {
         val NEEDS_STONE_TOOL: TagKey<Block> =

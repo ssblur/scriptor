@@ -6,10 +6,7 @@ import com.ssblur.scriptor.helpers.targetable.Targetable
 import com.ssblur.scriptor.word.descriptor.target.TargetDescriptor
 
 class IgnoreTargetedSlotDescriptor: Descriptor(), TargetDescriptor {
-  @Override
-  override fun cost(): Cost {
-    return Cost(0.0, COSTTYPE.ADDITIVE)
-  }
+  override fun cost() = Cost(0.0, COSTTYPE.ADDITIVE)
 
   @Override
   override fun modifyTargets(originalTargetables: List<Targetable>, owner: Targetable): List<Targetable> {

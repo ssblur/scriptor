@@ -31,11 +31,6 @@ class NetherDescriptor : Descriptor(), TargetDescriptor {
         return list
     }
 
-    override fun replacesSubjectCost(): Boolean {
-        return false
-    }
-
-    override fun cost(): Cost {
-        return Cost.add(20.0)
-    }
+  override fun replacesSubjectCost() = false
+  override fun cost() = Cost.add(20.0)
 }

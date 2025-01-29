@@ -106,7 +106,5 @@ open class SwapAction : Action() {
         }
     }
 
-    override fun cost(): Cost {
-        return Cost(6.0, COSTTYPE.ADDITIVE)
-    }
+    override fun cost() = Cost(6.0, COSTTYPE.ADDITIVE)
 }

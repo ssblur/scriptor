@@ -33,7 +33,5 @@ class SmiteAction : Action() {
         level.addFreshEntity(bolt)
     }
 
-    override fun cost(): Cost {
-        return Cost(12.0, COSTTYPE.ADDITIVE)
-    }
+    override fun cost() = Cost(12.0, COSTTYPE.ADDITIVE)
 }
