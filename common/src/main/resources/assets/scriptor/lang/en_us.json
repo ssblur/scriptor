@@ -232,7 +232,7 @@
 
   "action.scriptor.action.scriptor.command_test": "No test [English]",
 
-  "extra.scriptor.fizzle": "The tome starts to warm in your hand, then fizzles.",
+  "extra.scriptor.fizzle": "The tome starts to warm in your hand, then fizzles. It appears it costs too much to be cast this way.",
   "extra.scriptor.tome_use": "You dust off the tome...",
   "extra.scriptor.tome_description": "Right click to uncover a spell.",
   "extra.scriptor.tome_tier": "Tier %1$s",

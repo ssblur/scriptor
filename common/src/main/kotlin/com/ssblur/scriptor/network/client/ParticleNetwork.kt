@@ -1,6 +1,7 @@
 package com.ssblur.scriptor.network.client
 
 import com.ssblur.scriptor.ScriptorMod.location
+import com.ssblur.scriptor.color.CustomColors.splitIntoRGB
 import com.ssblur.scriptor.helpers.ParticleQueue.queue
 import com.ssblur.scriptor.particle.MagicParticleData.Companion.magic
 import com.ssblur.unfocused.network.NetworkManager
@@ -31,9 +32,7 @@ object ParticleNetwork {
                      )
             TYPE.MAGIC -> {
                 val c = payload.color
-                val r = (c and 0xff0000) shr 16
-                val g = (c and 0x00ff00) shr 8
-                val b = c and 0x0000ff
+                val (r, g, b) = c.splitIntoRGB()
 
                 val steps = 16.0
                 for (i in 1..steps.toInt()) {
