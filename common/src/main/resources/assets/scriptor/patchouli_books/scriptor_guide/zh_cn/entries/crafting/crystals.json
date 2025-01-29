@@ -1,0 +1,58 @@
+{
+  "name": "施法水晶",
+  "icon": "scriptor:casting_crystal",
+  "category": "scriptor:crafting",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": [
+        "简单来说，施法水晶用于改变施法讲台所定义的\"自身\"的概念。",
+		"（你也不想让讲台自己点燃或者治疗自己吧）",
+        "本条目包括制作细节。",
+        "有关具体使用详情，请阅读$(l:advanced/crystals)施法水晶$(/l)页面。",
+        "$(br2)",
+        "要开始使用施法水晶，首先需要制作一个未绑定的水晶。",
+        "制作配方请翻阅下一页。"
+      ]
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "施法水晶",
+      "recipe": "scriptor:casting_crystal"
+    },
+    {
+      "type": "patchouli:text",
+      "anchor": "player",
+      "title": "玩家锁定",
+      "text": [
+        "有一种玩家锁定水晶，可以用于锁定特定玩家。",
+        "有关其用途的更多详情，请阅读$(l:advanced/crystals#player)施法水晶$(/l)页面。",
+        "$(br2)",
+        "你可以通过合成栏重置水晶保存的数据。"
+      ]
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "玩家锁定",
+      "recipe": "scriptor:player_casting_crystal",
+      "recipe2": "scriptor:player_tag"
+    },
+    {
+      "type": "patchouli:text",
+      "anchor": "coordinates",
+      "title": "坐标锁定",
+      "text": [
+        "还有一种坐标锁定水晶，用于锁定一组或多组世界坐标。",
+        "有关其用途的更多详情，请阅读$(l:advanced/crystals#player)施法水晶$(/l)页面。",
+        "$(br2)",
+        "你可以通过合成栏重置水晶保存的数据。"
+      ]
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "坐标锁定",
+      "recipe": "scriptor:coordinate_casting_crystal",
+      "recipe2": "scriptor:coordinate_tag"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "古籍",
+  "icon": "scriptor:artifact_2",
+  "category": "scriptor:casting",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": [
+        "人们对古籍的研究还远不够深入，只知道可以在古代文明的遗迹中找到。",
+        "$(br2)",
+        "如果你有幸获得，请务必妥善保管。",
+        "这些古老书籍记载着强大的法术，无法更改，但可以产生巨大的影响。"
+      ]
+    }
+  ]
+}

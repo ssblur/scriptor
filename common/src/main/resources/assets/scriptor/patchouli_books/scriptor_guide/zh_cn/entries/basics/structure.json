@@ -1,0 +1,36 @@
+{
+  "name": "结构",
+  "icon": "scriptor:scrap_tier3",
+  "category": "scriptor:basics",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": [
+        "规范定义的结构能够保证你的咒语按照预期效果生效。",
+        "$(br2)",
+        "不同世界所规定的咒语结构也可能不同，你需要注意观察各个组成部分的出现顺序。",
+        "$(br)",
+        "相同类型的组件在咒语中出现的位置总是相同的。"
+      ]
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "scriptor:tome_tier4",
+      "title": "Complex Spells",
+      "advancement": "scriptor:complex_spells",
+      "text": [
+        "更强大的咒语通常意味着更复杂的结构，有关这部分内容，请阅读$(l:advanced/complex_spells)高等咒语$(/l)。"
+      ]
+    },
+    {
+      "type": "patchouli:relations",
+      "entries": [
+        "scriptor:basics/subjects",
+        "scriptor:basics/actions",
+        "scriptor:basics/descriptors"
+      ],
+      "title": "组件",
+      "text": "通过阅读以上章节了解组成咒语的具体要素。"
+    }
+  ]
+}

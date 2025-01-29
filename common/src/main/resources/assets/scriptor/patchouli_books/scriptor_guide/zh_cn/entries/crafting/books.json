@@ -1,0 +1,22 @@
+{
+  "name": "制造法术书",
+  "icon": "minecraft:writable_book",
+  "category": "scriptor:crafting",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": [
+        "要制作一本魔法书，可以首先在书与笔中写下对应魔咒，再将其与法术书活页夹合成。",
+		"也可以首先合成法术书与笔，再写下对应魔咒得到魔法书。",
+        "$(br2)",
+        "同样，一本魔法书与普通皮革活页夹合成后可以得到巨著。"
+      ]
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "活页夹",
+      "recipe": "scriptor:leather_binder",
+      "recipe2": "scriptor:spellbook_binder"
+    }
+  ]
+}

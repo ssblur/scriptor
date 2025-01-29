@@ -1,0 +1,15 @@
+{
+  "name": "残卷",
+  "icon": "scriptor:scrap_tier1",
+  "category": "scriptor:discovery",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": [
+        "残卷是一种发现可能不会出现在咒语中的特殊组件的方法。",
+        "$(br2)",
+        "仔细观察这些残卷往往可以发掘一个单词和对其功能的基本描述。"
+      ]
+    }
+  ]
+}
