@@ -17,56 +17,70 @@ import net.minecraft.world.phys.BlockHitResult
 import java.util.*
 
 object TraceNetwork {
-    enum class TYPE {BLOCK, ENTITY, MISS}
-    fun interface TraceCallback { fun run(target: Targetable) }
-    data class TraceQueue(val player: Player, val callback: TraceCallback)
-    private var queue: HashMap<UUID, TraceQueue> = HashMap()
+  enum class TYPE { BLOCK, ENTITY, MISS }
+  fun interface TraceCallback {
+    fun run(target: Targetable)
+  }
 
-    fun requestTraceData(player: Player, callback: (Targetable) -> Unit) {
-        val uuid = UUID.randomUUID()
-        val out = RegistryFriendlyByteBuf(Unpooled.buffer(), RegistryAccess.EMPTY)
-        out.writeUUID(uuid)
-        queue[uuid] = TraceQueue(player, callback)
-        trace(Trace(uuid), listOf(player))
-    }
+  data class TraceQueue(val player: Player, val callback: TraceCallback)
 
-    fun requestExtendedTraceData(player: Player, callback: TraceCallback) {
-        val uuid = UUID.randomUUID()
-        val out = RegistryFriendlyByteBuf(Unpooled.buffer(), RegistryAccess.EMPTY)
-        out.writeUUID(uuid)
-        queue[uuid] = TraceQueue(player, callback)
-        extendedTrace(ExtendedTrace(uuid), listOf(player))
-    }
+  private var queue: HashMap<UUID, TraceQueue> = HashMap()
 
-    fun validateAndRun(uuid: UUID, player: Player, targetable: Targetable) {
-        val queueItem = queue[uuid]
-        if (queueItem!!.player === player) queueItem!!.callback.run(targetable)
-    }
+  fun requestTraceData(player: Player, callback: (Targetable) -> Unit) {
+    val uuid = UUID.randomUUID()
+    val out = RegistryFriendlyByteBuf(Unpooled.buffer(), RegistryAccess.EMPTY)
+    out.writeUUID(uuid)
+    queue[uuid] = TraceQueue(player, callback)
+    trace(Trace(uuid), listOf(player))
+  }
 
-    fun validateAndDrop(uuid: UUID, player: Player) {
-        val queueItem = queue[uuid]
-        if (queueItem!!.player === player) queue.remove(uuid)
-    }
+  fun requestExtendedTraceData(player: Player, callback: TraceCallback) {
+    val uuid = UUID.randomUUID()
+    val out = RegistryFriendlyByteBuf(Unpooled.buffer(), RegistryAccess.EMPTY)
+    out.writeUUID(uuid)
+    queue[uuid] = TraceQueue(player, callback)
+    extendedTrace(ExtendedTrace(uuid), listOf(player))
+  }
 
-    data class Payload(val uuid: UUID, val traceType: TYPE, val blockHitResult: BlockHitResult?, val entityId: Int, val entityUUID: UUID?)
-    val returnTrace = NetworkManager.registerC2S(location("server_return_trace_data"), Payload::class) { payload, player ->
-        when (payload.traceType) {
-            TYPE.BLOCK -> {
-                val result = payload.blockHitResult!!
-                val pos = result.blockPos.relative(result.direction)
-                val targetable = Targetable(player.level(), pos).setFacing(result.direction)
+  fun validateAndRun(uuid: UUID, player: Player, targetable: Targetable) {
+    val queueItem = queue[uuid]
+    if (queueItem!!.player === player) queueItem!!.callback.run(targetable)
+  }
 
-                player.serverLevel().runOnce { validateAndRun(payload.uuid, player, targetable) }
-            }
-            TYPE.ENTITY -> {
-                val level = player.serverLevel()
-                val entity = level.getEntity(payload.entityId)
-                if (entity != null && entity.uuid == payload.entityUUID) level.runOnce {
-                    validateAndRun(payload.uuid, player, EntityTargetable(entity))
-                }
-                else level.runOnce { validateAndDrop(payload.uuid, player) }
-            }
-            else -> player.serverLevel().runOnce { validateAndDrop(payload.uuid, player) }
+  fun validateAndDrop(uuid: UUID, player: Player) {
+    val queueItem = queue[uuid]
+    if (queueItem!!.player === player) queue.remove(uuid)
+  }
+
+  data class Payload(
+    val uuid: UUID,
+    val traceType: TYPE,
+    val blockHitResult: BlockHitResult?,
+    val entityId: Int,
+    val entityUUID: UUID?
+  )
+
+  val returnTrace =
+    NetworkManager.registerC2S(location("server_return_trace_data"), Payload::class) { payload, player ->
+      when (payload.traceType) {
+        TYPE.BLOCK -> {
+          val result = payload.blockHitResult!!
+          val pos = result.blockPos.relative(result.direction)
+          val targetable = Targetable(player.level(), pos).setFacing(result.direction)
+
+          player.serverLevel().runOnce { validateAndRun(payload.uuid, player, targetable) }
         }
+
+        TYPE.ENTITY -> {
+          val level = player.serverLevel()
+          val entity = level.getEntity(payload.entityId)
+          if (entity != null && entity.uuid == payload.entityUUID) level.runOnce {
+            validateAndRun(payload.uuid, player, EntityTargetable(entity))
+          }
+          else level.runOnce { validateAndDrop(payload.uuid, player) }
+        }
+
+        else -> player.serverLevel().runOnce { validateAndDrop(payload.uuid, player) }
+      }
     }
 }

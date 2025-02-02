@@ -8,6 +8,6 @@ These can be found in numerous loot containers in the Overworld, Nether, and
 End, or traded from Librarian Villagers with a high trade level.
 
 Use these by picking up the item stack with your mouse and right clicking it
-onto the Spellbook you'd like to identify. 
-2 features of the spell will be identified at once, though it may take 
+onto the Spellbook you'd like to identify.
+2 features of the spell will be identified at once, though it may take
 a few tries to identify all of them.

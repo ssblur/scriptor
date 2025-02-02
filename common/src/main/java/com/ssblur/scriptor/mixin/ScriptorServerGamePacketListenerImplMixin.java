@@ -20,9 +20,11 @@ import java.util.List;
 
 @Mixin(ServerGamePacketListenerImpl.class)
 public abstract class ScriptorServerGamePacketListenerImplMixin {
-  @Shadow public ServerPlayer player;
+  @Shadow
+  public ServerPlayer player;
 
-  @Shadow protected abstract Filterable<String> filterableFromOutgoing(FilteredText filteredText);
+  @Shadow
+  protected abstract Filterable<String> filterableFromOutgoing(FilteredText filteredText);
 
   @Inject(method = "signBook", at = @At("HEAD"), cancellable = true)
   private void scriptor$signBook(FilteredText filteredText, List<FilteredText> list, int i, CallbackInfo info) {

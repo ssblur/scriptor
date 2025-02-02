@@ -9,59 +9,59 @@ import kotlin.math.floor
 
 @Suppress("unused")
 open class Targetable {
-    var targetPos: Vec3
-    open val origin: BlockPos? = null
-    var level: Level
-    var direction: Direction? = null
-    open var finalTargetable: Targetable? = this
+  var targetPos: Vec3
+  open val origin: BlockPos? = null
+  var level: Level
+  var direction: Direction? = null
+  open var finalTargetable: Targetable? = this
 
-    /**
-     * A class describing anything that can be targeted by a spell
-     * Shall always describe at least a position
-     * @param pos The position targeted by / closest to the target of this cast
-     */
-    constructor(level: Level, pos: Vec3) {
-        targetPos = pos
-        this.level = level
+  /**
+   * A class describing anything that can be targeted by a spell
+   * Shall always describe at least a position
+   * @param pos The position targeted by / closest to the target of this cast
+   */
+  constructor(level: Level, pos: Vec3) {
+    targetPos = pos
+    this.level = level
+  }
+
+  constructor(level: Level, pos: Vector3f) {
+    targetPos = Vec3(pos.x().toDouble(), pos.y().toDouble(), pos.z().toDouble())
+    this.level = level
+  }
+
+  constructor(level: Level, pos: BlockPos) {
+    targetPos = Vec3(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble())
+    this.level = level
+  }
+
+  fun setTargetPos(targetPos: Vector3f) {
+    this.targetPos = Vec3(targetPos.x().toDouble(), targetPos.y().toDouble(), targetPos.z().toDouble())
+  }
+
+  val targetBlockPos: BlockPos
+    get() = BlockPos(floor(targetPos.x).toInt(), floor(targetPos.y).toInt(), floor(targetPos.z).toInt())
+
+  val facing: Direction
+    get() {
+      if (direction != null) return direction!!
+      return Direction.UP
     }
 
-    constructor(level: Level, pos: Vector3f) {
-        targetPos = Vec3(pos.x().toDouble(), pos.y().toDouble(), pos.z().toDouble())
-        this.level = level
+  fun setFacing(direction: Direction?): Targetable {
+    this.direction = direction
+    return this
+  }
+
+  val offsetBlockPos: BlockPos
+    get() {
+      if (direction != null) return targetBlockPos.relative(direction!!.opposite)
+      return targetBlockPos
     }
 
-    constructor(level: Level, pos: BlockPos) {
-        targetPos = Vec3(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble())
-        this.level = level
-    }
-
-    fun setTargetPos(targetPos: Vector3f) {
-        this.targetPos = Vec3(targetPos.x().toDouble(), targetPos.y().toDouble(), targetPos.z().toDouble())
-    }
-
-    val targetBlockPos: BlockPos
-        get() = BlockPos(floor(targetPos.x).toInt(), floor(targetPos.y).toInt(), floor(targetPos.z).toInt())
-
-    val facing: Direction
-        get() {
-            if (direction != null) return direction!!
-            return Direction.UP
-        }
-
-    fun setFacing(direction: Direction?): Targetable {
-        this.direction = direction
-        return this
-    }
-
-    val offsetBlockPos: BlockPos
-        get() {
-            if (direction != null) return targetBlockPos.relative(direction!!.opposite)
-            return targetBlockPos
-        }
-
-    fun simpleCopy(): Targetable {
-        val out = Targetable(level, targetPos)
-        out.setFacing(facing)
-        return out
-    }
+  fun simpleCopy(): Targetable {
+    val out = Targetable(level, targetPos)
+    out.setFacing(facing)
+    return out
+  }
 }

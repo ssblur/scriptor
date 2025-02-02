@@ -10,19 +10,19 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.BlockHitResult
 
-class EngravingTool(properties: Properties) : Chalk(properties) {
-    override fun use(
-        level: Level,
-        player: Player,
-        interactionHand: InteractionHand
-    ): InteractionResultHolder<ItemStack> {
-        if (level.isClientSide) {
-            val client = Minecraft.getInstance()
-            val hit = client.hitResult
-            if (hit is BlockHitResult)
-                ScriptorNetworkC2S.sendChalk(SendChalk(hit, true))
-        }
-
-        return InteractionResultHolder.success(player.getItemInHand(interactionHand))
+class EngravingTool(properties: Properties): Chalk(properties) {
+  override fun use(
+    level: Level,
+    player: Player,
+    interactionHand: InteractionHand
+  ): InteractionResultHolder<ItemStack> {
+    if (level.isClientSide) {
+      val client = Minecraft.getInstance()
+      val hit = client.hitResult
+      if (hit is BlockHitResult)
+        ScriptorNetworkC2S.sendChalk(SendChalk(hit, true))
     }
+
+    return InteractionResultHolder.success(player.getItemInHand(interactionHand))
+  }
 }

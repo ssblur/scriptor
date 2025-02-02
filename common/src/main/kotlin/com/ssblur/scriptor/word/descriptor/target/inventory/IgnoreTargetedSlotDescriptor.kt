@@ -10,9 +10,9 @@ class IgnoreTargetedSlotDescriptor: Descriptor(), TargetDescriptor {
 
   @Override
   override fun modifyTargets(originalTargetables: List<Targetable>, owner: Targetable): List<Targetable> {
-    originalTargetables.forEach{
-      if(it is InventoryTargetable)
-          (it as InventoryTargetable).targetedSlot = -1
+    originalTargetables.forEach {
+      if (it is InventoryTargetable)
+        (it as InventoryTargetable).targetedSlot = -1
     }
     return originalTargetables
   }

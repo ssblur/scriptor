@@ -13,7 +13,7 @@ public class ScriptorModClientEvents {
 
   @SubscribeEvent
   public static void levelStageRenderers(RenderLevelStageEvent event) {
-    if(event.getStage() == RenderLevelStageEvent.Stage.AFTER_CUTOUT_BLOCKS)
+    if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_CUTOUT_BLOCKS)
       CoordinateCasterWorldRenderer.INSTANCE.render(event.getPoseStack());
   }
 }

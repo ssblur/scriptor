@@ -15,14 +15,15 @@ import java.util.concurrent.CompletableFuture;
 
 @Mixin(MinecraftServer.class)
 public class ScriptorMinecraftServerReloadResourcesMixin {
-  @Shadow private PlayerList playerList;
+  @Shadow
+  private PlayerList playerList;
 
   @Inject(method = "reloadResources", at = @At("HEAD"))
   private void scriptor$reloadResources(
     Collection<String> collection,
     CallbackInfoReturnable<CompletableFuture<Void>> info
   ) {
-    if(this.playerList != null)
+    if (this.playerList != null)
       ScriptorNetworkS2C.INSTANCE.getFlag().invoke(
         new ScriptorNetworkS2C.Flag(ScriptorNetworkS2C.FLAGS.COMMUNITY, ScriptorMod.INSTANCE.getCOMMUNITY_MODE()),
         this.playerList.getPlayers()

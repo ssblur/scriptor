@@ -28,9 +28,7 @@
   "item.scriptor.bound_shovel": "Зв'язана Лопата",
   "item.scriptor.bound_pickaxe": "Зв'язане Кайло",
   "item.scriptor.bound_hoe": "Зв'язана Мотика",
-
   "block.scriptor.casting_lectern": "Лекторій Чаклунства",
-
   "block.scriptor.white_magic_block": "Магічний Блок",
   "block.scriptor.light_gray_magic_block": "Магічний Блок",
   "block.scriptor.gray_magic_block": "Магічний Блок",
@@ -48,24 +46,19 @@
   "block.scriptor.pink_magic_block": "Магічний Блок",
   "block.scriptor.brown_magic_block": "Магічний Блок",
   "block.scriptor.light": "Магічне Світло",
-
   "block.scriptor.chalk": "Крейда",
   "block.scriptor.rune": "Руна",
   "entity.scriptor.projectile": "Снаряд",
   "enchantment.scriptor.charged.desc": "Посилює вашу наступну атаку. Зменшується на 1 після атаки.",
-
   "effect.scriptor.hoarse": "Хриплисть",
   "effect.scriptor.mute": "Німота",
   "effect.scriptor.phasing": "Трансмурація",
   "effect.scriptor.wild_phasing": "Ворожа Трансмурація",
-
   "death.attack.overload": "%1$s був переповнений магічними силами.",
   "death.attack.overload.player": "%1$s був переповнений магічними силами.",
   "death.attack.sacrifice": "%1$s пожертвував занадто багато.",
   "death.attack.sacrifice.player": "%1$s пожертвував занадто багато...",
-
   "enchantment.scriptor.charged": "Заряджене",
-
   "subject.scriptor.self": "Це заклинання, схоже, націлене на заклинателя.",
   "subject.scriptor.touch": "Це заклинання націлене на будь-що, до чого може доторкнутися заклинатель.",
   "subject.scriptor.storm": "Це заклинання лунає навколо заклинателя декілька разів.",
@@ -73,7 +66,6 @@
   "subject.scriptor.rune": "Це заклинання розміщує руну, яка шепоче при дотику.",
   "subject.scriptor.enchant": "Здається, його можна замовляти на інші предмети в інвентарі.",
   "subject.scriptor.hitscan": "Це заклинання націлене на будь-що, що знаходиться перед заклинателем.",
-
   "descriptor.scriptor.long": "Щось у цьому заклинанні робить ефекти довшими.",
   "descriptor.scriptor.longer": "Це заклинання триває дещо довше ніж зазвичай.",
   "descriptor.scriptor.very_long": "Це заклинання триває дуже багато часу.",
@@ -88,11 +80,9 @@
   "descriptor.scriptor.blood_power": "У цьому заклятті відчувається нечиста сила. Воно може завдати болю при використанні.",
   "descriptor.scriptor.overwhelming": "Сила цього заклинання переповнює заклинателя.",
   "descriptor.scriptor.nether": "Ціль заклинання зміщена на іншу площину.",
-
   "descriptor.scriptor.reagent.scriptor.amethyst": "Це заклинання споживає Аметисти",
   "descriptor.scriptor.reagent.scriptor.gold": "Це заклинання споживає Золоті Злитки",
   "descriptor.scriptor.reagent.scriptor.redstone": "Це заклинання споживає Редстоуновий Пил",
-
   "descriptor.scriptor.color.scriptor.ace": "Воно має кольори Прапора Гордості Асексуалів",
   "descriptor.scriptor.color.scriptor.agender": "Воно має кольори Прапора Гордості Агендерів",
   "descriptor.scriptor.color.scriptor.aro": "Воно має кольори Прапора Гордості Аромантиків",
@@ -104,12 +94,10 @@
   "descriptor.scriptor.color.scriptor.pan": "Воно має кольори Прапора Гордості Пансексуалів",
   "descriptor.scriptor.color.scriptor.poly": "Воно має кольори Прапора Гордості Поліаморів",
   "descriptor.scriptor.color.scriptor.trans": "Воно має кольори Прапора Гордості Трансів",
-
   "descriptor.scriptor.cheap": "Чомусь це заклинання дешевше за інші.",
   "descriptor.scriptor.blood_cost": "Ви відчуваєте жорстоку ефективність цього заклинання. Його використання може бути болючим.",
   "descriptor.scriptor.healthy": "Це заклинання, здається, вимагає ідеального здоров'я.",
   "descriptor.scriptor.poisoned": "Ви повинні бути отруєні, щоб скерувати це заклинання..",
-
   "descriptor.scriptor.white": "Слова світяться білим.",
   "descriptor.scriptor.light_gray": "Воно містить непримітний світло-сірий текст.",
   "descriptor.scriptor.dark_gray": "Слова попелясто-темно-сірі.",
@@ -127,17 +115,14 @@
   "descriptor.scriptor.pink": "Слова забарвлені у квітково-рожевий колір.",
   "descriptor.scriptor.brown": "Слова мають непримітний коричневий колір.",
   "descriptor.scriptor.rainbow": "Текст переливається наче призма.",
-
   "descriptor.scriptor.inventory": "Це заклинання націлене на інвентар цілі",
   "descriptor.scriptor.first_empty": "Це заклинання націлене на перший порожній слот в інвентарі",
   "descriptor.scriptor.first_filled": "Це заклинання націлене на перший заповнений слот в інвентарі",
   "descriptor.scriptor.first_matching": "Це заклинання націлене на перший дійсний слот в інвентарі",
-
   "descriptor.scriptor.caster_inventory": "Це заклинання фокусується на інвентарі заклинателя",
   "descriptor.scriptor.caster_first_empty": "Це заклинання фокусується на першому порожньому слоті в інвентарі заклинателя",
   "descriptor.scriptor.caster_first_filled": "Це заклинання фокусується на першому заповненому слоті в інвентарі заклинателя",
   "descriptor.scriptor.caster_first_matching": "Це заклинання фокусується на першому дійсному слоті в інвентарі заклинателя",
-
   "action.scriptor.inflame": "Це заклинання нагріває або підпалює ціль.",
   "action.scriptor.light": "Це заклинання створює світло там, де його вимовлено.",
   "action.scriptor.heal": "Це заклинання зцілює або відновлює ціль.",
@@ -150,7 +135,6 @@
   "action.scriptor.harm": "Це заклинання завдає шкоди цілі.",
   "action.scriptor.color": "Це заклинання змінює колір цілі.",
   "action.scriptor.place": "Це заклинання розміщує блок.",
-
   "action.scriptor.poison": "Це заклинання отруює ціль.",
   "action.scriptor.slow": "Це заклинання уповільнює ціль.",
   "action.scriptor.regeneration": "Це заклинання деякий час лікує ціль.",
@@ -172,7 +156,6 @@
   "action.scriptor.bound_sword": "Це заклинання викликає ефірний меч.",
   "action.scriptor.bound_pickaxe": "Це заклинання породжує магічне кайло.",
   "action.scriptor.bound_shovel": "Це заклинання зливає енергію та лопату.",
-
   "extra.scriptor.fizzle": "Фоліант починає грітися в руці, потім шипить.",
   "extra.scriptor.tome_use": "Ви струшуєте пил з фоліанта...",
   "extra.scriptor.tome_description": "Клацніть пкм, щоб розкрити заклинання.",
@@ -190,7 +173,6 @@
   "extra.scriptor.condition_not_met": "Ви намагаєтесь промовити заклинання, але зупиняєтесь на півслові. Здається, умова не була виконана...",
   "extra.scriptor.chalk_unnamed_1": "Немає прив'язанного слова!",
   "extra.scriptor.chalk_unnamed_2": "Перейменуйте на Ковадлі для використання",
-
   "lore.scriptor.ingredient": "Інгредієнт для Виготовлення",
   "lore.scriptor.ingredient_tag": "Поєднайте з кристалом фокусування",
   "lore.scriptor.needs_charge": "Необхідно зарядити перед використанням",
@@ -210,11 +192,8 @@
   "lore.scriptor.not_community_1": "Це не було стоврено у Режимі Спільноти.",
   "lore.scriptor.not_community_2": "Це було стоврено у Режимі Спільноти.",
   "lore.scriptor.not_community_3": "Це не має працювати.",
-
   "itemGroup.scriptor.scriptor_tab": "Scriptor Magicae",
-
   "entity.scriptor.colorful_sheep": "Вівця",
-
   "advancement.scriptor.tier_1": "Колекціонер Трюків",
   "advancement.scriptor.tier_2": "Аркановий Архіватор",
   "advancement.scriptor.tier_3": "Окультний Бібліотекар",
@@ -226,10 +205,8 @@
   "advancement.scriptor.community": "Частина Спільноти",
   "advancement.scriptor.community_desc": "Зіграйте у Scriptor Magicae з Режимом Спільноти!",
   "advancement.scriptor.tome": "Учень-Арканіст",
-
-  "patchouli.scriptor.namr": "Проста Лінгвомагія",
+  "patchouli.scriptor.name": "Проста Лінгвомагія",
   "patchouli.scriptor.landing_text": "Вивчайте світову магію слів!",
-
   "command.scriptor.dump_action": "Слово для дії %1$s це %2$s",
   "command.scriptor.dump_descriptor": "Слово для дескриптора %1$s це %2$s",
   "command.scriptor.dump_subject": "Слово для об'єкта %1$s це %2$s",
@@ -245,7 +222,6 @@
   "command.scriptor.magic_name": "Магія",
   "command.scriptor.no_item_commands_creative": "Через обмеження двигуну, власні заклинання не можуть бути замовлені на предмети в творчому режимі.",
   "command.scriptor.unheard": "Ніхто це не почув.",
-
   "gamerule.scriptor:tome_max_cost": "[Scriptor] Максимальна Вартість Заклинання Фоліанту",
   "gamerule.scriptor:vocal_max_cost": "[Scriptor] Максимальна Вартість Заклинання Вголос",
   "gamerule.scriptor:chalk_max_cost": "[Scriptor] Максимальна Вартість Заклинання Крейди",
@@ -255,7 +231,6 @@
   "gamerule.scriptor:vocal_cooldown_multiplier": "[Scriptor] Множник Затримки Вголос",
   "gamerule.scriptor:tome_cooldown_multiplier": "[Scriptor] Множник Затримки Фоліанту",
   "gamerule.scriptor:casting_lectern_cooldown_multiplier": "[Scriptor] Множник Затримки Лекторія Чаклунства",
-
   "tome.scriptor.big_ups": "Великий Ріст",
   "tome.scriptor.breathless": "Затамованний Подих",
   "tome.scriptor.bring_bolt": "Ланцюг Скорпіона",

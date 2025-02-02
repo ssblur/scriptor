@@ -18,42 +18,42 @@ import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
 
-open class ChalkBlock : Block, EntityBlock {
-    constructor() : super(
-        Properties.of()
-            .instabreak()
-            .noLootTable()
-            .sound(SoundType.STONE)
-            .noCollission()
-    )
+open class ChalkBlock: Block, EntityBlock {
+  constructor(): super(
+    Properties.of()
+      .instabreak()
+      .noLootTable()
+      .sound(SoundType.STONE)
+      .noCollission()
+  )
 
-    constructor(properties: Properties) : super(properties)
+  constructor(properties: Properties): super(properties)
 
-    public override fun getShape(
-        blockState: BlockState,
-        blockGetter: BlockGetter,
-        blockPos: BlockPos,
-        collisionContext: CollisionContext
-    ): VoxelShape {
-        return Shapes.box(0.0, 0.0, 0.0, 1.0, 0.0625, 1.0)
+  public override fun getShape(
+    blockState: BlockState,
+    blockGetter: BlockGetter,
+    blockPos: BlockPos,
+    collisionContext: CollisionContext
+  ): VoxelShape {
+    return Shapes.box(0.0, 0.0, 0.0, 1.0, 0.0625, 1.0)
+  }
+
+  override fun newBlockEntity(blockPos: BlockPos, blockState: BlockState): BlockEntity? {
+    return ScriptorBlockEntities.CHALK.create(blockPos, blockState)
+  }
+
+  public override fun useWithoutItem(
+    blockState: BlockState,
+    level: Level,
+    blockPos: BlockPos,
+    player: Player,
+    blockHitResult: BlockHitResult
+  ): InteractionResult {
+    val blockEntity = level.getBlockEntity(blockPos)
+    if (blockEntity is ChalkBlockEntity) {
+      blockEntity.cast()
+      return InteractionResult.SUCCESS
     }
-
-    override fun newBlockEntity(blockPos: BlockPos, blockState: BlockState): BlockEntity? {
-        return ScriptorBlockEntities.CHALK.create(blockPos, blockState)
-    }
-
-    public override fun useWithoutItem(
-        blockState: BlockState,
-        level: Level,
-        blockPos: BlockPos,
-        player: Player,
-        blockHitResult: BlockHitResult
-    ): InteractionResult {
-        val blockEntity = level.getBlockEntity(blockPos)
-        if (blockEntity is ChalkBlockEntity) {
-            blockEntity.cast()
-            return InteractionResult.SUCCESS
-        }
-        return super.useWithoutItem(blockState, level, blockPos, player, blockHitResult)
-    }
+    return super.useWithoutItem(blockState, level, blockPos, player, blockHitResult)
+  }
 }

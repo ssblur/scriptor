@@ -7,49 +7,49 @@ import net.minecraft.resources.ResourceLocation
 
 @Suppress("unused")
 object TokenGeneratorRegistry {
-    var generators: HashMap<ResourceLocation?, TokenGenerator> = HashMap()
-    var generatorBindings: HashMap<String, ResourceLocation?> = HashMap()
-    var generatorBindingConfig: HashMap<String, JsonObject?> = HashMap()
-    var generatorGenerators: HashMap<String, TokenGeneratorGenerator> = HashMap()
-    var defaultGenerator: ResourceLocation? = null
+  var generators: HashMap<ResourceLocation?, TokenGenerator> = HashMap()
+  var generatorBindings: HashMap<String, ResourceLocation?> = HashMap()
+  var generatorBindingConfig: HashMap<String, JsonObject?> = HashMap()
+  var generatorGenerators: HashMap<String, TokenGeneratorGenerator> = HashMap()
+  var defaultGenerator: ResourceLocation? = null
 
-    fun registerGeneratorGenerator(key: String, generatorGenerator: TokenGeneratorGenerator): TokenGeneratorGenerator {
-        generatorGenerators[key] = generatorGenerator
-        return generatorGenerator
-    }
+  fun registerGeneratorGenerator(key: String, generatorGenerator: TokenGeneratorGenerator): TokenGeneratorGenerator {
+    generatorGenerators[key] = generatorGenerator
+    return generatorGenerator
+  }
 
-    fun getGeneratorGenerator(key: String): TokenGeneratorGenerator? {
-        return generatorGenerators[key]
-    }
+  fun getGeneratorGenerator(key: String): TokenGeneratorGenerator? {
+    return generatorGenerators[key]
+  }
 
-    fun registerGenerator(key: ResourceLocation?, generator: TokenGenerator) {
-        generators[key] = generator
-    }
+  fun registerGenerator(key: ResourceLocation?, generator: TokenGenerator) {
+    generators[key] = generator
+  }
 
-    fun getGenerator(key: ResourceLocation?): TokenGenerator? {
-        return generators[key]
-    }
+  fun getGenerator(key: ResourceLocation?): TokenGenerator? {
+    return generators[key]
+  }
 
-    fun registerBinding(word: String, generator: ResourceLocation?, parameters: JsonObject?) {
-        generatorBindings[word] = generator
-        generatorBindingConfig[word] = parameters
-    }
+  fun registerBinding(word: String, generator: ResourceLocation?, parameters: JsonObject?) {
+    generatorBindings[word] = generator
+    generatorBindingConfig[word] = parameters
+  }
 
-    fun getBinding(word: String): ResourceLocation? {
-        return generatorBindings.getOrDefault(word, defaultGenerator)
-    }
+  fun getBinding(word: String): ResourceLocation? {
+    return generatorBindings.getOrDefault(word, defaultGenerator)
+  }
 
-    fun registerDefaultGenerator(generator: ResourceLocation?) {
-        defaultGenerator = generator
-    }
+  fun registerDefaultGenerator(generator: ResourceLocation?) {
+    defaultGenerator = generator
+  }
 
-    @JvmOverloads
-    fun generateWord(word: String, `object`: JsonObject? = generatorBindingConfig[word]): String {
-        return getGenerator(getBinding(word))!!.generateToken(word, `object`)
-    }
+  @JvmOverloads
+  fun generateWord(word: String, `object`: JsonObject? = generatorBindingConfig[word]): String {
+    return getGenerator(getBinding(word))!!.generateToken(word, `object`)
+  }
 
-    val MIXED_GROUP: TokenGeneratorGenerator = registerGeneratorGenerator("mixed_groups") { MixedGroupGenerator(it) }
-    val STATIC_TOKEN: TokenGeneratorGenerator = registerGeneratorGenerator("static_token") { StaticTokenGenerator(it) }
-    val COMMUNITY: TokenGeneratorGenerator = registerGeneratorGenerator("community") { CommunityModeGenerator(it) }
-    val DEBUG: TokenGeneratorGenerator = registerGeneratorGenerator("debug") { DebugGenerator(it) }
+  val MIXED_GROUP: TokenGeneratorGenerator = registerGeneratorGenerator("mixed_groups") { MixedGroupGenerator(it) }
+  val STATIC_TOKEN: TokenGeneratorGenerator = registerGeneratorGenerator("static_token") { StaticTokenGenerator(it) }
+  val COMMUNITY: TokenGeneratorGenerator = registerGeneratorGenerator("community") { CommunityModeGenerator(it) }
+  val DEBUG: TokenGeneratorGenerator = registerGeneratorGenerator("debug") { DebugGenerator(it) }
 }

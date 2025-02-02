@@ -28,9 +28,7 @@
   "item.scriptor.bound_shovel": "Привязанная Лопата",
   "item.scriptor.bound_pickaxe": "Привязанная Кирка",
   "item.scriptor.bound_hoe": "Привязанная Мотыга",
-
   "block.scriptor.casting_lectern": "Заклинающая Кафедра",
-
   "block.scriptor.white_magic_block": "Магический Блок",
   "block.scriptor.light_gray_magic_block": "Магический Блок",
   "block.scriptor.gray_magic_block": "Магический Блок",
@@ -48,51 +46,43 @@
   "block.scriptor.pink_magic_block": "Магический Блок",
   "block.scriptor.brown_magic_block": "Магический Блок",
   "block.scriptor.light": "Магический Свет",
-
   "block.scriptor.chalk": "Мел",
   "block.scriptor.rune": "Руна",
   "entity.scriptor.projectile": "Снаряд",
   "enchantment.scriptor.charged.desc": "Усиляет вашу следующую атаку. Уменьшается на 1 после удара.",
-
   "effect.scriptor.hoarse": "Охрипший",
   "effect.scriptor.mute": "Онемевшмй",
   "effect.scriptor.phasing": "Трансмурация",
   "effect.scriptor.wild_phasing": "Агрессиваня Трансмурация",
-
   "death.attack.overload": "%1$s был переполнен магическими силами.",
   "death.attack.overload.player": "%1$s был переполнен магическими силами.",
   "death.attack.sacrifice": "%1$s принёс слишком большую жертву.",
   "death.attack.sacrifice.player": "%1$s принёс слишком большую жертву...",
-
   "enchantment.scriptor.charged": "Заряженный",
-
-  "subject.scriptor.self": "Данное заклинание нацелено на заклинателя.", 
+  "subject.scriptor.self": "Данное заклинание нацелено на заклинателя.",
   "subject.scriptor.touch": "Данное заклинание нацелено на что-либо, чего может коснуться заклинатель.",
   "subject.scriptor.storm": "Данное заклинание отдаётся эхом вокруг заклинателя.",
   "subject.scriptor.projectile": "Данное заклинание выпускает снаряд, который шепчет при касании.",
   "subject.scriptor.rune": "Данное заклинание устанавливает руну, которая шепчет при касании.",
   "subject.scriptor.enchant": "Данное заклинание может быть заговорено на другие предметы в инвентаре.",
   "subject.scriptor.hitscan": "Данное заклинание нацелено на что-либо находящееся перед заклинателем.",
-
-  "descriptor.scriptor.long": "Что-то в этом заклинании продлевает его эффект.", 
+  "descriptor.scriptor.long": "Что-то в этом заклинании продлевает его эффект.",
   "descriptor.scriptor.longer": "Данное заклинание длится немного дольше чем обычно.",
   "descriptor.scriptor.very_long": "Данное заклинание длится очень долго.",
   "descriptor.scriptor.stacking_long": "Эффекты данного заклинания длятся немного дольше.",
-  "descriptor.scriptor.strong": "Данное заклинание чем-то усилено.", 
+  "descriptor.scriptor.strong": "Данное заклинание чем-то усилено.",
   "descriptor.scriptor.stacking_strong": "Данное заклинание немного усилено.",
   "descriptor.scriptor.powerful": "Данное заклинание значительно усилено.",
   "descriptor.scriptor.massive_strong": "Данное заклинание невероятно сильно.",
   "descriptor.scriptor.fast": "Данное заклинание быстрее чем обычное.",
   "descriptor.scriptor.slow": "Данное заклинание медленнее чем обычное.",
-  "descriptor.scriptor.chain": "Данное заклинание распростроняется на ближайшие цели.", 
+  "descriptor.scriptor.chain": "Данное заклинание распростроняется на ближайшие цели.",
   "descriptor.scriptor.blood_power": "Вы ощущаете зловещую силу в этом заклинании. Его использование может причинить боль.",
   "descriptor.scriptor.overwhelming": "Мощь этого заклинания ошеломляет заклинателя.",
   "descriptor.scriptor.nether": "Цель данного заклинания находится на другой плоскости.",
-
   "descriptor.scriptor.reagent.scriptor.amethyst": "Данное заклинание потребляет Аметисты",
   "descriptor.scriptor.reagent.scriptor.gold": "Данное заклинание потребляет Золотые Слитки",
   "descriptor.scriptor.reagent.scriptor.redstone": "Данное заклинание потребляет Красную Пыль",
-
   "descriptor.scriptor.color.scriptor.ace": "Оно имеет цвета Флага Гордости Асексуалов",
   "descriptor.scriptor.color.scriptor.agender": "Оно имеет цвета Флага Гордости Агендеров",
   "descriptor.scriptor.color.scriptor.aro": "Оно имеет цвета Флага Гордости Аромантиков",
@@ -104,12 +94,10 @@
   "descriptor.scriptor.color.scriptor.pan": "Оно имеет цвета Флага Гордости Пансексуалов",
   "descriptor.scriptor.color.scriptor.poly": "Оно имеет цвета Полиаморного Флага Гордости",
   "descriptor.scriptor.color.scriptor.trans": "Оно имеет цвета Флага Гордости Трансов",
-
   "descriptor.scriptor.cheap": "Почему-то, данное заклинание стоит меньше большинства.",
   "descriptor.scriptor.blood_cost": "Вы ощущаете безжалостную эффективность в этом заклинании. Его использование может причинить боль.",
   "descriptor.scriptor.healthy": "Данное заклинание требует идеального здоровья.",
   "descriptor.scriptor.poisoned": "Для произнесения этого заклинания вы должны быть отравлены..",
-
   "descriptor.scriptor.white": "Слова на обложке светятся белым.",
   "descriptor.scriptor.light_gray": "Обложка содержит непримечательный светло-серый текст.",
   "descriptor.scriptor.dark_gray": "Слова на обложке пепельно тёмно-серые.",
@@ -127,17 +115,14 @@
   "descriptor.scriptor.pink": "Слова на обложке окрашены в цветочно-розовый.",
   "descriptor.scriptor.brown": "По передней обложке расплывается непримечательный коричневый.",
   "descriptor.scriptor.rainbow": "Обложка переливается призматическим светом.",
-
   "descriptor.scriptor.inventory": "Данное заклинание нацелено на инвентарь цели",
   "descriptor.scriptor.first_empty": "Данное заклинание нацелено на первую пустую ячейку в инвентаре",
   "descriptor.scriptor.first_filled": "Данное заклинание нацелено на первую заполненную ячейку в инвентаре",
   "descriptor.scriptor.first_matching": "Данное заклинание нацелено на первую подходящую ячейку в инвентаре",
-
   "descriptor.scriptor.caster_inventory": "Данное заклинание фокусируется на инвентаре заклинателя",
   "descriptor.scriptor.caster_first_empty": "Данное заклинание фокусируется на первой пустой ячейке в инвентаре заклинателя",
   "descriptor.scriptor.caster_first_filled": "Данное заклинание фокусируется на первой заполненной ячейке в инвентаре заклинателя",
   "descriptor.scriptor.caster_first_matching": "Данное заклинание фокусируется на первой подходящей ячейке в инвентаре заклинателя",
-
   "action.scriptor.inflame": "Данное заклинание нагревает или поджигает цель.",
   "action.scriptor.light": "Данное заклинание помещает свет туда, где оно произнесено.",
   "action.scriptor.heal": "Данное заклинание исцеляет или восстанавливает цель.",
@@ -150,7 +135,6 @@
   "action.scriptor.harm": "Данное заклинание вредит цели.",
   "action.scriptor.color": "Данное заклинание изменяет цвет цели.",
   "action.scriptor.place": "Данное заклинание размещает блок.",
-
   "action.scriptor.poison": "Данное заклинание отравляет цель.",
   "action.scriptor.slow": "Данное заклинание замедляет цель.",
   "action.scriptor.regeneration": "Данное заклинание какое-то время исцеляет цель.",
@@ -172,7 +156,6 @@
   "action.scriptor.bound_sword": "Данное заклинание призывает эфрный меч.",
   "action.scriptor.bound_pickaxe": "Данное заклинание порождает магическую кирку.",
   "action.scriptor.bound_shovel": "Данное заклинание проводит энергию в лопату.",
-
   "extra.scriptor.fizzle": "Фолиант начинает греться в вашей руке, после чего шипит.",
   "extra.scriptor.tome_use": "Вы стряхиваете пыль с фолианта...",
   "extra.scriptor.tome_description": "Щелкните пкм, чтобы раскрыть заклинание.",
@@ -190,7 +173,6 @@
   "extra.scriptor.condition_not_met": "Вы пытаетесь произнести это заклинание, но внезапно останавливаетесь. Похоже, не выполнено какое-то условие...",
   "extra.scriptor.chalk_unnamed_1": "Нет связанного слова!",
   "extra.scriptor.chalk_unnamed_2": "Переименуйте в Наковальне чтобы использовать",
-
   "lore.scriptor.ingredient": "Ингредиент Создания",
   "lore.scriptor.ingredient_tag": "Объедините с кристаллом фокусировки",
   "lore.scriptor.needs_charge": "Должен быть заряжен перед использованием",
@@ -210,11 +192,8 @@
   "lore.scriptor.not_community_1": "Это не было создано в Режиме Сообщества.",
   "lore.scriptor.not_community_2": "Это было создано в Режиме Сообщества.",
   "lore.scriptor.not_community_3": "Вероятно это не сработает.",
-
   "itemGroup.scriptor.scriptor_tab": "Scriptor Magicae",
-
   "entity.scriptor.colorful_sheep": "Овца",
-
   "advancement.scriptor.tier_1": "Коллекционер Трюков",
   "advancement.scriptor.tier_2": "Аркановый Архиватор",
   "advancement.scriptor.tier_3": "Оккультный Библиотекарь",
@@ -226,10 +205,8 @@
   "advancement.scriptor.community": "Часть Сообщества",
   "advancement.scriptor.community_desc": "Сыграйте в Scriptor Magicae с Режимом Сообщества!",
   "advancement.scriptor.tome": "Начинающий Чародей",
-
   "patchouli.scriptor.name": "Простые Тексточары",
   "patchouli.scriptor.landing_text": "Изучите лингвистическую магию мира!",
-
   "command.scriptor.dump_action": "Слово для действия %1$s это %2$s",
   "command.scriptor.dump_descriptor": "Слово для дескриптора %1$s это %2$s",
   "command.scriptor.dump_subject": "Слово для объекта %1$s это %2$s",
@@ -245,7 +222,6 @@
   "command.scriptor.magic_name": "Магия",
   "command.scriptor.no_item_commands_creative": "Из-за ограничений движка, собственные заклинания не могут быть заговорены на предметы в творческом режиме.",
   "command.scriptor.unheard": "Никто не услышал это.",
-
   "gamerule.scriptor:tome_max_cost": "[Scriptor] Максимальная Стоимость Заклинания Фолианта",
   "gamerule.scriptor:vocal_max_cost": "[Scriptor] Максимальная Стоимость Заклинания Вслух",
   "gamerule.scriptor:chalk_max_cost": "[Scriptor] Максимальная Стоимость Заклинания Мелом",
@@ -255,7 +231,6 @@
   "gamerule.scriptor:vocal_cooldown_multiplier": "[Scriptor] Множитель Задержки Вслух",
   "gamerule.scriptor:tome_cooldown_multiplier": "[Scriptor] Множитель Задержки Фолианта",
   "gamerule.scriptor:casting_lectern_cooldown_multiplier": "[Scriptor] Множитель Задержки Заклинающей Кафедры",
-
   "tome.scriptor.big_ups": "Высокое Далёко",
   "tome.scriptor.breathless": "Бездыханный",
   "tome.scriptor.bring_bolt": "Цепь Скорпиона",

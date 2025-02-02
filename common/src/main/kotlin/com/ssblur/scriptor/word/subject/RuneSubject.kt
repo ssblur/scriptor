@@ -12,54 +12,54 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import java.util.concurrent.CompletableFuture
 
-class RuneSubject : Subject(), InventorySubject {
-    override fun getTargets(caster: Targetable, spell: Spell): CompletableFuture<List<Targetable>> {
-        val result = CompletableFuture<List<Targetable>>()
-        if (caster is EntityTargetable && caster.targetEntity is Player) {
-            val player = caster.targetEntity as Player
-            TraceNetwork.requestTraceData(player) { target: Targetable ->
-                val color = getColor(spell.deduplicatedDescriptorsForSubjects())
-                val pos = target.targetBlockPos
-                val level = caster.level
+class RuneSubject: Subject(), InventorySubject {
+  override fun getTargets(caster: Targetable, spell: Spell): CompletableFuture<List<Targetable>> {
+    val result = CompletableFuture<List<Targetable>>()
+    if (caster is EntityTargetable && caster.targetEntity is Player) {
+      val player = caster.targetEntity as Player
+      TraceNetwork.requestTraceData(player) { target: Targetable ->
+        val color = getColor(spell.deduplicatedDescriptorsForSubjects())
+        val pos = target.targetBlockPos
+        val level = caster.level
 
-                if (!level.getBlockState(pos).canBeReplaced()) return@requestTraceData
+        if (!level.getBlockState(pos).canBeReplaced()) return@requestTraceData
 
-                level.setBlockAndUpdate(pos, ScriptorBlocks.RUNE.get().defaultBlockState())
-                val entity = level.getBlockEntity(pos)
-                if (entity is RuneBlockEntity) {
-                    entity.owner = player
-                    entity.future = result
-                    entity.spell = spell
-                    entity.runeColor = color
-                    entity.setChanged()
-                }
-            }
-        } else {
-            val color = getColor(spell.deduplicatedDescriptorsForSubjects())
-
-            val pos = caster.targetBlockPos
-            val level = caster.level
-
-            if (!level.getBlockState(pos).canBeReplaced()) {
-                result.complete(listOf())
-                return result
-            }
-
-            level.setBlockAndUpdate(pos, ScriptorBlocks.RUNE.get().defaultBlockState())
-            val entity = level.getBlockEntity(pos)
-            if (entity is RuneBlockEntity) {
-                entity.future = result
-                entity.spell = spell
-                entity.runeColor = color
-                entity.setChanged()
-            }
+        level.setBlockAndUpdate(pos, ScriptorBlocks.RUNE.get().defaultBlockState())
+        val entity = level.getBlockEntity(pos)
+        if (entity is RuneBlockEntity) {
+          entity.owner = player
+          entity.future = result
+          entity.spell = spell
+          entity.runeColor = color
+          entity.setChanged()
         }
+      }
+    } else {
+      val color = getColor(spell.deduplicatedDescriptorsForSubjects())
+
+      val pos = caster.targetBlockPos
+      val level = caster.level
+
+      if (!level.getBlockState(pos).canBeReplaced()) {
+        result.complete(listOf())
         return result
+      }
+
+      level.setBlockAndUpdate(pos, ScriptorBlocks.RUNE.get().defaultBlockState())
+      val entity = level.getBlockEntity(pos)
+      if (entity is RuneBlockEntity) {
+        entity.future = result
+        entity.spell = spell
+        entity.runeColor = color
+        entity.setChanged()
+      }
     }
+    return result
+  }
 
   override fun cost() = Cost(1.0, COSTTYPE.ADDITIVE)
 
-    override fun castOnItem(spell: Spell, player: Player, slot: ItemStack) {
-        // add a one-time cast
-    }
+  override fun castOnItem(spell: Spell, player: Player, slot: ItemStack) {
+    // add a one-time cast
+  }
 }

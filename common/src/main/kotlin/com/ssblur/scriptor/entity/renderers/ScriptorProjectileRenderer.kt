@@ -14,35 +14,35 @@ import net.minecraft.resources.ResourceLocation
 import javax.annotation.ParametersAreNonnullByDefault
 
 @ParametersAreNonnullByDefault
-class ScriptorProjectileRenderer(context: EntityRendererProvider.Context) :
-    EntityRenderer<ScriptorProjectile>(context) {
-    override fun getTextureLocation(entity: ScriptorProjectile): ResourceLocation {
-        return ScriptorMod.location("textures/item/tome.png")
-    }
+class ScriptorProjectileRenderer(context: EntityRendererProvider.Context):
+  EntityRenderer<ScriptorProjectile>(context) {
+  override fun getTextureLocation(entity: ScriptorProjectile): ResourceLocation {
+    return ScriptorMod.location("textures/item/tome.png")
+  }
 
-    override fun render(
-        entity: ScriptorProjectile,
-        yaw: Float,
-        tickDelta: Float,
-        poseStack: PoseStack,
-        multiBufferSource: MultiBufferSource,
-        lightLevel: Int
-    ) {
-        super.render(entity, yaw, tickDelta, poseStack, multiBufferSource, lightLevel)
-        entity.setPos(entity.position().add(entity.deltaMovement.scale(tickDelta.toDouble())))
+  override fun render(
+    entity: ScriptorProjectile,
+    yaw: Float,
+    tickDelta: Float,
+    poseStack: PoseStack,
+    multiBufferSource: MultiBufferSource,
+    lightLevel: Int
+  ) {
+    super.render(entity, yaw, tickDelta, poseStack, multiBufferSource, lightLevel)
+    entity.setPos(entity.position().add(entity.deltaMovement.scale(tickDelta.toDouble())))
 
-        val level = Minecraft.getInstance().level!!
-        val (r, g, b) = CustomColors.getColor(entity.color, level.gameTime.toFloat()).splitIntoRGB()
-        val d = entity.deltaMovement.scale(tickDelta.toDouble())
+    val level = Minecraft.getInstance().level!!
+    val (r, g, b) = CustomColors.getColor(entity.color, level.gameTime.toFloat()).splitIntoRGB()
+    val d = entity.deltaMovement.scale(tickDelta.toDouble())
 
-        level.addParticle(
-            MagicParticleData.magic(r, g, b),
-            entity.x + d.x,
-            entity.y + d.y,
-            entity.z + d.z,
-            0.0,
-            0.0,
-            0.0
-        )
-    }
+    level.addParticle(
+      MagicParticleData.magic(r, g, b),
+      entity.x + d.x,
+      entity.y + d.y,
+      entity.z + d.z,
+      0.0,
+      0.0,
+      0.0
+    )
+  }
 }

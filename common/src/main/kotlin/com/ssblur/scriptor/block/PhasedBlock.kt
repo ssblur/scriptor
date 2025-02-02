@@ -15,29 +15,31 @@ import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 
-class PhasedBlock : Block(
-    Properties.of()
-        .noOcclusion()
-        .noCollission()
-        .strength(-1.0f, 3600000.0f)
-        .noLootTable()
-        .isValidSpawn { a: BlockState?, b: BlockGetter?, c: BlockPos?, d: EntityType<*>? -> false }
-        .forceSolidOn()
-        .lightLevel { state: BlockState? -> 3 }
+class PhasedBlock: Block(
+  Properties.of()
+    .noOcclusion()
+    .noCollission()
+    .strength(-1.0f, 3600000.0f)
+    .noLootTable()
+    .isValidSpawn { a: BlockState?, b: BlockGetter?, c: BlockPos?, d: EntityType<*>? -> false }
+    .forceSolidOn()
+    .lightLevel { state: BlockState? -> 3 }
 ), EntityBlock {
-    public override fun getShape(
-        blockState: BlockState,
-        blockGetter: BlockGetter,
-        blockPos: BlockPos,
-        collisionContext: CollisionContext
-    ) = Shapes.box(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+  public override fun getShape(
+    blockState: BlockState,
+    blockGetter: BlockGetter,
+    blockPos: BlockPos,
+    collisionContext: CollisionContext
+  ) = Shapes.box(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
 
-    override fun newBlockEntity(blockPos: BlockPos, blockState: BlockState): BlockEntity =
-        ScriptorBlockEntities.PHASED_BLOCK.get().create(blockPos, blockState)!!
+  override fun newBlockEntity(blockPos: BlockPos, blockState: BlockState): BlockEntity =
+    ScriptorBlockEntities.PHASED_BLOCK.get().create(blockPos, blockState)!!
 
-    override fun <T : BlockEntity?> getTicker(
-        level: Level,
-        blockState: BlockState,
-        blockEntityType: BlockEntityType<T>
-    ) = BlockEntityTicker { tickerLevel: Level?, pos: BlockPos?, state: BlockState?, entity: T -> PhasedBlockBlockEntity.tick(entity) }
+  override fun <T: BlockEntity?> getTicker(
+    level: Level,
+    blockState: BlockState,
+    blockEntityType: BlockEntityType<T>
+  ) = BlockEntityTicker { tickerLevel: Level?, pos: BlockPos?, state: BlockState?, entity: T ->
+    PhasedBlockBlockEntity.tick(entity)
+  }
 }

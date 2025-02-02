@@ -1,22 +1,22 @@
 plugins {
-    id "com.github.johnrengelman.shadow"
+  id "com.github.johnrengelman.shadow"
 }
 
 architectury {
-    platformSetupLoomIde()
-    fabric()
+  platformSetupLoomIde()
+  fabric()
 }
 
 loom {
-    accessWidenerPath = project(":common").loom.accessWidenerPath
+  accessWidenerPath = project(":common").loom.accessWidenerPath
 }
 
 configurations {
-    common
-    shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
-    compileClasspath.extendsFrom common
-    runtimeClasspath.extendsFrom common
-    developmentFabric.extendsFrom common
+  common
+  shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
+  compileClasspath.extendsFrom common
+  runtimeClasspath.extendsFrom common
+  developmentFabric.extendsFrom common
 }
 
 dependencies {
@@ -34,51 +34,51 @@ dependencies {
 }
 
 processResources {
-    inputs.property "version", project.version
+  inputs.property "version", project.version
 
-    filesMatching("fabric.mod.json") {
-      expand(
-              version: project.version,
-              unfocused_version: rootProject.unfocused_version
-      )
-    }
+  filesMatching("fabric.mod.json") {
+    expand(
+            version: project.version,
+            unfocused_version: rootProject.unfocused_version
+    )
+  }
 }
 
 shadowJar {
-    exclude "architectury.common.json"
+  exclude "architectury.common.json"
 
-    configurations = [project.configurations.shadowCommon]
-    archiveClassifier = "dev-shadow"
+  configurations = [project.configurations.shadowCommon]
+  archiveClassifier = "dev-shadow"
 }
 
 remapJar {
-    injectAccessWidener = true
-    input.set shadowJar.archiveFile
-    dependsOn shadowJar
+  injectAccessWidener = true
+  input.set shadowJar.archiveFile
+  dependsOn shadowJar
 }
 
 sourcesJar {
-    def commonSources = project(":common").sourcesJar
-    dependsOn commonSources
-    from commonSources.archiveFile.map { zipTree(it) }
+  def commonSources = project(":common").sourcesJar
+  dependsOn commonSources
+  from commonSources.archiveFile.map { zipTree(it) }
 }
 
 components.java {
-    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
-        skip()
-    }
+  withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
+    skip()
+  }
 }
 
 publishing {
-    publications {
-        mavenFabric(MavenPublication) {
-            artifactId = rootProject.archives_base_name + "-" + project.name
-            from components.java
-        }
+  publications {
+    mavenFabric(MavenPublication) {
+      artifactId = rootProject.archives_base_name + "-" + project.name
+      from components.java
     }
+  }
 
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-    repositories {
-        // Add repositories to publish to here.
-    }
+  // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+  repositories {
+    // Add repositories to publish to here.
+  }
 }

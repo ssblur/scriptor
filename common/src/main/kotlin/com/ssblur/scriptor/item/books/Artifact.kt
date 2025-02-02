@@ -16,63 +16,64 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 
-class Artifact(properties: Properties) : Item(properties.stacksTo(1)) {
-    init {
-        ARTIFACTS.add(this)
+class Artifact(properties: Properties): Item(properties.stacksTo(1)) {
+  init {
+    ARTIFACTS.add(this)
+  }
+
+  override fun appendHoverText(
+    itemStack: ItemStack,
+    level: TooltipContext,
+    list: MutableList<Component>,
+    tooltipFlag: TooltipFlag
+  ) {
+    super.appendHoverText(itemStack, level, list, tooltipFlag)
+
+    list.add(Component.translatable("lore.scriptor.artifact_1").withStyle(ChatFormatting.GRAY))
+
+    val text = itemStack.get(ScriptorDataComponents.SPELL)
+    if (text != null) list.add(Component.translatable("lore.scriptor.artifact_2", text))
+  }
+
+  override fun use(
+    level: Level,
+    player: Player,
+    interactionHand: InteractionHand
+  ): InteractionResultHolder<ItemStack> {
+    val result = super.use(level, player, interactionHand)
+
+    val itemStack = player.getItemInHand(interactionHand)
+    val text = itemStack.get(ScriptorDataComponents.SPELL)
+    if (text == null || level !is ServerLevel) return result
+
+    level.playSound(
+      null,
+      player.blockPosition(),
+      SoundEvents.EVOKER_CAST_SPELL,
+      SoundSource.PLAYERS,
+      0.4f,
+      level.getRandom().nextFloat() * 1.2f + 0.6f
+    )
+
+    val spell = computeIfAbsent(level).parse(text)
+    if (spell != null) {
+      spell.cast(
+        SpellbookTargetable(
+          itemStack,
+          player,
+          player.inventory.selected
+        ).withTargetItem(false)
+      )
+      if (!player.isCreative) for (artifact in ARTIFACTS) player.cooldowns.addCooldown(
+        artifact,
+        Math.round(spell.cost() * 2).toInt()
+      )
+      return InteractionResultHolder.pass(itemStack)
     }
+    return InteractionResultHolder.fail(itemStack)
+  }
 
-    override fun appendHoverText(
-        itemStack: ItemStack,
-        level: TooltipContext,
-        list: MutableList<Component>,
-        tooltipFlag: TooltipFlag
-    ) {
-        super.appendHoverText(itemStack, level, list, tooltipFlag)
-
-        list.add(Component.translatable("lore.scriptor.artifact_1").withStyle(ChatFormatting.GRAY))
-
-        val text = itemStack.get(ScriptorDataComponents.SPELL)
-        if (text != null) list.add(Component.translatable("lore.scriptor.artifact_2", text))
-    }
-
-    override fun use(
-        level: Level,
-        player: Player,
-        interactionHand: InteractionHand
-    ): InteractionResultHolder<ItemStack> {
-        val result = super.use(level, player, interactionHand)
-
-        val itemStack = player.getItemInHand(interactionHand)
-        val text = itemStack.get(ScriptorDataComponents.SPELL)
-        if (text == null || level !is ServerLevel) return result
-
-        level.playSound(
-            null,
-            player.blockPosition(),
-            SoundEvents.EVOKER_CAST_SPELL,
-            SoundSource.PLAYERS,
-            0.4f,
-            level.getRandom().nextFloat() * 1.2f + 0.6f
-        )
-
-        val spell = computeIfAbsent(level).parse(text)
-        if (spell != null) {
-            spell.cast(
-                SpellbookTargetable(
-                    itemStack,
-                    player,
-                    player.inventory.selected
-                ).withTargetItem(false))
-            if (!player.isCreative) for (artifact in ARTIFACTS) player.cooldowns.addCooldown(
-                artifact,
-                Math.round(spell.cost() * 2).toInt()
-            )
-            return InteractionResultHolder.pass(itemStack)
-        }
-        return InteractionResultHolder.fail(itemStack)
-    }
-
-    companion object {
-        var ARTIFACTS: MutableList<Item> = ArrayList()
-    }
+  companion object {
+    var ARTIFACTS: MutableList<Item> = ArrayList()
+  }
 }

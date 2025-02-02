@@ -12,9 +12,9 @@ public class BlockItemColorableInject implements ColorableItem {
   @Override
   public ItemStack setColor(int color, ItemStack itemStack) {
     var self = (BlockItem) (Object) this;
-    if(self.getBlock() instanceof ColorableBlock colorable) {
+    if (self.getBlock() instanceof ColorableBlock colorable) {
       return colorable.setColor(color, itemStack);
-    } else if(ColorableBlockRegistry.INSTANCE.has(self.getBlock())) {
+    } else if (ColorableBlockRegistry.INSTANCE.has(self.getBlock())) {
       return ColorableBlockRegistry.INSTANCE.get(self.getBlock()).setColor(color, itemStack);
     }
     return ItemStack.EMPTY;

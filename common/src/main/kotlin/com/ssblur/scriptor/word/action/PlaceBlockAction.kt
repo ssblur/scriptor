@@ -13,34 +13,34 @@ import net.minecraft.world.InteractionResult
 import net.minecraft.world.item.BlockItem
 import net.minecraft.world.phys.BlockHitResult
 
-class PlaceBlockAction : Action() {
-    override fun cost() = Cost(1.5, COSTTYPE.ADDITIVE)
+class PlaceBlockAction: Action() {
+  override fun cost() = Cost(1.5, COSTTYPE.ADDITIVE)
 
-    override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>) {
-        val color = getColor(descriptors)
-        val pos = targetable.targetBlockPos
-        val level = targetable.level
+  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>) {
+    val color = getColor(descriptors)
+    val pos = targetable.targetBlockPos
+    val level = targetable.level
 
-        if (!level.getBlockState(pos).canBeReplaced()) return
+    if (!level.getBlockState(pos).canBeReplaced()) return
 
-        val itemFocus = ItemTargetableHelper.getTargetItemStack(
-            caster,
-            false
-        ) { it.item is BlockItem }
+    val itemFocus = ItemTargetableHelper.getTargetItemStack(
+      caster,
+      false
+    ) { it.item is BlockItem }
 
-        if (itemFocus.item is BlockItem) {
-            val status: InteractionResult = (itemFocus.item as BlockItem).place(
-                BlockPlaceContextAccessor.createBlockPlaceContext(
-                    level,
-                    null,
-                    InteractionHand.MAIN_HAND,
-                    itemFocus,
-                    BlockHitResult(targetable.targetPos, targetable.facing, targetable.targetBlockPos, false)
-                )
-            )
-            if (!status.consumesAction()) ParticleNetwork.fizzle(level, targetable.targetBlockPos)
-        } else {
-            DYE_COLORABLE_BLOCKS.MAGIC_BLOCK.setColor(color, level, pos)
-        }
+    if (itemFocus.item is BlockItem) {
+      val status: InteractionResult = (itemFocus.item as BlockItem).place(
+        BlockPlaceContextAccessor.createBlockPlaceContext(
+          level,
+          null,
+          InteractionHand.MAIN_HAND,
+          itemFocus,
+          BlockHitResult(targetable.targetPos, targetable.facing, targetable.targetBlockPos, false)
+        )
+      )
+      if (!status.consumesAction()) ParticleNetwork.fizzle(level, targetable.targetBlockPos)
+    } else {
+      DYE_COLORABLE_BLOCKS.MAGIC_BLOCK.setColor(color, level, pos)
     }
+  }
 }

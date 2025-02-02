@@ -8,23 +8,26 @@ import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.StreamCodec
 
 object ScriptorParticles {
-    val MAGIC = ScriptorMod.registerParticleType("magic") {
-        object: ParticleType<MagicParticleData>(true) {
-            override fun codec(): MapCodec<MagicParticleData> {
-                return MagicParticleData.CODEC
-            }
+  val MAGIC = ScriptorMod.registerParticleType("magic") {
+    object: ParticleType<MagicParticleData>(true) {
+      override fun codec(): MapCodec<MagicParticleData> {
+        return MagicParticleData.CODEC
+      }
 
-            override fun streamCodec(): StreamCodec<in RegistryFriendlyByteBuf, MagicParticleData> {
-                return MagicParticleData.STREAM_CODEC
-            }
-        }
+      override fun streamCodec(): StreamCodec<in RegistryFriendlyByteBuf, MagicParticleData> {
+        return MagicParticleData.STREAM_CODEC
+      }
     }
+  }
 
-    fun register() {
-        try{ registerClient() } catch(_: NoSuchMethodError) {}
+  fun register() {
+    try {
+      registerClient()
+    } catch (_: NoSuchMethodError) {
     }
+  }
 
-    fun registerClient() {
-        MAGIC.registerFactory(MagicParticle::Provider)
-    }
+  fun registerClient() {
+    MAGIC.registerFactory(MagicParticle::Provider)
+  }
 }

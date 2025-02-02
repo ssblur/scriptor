@@ -5,5 +5,5 @@ import net.minecraft.tags.TagKey
 import net.minecraft.world.item.Item
 
 object ScriptorTags {
-    val READABLE_SPELLBOOKS: TagKey<Item> = ScriptorMod.registerItemTag("readable_spellbooks")
+  val READABLE_SPELLBOOKS: TagKey<Item> = ScriptorMod.registerItemTag("readable_spellbooks")
 }

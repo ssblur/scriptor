@@ -12,30 +12,38 @@ import com.ssblur.scriptor.word.descriptor.target.inventory.InventoryDescriptor
 
 @Suppress("unused")
 object InventoryDescriptors {
-    val INVENTORY = register("inventory",
-        InventoryDescriptor()
-    )
-    val FIRST_EMPTY = register("first_empty",
-        FirstEmptySlotDescriptor()
-    )
-    val FIRST_FILLED = register("first_filled",
-        FirstFilledSlotDescriptor()
-    )
-    val FIRST_MATCHING = register("first_matching",
-        IgnoreTargetedSlotDescriptor()
-    )
+  val INVENTORY = register(
+    "inventory",
+    InventoryDescriptor()
+  )
+  val FIRST_EMPTY = register(
+    "first_empty",
+    FirstEmptySlotDescriptor()
+  )
+  val FIRST_FILLED = register(
+    "first_filled",
+    FirstFilledSlotDescriptor()
+  )
+  val FIRST_MATCHING = register(
+    "first_matching",
+    IgnoreTargetedSlotDescriptor()
+  )
 
-    val CASTER_INVENTORY = register("caster_inventory",
-        CasterInventoryDescriptor()
+  val CASTER_INVENTORY = register(
+    "caster_inventory",
+    CasterInventoryDescriptor()
+  )
+  val CASTER_FIRST_EMPTY = register(
+    "caster_first_empty",
+    CasterFirstEmptySlotDescriptor()
+  )
+  val CASTER_FIRST_FILLED = register(
+    "caster_first_filled",
+    CasterFirstFilledSlotDescriptor()
+  )
+  val CASTER_FIRST_MATCHING =
+    register(
+      "caster_first_matching",
+      CasterIgnoreTargetedSlotDescriptor()
     )
-    val CASTER_FIRST_EMPTY = register("caster_first_empty",
-        CasterFirstEmptySlotDescriptor()
-    )
-    val CASTER_FIRST_FILLED = register("caster_first_filled",
-        CasterFirstFilledSlotDescriptor()
-    )
-    val CASTER_FIRST_MATCHING =
-        register("caster_first_matching",
-            CasterIgnoreTargetedSlotDescriptor()
-        )
 }

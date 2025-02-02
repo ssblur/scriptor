@@ -8,14 +8,14 @@ import com.ssblur.scriptor.helpers.targetable.Targetable
 import com.ssblur.scriptor.word.descriptor.focus.FocusDescriptor
 import net.minecraft.world.Container
 
-class CasterInventoryDescriptor : Descriptor(), FocusDescriptor {
+class CasterInventoryDescriptor: Descriptor(), FocusDescriptor {
   override fun cost() = Cost(0.0, COSTTYPE.ADDITIVE)
 
-    override fun modifyFocus(targetable: Targetable): Targetable {
-        if (targetable is ContainerTargetable) return targetable
-        if (targetable is EntityTargetable) return InventoryEntityTargetable(targetable.targetEntity, 0)
-        if (targetable.level.getBlockEntity(targetable.targetBlockPos) is Container)
-            return ContainerTargetable(targetable.level, targetable.targetBlockPos, 0)
-        return targetable
-    }
+  override fun modifyFocus(targetable: Targetable): Targetable {
+    if (targetable is ContainerTargetable) return targetable
+    if (targetable is EntityTargetable) return InventoryEntityTargetable(targetable.targetEntity, 0)
+    if (targetable.level.getBlockEntity(targetable.targetBlockPos) is Container)
+      return ContainerTargetable(targetable.level, targetable.targetBlockPos, 0)
+    return targetable
+  }
 }

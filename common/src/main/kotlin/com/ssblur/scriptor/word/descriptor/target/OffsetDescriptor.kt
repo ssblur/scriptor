@@ -6,7 +6,7 @@ import net.minecraft.core.Direction
 import net.minecraft.world.phys.Vec3
 import java.util.function.BiConsumer
 
-class OffsetDescriptor : Descriptor(), TargetDescriptor {
+class OffsetDescriptor: Descriptor(), TargetDescriptor {
   var transforms: MutableList<BiConsumer<Targetable, MutableList<Targetable>>> = ArrayList()
   override fun modifyTargets(originalTargetables: List<Targetable>, owner: Targetable): List<Targetable> {
     val output: MutableList<Targetable> = ArrayList()

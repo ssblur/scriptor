@@ -13,25 +13,26 @@ import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LightningBolt
 import kotlin.math.floor
 
-class SmiteAction : Action() {
-    override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>) {
-        var strength = 1.0
-        for (d in descriptors) {
-            if (d is StrengthDescriptor) strength += d.strengthModifier()
-        }
-
-        val itemTarget = ItemTargetableHelper.getTargetItemStack(targetable)
-        if (!itemTarget.isEmpty) {
-            itemTarget.set(ScriptorDataComponents.CHARGES, floor(strength).toInt())
-            return
-        }
-
-        val level = targetable.level as ServerLevel
-        val bolt = LightningBolt(EntityType.LIGHTNING_BOLT, level)
-        if (caster is EntityTargetable && caster.targetEntity is ServerPlayer) bolt.cause = (caster.targetEntity as ServerPlayer)
-        bolt.setPos(targetable.targetPos)
-        level.addFreshEntity(bolt)
+class SmiteAction: Action() {
+  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>) {
+    var strength = 1.0
+    for (d in descriptors) {
+      if (d is StrengthDescriptor) strength += d.strengthModifier()
     }
 
-    override fun cost() = Cost(12.0, COSTTYPE.ADDITIVE)
+    val itemTarget = ItemTargetableHelper.getTargetItemStack(targetable)
+    if (!itemTarget.isEmpty) {
+      itemTarget.set(ScriptorDataComponents.CHARGES, floor(strength).toInt())
+      return
+    }
+
+    val level = targetable.level as ServerLevel
+    val bolt = LightningBolt(EntityType.LIGHTNING_BOLT, level)
+    if (caster is EntityTargetable && caster.targetEntity is ServerPlayer) bolt.cause =
+      (caster.targetEntity as ServerPlayer)
+    bolt.setPos(targetable.targetPos)
+    level.addFreshEntity(bolt)
+  }
+
+  override fun cost() = Cost(12.0, COSTTYPE.ADDITIVE)
 }

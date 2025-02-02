@@ -27,7 +27,7 @@ public class SheepColorableInject implements Colorable {
       true,
       true
     );
-    if(colorfulSheep != null) {
+    if (colorfulSheep != null) {
       colorfulSheep.load(tag);
       colorfulSheep.setPos(self.position());
       colorfulSheep.setXRot(self.getXRot());

@@ -19,7 +19,7 @@ public class ScriptorAnimalMixin {
   @Inject(method = "canMate", at = @At("RETURN"), cancellable = true)
   private void scriptor$canMate(Animal animal, CallbackInfoReturnable<Boolean> info) {
     var self = (Animal) (Object) this;
-    if(scriptor$SHEEP.contains(self.getClass()) && scriptor$SHEEP.contains(animal.getClass()))
+    if (scriptor$SHEEP.contains(self.getClass()) && scriptor$SHEEP.contains(animal.getClass()))
       info.setReturnValue(true);
   }
 }

@@ -14,36 +14,46 @@ import net.minecraft.tags.TagKey
 
 @Suppress("unused")
 object Actions {
-    val INFLAME = register("inflame", InflameAction())
-    val LIGHT = register("light", LightAction())
-    val HEAL = register("heal", HealAction())
-    val SMITE = register("smite", SmiteAction())
-    val EXPLOSION = register("explosion", ExplosionAction())
-    val GOTO = register("goto", GotoAction())
-    val SWAP = register("swap", SwapAction())
-    val BRING = register("bring", BringAction())
-    val BREAK = register("break", BreakBlockAction())
-    val PLACE = register("place", PlaceBlockAction())
-    val CONJURE_WATER = register("conjure_water", PlaceWaterAction())
-    val HARM = register("harm", HarmAction())
-    val COLOR = register("color", ColorAction())
-    val TIME = register("time", AdvanceTimeAction())
-    val CLEAR_WEATHER = register("clear_weather",
-        ClearWeatherAction()
-    )
-    val RAIN = register("rain", RainAction())
+  val INFLAME = register("inflame", InflameAction())
+  val LIGHT = register("light", LightAction())
+  val HEAL = register("heal", HealAction())
+  val SMITE = register("smite", SmiteAction())
+  val EXPLOSION = register("explosion", ExplosionAction())
+  val GOTO = register("goto", GotoAction())
+  val SWAP = register("swap", SwapAction())
+  val BRING = register("bring", BringAction())
+  val BREAK = register("break", BreakBlockAction())
+  val PLACE = register("place", PlaceBlockAction())
+  val CONJURE_WATER = register("conjure_water", PlaceWaterAction())
+  val HARM = register("harm", HarmAction())
+  val COLOR = register("color", ColorAction())
+  val TIME = register("time", AdvanceTimeAction())
+  val CLEAR_WEATHER = register(
+    "clear_weather",
+    ClearWeatherAction()
+  )
+  val RAIN = register("rain", RainAction())
 
-    val BOUND_SWORD = register("bound_sword", BoundSwordAction())
-    val BOUND_AXE = register(
-        "bound_axe",
-        BoundToolAction(ScriptorItems.BOUND_AXE, listOf(TagKey.create(Registries.BLOCK, ResourceLocation.withDefaultNamespace("mineable/axe"))))
+  val BOUND_SWORD = register("bound_sword", BoundSwordAction())
+  val BOUND_AXE = register(
+    "bound_axe",
+    BoundToolAction(
+      ScriptorItems.BOUND_AXE,
+      listOf(TagKey.create(Registries.BLOCK, ResourceLocation.withDefaultNamespace("mineable/axe")))
     )
-    val BOUND_SHOVEL = register(
-        "bound_shovel",
-        BoundToolAction(ScriptorItems.BOUND_SHOVEL, listOf(TagKey.create(Registries.BLOCK, ResourceLocation.withDefaultNamespace("mineable/shovel"))))
+  )
+  val BOUND_SHOVEL = register(
+    "bound_shovel",
+    BoundToolAction(
+      ScriptorItems.BOUND_SHOVEL,
+      listOf(TagKey.create(Registries.BLOCK, ResourceLocation.withDefaultNamespace("mineable/shovel")))
     )
-    val BOUND_PICKAXE = register(
-        "bound_pickaxe",
-        BoundToolAction(ScriptorItems.BOUND_PICKAXE, listOf(TagKey.create(Registries.BLOCK, ResourceLocation.withDefaultNamespace("mineable/pickaxe"))))
+  )
+  val BOUND_PICKAXE = register(
+    "bound_pickaxe",
+    BoundToolAction(
+      ScriptorItems.BOUND_PICKAXE,
+      listOf(TagKey.create(Registries.BLOCK, ResourceLocation.withDefaultNamespace("mineable/pickaxe")))
     )
+  )
 }

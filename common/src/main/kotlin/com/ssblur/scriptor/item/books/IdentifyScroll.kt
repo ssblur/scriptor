@@ -15,38 +15,38 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 
-class IdentifyScroll(properties: Properties) : Item(properties) {
-    @Environment(EnvType.CLIENT)
-    override fun overrideStackedOnOther(
-        itemStack: ItemStack,
-        slot: Slot,
-        clickAction: ClickAction,
-        player: Player
-    ): Boolean {
-        if (clickAction == ClickAction.SECONDARY && !slot.item.isEmpty && slot.item.item is Spellbook) {
-            if (player.cooldowns.isOnCooldown(this)) return true
+class IdentifyScroll(properties: Properties): Item(properties) {
+  @Environment(EnvType.CLIENT)
+  override fun overrideStackedOnOther(
+    itemStack: ItemStack,
+    slot: Slot,
+    clickAction: ClickAction,
+    player: Player
+  ): Boolean {
+    if (clickAction == ClickAction.SECONDARY && !slot.item.isEmpty && slot.item.item is Spellbook) {
+      if (player.cooldowns.isOnCooldown(this)) return true
 
-            val level = player.level()
-            if (!level.isClientSide) return true
+      val level = player.level()
+      if (!level.isClientSide) return true
 
-            if (player.isCreative) {
-                val book = slot.item.get(DataComponents.WRITTEN_BOOK_CONTENT)
-                val spell = LimitedBookSerializer.decodeText(book!!)
-                ScriptorNetworkC2S.creativeIdentify(CreativeIdentify(slot.index, spell))
-                player.cooldowns.addCooldown(this, 10)
-            } else ScriptorNetworkC2S.identify(Identify(slot.index))
-            return true
-        }
-        return false
+      if (player.isCreative) {
+        val book = slot.item.get(DataComponents.WRITTEN_BOOK_CONTENT)
+        val spell = LimitedBookSerializer.decodeText(book!!)
+        ScriptorNetworkC2S.creativeIdentify(CreativeIdentify(slot.index, spell))
+        player.cooldowns.addCooldown(this, 10)
+      } else ScriptorNetworkC2S.identify(Identify(slot.index))
+      return true
     }
+    return false
+  }
 
-    override fun appendHoverText(
-        itemStack: ItemStack,
-        level: TooltipContext,
-        list: MutableList<Component>,
-        tooltipFlag: TooltipFlag
-    ) {
-        super.appendHoverText(itemStack, level, list, tooltipFlag)
-        list.add(Component.translatable("extra.scriptor.use_identify"))
-    }
+  override fun appendHoverText(
+    itemStack: ItemStack,
+    level: TooltipContext,
+    list: MutableList<Component>,
+    tooltipFlag: TooltipFlag
+  ) {
+    super.appendHoverText(itemStack, level, list, tooltipFlag)
+    list.add(Component.translatable("extra.scriptor.use_identify"))
+  }
 }

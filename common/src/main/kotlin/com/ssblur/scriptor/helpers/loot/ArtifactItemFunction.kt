@@ -15,20 +15,23 @@ import net.minecraft.world.level.storage.loot.LootContext
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType
 
-class ArtifactItemFunction : LootItemFunction {
-    override fun getType(): LootItemFunctionType<*> {
-        return ScriptorLoot.ARTIFACT.get()
-    }
+class ArtifactItemFunction: LootItemFunction {
+  override fun getType(): LootItemFunctionType<*> {
+    return ScriptorLoot.ARTIFACT.get()
+  }
 
-    override fun apply(itemStack: ItemStack, lootContext: LootContext): ItemStack {
-        val artifact = Artifacts.getRandomArtifact()
-        itemStack[ScriptorDataComponents.SPELL] = computeIfAbsent(lootContext.level).generate(artifact.getSpell())
-        itemStack[DataComponents.ITEM_NAME] = Component.translatable(artifact.name ?: "")
-        return itemStack
-    }
+  override fun apply(itemStack: ItemStack, lootContext: LootContext): ItemStack {
+    val artifact = Artifacts.getRandomArtifact()
+    itemStack[ScriptorDataComponents.SPELL] = computeIfAbsent(lootContext.level).generate(artifact.getSpell())
+    itemStack[DataComponents.ITEM_NAME] = Component.translatable(artifact.name ?: "")
+    return itemStack
+  }
 
-    class ArtifactSerializer : Codec<ArtifactItemFunction> {
-        override fun <T> decode(ops: DynamicOps<T>, input: T): DataResult<Pair<ArtifactItemFunction, T>> = DataResult.success(null)
-        override fun <T> encode(input: ArtifactItemFunction, ops: DynamicOps<T>, prefix: T): DataResult<T> = DataResult.success(null)
-    }
+  class ArtifactSerializer: Codec<ArtifactItemFunction> {
+    override fun <T> decode(ops: DynamicOps<T>, input: T): DataResult<Pair<ArtifactItemFunction, T>> =
+      DataResult.success(null)
+
+    override fun <T> encode(input: ArtifactItemFunction, ops: DynamicOps<T>, prefix: T): DataResult<T> =
+      DataResult.success(null)
+  }
 }

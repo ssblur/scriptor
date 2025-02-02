@@ -63,16 +63,17 @@ public class RecipeIntegration {
 
   public static void registerRecipes(RecipesHolder recipesHolder, ShapelessRecipeRegistrar shapelessRecipeRegistrar) {
     recipesHolder.recipes().forEach(holder -> {
-        switch (holder.value()) {
-          case SpellbookDyeingRecipe recipe -> shapelessRecipeRegistrar.register(
-            List.of(
-              Ingredient.of(ScriptorTags.INSTANCE.getREADABLE_SPELLBOOKS()),
-              recipe.getAddition()
-            ),
-            recipe.getResult(),
-            holder.id()
-          );
-          case SpellbookCloningRecipe ignored -> SpellbookHelper.INSTANCE.getSPELLBOOKS().forEach(spellbook -> shapelessRecipeRegistrar.register(
+      switch (holder.value()) {
+        case SpellbookDyeingRecipe recipe -> shapelessRecipeRegistrar.register(
+          List.of(
+            Ingredient.of(ScriptorTags.INSTANCE.getREADABLE_SPELLBOOKS()),
+            recipe.getAddition()
+          ),
+          recipe.getResult(),
+          holder.id()
+        );
+        case SpellbookCloningRecipe ignored ->
+          SpellbookHelper.INSTANCE.getSPELLBOOKS().forEach(spellbook -> shapelessRecipeRegistrar.register(
             List.of(
               Ingredient.of(spellbook),
               Ingredient.of(new ItemStack(Items.PAPER)),
@@ -83,17 +84,17 @@ public class RecipeIntegration {
             new ItemStack(spellbook),
             holder.id().withPath(holder.id().getPath() + BuiltInRegistries.ITEM.getResourceKey(spellbook).get().location().toLanguageKey())
           ));
-          case SpellbookRecipe recipe -> shapelessRecipeRegistrar.register(
-            List.of(
-              recipe.getBase(),
-              recipe.getAddition()
-            ),
-            recipe.getResult(),
-            holder.id()
-          );
-          default -> {
-          }
+        case SpellbookRecipe recipe -> shapelessRecipeRegistrar.register(
+          List.of(
+            recipe.getBase(),
+            recipe.getAddition()
+          ),
+          recipe.getResult(),
+          holder.id()
+        );
+        default -> {
         }
+      }
     });
   }
 }

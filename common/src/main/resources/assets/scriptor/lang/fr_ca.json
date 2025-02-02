@@ -18,26 +18,20 @@
   "item.scriptor.coordinate_tag": "Tag Coordonné",
   "item.scriptor.player_tag": "Tag Joueur",
   "item.scriptor.scrap": "Scrap (impossible à obtenir)",
-
   "block.scriptor.casting_lectern": "Lurin Magique",
-
   "effect.scriptor.hoarse": "Rauque",
   "effect.scriptor.mute": "Muet",
-
   "death.attack.overload": "%1$s était submergé par les force magique.",
   "death.attack.overload.player": "%1$s était submergé par les force magique.",
   "death.attack.sacrifice": "%1$s a trop sacrifié.",
   "death.attack.sacrifice.player": "%1$s a trop sacrifié...",
-
   "enchantment.scriptor.charged": "Charger",
-
   "subject.scriptor.self": "Cette magie samble a visé moi même.",
   "subject.scriptor.touch": "Cette magie samble a visé se que je touche.",
   "subject.scriptor.storm": "Cette magie samble a activé plusieur fois autour de moi.",
   "subject.scriptor.projectile": "Cette magie samble a lancer une projectile qui active sur connexion.",
   "subject.scriptor.rune": "Cette magie samble a placer marqueur qui active sur touch.",
   "subject.scriptor.enchant": "Sa samble que se magie active sur un autre objet dans le inventair.",
-
   "descriptor.scriptor.long": "Quel que chose dans se magie fait le effet durer plus long.",
   "descriptor.scriptor.strong": "Sa samble que se magie es plus fort.",
   "descriptor.scriptor.stacking_strong": "Ce magie samble plus fort.",
@@ -47,11 +41,9 @@
   "descriptor.scriptor.chain": "Ce magie se étire as les cibles proches.",
   "descriptor.scriptor.blood_power": "Tu sanse du énergie malveillant dans ce magie. Sa vas peut être fair mal.",
   "descriptor.scriptor.overwhelming": "Le pouvoir de se magie submergé le activateur.",
-
   "descriptor.scriptor.reagent.scriptor.amethyst": "Ce magie utilise des Améthystes",
   "descriptor.scriptor.reagent.scriptor.gold": "Ce magie utilise des lingot de or",
   "descriptor.scriptor.reagent.scriptor.redstone": "Ce magie utilise du poudre de Redstone",
-
   "descriptor.scriptor.color.scriptor.ace": "Ce magie apporte le couleur du drapeau fierté Asexuel",
   "descriptor.scriptor.color.scriptor.agender": "Ce magie apporte le couleur du drapeau fierté Agenre",
   "descriptor.scriptor.color.scriptor.aro": "Ce magie apporte le couleur du drapeau fierté Aromantic",
@@ -63,12 +55,10 @@
   "descriptor.scriptor.color.scriptor.pan": "Ce magie apporte le couleur du drapeau fierté Pansexuel",
   "descriptor.scriptor.color.scriptor.poly": "Ce magie apporte le couleur du drapeau fierté Polyamour",
   "descriptor.scriptor.color.scriptor.trans": "Ce magie apporte le couleur du drapeau fierté Transgenre",
-
   "descriptor.scriptor.cheap": "Pour un raison, ce magie coût moins que les autre.",
   "descriptor.scriptor.blood_cost": "Tue sens le efficacité brutal dans ce magie. Sa vas peut être fair mal.",
   "descriptor.scriptor.healthy": "Ce magie samble a demander la santé parfaite.",
   "descriptor.scriptor.poisoned": "Tu samble d'avoir être empoisonné pour ultiliser se magie.",
-
   "descriptor.scriptor.white": "Les môt brille blanc.",
   "descriptor.scriptor.light_gray": "Ça contient des môt benal gris pâle.",
   "descriptor.scriptor.dark_gray": "Les môt sont un gris cendreux.",
@@ -86,17 +76,14 @@
   "descriptor.scriptor.pink": "Les môt sont un floural rose.",
   "descriptor.scriptor.brown": "Un Marron benal possède les môt.",
   "descriptor.scriptor.rainbow": "Les môt change comme un arc-an-ciel.",
-
   "descriptor.scriptor.inventory": "Ce magie vise le inventair du cible.",
   "descriptor.scriptor.first_empty": "Ce magie vise le premier espace vide du inventair.",
   "descriptor.scriptor.first_filled": "Ce magie vise le premier espace remplie du inventair.",
   "descriptor.scriptor.first_matching": "Ce magie vise le premier espace valide du inventair.",
-
   "descriptor.scriptor.caster_inventory": "Ce magie vise le inventair de moi même.",
   "descriptor.scriptor.caster_first_empty": "Ce magie vise sur le premier espace vide de mon inventair.",
   "descriptor.scriptor.caster_first_filled": "Ce magie vise sur le premier espace remplie de mon inventair.",
   "descriptor.scriptor.caster_first_matching": "Ce magie vise sue le premier espace valide de mon inventair.",
-
   "action.scriptor.inflame": "Ce magie chaufe ou enflamme la cible.",
   "action.scriptor.light": "Ce magie place une lumière sur la cible.",
   "action.scriptor.heal": "Ce magie guéris ou répaire la cible.",
@@ -110,7 +97,6 @@
   "action.scriptor.poison": "Ce magie empoisonne la cible.",
   "action.scriptor.slow": "Ce magie relantis la cible.",
   "action.scriptor.color": "Ce magie change le couleur du cible.",
-
   "extra.scriptor.fizzle": "Le grimoire chaufe dans votre main, et pétille.",
   "extra.scriptor.tome_use": "Tu Dépoussiéres le grimoire...",
   "extra.scriptor.tome_description": "Clic-droit pour dévoiler une magie.",
@@ -126,7 +112,6 @@
   "extra.scriptor.use_identify": "Clic-droit celui-ci sur une grimoire pour apprandre plus sur la.",
   "extra.scriptor.tome_identified": "§aIdentified§7. appuyer sur accroupir pour plus de information.",
   "extra.scriptor.condition_not_met": "Tu essayes de ultiliser se magie mais tu arrêtes. ça samble que il y a une condition n'a pas été remplie...",
-
   "lore.scriptor.ingredient": "Ingrédient de fabrication ",
   "lore.scriptor.ingredient_tag": "Combinne avec un Cristal Magique",
   "lore.scriptor.needs_charge": "Doit être chargé avant usé",
@@ -137,11 +122,8 @@
   "lore.scriptor.coordinate_crystal_2": "Clic-droit pour ajouter un position",
   "lore.scriptor.coordinate_crystal_3": "Position: %1$s, %2$s, %3$s",
   "lore.scriptor.crystal_reset": "Frabriquer pour réinitialiser",
-
   "itemGroup.scriptor.scriptor_tab": "Scriptor Magicae",
-
   "entity.scriptor.colorful_sheep": "Mouton",
-
   "advancement.scriptor.tier_1": "Collectionneur du magie",
   "advancement.scriptor.tier_2": "Archiveur arcane",
   "advancement.scriptor.tier_3": "Bibliothécaire du occulte",
@@ -151,7 +133,6 @@
   "advancement.scriptor.tier_3_desc": "Rassembler tout les magie du Étage 3.",
   "advancement.scriptor.tier_4_desc": "Rassembler tout les magie du Étage 4.",
   "advancement.scriptor.tome": "apprenti du arcane",
-
   "patchouli.scriptor.name": "Scriptomagie simple",
   "patchouli.scriptor.landing_text": "Apprandre le monde du lingua magique!"
 }

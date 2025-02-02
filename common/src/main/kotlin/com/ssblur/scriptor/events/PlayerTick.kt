@@ -9,20 +9,20 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 
 object PlayerTick {
-    init {
-        PlayerTickEvent.Before.register{
-            for (item in it.inventory.items) processItem(item, it)
-            for (slot in EquipmentSlot.entries) processItem(it.getItemBySlot(slot), it)
-        }
+  init {
+    PlayerTickEvent.Before.register {
+      for (item in it.inventory.items) processItem(item, it)
+      for (slot in EquipmentSlot.entries) processItem(it.getItemBySlot(slot), it)
     }
+  }
 
-    fun processItem(item: ItemStack, entity: Player) {
-        val level = entity.level()
-        if (item.count > 0) {
-            if (item.has(EXPIRES) && item.get(EXPIRES)!! <= level.gameTime) {
-                item.count = 0
-                level.playSound(null, entity.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS)
-            }
-        }
+  fun processItem(item: ItemStack, entity: Player) {
+    val level = entity.level()
+    if (item.count > 0) {
+      if (item.has(EXPIRES) && item.get(EXPIRES)!! <= level.gameTime) {
+        item.count = 0
+        level.playSound(null, entity.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS)
+      }
     }
+  }
 }

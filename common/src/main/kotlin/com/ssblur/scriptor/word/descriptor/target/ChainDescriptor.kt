@@ -10,7 +10,7 @@ import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
 import java.util.*
 
-class ChainDescriptor : Descriptor(), TargetDescriptor {
+class ChainDescriptor: Descriptor(), TargetDescriptor {
   override fun modifyTargets(originalTargetables: List<Targetable>, owner: Targetable): List<Targetable> {
     var targetables = originalTargetables
     if (targetables.isEmpty()) return targetables

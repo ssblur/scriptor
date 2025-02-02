@@ -12,38 +12,38 @@ import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 
 object ScriptorClientEvents {
-    init {
-        MouseScrollEvent.register{
-            val player = it.minecraft.player
-            if(player != null && player.isShiftKeyDown) {
-                if(player.getItemInHand(InteractionHand.MAIN_HAND).item is BookOfBooks) {
-                    ScriptorNetworkC2S.scroll(ScriptorNetworkC2S.Scroll(InteractionHand.MAIN_HAND, it.amount.y))
-                    it.cancel()
-                } else if (player.getItemInHand(InteractionHand.OFF_HAND).item is BookOfBooks) {
-                    ScriptorNetworkC2S.scroll(ScriptorNetworkC2S.Scroll(InteractionHand.OFF_HAND,  it.amount.y))
-                    it.cancel()
-                }
-            }
+  init {
+    MouseScrollEvent.register {
+      val player = it.minecraft.player
+      if (player != null && player.isShiftKeyDown) {
+        if (player.getItemInHand(InteractionHand.MAIN_HAND).item is BookOfBooks) {
+          ScriptorNetworkC2S.scroll(ScriptorNetworkC2S.Scroll(InteractionHand.MAIN_HAND, it.amount.y))
+          it.cancel()
+        } else if (player.getItemInHand(InteractionHand.OFF_HAND).item is BookOfBooks) {
+          ScriptorNetworkC2S.scroll(ScriptorNetworkC2S.Scroll(InteractionHand.OFF_HAND, it.amount.y))
+          it.cancel()
         }
-        ClientLevelTickEvent.Before.register{ ParticleQueue.process() }
-        ClientLoreEvent.register{ (stack, lore, _, _) ->
-            val charges = MoreObjects.firstNonNull(stack[ScriptorDataComponents.CHARGES], 0)
-            if(charges > 0) {
-                if(charges <= 10)
-                    lore.add(
-                        Component
-                            .translatable("enchantment.scriptor.charged")
-                            .append(" ")
-                            .append(Component.translatable("enchantment.level." + charges))
-                    )
-                else
-                    lore.add(
-                        Component
-                            .translatable("enchantment.scriptor.charged")
-                            .append(" ")
-                            .append("" + charges)
-                    )
-            }
-        }
+      }
     }
+    ClientLevelTickEvent.Before.register { ParticleQueue.process() }
+    ClientLoreEvent.register { (stack, lore, _, _) ->
+      val charges = MoreObjects.firstNonNull(stack[ScriptorDataComponents.CHARGES], 0)
+      if (charges > 0) {
+        if (charges <= 10)
+          lore.add(
+            Component
+              .translatable("enchantment.scriptor.charged")
+              .append(" ")
+              .append(Component.translatable("enchantment.level." + charges))
+          )
+        else
+          lore.add(
+            Component
+              .translatable("enchantment.scriptor.charged")
+              .append(" ")
+              .append("" + charges)
+          )
+      }
+    }
+  }
 }

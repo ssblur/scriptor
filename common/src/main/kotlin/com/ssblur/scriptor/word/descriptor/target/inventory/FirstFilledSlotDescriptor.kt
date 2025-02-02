@@ -7,9 +7,9 @@ import com.ssblur.scriptor.word.descriptor.target.TargetDescriptor
 
 class FirstFilledSlotDescriptor: Descriptor(), TargetDescriptor {
   override fun modifyTargets(originalTargetables: List<Targetable>, owner: Targetable): List<Targetable> {
-    originalTargetables.forEach{
-      if(it is InventoryTargetable)
-          (it as InventoryTargetable).useFirstFilledSlot()
+    originalTargetables.forEach {
+      if (it is InventoryTargetable)
+        (it as InventoryTargetable).useFirstFilledSlot()
     }
     return originalTargetables
   }

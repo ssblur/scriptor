@@ -6,9 +6,9 @@ import com.ssblur.scriptor.helpers.loot.ArtifactItemFunction.ArtifactSerializer
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType
 
 object ScriptorLoot {
-    val ARTIFACT = ScriptorMod.registerLootFunction("artifact") {
-        LootItemFunctionType(MapCodec.assumeMapUnsafe(ArtifactSerializer()))
-    }
+  val ARTIFACT = ScriptorMod.registerLootFunction("artifact") {
+    LootItemFunctionType(MapCodec.assumeMapUnsafe(ArtifactSerializer()))
+  }
 
-    fun register() {}
+  fun register() {}
 }

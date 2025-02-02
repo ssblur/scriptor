@@ -13,7 +13,8 @@
         "When right-clicked onto a Casting Lectern, a Casting Crystal will modify the \"self\" ",
         "target of cast spells. Kind of."
       ]
-    },{
+    },
+    {
       "type": "patchouli:text",
       "text": [
         "Specifically, spells cast from an affected Casting Lectern will be cast from the Lectern, ",

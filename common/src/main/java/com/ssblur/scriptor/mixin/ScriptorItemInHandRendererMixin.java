@@ -31,7 +31,8 @@ public class ScriptorItemInHandRendererMixin {
     int lightLevel,
     CallbackInfo info
   ) {
-    if(itemStack.getItem() instanceof ItemWithCustomRenderer renderable)
-      if(renderable.render(player, i, pitch, hand, swingProgress, itemStack, readyProgress, matrix, buffer, lightLevel)) info.cancel();
+    if (itemStack.getItem() instanceof ItemWithCustomRenderer renderable)
+      if (renderable.render(player, i, pitch, hand, swingProgress, itemStack, readyProgress, matrix, buffer, lightLevel))
+        info.cancel();
   }
 }

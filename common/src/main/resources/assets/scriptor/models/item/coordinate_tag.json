@@ -5,10 +5,18 @@
   },
   "display": {
     "thirdperson_righthand": {
-      "scale": [0.6, 0.6, 0.6]
+      "scale": [
+        0.6,
+        0.6,
+        0.6
+      ]
     },
     "thirdperson_lefthand": {
-      "scale": [0.6, 0.6, 0.6]
+      "scale": [
+        0.6,
+        0.6,
+        0.6
+      ]
     }
   }
 }

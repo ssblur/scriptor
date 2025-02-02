@@ -3,11 +3,11 @@ plugins {
 }
 
 architectury {
-    common(rootProject.enabled_platforms.split(","))
+  common(rootProject.enabled_platforms.split(","))
 }
 
 loom {
-    accessWidenerPath = file("src/main/resources/scriptor.accesswidener")
+  accessWidenerPath = file("src/main/resources/scriptor.accesswidener")
 }
 
 dependencies {
@@ -27,17 +27,17 @@ dependencies {
 }
 
 publishing {
-    publications {
-        mavenCommon(MavenPublication) {
-            artifactId = rootProject.archives_base_name
-            from components.java
-        }
+  publications {
+    mavenCommon(MavenPublication) {
+      artifactId = rootProject.archives_base_name
+      from components.java
     }
+  }
 
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-    repositories {
-        // Add repositories to publish to here.
-    }
+  // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+  repositories {
+    // Add repositories to publish to here.
+  }
 }
 
 repositories {

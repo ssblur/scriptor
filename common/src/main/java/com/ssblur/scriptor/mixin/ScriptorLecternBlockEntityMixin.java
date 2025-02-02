@@ -17,7 +17,7 @@ public class ScriptorLecternBlockEntityMixin {
   @Inject(method = "hasBook", at = @At("HEAD"), cancellable = true)
   public void scriptor$hasBook(CallbackInfoReturnable<Boolean> info) {
     var self = (LecternBlockEntity) (Object) this;
-    if(self.getBook().is(ScriptorTags.INSTANCE.getREADABLE_SPELLBOOKS())) {
+    if (self.getBook().is(ScriptorTags.INSTANCE.getREADABLE_SPELLBOOKS())) {
       info.setReturnValue(true);
     }
   }

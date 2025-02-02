@@ -1,9 +1,10 @@
 ![Banner with Title Scriptor Magicae](https://github.com/ssblur/scriptor/raw/main/banner.png)
 
 # Scriptor Magicae
+
 *Knowledge is power!*
 
-Downloads: 
+Downloads:
 
 [![Modrinth logo](https://raw.githubusercontent.com/ssblur/scriptor/main/doc/assets/modrinth.png)](https://modrinth.com/mod/scriptor-magicae/)
 [![CurseForge logo](https://raw.githubusercontent.com/ssblur/scriptor/main/doc/assets/curseforge.png)](https://www.curseforge.com/minecraft/mc-mods/scriptor-magicae)
@@ -30,20 +31,20 @@ For the average player, plenty of spells can be obtained in each world,
 but for anyone dedicated enough, you can reverse engineer these spells
 and learn how to draft even more powerful spells yourself.
 
-For information on usage and such, check out the docs on 
+For information on usage and such, check out the docs on
 [GitHub](https://github.com/ssblur/scriptor/blob/main/doc/README.md)
 or explore the world in game to learn more about how magic works for
 you.
 
 ## Special Thanks
 
- * [Kasualix](https://github.com/Kasualix)
-   and
-   [Rivmun](https://github.com/Rivmun)
-   for the Simplified Chinese (zh_CN) translation.
- * [thekillergoose](https://github.com/thekillergoose) 
-   for the Canadian French (fr_CA) translation.
- * [KingAlexey212](https://github.com/KingAlexey212) 
-   for Russian (ru_RU) and Ukrainian (uk_UA) translations.
- * Regulars of the [Discord Server](http://dc.blur.lol) who 
-   regularly suggest improvements and get spells named after them.
+* [Kasualix](https://github.com/Kasualix)
+  and
+  [Rivmun](https://github.com/Rivmun)
+  for the Simplified Chinese (zh_CN) translation.
+* [thekillergoose](https://github.com/thekillergoose)
+  for the Canadian French (fr_CA) translation.
+* [KingAlexey212](https://github.com/KingAlexey212)
+  for Russian (ru_RU) and Ukrainian (uk_UA) translations.
+* Regulars of the [Discord Server](http://dc.blur.lol) who
+  regularly suggest improvements and get spells named after them.

@@ -29,97 +29,97 @@ import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 
-class CastingLecternBlock : Block(Properties.ofFullCopy(Blocks.ACACIA_PLANKS).noOcclusion()), EntityBlock {
-    init {
-        this.registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH))
+class CastingLecternBlock: Block(Properties.ofFullCopy(Blocks.ACACIA_PLANKS).noOcclusion()), EntityBlock {
+  init {
+    this.registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH))
+  }
+
+  public override fun useItemOn(
+    itemStack: ItemStack,
+    blockState: BlockState,
+    level: Level,
+    blockPos: BlockPos,
+    player: Player,
+    interactionHand: InteractionHand,
+    blockHitResult: BlockHitResult
+  ): ItemInteractionResult {
+    val blockEntity = level.getBlockEntity(blockPos)
+
+    if (!level.isClientSide && blockEntity is CastingLecternBlockEntity) if (itemStack.isEmpty) {
+      if (!blockEntity.spellbook.isEmpty) {
+        player.setItemInHand(interactionHand, blockEntity.spellbook)
+        blockEntity.spellbook = itemStack
+      } else {
+        player.setItemInHand(interactionHand, blockEntity.focus)
+        blockEntity.focus = itemStack
+      }
+    } else if (itemStack.item is Spellbook) {
+      player.setItemInHand(interactionHand, blockEntity.spellbook)
+      blockEntity.spellbook = itemStack
+      return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
+    } else if (itemStack.item is CasterCrystal) {
+      player.setItemInHand(interactionHand, blockEntity.focus)
+      blockEntity.focus = itemStack
+      return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
     }
+    return ItemInteractionResult.CONSUME
+  }
 
-    public override fun useItemOn(
-        itemStack: ItemStack,
-        blockState: BlockState,
-        level: Level,
-        blockPos: BlockPos,
-        player: Player,
-        interactionHand: InteractionHand,
-        blockHitResult: BlockHitResult
-    ): ItemInteractionResult {
-        val blockEntity = level.getBlockEntity(blockPos)
+  override fun getStateForPlacement(blockPlaceContext: BlockPlaceContext) =
+    defaultBlockState().setValue(FACING, blockPlaceContext.horizontalDirection.opposite)
 
-        if (!level.isClientSide && blockEntity is CastingLecternBlockEntity) if (itemStack.isEmpty) {
-            if (!blockEntity.spellbook.isEmpty) {
-                player.setItemInHand(interactionHand, blockEntity.spellbook)
-                blockEntity.spellbook = itemStack
-            } else {
-                player.setItemInHand(interactionHand, blockEntity.focus)
-                blockEntity.focus = itemStack
-            }
-        } else if (itemStack.item is Spellbook) {
-            player.setItemInHand(interactionHand, blockEntity.spellbook)
-            blockEntity.spellbook = itemStack
-            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
-        } else if (itemStack.item is CasterCrystal) {
-            player.setItemInHand(interactionHand, blockEntity.focus)
-            blockEntity.focus = itemStack
-            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
-        }
-        return ItemInteractionResult.CONSUME
-    }
+  override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
+    builder.add(FACING)
+  }
 
-    override fun getStateForPlacement(blockPlaceContext: BlockPlaceContext) =
-        defaultBlockState().setValue(FACING, blockPlaceContext.horizontalDirection.opposite)
+  override fun newBlockEntity(blockPos: BlockPos, blockState: BlockState): BlockEntity {
+    return ScriptorBlockEntities.CASTING_LECTERN.create(blockPos, blockState)!!
+  }
 
-    override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
-        builder.add(FACING)
-    }
-
-    override fun newBlockEntity(blockPos: BlockPos, blockState: BlockState): BlockEntity {
-        return ScriptorBlockEntities.CASTING_LECTERN.create(blockPos, blockState)!!
-    }
-
-    override fun <T : BlockEntity> getTicker(
-        level: Level,
-        blockState: BlockState,
-        blockEntityType: BlockEntityType<T>
-    ): BlockEntityTicker<T> = BlockEntityTicker {
-        tickerLevel, pos: BlockPos?, state: BlockState?, entity -> CastingLecternBlockEntity.tick(
-        tickerLevel,
-        entity as BlockEntity
+  override fun <T: BlockEntity> getTicker(
+    level: Level,
+    blockState: BlockState,
+    blockEntityType: BlockEntityType<T>
+  ): BlockEntityTicker<T> = BlockEntityTicker { tickerLevel, pos: BlockPos?, state: BlockState?, entity ->
+    CastingLecternBlockEntity.tick(
+      tickerLevel,
+      entity as BlockEntity
     )
-    }
+  }
 
-    public override fun getShape(
-        blockState: BlockState,
-        blockGetter: BlockGetter,
-        blockPos: BlockPos,
-        collisionContext: CollisionContext
-    ) = Shapes.box(0.0625, 0.0, 0.0625, 0.875, 0.9375, 0.875)
+  public override fun getShape(
+    blockState: BlockState,
+    blockGetter: BlockGetter,
+    blockPos: BlockPos,
+    collisionContext: CollisionContext
+  ) = Shapes.box(0.0625, 0.0, 0.0625, 0.875, 0.9375, 0.875)
 
-    override fun onRemove(
-        blockState: BlockState,
-        level: Level,
-        blockPos: BlockPos,
-        blockState2: BlockState,
-        bl: Boolean
-    ) {
-        if (!level.isClientSide) {
-            if (level.getBlockEntity(blockPos) is CastingLecternBlockEntity) {
-                val lectern = level.getBlockEntity(blockPos) as CastingLecternBlockEntity
-                for (item in lectern.items) {
-                    val entity = ItemEntity(
-                        level,
-                        (blockPos.x + 0.5f).toDouble(),
-                        (blockPos.y + 0.5f).toDouble(),
-                        (blockPos.z + 0.5f).toDouble(),
-                        item
-                    )
-                    level.addFreshEntity(entity)
-                }
-            }
+  override fun onRemove(
+    blockState: BlockState,
+    level: Level,
+    blockPos: BlockPos,
+    blockState2: BlockState,
+    bl: Boolean
+  ) {
+    if (!level.isClientSide) {
+      if (level.getBlockEntity(blockPos) is CastingLecternBlockEntity) {
+        val lectern = level.getBlockEntity(blockPos) as CastingLecternBlockEntity
+        for (item in lectern.items) {
+          val entity = ItemEntity(
+            level,
+            (blockPos.x + 0.5f).toDouble(),
+            (blockPos.y + 0.5f).toDouble(),
+            (blockPos.z + 0.5f).toDouble(),
+            item
+          )
+          level.addFreshEntity(entity)
         }
-        super.onRemove(blockState, level, blockPos, blockState2, bl)
+      }
     }
+    super.onRemove(blockState, level, blockPos, blockState2, bl)
+  }
 
-    companion object {
-        val FACING: DirectionProperty = HorizontalDirectionalBlock.FACING
-    }
+  companion object {
+    val FACING: DirectionProperty = HorizontalDirectionalBlock.FACING
+  }
 }

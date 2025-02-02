@@ -8,13 +8,13 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 
 @Suppress("unused")
 object ScriptorFeatures {
-    val ENGRAVING_FEATURE = ScriptorMod.registerFeature("engraving") {
-        object: Feature<NoneFeatureConfiguration?>(NoneFeatureConfiguration.CODEC) {
-            override fun place(context: FeaturePlaceContext<NoneFeatureConfiguration?>): Boolean {
-                return context.level().setBlock(context.origin(), GenerateBlock.generateEngraving(), 0)
-            }
-        }
+  val ENGRAVING_FEATURE = ScriptorMod.registerFeature("engraving") {
+    object: Feature<NoneFeatureConfiguration?>(NoneFeatureConfiguration.CODEC) {
+      override fun place(context: FeaturePlaceContext<NoneFeatureConfiguration?>): Boolean {
+        return context.level().setBlock(context.origin(), GenerateBlock.generateEngraving(), 0)
+      }
     }
+  }
 
-    fun register() {}
+  fun register() {}
 }

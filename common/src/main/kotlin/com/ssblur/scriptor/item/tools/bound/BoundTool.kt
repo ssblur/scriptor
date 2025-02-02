@@ -10,18 +10,21 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Tier
 import net.minecraft.world.level.block.Block
 
-class BoundTool(tier: Tier, tagKey: TagKey<Block>, properties: Properties) :
-    DiggerItem(tier, tagKey, properties) {
-    init {
-        try{ clientInit() } catch (_: NoSuchMethodError) {}
+class BoundTool(tier: Tier, tagKey: TagKey<Block>, properties: Properties):
+  DiggerItem(tier, tagKey, properties) {
+  init {
+    try {
+      clientInit()
+    } catch (_: NoSuchMethodError) {
     }
+  }
 
-    @Environment(EnvType.CLIENT)
-    fun clientInit() {
-        this.registerColor{ itemStack: ItemStack?, t: Int ->
-            if (t == 1) getColor(
-                itemStack!!
-            ) else -0x1
-        }
+  @Environment(EnvType.CLIENT)
+  fun clientInit() {
+    this.registerColor { itemStack: ItemStack?, t: Int ->
+      if (t == 1) getColor(
+        itemStack!!
+      ) else -0x1
     }
+  }
 }

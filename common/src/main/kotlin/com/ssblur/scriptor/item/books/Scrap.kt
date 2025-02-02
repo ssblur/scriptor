@@ -8,22 +8,22 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 
-class Scrap(properties: Properties) : Item(properties) {
-    override fun appendHoverText(
-        itemStack: ItemStack,
-        level: TooltipContext,
-        list: MutableList<Component>,
-        tooltipFlag: TooltipFlag
-    ) {
-        super.appendHoverText(itemStack, level, list, tooltipFlag)
+class Scrap(properties: Properties): Item(properties) {
+  override fun appendHoverText(
+    itemStack: ItemStack,
+    level: TooltipContext,
+    list: MutableList<Component>,
+    tooltipFlag: TooltipFlag
+  ) {
+    super.appendHoverText(itemStack, level, list, tooltipFlag)
 
-        val key = itemStack.get(ScriptorDataComponents.SPELL)
-        if (key != null) {
-            val parts = key.split(":".toRegex(), limit = 2).toTypedArray()
-            if (parts.size == 2) ComponentHelper.updateTooltipWith(list, parts[0] + ".scriptor." + parts[1])
-            else LOGGER.error("Invalid Identify entry: {}", key)
-        }
-
-        ComponentHelper.addCommunityDisclaimer(list, itemStack)
+    val key = itemStack.get(ScriptorDataComponents.SPELL)
+    if (key != null) {
+      val parts = key.split(":".toRegex(), limit = 2).toTypedArray()
+      if (parts.size == 2) ComponentHelper.updateTooltipWith(list, parts[0] + ".scriptor." + parts[1])
+      else LOGGER.error("Invalid Identify entry: {}", key)
     }
+
+    ComponentHelper.addCommunityDisclaimer(list, itemStack)
+  }
 }

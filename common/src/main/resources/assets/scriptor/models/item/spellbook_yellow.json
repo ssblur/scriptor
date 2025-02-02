@@ -1,6 +1,6 @@
 {
-    "parent": "scriptor:item/spellbook",
-	"textures": {
-		"1": "scriptor:item/model_binder_yellow"
-	}
+  "parent": "scriptor:item/spellbook",
+  "textures": {
+    "1": "scriptor:item/model_binder_yellow"
+  }
 }

@@ -12,21 +12,21 @@ import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
 
-class LightBlock : Block(
-    Properties.of()
-        .instabreak()
-        .noLootTable()
-        .sound(SoundType.WOOL)
-        .noCollission()
-        .lightLevel { _: BlockState? -> 15 }
+class LightBlock: Block(
+  Properties.of()
+    .instabreak()
+    .noLootTable()
+    .sound(SoundType.WOOL)
+    .noCollission()
+    .lightLevel { _: BlockState? -> 15 }
 ), EntityBlock {
-    public override fun getShape(
-        blockState: BlockState,
-        blockGetter: BlockGetter,
-        blockPos: BlockPos,
-        collisionContext: CollisionContext
-    ): VoxelShape = Shapes.box(0.25, 0.25, 0.25, 0.75, 0.75, 0.75)
+  public override fun getShape(
+    blockState: BlockState,
+    blockGetter: BlockGetter,
+    blockPos: BlockPos,
+    collisionContext: CollisionContext
+  ): VoxelShape = Shapes.box(0.25, 0.25, 0.25, 0.75, 0.75, 0.75)
 
-    override fun newBlockEntity(blockPos: BlockPos, blockState: BlockState) =
-        ScriptorBlockEntities.LIGHT.create(blockPos, blockState)
+  override fun newBlockEntity(blockPos: BlockPos, blockState: BlockState) =
+    ScriptorBlockEntities.LIGHT.create(blockPos, blockState)
 }

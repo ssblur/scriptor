@@ -11,23 +11,23 @@ import net.minecraft.client.renderer.entity.MobRenderer
 import net.minecraft.resources.ResourceLocation
 
 @Environment(EnvType.CLIENT)
-class ColorfulSheepRenderer(context: EntityRendererProvider.Context) :
-    MobRenderer<ColorfulSheep, SheepModel<ColorfulSheep>?>(
-        context, SheepModel(
-            context.bakeLayer(
-                ModelLayers.SHEEP
-            )
-        ), 0.7f
-    ) {
-    init {
-        this.addLayer(ColorfulSheepFurLayer(this, context.modelSet))
-    }
+class ColorfulSheepRenderer(context: EntityRendererProvider.Context):
+  MobRenderer<ColorfulSheep, SheepModel<ColorfulSheep>?>(
+    context, SheepModel(
+      context.bakeLayer(
+        ModelLayers.SHEEP
+      )
+    ), 0.7f
+  ) {
+  init {
+    this.addLayer(ColorfulSheepFurLayer(this, context.modelSet))
+  }
 
-    override fun getTextureLocation(sheep: ColorfulSheep): ResourceLocation {
-        return SHEEP_LOCATION
-    }
+  override fun getTextureLocation(sheep: ColorfulSheep): ResourceLocation {
+    return SHEEP_LOCATION
+  }
 
-    companion object {
-        private val SHEEP_LOCATION: ResourceLocation = ResourceLocation.parse("textures/entity/sheep/sheep.png")
-    }
+  companion object {
+    private val SHEEP_LOCATION: ResourceLocation = ResourceLocation.parse("textures/entity/sheep/sheep.png")
+  }
 }

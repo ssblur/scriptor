@@ -29,62 +29,62 @@ import org.apache.logging.log4j.LogManager
 
 @Suppress("unused")
 object ScriptorMod: ModInitializer("scriptor") {
-    const val MOD_ID = "scriptor"
-    val LOGGER = LogManager.getLogger(MOD_ID)!!
+  const val MOD_ID = "scriptor"
+  val LOGGER = LogManager.getLogger(MOD_ID)!!
 
-    // Please don't mess with this, I'm not adding anticheat but it's no fun );
-    var COMMUNITY_MODE = false
+  // Please don't mess with this, I'm not adding anticheat but it's no fun );
+  var COMMUNITY_MODE = false
 
-    fun registerCommands() {
-        registerCommand { dispatcher, registry, selection ->
-            DumpDictionaryCommand.register(
-                dispatcher,
-                registry,
-                selection
-            )
-        }
-        registerCommand  { dispatcher, registry, selection ->
-            DumpWordCommand.register(
-                dispatcher,
-                registry,
-                selection
-            )
-        }
-        registerCommand  { dispatcher, registry, selection ->
-            DebugCommand.register(
-                dispatcher,
-                registry,
-                selection
-            )
-        }
+  fun registerCommands() {
+    registerCommand { dispatcher, registry, selection ->
+      DumpDictionaryCommand.register(
+        dispatcher,
+        registry,
+        selection
+      )
     }
-
-    fun init() {
-        ScriptorTabs.register()
-        ScriptorAdvancements.register()
-        ScriptorBlocks.register()
-        ScriptorBlockEntities.register()
-        ScriptorItems.register()
-        ScriptorEntities.register()
-        ScriptorEvents.register()
-        ScriptorEffects.register()
-        ScriptorTrades.register()
-        ScriptorRecipes.register()
-        ScriptorParticles.register()
-        ScriptorLoot.register()
-        ScriptorConfig.register()
-        ScriptorFeatures.register()
-        ScriptorDataComponents.register()
-        ScriptorNetworkC2S.register()
-        ScriptorNetworkS2C.register()
-        ScriptorResources.register()
-
-        registerCommands()
+    registerCommand { dispatcher, registry, selection ->
+      DumpWordCommand.register(
+        dispatcher,
+        registry,
+        selection
+      )
     }
-
-    @Environment(EnvType.CLIENT)
-    fun clientInit() {
-        ScriptorEntities.registerRenderers()
-        ScriptorBlockEntities.registerRenderers()
+    registerCommand { dispatcher, registry, selection ->
+      DebugCommand.register(
+        dispatcher,
+        registry,
+        selection
+      )
     }
+  }
+
+  fun init() {
+    ScriptorTabs.register()
+    ScriptorAdvancements.register()
+    ScriptorBlocks.register()
+    ScriptorBlockEntities.register()
+    ScriptorItems.register()
+    ScriptorEntities.register()
+    ScriptorEvents.register()
+    ScriptorEffects.register()
+    ScriptorTrades.register()
+    ScriptorRecipes.register()
+    ScriptorParticles.register()
+    ScriptorLoot.register()
+    ScriptorConfig.register()
+    ScriptorFeatures.register()
+    ScriptorDataComponents.register()
+    ScriptorNetworkC2S.register()
+    ScriptorNetworkS2C.register()
+    ScriptorResources.register()
+
+    registerCommands()
+  }
+
+  @Environment(EnvType.CLIENT)
+  fun clientInit() {
+    ScriptorEntities.registerRenderers()
+    ScriptorBlockEntities.registerRenderers()
+  }
 }

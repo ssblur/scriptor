@@ -29,88 +29,112 @@ import java.util.*
 
 @Suppress("unused")
 object ScriptorNetworkS2C {
-    data class CreativeBook(val components: List<String>, val slot: Int)
-    val creativeBook = NetworkManager.registerS2C(location("client_cursor_return_bookc"), CreativeBook::class) { payload ->
-        var action: Action? = null
-        var subject: Subject? = null
-        val descriptor = arrayListOf<Descriptor>()
-        for (i in payload.components) {
-            val split = i.replace("\"", "").split(":".toRegex(), limit = 2).toTypedArray()
+  data class CreativeBook(val components: List<String>, val slot: Int)
 
-            when (split[0]) {
-                "action" -> actionRegistry[split[1]]?.let { action = it }
-                "descriptor" -> descriptorRegistry[split[1]]?.let { descriptor.add(it) }
-                "subject" ->  subjectRegistry[split[1]]?.let { subject = it }
-            }
+  val creativeBook =
+    NetworkManager.registerS2C(location("client_cursor_return_bookc"), CreativeBook::class) { payload ->
+      var action: Action? = null
+      var subject: Subject? = null
+      val descriptor = arrayListOf<Descriptor>()
+      for (i in payload.components) {
+        val split = i.replace("\"", "").split(":".toRegex(), limit = 2).toTypedArray()
+
+        when (split[0]) {
+          "action" -> actionRegistry[split[1]]?.let { action = it }
+          "descriptor" -> descriptorRegistry[split[1]]?.let { descriptor.add(it) }
+          "subject" -> subjectRegistry[split[1]]?.let { subject = it }
         }
-        val spell = Spell(subject!!, PartialSpell(action!!, *descriptor.toTypedArray()))
-        val player = Minecraft.getInstance().player!!
-        if (spell.subject is InventorySubject) {
-            (spell.subject as InventorySubject).castOnItem(spell, player, player.containerMenu.items[payload.slot])
-            player.cooldowns.addCooldown(player.containerMenu.carried.item, 5)
-        }
+      }
+      val spell = Spell(subject!!, PartialSpell(action!!, *descriptor.toTypedArray()))
+      val player = Minecraft.getInstance().player!!
+      if (spell.subject is InventorySubject) {
+        (spell.subject as InventorySubject).castOnItem(spell, player, player.containerMenu.items[payload.slot])
+        player.cooldowns.addCooldown(player.containerMenu.carried.item, 5)
+      }
     }
 
-    data class ExtendedTrace(val uuid: UUID)
-    val extendedTrace = NetworkManager.registerS2C(location("client_get_hitscan_data"), ExtendedTrace::class) { payload ->
-        val player: Player = Minecraft.getInstance().player!!
-        val level = player.level()
-        val position = player.eyePosition
-        val angle = player.lookAngle.normalize().multiply(20.0, 20.0, 20.0)
-        val dest = angle.add(position)
-        val blockHitResult = level.clip(ClipContext(position, dest, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player))
+  data class ExtendedTrace(val uuid: UUID)
 
-        val entityHitResult = ProjectileUtil.getEntityHitResult(
-            level,
-            player,
-            position,
-            dest,
-            AABB.ofSize(position.subtract(0.1, 0.1, 0.1), 0.2, 0.2, 0.2).expandTowards(angle).inflate(1.0)
-        ) { _ -> true }
-        if (entityHitResult != null && entityHitResult.type != HitResult.Type.MISS) {
-            if (blockHitResult.type != HitResult.Type.MISS && blockHitResult.distanceTo(player) < entityHitResult.distanceTo(player))
-                returnTrace(Payload(payload.uuid, TYPE.BLOCK, blockHitResult, 0, null))
-            else
-                returnTrace(Payload(payload.uuid, TYPE.ENTITY, blockHitResult, entityHitResult.entity.id, entityHitResult.entity.uuid))
-        } else if (blockHitResult.type != HitResult.Type.MISS)
-            returnTrace(Payload(payload.uuid, TYPE.BLOCK, blockHitResult, 0, null))
-        else
-            returnTrace(Payload(payload.uuid, TYPE.MISS, blockHitResult, 0, null))
-    }
+  val extendedTrace = NetworkManager.registerS2C(location("client_get_hitscan_data"), ExtendedTrace::class) { payload ->
+    val player: Player = Minecraft.getInstance().player!!
+    val level = player.level()
+    val position = player.eyePosition
+    val angle = player.lookAngle.normalize().multiply(20.0, 20.0, 20.0)
+    val dest = angle.add(position)
+    val blockHitResult =
+      level.clip(ClipContext(position, dest, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player))
 
-    data class Trace(val uuid: UUID)
-    val trace = NetworkManager.registerS2C(location("client_get_touch_data"), Trace::class) { payload ->
-        val hit = Minecraft.getInstance().hitResult
-        when (Objects.requireNonNull<HitResult?>(hit).type) {
-            HitResult.Type.BLOCK ->
-                returnTrace(Payload(payload.uuid, TYPE.BLOCK, hit as BlockHitResult, 0, null))
-            HitResult.Type.ENTITY -> {
-                val entity = (hit as EntityHitResult).entity
-                returnTrace(Payload(payload.uuid, TYPE.ENTITY, null, entity.id, entity.uuid))
-            }
-            else -> returnTrace(Payload(payload.uuid, TYPE.MISS, null, 0, null))
-        }
-    }
+    val entityHitResult = ProjectileUtil.getEntityHitResult(
+      level,
+      player,
+      position,
+      dest,
+      AABB.ofSize(position.subtract(0.1, 0.1, 0.1), 0.2, 0.2, 0.2).expandTowards(angle).inflate(1.0)
+    ) { _ -> true }
+    if (entityHitResult != null && entityHitResult.type != HitResult.Type.MISS) {
+      if (blockHitResult.type != HitResult.Type.MISS && blockHitResult.distanceTo(player) < entityHitResult.distanceTo(
+          player
+        )
+      )
+        returnTrace(Payload(payload.uuid, TYPE.BLOCK, blockHitResult, 0, null))
+      else
+        returnTrace(
+          Payload(
+            payload.uuid,
+            TYPE.ENTITY,
+            blockHitResult,
+            entityHitResult.entity.id,
+            entityHitResult.entity.uuid
+          )
+        )
+    } else if (blockHitResult.type != HitResult.Type.MISS)
+      returnTrace(Payload(payload.uuid, TYPE.BLOCK, blockHitResult, 0, null))
+    else
+      returnTrace(Payload(payload.uuid, TYPE.MISS, blockHitResult, 0, null))
+  }
 
-    data class Identify(val components: List<String>, val slot: Int)
-    val identify = NetworkManager.registerS2C(location("client_cursor_return_scrollc"), Identify::class) { payload ->
-        Minecraft.getInstance().player!!.containerMenu.getSlot(payload.slot).item.set(ScriptorDataComponents.IDENTIFIED, payload.components)
-    }
+  data class Trace(val uuid: UUID)
 
-    data class Color(val name: String, val index: Int, val r: Int, val g: Int, val b: Int)
-    val color = NetworkManager.registerS2C(location("client_color_receivec"), Color::class) { payload ->
-        putColor(payload.index, payload.name, intArrayOf(payload.r, payload.g, payload.b))
-    }
+  val trace = NetworkManager.registerS2C(location("client_get_touch_data"), Trace::class) { payload ->
+    val hit = Minecraft.getInstance().hitResult
+    when (Objects.requireNonNull<HitResult?>(hit).type) {
+      HitResult.Type.BLOCK ->
+        returnTrace(Payload(payload.uuid, TYPE.BLOCK, hit as BlockHitResult, 0, null))
 
-    enum class FLAGS { COMMUNITY }
-    data class Flag(val key: FLAGS, val value: Boolean)
-    val flag = NetworkManager.registerS2C(location("client_flag"), Flag::class) { payload ->
-        when (payload.key) {
-            FLAGS.COMMUNITY -> COMMUNITY_MODE = payload.value
-        }
-    }
+      HitResult.Type.ENTITY -> {
+        val entity = (hit as EntityHitResult).entity
+        returnTrace(Payload(payload.uuid, TYPE.ENTITY, null, entity.id, entity.uuid))
+      }
 
-    fun register() {
-        ParticleNetwork
+      else -> returnTrace(Payload(payload.uuid, TYPE.MISS, null, 0, null))
     }
+  }
+
+  data class Identify(val components: List<String>, val slot: Int)
+
+  val identify = NetworkManager.registerS2C(location("client_cursor_return_scrollc"), Identify::class) { payload ->
+    Minecraft.getInstance().player!!.containerMenu.getSlot(payload.slot).item.set(
+      ScriptorDataComponents.IDENTIFIED,
+      payload.components
+    )
+  }
+
+  data class Color(val name: String, val index: Int, val r: Int, val g: Int, val b: Int)
+
+  val color = NetworkManager.registerS2C(location("client_color_receivec"), Color::class) { payload ->
+    putColor(payload.index, payload.name, intArrayOf(payload.r, payload.g, payload.b))
+  }
+
+  enum class FLAGS { COMMUNITY }
+  data class Flag(val key: FLAGS, val value: Boolean)
+
+  val flag = NetworkManager.registerS2C(location("client_flag"), Flag::class) { payload ->
+    when (payload.key) {
+      FLAGS.COMMUNITY -> COMMUNITY_MODE = payload.value
+    }
+  }
+
+  fun register() {
+    ParticleNetwork
+  }
 }

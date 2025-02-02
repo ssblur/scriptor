@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin(BookViewScreen.class)
+@SuppressWarnings("unused")
 public class ScriptorBookViewScreenMixin {
   @Unique
   private static final ResourceLocation BOOK_LOCATION_NEW = ScriptorMod.INSTANCE.location("textures/gui/book.png");
@@ -31,7 +32,7 @@ public class ScriptorBookViewScreenMixin {
   public void scriptor$renderBackground(GuiGraphics guiGraphics, int i, int j, float f, CallbackInfo info) {
     var self = (BookViewScreen) (Object) this;
     int k = (self.width - 192) / 2;
-    if(self.bookAccess == null)
+    if (self.bookAccess == null)
       guiGraphics.blit(BOOK_LOCATION_DISABLED, k, 2, 0, 0, 192, 192);
   }
 }

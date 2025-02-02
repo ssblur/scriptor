@@ -9,12 +9,12 @@ import net.neoforged.neoforge.common.NeoForge;
 
 @Mod(ScriptorMod.MOD_ID)
 public final class ScriptorModNeoForge {
-    public ScriptorModNeoForge(IEventBus bus) {
-      bus.addListener(ScriptorModClientEvents::register);
-      ScriptorMod.INSTANCE.init();
-      if(FMLEnvironment.dist == Dist.CLIENT) {
-        ScriptorMod.INSTANCE.clientInit();
-        NeoForge.EVENT_BUS.register(ScriptorModClientEvents.class);
-      }
+  public ScriptorModNeoForge(IEventBus bus) {
+    bus.addListener(ScriptorModClientEvents::register);
+    ScriptorMod.INSTANCE.init();
+    if (FMLEnvironment.dist == Dist.CLIENT) {
+      ScriptorMod.INSTANCE.clientInit();
+      NeoForge.EVENT_BUS.register(ScriptorModClientEvents.class);
     }
+  }
 }
