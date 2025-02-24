@@ -9,6 +9,7 @@ import net.minecraft.server.network.Filterable;
 import net.minecraft.server.network.FilteredText;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.WritableBookContent;
 import net.minecraft.world.item.component.WrittenBookContent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -38,6 +39,16 @@ public abstract class ScriptorServerGamePacketListenerImplMixin {
       itemStack2.set(DataComponents.WRITTEN_BOOK_CONTENT, new WrittenBookContent(this.filterableFromOutgoing(filteredText), this.player.getName().getString(), 0, list2, true));
       itemStack2.set(ScriptorDataComponents.INSTANCE.getTOME_NAME(), filteredText.filtered());
       this.player.getInventory().setItem(i, itemStack2);
+      info.cancel();
+    }
+  }
+
+  @Inject(method = "updateBookContents", at = @At("HEAD"), cancellable = true)
+  private void scriptor$updateBookContents(List<FilteredText> list, int i, CallbackInfo info) {
+    ItemStack itemStack = this.player.getInventory().getItem(i);
+    if (itemStack.is(ScriptorItems.INSTANCE.getWRITABLE_SPELLBOOK().get())) {
+      List<Filterable<String>> list2 = list.stream().map(this::filterableFromOutgoing).toList();
+      itemStack.set(DataComponents.WRITABLE_BOOK_CONTENT, new WritableBookContent(list2));
       info.cancel();
     }
   }

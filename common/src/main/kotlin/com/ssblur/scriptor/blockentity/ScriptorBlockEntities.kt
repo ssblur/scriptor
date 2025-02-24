@@ -47,6 +47,14 @@ object ScriptorBlockEntities {
     ).build(null)
   }
 
+  val WRITING_TABLE = ScriptorMod.registerBlockEntity("writing_table") {
+    BlockEntityType.Builder.of(
+      { blockPos: BlockPos, blockState: BlockState ->
+        WritingTableBlockEntity(blockPos, blockState)
+      }, ScriptorBlocks.WRITING_TABLE.first.get()
+    ).build(null)
+  }
+
   val PHASED_BLOCK = ScriptorMod.registerBlockEntity("phased_block") {
     BlockEntityType.Builder.of(::PhasedBlockBlockEntity, ScriptorBlocks.PHASED_BLOCK.get()).build(null)
   }

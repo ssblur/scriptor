@@ -18,6 +18,9 @@ object ScriptorDataComponents {
   val BOOK_OF_BOOKS: DataComponentType<BookOfBooksData> = register("book_of_books") { builder ->
     builder.persistent(BookOfBooksData.CODEC).networkSynchronized(BookOfBooksData.STREAM_CODEC)
   }
+  val DICTIONARY_DATA: DataComponentType<DictionaryData> = register("dictionary_data") { builder ->
+    builder.persistent(DictionaryData.CODEC).networkSynchronized(DictionaryData.STREAM_CODEC)
+  }
   val IDENTIFIED: DataComponentType<List<String>?> = register("identified") { builder ->
     builder.persistent(Codec.STRING.listOf()).networkSynchronized(ByteBufCodecs.STRING_UTF8.apply(ByteBufCodecs.list()))
   }

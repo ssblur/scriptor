@@ -13,6 +13,7 @@ object ScriptorBlocks {
   val CHALK = ScriptorMod.registerBlock("chalk") { ChalkBlock() }
   val ENGRAVING = ScriptorMod.registerBlock("engraving") { EngravingBlock() }
   val CASTING_LECTERN = ScriptorMod.registerBlockWithItem("casting_lectern") { CastingLecternBlock() }
+  val WRITING_TABLE = ScriptorMod.registerBlockWithItem("writing_table") { WritingTableBlock() }
   val PHASED_BLOCK = ScriptorMod.registerBlock("phased_block") { PhasedBlock() }
   val GENERATE = ScriptorMod.registerBlock("generate") { GenerateBlock() }
 

@@ -6,4 +6,5 @@ import net.minecraft.world.item.Item
 
 object ScriptorTags {
   val READABLE_SPELLBOOKS: TagKey<Item> = ScriptorMod.registerItemTag("readable_spellbooks")
+  val WRITABLE_SPELLBOOKS: TagKey<Item> = ScriptorMod.registerItemTag("writable_spellbooks")
 }

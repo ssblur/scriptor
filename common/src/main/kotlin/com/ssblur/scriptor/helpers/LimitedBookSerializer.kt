@@ -9,15 +9,25 @@ import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.network.Filterable
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.component.WritableBookContent
 import net.minecraft.world.item.component.WrittenBookContent
 
 object LimitedBookSerializer {
-  @JvmStatic
   fun decodeText(text: WrittenBookContent): String {
     val pages = text.getPages(true)
     val builder = StringBuilder()
     for (component in pages) {
       builder.append(component.string.trimEnd())
+      builder.append(" ")
+    }
+    return builder.toString().trimEnd()
+  }
+
+  fun decodeText(text: WritableBookContent): String {
+    val pages = text.getPages(true)
+    val builder = StringBuilder()
+    for (component in pages) {
+      builder.append(component.trimEnd())
       builder.append(" ")
     }
     return builder.toString().trimEnd()
@@ -53,6 +63,40 @@ object LimitedBookSerializer {
       }
     }
     if (!page.isEmpty()) list.add(filterable(page.toString()))
+
+    return list
+  }
+
+  /**
+   * A helper for encoding a String as a writable book-compatible JSON list.
+   * @param text The text to encode.
+   * @return An encoded JSON string
+   */
+  fun encodeTextWritable(text: String): List<Filterable<String>> {
+    val tokens = text.split("\\s+".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+    val list: MutableList<Filterable<String>> = arrayListOf()
+
+    var pageLength = 0
+    var page = StringBuilder()
+    for (token in tokens) {
+      if (token.length >= 96) {
+        pageLength = 0
+        list.add(Filterable.passThrough(page.toString()))
+        list.add(Filterable.passThrough(token))
+        page = StringBuilder()
+      } else if ((token.length + page.length) >= 96) {
+        pageLength = token.length
+        list.add(Filterable.passThrough(page.toString()))
+        page = StringBuilder()
+        page.append(token)
+        page.append(" ")
+      } else {
+        pageLength += token.length
+        page.append(token)
+        page.append(" ")
+      }
+    }
+    if (!page.isEmpty()) list.add(Filterable.passThrough(page.toString()))
 
     return list
   }
