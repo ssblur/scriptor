@@ -18,7 +18,7 @@ import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.item.ItemStack
 import kotlin.math.sign
 
-class WritingTableScreen(val menu: WritingTableMenu, val inventory: Inventory, component: Component):
+class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, component: Component):
   AbstractContainerScreen<WritingTableMenu>(
     menu,
     inventory,
@@ -48,30 +48,16 @@ class WritingTableScreen(val menu: WritingTableMenu, val inventory: Inventory, c
     renderTooltip(guiGraphics, i, j)
 
     if(menu.book != lastBook) {
-//      if(ItemStack.isSameItemSameComponents(menu.carried, lastBook) && menu.carried.`is`(ScriptorTags.WRITABLE_SPELLBOOKS))
-//        WritingTableNetwork.write(textField.text, menu.pos, held = true)
-//      else {
-//        val items = Minecraft.getInstance().player?.inventory?.items ?: listOf()
-//        for((item, index) in items.zip(items.indices)) {
-//          if(item.`is`(ScriptorTags.WRITABLE_SPELLBOOKS)) {
-//            println(ItemStack.isSameItemSameComponents(item, lastBook))
-//            println(item)
-//            if (ItemStack.isSameItemSameComponents(item, lastBook))
-//              WritingTableNetwork.write(textField.text, menu.pos, slot = index)
-//          }
-//        }
-//      }
-
       lastBook = menu.book
       var book = false
-      lastBook[DataComponents.WRITABLE_BOOK_CONTENT]?.let { text ->
-        textField.text = LimitedBookSerializer.decodeText(text)
-        textField.editable = true
-        book = true
-      }
       lastBook[DataComponents.WRITTEN_BOOK_CONTENT]?.let { text ->
         textField.text = LimitedBookSerializer.decodeText(text)
         textField.editable = false
+        book = true
+      }
+      lastBook[DataComponents.WRITABLE_BOOK_CONTENT]?.let { text ->
+        textField.text = LimitedBookSerializer.decodeText(text)
+        textField.editable = true
         book = true
       }
       if (!book) {
@@ -219,5 +205,11 @@ class WritingTableScreen(val menu: WritingTableMenu, val inventory: Inventory, c
     if(textField.isFocused)
       if(textField.keyReleased(i, j, k)) return true
     return super.keyReleased(i, j, k)
+  }
+
+  override fun charTyped(c: Char, i: Int): Boolean {
+    if(textField.isFocused)
+      if(textField.charTyped(c, i)) return true
+    return super.charTyped(c, i)
   }
 }

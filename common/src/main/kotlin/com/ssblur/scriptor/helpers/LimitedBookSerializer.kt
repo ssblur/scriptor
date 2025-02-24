@@ -20,7 +20,7 @@ object LimitedBookSerializer {
       builder.append(component.string.trimEnd())
       builder.append(" ")
     }
-    return builder.toString().trimEnd()
+    return builder.toString().trim()
   }
 
   fun decodeText(text: WritableBookContent): String {
@@ -30,7 +30,7 @@ object LimitedBookSerializer {
       builder.append(component.trimEnd())
       builder.append(" ")
     }
-    return builder.toString().trimEnd()
+    return builder.toString().trim()
   }
 
   /**
@@ -44,13 +44,14 @@ object LimitedBookSerializer {
 
     var pageLength = 0
     var page = StringBuilder()
+    val perPage = 196
     for (token in tokens) {
-      if (token.length >= 96) {
+      if (token.length >= perPage) {
         pageLength = 0
         list.add(filterable(page.toString()))
         list.add(filterable(token))
         page = StringBuilder()
-      } else if ((token.length + page.length) >= 96) {
+      } else if ((token.length + page.length) >= perPage) {
         pageLength = token.length
         list.add(filterable(page.toString()))
         page = StringBuilder()
@@ -78,13 +79,14 @@ object LimitedBookSerializer {
 
     var pageLength = 0
     var page = StringBuilder()
+    val perPage = 196
     for (token in tokens) {
-      if (token.length >= 96) {
+      if (token.length >= perPage) {
         pageLength = 0
         list.add(Filterable.passThrough(page.toString()))
         list.add(Filterable.passThrough(token))
         page = StringBuilder()
-      } else if ((token.length + page.length) >= 96) {
+      } else if ((token.length + page.length) >= perPage) {
         pageLength = token.length
         list.add(Filterable.passThrough(page.toString()))
         page = StringBuilder()
@@ -96,7 +98,7 @@ object LimitedBookSerializer {
         page.append(" ")
       }
     }
-    if (!page.isEmpty()) list.add(Filterable.passThrough(page.toString()))
+    if (page.isNotEmpty()) list.add(Filterable.passThrough(page.toString()))
 
     return list
   }

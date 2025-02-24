@@ -85,8 +85,8 @@ class TextField(var x: Int, var y: Int, val w: Int, val h: Int, var editable: Bo
 
     fun moveCursorToIndex(i: Int) {
         if(i <= 0 || splitLines().isEmpty()) cursor = CursorPos(0, 0, 0)
-        if(i >= text.length) {
-            moveCursorToIndex(text.length - 1)
+        if(i > text.length) {
+            moveCursorToIndex(text.length)
             return
         }
 
@@ -163,50 +163,61 @@ class TextField(var x: Int, var y: Int, val w: Int, val h: Int, var editable: Bo
     }
 
     override fun keyPressed(i: Int, j: Int, k: Int): Boolean {
-        when(i) {
-            263 -> {
-                moveCursorToIndex(cursor.i - 1)
-                return true
-            }
-            262 -> {
-                moveCursorToIndex(cursor.i + 1)
-                return true
-            }
-            265 -> {
-                moveCursorToY(cursor.y - 1)
-                return true
-            }
-            264 -> {
-                moveCursorToY(cursor.y + 1)
-                return true
-            }
-            268 -> {
-                moveCursorToX(0)
-                return true
-            }
-            269 -> {
-                moveCursorToX(255)
-                return true
-            }
-            259 -> {
-                try {
-                    text = text.substring(0, cursor.i - 1) + text.substring(cursor.i, text.length)
+        if(editable)
+            when(i) {
+                263 -> {
                     moveCursorToIndex(cursor.i - 1)
-                } catch(_: StringIndexOutOfBoundsException) {}
-                return true
+                    return true
+                }
+                262 -> {
+                    moveCursorToIndex(cursor.i + 1)
+                    return true
+                }
+                265 -> {
+                    moveCursorToY(cursor.y - 1)
+                    return true
+                }
+                264 -> {
+                    moveCursorToY(cursor.y + 1)
+                    return true
+                }
+                268 -> {
+                    moveCursorToX(0)
+                    return true
+                }
+                269 -> {
+                    moveCursorToX(255)
+                    return true
+                }
+                259 -> {
+                    try {
+                        text = text.substring(0, cursor.i - 1) + text.substring(cursor.i, text.length)
+                        moveCursorToIndex(cursor.i - 1)
+                    } catch(_: StringIndexOutOfBoundsException) {}
+                    return true
+                }
+                261 -> {
+                    try {
+                        text = text.substring(0, cursor.i) + text.substring(cursor.i + 1, text.length)
+                        moveCursorToIndex(cursor.i)
+                    } catch(_: StringIndexOutOfBoundsException) {}
+                    return true
+                }
+                69 -> return true
             }
-            261 -> {
-                try {
-                    text = text.substring(0, cursor.i) + text.substring(cursor.i + 1, text.length)
-                    moveCursorToIndex(cursor.i)
-                } catch(_: StringIndexOutOfBoundsException) {}
-                return true
-            }
-        }
         return super.keyPressed(i, j, k)
     }
 
     override fun keyReleased(i: Int, j: Int, k: Int): Boolean {
         return super.keyReleased(i, j, k)
+    }
+
+    override fun charTyped(c: Char, i: Int): Boolean {
+        if(editable) {
+            text = text.substring(0, cursor.i) + c + text.substring(cursor.i, text.length)
+            moveCursorToIndex(cursor.i + 1)
+            if (cursor.y > scrollOffset + 7) scrollOffset = cursor.y - 7
+        }
+        return super.charTyped(c, i)
     }
 }
