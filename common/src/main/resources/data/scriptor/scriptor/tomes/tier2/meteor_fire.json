@@ -1,0 +1,15 @@
+{
+  "name": "tome.scriptor.meteor_fire",
+  "author": "Kramer",
+  "tier": 2,
+  "item": "scriptor:spellbook_red",
+  "spell": {
+    "subject": "meteor",
+    "spells": [
+      {
+        "action": "inflame",
+        "descriptors": []
+      }
+    ]
+  }
+}
