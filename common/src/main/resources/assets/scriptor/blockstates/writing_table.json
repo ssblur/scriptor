@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "scriptor:block/writing_table",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "scriptor:block/writing_table",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "scriptor:block/writing_table",
+      "y": 0
+    },
+    "facing=west": {
+      "model": "scriptor:block/writing_table",
+      "y": 90
+    }
+  }
+}

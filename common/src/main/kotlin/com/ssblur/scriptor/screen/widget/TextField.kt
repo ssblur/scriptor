@@ -18,7 +18,14 @@ import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sign
 
-class TextField(var x: Int, var y: Int, val w: Int, val h: Int, var editable: Boolean = true): GuiEventListener, NarratableEntry, Renderable {
+class TextField(
+    var x: Int,
+    var y: Int,
+    val w: Int,
+    val h: Int,
+    var editable: Boolean = true,
+    var multiline: Boolean = true
+): GuiEventListener, NarratableEntry, Renderable {
     data class CursorPos(val x: Int, val y: Int, val i: Int)
     private var textInternal: String = ""
     var text: String
@@ -66,20 +73,24 @@ class TextField(var x: Int, var y: Int, val w: Int, val h: Int, var editable: Bo
     }
 
     private fun splitLines(): List<FormattedText> {
-        if(lines == null) {
-            lines = font?.splitter?.splitLines(FormattedText.of(text), w, Style.EMPTY)
-            lines?.let {
-                val starts = mutableListOf<Int>()
-                var total = 0
-                for (line in it) {
-                    starts.add(total)
-                    total += line.string.length
-                    while(total < text.length && text[total].isWhitespace())
-                        total++
+        if(lines == null)
+            if(multiline) {
+                lines = font?.splitter?.splitLines(FormattedText.of(text), w, Style.EMPTY)
+                lines?.let {
+                    val starts = mutableListOf<Int>()
+                    var total = 0
+                    for (line in it) {
+                        starts.add(total)
+                        total += line.string.length
+                        while(total < text.length && text[total].isWhitespace())
+                            total++
+                    }
+                    lineStartIndices = starts
                 }
-                lineStartIndices = starts
+            } else {
+                lineStartIndices = listOf(0)
+                lines = listOf(FormattedText.of(text))
             }
-        }
         return lines ?: listOf()
     }
 
@@ -130,7 +141,7 @@ class TextField(var x: Int, var y: Int, val w: Int, val h: Int, var editable: Bo
                     if((cursor.y - scrollOffset) >= 0 && (cursor.y - scrollOffset) <  8)
                         lines?.let { lines ->
                             val cx = font.splitter.stringWidth(lines[cursor.y].string.substring(0, cursor.x)).toInt() + x - 1
-                            guiGraphics.drawString(font, "|", cx, cy, 0xaaaaaa, false)
+                            if(multiline && focus) guiGraphics.drawString(font, "|", cx, cy, 0xaaaaaa, false)
                         }
                 } catch (_: StringIndexOutOfBoundsException) {
                 } catch(_: IndexOutOfBoundsException) {}
@@ -142,7 +153,7 @@ class TextField(var x: Int, var y: Int, val w: Int, val h: Int, var editable: Bo
                     skip--
                     continue
                 }
-                if((cy + 2*font.lineHeight) < (y + h))
+                if((cy + 2*font.lineHeight) < (y + h) || !multiline)
                     guiGraphics.drawString(font, line.string, x, cy, 0x0000000, false)
                 else {
                     guiGraphics.drawString(font, Component.translatable("extra.scriptor.scroll"), x, cy, 0x777777, false)
@@ -154,16 +165,18 @@ class TextField(var x: Int, var y: Int, val w: Int, val h: Int, var editable: Bo
     }
 
     override fun mouseScrolled(d: Double, e: Double, f: Double, g: Double): Boolean {
-        scrollOffset -= g.sign.toInt()
-        if(splitLines().size >= 2)
-            scrollOffset = scrollOffset.coerceIn(0, splitLines().size - 1)
-        else
-            scrollOffset = 0
+        if(multiline) {
+            scrollOffset -= g.sign.toInt()
+            if (splitLines().size >= 2)
+                scrollOffset = scrollOffset.coerceIn(0, splitLines().size - 1)
+            else
+                scrollOffset = 0
+        }
         return super.mouseScrolled(d, e, f, g)
     }
 
     override fun keyPressed(i: Int, j: Int, k: Int): Boolean {
-        if(editable)
+        if(editable && isFocused)
             when(i) {
                 263 -> {
                     moveCursorToIndex(cursor.i - 1)
@@ -174,11 +187,11 @@ class TextField(var x: Int, var y: Int, val w: Int, val h: Int, var editable: Bo
                     return true
                 }
                 265 -> {
-                    moveCursorToY(cursor.y - 1)
+                    if(multiline) moveCursorToY(cursor.y - 1)
                     return true
                 }
                 264 -> {
-                    moveCursorToY(cursor.y + 1)
+                    if(multiline) moveCursorToY(cursor.y + 1)
                     return true
                 }
                 268 -> {
@@ -213,7 +226,8 @@ class TextField(var x: Int, var y: Int, val w: Int, val h: Int, var editable: Bo
     }
 
     override fun charTyped(c: Char, i: Int): Boolean {
-        if(editable) {
+        if(editable && isFocused) {
+            if(cursor.i > text.length) moveCursorToIndex(text.length)
             text = text.substring(0, cursor.i) + c + text.substring(cursor.i, text.length)
             moveCursorToIndex(cursor.i + 1)
             if (cursor.y > scrollOffset + 7) scrollOffset = cursor.y - 7

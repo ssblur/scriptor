@@ -29,6 +29,11 @@ object ScriptorItems {
       registerItem("obfuscated_spellbook_${it.nameAllLowerCase}") { Spellbook(Item.Properties()) }
   }
 
+  val UNWRITTEN_SCROLL = registerItem("unwritten_scroll") {
+    Ingredient(Item.Properties(), "lore.scriptor.scroll")
+  }.tab(ScriptorTabs.SCRIPTOR_TAB)
+  val SPELL_SCROLL = registerItem("spell_scroll") { SpellScroll(Item.Properties()) }
+
   val ARTIFACT_1 = registerItem("artifact_1") { Artifact(Item.Properties()) }
   val ARTIFACT_2 = registerItem("artifact_2") { Artifact(Item.Properties()) }
   val ARTIFACT_3 = registerItem("artifact_3") { Artifact(Item.Properties()) }
@@ -47,11 +52,13 @@ object ScriptorItems {
     WritableSpellbook(Item.Properties())
   }.tab(ScriptorTabs.SCRIPTOR_TAB)
   val SCRAP = registerItem("scrap") { Scrap(Item.Properties()) }
-  val CHALK = registerItem("chalk") { Chalk(Item.Properties()) }.tab(ScriptorTabs.SCRIPTOR_TAB)
+  val CHALK = registerItem("chalk") { Chalk(Item.Properties()) }
+      .tab(ScriptorTabs.SCRIPTOR_TAB)
   val ENGRAVING_TOOL = registerItem("engraving_tool") { EngravingTool(Item.Properties()) }
+    .tab(ScriptorTabs.SCRIPTOR_TAB)
   val DICTIONARY = registerItem("dictionary") {
-    Ingredient(Item.Properties(), "lore.scriptor.dictionary", "lore.scriptor.dictionary_2")
-  }
+    Ingredient(Item.Properties().stacksTo(1), "lore.scriptor.dictionary", "lore.scriptor.dictionary_2")
+  }.tab(ScriptorTabs.SCRIPTOR_TAB)
 
   val TOME_TIER1 = registerItem("tome_tier1") { AncientSpellbook(Item.Properties(), 1) }
   val TOME_TIER2 = registerItem("tome_tier2") { AncientSpellbook(Item.Properties(), 2) }
@@ -66,7 +73,7 @@ object ScriptorItems {
     registerItem("identify_scroll") { IdentifyScroll(Item.Properties()) }.tab(ScriptorTabs.SCRIPTOR_TAB)
 
   val EMPTY_CASTING_CRYSTAL = registerItem("empty_casting_crystal") {
-    Ingredient(Item.Properties(), "lore.scriptor.ingredient", "lore.scriptor.needs_charge")
+    Ingredient(Item.Properties(), "lore.scriptor.ingredient", "lore.scriptor.unused")
   }.tab(ScriptorTabs.SCRIPTOR_TAB)
   val CASTING_CRYSTAL = registerItem("casting_crystal") {
     Ingredient(Item.Properties(), "lore.scriptor.ingredient")

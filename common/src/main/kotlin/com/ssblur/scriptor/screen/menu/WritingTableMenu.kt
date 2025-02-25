@@ -27,12 +27,12 @@ class WritingTableMenu(i: Int, val inventory: Inventory, val table: WritingTable
 
   init {
     val container = table ?: SimpleContainer(2)
-    this.addSlot(object: Slot(container, DICTIONARY_SLOT, 204, 105){
+    this.addSlot(object: Slot(container, DICTIONARY_SLOT, 180, 105){
       override fun getNoItemIcon(): Pair<ResourceLocation, ResourceLocation> {
         return Pair(InventoryMenu.BLOCK_ATLAS, ScriptorMod.location("item/empty_dictionary_slot"))
       }
     })
-    this.addSlot(object: Slot(container, BOOK_SLOT, 204, 129){
+    this.addSlot(object: Slot(container, BOOK_SLOT, 180, 129){
       override fun getNoItemIcon(): Pair<ResourceLocation, ResourceLocation> {
         return Pair(InventoryMenu.BLOCK_ATLAS, ScriptorMod.location("item/empty_book_slot"))
       }
@@ -58,8 +58,8 @@ class WritingTableMenu(i: Int, val inventory: Inventory, val table: WritingTable
   }
 
   companion object {
-    private const val DICTIONARY_SLOT = WritingTableBlockEntity.DICTIONARY_SLOT
-    private const val BOOK_SLOT = WritingTableBlockEntity.BOOK_SLOT
+    const val DICTIONARY_SLOT = WritingTableBlockEntity.DICTIONARY_SLOT
+    const val BOOK_SLOT = WritingTableBlockEntity.BOOK_SLOT
     private const val X_SLOT = 2
     private const val Y_SLOT = 3
     private const val Z_SLOT = 4
@@ -91,8 +91,6 @@ class WritingTableMenu(i: Int, val inventory: Inventory, val table: WritingTable
   }
 
   override fun moveItemStackTo(itemStack: ItemStack, i: Int, j: Int, bl: Boolean): Boolean {
-    // TODO: if this is a writable book in the book slot, save data
-    // TODO: if this is a dictionary in the dictionary slot, save data
     return super.moveItemStackTo(itemStack, i, j, bl)
   }
 

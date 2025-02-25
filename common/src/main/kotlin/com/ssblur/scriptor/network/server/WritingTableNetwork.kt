@@ -5,13 +5,17 @@ import com.ssblur.scriptor.blockentity.WritingTableBlockEntity
 import com.ssblur.scriptor.data.components.DictionaryData
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.helpers.LimitedBookSerializer
+import com.ssblur.scriptor.item.ScriptorItems
 import com.ssblur.scriptor.screen.menu.WritingTableMenu
 import com.ssblur.unfocused.network.NetworkManager
 import net.minecraft.core.BlockPos
 import net.minecraft.core.component.DataComponents
+import net.minecraft.server.network.Filterable
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.Items
 import net.minecraft.world.item.component.WritableBookContent
+import net.minecraft.world.item.component.WrittenBookContent
 
 object WritingTableNetwork {
     data class DictionaryMessage(val key: String, val value: String)
@@ -81,5 +85,35 @@ object WritingTableNetwork {
             }
         }
         writeBook(BookMessage(chunk, pos, slot, held, container, !first))
+    }
+
+    data class SignBookMessage(val title: String)
+    val signBook = NetworkManager.registerC2S(location("sign_book"), SignBookMessage::class) { payload, player ->
+        val menu = player.containerMenu
+        if(menu is WritingTableMenu && menu.stillValid(player)) {
+            val item = menu.book
+            val text = LimitedBookSerializer.decodeText(item[DataComponents.WRITABLE_BOOK_CONTENT] ?: return@registerC2S)
+            val content = WrittenBookContent(
+                Filterable.passThrough(payload.title),
+                player.name.string,
+                0,
+                LimitedBookSerializer.encodeText(text),
+                false
+            )
+
+            val out: ItemStack
+            if(item.item == Items.WRITABLE_BOOK) {
+                out = ItemStack(Items.WRITTEN_BOOK)
+            } else if(item.item == ScriptorItems.WRITABLE_SPELLBOOK.get()) {
+                out = ItemStack(ScriptorItems.SPELLBOOK)
+            } else if(item.item == ScriptorItems.UNWRITTEN_SCROLL.get()) {
+                out = ItemStack(ScriptorItems.SPELL_SCROLL)
+            } else {
+                return@registerC2S
+            }
+            out.count = item.count
+            out[DataComponents.WRITTEN_BOOK_CONTENT] = content
+            menu.setItem(WritingTableMenu.BOOK_SLOT, menu.incrementStateId(), out)
+        }
     }
 }

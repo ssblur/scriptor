@@ -19,28 +19,36 @@ import net.minecraft.world.item.ItemStack
 object SpellbookHelper {
   var SPELLBOOKS: List<Item> = ArrayList()
 
-  fun castFromItem(itemStack: ItemStack, player: Player): Boolean {
+  fun castFromItem(
+    itemStack: ItemStack,
+    player: Player,
+    maxCost: Int? = null,
+    costMultiplier: Int? = null,
+    cooldownFunc: (Player, Int) -> Unit = ::addCooldown
+  ): Boolean {
+    val adjustedMaxCost = maxCost ?: ScriptorConfig.TOME_MAX_COST()
+    val adjustedCostMultiplier = (costMultiplier ?: ScriptorConfig.TOME_COOLDOWN_MULTIPLIER()).toDouble() / 100.0
     val text = itemStack.get(DataComponents.WRITTEN_BOOK_CONTENT)
     val level = player.level()
     if (text == null || level !is ServerLevel) return false
 
-    level.playSound(
-      null,
-      player.blockPosition(),
-      SoundEvents.EVOKER_CAST_SPELL,
-      SoundSource.PLAYERS,
-      0.4f,
-      level.getRandom().nextFloat() * 1.2f + 0.6f
-    )
-
     val spell = computeIfAbsent(level).parse(decodeText(text))
     if (spell != null) {
-      if (spell.cost() > ScriptorConfig.TOME_MAX_COST()) {
+      spell.deduplicatedDescriptorsForSubjects()
+      level.playSound(
+        null,
+        player.blockPosition(),
+        SoundEvents.EVOKER_CAST_SPELL,
+        SoundSource.PLAYERS,
+        0.4f,
+        level.getRandom().nextFloat() * 1.2f + 0.6f
+      )
+      if (spell.cost() > adjustedMaxCost) {
         player.sendSystemMessage(Component.translatable("extra.scriptor.fizzle"))
         ScriptorAdvancements.FIZZLE.get().trigger(player as ServerPlayer)
-        if (!player.isCreative()) addCooldown(
+        if (!player.isCreative()) cooldownFunc(
           player,
-          Math.round(350.0 * ScriptorConfig.TOME_COOLDOWN_MULTIPLIER().toDouble() / 100.0).toInt()
+          Math.round(350.0 * adjustedCostMultiplier).toInt()
         )
         return true
       }
@@ -51,8 +59,9 @@ object SpellbookHelper {
           if (instance.effect.value() is EmpoweredStatusEffect)
             for (i in 0..instance.amplifier) costScale *= (instance.effect.value() as EmpoweredStatusEffect).scale.toDouble()
         val adjustedCost =
-          costScale * spell.cost() * (ScriptorConfig.TOME_COOLDOWN_MULTIPLIER().toDouble() / 100.0)
-        addCooldown(player, Math.round(adjustedCost * 7).toInt())
+          costScale * spell.cost() * adjustedCostMultiplier
+        cooldownFunc(player, Math.round(adjustedCost * 7).toInt())
+        return true
       }
       return false
     }

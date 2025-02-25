@@ -13,10 +13,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
-import net.minecraft.world.level.block.BaseEntityBlock
-import net.minecraft.world.level.block.Block
-import net.minecraft.world.level.block.Blocks
-import net.minecraft.world.level.block.HorizontalDirectionalBlock
+import net.minecraft.world.level.block.*
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityTicker
 import net.minecraft.world.level.block.entity.BlockEntityType
@@ -73,7 +70,7 @@ class WritingTableBlock: BaseEntityBlock(Properties.ofFullCopy(Blocks.ACACIA_PLA
     blockGetter: BlockGetter,
     blockPos: BlockPos,
     collisionContext: CollisionContext
-  ) = Shapes.box(0.0625, 0.0, 0.0625, 0.875, 0.9375, 0.875)
+  ) = Shapes.box(0.0625, 0.0, 0.0625, 0.875, 0.5, 0.875)
 
   override fun codec(): MapCodec<out BaseEntityBlock> = MapCodec.unit(this)
 
@@ -84,7 +81,7 @@ class WritingTableBlock: BaseEntityBlock(Properties.ofFullCopy(Blocks.ACACIA_PLA
     blockState2: BlockState,
     bl: Boolean
   ) {
-    if (!level.isClientSide) { // TODO
+    if (!level.isClientSide) {
       if (level.getBlockEntity(blockPos) is CastingLecternBlockEntity) {
         val table = level.getBlockEntity(blockPos) as CastingLecternBlockEntity
         for (item in table.items) {
@@ -101,6 +98,8 @@ class WritingTableBlock: BaseEntityBlock(Properties.ofFullCopy(Blocks.ACACIA_PLA
     }
     super.onRemove(blockState, level, blockPos, blockState2, bl)
   }
+
+  override fun getRenderShape(blockState: BlockState) = RenderShape.MODEL
 
   companion object {
     val FACING: DirectionProperty = HorizontalDirectionalBlock.FACING

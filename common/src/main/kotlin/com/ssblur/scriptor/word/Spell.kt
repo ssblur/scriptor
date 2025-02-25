@@ -159,5 +159,6 @@ class Spell(val subject: Subject, vararg val spells: PartialSpell) {
     return words
   }
 
-  fun deduplicatedDescriptorsForSubjects(): Array<Descriptor> = spells[0].deduplicatedDescriptors()
+  fun deduplicatedDescriptorsForSubjects(): Array<Descriptor> =
+    spells.flatMap { it.descriptors.toList() }.distinct().toTypedArray()
 }
