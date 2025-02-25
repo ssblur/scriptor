@@ -15,10 +15,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
-import net.minecraft.world.level.block.Block
-import net.minecraft.world.level.block.Blocks
-import net.minecraft.world.level.block.EntityBlock
-import net.minecraft.world.level.block.HorizontalDirectionalBlock
+import net.minecraft.world.level.block.*
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityTicker
 import net.minecraft.world.level.block.entity.BlockEntityType
@@ -27,12 +24,9 @@ import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.DirectionProperty
 import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.shapes.CollisionContext
-import net.minecraft.world.phys.shapes.Shapes
 
-class CastingLecternBlock: Block(Properties.ofFullCopy(Blocks.ACACIA_PLANKS).noOcclusion()), EntityBlock {
-  init {
-    this.registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH))
-  }
+class CastingLecternBlock: HorizontalDirectionalBlock(Properties.ofFullCopy(Blocks.SPRUCE_PLANKS).noOcclusion()), EntityBlock {
+  override fun codec() = CODEC
 
   public override fun useItemOn(
     itemStack: ItemStack,
@@ -92,7 +86,13 @@ class CastingLecternBlock: Block(Properties.ofFullCopy(Blocks.ACACIA_PLANKS).noO
     blockGetter: BlockGetter,
     blockPos: BlockPos,
     collisionContext: CollisionContext
-  ) = Shapes.box(0.0625, 0.0, 0.0625, 0.875, 0.9375, 0.875)
+  ) = when (blockState.getValue(LecternBlock.FACING)) {
+    Direction.NORTH -> LecternBlock.SHAPE_NORTH
+    Direction.SOUTH -> LecternBlock.SHAPE_SOUTH
+    Direction.EAST -> LecternBlock.SHAPE_EAST
+    Direction.WEST -> LecternBlock.SHAPE_WEST
+    else -> LecternBlock.SHAPE_COMMON
+  }
 
   override fun onRemove(
     blockState: BlockState,
@@ -121,5 +121,6 @@ class CastingLecternBlock: Block(Properties.ofFullCopy(Blocks.ACACIA_PLANKS).noO
 
   companion object {
     val FACING: DirectionProperty = HorizontalDirectionalBlock.FACING
+    val CODEC = simpleCodec { CastingLecternBlock() }
   }
 }
