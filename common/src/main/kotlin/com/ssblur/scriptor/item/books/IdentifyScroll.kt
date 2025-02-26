@@ -31,9 +31,11 @@ class IdentifyScroll(properties: Properties): Item(properties) {
 
       if (player.isCreative) {
         val book = slot.item.get(DataComponents.WRITTEN_BOOK_CONTENT)
-        val spell = LimitedBookSerializer.decodeText(book!!)
-        ScriptorNetworkC2S.creativeIdentify(CreativeIdentify(slot.index, spell))
-        player.cooldowns.addCooldown(this, 10)
+        book?.let {
+          val spell = LimitedBookSerializer.decodeText(it)
+          ScriptorNetworkC2S.creativeIdentify(CreativeIdentify(slot.index, spell))
+          player.cooldowns.addCooldown(this, 10)
+        }
       } else ScriptorNetworkC2S.identify(Identify(slot.index))
       return true
     }
