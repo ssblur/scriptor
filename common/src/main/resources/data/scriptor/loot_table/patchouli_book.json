@@ -1,5 +1,19 @@
 {
   "type": "advancement_reward",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "patchouli"
+    }
+  ],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "patchouli"
+      ]
+    }
+  ],
   "pools": [
     {
       "rolls": 1,
@@ -9,19 +23,13 @@
           "name": "patchouli:guide_book",
           "functions": [
             {
-              "function": "set_nbt",
-              "tag": "{\"patchouli:book\": \"scriptor:scriptor_guide\"}"
+              "function": "set_components",
+              "components": {
+                "patchouli:book": "scriptor:scriptor_guide"
+              }
             }
           ]
         }
-      ]
-    }
-  ],
-  "fabric:load_conditions": [
-    {
-      "condition": "fabric:registry_contains",
-      "values": [
-        "patchouli:guide_book"
       ]
     }
   ]
