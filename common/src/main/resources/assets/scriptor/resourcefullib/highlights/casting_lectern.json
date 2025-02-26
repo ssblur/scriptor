@@ -1,0 +1,19 @@
+{
+    "variants": {
+        "facing=north": {
+            "highlight": "minecraft:lectern_shape"
+        },
+        "facing=east": {
+            "highlight": "minecraft:lectern_shape",
+            "rotation": { "y": 90 }
+        },
+        "facing=south": {
+            "highlight": "minecraft:lectern_shape",
+            "rotation": { "y": 180 }
+        },
+        "facing=west": {
+            "highlight": "minecraft:lectern_shape",
+            "rotation": { "y": 270 }
+        }
+    }
+}
