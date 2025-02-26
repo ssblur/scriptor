@@ -55,7 +55,7 @@ allprojects {
   archivesBaseName = rootProject.archives_base_name
   def matcher = gitVersion() =~ /^v(\d+\.\d+\.\d+.*)/
   matcher.find()
-  if (matcher.groupCount() >= 1)
+  if (matcher.groupCount() >= 2)
     version = matcher.group(1)
   else
     version = "dev"

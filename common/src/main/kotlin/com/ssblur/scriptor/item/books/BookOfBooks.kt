@@ -154,14 +154,13 @@ class BookOfBooks(properties: Properties, var capacity: Int): Item(properties),
 
     fun add(book: ItemStack, item: ItemStack) {
       if (item.isEmpty) return
-      val insert = item.copy()
+      val insert = item.copyWithCount(1)
       item.shrink(1)
 
       var data = book.get(ScriptorDataComponents.BOOK_OF_BOOKS)
       if (data == null) data = BookOfBooksData(listOf(), 0)
 
-      val list = ArrayList(data.items)
-
+      val list = data.items.toMutableList()
       list.add(insert)
       book.set(ScriptorDataComponents.BOOK_OF_BOOKS, BookOfBooksData(list, data.active))
     }

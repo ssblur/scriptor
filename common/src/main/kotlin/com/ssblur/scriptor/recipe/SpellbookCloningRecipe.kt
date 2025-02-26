@@ -33,7 +33,7 @@ class SpellbookCloningRecipe(category: CraftingBookCategory): CustomRecipe(categ
     var spellbook = ItemStack.EMPTY
     for (slot in 0 until container.size())
       if (container.getItem(slot).item is Spellbook) spellbook = container.getItem(slot)
-    val copy = spellbook.copy()
+    val copy = spellbook.copyWithCount(1)
     val book = copy.get(DataComponents.WRITTEN_BOOK_CONTENT)
     copy.set(
       DataComponents.WRITTEN_BOOK_CONTENT,
@@ -56,8 +56,7 @@ class SpellbookCloningRecipe(category: CraftingBookCategory): CustomRecipe(categ
       }
 
       if (itemStack.item is Spellbook) {
-        val itemStack2 = itemStack.copy()
-        itemStack2.count = itemStack.count
+        val itemStack2 = itemStack.copyWithCount(1)
         nonNullList[i] = itemStack2
       }
     }
