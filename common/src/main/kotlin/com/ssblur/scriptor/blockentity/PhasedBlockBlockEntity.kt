@@ -38,7 +38,6 @@ class PhasedBlockBlockEntity(blockPos: BlockPos, blockState: BlockState):
       } else {
         level!!.removeBlockEntity(blockPos)
       }
-//            level!!.sendBlockUpdated(blockPos, blockState, phasedBlockState!!, 7)
     }
   }
 

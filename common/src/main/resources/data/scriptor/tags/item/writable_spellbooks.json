@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "scriptor:writable_spellbook",
+    "minecraft:writable_book",
+    "scriptor:unwritten_scroll"
+  ]
+}

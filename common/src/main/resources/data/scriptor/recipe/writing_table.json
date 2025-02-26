@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "bp ",
+    "---",
+    "-#-"
+  ],
+  "key": {
+    "-": {
+      "tag": "minecraft:wooden_slabs"
+    },
+    "b": {
+      "item": "minecraft:glass_bottle"
+    },
+    "p": {
+      "item": "minecraft:paper"
+    },
+    "#": {
+      "item": "minecraft:purple_wool"
+    }
+  },
+  "result": {
+    "id": "scriptor:writing_table",
+    "count": 1
+  }
+}

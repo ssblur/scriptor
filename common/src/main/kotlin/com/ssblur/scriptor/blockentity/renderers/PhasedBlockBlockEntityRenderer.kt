@@ -22,7 +22,7 @@ class PhasedBlockBlockEntityRenderer(var context: BlockEntityRendererProvider.Co
     j: Int
   ) {
     @Suppress("SENSELESS_COMPARISON")
-    if (matrix == null) return
+    if (matrix == null || blockEntity == null) return
     val blockState = blockEntity.phasedBlockState
     val level = blockEntity.level
 

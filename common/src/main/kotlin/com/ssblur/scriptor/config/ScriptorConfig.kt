@@ -5,6 +5,8 @@ import com.ssblur.scriptor.ScriptorMod.config
 object ScriptorConfig {
   val TOME_MAX_COST = config.registerInt("tome_max_cost", 50)
   val TOME_COOLDOWN_MULTIPLIER = config.registerInt("tome_cooldown_multiplier", 100)
+  val SCROLL_MAX_COST = config.registerInt("scroll_max_cost", 75)
+  val SCROLL_COOLDOWN_MULTIPLIER = config.registerInt("scroll_cooldown_multiplier", 50)
   val CHALK_MAX_COST = config.registerInt("chalk_max_cost", 250)
   val CASTING_LECTERN_MAX_COST = config.registerInt("casting_lectern_max_cost", 25)
   val CASTING_LECTERN_COOLDOWN_MULTIPLIER = config.registerInt("casting_lectern_cooldown_multiplier", 100)

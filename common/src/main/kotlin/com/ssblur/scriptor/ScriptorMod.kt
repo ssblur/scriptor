@@ -20,6 +20,8 @@ import com.ssblur.scriptor.network.server.ScriptorNetworkC2S
 import com.ssblur.scriptor.particle.ScriptorParticles
 import com.ssblur.scriptor.recipe.ScriptorRecipes
 import com.ssblur.scriptor.resources.ScriptorResources
+import com.ssblur.scriptor.screen.menu.ScriptorMenus
+import com.ssblur.scriptor.screen.screen.ScriptorScreens
 import com.ssblur.scriptor.trade.ScriptorTrades
 import com.ssblur.unfocused.ModInitializer
 import com.ssblur.unfocused.command.CommandRegistration.registerCommand
@@ -78,6 +80,7 @@ object ScriptorMod: ModInitializer("scriptor") {
     ScriptorNetworkC2S.register()
     ScriptorNetworkS2C.register()
     ScriptorResources.register()
+    ScriptorMenus.register()
 
     registerCommands()
   }
@@ -86,5 +89,6 @@ object ScriptorMod: ModInitializer("scriptor") {
   fun clientInit() {
     ScriptorEntities.registerRenderers()
     ScriptorBlockEntities.registerRenderers()
+    ScriptorScreens.register()
   }
 }
