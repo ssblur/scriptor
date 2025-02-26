@@ -81,6 +81,8 @@ This does not need to be an actual spellbook, and can be, for instance,
 player an unsigned book.
 The default mod only uses this to grant alternate spellbook colors
 (i.e. `scriptor:spellbook_red`, `scriptor:spellbook_black`)
+and scrolls
+(i.e. `scriptor:spell_scroll`)
 
 `spell` defines the spell to be generated.
 This format is subject to change.

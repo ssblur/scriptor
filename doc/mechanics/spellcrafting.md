@@ -14,3 +14,10 @@ of specific types of words within them.
 If you are having trouble figuring out what a certain spell does,
 it may be worth using an [Identify Scroll](../items/identify-scroll.md)
 on them.
+
+Lastly, if you're doing to be making a lot of spells, it probably behooves
+you to make a 
+[Scriptionary](../items/scriptionary.md)
+to record your notes and a
+[Writing Desk](../blocks/writing-desk.md)
+to do it at.

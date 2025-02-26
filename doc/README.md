@@ -15,3 +15,8 @@ spellcasting, check out the [Mechanics](mechanics/README.md) section.
 
 To learn about items added by this mod, checkout the
 [Items](items/README.md) section.
+
+## Blocks
+
+This mod adds few functional blocks, but you can learn about what 
+it does add over in the [Blocks](blocks/README.md) section.
