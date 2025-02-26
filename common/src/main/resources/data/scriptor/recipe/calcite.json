@@ -5,17 +5,17 @@
       "item": "minecraft:cobblestone"
     },
     {
-      "item": "minecraft:bonemeal"
+      "item": "minecraft:bone_meal"
     },
     {
-      "item": "minecraft:bonemeal"
+      "item": "minecraft:bone_meal"
     },
     {
       "item": "minecraft:sand"
     }
   ],
   "result": {
-    "id": "scriptor:calcite",
+    "id": "minecraft:calcite",
     "count": 2
   }
 }
