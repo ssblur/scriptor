@@ -31,7 +31,9 @@ object ScriptorEvents {
         val data = weapon[ScriptorDataComponents.CHARGES] ?: 0
         if (data > 0) {
           entity.health -= 3
-          weapon.set(ScriptorDataComponents.CHARGES, data - 1)
+
+          if(data == 1) weapon.remove(ScriptorDataComponents.CHARGES)
+          else weapon.set(ScriptorDataComponents.CHARGES, data - 1)
         }
       }
     }
