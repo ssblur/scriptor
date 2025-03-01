@@ -9,7 +9,7 @@
         "Sometimes, a spell cannot be cast as is, for one reason or another. ",
         "If this happens, when attempting to cast, the spell will $(l)Fizzle$().",
         "$(br2)",
-        "There are two main reasons a spell can fizzle:",
+        "There are two main reasons a spell can fizzle: ",
         "$(li)The spell is too costly, or",
         "$(li)A requirement of the spell has not been met"
       ]
