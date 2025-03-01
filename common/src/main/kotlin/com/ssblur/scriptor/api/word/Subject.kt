@@ -12,4 +12,9 @@ abstract class Subject: Word() {
    * @param spell The Spell which is being cast.
    */
   abstract fun getTargets(caster: Targetable, spell: Spell): CompletableFuture<List<Targetable>>
+
+  /**
+   * Whether this subject can be cast on items through the inventory.
+   */
+  open fun canBeCastOnInventory(): Boolean = false
 }

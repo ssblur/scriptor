@@ -19,6 +19,15 @@ import net.minecraft.world.item.ItemStack
 object SpellbookHelper {
   var SPELLBOOKS: List<Item> = ArrayList()
 
+  fun isInventoryCaster(
+    itemStack: ItemStack,
+    level: ServerLevel
+  ): Boolean {
+    val text = itemStack.get(DataComponents.WRITTEN_BOOK_CONTENT) ?: return false
+    val spell = computeIfAbsent(level).parse(decodeText(text))
+    return (spell != null && (spell.subject.canBeCastOnInventory()))
+  }
+
   fun castFromItem(
     itemStack: ItemStack,
     player: Player,

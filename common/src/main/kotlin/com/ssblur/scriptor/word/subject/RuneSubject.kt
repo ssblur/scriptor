@@ -62,4 +62,6 @@ class RuneSubject: Subject(), InventorySubject {
   override fun castOnItem(spell: Spell, player: Player, slot: ItemStack) {
     // add a one-time cast
   }
+
+  override fun canBeCastOnInventory() = true
 }

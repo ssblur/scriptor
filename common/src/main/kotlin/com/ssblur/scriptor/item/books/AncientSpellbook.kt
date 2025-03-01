@@ -1,8 +1,10 @@
 package com.ssblur.scriptor.item.books
 
 import com.ssblur.scriptor.advancement.ScriptorAdvancements
+import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData.Companion.computeIfAbsent
 import com.ssblur.scriptor.helpers.LimitedBookSerializer
+import com.ssblur.scriptor.helpers.SpellbookHelper
 import com.ssblur.scriptor.resources.Tomes
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
@@ -49,6 +51,7 @@ class AncientSpellbook(properties: Properties, var tier: Int): Item(properties) 
 
       val spellbook =
         LimitedBookSerializer.createSpellbook(resource.author, resource.name, sentence, resource.item)
+      spellbook[ScriptorDataComponents.INVENTORY_CAST] = SpellbookHelper.isInventoryCaster(spellbook, level)
       if (!player.addItem(spellbook)) {
         val entity = ItemEntity(
           level,

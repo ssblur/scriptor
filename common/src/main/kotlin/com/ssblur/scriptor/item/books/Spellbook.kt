@@ -22,10 +22,12 @@ import net.minecraft.client.resources.language.I18n
 import net.minecraft.core.component.DataComponents
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.FormattedText
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.util.FormattedCharSequence
 import net.minecraft.util.Mth
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.HumanoidArm
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.ClickAction
@@ -71,7 +73,7 @@ open class Spellbook(properties: Properties):
     clickAction: ClickAction,
     player: Player
   ): Boolean {
-    if (clickAction == ClickAction.SECONDARY && !slot.item.isEmpty && slot.item.item !is BookOfBooks) {
+    if (itemStack[ScriptorDataComponents.INVENTORY_CAST] == true && clickAction == ClickAction.SECONDARY && !slot.item.isEmpty && slot.item.item !is BookOfBooks) {
       if (player.cooldowns.isOnCooldown(this)) return true
       val level = player.level()
       if (!level.isClientSide) return true
@@ -106,6 +108,12 @@ open class Spellbook(properties: Properties):
       else ComponentHelper.updateTooltipWith(list, "extra.scriptor.tome_identified")
       ComponentHelper.addCommunityDisclaimer(list, itemStack)
     }
+  }
+
+  override fun inventoryTick(itemStack: ItemStack, level: Level, entity: Entity, i: Int, bl: Boolean) {
+    if(!level.isClientSide && itemStack[ScriptorDataComponents.INVENTORY_CAST] == null)
+      itemStack[ScriptorDataComponents.INVENTORY_CAST] = SpellbookHelper.isInventoryCaster(itemStack, level as ServerLevel)
+    super.inventoryTick(itemStack, level, entity, i, bl)
   }
 
   override fun render(

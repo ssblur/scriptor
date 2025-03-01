@@ -12,6 +12,7 @@ object ScriptorDataComponents {
   val CHARGES: DataComponentType<Int> = registerInt("charge")
   val TOOL_MINING_LEVEL: DataComponentType<Int> = registerInt("tool_mining_level")
   val SPELL = registerString("spell")
+  val INVENTORY_CAST: DataComponentType<Boolean> = registerBool("inventory_cast")
   val PLAYER_FOCUS = registerString("player_focus")
   val PLAYER_NAME = registerString("player_name")
   val TOME_NAME = registerString("tome_name")

@@ -24,4 +24,5 @@ class ImbueSubject: Subject(), InventorySubject {
   override fun castOnItem(spell: Spell, player: Player, slot: ItemStack) {
     spell.cast(EntityTargetable(player), ItemTargetable(slot, player))
   }
+  override fun canBeCastOnInventory() = true
 }
