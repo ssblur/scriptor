@@ -77,7 +77,7 @@ class CastingLecternBlockEntity(blockPos: BlockPos, blockState: BlockState):
     if (level == null || level!!.isClientSide) return
     val server = level as ServerLevel
     cooldown = max(0.0, (cooldown - 1).toDouble()).toInt()
-    if (level!!.getDirectSignalTo(blockPos) == 0 && !spellbook.isEmpty && cooldown == 0) {
+    if (level!!.getBestNeighborSignal(blockPos) == 0 && !spellbook.isEmpty && cooldown == 0) {
       val item = spellbook
       val tag = item.get(DataComponents.WRITTEN_BOOK_CONTENT)
       if (tag != null) {
