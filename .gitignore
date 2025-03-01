@@ -9,6 +9,9 @@ output/
 bin/
 libs/
 
+beta/
+copyModFilesForBeta.sh
+
 .classpath
 .project
 .idea/

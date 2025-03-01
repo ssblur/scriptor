@@ -16,6 +16,8 @@ configurations {
   runtimeClasspath.extendsFrom common
   developmentNeoForge.extendsFrom common
 
+  archivesBaseName = rootProject.archives_base_name + "-neoforge"
+
   // Files in this configuration will be bundled into your mod using the Shadow plugin.
   // Don't use the `shadow` configuration from the plugin itself as it's meant for excluding files.
   shadowBundle {

@@ -28,14 +28,13 @@ jobs:
       - name: Cleanup
         run: |
           rm */build/libs/scriptor-*-dev-shadow.jar
-          bash -c 'for file in neoforge/build/libs/*.jar; do mv "$file" "${file%.jar}-neoforge.jar"; done'
       - name: Extract Tag Version
         id: tag
         run: echo "version=${GITHUB_REF:11}" >> $GITHUB_OUTPUT
       - name: Deploy
         uses: ssblur/minecraft-publish@v1
         with:
-          mod-file: neoforge/build/libs/scriptor-${{ steps.tag.outputs.version }}-neoforge.jar
+          mod-file: neoforge/build/libs/scriptor-neoforge-${{ steps.tag.outputs.version }}.jar
           version-name: "${{ steps.tag.outputs.version }}-neoforge"
           minecraft-version: 1.21.1
           mod-loader: neoforge
