@@ -133,5 +133,6 @@ object ScriptorNetworkC2S {
 
   fun register() {
     TraceNetwork
+    WritingTableNetwork
   }
 }
