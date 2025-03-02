@@ -8,6 +8,7 @@ import com.ssblur.scriptor.helpers.targetable.Targetable
 import com.ssblur.scriptor.network.client.ParticleNetwork
 import com.ssblur.scriptor.network.server.TraceNetwork
 import com.ssblur.scriptor.word.Spell
+import com.ssblur.scriptor.word.descriptor.target.CollideWithWaterDescriptor
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.phys.AABB
@@ -19,7 +20,10 @@ class HitscanSubject: Subject() {
     val result = CompletableFuture<List<Targetable>>()
     if (caster is EntityTargetable && caster.targetEntity is Player) {
       val player = caster.targetEntity as Player
-      TraceNetwork.requestExtendedTraceData(player) { target: Targetable ->
+      TraceNetwork.requestExtendedTraceData(
+        player,
+        spell.deduplicatedDescriptorsForSubjects().contains(CollideWithWaterDescriptor)
+      ) { target: Targetable ->
         val color = getColor(spell.deduplicatedDescriptorsForSubjects())
         ParticleNetwork.magicTrail(target.level, color, player.eyePosition, target.targetPos)
         result.complete(listOf(target))

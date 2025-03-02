@@ -18,6 +18,7 @@ import com.ssblur.scriptor.word.Spell
 import com.ssblur.scriptor.word.subject.InventorySubject
 import com.ssblur.unfocused.network.NetworkManager
 import net.minecraft.client.Minecraft
+import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.projectile.ProjectileUtil
 import net.minecraft.world.level.ClipContext
@@ -53,16 +54,22 @@ object ScriptorNetworkS2C {
       }
     }
 
-  data class ExtendedTrace(val uuid: UUID)
+  data class ExtendedTrace(val uuid: UUID, val collideWithWater: Boolean, val scale: Double = 20.0)
 
-  val extendedTrace = NetworkManager.registerS2C(location("client_get_hitscan_data"), ExtendedTrace::class) { payload ->
+  fun extendedTraceCallback(payload: ExtendedTrace) {
     val player: Player = Minecraft.getInstance().player!!
     val level = player.level()
     val position = player.eyePosition
-    val angle = player.lookAngle.normalize().multiply(20.0, 20.0, 20.0)
+    val angle = player.lookAngle.normalize().multiply(payload.scale, payload.scale, payload.scale)
     val dest = angle.add(position)
     val blockHitResult =
-      level.clip(ClipContext(position, dest, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player))
+      level.clip(ClipContext(
+        position,
+        dest,
+        ClipContext.Block.COLLIDER,
+        if(payload.collideWithWater) ClipContext.Fluid.SOURCE_ONLY else ClipContext.Fluid.NONE,
+        player
+      ))
 
     val entityHitResult = ProjectileUtil.getEntityHitResult(
       level,
@@ -93,20 +100,34 @@ object ScriptorNetworkS2C {
       returnTrace(Payload(payload.uuid, TYPE.MISS, blockHitResult, 0, null))
   }
 
-  data class Trace(val uuid: UUID)
+  val extendedTrace = NetworkManager.registerS2C(location("client_get_hitscan_data"), ExtendedTrace::class, ::extendedTraceCallback)
+
+  data class Trace(val uuid: UUID, val collideWithWater: Boolean)
 
   val trace = NetworkManager.registerS2C(location("client_get_touch_data"), Trace::class) { payload ->
-    val hit = Minecraft.getInstance().hitResult
-    when (Objects.requireNonNull<HitResult?>(hit).type) {
-      HitResult.Type.BLOCK ->
-        returnTrace(Payload(payload.uuid, TYPE.BLOCK, hit as BlockHitResult, 0, null))
+    if(!payload.collideWithWater) {
+      val hit = Minecraft.getInstance().hitResult
+      when (Objects.requireNonNull<HitResult?>(hit).type) {
+        HitResult.Type.BLOCK ->
+          returnTrace(Payload(payload.uuid, TYPE.BLOCK, hit as BlockHitResult, 0, null))
 
-      HitResult.Type.ENTITY -> {
-        val entity = (hit as EntityHitResult).entity
-        returnTrace(Payload(payload.uuid, TYPE.ENTITY, null, entity.id, entity.uuid))
+        HitResult.Type.ENTITY -> {
+          val entity = (hit as EntityHitResult).entity
+          returnTrace(Payload(payload.uuid, TYPE.ENTITY, null, entity.id, entity.uuid))
+        }
+
+        else -> returnTrace(Payload(payload.uuid, TYPE.MISS, null, 0, null))
       }
-
-      else -> returnTrace(Payload(payload.uuid, TYPE.MISS, null, 0, null))
+    } else {
+      val player = Minecraft.getInstance().player
+      if(player != null)
+        extendedTraceCallback(
+          ExtendedTrace(
+            payload.uuid,
+            true,
+            player.attributes.getValue(Attributes.BLOCK_INTERACTION_RANGE)
+          )
+        )
     }
   }
 

@@ -17,7 +17,7 @@ class RuneSubject: Subject(), InventorySubject {
     val result = CompletableFuture<List<Targetable>>()
     if (caster is EntityTargetable && caster.targetEntity is Player) {
       val player = caster.targetEntity as Player
-      TraceNetwork.requestTraceData(player) { target: Targetable ->
+      TraceNetwork.requestTraceData(player, false) { target: Targetable ->
         val color = getColor(spell.deduplicatedDescriptorsForSubjects())
         val pos = target.targetBlockPos
         val level = caster.level

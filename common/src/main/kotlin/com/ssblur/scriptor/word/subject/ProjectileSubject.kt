@@ -8,6 +8,7 @@ import com.ssblur.scriptor.helpers.targetable.Targetable
 import com.ssblur.scriptor.word.Spell
 import com.ssblur.scriptor.word.descriptor.SpeedDescriptor
 import com.ssblur.scriptor.word.descriptor.duration.DurationDescriptor
+import com.ssblur.scriptor.word.descriptor.target.CollideWithWaterDescriptor
 import net.minecraft.world.phys.Vec3
 import java.util.concurrent.CompletableFuture
 
@@ -20,13 +21,16 @@ class ProjectileSubject: Subject() {
     val color = getColor(spell.deduplicatedDescriptorsForSubjects())
     var duration = 12.0
     var speed = 1.0
+    var collidesWithWater = false
     for (d in spell.deduplicatedDescriptorsForSubjects()) {
       if (d is DurationDescriptor) duration += d.durationModifier()
       if (d is SpeedDescriptor) speed *= d.speedModifier()
+      if (d == CollideWithWaterDescriptor) collidesWithWater = true
     }
     speed *= 0.8
 
-    val projectile = checkNotNull(ScriptorEntities.PROJECTILE_TYPE.get().create(caster.level))
+    val projectile = ScriptorEntities.PROJECTILE_TYPE.get().create(caster.level)!!
+    projectile.collidesWithWater = collidesWithWater
     if (caster is EntityTargetable) {
       val entity = caster.targetEntity
       projectile.setPos(entity.eyePosition)

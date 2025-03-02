@@ -26,20 +26,20 @@ object TraceNetwork {
 
   private var queue: HashMap<UUID, TraceQueue> = HashMap()
 
-  fun requestTraceData(player: Player, callback: (Targetable) -> Unit) {
+  fun requestTraceData(player: Player, collideWithWater: Boolean, callback: (Targetable) -> Unit) {
     val uuid = UUID.randomUUID()
     val out = RegistryFriendlyByteBuf(Unpooled.buffer(), RegistryAccess.EMPTY)
     out.writeUUID(uuid)
     queue[uuid] = TraceQueue(player, callback)
-    trace(Trace(uuid), listOf(player))
+    trace(Trace(uuid, collideWithWater), listOf(player))
   }
 
-  fun requestExtendedTraceData(player: Player, callback: TraceCallback) {
+  fun requestExtendedTraceData(player: Player, collideWithWater: Boolean, callback: TraceCallback) {
     val uuid = UUID.randomUUID()
     val out = RegistryFriendlyByteBuf(Unpooled.buffer(), RegistryAccess.EMPTY)
     out.writeUUID(uuid)
     queue[uuid] = TraceQueue(player, callback)
-    extendedTrace(ExtendedTrace(uuid), listOf(player))
+    extendedTrace(ExtendedTrace(uuid, collideWithWater), listOf(player))
   }
 
   fun validateAndRun(uuid: UUID, player: Player, targetable: Targetable) {

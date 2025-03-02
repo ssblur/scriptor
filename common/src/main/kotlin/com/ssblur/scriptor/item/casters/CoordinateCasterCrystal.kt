@@ -96,7 +96,7 @@ class CoordinateCasterCrystal(properties: Properties): CasterCrystal(properties)
 
     if (!level.isClientSide) {
       val itemStack = player.getItemInHand(interactionHand)
-      TraceNetwork.requestTraceData(player) { target: Targetable ->
+      TraceNetwork.requestTraceData(player, false) { target: Targetable ->
         addCoordinate(
           itemStack,
           target.targetBlockPos,

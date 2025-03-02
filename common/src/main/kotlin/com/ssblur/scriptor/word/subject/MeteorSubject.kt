@@ -10,6 +10,7 @@ import com.ssblur.scriptor.network.server.TraceNetwork
 import com.ssblur.scriptor.word.Spell
 import com.ssblur.scriptor.word.descriptor.SpeedDescriptor
 import com.ssblur.scriptor.word.descriptor.duration.DurationDescriptor
+import com.ssblur.scriptor.word.descriptor.target.CollideWithWaterDescriptor
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.Level
@@ -22,7 +23,10 @@ class MeteorSubject: Subject() {
     val result = CompletableFuture<List<Targetable>>()
     if (caster is EntityTargetable && caster.targetEntity is Player) {
       val player = caster.targetEntity as Player
-      TraceNetwork.requestExtendedTraceData(player) { target: Targetable ->
+      TraceNetwork.requestExtendedTraceData(
+        player,
+        spell.deduplicatedDescriptorsForSubjects().contains(CollideWithWaterDescriptor)
+      ) { target: Targetable ->
         spawnMeteorOver(target.level, target.targetPos, spell, result)
       }
     } else if (caster is LecternTargetable) {

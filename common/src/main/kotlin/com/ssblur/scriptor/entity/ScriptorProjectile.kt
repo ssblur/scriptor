@@ -20,6 +20,7 @@ import java.util.concurrent.CompletableFuture
 class ScriptorProjectile(entityType: EntityType<ScriptorProjectile?>, level: Level): Entity(entityType, level) {
   var completable: CompletableFuture<List<Targetable>>? = null
   var origin: Vec3? = null
+  var collidesWithWater: Boolean = false
 
   var color: Int
     get() = entityData.get(COLOR)
@@ -97,7 +98,15 @@ class ScriptorProjectile(entityType: EntityType<ScriptorProjectile?>, level: Lev
 
     var dest = position().add(deltaMovement)
     val blockHitResult =
-      level.clip(ClipContext(position(), dest, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this))
+      level.clip(
+        ClipContext(
+          position(),
+          dest,
+          ClipContext.Block.COLLIDER,
+          if(collidesWithWater) ClipContext.Fluid.ANY else ClipContext.Fluid.NONE,
+          this
+        )
+      )
     if (blockHitResult.type != HitResult.Type.MISS) dest = blockHitResult.location
     val entityHitResult = ProjectileUtil.getEntityHitResult(
       level(),

@@ -178,6 +178,7 @@
   "descriptor.scriptor.move_backwards": "This spell's targets are moved one block backwards",
   "descriptor.scriptor.move_up": "This spell's targets are moved one block up",
   "descriptor.scriptor.move_down": "This spell's targets are moved one block down",
+  "descriptor.scriptor.collides_with_water": "This spell can be cast on fluids",
   "action.scriptor.inflame": "This spell heats or sets the target on fire.",
   "action.scriptor.light": "This spell places a light where it is cast.",
   "action.scriptor.heal": "This spell heals or repairs the target.",
