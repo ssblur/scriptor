@@ -1,6 +1,7 @@
 package com.ssblur.scriptor.item.books
 
 import com.ssblur.scriptor.resources.Scraps
+import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
@@ -19,8 +20,8 @@ class AncientScrap(properties: Properties, var tier: Int): Item(properties) {
     tooltipFlag: TooltipFlag
   ) {
     super.appendHoverText(itemStack, level, list, tooltipFlag)
-    list.add(Component.translatable("extra.scriptor.scrap_description"))
-    list.add(Component.translatable("extra.scriptor.scrap_tier", tier))
+    list.add(Component.translatable("extra.scriptor.scrap_description").withStyle(ChatFormatting.GRAY))
+    list.add(Component.translatable("extra.scriptor.scrap_tier", tier).withStyle(ChatFormatting.GRAY))
   }
 
   override fun use(

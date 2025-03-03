@@ -23,6 +23,7 @@ object Actions {
   val SWAP = register("swap", SwapAction())
   val BRING = register("bring", BringAction())
   val BREAK = register("break", BreakBlockAction())
+  val DRY = register("dry", DryAction())
   val PLACE = register("place", PlaceBlockAction())
   val CONJURE_WATER = register("conjure_water", PlaceWaterAction())
   val HARM = register("harm", HarmAction())

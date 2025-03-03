@@ -6,6 +6,7 @@ import com.ssblur.scriptor.data.saved_data.DictionarySavedData.Companion.compute
 import com.ssblur.scriptor.helpers.LimitedBookSerializer
 import com.ssblur.scriptor.helpers.SpellbookHelper
 import com.ssblur.scriptor.resources.Tomes
+import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
@@ -26,8 +27,8 @@ class AncientSpellbook(properties: Properties, var tier: Int): Item(properties) 
     tooltipFlag: TooltipFlag
   ) {
     super.appendHoverText(itemStack, level, list, tooltipFlag)
-    list.add(Component.translatable("extra.scriptor.tome_description"))
-    list.add(Component.translatable("extra.scriptor.tome_tier", tier))
+    list.add(Component.translatable("extra.scriptor.tome_description").withStyle(ChatFormatting.GRAY))
+    list.add(Component.translatable("extra.scriptor.tome_tier", tier).withStyle(ChatFormatting.GRAY))
   }
 
   override fun use(

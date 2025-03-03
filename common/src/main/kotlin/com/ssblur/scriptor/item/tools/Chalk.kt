@@ -25,7 +25,7 @@ open class Chalk(properties: Properties): Item(properties) {
     super.appendHoverText(itemStack, level, list, tooltipFlag)
     if (!hasName(itemStack)) {
       list.add(Component.translatable("extra.scriptor.chalk_unnamed_1").withStyle(ChatFormatting.RED))
-      list.add(Component.translatable("extra.scriptor.chalk_unnamed_2"))
+      list.add(Component.translatable("extra.scriptor.chalk_unnamed_2").withStyle(ChatFormatting.GRAY))
     }
   }
 

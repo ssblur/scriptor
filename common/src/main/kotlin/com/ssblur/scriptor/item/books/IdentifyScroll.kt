@@ -6,6 +6,7 @@ import com.ssblur.scriptor.network.server.ScriptorNetworkC2S.CreativeIdentify
 import com.ssblur.scriptor.network.server.ScriptorNetworkC2S.Identify
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
+import net.minecraft.ChatFormatting
 import net.minecraft.core.component.DataComponents
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Player
@@ -49,6 +50,6 @@ class IdentifyScroll(properties: Properties): Item(properties) {
     tooltipFlag: TooltipFlag
   ) {
     super.appendHoverText(itemStack, level, list, tooltipFlag)
-    list.add(Component.translatable("extra.scriptor.use_identify"))
+    list.add(Component.translatable("extra.scriptor.use_identify").withStyle(ChatFormatting.GRAY))
   }
 }

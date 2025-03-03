@@ -175,41 +175,49 @@ class TextField(
         return super.mouseScrolled(d, e, f, g)
     }
 
-    override fun keyPressed(i: Int, j: Int, k: Int): Boolean {
+    override fun keyPressed(key: Int, j: Int, modifier: Int): Boolean {
+        println(listOf(key, j, modifier))
+        print(currentChar())
         if(editable && isFocused)
-            when(i) {
-                263 -> {
-                    moveCursorToIndex(cursor.i - 1)
+            when(key) {
+                263 -> { // Left
+                    if(modifier == 2)
+                        moveCursorToIndex(prevWhitespace())
+                    else
+                        moveCursorToIndex(cursor.i - 1)
                     return true
                 }
-                262 -> {
-                    moveCursorToIndex(cursor.i + 1)
+                262 -> { // Right
+                    if(modifier == 2)
+                        moveCursorToIndex(nextWhitespace())
+                    else
+                        moveCursorToIndex(cursor.i + 1)
                     return true
                 }
-                265 -> {
+                265 -> { // Up
                     if(multiline) moveCursorToY(cursor.y - 1)
                     return true
                 }
-                264 -> {
+                264 -> { // Down
                     if(multiline) moveCursorToY(cursor.y + 1)
                     return true
                 }
-                268 -> {
+                268 -> { // Home
                     moveCursorToX(0)
                     return true
                 }
-                269 -> {
-                    moveCursorToX(255)
+                269 -> { // End
+                    moveCursorToX(Integer.MAX_VALUE)
                     return true
                 }
-                259 -> {
+                259 -> { // Backspace
                     try {
                         text = text.substring(0, cursor.i - 1) + text.substring(cursor.i, text.length)
                         moveCursorToIndex(cursor.i - 1)
                     } catch(_: StringIndexOutOfBoundsException) {}
                     return true
                 }
-                261 -> {
+                261 -> { // Delete
                     try {
                         text = text.substring(0, cursor.i) + text.substring(cursor.i + 1, text.length)
                         moveCursorToIndex(cursor.i)
@@ -217,8 +225,14 @@ class TextField(
                     return true
                 }
                 69 -> return true
+                260 -> // Insert
+                    if(modifier == 1) // +Shift
+                        insertText(Minecraft.getInstance().keyboardHandler.clipboard)
+                86 -> // V
+                    if(modifier == 2) // +Ctrl
+                        insertText(Minecraft.getInstance().keyboardHandler.clipboard)
             }
-        return super.keyPressed(i, j, k)
+        return super.keyPressed(key, j, modifier)
     }
 
     override fun keyReleased(i: Int, j: Int, k: Int): Boolean {
@@ -233,5 +247,39 @@ class TextField(
             if (cursor.y > scrollOffset + 7) scrollOffset = cursor.y - 7
         }
         return super.charTyped(c, i)
+    }
+
+    private fun insertText(value: String) {
+        try {
+            text = text.substring(0, cursor.i) + value + text.substring(cursor.i)
+            moveCursorToIndex(cursor.i + value.length)
+        } catch(_: StringIndexOutOfBoundsException) {}
+    }
+
+    fun currentWord(crawlBackwards: Boolean = true, crawlForwards: Boolean = true): String {
+        var wordStart = cursor.i.coerceIn(text.indices)
+        if(crawlBackwards)
+            while(wordStart > 0 && !text[wordStart].isWhitespace()) wordStart--
+        var wordEnd = cursor.i.coerceIn(text.indices)
+        if(crawlForwards)
+            while(wordEnd < text.length && !text[wordEnd].isWhitespace()) wordEnd++
+        return text.substring(wordStart, wordEnd).trim()
+    }
+
+    fun currentChar(i: Int = cursor.i): Char {
+        val index = i.coerceIn(text.indices)
+        return text[index]
+    }
+
+    fun nextWhitespace(): Int {
+        var index = (cursor.i + 1).coerceIn(text.indices)
+        while(index in text.indices && !currentChar(index).isWhitespace()) index++
+        return index
+    }
+
+    fun prevWhitespace(): Int {
+        var index = (cursor.i - 1).coerceIn(text.indices)
+        while(index in text.indices && !currentChar(index - 1).isWhitespace()) index--
+        return index
     }
 }

@@ -141,12 +141,7 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
       if (cursorPos < text.length && cursorPos > 0 && text[cursorPos] != ' ') {
         val components = mutableListOf<Component>()
 
-        var wordStart = cursorPos
-        while(wordStart > 0 && !text[wordStart].isWhitespace()) wordStart--
-        var wordEnd = cursorPos
-        while(wordEnd < text.length && !text[wordEnd].isWhitespace()) wordEnd++
-        val word = text.substring(wordStart, wordEnd).trim()
-
+        val word = textField.currentWord()
         components.add(literal(word))
 
         val definition = words.firstOrNull { it.first() == word }?.get(1)

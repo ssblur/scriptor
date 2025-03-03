@@ -1,0 +1,22 @@
+{
+  "name": "tome.scriptor.portable_sponge",
+  "author": "Core, E.",
+  "tier": 3,
+  "spell": {
+    "subject": "touch",
+    "spells": [
+      {
+        "action": "dry",
+        "descriptors": [
+          "collide_with_water",
+          "move_left",
+          "move_up",
+          "copy_down",
+          "copy_down",
+          "copy_right",
+          "copy_right"
+        ]
+      }
+    ]
+  }
+}
