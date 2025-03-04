@@ -9,6 +9,10 @@ import com.ssblur.scriptor.item.ScriptorTags
 import com.ssblur.scriptor.registry.words.WordRegistry.actionRegistry
 import com.ssblur.scriptor.registry.words.WordRegistry.descriptorRegistry
 import com.ssblur.scriptor.registry.words.WordRegistry.subjectRegistry
+import com.ssblur.scriptor.resources.Artifacts
+import com.ssblur.scriptor.resources.Engravings
+import com.ssblur.scriptor.resources.Scraps
+import com.ssblur.scriptor.resources.Tomes
 import net.minecraft.client.resources.language.I18n
 import net.minecraft.commands.CommandBuildContext
 import net.minecraft.commands.CommandSourceStack
@@ -25,9 +29,11 @@ object DebugCommand {
     selection: Commands.CommandSelection?
   ) {
     dispatcher.register(
-      Commands.literal("scriptor_debug")
-        .requires { s: CommandSourceStack -> s.hasPermission(4) }
-        .executes { execute(it) }
+      Commands.literal("scriptor_debug").then(
+        Commands.literal("localization")
+          .requires { s: CommandSourceStack -> s.hasPermission(4) }
+          .executes { executeNoLocale(it) }
+      )
     )
     dispatcher.register(
       Commands.literal("scriptor_debug").then(
@@ -36,10 +42,18 @@ object DebugCommand {
           .executes { executeDump(it) }
       )
     )
+    dispatcher.register(
+      Commands.literal("scriptor_debug").then(
+        Commands.literal("missing")
+          .requires { s: CommandSourceStack -> s.hasPermission(4) }
+          .executes { executeMissing(it) }
+      )
+    )
   }
 
-  private fun execute(command: CommandContext<CommandSourceStack>): Int {
+  private fun executeNoLocale(command: CommandContext<CommandSourceStack>): Int {
     val message = StringBuilder()
+
     for (action in actionRegistry.keys) {
       if (!I18n.exists("action.scriptor.$action")) {
         message.append("Description not localized for action.scriptor.").append(action).append("\n")
@@ -55,6 +69,53 @@ object DebugCommand {
         message.append("Description not localized for subject.scriptor.").append(subject).append("\n")
       }
     }
+
+    if (command.source.entity is Player) {
+      (command.source.entity as Player).sendSystemMessage(Component.literal(message.toString()))
+    } else {
+      LOGGER.info(message.toString())
+    }
+    return Command.SINGLE_SUCCESS
+  }
+
+  private fun executeMissing(command: CommandContext<CommandSourceStack>): Int {
+    val message = StringBuilder()
+
+    println()
+    val actionsNotInTomes = actionRegistry.keys.filter { word ->
+      Tomes.tomes.values.none{ it.spell?.spells?.any{ it.action == word } ?: false }
+              && Artifacts.artifacts.values.none{ it.spell?.spells?.any{ it.action == word } ?: false }
+              && Engravings.engravings.values.none{ it.spell?.spells?.any{ it.action == word } ?: false }
+    }
+    message.append("The following actions do not appear in any tomes:").append(actionsNotInTomes).append("\n")
+    val actionsNotInScraps = actionsNotInTomes.filter { word ->
+      Scraps.scraps.values.none { it.keys.contains("action:$word") }
+    }
+    message.append("Of these, the following don't appear in scraps:").append(actionsNotInScraps).append("\n")
+
+    val subjectsNotInTomes = subjectRegistry.keys.filter { word ->
+      Tomes.tomes.values.none{ it.spell?.subject == word }
+              && Artifacts.artifacts.values.none{ it.spell?.subject == word }
+              && Engravings.engravings.values.none{ it.spell?.subject == word }
+    }
+    message.append("The following subjects do not appear in any tomes:").append(subjectsNotInTomes).append("\n")
+    val subjectsNotInScraps = subjectsNotInTomes.filter { word ->
+      Scraps.scraps.values.none { it.keys.contains("subject:$word") }
+    }
+    message.append("Of these, the following don't appear in scraps:").append(subjectsNotInScraps).append("\n")
+
+    val descriptorsNotInTomes = descriptorRegistry.keys.filter { word ->
+      Tomes.tomes.values.none { it.spell?.spells?.any{ it.descriptors.contains(word) } ?: false }
+              && Artifacts.artifacts.values.none { it.spell?.spells?.any{ it.descriptors.contains(word) } ?: false }
+              && Engravings.engravings.values.none { it.spell?.spells?.any{ it.descriptors.contains(word) } ?: false }
+    }
+    message.append("The following descriptors do not appear in any tomes:").append(descriptorsNotInTomes).append("\n")
+    val descriptorsNotInScraps = descriptorsNotInTomes.filter { word ->
+      Scraps.scraps.values.none { it.keys.contains("descriptor:$word") }
+    }
+    message.append("Of these, the following don't appear in scraps:").append(descriptorsNotInScraps).append("\n")
+
+
     if (command.source.entity is Player) {
       (command.source.entity as Player).sendSystemMessage(Component.literal(message.toString()))
     } else {

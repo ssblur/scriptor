@@ -1,6 +1,6 @@
 {
   "cost": 0.2,
-  "disabled": false,
+  "disabled": true,
   "cast_at_position": [
     "execute as @caster run me teleported.",
     "tp @caster ~ ~ ~"

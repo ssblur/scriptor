@@ -42,7 +42,7 @@ class AncientSpellbook(properties: Properties, var tier: Int): Item(properties) 
       val server = level as ServerLevel
 
       player.sendSystemMessage(Component.translatable("extra.scriptor.tome_use"))
-      player.cooldowns.addCooldown(this, 20)
+      if(!player.isCreative) player.cooldowns.addCooldown(this, 20)
 
       val resource = Tomes.getRandomTome(tier, player)
       if (resource.getSpell().spells.size > 1) ScriptorAdvancements.COMPLEX_SPELL.get().trigger(player as ServerPlayer)
@@ -69,7 +69,7 @@ class AncientSpellbook(properties: Properties, var tier: Int): Item(properties) 
           Component.translatable(resource.name)
         )
       )
-      player.getItemInHand(interactionHand).shrink(1)
+      if(!player.isCreative) player.getItemInHand(interactionHand).shrink(1)
       return InteractionResultHolder.consume(player.getItemInHand(interactionHand))
     }
 

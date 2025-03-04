@@ -31,6 +31,7 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
     val dictionaryWordField: TextField
     val dictionaryDefinitionField: TextField
     var dictionarySaveButton: Button
+    var dictionaryDeleteButton: Button
     var signButton: Button
     var finishSigningButton: Button
     var signingNameField: TextField
@@ -39,8 +40,9 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
       imageHeight = 182
       textField = addRenderableWidget(TextField(leftPos + 15, topPos + 8, 140, 86, true))
       dictionaryWordField = TextField(leftPos, topPos, 90, 14, true, multiline = false)
-      dictionaryDefinitionField = TextField(leftPos, topPos, 141, 42, true)
+      dictionaryDefinitionField = TextField(leftPos, topPos, 141, 26, true)
       dictionarySaveButton = Button.Builder(translatable("extra.scriptor.save")) {}.build()
+      dictionaryDeleteButton = Button.Builder(translatable("extra.scriptor.delete")) {}.build()
       signButton = Button.Builder(translatable("extra.scriptor.sign")) {}.build()
       finishSigningButton = Button.Builder(translatable("extra.scriptor.sign")) {}.build()
       signingNameField = TextField(leftPos, topPos, 136, 14, true, multiline = false)
@@ -68,6 +70,13 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
         Button.Builder(translatable("extra.scriptor.save")) { switchToEditMode() }
           .size(50, 17)
           .pos(leftPos + 110, topPos + 17)
+          .build()
+      )
+
+      dictionaryDeleteButton = addRenderableWidget(
+        Button.Builder(translatable("extra.scriptor.delete")) { switchToEditModeAndDelete() }
+          .size(70, 17)
+          .pos(leftPos + 88, topPos + 76)
           .build()
       )
     } else if(signMode) {
@@ -141,7 +150,7 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
       if (cursorPos < text.length && cursorPos > 0 && text[cursorPos] != ' ') {
         val components = mutableListOf<Component>()
 
-        val word = textField.currentWord()
+        val word = textField.currentWord(cursorPos)
         components.add(literal(word))
 
         val definition = words.firstOrNull { it.first() == word }?.get(1)
@@ -284,7 +293,7 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
     super.onClose()
   }
 
-  fun switchToDictionaryMode(word: String, definition: String) {
+  private fun switchToDictionaryMode(word: String, definition: String) {
     switchMode()
     dictionaryMode = true
     dictionaryWordField.text = word
@@ -292,7 +301,7 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
     rebuildWidgets()
   }
 
-  fun switchMode() {
+  private fun switchMode() {
     if(dictionaryMode) {
       dictionaryMode = false
       WritingTableNetwork.writeDictionaryEntry(WritingTableNetwork.DictionaryMessage(dictionaryWordField.text, dictionaryDefinitionField.text))
@@ -306,20 +315,27 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
     }
   }
 
-  fun switchToEditMode() {
+  private fun switchToEditMode() {
     switchMode()
     editMode = true
     rebuildWidgets()
   }
 
-  fun switchToSignMode() {
+  private fun switchToEditModeAndDelete() {
+    dictionaryMode = false
+    WritingTableNetwork.deleteDictionaryEntry(WritingTableNetwork.DictionaryDeleteMessage(dictionaryWordField.text.trim()))
+    words = words.filter { it[0] != dictionaryWordField.text.trim() }.toMutableList()
+    switchToEditMode()
+  }
+
+  private fun switchToSignMode() {
     switchMode()
     signingNameField.text = ""
     signMode = true
     rebuildWidgets()
   }
 
-  fun signBook() {
+  private fun signBook() {
     WritingTableNetwork.signBook(WritingTableNetwork.SignBookMessage(if(signingNameField.text.isEmpty()) "Spell" else signingNameField.text))
   }
 }

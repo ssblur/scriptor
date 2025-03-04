@@ -72,7 +72,7 @@ class MeteorSubject: Subject() {
 
     val color = getColor(spell.deduplicatedDescriptorsForSubjects())
     var duration = 12.0
-    var speed = 1.5
+    var speed = 0.6
     for (d in spell.deduplicatedDescriptorsForSubjects()) {
       if (d is DurationDescriptor) duration += d.durationModifier()
       if (d is SpeedDescriptor) speed *= d.speedModifier()

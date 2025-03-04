@@ -33,7 +33,7 @@ class AncientScrap(properties: Properties, var tier: Int): Item(properties) {
 
     if (!level.isClientSide) {
       player.sendSystemMessage(Component.translatable("extra.scriptor.scrap_use"))
-      player.cooldowns.addCooldown(this, 20)
+      if(!player.isCreative) player.cooldowns.addCooldown(this, 20)
 
       // Generate and distribute scrap
       val scrap = Scraps.getRandomScrapItem(tier, player)
@@ -50,7 +50,7 @@ class AncientScrap(properties: Properties, var tier: Int): Item(properties) {
         level.addFreshEntity(entity)
       }
       player.sendSystemMessage(Component.translatable("extra.scriptor.scrap_get"))
-      player.getItemInHand(interactionHand).shrink(1)
+      if(!player.isCreative) player.getItemInHand(interactionHand).shrink(1)
       return InteractionResultHolder.consume(player.getItemInHand(interactionHand))
     }
 

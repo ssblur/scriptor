@@ -1,7 +1,6 @@
 package com.ssblur.scriptor.block
 
 import com.mojang.serialization.MapCodec
-import com.ssblur.scriptor.blockentity.CastingLecternBlockEntity
 import com.ssblur.scriptor.blockentity.ScriptorBlockEntities
 import com.ssblur.scriptor.blockentity.WritingTableBlockEntity
 import com.ssblur.unfocused.extension.BlockEntityTypeExtension.create
@@ -82,9 +81,9 @@ class WritingTableBlock: BaseEntityBlock(Properties.ofFullCopy(Blocks.ACACIA_PLA
     bl: Boolean
   ) {
     if (!level.isClientSide) {
-      if (level.getBlockEntity(blockPos) is CastingLecternBlockEntity) {
-        val table = level.getBlockEntity(blockPos) as CastingLecternBlockEntity
-        for (item in table.items) {
+      if (level.getBlockEntity(blockPos) is WritingTableBlockEntity) {
+        val table = level.getBlockEntity(blockPos) as WritingTableBlockEntity
+        for (item in table.inventory) {
           val entity = ItemEntity(
             level,
             (blockPos.x + 0.5f).toDouble(),

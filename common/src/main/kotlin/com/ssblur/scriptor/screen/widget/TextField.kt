@@ -176,8 +176,6 @@ class TextField(
     }
 
     override fun keyPressed(key: Int, j: Int, modifier: Int): Boolean {
-        println(listOf(key, j, modifier))
-        print(currentChar())
         if(editable && isFocused)
             when(key) {
                 263 -> { // Left
@@ -256,30 +254,33 @@ class TextField(
         } catch(_: StringIndexOutOfBoundsException) {}
     }
 
-    fun currentWord(crawlBackwards: Boolean = true, crawlForwards: Boolean = true): String {
-        var wordStart = cursor.i.coerceIn(text.indices)
+    fun currentWord(index: Int = cursor.i, crawlBackwards: Boolean = true, crawlForwards: Boolean = true): String {
+        var wordStart = index.coerceIn(text.indices)
         if(crawlBackwards)
             while(wordStart > 0 && !text[wordStart].isWhitespace()) wordStart--
-        var wordEnd = cursor.i.coerceIn(text.indices)
+        var wordEnd = index.coerceIn(text.indices)
         if(crawlForwards)
             while(wordEnd < text.length && !text[wordEnd].isWhitespace()) wordEnd++
         return text.substring(wordStart, wordEnd).trim()
     }
 
     fun currentChar(i: Int = cursor.i): Char {
-        val index = i.coerceIn(text.indices)
+        val index = i.coerceToValid()
+        if(index == 0) return '-'
         return text[index]
     }
 
     fun nextWhitespace(): Int {
-        var index = (cursor.i + 1).coerceIn(text.indices)
+        var index = (cursor.i + 1).coerceToValid()
         while(index in text.indices && !currentChar(index).isWhitespace()) index++
         return index
     }
 
     fun prevWhitespace(): Int {
-        var index = (cursor.i - 1).coerceIn(text.indices)
+        var index = (cursor.i - 1).coerceToValid()
         while(index in text.indices && !currentChar(index - 1).isWhitespace()) index--
         return index
     }
+
+    private fun Int.coerceToValid() = this.coerceIn(0..(text.length - 1).coerceAtLeast(0))
 }

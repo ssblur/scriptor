@@ -16,7 +16,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 
-class Artifact(properties: Properties): Item(properties.stacksTo(1)) {
+class Artifact(properties: Properties, val lore: String = "lore.scriptor.artifact_1"): Item(properties.stacksTo(1)) {
   init {
     ARTIFACTS.add(this)
   }
@@ -29,7 +29,7 @@ class Artifact(properties: Properties): Item(properties.stacksTo(1)) {
   ) {
     super.appendHoverText(itemStack, level, list, tooltipFlag)
 
-    list.add(Component.translatable("lore.scriptor.artifact_1").withStyle(ChatFormatting.GRAY))
+    list.add(Component.translatable(lore).withStyle(ChatFormatting.GRAY))
 
     val text = itemStack.get(ScriptorDataComponents.SPELL)
     if (text != null) list.add(Component.translatable("lore.scriptor.artifact_2", text))

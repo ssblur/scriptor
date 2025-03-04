@@ -6,13 +6,14 @@ import com.ssblur.scriptor.helpers.targetable.InventoryTargetable
 import com.ssblur.scriptor.helpers.targetable.Targetable
 import com.ssblur.scriptor.word.descriptor.AfterCastDescriptor
 import com.ssblur.scriptor.word.descriptor.CastDescriptor
+import com.ssblur.scriptor.word.descriptor.power.StrengthDescriptor
 import net.minecraft.world.Container
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import kotlin.math.min
 
-class ReagentDescriptor(var item: Item, var cost: Int): Descriptor(), CastDescriptor, AfterCastDescriptor {
-  override fun cost() = Cost.add(-cost.toDouble())
+class ReagentDescriptor(var item: Item, var cost: Double, var strength: Double): Descriptor(), CastDescriptor, AfterCastDescriptor, StrengthDescriptor {
+  override fun cost() = Cost.add(-cost)
 
   override fun cannotCast(caster: Targetable?): Boolean {
     val c = runningTotals.getOrDefault(item, 0) + 1
@@ -50,4 +51,6 @@ class ReagentDescriptor(var item: Item, var cost: Int): Descriptor(), CastDescri
   companion object {
     var runningTotals: HashMap<Item, Int> = HashMap()
   }
+
+  override fun strengthModifier(): Double = strength
 }

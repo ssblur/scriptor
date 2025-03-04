@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.block
 
+import com.mojang.serialization.MapCodec
 import com.ssblur.scriptor.blockentity.CastingLecternBlockEntity
 import com.ssblur.scriptor.blockentity.ScriptorBlockEntities
 import com.ssblur.scriptor.item.books.Spellbook
@@ -26,8 +27,6 @@ import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.shapes.CollisionContext
 
 class CastingLecternBlock: HorizontalDirectionalBlock(Properties.ofFullCopy(Blocks.SPRUCE_PLANKS).noOcclusion()), EntityBlock {
-  override fun codec() = CODEC
-
   public override fun useItemOn(
     itemStack: ItemStack,
     blockState: BlockState,
@@ -119,8 +118,9 @@ class CastingLecternBlock: HorizontalDirectionalBlock(Properties.ofFullCopy(Bloc
     super.onRemove(blockState, level, blockPos, blockState2, bl)
   }
 
+  override fun codec(): MapCodec<out HorizontalDirectionalBlock> = MapCodec.unit(this)
+
   companion object {
     val FACING: DirectionProperty = HorizontalDirectionalBlock.FACING
-    val CODEC = simpleCodec { CastingLecternBlock() }
   }
 }

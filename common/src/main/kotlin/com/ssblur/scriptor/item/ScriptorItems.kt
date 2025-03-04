@@ -34,10 +34,10 @@ object ScriptorItems {
   }.tab(ScriptorTabs.SCRIPTOR_TAB)
   val SPELL_SCROLL = registerItem("spell_scroll") { SpellScroll(Item.Properties()) }
 
-  val ARTIFACT_1 = registerItem("artifact_1") { Artifact(Item.Properties()) }
-  val ARTIFACT_2 = registerItem("artifact_2") { Artifact(Item.Properties()) }
-  val ARTIFACT_3 = registerItem("artifact_3") { Artifact(Item.Properties()) }
-  val ARTIFACT_4 = registerItem("artifact_4") { Artifact(Item.Properties()) }
+  val ARTIFACT_1 = registerItem("artifact_1") { Artifact(Item.Properties(), "lore.scriptor.artifact_1") }
+  val ARTIFACT_2 = registerItem("artifact_2") { Artifact(Item.Properties(), "lore.scriptor.artifact_5") }
+  val ARTIFACT_3 = registerItem("artifact_3", ) { Artifact(Item.Properties(), "lore.scriptor.artifact_4") }
+  val ARTIFACT_4 = registerItem("artifact_4") { Artifact(Item.Properties(), "lore.scriptor.artifact_3") }
 
   val BOOK_OF_BOOKS = registerItem("book_of_books") {
     BookOfBooks(Item.Properties().stacksTo(1), 8)

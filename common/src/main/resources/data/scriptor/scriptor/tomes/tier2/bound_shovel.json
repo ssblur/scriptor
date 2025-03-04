@@ -1,0 +1,19 @@
+{
+  "name": "tome.scriptor.bound_shovel",
+  "author": "Mulligan",
+  "item": "scriptor:spellbook_white",
+  "tier": 2,
+  "spell": {
+    "subject": "self",
+    "spells": [
+      {
+        "action": "bound_shovel",
+        "descriptors": [
+          "black",
+          "long",
+          "strong"
+        ]
+      }
+    ]
+  }
+}

@@ -12,7 +12,7 @@ class HealthyDescriptor: Descriptor(), CastDescriptor {
   override fun cannotCast(caster: Targetable?): Boolean {
     if (caster is EntityTargetable && caster.targetEntity is LivingEntity) {
       val living = caster.targetEntity as LivingEntity
-      return living.getHealth() < living.getMaxHealth()
+      return living.health < (living.maxHealth - 1)
     }
     return true
   }

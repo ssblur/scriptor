@@ -1,0 +1,22 @@
+{
+  "name": "tome.scriptor.bound_pick",
+  "author": "Espy",
+  "tier": 3,
+  "item": "scriptor:spellbook_orange",
+  "spell": {
+    "subject": "self",
+    "spells": [
+      {
+        "action": "bound_pickaxe",
+        "descriptors": [
+          "strong",
+          "color.scriptor.lesbian"
+        ]
+      },
+      {
+        "action": "haste",
+        "descriptors": []
+      }
+    ]
+  }
+}

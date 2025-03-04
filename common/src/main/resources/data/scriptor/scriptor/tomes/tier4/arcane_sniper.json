@@ -7,7 +7,9 @@
     "spells": [
       {
         "action": "explosion",
-        "descriptors": []
+        "descriptors": [
+          "cyan"
+        ]
       }
     ]
   }

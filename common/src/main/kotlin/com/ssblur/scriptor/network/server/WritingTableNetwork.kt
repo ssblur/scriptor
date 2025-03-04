@@ -19,16 +19,29 @@ import net.minecraft.world.item.component.WrittenBookContent
 
 object WritingTableNetwork {
     data class DictionaryMessage(val key: String, val value: String)
-    val writeDictionaryEntry = NetworkManager.registerC2S(location("write_dictionary"), DictionaryMessage::class) { payload, player ->
+    val writeDictionaryEntry = NetworkManager.registerC2S(location("write_dictionary"), DictionaryMessage::class) { (key, value), player ->
         val menu = player.containerMenu
         if(menu is WritingTableMenu && menu.stillValid(player)) {
             val item = menu.dictionary
             val data = item[ScriptorDataComponents.DICTIONARY_DATA]
             var entries: MutableList<List<String>> = mutableListOf()
             data?.let { entries.addAll(it.values) }
-            entries = entries.filter { it[0] != payload.key }.toMutableList()
-            entries.add(listOf(payload.key, payload.value))
+            entries = entries.filter { it[0] != key }.toMutableList()
+            entries.add(listOf(key, value))
             item[ScriptorDataComponents.DICTIONARY_DATA] = DictionaryData(entries)
+        }
+    }
+
+
+    data class DictionaryDeleteMessage(val key: String)
+    val deleteDictionaryEntry = NetworkManager.registerC2S(location("delete_dictionary"), DictionaryDeleteMessage::class) { (key), player ->
+        val menu = player.containerMenu
+        if(menu is WritingTableMenu && menu.stillValid(player)) {
+            val item = menu.dictionary
+            val data = menu.dictionary[ScriptorDataComponents.DICTIONARY_DATA] ?: return@registerC2S
+            item[ScriptorDataComponents.DICTIONARY_DATA] = DictionaryData(data.values.filter {
+                it[0] != key
+            })
         }
     }
 
