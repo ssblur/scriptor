@@ -82,7 +82,7 @@ object ComponentHelper {
     }
     list.add(line.toString())
 
-    return list.stream().map(Component::literal).toList()
+    return list.stream().map(Component::literal).map{ it.withStyle(ChatFormatting.GRAY) }.toList()
   }
 
   fun addCommunityDisclaimer(list: MutableList<Component>, itemStack: ItemStack) {
