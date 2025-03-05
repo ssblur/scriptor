@@ -1,0 +1,19 @@
+{
+  "name": "tome.scriptor.blink",
+  "author": "Slim",
+  "tier": 1,
+  "item": "scriptor:spellbook_light_blue",
+  "spell": {
+    "subject": "self",
+    "spells": [
+      {
+        "action": "goto",
+        "descriptors": [
+          "move_forwards",
+          "move_forwards",
+          "move_forwards"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "tome.scriptor.quench",
+  "author": "Kidde",
+  "item": "scriptor:spellbook_white",
+  "tier": 2,
+  "spell": {
+    "subject": "self",
+    "spells": [
+      {
+        "action": "conjure_water",
+        "descriptors": [
+          "on_fire"
+        ]
+      }
+    ]
+  }
+}

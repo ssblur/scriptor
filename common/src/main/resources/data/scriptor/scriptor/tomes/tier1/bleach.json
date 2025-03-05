@@ -1,0 +1,17 @@
+{
+  "name": "tome.scriptor.bleach",
+  "author": "The Scheele",
+  "tier": 1,
+  "item": "scriptor:spellbook_light_gray",
+  "spell": {
+    "subject": "enchant",
+    "spells": [
+      {
+        "action": "color",
+        "descriptors": [
+          "white"
+        ]
+      }
+    ]
+  }
+}

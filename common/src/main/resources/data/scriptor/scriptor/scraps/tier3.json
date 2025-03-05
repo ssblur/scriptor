@@ -3,6 +3,7 @@
   "keys": [
     "descriptor:caster_first_empty",
     "descriptor:caster_first_filled",
+    "descriptor:first_empty",
     "descriptor:on_fire",
     "action:bound_axe",
     "action:bound_pickaxe"

@@ -23,9 +23,9 @@ class LightBlockEntityRenderer(@Suppress("unused_parameter") context: BlockEntit
     if (light.level == null) return
 
     val c = getColor(light.getColor(), light.level!!.gameTime + tickDelta)
-    val r = (((c and 0xff0000) shr 16).toFloat()) / 255
-    val g = (((c and 0x00ff00) shr 8).toFloat()) / 255
-    val b = ((c and 0x0000ff).toFloat()) / 255
+    val r = (c and 0xff0000) shr 16
+    val g = (c and 0x00ff00) shr 8
+    val b = c and 0x0000ff
 
     val random = Random()
     if (random.nextFloat() < 0.9f) return
@@ -34,7 +34,7 @@ class LightBlockEntityRenderer(@Suppress("unused_parameter") context: BlockEntit
     val zd = 0.25f + random.nextFloat() / 2f
 
     if (!Minecraft.getInstance().isPaused) light.level!!.addParticle(
-      MagicParticleData.magic(r.toInt(), g.toInt(), b.toInt()),
+      MagicParticleData.magic(r, g, b),
       (light.blockPos.x + xd).toDouble(),
       (light.blockPos.y + yd).toDouble(),
       (light.blockPos.z + zd).toDouble(),

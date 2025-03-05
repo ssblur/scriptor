@@ -1,0 +1,19 @@
+{
+  "name": "tome.scriptor.power_inversion",
+  "author": "Shucks",
+  "item": "scriptor:spellbook_light_blue",
+  "tier": 2,
+  "spell": {
+    "subject": "self",
+    "spells": [
+      {
+        "action": "strength",
+        "descriptors": [
+          "weakened",
+          "strong",
+          "long"
+        ]
+      }
+    ]
+  }
+}
