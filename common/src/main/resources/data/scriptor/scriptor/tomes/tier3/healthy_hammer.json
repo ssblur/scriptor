@@ -2,6 +2,7 @@
   "name": "tome.scriptor.healthy_hammer",
   "author": "Alex",
   "tier": 3,
+  "item": "scriptor:spellbook_green",
   "spell": {
     "subject": "touch",
     "spells": [

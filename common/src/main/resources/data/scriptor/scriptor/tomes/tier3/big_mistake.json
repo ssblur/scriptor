@@ -2,6 +2,7 @@
   "name": "tome.scriptor.big_mistake",
   "author": "Bigs",
   "tier": 3,
+  "item": "scriptor:spellbook_yellow",
   "spell": {
     "subject": "self",
     "spells": [

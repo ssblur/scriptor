@@ -2,6 +2,7 @@
   "name": "tome.scriptor.charge_weapon",
   "author": "T.A. Swift",
   "tier": 3,
+  "item": "scriptor:spellbook_blue",
   "spell": {
     "subject": "enchant",
     "spells": [

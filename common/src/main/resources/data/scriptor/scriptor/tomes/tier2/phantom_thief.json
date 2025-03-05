@@ -2,6 +2,7 @@
   "name": "tome.scriptor.phantom_thief",
   "author": "The Joker, Baby",
   "tier": 2,
+  "item": "scriptor:spellbook_gray",
   "spell": {
     "subject": "projectile",
     "spells": [

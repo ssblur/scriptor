@@ -76,7 +76,7 @@ class CastingLecternBlockEntity(blockPos: BlockPos, blockState: BlockState):
   fun tick() {
     if (level == null || level!!.isClientSide) return
     val server = level as ServerLevel
-    cooldown = max(0.0, (cooldown - 1).toDouble()).toInt()
+    cooldown = max(0.0, cooldown - 1.0).toInt()
     if (level!!.getBestNeighborSignal(blockPos) == 0 && !spellbook.isEmpty && cooldown == 0) {
       val item = spellbook
       val tag = item.get(DataComponents.WRITTEN_BOOK_CONTENT)
@@ -99,7 +99,6 @@ class CastingLecternBlockEntity(blockPos: BlockPos, blockState: BlockState):
           }
           val state = server.getBlockState(blockPos)
           val direction = state.getValue(CastingLecternBlock.FACING).opposite
-          val blockPos = this.blockPos
           val pos = blockPos.center
           val target = LecternTargetable(getLevel()!!, pos).setFacing(direction)
           if (focus.item is CasterCrystal) {
@@ -116,7 +115,7 @@ class CastingLecternBlockEntity(blockPos: BlockPos, blockState: BlockState):
           spell.cast(target)
           cooldown += Math.round(
             spell.cost() * 10.0 * (ScriptorConfig.CASTING_LECTERN_COOLDOWN_MULTIPLIER().toDouble() / 100.0)
-          ).toInt()
+          ).toInt().coerceAtLeast(10)
         }
       }
     }

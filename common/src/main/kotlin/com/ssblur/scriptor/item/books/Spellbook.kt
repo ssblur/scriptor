@@ -117,18 +117,18 @@ open class Spellbook(properties: Properties):
   }
 
   override fun render(
-    player: AbstractClientPlayer?,
+    player: AbstractClientPlayer,
     i: Float,
     pitch: Float,
-    hand: InteractionHand?,
+    hand: InteractionHand,
     swingProgress: Float,
-    itemStack: ItemStack?,
+    itemStack: ItemStack,
     readyProgress: Float,
     matrix: PoseStack?,
     buffer: MultiBufferSource,
     lightLevel: Int
   ): Boolean {
-    if (matrix == null || itemStack == null || player == null) return false
+    if (matrix == null) return false
     matrix.pushPose()
     val inRightHand = (hand == InteractionHand.MAIN_HAND) xor (player.mainArm == HumanoidArm.LEFT)
     val v = if (inRightHand) 1 else -1

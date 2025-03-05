@@ -35,14 +35,6 @@ class DryAction: Action() {
     val block = state.block
     if(block is BucketPickup)
       if (caster is EntityTargetable && caster.targetEntity is Player) {
-        state.block.playerDestroy(
-          level,
-          (caster.targetEntity as Player),
-          pos,
-          state,
-          level.getBlockEntity(pos),
-          ItemStack(Items.NETHERITE_PICKAXE)
-        )
         block.pickupBlock(caster.targetEntity as Player, level, pos, state)
       } else {
         block.pickupBlock(null, level, pos, state)

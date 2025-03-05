@@ -3,6 +3,7 @@ package com.ssblur.scriptor.block
 import com.mojang.serialization.MapCodec
 import com.ssblur.scriptor.blockentity.CastingLecternBlockEntity
 import com.ssblur.scriptor.blockentity.ScriptorBlockEntities
+import com.ssblur.scriptor.helpers.PlayerItemHelper.addOrDropItem
 import com.ssblur.scriptor.item.books.Spellbook
 import com.ssblur.scriptor.item.casters.CasterCrystal
 import com.ssblur.unfocused.extension.BlockEntityTypeExtension.create
@@ -25,6 +26,7 @@ import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.DirectionProperty
 import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.shapes.CollisionContext
+import net.minecraft.world.phys.shapes.VoxelShape
 
 class CastingLecternBlock: HorizontalDirectionalBlock(Properties.ofFullCopy(Blocks.SPRUCE_PLANKS).noOcclusion()), EntityBlock {
   public override fun useItemOn(
@@ -38,27 +40,28 @@ class CastingLecternBlock: HorizontalDirectionalBlock(Properties.ofFullCopy(Bloc
   ): ItemInteractionResult {
     val blockEntity = level.getBlockEntity(blockPos)
 
-    if (!level.isClientSide && blockEntity is CastingLecternBlockEntity) if (itemStack.isEmpty) {
-      if (!blockEntity.spellbook.isEmpty) {
-        player.setItemInHand(interactionHand, blockEntity.spellbook)
-        blockEntity.spellbook = itemStack
-      } else {
-        player.setItemInHand(interactionHand, blockEntity.focus)
-        blockEntity.focus = itemStack
+    if (!level.isClientSide && blockEntity is CastingLecternBlockEntity)
+      if (itemStack.isEmpty) {
+        if (!blockEntity.spellbook.isEmpty) {
+          player.addOrDropItem(blockEntity.spellbook)
+          blockEntity.spellbook = ItemStack.EMPTY
+        } else {
+          player.addOrDropItem(blockEntity.focus)
+          blockEntity.focus = ItemStack.EMPTY
+        }
+      } else if (itemStack.item is Spellbook) {
+        player.addOrDropItem(blockEntity.spellbook)
+        blockEntity.spellbook = itemStack.copyWithCount(1)
+        itemStack.shrink(1)
+      } else if (itemStack.item is CasterCrystal) {
+        player.addOrDropItem(blockEntity.focus)
+        blockEntity.focus = itemStack.copyWithCount(1)
+        itemStack.shrink(1)
       }
-    } else if (itemStack.item is Spellbook) {
-      player.setItemInHand(interactionHand, blockEntity.spellbook)
-      blockEntity.spellbook = itemStack
-      return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
-    } else if (itemStack.item is CasterCrystal) {
-      player.setItemInHand(interactionHand, blockEntity.focus)
-      blockEntity.focus = itemStack
-      return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
-    }
     return ItemInteractionResult.CONSUME
   }
 
-  override fun getStateForPlacement(blockPlaceContext: BlockPlaceContext) =
+  override fun getStateForPlacement(blockPlaceContext: BlockPlaceContext): BlockState =
     defaultBlockState().setValue(FACING, blockPlaceContext.horizontalDirection.opposite)
 
   override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
@@ -85,7 +88,7 @@ class CastingLecternBlock: HorizontalDirectionalBlock(Properties.ofFullCopy(Bloc
     blockGetter: BlockGetter,
     blockPos: BlockPos,
     collisionContext: CollisionContext
-  ) = when (blockState.getValue(LecternBlock.FACING)) {
+  ): VoxelShape = when (blockState.getValue(LecternBlock.FACING)) {
     Direction.NORTH -> LecternBlock.SHAPE_NORTH
     Direction.SOUTH -> LecternBlock.SHAPE_SOUTH
     Direction.EAST -> LecternBlock.SHAPE_EAST
@@ -98,9 +101,9 @@ class CastingLecternBlock: HorizontalDirectionalBlock(Properties.ofFullCopy(Bloc
     level: Level,
     blockPos: BlockPos,
     blockState2: BlockState,
-    bl: Boolean
+    drops: Boolean
   ) {
-    if (!level.isClientSide) {
+    if (!level.isClientSide && drops) {
       if (level.getBlockEntity(blockPos) is CastingLecternBlockEntity) {
         val lectern = level.getBlockEntity(blockPos) as CastingLecternBlockEntity
         for (item in lectern.items) {
@@ -115,7 +118,7 @@ class CastingLecternBlock: HorizontalDirectionalBlock(Properties.ofFullCopy(Bloc
         }
       }
     }
-    super.onRemove(blockState, level, blockPos, blockState2, bl)
+    super.onRemove(blockState, level, blockPos, blockState2, drops)
   }
 
   override fun codec(): MapCodec<out HorizontalDirectionalBlock> = MapCodec.unit(this)

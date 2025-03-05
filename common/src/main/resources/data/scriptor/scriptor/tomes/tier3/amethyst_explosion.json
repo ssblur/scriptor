@@ -2,6 +2,7 @@
   "name": "tome.scriptor.amethyst_explosion",
   "author": "Snark",
   "tier": 3,
+  "item": "scriptor:spellbook",
   "spell": {
     "subject": "projectile",
     "spells": [

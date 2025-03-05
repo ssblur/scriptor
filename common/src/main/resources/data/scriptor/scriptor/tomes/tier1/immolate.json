@@ -2,6 +2,7 @@
   "name": "tome.scriptor.immolate",
   "author": "Arnold the Unwise",
   "tier": 1,
+  "item": "scriptor:spellbook_red",
   "spell": {
     "subject": "self",
     "spells": [

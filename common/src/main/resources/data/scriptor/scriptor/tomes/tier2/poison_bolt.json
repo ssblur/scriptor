@@ -2,6 +2,7 @@
   "name": "tome.scriptor.poison_bolt",
   "author": "Mithridates",
   "tier": 2,
+  "item": "scriptor:spellbook_green",
   "spell": {
     "subject": "projectile",
     "spells": [

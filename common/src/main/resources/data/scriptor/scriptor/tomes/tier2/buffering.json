@@ -1,6 +1,7 @@
 {
   "name": "tome.scriptor.buffering",
   "author": "Herc",
+  "item": "scriptor:spellbook_yellow",
   "tier": 2,
   "spell": {
     "subject": "self",

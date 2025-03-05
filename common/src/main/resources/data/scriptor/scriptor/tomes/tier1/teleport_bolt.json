@@ -2,6 +2,7 @@
   "name": "tome.scriptor.teleport_bolt",
   "author": "And Drew",
   "tier": 1,
+  "item": "scriptor:spellbook_light_blue",
   "spell": {
     "subject": "projectile",
     "spells": [

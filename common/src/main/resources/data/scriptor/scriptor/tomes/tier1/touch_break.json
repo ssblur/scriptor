@@ -2,6 +2,7 @@
   "name": "tome.scriptor.touch_break",
   "author": "Steve",
   "tier": 1,
+  "item": "scriptor:spellbook_brown",
   "spell": {
     "subject": "touch",
     "spells": [

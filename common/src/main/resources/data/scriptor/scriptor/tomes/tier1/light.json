@@ -2,6 +2,7 @@
   "name": "tome.scriptor.light",
   "author": "Lucy",
   "tier": 1,
+  "item": "scriptor:spellbook_white",
   "spell": {
     "subject": "touch",
     "spells": [

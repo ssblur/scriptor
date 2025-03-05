@@ -2,6 +2,7 @@
   "name": "tome.scriptor.lightning_explosion",
   "author": "Riju",
   "tier": 3,
+  "item": "scriptor:spellbook_orange",
   "spell": {
     "subject": "projectile",
     "spells": [

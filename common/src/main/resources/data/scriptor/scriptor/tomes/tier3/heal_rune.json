@@ -2,6 +2,7 @@
   "name": "tome.scriptor.heal_rune",
   "author": "\u00c2\u00a7iPrisma",
   "tier": 3,
+  "item": "scriptor:spellbook_green",
   "spell": {
     "subject": "rune",
     "spells": [

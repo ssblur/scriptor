@@ -1,6 +1,7 @@
 {
   "name": "tome.scriptor.trans_sheep",
   "author": "Ecain",
+  "item": "scriptor:spellbook_pink",
   "tier": 2,
   "spell": {
     "subject": "touch",

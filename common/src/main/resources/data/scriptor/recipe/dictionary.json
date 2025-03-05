@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "---",
+    "###",
+    "igq"
+  ],
+  "key": {
+    "q": {
+      "item": "minecraft:feather"
+    },
+    "i": {
+      "item": "minecraft:ink_sac"
+    },
+    "g": {
+      "item": "minecraft:gold_ingot"
+    },
+    "-": {
+      "item": "minecraft:leather"
+    },
+    "#": {
+      "item": "minecraft:paper"
+    }
+  },
+  "result": {
+    "id": "scriptor:dictionary",
+    "count": 1
+  }
+}

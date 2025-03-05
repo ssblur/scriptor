@@ -78,9 +78,9 @@ class WritingTableBlock: BaseEntityBlock(Properties.ofFullCopy(Blocks.ACACIA_PLA
     level: Level,
     blockPos: BlockPos,
     blockState2: BlockState,
-    bl: Boolean
+    drops: Boolean
   ) {
-    if (!level.isClientSide) {
+    if (!level.isClientSide && drops) {
       if (level.getBlockEntity(blockPos) is WritingTableBlockEntity) {
         val table = level.getBlockEntity(blockPos) as WritingTableBlockEntity
         for (item in table.inventory) {
@@ -95,7 +95,7 @@ class WritingTableBlock: BaseEntityBlock(Properties.ofFullCopy(Blocks.ACACIA_PLA
         }
       }
     }
-    super.onRemove(blockState, level, blockPos, blockState2, bl)
+    super.onRemove(blockState, level, blockPos, blockState2, drops)
   }
 
   override fun getRenderShape(blockState: BlockState) = RenderShape.MODEL

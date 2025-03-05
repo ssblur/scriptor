@@ -2,6 +2,7 @@
   "name": "tome.scriptor.portable_sponge",
   "author": "Core, E.",
   "tier": 3,
+  "item": "scriptor:spellbook_light_gray",
   "spell": {
     "subject": "touch",
     "spells": [

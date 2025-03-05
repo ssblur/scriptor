@@ -56,19 +56,22 @@ object DebugCommand {
 
     for (action in actionRegistry.keys) {
       if (!I18n.exists("action.scriptor.$action")) {
-        message.append("Description not localized for action.scriptor.").append(action).append("\n")
+        message.append("Description not localized for action.scriptor.$action\n")
       }
     }
     for (descriptor in descriptorRegistry.keys) {
       if (!I18n.exists("descriptor.scriptor.$descriptor")) {
-        message.append("Description not localized for descriptor.scriptor.").append(descriptor).append("\n")
+        message.append("Description not localized for descriptor.scriptor.$descriptor\n")
       }
     }
     for (subject in subjectRegistry.keys) {
       if (!I18n.exists("subject.scriptor.$subject")) {
-        message.append("Description not localized for subject.scriptor.").append(subject).append("\n")
+        message.append("Description not localized for subject.scriptor.$subject\n")
       }
     }
+
+    val tomesNoLocale = Tomes.tomes.values.filter{ !I18n.exists(it.name) }.map { it.name }
+    if(tomesNoLocale.isNotEmpty()) message.append("The following tomes have no localized name: $tomesNoLocale\n")
 
     if (command.source.entity is Player) {
       (command.source.entity as Player).sendSystemMessage(Component.literal(message.toString()))

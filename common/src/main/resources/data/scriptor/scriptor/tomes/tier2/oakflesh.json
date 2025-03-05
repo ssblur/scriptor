@@ -2,6 +2,7 @@
   "name": "tome.scriptor.oakflesh",
   "author": "Shuckster",
   "tier": 2,
+  "item": "scriptor:spellbook_light_gray",
   "spell": {
     "subject": "self",
     "spells": [

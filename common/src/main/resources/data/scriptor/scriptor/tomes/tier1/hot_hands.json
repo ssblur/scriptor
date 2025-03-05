@@ -2,6 +2,7 @@
   "name": "tome.scriptor.hot_hands",
   "author": "Jaurice",
   "tier": 1,
+  "item": "scriptor:spellbook_orange",
   "spell": {
     "subject": "touch",
     "spells": [

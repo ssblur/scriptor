@@ -2,6 +2,7 @@
   "name": "tome.scriptor.gold_heal",
   "author": "Aurelius",
   "tier": 3,
+  "item": "scriptor:spellbook_white",
   "spell": {
     "subject": "storm",
     "spells": [

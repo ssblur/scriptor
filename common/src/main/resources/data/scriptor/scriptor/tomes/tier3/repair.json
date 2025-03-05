@@ -2,6 +2,7 @@
   "name": "tome.scriptor.repair",
   "author": "Andy",
   "tier": 3,
+  "item": "scriptor:spellbook_light_gray",
   "spell": {
     "subject": "self",
     "spells": [

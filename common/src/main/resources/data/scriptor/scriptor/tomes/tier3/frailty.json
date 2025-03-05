@@ -2,6 +2,7 @@
   "name": "tome.scriptor.frailty",
   "author": "Joe",
   "tier": 3,
+  "item": "scriptor:spellbook_red",
   "spell": {
     "subject": "storm",
     "spells": [

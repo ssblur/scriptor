@@ -1,0 +1,29 @@
+{
+  "variants": {
+    "facing=up": {
+      "model": "scriptor:block/highlight_model"
+    },
+    "facing=down": {
+      "model": "scriptor:block/highlight_model",
+      "x": 180
+    },
+    "facing=north": {
+      "model": "scriptor:block/highlight_model",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "scriptor:block/highlight_model",
+      "x": 270
+    },
+    "facing=west": {
+      "model": "scriptor:block/highlight_model",
+      "x": 90,
+      "y": 270
+    },
+    "facing=east": {
+      "model": "scriptor:block/highlight_model",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

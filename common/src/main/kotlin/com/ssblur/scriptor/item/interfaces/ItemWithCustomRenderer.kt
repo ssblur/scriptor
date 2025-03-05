@@ -22,12 +22,12 @@ interface ItemWithCustomRenderer {
    * @return true to cancel further rendering, false to continue rendering as normal
    */
   fun render(
-    player: AbstractClientPlayer?,
+    player: AbstractClientPlayer,
     i: Float,
     pitch: Float,
-    hand: InteractionHand?,
+    hand: InteractionHand,
     swingProgress: Float,
-    itemStack: ItemStack?,
+    itemStack: ItemStack,
     readyProgress: Float,
     matrix: PoseStack?,
     buffer: MultiBufferSource,

@@ -77,8 +77,9 @@ class CastingLecternBlockEntityRenderer(context: BlockEntityRendererProvider.Con
 
     matrix.popPose()
 
-    matrix.translate(0.5f + translateX, 1f + translateY, 0.5f + translateZ)
+    matrix.translate(0.5f + translateX, 1.3f + translateY, 0.5f + translateZ)
 
+    matrix.mulPose(Axis.ZP.rotationDegrees(180f))
     matrix.mulPose(Axis.YP.rotationDegrees(rotationY.toFloat()))
     matrix.mulPose(Axis.XP.rotationDegrees(112f))
 

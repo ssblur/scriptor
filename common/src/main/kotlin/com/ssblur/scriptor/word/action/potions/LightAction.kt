@@ -1,4 +1,4 @@
-package com.ssblur.scriptor.word.action
+package com.ssblur.scriptor.word.action.potions
 
 import com.ssblur.scriptor.api.word.Action
 import com.ssblur.scriptor.api.word.Descriptor
@@ -22,7 +22,7 @@ class LightAction: Action() {
     }
 
     if (targetable is EntityTargetable && targetable.targetEntity is LivingEntity) {
-      (targetable.targetEntity as LivingEntity).addEffect(MobEffectInstance(MobEffects.GLOWING, seconds))
+      (targetable.targetEntity as LivingEntity).addEffect(MobEffectInstance(MobEffects.GLOWING, seconds * 20))
       return
     }
 

@@ -1,6 +1,7 @@
 {
   "name": "tome.scriptor.sacrificial_healing",
   "author": "Hurt the Healer",
+  "item": "scriptor:spellbook_black",
   "tier": 2,
   "spell": {
     "subject": "touch",

@@ -2,6 +2,7 @@
   "name": "tome.scriptor.fireball",
   "author": "Pyrus the Plain",
   "tier": 1,
+  "item": "scriptor:spellbook_orange",
   "spell": {
     "subject": "projectile",
     "spells": [

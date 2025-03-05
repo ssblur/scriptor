@@ -90,18 +90,17 @@ class BookOfBooks(properties: Properties, var capacity: Int): Item(properties),
   }
 
   override fun render(
-    player: AbstractClientPlayer?,
+    player: AbstractClientPlayer,
     i: Float,
     pitch: Float,
-    hand: InteractionHand?,
+    hand: InteractionHand,
     swingProgress: Float,
-    itemStack: ItemStack?,
+    itemStack: ItemStack,
     readyProgress: Float,
     matrix: PoseStack?,
     buffer: MultiBufferSource,
     lightLevel: Int
   ): Boolean {
-    if (player == null || hand == null) return false
     if (getActiveItem(player.getItemInHand(hand)).item is ItemWithCustomRenderer)
       return (getActiveItem(player.getItemInHand(hand)).item as ItemWithCustomRenderer).render(
         player,

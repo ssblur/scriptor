@@ -6,6 +6,7 @@ import com.ssblur.unfocused.helper.ColorHelper
 import com.ssblur.unfocused.tab.CreativeTabs.tab
 import net.minecraft.tags.TagKey
 import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.state.BlockBehaviour
 
 object ScriptorBlocks {
   val DO_NOT_PHASE: TagKey<Block> = ScriptorMod.registerBlockTag("do_not_phase")
@@ -18,6 +19,7 @@ object ScriptorBlocks {
   val WRITING_TABLE = ScriptorMod.registerBlockWithItem("writing_table") { WritingTableBlock() }
   val PHASED_BLOCK = ScriptorMod.registerBlock("phased_block") { PhasedBlock() }
   val GENERATE = ScriptorMod.registerBlock("generate") { GenerateBlock() }
+  val HIGHLIGHT_MODEL = ScriptorMod.registerBlock("highlight_model") { HighlightBlock(BlockBehaviour.Properties.of()) }
 
   val MAGIC_BLOCKS = ColorHelper.forEachColor {
     ScriptorMod.registerBlock(it.nameAllLowerCase + "_magic_block") { MagicBlock(it.dyeColor) }

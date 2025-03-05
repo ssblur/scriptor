@@ -1,22 +1,35 @@
 package com.ssblur.scriptor.item.casters
 
+import com.mojang.blaze3d.systems.RenderSystem
+import com.mojang.blaze3d.vertex.PoseStack
+import com.ssblur.scriptor.block.ScriptorBlocks
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.helpers.ComponentHelper
 import com.ssblur.scriptor.helpers.targetable.Targetable
+import com.ssblur.scriptor.item.interfaces.ItemWithCustomRenderer
 import com.ssblur.scriptor.network.server.TraceNetwork
 import net.minecraft.ChatFormatting
+import net.minecraft.client.Minecraft
+import net.minecraft.client.player.AbstractClientPlayer
+import net.minecraft.client.renderer.GameRenderer
+import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.network.chat.Component
+import net.minecraft.util.Mth
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
+import net.minecraft.world.level.block.DirectionalBlock
 import org.apache.commons.lang3.tuple.Pair
+import kotlin.math.abs
+import kotlin.math.cos
+import kotlin.math.sin
 
-class CoordinateCasterCrystal(properties: Properties): CasterCrystal(properties) {
+class CoordinateCasterCrystal(properties: Properties): CasterCrystal(properties), ItemWithCustomRenderer {
   class BlockPosDirection(var blockPos: BlockPos, var direction: Direction): Pair<BlockPos, Direction>() {
     override fun getLeft(): BlockPos {
       return blockPos
@@ -134,5 +147,51 @@ class CoordinateCasterCrystal(properties: Properties): CasterCrystal(properties)
       )
       return list
     }
+  }
+
+  override fun render(
+    player: AbstractClientPlayer,
+    i: Float,
+    pitch: Float,
+    hand: InteractionHand,
+    swingProgress: Float,
+    itemStack: ItemStack,
+    readyProgress: Float,
+    matrix: PoseStack?,
+    buffer: MultiBufferSource,
+    lightLevel: Int
+  ): Boolean {
+    if(matrix == null) return false
+    val minecraft = Minecraft.getInstance()
+    val dispatcher = minecraft.blockRenderer
+    val gameRenderer = minecraft.gameRenderer
+    val camera = gameRenderer.mainCamera.position
+    matrix.pushPose()
+    matrix.setIdentity()
+    val g = player.walkDist - player.walkDistO
+    val h = -(player.walkDist + g * i).toDouble()
+    val j = Mth.lerp(i, player.oBob, player.bob)
+    matrix.translate(
+      (sin(h * Math.PI) * j * 0.5),
+      -abs((cos(h * Math.PI) * j)),
+      0.0
+    )
+    matrix.translate(-camera.x, -camera.y, -camera.z)
+
+    RenderSystem.disableDepthTest()
+    RenderSystem.enableBlend()
+    RenderSystem.setShader { GameRenderer.getPositionTexColorShader() }
+    RenderSystem.disableCull()
+
+    for ((pos, dir) in getCoordinates(itemStack)) {
+      matrix.pushPose()
+      val blockState = ScriptorBlocks.HIGHLIGHT_MODEL.get().defaultBlockState().setValue(DirectionalBlock.FACING, dir)
+      matrix.translate(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble())
+      dispatcher.renderSingleBlock(blockState, matrix, buffer, 0xffffff, 0)
+      matrix.popPose()
+    }
+
+    matrix.popPose()
+    return false
   }
 }

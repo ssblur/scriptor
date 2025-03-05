@@ -1,6 +1,7 @@
 {
   "name": "tome.scriptor.sacrificial_lightning",
   "author": "Zephyr the Pained",
+  "item": "scriptor:spellbook_black",
   "tier": 2,
   "spell": {
     "subject": "projectile",

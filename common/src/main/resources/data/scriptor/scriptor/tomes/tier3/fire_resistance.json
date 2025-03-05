@@ -2,6 +2,7 @@
   "name": "tome.scriptor.fire_resistance",
   "author": "P. Helps",
   "tier": 3,
+  "item": "scriptor:spellbook_orange",
   "spell": {
     "subject": "self",
     "spells": [
