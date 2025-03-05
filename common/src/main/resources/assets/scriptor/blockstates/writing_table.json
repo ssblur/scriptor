@@ -1,19 +1,35 @@
 {
   "variants": {
-    "facing=east": {
+    "facing=east,book=false": {
       "model": "scriptor:block/writing_table",
       "y": 270
     },
-    "facing=north": {
+    "facing=north,book=false": {
       "model": "scriptor:block/writing_table",
       "y": 180
     },
-    "facing=south": {
+    "facing=south,book=false": {
       "model": "scriptor:block/writing_table",
       "y": 0
     },
-    "facing=west": {
+    "facing=west,book=false": {
       "model": "scriptor:block/writing_table",
+      "y": 90
+    },
+    "facing=east,book=true": {
+      "model": "scriptor:block/writing_table_book",
+      "y": 270
+    },
+    "facing=north,book=true": {
+      "model": "scriptor:block/writing_table_book",
+      "y": 180
+    },
+    "facing=south,book=true": {
+      "model": "scriptor:block/writing_table_book",
+      "y": 0
+    },
+    "facing=west,book=true": {
+      "model": "scriptor:block/writing_table_book",
       "y": 90
     }
   }

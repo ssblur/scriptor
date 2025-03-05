@@ -32,5 +32,13 @@ interface ItemWithCustomRenderer {
     matrix: PoseStack?,
     buffer: MultiBufferSource,
     lightLevel: Int
-  ): Boolean
+  ): Boolean = false
+
+  fun worldRender(
+    player: AbstractClientPlayer,
+    hand: InteractionHand,
+    itemStack: ItemStack,
+    matrix: PoseStack?,
+    buffer: MultiBufferSource
+  ) {}
 }

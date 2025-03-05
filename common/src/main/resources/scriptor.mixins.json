@@ -18,7 +18,8 @@
     "BlockItemColorableInject",
     "BlockRenderDispatcherAccessor",
     "ScriptorBookViewScreenMixin",
-    "ScriptorItemInHandRendererMixin"
+    "ScriptorItemInHandRendererMixin",
+    "ScriptorLevelRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

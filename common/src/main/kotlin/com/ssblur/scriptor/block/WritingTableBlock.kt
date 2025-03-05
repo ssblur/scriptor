@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
+import net.minecraft.world.level.block.state.properties.BooleanProperty
 import net.minecraft.world.level.block.state.properties.DirectionProperty
 import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.shapes.CollisionContext
@@ -25,14 +26,14 @@ import net.minecraft.world.phys.shapes.Shapes
 
 class WritingTableBlock: BaseEntityBlock(Properties.ofFullCopy(Blocks.ACACIA_PLANKS).noOcclusion()) {
   init {
-    this.registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH))
+    this.registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(BOOK, false))
   }
 
   override fun getStateForPlacement(blockPlaceContext: BlockPlaceContext) =
     defaultBlockState().setValue(FACING, blockPlaceContext.horizontalDirection.opposite)
 
   override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
-    builder.add(FACING)
+    builder.add(FACING).add(BOOK)
   }
 
   override fun newBlockEntity(blockPos: BlockPos, blockState: BlockState): BlockEntity {
@@ -69,7 +70,7 @@ class WritingTableBlock: BaseEntityBlock(Properties.ofFullCopy(Blocks.ACACIA_PLA
     blockGetter: BlockGetter,
     blockPos: BlockPos,
     collisionContext: CollisionContext
-  ) = Shapes.box(0.0625, 0.0, 0.0625, 0.875, 0.5, 0.875)
+  ) = Shapes.box(2.0/16.0, 0.0, 2.0/16.0, 14.0/16.0, 14.0/16.0, 14.0/16.0)
 
   override fun codec(): MapCodec<out BaseEntityBlock> = MapCodec.unit(this)
 
@@ -102,5 +103,6 @@ class WritingTableBlock: BaseEntityBlock(Properties.ofFullCopy(Blocks.ACACIA_PLA
 
   companion object {
     val FACING: DirectionProperty = HorizontalDirectionalBlock.FACING
+    val BOOK: BooleanProperty = BooleanProperty.create("book")
   }
 }

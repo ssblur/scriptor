@@ -40,7 +40,7 @@ repositories {
 
 dependencies {
   neoForge "net.neoforged:neoforge:$rootProject.neoforge_version"
-  implementation("thedarkcolour:kotlinforforge-neoforge:5.4.0") { transitive false }
+  implementation("thedarkcolour:kotlinforforge-neoforge:$rootProject.kff_version") { transitive false }
 
   modImplementation("com.ssblur.unfocused:unfocused-neoforge:${rootProject.unfocused_version}")
 

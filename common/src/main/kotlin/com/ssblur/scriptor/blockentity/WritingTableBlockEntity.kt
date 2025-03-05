@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.blockentity
 
+import com.ssblur.scriptor.block.WritingTableBlock
 import com.ssblur.scriptor.item.ScriptorItems
 import com.ssblur.scriptor.item.ScriptorTags
 import com.ssblur.scriptor.screen.menu.WritingTableMenu
@@ -74,6 +75,8 @@ class WritingTableBlockEntity(blockPos: BlockPos, blockState: BlockState):
 
   fun tick() {
     if (level == null || level!!.isClientSide) return
+    if(blockState.getValue(WritingTableBlock.BOOK) == dictionary.isEmpty)
+      level?.setBlockAndUpdate(blockPos, blockState.setValue(WritingTableBlock.BOOK, !dictionary.isEmpty))
   }
 
 

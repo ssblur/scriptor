@@ -16,7 +16,6 @@ import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.network.chat.Component
-import net.minecraft.util.Mth
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.entity.player.Player
@@ -25,9 +24,6 @@ import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.DirectionalBlock
 import org.apache.commons.lang3.tuple.Pair
-import kotlin.math.abs
-import kotlin.math.cos
-import kotlin.math.sin
 
 class CoordinateCasterCrystal(properties: Properties): CasterCrystal(properties), ItemWithCustomRenderer {
   class BlockPosDirection(var blockPos: BlockPos, var direction: Direction): Pair<BlockPos, Direction>() {
@@ -149,33 +145,20 @@ class CoordinateCasterCrystal(properties: Properties): CasterCrystal(properties)
     }
   }
 
-  override fun render(
+  override fun worldRender(
     player: AbstractClientPlayer,
-    i: Float,
-    pitch: Float,
     hand: InteractionHand,
-    swingProgress: Float,
     itemStack: ItemStack,
-    readyProgress: Float,
     matrix: PoseStack?,
-    buffer: MultiBufferSource,
-    lightLevel: Int
-  ): Boolean {
-    if(matrix == null) return false
+    buffer: MultiBufferSource
+  ) {
+    if(matrix == null) return
     val minecraft = Minecraft.getInstance()
     val dispatcher = minecraft.blockRenderer
     val gameRenderer = minecraft.gameRenderer
     val camera = gameRenderer.mainCamera.position
     matrix.pushPose()
     matrix.setIdentity()
-    val g = player.walkDist - player.walkDistO
-    val h = -(player.walkDist + g * i).toDouble()
-    val j = Mth.lerp(i, player.oBob, player.bob)
-    matrix.translate(
-      (sin(h * Math.PI) * j * 0.5),
-      -abs((cos(h * Math.PI) * j)),
-      0.0
-    )
     matrix.translate(-camera.x, -camera.y, -camera.z)
 
     RenderSystem.disableDepthTest()
@@ -187,11 +170,10 @@ class CoordinateCasterCrystal(properties: Properties): CasterCrystal(properties)
       matrix.pushPose()
       val blockState = ScriptorBlocks.HIGHLIGHT_MODEL.get().defaultBlockState().setValue(DirectionalBlock.FACING, dir)
       matrix.translate(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble())
-      dispatcher.renderSingleBlock(blockState, matrix, buffer, 0xffffff, 0)
+      dispatcher.renderSingleBlock(blockState, matrix, buffer, 0xffffff, 0xffffff)
       matrix.popPose()
     }
 
     matrix.popPose()
-    return false
   }
 }
