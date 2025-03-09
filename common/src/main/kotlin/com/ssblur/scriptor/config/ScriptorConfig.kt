@@ -3,6 +3,7 @@ package com.ssblur.scriptor.config
 import com.ssblur.scriptor.ScriptorMod.config
 
 object ScriptorConfig {
+  // Casting cost settings
   val TOME_MAX_COST = config.registerInt("tome_max_cost", 50)
   val TOME_COOLDOWN_MULTIPLIER = config.registerInt("tome_cooldown_multiplier", 100)
   val SCROLL_MAX_COST = config.registerInt("scroll_max_cost", 75)
@@ -14,11 +15,17 @@ object ScriptorConfig {
   val VOCAL_HUNGER_THRESHOLD = config.registerInt("vocal_hunger_threshold", 50)
   val VOCAL_DAMAGE_THRESHOLD = config.registerInt("vocal_damage_threshold", 125)
   val VOCAL_COOLDOWN_MULTIPLIER = config.registerInt("vocal_cooldown_multiplier", 100)
+
+  // Spell settings
   val CAN_TARGET_PLAYER_INVENTORIES = config.registerBoolean("can_target_player_inventories", true)
 
+  // Chat settings
   val PROXIMITY_CHAT = config.registerBoolean("proximity_chat", false)
   val SHOW_SPELLS_IN_CHAT = config.registerBoolean("show_spells_in_chat", false)
   val PROXIMITY_RANGE = config.registerInt("proximity_chat_range", 64)
+
+  // Demonstration / showcase settings
+  val INVERT_DO_NOT_PHASE = config.registerBoolean("invert_do_not_phase", false)
 
   fun register() {}
 }

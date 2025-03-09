@@ -1,6 +1,7 @@
 package com.ssblur.scriptor.blockentity
 
 import com.ssblur.scriptor.block.ScriptorBlocks
+import com.ssblur.scriptor.config.ScriptorConfig
 import net.minecraft.core.BlockPos
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
@@ -103,7 +104,7 @@ class PhasedBlockBlockEntity(blockPos: BlockPos, blockState: BlockState):
 
       val state = level.getBlockState(pos)
       @Suppress("DEPRECATION")
-      if (state.`is`(ScriptorBlocks.DO_NOT_PHASE) || state.liquid() || state.isAir) return
+      if ((state.`is`(ScriptorBlocks.DO_NOT_PHASE) != ScriptorConfig.INVERT_DO_NOT_PHASE()) || state.liquid() || state.isAir) return
 
       val newState = ScriptorBlocks.PHASED_BLOCK.get().defaultBlockState()
       level.setBlockAndUpdate(pos, newState)

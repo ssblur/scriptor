@@ -29,24 +29,24 @@ import net.minecraft.world.level.block.state.BlockState
 
 class WritingTableBlockEntity(blockPos: BlockPos, blockState: BlockState):
   BaseContainerBlockEntity(ScriptorBlockEntities.WRITING_TABLE.get(), blockPos, blockState), WorldlyContainer, StackedContentsCompatible {
-  var inventory: NonNullList<ItemStack>
+  var tableItems: NonNullList<ItemStack>
 
   init {
-    inventory = NonNullList.withSize(2, ItemStack.EMPTY)
+    tableItems = NonNullList.withSize(2, ItemStack.EMPTY)
   }
 
   var dictionary: ItemStack
-    get() = inventory[DICTIONARY_SLOT]
+    get() = tableItems[DICTIONARY_SLOT]
     set(itemStack) {
-      inventory[DICTIONARY_SLOT] = itemStack
+      tableItems[DICTIONARY_SLOT] = itemStack
       if (level != null) level!!.sendBlockUpdated(blockPos, blockState, blockState, 3)
       setChanged()
     }
 
   var book: ItemStack
-    get() = inventory[BOOK_SLOT]
+    get() = tableItems[BOOK_SLOT]
     set(itemStack) {
-      inventory[BOOK_SLOT] = itemStack
+      tableItems[BOOK_SLOT] = itemStack
       if (level != null) level!!.sendBlockUpdated(blockPos, blockState, blockState, 3)
       setChanged()
     }
@@ -63,14 +63,14 @@ class WritingTableBlockEntity(blockPos: BlockPos, blockState: BlockState):
 
   public override fun loadAdditional(tag: CompoundTag, provider: HolderLookup.Provider) {
     super.loadAdditional(tag, provider)
-    inventory = NonNullList.withSize(2, ItemStack.EMPTY)
-    ContainerHelper.loadAllItems(tag, inventory, provider)
+    tableItems = NonNullList.withSize(2, ItemStack.EMPTY)
+    ContainerHelper.loadAllItems(tag, tableItems, provider)
     setChanged()
   }
 
   override fun saveAdditional(tag: CompoundTag, provider: HolderLookup.Provider) {
     super.saveAdditional(tag, provider)
-    ContainerHelper.saveAllItems(tag, inventory, provider)
+    ContainerHelper.saveAllItems(tag, tableItems, provider)
   }
 
   fun tick() {
@@ -91,29 +91,29 @@ class WritingTableBlockEntity(blockPos: BlockPos, blockState: BlockState):
   }
 
   override fun clearContent() {
-    inventory.clear()
+    tableItems.clear()
   }
 
   override fun getContainerSize() = 2
 
-  override fun isEmpty() = inventory.isEmpty()
-  override fun getItem(i: Int) = inventory.get(i)
+  override fun isEmpty() = tableItems.isEmpty()
+  override fun getItem(i: Int) = tableItems.get(i)
   override fun removeItem(i: Int, j: Int): ItemStack {
     setChanged()
-    val out = inventory[i].copyWithCount(j)
-    inventory[i].shrink(j)
+    val out = tableItems[i].copyWithCount(j)
+    tableItems[i].shrink(j)
     return out
   }
 
   override fun removeItemNoUpdate(i: Int): ItemStack {
-    val stack: ItemStack = inventory[i]
-    inventory[i] = ItemStack.EMPTY
+    val stack: ItemStack = tableItems[i]
+    tableItems[i] = ItemStack.EMPTY
     return stack
   }
 
   override fun setItem(i: Int, itemStack: ItemStack) {
     setChanged()
-    inventory[i] = itemStack
+    tableItems[i] = itemStack
   }
 
   override fun stillValid(player: Player) =
@@ -121,9 +121,9 @@ class WritingTableBlockEntity(blockPos: BlockPos, blockState: BlockState):
 
   override fun createMenu(i: Int, inventory: Inventory): AbstractContainerMenu = WritingTableMenu(i, inventory, this)
   override fun getDefaultName(): Component = Component.translatable("menu.scriptor.writing_table")
-  override fun getItems(): NonNullList<ItemStack> = inventory
+  override fun getItems(): NonNullList<ItemStack> = tableItems
   override fun setItems(nonNullList: NonNullList<ItemStack>) {
-    inventory = nonNullList
+    tableItems = nonNullList
   }
 
   override fun getSlotsForFace(direction: Direction): IntArray {
@@ -151,6 +151,6 @@ class WritingTableBlockEntity(blockPos: BlockPos, blockState: BlockState):
   }
 
   override fun fillStackedContents(stackedContents: StackedContents) {
-    for (itemStack in inventory) stackedContents.accountStack(itemStack)
+    for (itemStack in tableItems) stackedContents.accountStack(itemStack)
   }
 }

@@ -84,7 +84,7 @@ class WritingTableBlock: BaseEntityBlock(Properties.ofFullCopy(Blocks.ACACIA_PLA
     if (!level.isClientSide && drops) {
       if (level.getBlockEntity(blockPos) is WritingTableBlockEntity) {
         val table = level.getBlockEntity(blockPos) as WritingTableBlockEntity
-        for (item in table.inventory) {
+        for (item in table.tableItems) {
           val entity = ItemEntity(
             level,
             (blockPos.x + 0.5f).toDouble(),

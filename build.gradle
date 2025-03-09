@@ -57,7 +57,7 @@ allprojects {
     def matcher = gitVersion() =~ /^v(\d+\.\d+\.\d+.*)/
     matcher.find()
     version = matcher.group(1)
-  } catch(Exception _) {
+  } catch(Exception ignored) {
     version = "1"
   }
 
