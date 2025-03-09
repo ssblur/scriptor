@@ -42,12 +42,12 @@ class CastingLecternBlockEntityRenderer(context: BlockEntityRendererProvider.Con
 
     val state = level.getBlockState(lectern.blockPos)
     when (state.getValue(CastingLecternBlock.FACING)) {
-      Direction.NORTH -> {
-        translateZ -= 0.2f
+      Direction.SOUTH -> {
+        translateZ += 0.2f
         rotationY += 180
       }
 
-      Direction.SOUTH -> translateZ += 0.2f
+      Direction.NORTH -> translateZ -= 0.2f
       Direction.WEST -> {
         rotationY += 270
         translateX -= 0.2f
