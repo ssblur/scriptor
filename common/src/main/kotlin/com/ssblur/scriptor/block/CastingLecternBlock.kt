@@ -103,7 +103,7 @@ class CastingLecternBlock: HorizontalDirectionalBlock(Properties.ofFullCopy(Bloc
     blockState2: BlockState,
     drops: Boolean
   ) {
-    if (!level.isClientSide && drops) {
+    if (!level.isClientSide) {
       if (level.getBlockEntity(blockPos) is CastingLecternBlockEntity) {
         val lectern = level.getBlockEntity(blockPos) as CastingLecternBlockEntity
         for (item in lectern.items) {
