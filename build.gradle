@@ -54,9 +54,10 @@ allprojects {
 
   archivesBaseName = rootProject.archives_base_name
   try {
-    def matcher = gitVersion() =~ /^v(\d+\.\d+\.\d+.*)/
+    def matcher = gitVersion() =~ /^v(\d+\.\d+\.\d+-?)+.*/
     matcher.find()
     version = matcher.group(1)
+    if (version.endsWith("-")) version += "SNAPSHOT"
   } catch(Exception ignored) {
     version = "1"
   }

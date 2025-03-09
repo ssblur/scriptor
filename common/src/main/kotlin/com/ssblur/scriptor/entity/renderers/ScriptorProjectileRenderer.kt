@@ -29,7 +29,6 @@ class ScriptorProjectileRenderer(context: EntityRendererProvider.Context):
     lightLevel: Int
   ) {
     super.render(entity, yaw, tickDelta, poseStack, multiBufferSource, lightLevel)
-    entity.setPos(entity.position().add(entity.deltaMovement.scale(tickDelta.toDouble())))
 
     val level = Minecraft.getInstance().level!!
     val (r, g, b) = CustomColors.getColor(entity.color, level.gameTime.toFloat()).splitIntoRGB()

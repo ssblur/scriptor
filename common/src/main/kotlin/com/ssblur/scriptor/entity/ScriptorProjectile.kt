@@ -67,29 +67,13 @@ class ScriptorProjectile(entityType: EntityType<ScriptorProjectile?>, level: Lev
 
   override fun tick() {
     val level = level()
-    if (level.isClientSide) return
 
     setDeltaMovement(deltaMovement.x, deltaMovement.y, deltaMovement.z)
     setPos(position().add(deltaMovement))
+    if (level.isClientSide) return
 
     if (this.origin != null) if (position().distanceTo(this.origin!!) <= 1) return
 
-    //    int c = CustomColors.getColor(getColor(), level.getGameTime());
-//    int r, g, b;
-//    r = (c & 0xff0000) >> 16;
-//    g = (c & 0x00ff00) >> 8;
-//    b = c & 0x0000ff;
-//
-//    var particle = MagicParticleData.magic(r, g, b);
-//    level.addParticle(
-//      particle,
-//      getX(),
-//      getY(),
-//      getZ(),
-//      0,
-//      0,
-//      0
-//    );
     val duration = entityData.get(DURATION)
     if (tickCount > duration || completable == null || completable!!.isDone) {
       remove(RemovalReason.KILLED)
