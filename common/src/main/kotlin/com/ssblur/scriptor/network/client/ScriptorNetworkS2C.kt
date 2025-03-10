@@ -67,7 +67,7 @@ object ScriptorNetworkS2C {
         position,
         dest,
         ClipContext.Block.COLLIDER,
-        if(payload.collideWithWater) ClipContext.Fluid.SOURCE_ONLY else ClipContext.Fluid.NONE,
+        if(payload.collideWithWater) ClipContext.Fluid.ANY else ClipContext.Fluid.NONE,
         player
       ))
 

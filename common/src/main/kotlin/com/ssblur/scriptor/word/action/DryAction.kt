@@ -10,7 +10,9 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.BucketItem
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
+import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.BucketPickup
+import net.minecraft.world.level.block.LiquidBlock
 
 class DryAction: Action() {
   override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>) {
@@ -33,12 +35,15 @@ class DryAction: Action() {
     val level = targetable.level as ServerLevel
 
     val block = state.block
-    if(block is BucketPickup)
+    if(block is LiquidBlock) {
+      level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState())
+    } else if(block is BucketPickup) {
       if (caster is EntityTargetable && caster.targetEntity is Player) {
         block.pickupBlock(caster.targetEntity as Player, level, pos, state)
       } else {
         block.pickupBlock(null, level, pos, state)
       }
+    }
   }
 
   override fun cost() = Cost(0.6, COSTTYPE.ADDITIVE)
