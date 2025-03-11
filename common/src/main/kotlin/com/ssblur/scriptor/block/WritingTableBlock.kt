@@ -9,6 +9,7 @@ import net.minecraft.core.Direction
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
@@ -74,17 +75,17 @@ class WritingTableBlock: BaseEntityBlock(Properties.ofFullCopy(Blocks.ACACIA_PLA
 
   override fun codec(): MapCodec<out BaseEntityBlock> = MapCodec.unit(this)
 
-  override fun onRemove(
-    blockState: BlockState,
+  override fun playerDestroy(
     level: Level,
+    player: Player,
     blockPos: BlockPos,
-    blockState2: BlockState,
-    drops: Boolean
+    blockState: BlockState,
+    blockEntity: BlockEntity?,
+    itemStack: ItemStack
   ) {
     if (!level.isClientSide) {
-      if (level.getBlockEntity(blockPos) is WritingTableBlockEntity) {
-        val table = level.getBlockEntity(blockPos) as WritingTableBlockEntity
-        for (item in table.tableItems) {
+      if (blockEntity is WritingTableBlockEntity) {
+        for (item in blockEntity.tableItems) {
           val entity = ItemEntity(
             level,
             (blockPos.x + 0.5f).toDouble(),
@@ -96,7 +97,7 @@ class WritingTableBlock: BaseEntityBlock(Properties.ofFullCopy(Blocks.ACACIA_PLA
         }
       }
     }
-    super.onRemove(blockState, level, blockPos, blockState2, drops)
+    super.playerDestroy(level, player, blockPos, blockState, blockEntity, itemStack)
   }
 
   override fun getRenderShape(blockState: BlockState) = RenderShape.MODEL
