@@ -1,12 +1,12 @@
 modLoader = "javafml"
 loaderVersion = "[2,)"
-#issueTrackerURL = ""
+issueTrackerURL = "https://github.com/ssblur/scriptor/issues"
 license = "CC0-1.0"
 
 [[mods]]
 modId = "scriptor"
 version = "${version}"
-displayName = "Scriptor"
+displayName = "Scriptor Magicae"
 authors = "SSBlur"
 description = '''
 Knowledge is power!
