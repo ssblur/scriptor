@@ -28,6 +28,7 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
     component
   ) {
     val textField: TextField
+    val searchField: TextField
     val dictionaryWordField: TextField
     val dictionaryDefinitionField: TextField
     var dictionarySaveButton: Button
@@ -39,6 +40,9 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
       imageWidth = 256
       imageHeight = 182
       textField = addRenderableWidget(TextField(leftPos + 15, topPos + 8, 140, 86, true))
+      searchField = addRenderableWidget(
+        TextField(leftPos + 178, topPos + 11, 72, 12, true, multiline = false, color = 0xffffff)
+      )
       dictionaryWordField = TextField(leftPos, topPos, 90, 14, true, multiline = false)
       dictionaryDefinitionField = TextField(leftPos, topPos, 141, 26, true)
       dictionarySaveButton = Button.Builder(translatable("extra.scriptor.save")) {}.build()
@@ -50,6 +54,12 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
 
   override fun init() {
     super.init()
+
+    addRenderableWidget(searchField)
+    searchField.x = leftPos + 178
+    searchField.y = topPos + 11
+    searchField.font = font
+
     if(editMode) {
       addRenderableWidget(textField)
       textField.x = leftPos + 15
@@ -172,10 +182,13 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
       }
     }
 
-    var y = topPos + 10
+    var y = topPos + 28
     val x = leftPos + 177
     val h = topPos + 96
     for(entry in words.slice(entriesOffset..<words.size)) {
+      val search = searchField.text.lowercase()
+      if(!entry[0].lowercase().contains(search) && !entry[1].lowercase().contains(search)) continue
+
       if(y + (2*font.lineHeight) > h) {
         guiGraphics.drawString(font, translatable("extra.scriptor.scroll"), x, y, 0x777777)
         break
@@ -253,6 +266,9 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
     if(overText(d, e))
       textField.mouseScrolled(d, e, f, g)
 
+    if(overSearch(d, e))
+      searchField.mouseScrolled(d, e, f, g)
+
     if(overEntries(d, e)) {
       entriesOffset -= g.sign.toInt()
       if(words.size >= 2)
@@ -267,12 +283,16 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
   fun overEntries(x: Number, y: Number): Boolean {
     val offsetX = x.toInt() - leftPos
     val offsetY = y.toInt() - topPos
-    return offsetX in 176..248 && offsetY in 9..97
+    return offsetX in 176..248 && offsetY in 28..97
   }
 
   fun overText(x: Number, y: Number): Boolean {
-    if(dictionaryMode) return false
+    if(!editMode) return false
     return x.toInt() in textField.x..(textField.x + textField.w) && y.toInt() in textField.y..(textField.y + textField.h)
+  }
+
+  fun overSearch(x: Number, y: Number): Boolean {
+    return x.toInt() in searchField.x..(searchField.x + searchField.w) && y.toInt() in searchField.y..(searchField.y + searchField.h)
   }
 
   override fun renderBg(guiGraphics: GuiGraphics, f: Float, i: Int, j: Int) {

@@ -24,7 +24,8 @@ class TextField(
     val w: Int,
     val h: Int,
     var editable: Boolean = true,
-    var multiline: Boolean = true
+    var multiline: Boolean = true,
+    var color: Int = 0x0000000,
 ): GuiEventListener, NarratableEntry, Renderable {
     data class CursorPos(val x: Int, val y: Int, val i: Int)
     private var textInternal: String = ""
@@ -154,7 +155,7 @@ class TextField(
                     continue
                 }
                 if((cy + 2*font.lineHeight) < (y + h) || !multiline)
-                    guiGraphics.drawString(font, line.string, x, cy, 0x0000000, false)
+                    guiGraphics.drawString(font, line.string, x, cy, color, false)
                 else {
                     guiGraphics.drawString(font, Component.translatable("extra.scriptor.scroll"), x, cy, 0x777777, false)
                     break
