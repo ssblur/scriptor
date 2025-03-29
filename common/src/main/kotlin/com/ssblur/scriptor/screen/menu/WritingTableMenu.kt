@@ -69,8 +69,9 @@ class WritingTableMenu(i: Int, val inventory: Inventory, val table: WritingTable
     val itemStack = ItemStack.EMPTY
     val slot = slots[i]
     if (slot.hasItem()) {
+      println(i)
       val item = slot.item
-      if(i > 2) {
+      if(i > 1) {
         if(item.`is`(ScriptorTags.WRITABLE_SPELLBOOKS) || item.`is`(ScriptorTags.READABLE_SPELLBOOKS)) {
           if(moveItemStackTo(item, BOOK_SLOT, BOOK_SLOT + 1, false))
             return item.copy()
