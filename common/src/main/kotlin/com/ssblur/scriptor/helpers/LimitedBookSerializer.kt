@@ -104,8 +104,10 @@ object LimitedBookSerializer {
   }
 
   fun createSpellbook(author: String?, title: String?, text: String, item: String?): ItemStack {
-    val itemStack = if (item != null) ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.parse(item)))
-    else ItemStack(SPELLBOOK.get())
+    val itemStack = if (item != null)
+        ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.parse(item)))
+      else
+        ItemStack(SPELLBOOK.get())
     itemStack.count = 1
     itemStack.set(
       DataComponents.WRITTEN_BOOK_CONTENT,  // Supply "Spellbook" as title because some tome names surpass the written book title cap.

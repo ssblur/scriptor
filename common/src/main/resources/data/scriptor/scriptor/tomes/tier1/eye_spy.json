@@ -2,7 +2,7 @@
   "name": "tome.scriptor.eye_spy",
   "author": "Great Marzollo",
   "tier": 1,
-  "item": "scriptor:spellbook_dark_gray",
+  "item": "scriptor:spellbook_gray",
   "spell": {
     "subject": "self",
     "spells": [
