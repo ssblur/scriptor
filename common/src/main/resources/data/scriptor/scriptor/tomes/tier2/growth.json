@@ -1,7 +1,7 @@
 {
   "name": "tome.scriptor.growth",
   "author": "Tom the Short",
-  "item": "scriptor:spellbook_lime_green",
+  "item": "scriptor:spellbook_lime",
   "tier": 2,
   "spell": {
     "subject": "touch",
