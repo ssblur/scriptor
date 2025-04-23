@@ -86,6 +86,7 @@ class PhasedBlockBlockEntity(blockPos: BlockPos, blockState: BlockState):
     }
 
   companion object {
+    var INVERT_DO_NOT_PHASE = false
     const val ANIM_DURATION = 5L
     const val ANIM_FLOOR = 0.2f
     const val ANIM_DIFF = 1f - ANIM_FLOOR
@@ -104,7 +105,10 @@ class PhasedBlockBlockEntity(blockPos: BlockPos, blockState: BlockState):
 
       val state = level.getBlockState(pos)
       @Suppress("DEPRECATION")
-      if ((state.`is`(ScriptorBlocks.DO_NOT_PHASE) != ScriptorConfig.INVERT_DO_NOT_PHASE()) || state.liquid() || state.isAir) return
+      if(state.liquid() || state.isAir) return
+
+      if (level.isClientSide && (state.`is`(ScriptorBlocks.DO_NOT_PHASE) != INVERT_DO_NOT_PHASE)) return
+      if (!level.isClientSide && (state.`is`(ScriptorBlocks.DO_NOT_PHASE) != ScriptorConfig.INVERT_DO_NOT_PHASE())) return
 
       val newState = ScriptorBlocks.PHASED_BLOCK.get().defaultBlockState()
       level.setBlockAndUpdate(pos, newState)

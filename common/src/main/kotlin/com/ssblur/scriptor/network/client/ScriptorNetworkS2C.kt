@@ -5,6 +5,7 @@ import com.ssblur.scriptor.ScriptorMod.location
 import com.ssblur.scriptor.api.word.Action
 import com.ssblur.scriptor.api.word.Descriptor
 import com.ssblur.scriptor.api.word.Subject
+import com.ssblur.scriptor.blockentity.PhasedBlockBlockEntity
 import com.ssblur.scriptor.color.CustomColors.putColor
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.network.server.TraceNetwork.Payload
@@ -146,12 +147,13 @@ object ScriptorNetworkS2C {
     putColor(payload.index, payload.name, intArrayOf(payload.r, payload.g, payload.b))
   }
 
-  enum class FLAGS { COMMUNITY }
+  enum class FLAGS { COMMUNITY, INVERT_DO_NOT_PHASE }
   data class Flag(val key: FLAGS, val value: Boolean)
 
   val flag = NetworkManager.registerS2C(location("client_flag"), Flag::class) { payload ->
     when (payload.key) {
       FLAGS.COMMUNITY -> COMMUNITY_MODE = payload.value
+      FLAGS.INVERT_DO_NOT_PHASE -> PhasedBlockBlockEntity.INVERT_DO_NOT_PHASE = payload.value
     }
   }
 
