@@ -12,15 +12,14 @@ import java.util.*
 
 class ChainDescriptor: Descriptor(), TargetDescriptor {
   override fun modifyTargets(originalTargetables: List<Targetable>, owner: Targetable): List<Targetable> {
-    var targetables = originalTargetables
+    val targetables = originalTargetables.toMutableList()
     if (targetables.isEmpty()) return targetables
-    targetables = ArrayList(targetables)
 
     val random = Random()
     if (targetables[random.nextInt(targetables.size)] is EntityTargetable) {
       val entityTargetable = targetables[random.nextInt(targetables.size)] as EntityTargetable
       val pos: Vec3 = entityTargetable.targetPos
-      val entities: List<LivingEntity> = entityTargetable.level.getEntitiesOfClass<LivingEntity>(
+      val entities: List<LivingEntity> = entityTargetable.level.getEntitiesOfClass(
         LivingEntity::class.java,
         AABB.ofSize(
           Vec3(
@@ -34,10 +33,11 @@ class ChainDescriptor: Descriptor(), TargetDescriptor {
         )
       )
       if (entities.size > 1) {
-        var newTarget: LivingEntity
-        do newTarget = entities[random.nextInt(entities.size)]
-        while (newTarget !== entityTargetable.targetEntity)
-        targetables.add(EntityTargetable(newTarget))
+        val filteredEntities = entities.filter { ent ->
+          targetables.none{ it is EntityTargetable && it.targetEntity.`is`(ent) }
+        }
+        if(filteredEntities.isNotEmpty())
+          targetables.add(EntityTargetable(filteredEntities[0]))
       }
       return targetables
     }
