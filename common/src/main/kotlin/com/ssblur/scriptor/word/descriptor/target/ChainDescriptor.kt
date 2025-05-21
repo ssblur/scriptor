@@ -4,40 +4,36 @@ import com.ssblur.scriptor.api.word.Descriptor
 import com.ssblur.scriptor.helpers.MathHelper
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable
 import com.ssblur.scriptor.helpers.targetable.Targetable
+import com.ssblur.scriptor.network.client.ParticleNetwork
 import net.minecraft.core.Direction
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
-import java.util.*
 
 class ChainDescriptor: Descriptor(), TargetDescriptor {
   override fun modifyTargets(originalTargetables: List<Targetable>, owner: Targetable): List<Targetable> {
     val targetables = originalTargetables.toMutableList()
     if (targetables.isEmpty()) return targetables
 
-    val random = Random()
-    if (targetables[random.nextInt(targetables.size)] is EntityTargetable) {
-      val entityTargetable = targetables[random.nextInt(targetables.size)] as EntityTargetable
+    if (targetables.findLast { it is EntityTargetable } != null) {
+      val entityTargetable = targetables.findLast { it is EntityTargetable } as EntityTargetable
       val pos: Vec3 = entityTargetable.targetPos
+      val range = 5.0
       val entities: List<LivingEntity> = entityTargetable.level.getEntitiesOfClass(
         LivingEntity::class.java,
-        AABB.ofSize(
-          Vec3(
-            pos.x() - 1,
-            pos.y() - 1,
-            pos.z() - 1
-          ),
-          3.0,
-          3.0,
-          3.0
-        )
+        AABB.ofSize(pos, range, 1.5, range)
       )
       if (entities.size > 1) {
         val filteredEntities = entities.filter { ent ->
-          targetables.none{ it is EntityTargetable && it.targetEntity.`is`(ent) }
+          targetables.none{ (it is EntityTargetable && it.targetEntity.`is`(ent)) }
+        }.filter { ent ->
+          owner !is EntityTargetable || !owner.targetEntity.`is`(ent)
         }
-        if(filteredEntities.isNotEmpty())
-          targetables.add(EntityTargetable(filteredEntities[0]))
+        if(filteredEntities.isNotEmpty()) {
+          val target = filteredEntities[0]
+          targetables.add(EntityTargetable(target))
+          ParticleNetwork.magicTrail(target.level(), 0xffffff, target.eyePosition, entityTargetable.targetEntity.eyePosition)
+        }
       }
       return targetables
     }
