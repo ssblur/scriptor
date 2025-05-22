@@ -18,6 +18,7 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
+import net.minecraft.world.Clearable
 import net.minecraft.world.ContainerHelper
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
@@ -26,7 +27,7 @@ import net.minecraft.world.level.block.state.BlockState
 import kotlin.math.max
 
 class CastingLecternBlockEntity(blockPos: BlockPos, blockState: BlockState):
-  BlockEntity(ScriptorBlockEntities.CASTING_LECTERN.get(), blockPos, blockState) {
+  BlockEntity(ScriptorBlockEntities.CASTING_LECTERN.get(), blockPos, blockState), Clearable {
   var items: NonNullList<ItemStack>
   var focusTarget: Int = 0
   var cooldown: Int = 0
@@ -119,6 +120,10 @@ class CastingLecternBlockEntity(blockPos: BlockPos, blockState: BlockState):
         }
       }
     }
+  }
+
+  override fun clearContent() {
+    items.clear()
   }
 
 

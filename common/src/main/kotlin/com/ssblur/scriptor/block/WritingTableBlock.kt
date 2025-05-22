@@ -6,10 +6,9 @@ import com.ssblur.scriptor.blockentity.WritingTableBlockEntity
 import com.ssblur.unfocused.extension.BlockEntityTypeExtension.create
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.world.Containers
 import net.minecraft.world.InteractionResult
-import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.player.Player
-import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
@@ -75,29 +74,20 @@ class WritingTableBlock: BaseEntityBlock(Properties.ofFullCopy(Blocks.ACACIA_PLA
 
   override fun codec(): MapCodec<out BaseEntityBlock> = MapCodec.unit(this)
 
-  override fun playerDestroy(
-    level: Level,
-    player: Player,
-    blockPos: BlockPos,
+  override fun onRemove(
     blockState: BlockState,
-    blockEntity: BlockEntity?,
-    itemStack: ItemStack
+    level: Level,
+    blockPos: BlockPos,
+    blockState2: BlockState,
+    drops: Boolean
   ) {
     if (!level.isClientSide) {
-      if (blockEntity is WritingTableBlockEntity) {
-        for (item in blockEntity.tableItems) {
-          val entity = ItemEntity(
-            level,
-            (blockPos.x + 0.5f).toDouble(),
-            (blockPos.y + 0.5f).toDouble(),
-            (blockPos.z + 0.5f).toDouble(),
-            item
-          )
-          level.addFreshEntity(entity)
-        }
+      val table = level.getBlockEntity(blockPos)
+      if (table is WritingTableBlockEntity) {
+        Containers.dropContentsOnDestroy(blockState, blockState2, level, blockPos)
       }
     }
-    super.playerDestroy(level, player, blockPos, blockState, blockEntity, itemStack)
+    super.onRemove(blockState, level, blockPos, blockState2, drops)
   }
 
   override fun getRenderShape(blockState: BlockState) = RenderShape.MODEL
