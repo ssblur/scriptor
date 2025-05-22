@@ -6,8 +6,8 @@ import com.ssblur.scriptor.blockentity.WritingTableBlockEntity
 import com.ssblur.unfocused.extension.BlockEntityTypeExtension.create
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.world.Containers
 import net.minecraft.world.InteractionResult
-import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.BlockGetter
@@ -82,18 +82,10 @@ class WritingTableBlock: BaseEntityBlock(Properties.ofFullCopy(Blocks.ACACIA_PLA
     drops: Boolean
   ) {
     if (!level.isClientSide) {
-      if (level.getBlockEntity(blockPos) is WritingTableBlockEntity) {
-        val table = level.getBlockEntity(blockPos) as WritingTableBlockEntity
-        for (item in table.tableItems) {
-          val entity = ItemEntity(
-            level,
-            (blockPos.x + 0.5f).toDouble(),
-            (blockPos.y + 0.5f).toDouble(),
-            (blockPos.z + 0.5f).toDouble(),
-            item
-          )
-          level.addFreshEntity(entity)
-        }
+      val table = level.getBlockEntity(blockPos)
+      if (table is WritingTableBlockEntity) {
+        Containers.dropContentsOnDestroy(blockState, blockState2, level, blockPos)
+        table.clearContent()
       }
     }
     super.onRemove(blockState, level, blockPos, blockState2, drops)
