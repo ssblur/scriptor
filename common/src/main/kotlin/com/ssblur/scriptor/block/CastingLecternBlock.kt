@@ -116,6 +116,7 @@ class CastingLecternBlock: HorizontalDirectionalBlock(Properties.ofFullCopy(Bloc
           )
           level.addFreshEntity(entity)
         }
+       lectern.clearContent()
       }
     }
     super.onRemove(blockState, level, blockPos, blockState2, drops)
