@@ -65,8 +65,7 @@ object TraceNetwork {
       when (payload.traceType) {
         TYPE.BLOCK -> {
           val result = payload.blockHitResult!!
-          val pos = result.blockPos.relative(result.direction)
-          val targetable = Targetable(player.level(), pos).setFacing(result.direction)
+          val targetable = Targetable(player.level(), result.location).setFacing(result.direction)
 
           player.serverLevel().runOnce { validateAndRun(payload.uuid, player, targetable) }
         }
