@@ -85,7 +85,6 @@ class WritingTableBlock: BaseEntityBlock(Properties.ofFullCopy(Blocks.ACACIA_PLA
       val table = level.getBlockEntity(blockPos)
       if (table is WritingTableBlockEntity) {
         Containers.dropContentsOnDestroy(blockState, blockState2, level, blockPos)
-        table.clearContent()
       }
     }
     super.onRemove(blockState, level, blockPos, blockState2, drops)
