@@ -96,29 +96,31 @@ class CastingLecternBlock: HorizontalDirectionalBlock(Properties.ofFullCopy(Bloc
     else -> LecternBlock.SHAPE_COMMON
   }
 
-  override fun playerDestroy(
-    level: Level,
-    player: Player,
-    blockPos: BlockPos,
+  override fun onRemove(
     blockState: BlockState,
-    blockEntity: BlockEntity?,
-    itemStack: ItemStack
+    level: Level,
+    blockPos: BlockPos,
+    blockState2: BlockState,
+    drops: Boolean
   ) {
     if (!level.isClientSide) {
-      if (blockEntity is CastingLecternBlockEntity) {
-        for (item in blockEntity.items) {
-          val entity = ItemEntity(
-            level,
-            (blockPos.x + 0.5f).toDouble(),
-            (blockPos.y + 0.5f).toDouble(),
-            (blockPos.z + 0.5f).toDouble(),
-            item
-          )
-          level.addFreshEntity(entity)
+      if (!blockState.`is`(blockState2.block)) {
+        if (level.getBlockEntity(blockPos) is CastingLecternBlockEntity) {
+          val lectern = level.getBlockEntity(blockPos) as CastingLecternBlockEntity
+          for (item in lectern.items) {
+            val entity = ItemEntity(
+              level,
+              (blockPos.x + 0.5f).toDouble(),
+              (blockPos.y + 0.5f).toDouble(),
+              (blockPos.z + 0.5f).toDouble(),
+              item
+            )
+            level.addFreshEntity(entity)
+          }
         }
       }
     }
-    super.playerDestroy(level, player, blockPos, blockState, blockEntity, itemStack)
+    super.onRemove(blockState, level, blockPos, blockState2, drops)
   }
 
   override fun codec(): MapCodec<out HorizontalDirectionalBlock> = MapCodec.unit(this)
