@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "": {
+            "model": "scriptor:block/black_magic_block"
+        }
+    }
+}

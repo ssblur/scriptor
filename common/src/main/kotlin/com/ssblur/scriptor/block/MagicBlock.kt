@@ -6,13 +6,13 @@ import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.world.item.DyeColor
-import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.SoundType
+import net.minecraft.world.level.block.TransparentBlock
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument
 
-class MagicBlock(val color: DyeColor): Block(
+class MagicBlock(val color: DyeColor, val strength: Float): TransparentBlock(
   Properties.of().instrument(NoteBlockInstrument.HAT)
-    .strength(0.3f)
+    .strength(strength)
     .sound(SoundType.GLASS)
     .noOcclusion()
     .mapColor(color)

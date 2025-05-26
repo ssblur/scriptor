@@ -18,7 +18,7 @@ object DyeColorableBlocks {
   val CANDLE = DyeColorableBlock()
   val BED = DyeColorableBlock()
   val SHULKER_BOX = DyeColorableBlock()
-  val MAGIC_BLOCK = DyeColorableBlock()
+  val COLOURABLE_MAGIC_BLOCK_LISTS: List<DyeColorableBlock> = ScriptorBlocks.MAGIC_BLOCKS_LISTS.map{DyeColorableBlock()}
 
   init {
     WOOL.add(Blocks.BLACK_WOOL, DyeColor.BLACK)
@@ -219,11 +219,13 @@ object DyeColorableBlocks {
     CONCRETE.add(Blocks.YELLOW_CONCRETE, DyeColor.YELLOW)
     CONCRETE.register()
 
-    ScriptorBlocks.MAGIC_BLOCKS.forEach {
-      val magicBlock = it.get()
-      if (magicBlock is MagicBlock)
-        MAGIC_BLOCK.add(magicBlock, magicBlock.color)
+    ScriptorBlocks.MAGIC_BLOCKS_LISTS.forEachIndexed {
+      index, magicBlockList -> magicBlockList.forEach{
+        val magicBlock = it.get()
+        if (magicBlock is MagicBlock)
+          COLOURABLE_MAGIC_BLOCK_LISTS[index].add(magicBlock, magicBlock.color)
+      }
+      COLOURABLE_MAGIC_BLOCK_LISTS[index].register()
     }
-    MAGIC_BLOCK.register()
   }
 }

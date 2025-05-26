@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "": {
+            "model": "scriptor:block/gray_magic_block"
+        }
+    }
+}
