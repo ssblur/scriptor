@@ -112,7 +112,7 @@ class ScriptorProjectile(entityType: EntityType<ScriptorProjectile?>, level: Lev
         listOf(
           Targetable(
             level(),
-            blockHitResult.blockPos.offset(blockHitResult.direction.normal)
+            blockHitResult.location
           ).setFacing(blockHitResult.direction)
         )
       )
