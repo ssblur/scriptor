@@ -200,6 +200,8 @@ class DictionarySavedData: SavedData {
           if (parsed != null && parsed == "other:and") {
             tokenPosition++
             spells.add(PartialSpell(action!!, *descriptors.toTypedArray()))
+//          Reset descriptors list to allow precise control over which descriptors affect which action
+            descriptors.clear()
           } else {
             return null
           }
