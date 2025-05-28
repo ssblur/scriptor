@@ -5,11 +5,13 @@ import net.minecraft.core.Direction
 import net.minecraft.world.phys.Vec2
 import net.minecraft.world.phys.Vec3
 import kotlin.math.PI
+import kotlin.math.abs
 import kotlin.math.sin
 import kotlin.math.cos
 import kotlin.math.ceil
 import kotlin.math.floor
 import kotlin.math.pow
+import kotlin.math.round
 import kotlin.math.sqrt
 
 object MathHelper {
@@ -44,6 +46,23 @@ object MathHelper {
       }
     }
     return Vec2(x.toFloat(), y.toFloat())
+  }
+  fun get_circle_coords(radius: Int): List<Vec2> {
+    assert(radius > 0)
+    var positions: ArrayList<Vec2> = arrayListOf<Vec2>()
+    var pos: Vec2
+    var mirror_pos: Vec2
+    for (i in 0..radius) {
+      pos = Vec2(i.toFloat(), round(sqrt((radius*radius).toFloat() - i*i)))
+      mirror_pos = Vec2(pos.x*-1, pos.y)
+      positions.add(pos)
+      positions.add(mirror_pos)
+      for (j in 1..3) {
+        positions.add(rotate_point_anticlockwise(pos, (90 * j).toFloat()))
+        positions.add(rotate_point_anticlockwise(mirror_pos, (90 * j).toFloat()))
+      }
+    }
+    return positions.map{ Vec2(it.x, it.y) }
   }
   /**
    * Calculate the number of blocks required to form the square's border

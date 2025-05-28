@@ -4,6 +4,7 @@ import com.ssblur.scriptor.registry.words.WordRegistry.register
 import com.ssblur.scriptor.word.descriptor.SpeedDurationDescriptor
 import com.ssblur.scriptor.word.descriptor.duration.SimpleDurationDescriptor
 import com.ssblur.scriptor.word.descriptor.target.ChainDescriptor
+import com.ssblur.scriptor.word.descriptor.target.CircleDescriptor
 import com.ssblur.scriptor.word.descriptor.target.CollideWithWaterDescriptor
 import com.ssblur.scriptor.word.descriptor.target.NetherDescriptor
 import com.ssblur.scriptor.word.descriptor.target.SquareDescriptor
@@ -39,6 +40,7 @@ object Descriptors {
   )
   val CHAIN = register("chain", ChainDescriptor())
   val SQUARE = register("square", SquareDescriptor())
+  val CIRCLE = register("circle", CircleDescriptor())
 
   val NETHER = register("nether", NetherDescriptor())
   val COLLIDE_WITH_WATER = register("collide_with_water", CollideWithWaterDescriptor)
