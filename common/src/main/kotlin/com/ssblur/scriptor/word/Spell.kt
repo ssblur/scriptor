@@ -13,6 +13,7 @@ import com.ssblur.scriptor.network.client.ParticleNetwork
 import com.ssblur.scriptor.word.descriptor.AfterCastDescriptor
 import com.ssblur.scriptor.word.descriptor.CastDescriptor
 import com.ssblur.scriptor.word.descriptor.focus.FocusDescriptor
+import com.ssblur.scriptor.word.descriptor.target.GeometricTargetDescriptor
 import com.ssblur.scriptor.word.descriptor.target.TargetDescriptor
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerPlayer
@@ -35,8 +36,10 @@ class Spell(val subject: Subject, vararg val spells: PartialSpell) {
     for (spell in spells) {
       var caster = originalCaster
       var targets = originalTargets
-      for (descriptor in spell.deduplicatedDescriptors()) {
+      var deduplicatedDescriptors = spell.deduplicatedDescriptors()
+      for (descriptor in deduplicatedDescriptors) {
         if (descriptor is TargetDescriptor) targets = descriptor.modifyTargets(targets, caster)
+        if (descriptor is GeometricTargetDescriptor) targets = descriptor.modifyTargets(targets, caster, deduplicatedDescriptors)
         if (descriptor is FocusDescriptor) caster = descriptor.modifyFocus(caster)
       }
       for (target in targets)
