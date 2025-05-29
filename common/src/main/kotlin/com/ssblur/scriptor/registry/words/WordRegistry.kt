@@ -58,6 +58,7 @@ object WordRegistry {
     Descriptors
     OffsetDescriptors
     InventoryDescriptors
+    MultiTargetFocusDescriptors
     DiscountDescriptors
     PowerDescriptors
     Subjects
