@@ -16,6 +16,7 @@
     "descriptor:magenta",
     "descriptor:purple",
     "descriptor:brown",
-    "descriptor:dark_gray"
+    "descriptor:dark_gray",
+    "descriptor:block_only"
   ]
 }

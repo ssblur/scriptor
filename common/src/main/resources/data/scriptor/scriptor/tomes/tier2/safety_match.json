@@ -1,0 +1,17 @@
+{
+  "name": "tome.scriptor.safety_match",
+  "author": "AnoubuzThuf",
+  "tier": 2,
+  "item": "scriptor:spellbook_orange",
+  "spell": {
+    "subject": "touch",
+    "spells": [
+      {
+        "action": "inflame",
+        "descriptors": [
+          "entity_only"
+        ]
+      }
+    ]
+  }
+}

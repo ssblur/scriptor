@@ -21,6 +21,7 @@
     "descriptor:move_right",
     "descriptor:weakened",
     "descriptor:move_forwards",
-    "descriptor:move_backwards"
+    "descriptor:move_backwards",
+    "descriptor:entity_only"
   ]
 }
