@@ -48,6 +48,10 @@ open class Targetable {
       return Direction.UP
     }
 
+  open val entityYRotation: Float? = null
+
+  open val entityCoarseYRotation: Float? = null
+
   fun setFacing(direction: Direction?): Targetable {
     this.direction = direction
     return this

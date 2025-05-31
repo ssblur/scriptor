@@ -1,0 +1,19 @@
+{
+  "name": "tome.scriptor.frame",
+  "author": "AnoubuzThuf",
+  "tier": 3,
+  "item": "scriptor:spellbook_brown",
+  "spell": {
+    "subject": "touch",
+    "spells": [
+      {
+        "action": "place",
+        "descriptors": [
+          "square",
+          "square",
+          "brown"
+        ]
+      }
+    ]
+  }
+}
