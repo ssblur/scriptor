@@ -179,6 +179,8 @@
   "descriptor.scriptor.move_up": "This spell's targets are moved one block up",
   "descriptor.scriptor.move_down": "This spell's targets are moved one block down",
   "descriptor.scriptor.collide_with_water": "This spell can be cast on fluids",
+  "descriptor.scriptor.circle": "This spell casts in a circle",
+  "descriptor.scriptor.square": "This spell casts in a square",
   "action.scriptor.inflame": "This spell heats or sets the target on fire.",
   "action.scriptor.light": "This spell places a light where it is cast.",
   "action.scriptor.heal": "This spell heals or repairs the target.",
