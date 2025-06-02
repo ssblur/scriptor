@@ -112,11 +112,10 @@ class PhasedBlockBlockEntity(blockPos: BlockPos, blockState: BlockState):
       }
 
       val state = level.getBlockState(pos)
-      @Suppress("DEPRECATION")
-      if(state.liquid() || state.isAir) return
+      if(invalidForPhasing(state, level, pos)) return
 
-      if (level.isClientSide && (state.`is`(ScriptorBlocks.DO_NOT_PHASE) != INVERT_DO_NOT_PHASE)) return
-      if (!level.isClientSide && (state.`is`(ScriptorBlocks.DO_NOT_PHASE) != ScriptorConfig.INVERT_DO_NOT_PHASE())) return
+      if (level.isClientSide && (phasable(state, level, pos) != INVERT_DO_NOT_PHASE)) return
+      if (!level.isClientSide && (phasable(state, level, pos) != ScriptorConfig.INVERT_DO_NOT_PHASE())) return
 
       val newState = ScriptorBlocks.PHASED_BLOCK.get().defaultBlockState()
       level.setBlockAndUpdate(pos, newState)
@@ -126,6 +125,18 @@ class PhasedBlockBlockEntity(blockPos: BlockPos, blockState: BlockState):
       newEntity.countdown = duration
 
       level.sendBlockUpdated(pos, newState, newState, 3)
+    }
+
+    fun invalidForPhasing(state: BlockState, level: Level, pos: BlockPos): Boolean {
+      @Suppress("DEPRECATION")
+      if(state.liquid() || state.isAir) return true
+      if(state.getCollisionShape(level, pos).isEmpty) return true
+      if(state.getDestroySpeed(level, pos) < 0f) return true
+      return false
+    }
+
+    fun phasable(state: BlockState, level: Level, pos: BlockPos): Boolean {
+      return state.`is`(ScriptorBlocks.DO_NOT_PHASE)
     }
   }
 }

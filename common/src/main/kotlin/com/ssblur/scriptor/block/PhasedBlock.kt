@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
+import net.minecraft.world.phys.shapes.VoxelShape
 
 class PhasedBlock: Block(
   Properties.of()
@@ -42,4 +43,11 @@ class PhasedBlock: Block(
   ) = BlockEntityTicker { tickerLevel: Level?, pos: BlockPos?, state: BlockState?, entity: T ->
     PhasedBlockBlockEntity.tick(entity)
   }
+
+  override fun getBlockSupportShape(blockState: BlockState, blockGetter: BlockGetter, blockPos: BlockPos): VoxelShape =
+    Shapes.block()
+
+//  override fun getFluidState(blockState: BlockState): FluidState {
+//    return Fluids.WATER.defaultFluidState()
+//  }
 }
