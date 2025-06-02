@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.blockentity
 
+import com.ssblur.scriptor.ScriptorMod
 import com.ssblur.scriptor.block.ScriptorBlocks
 import com.ssblur.scriptor.config.ScriptorConfig
 import net.minecraft.core.BlockPos
@@ -70,8 +71,15 @@ class PhasedBlockBlockEntity(blockPos: BlockPos, blockState: BlockState):
 
     if (data != null) tag.put("data", data!!)
 
-    val state = BlockState.CODEC.encodeStart(NbtOps.INSTANCE, phasedBlockState)
-    state.result().ifPresent { result: Tag -> tag.put("blockState", result) }
+    try {
+      val state = BlockState.CODEC.encodeStart(NbtOps.INSTANCE, phasedBlockState)
+      state.result().ifPresent { result: Tag -> tag.put("blockState", result) }
+    } catch (e: NullPointerException) {
+      ScriptorMod.LOGGER.warn(
+        "Phased block failed to save!" +
+        "If you didn't place it with a command, this may result in world corruption!"
+      )
+    }
   }
 
   val anim: Float
