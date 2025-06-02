@@ -5,8 +5,6 @@
     "minecraft:chest",
     "minecraft:trapped_chest",
     "minecraft:oak_door",
-    "#minecraft:doors",
-    "#minecraft:beds",
     "minecraft:tall_grass",
     "minecraft:large_fern",
     "minecraft:weeping_vines",
@@ -18,6 +16,20 @@
     "minecraft:pitcher_plant",
     "minecraft:kelp",
     "minecraft:sugar_cane",
-    "minecraft:seagrass"
+    "minecraft:seagrass",
+    "#minecraft:doors",
+    "#minecraft:beds",
+    {
+      "id": "#dramaticdoors:tall_doors",
+      "required": false
+    },
+    {
+      "id": "#comforts:sleeping_bags",
+      "required": false
+    },
+    {
+      "id": "#comforts:hammocks",
+      "required": false
+    }
   ]
 }
