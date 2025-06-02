@@ -117,12 +117,19 @@ class PhasedBlockBlockEntity(blockPos: BlockPos, blockState: BlockState):
       if (level.isClientSide && (phasable(state, level, pos) != INVERT_DO_NOT_PHASE)) return
       if (!level.isClientSide && (phasable(state, level, pos) != ScriptorConfig.INVERT_DO_NOT_PHASE())) return
 
+      var data: CompoundTag? = null
+      if(entity != null) data = entity.saveWithFullMetadata(level.registryAccess())
+      level.removeBlockEntity(pos)
+
       val newState = ScriptorBlocks.PHASED_BLOCK.get().defaultBlockState()
       level.setBlockAndUpdate(pos, newState)
-      val newEntity = ScriptorBlockEntities.PHASED_BLOCK.get().getBlockEntity(level, pos)!!
+
+      val newEntity = PhasedBlockBlockEntity(pos, newState)
+      newEntity.level = level
       newEntity.phasedBlockState = state
-      if (entity != null) newEntity.data = entity.saveWithFullMetadata(level.registryAccess())
       newEntity.countdown = duration
+      if (data != null) newEntity.data = data
+      level.setBlockEntity(newEntity)
 
       level.sendBlockUpdated(pos, newState, newState, 3)
     }
