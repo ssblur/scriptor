@@ -131,14 +131,22 @@ open class Spellbook(properties: Properties):
     if (matrix == null) return false
     matrix.pushPose()
     val inRightHand = (hand == InteractionHand.MAIN_HAND) xor (player.mainArm == HumanoidArm.LEFT)
-    val v = if (inRightHand) 1 else -1
-    matrix.translate(v.toFloat() * 0.56f, -0.52f + readyProgress * -0.6f, -0.72f)
+
+    // Default item transform
+    val s = -0.4f * Mth.sin(Mth.sqrt(swingProgress) * Math.PI.toFloat())
+    val rxx = 0.2f * Mth.sin(Mth.sqrt(swingProgress) * (Math.PI * 2).toFloat())
+    val lxxx = -0.2f * Mth.sin(swingProgress * Math.PI.toFloat())
+    val v = if (inRightHand) 1f else -1f
+    matrix.translate(v * s, rxx, lxxx)
+//    this.applyItemArmTransform(poseStack, humanoidArm, i)
+    matrix.translate(v * 0.56F, -0.52F + readyProgress * -0.6F, -0.72F)
+//    this.applyItemArmAttackTransform(poseStack, humanoidArm, h)
     val g = Mth.sin(swingProgress * swingProgress * Math.PI.toFloat())
-    matrix.mulPose(Axis.YP.rotationDegrees(i * (45.0f + g * -20.0f)))
+    matrix.mulPose(Axis.YP.rotationDegrees(v * (45.0f + g * -20.0f)))
     val h = Mth.sin(Mth.sqrt(swingProgress) * Math.PI.toFloat())
-    matrix.mulPose(Axis.ZP.rotationDegrees(i * h * -20.0f))
+    matrix.mulPose(Axis.ZP.rotationDegrees(v * h * -20.0f))
     matrix.mulPose(Axis.XP.rotationDegrees(h * -80.0f))
-    matrix.mulPose(Axis.YP.rotationDegrees(i * -45.0f))
+    matrix.mulPose(Axis.YP.rotationDegrees(v * -45.0f))
 
     if (inRightHand) {
       run {
