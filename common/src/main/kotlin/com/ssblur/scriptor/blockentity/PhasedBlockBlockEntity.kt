@@ -1,6 +1,6 @@
 package com.ssblur.scriptor.blockentity
 
-import com.ssblur.scriptor.ScriptorMod
+import com.ssblur.scriptor.block.PhasedBlock
 import com.ssblur.scriptor.block.ScriptorBlocks
 import com.ssblur.scriptor.config.ScriptorConfig
 import net.minecraft.core.BlockPos
@@ -14,6 +14,7 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
+import net.minecraft.world.level.material.Fluids
 import kotlin.math.max
 import kotlin.math.min
 
@@ -74,12 +75,7 @@ class PhasedBlockBlockEntity(blockPos: BlockPos, blockState: BlockState):
     try {
       val state = BlockState.CODEC.encodeStart(NbtOps.INSTANCE, phasedBlockState)
       state.result().ifPresent { result: Tag -> tag.put("blockState", result) }
-    } catch (e: NullPointerException) {
-      ScriptorMod.LOGGER.warn(
-        "Phased block failed to save!" +
-        "If you didn't place it with a command, this may result in world corruption!"
-      )
-    }
+    } catch (_: NullPointerException) {}
   }
 
   val anim: Float
@@ -121,7 +117,9 @@ class PhasedBlockBlockEntity(blockPos: BlockPos, blockState: BlockState):
       if(entity != null) data = entity.saveWithFullMetadata(level.registryAccess())
       level.removeBlockEntity(pos)
 
-      val newState = ScriptorBlocks.PHASED_BLOCK.get().defaultBlockState()
+      var newState = ScriptorBlocks.PHASED_BLOCK.get().defaultBlockState()
+      if(level.getFluidState(pos).`is`(Fluids.EMPTY)) newState = newState.setValue(PhasedBlock.WATERLOGGED, false)
+      else newState = newState.setValue(PhasedBlock.WATERLOGGED, true)
       level.setBlockAndUpdate(pos, newState)
 
       val newEntity = PhasedBlockBlockEntity(pos, newState)
