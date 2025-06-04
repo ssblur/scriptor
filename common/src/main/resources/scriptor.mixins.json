@@ -5,6 +5,7 @@
   "mixins": [
     "BaseContainerBlockEntityAccessor",
     "BlockPlaceContextAccessor",
+    "CropBlockMixin",
     "DimensionDataStorageAccessor",
     "ScriptorAnimalMixin",
     "ScriptorGiveCommandMixin",
