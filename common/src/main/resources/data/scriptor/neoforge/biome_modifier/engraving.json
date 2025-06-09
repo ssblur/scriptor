@@ -1,6 +1,0 @@
-{
-  "type": "unfocused:add_feature",
-  "biomes": "#minecraft:is_overworld",
-  "step": "raw_generation",
-  "features": "scriptor:engravings"
-}
