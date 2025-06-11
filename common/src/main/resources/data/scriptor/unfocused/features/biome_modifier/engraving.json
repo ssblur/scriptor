@@ -1,5 +1,5 @@
 {
   "biome": "#minecraft:is_overworld",
   "step": "UNDERGROUND_DECORATION",
-  "features": "scriptor:engravings"
+  "feature": "scriptor:engravings"
 }
