@@ -361,12 +361,7 @@ class DictionarySavedData: SavedData {
                 it.words.keys.stream().map { key: String? -> Pair(key, it.words[key]) }.toList()
               }
             }
-        ).apply(instance) { spellStructure: List<String?>, words: List<Pair<String?, String>> ->
-          DictionarySavedData(
-            spellStructure,
-            words
-          )
-        }
+        ).apply(instance, ::DictionarySavedData)
       }
 
     fun load(tag: CompoundTag, @Suppress("unused_parameter") provider: HolderLookup.Provider?): DictionarySavedData? {
