@@ -68,21 +68,21 @@ object Tomes {
     val data = computeIfAbsent(player)
     if (data != null) {
       val known = data.getTier(t)
+      val remaining = options.filter { entry -> known.none{ (key, _) -> key == entry.key.toShortLanguageKey() } }
+      println(remaining)
+
       TOME.get().trigger(player as ServerPlayer)
-      if (options.size <= known.size) return options[random.nextInt(options.size)].value
-      else if (options.size <= known.size + 1) {
+      if(remaining.size <= 1){
         if (t == 1) TOME_1.get().trigger(player)
         if (t == 2) TOME_2.get().trigger(player)
         if (t == 3) TOME_3.get().trigger(player)
         if (t == 4) TOME_4.get().trigger(player)
       }
 
-      var maxAttempts = 10
-      var option: MutableMap.MutableEntry<ResourceLocation, TomeResource>
-      do {
-        option = options[random.nextInt(options.size)]
-        maxAttempts--
-      } while (maxAttempts > 0 && known.containsKey(option.key.toShortLanguageKey()))
+      if(remaining.isEmpty()) {
+        return options[random.nextInt(options.size)].value
+      }
+      val option = remaining.random()
       known[option.key.toShortLanguageKey()] = true
       data.setDirty()
       return option.value
