@@ -15,6 +15,7 @@ import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 import java.util.function.Predicate
+import kotlin.math.roundToInt
 
 object SpellChat {
   init {
@@ -34,18 +35,18 @@ object SpellChat {
             return@register it.cancel()
           }
 
-          var cost = Math.round(spell.cost() * 30).toInt()
+          var cost = (spell.cost() * 30).roundToInt()
           var costScale = 1.0f
           for (instance in player.activeEffects)
             if (instance.effect.value() is EmpoweredStatusEffect)
               for (i in 0..instance.amplifier)
                 costScale *= (instance.effect.value() as EmpoweredStatusEffect).scale
-          cost = Math.round((cost.toFloat()) * costScale)
+          cost = ((cost.toFloat()) * costScale).roundToInt()
 
           if (ScriptorConfig.VOCAL_MAX_COST() in 0..<cost)
             player.sendSystemMessage(Component.translatable("extra.scriptor.mute"))
 
-          val adjustedCost = Math.round(cost * (ScriptorConfig.VOCAL_COOLDOWN_MULTIPLIER() / 100.0)).toInt()
+          val adjustedCost = (cost * (ScriptorConfig.VOCAL_COOLDOWN_MULTIPLIER() / 100.0)).roundToInt()
           if (!player.isCreative) {
             player.addEffect(MobEffectInstance(HOARSE.ref(), adjustedCost))
             if (adjustedCost > ScriptorConfig.VOCAL_HUNGER_THRESHOLD())
