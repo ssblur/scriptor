@@ -140,10 +140,19 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
     renderTooltip(guiGraphics, i, j)
 
     if(menu.book != lastBook) {
-      if(signMode) switchToEditMode()
-      rebuildWidgets()
-      lastBook = menu.book
-      load()
+      if(menu.book.`is`(ScriptorItems.SCRAP.get())) {
+        val word = menu.book[DataComponents.ITEM_NAME]!!.string
+        if(words.none { it.get(0) == word }) {
+          val parts = menu.book[ScriptorDataComponents.SPELL]!!.split(":".toRegex(), limit = 2).toTypedArray()
+          val entry = parts[0] + ".scriptor." + parts[1]
+          switchToDictionaryMode(word, I18n.get(entry))
+        }
+      } else {
+        if (signMode) switchToEditMode()
+        rebuildWidgets()
+        lastBook = menu.book
+        load()
+      }
     } else if(textField.text.length != textLength && !overText(i, j)) {
       save()
     }
