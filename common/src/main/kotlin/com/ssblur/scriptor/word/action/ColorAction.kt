@@ -11,6 +11,7 @@ import com.ssblur.scriptor.helpers.targetable.EntityTargetable
 import com.ssblur.scriptor.helpers.targetable.Targetable
 import com.ssblur.scriptor.registry.colorable.ColorableBlockRegistry.get
 import com.ssblur.scriptor.registry.colorable.ColorableBlockRegistry.has
+import com.ssblur.scriptor.registry.colorable.ColorableItemRegistry
 import net.minecraft.world.item.ItemStack
 
 class ColorAction: Action() {
@@ -26,6 +27,12 @@ class ColorAction: Action() {
     if (!itemTarget.isEmpty) {
       if (itemTarget.item is ColorableItem) {
         val itemOut: ItemStack = (itemTarget.item as ColorableItem).setColor(color, itemTarget)!!
+        if (!itemOut.isEmpty) {
+          itemTarget.count = 0
+          ItemTargetableHelper.depositItemStack(targetable, itemOut)
+        }
+      } else if (ColorableItemRegistry.has(itemTarget.item)) {
+        val itemOut = ColorableItemRegistry.get(itemTarget.item)!!.setColor(color, itemTarget)!!
         if (!itemOut.isEmpty) {
           itemTarget.count = 0
           ItemTargetableHelper.depositItemStack(targetable, itemOut)
