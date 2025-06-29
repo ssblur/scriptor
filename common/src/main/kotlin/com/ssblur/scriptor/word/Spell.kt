@@ -60,7 +60,7 @@ class Spell(val subject: Subject, vararg val spells: PartialSpell) {
     if (caster is EntityTargetable) {
       entity = caster.targetEntity
       if (entity is LivingEntity)
-        if (entity.hasEffect(MUTE)) {
+        if (entity.hasEffect(MUTE.ref())) {
           if (entity is Player) entity.sendSystemMessage(Component.translatable("extra.scriptor.mute"))
           return
         }

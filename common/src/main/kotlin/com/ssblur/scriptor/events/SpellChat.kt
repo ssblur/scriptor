@@ -26,10 +26,10 @@ object SpellChat {
       if (level is ServerLevel) {
         val spell = computeIfAbsent(level).parse(sentence)
         if (spell != null) {
-          if (player.hasEffect(HOARSE)) {
+          if (player.hasEffect(HOARSE.ref())) {
             player.sendSystemMessage(Component.translatable("extra.scriptor.hoarse"))
             return@register it.cancel()
-          } else if (player.hasEffect(MUTE)) {
+          } else if (player.hasEffect(MUTE.ref())) {
             player.sendSystemMessage(Component.translatable("extra.scriptor.mute"))
             return@register it.cancel()
           }
