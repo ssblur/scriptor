@@ -22,7 +22,10 @@ class EngravingBlock: ChalkBlock(
     .noCollission()
 ) {
   init {
-    this.registerDefaultState(stateDefinition.any().setValue(HIGHLIGHT, false))
+    this.registerDefaultState(stateDefinition.any()
+      .setValue(HIGHLIGHT, false)
+      .setValue(SPENT, false)
+    )
   }
 
   override fun newBlockEntity(blockPos: BlockPos, blockState: BlockState): BlockEntity =
@@ -37,10 +40,11 @@ class EngravingBlock: ChalkBlock(
   }
 
   override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
-    builder.add(HIGHLIGHT)
+    builder.add(HIGHLIGHT).add(SPENT)
   }
 
   companion object {
+    val SPENT: BooleanProperty = BooleanProperty.create("spent")
     val HIGHLIGHT: BooleanProperty = BooleanProperty.create("highlight")
   }
 }

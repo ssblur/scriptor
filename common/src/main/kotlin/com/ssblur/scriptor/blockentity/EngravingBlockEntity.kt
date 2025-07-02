@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.blockentity
 
+import com.ssblur.scriptor.block.EngravingBlock
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData
 import com.ssblur.scriptor.helpers.targetable.Targetable
 import com.ssblur.scriptor.network.client.ParticleNetwork
@@ -77,8 +78,13 @@ class EngravingBlockEntity(blockPos: BlockPos, blockState: BlockState):
         for (block in visited) if (server.getBlockEntity(block) is EngravingBlockEntity) {
           val engraving = server.getBlockEntity(block) as EngravingBlockEntity
           engraving.cooldown += (spell.cost() * 20).toInt()
+          level!!.setBlockAndUpdate(
+            block,
+            level!!.getBlockState(block).setValue(EngravingBlock.SPENT, true)
+          )
         }
         this.cooldown = (this.cooldown + (spell.cost() * 20)).toInt()
+        level!!.setBlockAndUpdate(blockPos, blockState.setValue(EngravingBlock.SPENT, true))
         spell.cast(target)
       } else if (primary) {
         ParticleNetwork.fizzle(server, visited[0])
@@ -97,7 +103,15 @@ class EngravingBlockEntity(blockPos: BlockPos, blockState: BlockState):
   companion object {
     fun <T: BlockEntity?> tick(level: Level, entity: T) {
       if (level.isClientSide) return
-      if (entity is EngravingBlockEntity) entity.cooldown = max(0.0, (entity.cooldown - 1).toDouble()).toInt()
+      if (entity is EngravingBlockEntity) {
+        entity.cooldown = max(0.0, (entity.cooldown - 1).toDouble()).toInt()
+        if((entity.cooldown <= 0) == entity.blockState.getValue(EngravingBlock.SPENT)) {
+          level.setBlockAndUpdate(
+            entity.blockPos,
+            entity.blockState.setValue(EngravingBlock.SPENT, false)
+          )
+        }
+      }
     }
   }
 }
