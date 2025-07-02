@@ -42,6 +42,7 @@ object AddLootEvent {
       LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/abandoned_mineshaft"), 0.6f),
       LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/ruined_portal"), 0.3f),
       LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/simple_dungeon"), 0.6f),
+      LootItemRecord(ResourceLocation.tryBuild("minecraft", "entities/evoker"), 0.4f),
     )
     pools[TOME_TIER1] = tier1
     pools[SCRAP_TIER1] = tier1
@@ -59,6 +60,7 @@ object AddLootEvent {
       LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/shipwreck_treasure"), 0.8f),
       LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/ancient_city"), 0.8f),
       LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/ancient_city_ice_box"), 0.6f),
+      LootItemRecord(ResourceLocation.tryBuild("minecraft", "entities/evoker"), 0.2f),
     )
     pools[TOME_TIER2] = tier2
     pools[SCRAP_TIER2] = tier2
