@@ -43,7 +43,6 @@ object TokenGeneratorRegistry {
     defaultGenerator = generator
   }
 
-  @JvmOverloads
   fun generateWord(word: String, `object`: JsonObject? = generatorBindingConfig[word]): String {
     return getGenerator(getBinding(word))!!.generateToken(word, `object`)
   }
