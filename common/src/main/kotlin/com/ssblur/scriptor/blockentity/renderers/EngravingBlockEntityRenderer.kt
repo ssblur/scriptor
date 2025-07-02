@@ -90,8 +90,9 @@ class EngravingBlockEntityRenderer(@Suppress("unused_parameter") context: BlockE
     val width = font.width(text)
     matrix.translate(-width * 0.5f, -6f, 0f)
 
-    var color = 0x404040
-    if (blockEntity.blockState.getValue(EngravingBlock.HIGHLIGHT) && blockEntity.cooldown <= 0) color = 0xFFB600
+    var color = 0x707070
+    if (blockEntity.blockState.getValue(EngravingBlock.HIGHLIGHT)) color = 0xFFB600
+    if (blockEntity.blockState.getValue(EngravingBlock.SPENT)) color = 0x303030
     font.drawInBatch(
       text,
       0f,
