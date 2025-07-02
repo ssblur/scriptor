@@ -114,39 +114,39 @@ object AddLootEvent {
     val artifacts = arrayOf(
       LootItemRecord(
         ResourceLocation.tryBuild("minecraft", "chests/end_city_treasure"), 0.05f / numberOfArtifacts,
-        LootItemFunction.Builder { ArtifactItemFunction() }
+        { ArtifactItemFunction() }
       ),
       LootItemRecord(
         ResourceLocation.tryBuild("minecraft", "chests/stronghold_library"), 0.05f / numberOfArtifacts,
-        LootItemFunction.Builder { ArtifactItemFunction() }
+        { ArtifactItemFunction() }
       ),
       LootItemRecord(
         ResourceLocation.tryBuild("minecraft", "chests/bastion_other"), 0.05f / numberOfArtifacts,
-        LootItemFunction.Builder { ArtifactItemFunction() }),
+        { ArtifactItemFunction() }),
       LootItemRecord(
         ResourceLocation.tryBuild("minecraft", "chests/bastion_bridge"), 0.05f / numberOfArtifacts,
-        LootItemFunction.Builder { ArtifactItemFunction() }),
+        { ArtifactItemFunction() }),
       LootItemRecord(
         ResourceLocation.tryBuild("minecraft", "chests/woodland_mansion"), 0.1f / numberOfArtifacts,
-        LootItemFunction.Builder { ArtifactItemFunction() }),
+        { ArtifactItemFunction() }),
       LootItemRecord(
         ResourceLocation.tryBuild("minecraft", "chests/ancient_city"), 0.1f / numberOfArtifacts,
-        LootItemFunction.Builder { ArtifactItemFunction() }),
+        { ArtifactItemFunction() }),
       LootItemRecord(
         ResourceLocation.tryBuild("minecraft", "chests/ancient_city_ice_box"), 0.1f / numberOfArtifacts,
-        LootItemFunction.Builder { ArtifactItemFunction() }),
+        { ArtifactItemFunction() }),
       LootItemRecord(
         ResourceLocation.tryBuild("minecraft", "chests/nether_bridge"), 0.05f / numberOfArtifacts,
-        LootItemFunction.Builder { ArtifactItemFunction() }),
+        { ArtifactItemFunction() }),
       LootItemRecord(
         ResourceLocation.tryBuild("minecraft", "chests/ocean_ruin_warm"), 0.1f / numberOfArtifacts,
-        LootItemFunction.Builder { ArtifactItemFunction() }),
+        { ArtifactItemFunction() }),
       LootItemRecord(
         ResourceLocation.tryBuild("minecraft", "chests/ocean_ruin_cold"), 0.1f / numberOfArtifacts,
-        LootItemFunction.Builder { ArtifactItemFunction() }),
+        { ArtifactItemFunction() }),
       LootItemRecord(
         ResourceLocation.tryBuild("minecraft", "chests/desert_pyramid"), 0.1f / numberOfArtifacts,
-        LootItemFunction.Builder { ArtifactItemFunction() }),
+        { ArtifactItemFunction() }),
     )
     pools[ARTIFACT_1] = artifacts
     pools[ARTIFACT_2] = artifacts
