@@ -42,4 +42,8 @@ object DiscountDescriptors {
     "clear_skies",
     ClearDiscountDescriptor()
   )
+  val UNRELIABLE = register(
+    "unreliable",
+    UnreliableDescriptor()
+  )
 }
