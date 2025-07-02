@@ -12,6 +12,7 @@ object WordRegistry {
   val actionRegistry: HashBiMap<String, Action> = HashBiMap.create()
   val descriptorRegistry: HashBiMap<String, Descriptor> = HashBiMap.create()
   val subjectRegistry: HashBiMap<String, Subject> = HashBiMap.create()
+  val otherRegistry: ArrayList<String> = arrayListOf()
 
   val actionCost: HashMap<String, Word.Cost> = HashMap()
   val descriptorCost: HashMap<String, Word.Cost> = HashMap()
@@ -51,6 +52,12 @@ object WordRegistry {
    */
   fun register(key: String, subject: Subject) = subjectRegistry.put(key, subject)
 
+  /**
+   * Register a new special token.
+   * @param key The token to register
+   */
+  fun registerOther(key: String) = otherRegistry.add(key)
+
   init {
     Actions
     PotionActions
@@ -61,6 +68,7 @@ object WordRegistry {
     DiscountDescriptors
     PowerDescriptors
     Subjects
+    Others
 
     val config = Config("scriptor_cost", "=", "## Allows configuring costs for all default words in Scriptor\n\n")
     actionRegistry.forEach { (key, value) ->

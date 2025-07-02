@@ -74,11 +74,13 @@ class DictionarySavedData: SavedData {
     val registry = TokenGeneratorRegistry
     var token: String
 
-    if (!containsKey("other:and")) {
-      do {
-        token = registry.generateWord("other:and")
-      } while (containsWord(token))
-      words["other:and"] = token
+    for(word in WordRegistry.otherRegistry) {
+      if (!containsKey("other:$word")) {
+        do {
+          token = registry.generateWord("other:$word")
+        } while (containsWord(token))
+        words["other:$word"] = token
+      }
     }
 
     for (word in actionRegistry.keys) {
@@ -184,6 +186,7 @@ class DictionarySavedData: SavedData {
     }
     var position = 0
     var tokenPosition = 0
+    var mult = 1
     try {
       val tokens = text.split("[\\n\\r\\s]+".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
 
@@ -209,6 +212,14 @@ class DictionarySavedData: SavedData {
         if (position >= spellStructure.size && spellStructure[position % spellStructure.size] == WORD.SUBJECT) position++
         val word = spellStructure[position % spellStructure.size]
         val wordData = parseWord(tokens[tokenPosition])
+
+        if(wordData?.startsWith("other:copy_x") == true) {
+          mult *= wordData.substring(12).toInt()
+          tokenPosition++
+          continue
+        }
+
+        var skipIncrement = false
         when (word) {
           WORD.ACTION -> {
             if (wordData == null) {
@@ -223,17 +234,19 @@ class DictionarySavedData: SavedData {
             // Descriptors aren't required. If there are none, roll forward as necessary and continue.
             if (wordData == null || wordData.length < 12) {
               position++
-              continue
-            }
-            val descriptor = descriptorRegistry[wordData.substring(11)]
-            if (descriptor == null) {
-              position++
-              continue
-            }
-            descriptors.add(descriptor)
+              skipIncrement = true
+            } else {
+              val descriptor = descriptorRegistry[wordData.substring(11)]
+              if (descriptor == null) {
+                position++
+                skipIncrement = true
+              } else {
+                descriptors.add(descriptor)
 
-            tokenPosition++
-            continue
+                if(mult == 1) tokenPosition++
+                skipIncrement = true
+              }
+            }
           }
 
           WORD.SUBJECT -> {
@@ -247,8 +260,16 @@ class DictionarySavedData: SavedData {
 
           null -> {}
         }
-        position++
-        tokenPosition++
+
+        if(mult > 1) {
+          skipIncrement = true
+          mult--
+        }
+
+        if(!skipIncrement) {
+          position++
+          tokenPosition++
+        }
       }
 
       if (action != null && subject != null) {
@@ -309,7 +330,7 @@ class DictionarySavedData: SavedData {
       else if (w == WORD.DESCRIPTOR) builder.append(descriptorBuilder)
     }
 
-    for (partialSpell in Arrays.stream<PartialSpell>(spell.spells).skip(1).toList()) {
+    for (partialSpell in Arrays.stream(spell.spells).skip(1).toList()) {
       builder.append(" ").append(getWord("other:and"))
       descriptorBuilder = StringBuilder()
       for (descriptor in partialSpell.deduplicatedDescriptors()) {
