@@ -4,11 +4,16 @@
   "tier": 3,
   "item": "scriptor:spellbook_red",
   "spell": {
-    "subject": "storm",
+    "subject": "touch",
     "spells": [
       {
         "action": "weakness",
-        "descriptors": []
+        "descriptors": [
+          "random_nearby",
+          "random_nearby",
+          "random_nearby",
+          "random_nearby"
+        ]
       }
     ]
   }
