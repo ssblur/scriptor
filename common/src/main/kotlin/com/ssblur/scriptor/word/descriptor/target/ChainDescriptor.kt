@@ -1,11 +1,9 @@
 package com.ssblur.scriptor.word.descriptor.target
 
 import com.ssblur.scriptor.api.word.Descriptor
-import com.ssblur.scriptor.helpers.MathHelper
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable
 import com.ssblur.scriptor.helpers.targetable.Targetable
 import com.ssblur.scriptor.network.client.ParticleNetwork
-import net.minecraft.core.Direction
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
@@ -38,28 +36,32 @@ class ChainDescriptor: Descriptor(), TargetDescriptor {
       return targetables
     }
 
-    val offset = MathHelper.spiral(targetables.size + 1)
-    val axis = targetables[0].facing.axis
-    val pos = targetables[0].targetPos
-    val newPos = if (axis === Direction.Axis.X) Vec3(
-      pos.x,
-      pos.y + offset.y,
-      pos.z + offset.x
-    )
-    else if (axis === Direction.Axis.Y) Vec3(
-      pos.x + offset.x,
-      pos.y,
-      pos.z + offset.y
-    )
-    else Vec3(pos.x + offset.x, pos.y + offset.y, pos.z)
-    val targetable = targetables[0]
-    targetables.add(Targetable(targetable.level, newPos).setFacing(targetable.facing))
-
-    return targetables
+    val firstValidTarget = originalTargetables.firstNotNullOfOrNull {
+      chooseAdjacent(it, originalTargetables)
+    }
+    if(firstValidTarget != null)
+      return originalTargetables + listOf(firstValidTarget)
+    return originalTargetables
   }
 
   override fun replacesSubjectCost() = false
   override fun allowsDuplicates() = true
   override fun cost() = Cost(1.25, COSTTYPE.MULTIPLICATIVE)
 
+  companion object {
+    fun chooseAdjacent(targetable: Targetable, targetables: List<Targetable>): Targetable? {
+      val block = targetable.level.getBlockState(targetable.targetBlockPos).block
+      return listOf(
+        targetable.targetBlockPos.offset(1, 0, 0),
+        targetable.targetBlockPos.offset(-1, 0, 0),
+        targetable.targetBlockPos.offset(0, 1, 0),
+        targetable.targetBlockPos.offset(0, -1, 0),
+        targetable.targetBlockPos.offset(0, 0, 1),
+        targetable.targetBlockPos.offset(0, 0, -1),
+      )
+        .filter { pos -> targetables.none { it.targetBlockPos == pos } }
+        .filter { targetable.level.getBlockState(it).`is`(block) }
+        .firstNotNullOfOrNull { Targetable(targetable.level, it) }
+    }
+  }
 }
