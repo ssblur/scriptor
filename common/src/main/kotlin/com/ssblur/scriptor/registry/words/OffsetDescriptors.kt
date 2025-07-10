@@ -2,6 +2,7 @@ package com.ssblur.scriptor.registry.words
 
 import com.ssblur.scriptor.registry.words.WordRegistry.register
 import com.ssblur.scriptor.word.descriptor.target.OffsetDescriptor
+import com.ssblur.scriptor.word.descriptor.target.RandomNearbyDescriptor
 
 @Suppress("unused")
 object OffsetDescriptors {
@@ -17,4 +18,6 @@ object OffsetDescriptors {
   val COPY_UP = register("copy_up", OffsetDescriptor(1.25).duplicate().up())
   val MOVE_DOWN = register("move_down", OffsetDescriptor(1.05).down())
   val COPY_DOWN = register("copy_down", OffsetDescriptor(1.25).duplicate().down())
+
+  val RANDOM_NEARBY = register("random_nearby", RandomNearbyDescriptor())
 }

@@ -4,7 +4,7 @@
   "tier": 1,
   "author": "This tome is an example of how to disable existing tomes.",
   "spell": {
-    "subject": "storm",
+    "subject": "self",
     "spells": [
       {
         "action": "inflame",

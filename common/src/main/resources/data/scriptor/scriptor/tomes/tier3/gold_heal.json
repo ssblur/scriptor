@@ -4,13 +4,19 @@
   "tier": 3,
   "item": "scriptor:spellbook_white",
   "spell": {
-    "subject": "storm",
+    "subject": "self",
     "spells": [
       {
         "action": "heal",
         "descriptors": [
           "yellow",
-          "reagent.scriptor.gold"
+          "reagent.scriptor.gold",
+          "random_nearby",
+          "random_nearby",
+          "random_nearby",
+          "random_nearby",
+          "random_nearby",
+          "random_nearby"
         ]
       }
     ]
