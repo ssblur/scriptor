@@ -1,0 +1,10 @@
+{
+  "action": "light",
+  "base": {
+    "item": "minecraft:ink_sac"
+  },
+  "result": {
+    "id": "minecraft:glow_ink_sac",
+    "count": 1
+  }
+}
