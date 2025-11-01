@@ -6,6 +6,7 @@ import com.ssblur.scriptor.data.saved_data.DictionarySavedData.Companion.compute
 import com.ssblur.scriptor.effect.EmpoweredStatusEffect
 import com.ssblur.scriptor.helpers.LimitedBookSerializer.decodeText
 import com.ssblur.scriptor.helpers.targetable.SpellbookTargetable
+import com.ssblur.scriptor.helpers.targetable.Targetable
 import net.minecraft.core.component.DataComponents
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
@@ -15,6 +16,7 @@ import net.minecraft.sounds.SoundSource
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
+import kotlin.math.roundToInt
 
 object SpellbookHelper {
   var SPELLBOOKS: List<Item> = ArrayList()
@@ -33,7 +35,8 @@ object SpellbookHelper {
     player: Player,
     maxCost: Int? = null,
     costMultiplier: Int? = null,
-    cooldownFunc: (Player, Int) -> Unit = ::addCooldown
+    cooldownFunc: (Player, Int) -> Unit = ::addCooldown,
+    targetOverride: List<Targetable>? = null,
   ): Boolean {
     val adjustedMaxCost = maxCost ?: ScriptorConfig.TOME_MAX_COST()
     val adjustedCostMultiplier = (costMultiplier ?: ScriptorConfig.TOME_COOLDOWN_MULTIPLIER()).toDouble() / 100.0
@@ -55,13 +58,18 @@ object SpellbookHelper {
       if (spell.cost() > adjustedMaxCost) {
         player.sendSystemMessage(Component.translatable("extra.scriptor.fizzle"))
         ScriptorAdvancements.FIZZLE.get().trigger(player as ServerPlayer)
-        if (!player.isCreative()) cooldownFunc(
-          player,
-          Math.round(350.0 * adjustedCostMultiplier).toInt()
-        )
+        if (!player.isCreative)
+          cooldownFunc(player, (350.0 * adjustedCostMultiplier).roundToInt())
         return true
       }
-      spell.cast(SpellbookTargetable(itemStack, player, player.inventory.selected).withTargetItem(false))
+
+      val subject = SpellbookTargetable(itemStack, player, player.inventory.selected)
+        .withTargetItem(false)
+      if(targetOverride == null)
+        spell.cast(subject)
+      else
+        spell.castOnTargets(subject, targetOverride, castHooks = true)
+
       if (!player.isCreative) {
         var costScale = 1.0
         for (instance in player.activeEffects)
@@ -69,7 +77,7 @@ object SpellbookHelper {
             for (i in 0..instance.amplifier) costScale *= (instance.effect.value() as EmpoweredStatusEffect).scale.toDouble()
         val adjustedCost =
           costScale * spell.cost() * adjustedCostMultiplier
-        cooldownFunc(player, Math.round(adjustedCost * 7).toInt())
+        cooldownFunc(player, (adjustedCost * 7).roundToInt())
         return true
       }
       return false
