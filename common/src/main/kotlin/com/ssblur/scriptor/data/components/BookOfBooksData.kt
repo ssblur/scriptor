@@ -22,4 +22,12 @@ data class BookOfBooksData(val items: List<ItemStack>, val active: Int) {
       ByteBufCodecs.VAR_INT, BookOfBooksData::active
     ) { items: List<ItemStack>, active: Int -> BookOfBooksData(items, active) }
   }
+
+  override fun equals(other: Any?): Boolean {
+    if(other !is BookOfBooksData) return false
+    if(other.items.zip(items).any{ it.first != it.second }) return false
+    return true
+  }
+
+  override fun hashCode(): Int = items.sumOf { it.hashCode() }
 }
