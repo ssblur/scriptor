@@ -33,7 +33,25 @@ import kotlin.math.pow
  * @param spells Groups of descriptors and actions
  */
 class Spell(val subject: Subject, vararg val spells: PartialSpell) {
-  fun castOnTargets(originalCaster: Targetable, originalTargets: List<Targetable>) {
+  fun castOnTargets(originalCaster: Targetable, originalTargets: List<Targetable>, castHooks: Boolean = false) {
+    var caster = originalCaster
+    val entity: Entity? = if (caster is EntityTargetable) caster.targetEntity else null
+
+    if(castHooks) {
+      for (descriptor in spells[0].deduplicatedDescriptors()) {
+        if (descriptor is CastDescriptor)
+          if (descriptor.cannotCast(caster)) {
+            if (entity is Player) {
+              entity.sendSystemMessage(Component.translatable("extra.scriptor.condition_not_met"))
+              ScriptorAdvancements.FIZZLE.get().trigger(entity as ServerPlayer)
+            }
+            if (!caster.level.isClientSide) ParticleNetwork.fizzle(caster.level, caster.targetBlockPos)
+            return
+          }
+        if (descriptor is FocusDescriptor) caster = descriptor.modifyFocus(caster)
+      }
+    }
+
     assert(spells.isNotEmpty())
 
     for (spell in spells) {
@@ -64,6 +82,12 @@ class Spell(val subject: Subject, vararg val spells: PartialSpell) {
 
         spell.action.apply(caster, target, spell.deduplicatedDescriptors())
       }
+    }
+
+
+    if(castHooks) {
+      for (descriptor in spells[0].deduplicatedDescriptors())
+        if (descriptor is AfterCastDescriptor) descriptor.afterCast(caster)
     }
   }
 

@@ -4,14 +4,16 @@ import com.ssblur.scriptor.ScriptorMod.location
 import com.ssblur.scriptor.block.ScriptorBlocks
 import com.ssblur.scriptor.blockentity.ChalkBlockEntity
 import com.ssblur.scriptor.blockentity.EngravingBlockEntity
+import com.ssblur.scriptor.config.ScriptorConfig
 import com.ssblur.scriptor.data.components.BookOfBooksData
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData.Companion.computeIfAbsent
 import com.ssblur.scriptor.helpers.LimitedBookSerializer.decodeText
+import com.ssblur.scriptor.helpers.SpellbookHelper
+import com.ssblur.scriptor.helpers.targetable.ItemTargetable
 import com.ssblur.scriptor.item.books.BookOfBooks
 import com.ssblur.scriptor.item.tools.Chalk
 import com.ssblur.scriptor.network.client.ScriptorNetworkS2C
-import com.ssblur.scriptor.word.subject.InventorySubject
 import com.ssblur.unfocused.network.NetworkManager
 import net.minecraft.core.component.DataComponents
 import net.minecraft.server.level.ServerLevel
@@ -121,14 +123,21 @@ object ScriptorNetworkC2S {
 
     if (carried.isEmpty) return@registerC2S
 
-    val text = carried.get(DataComponents.WRITTEN_BOOK_CONTENT)
-    if (text != null && level is ServerLevel) {
-      val spell = computeIfAbsent(level).parse(decodeText(text)) ?: return@registerC2S
-      if (spell.subject is InventorySubject) {
-        (spell.subject as InventorySubject).castOnItem(spell, player, item)
-        player.cooldowns.addCooldown(carried.item, Math.round(spell.cost() * 7).toInt())
-      }
-    }
+    if(level is ServerLevel)
+      SpellbookHelper.castFromItem(
+        carried,
+        player,
+        maxCost = (ScriptorConfig.TOME_MAX_COST.invoke() * 20),
+        targetOverride = listOf(ItemTargetable(item, player)),
+      )
+//    val text = carried.get(DataComponents.WRITTEN_BOOK_CONTENT)
+//    if (text != null && level is ServerLevel) {
+//      val spell = computeIfAbsent(level).parse(decodeText(text)) ?: return@registerC2S
+//      if (spell.subject is InventorySubject) {
+//        (spell.subject as InventorySubject).castOnItem(spell, player, item)
+//        player.cooldowns.addCooldown(carried.item, (spell.cost() * 7).roundToInt())
+//      }
+//    }
   }
 
   fun register() {

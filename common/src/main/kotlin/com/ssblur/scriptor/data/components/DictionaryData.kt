@@ -28,4 +28,11 @@ data class DictionaryData(val values: List<List<String>>) {
     else
       this
   }
+
+  override fun equals(other: Any?): Boolean {
+    if(other !is DictionaryData) return false
+    return values == other.values
+  }
+
+  override fun hashCode(): Int = values.sumOf { li -> li.sumOf { it.hashCode() } }
 }
