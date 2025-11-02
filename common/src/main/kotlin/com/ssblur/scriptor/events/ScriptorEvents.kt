@@ -43,7 +43,7 @@ object ScriptorEvents {
       if (weapon != null) {
         val data = weapon[ScriptorDataComponents.CHARGES] ?: 0
         if (data > 0) {
-          entity.health -= 3
+          entity.health -= 5
 
           if(data == 1) weapon.remove(ScriptorDataComponents.CHARGES)
           else weapon.set(ScriptorDataComponents.CHARGES, data - 1)
