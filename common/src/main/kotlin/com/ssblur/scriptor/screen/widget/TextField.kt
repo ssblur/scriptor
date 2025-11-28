@@ -108,7 +108,8 @@ class TextField(
                 return
             }
         }
-        cursor = CursorPos(i - lineStartIndices.last(), lineStartIndices.size - 1, i)
+        val last = if(lineStartIndices.isEmpty()) 0 else lineStartIndices.last()
+        cursor = CursorPos(i - last, lineStartIndices.size - 1, i)
     }
 
     fun moveCursorToY(i: Int) {
