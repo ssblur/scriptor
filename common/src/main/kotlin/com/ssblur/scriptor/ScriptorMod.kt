@@ -3,6 +3,7 @@ package com.ssblur.scriptor
 import com.ssblur.scriptor.advancement.ScriptorAdvancements
 import com.ssblur.scriptor.block.ScriptorBlocks
 import com.ssblur.scriptor.blockentity.ScriptorBlockEntities
+import com.ssblur.scriptor.commands.CastCommand
 import com.ssblur.scriptor.commands.DebugCommand
 import com.ssblur.scriptor.commands.DumpDictionaryCommand
 import com.ssblur.scriptor.commands.DumpWordCommand
@@ -59,6 +60,14 @@ object ScriptorMod: ModInitializer("scriptor") {
         selection
       )
     }
+    registerCommand { dispatcher, registry, selection ->
+      CastCommand.register(
+        dispatcher,
+        registry,
+        selection
+      )
+    }
+
   }
 
   fun init() {
