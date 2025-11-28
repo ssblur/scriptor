@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.word;
 
+import com.ssblur.scriptor.ScriptorMod;
 import com.ssblur.scriptor.api.word.Descriptor;
 import com.ssblur.scriptor.api.word.Subject;
 import com.ssblur.scriptor.api.word.Word;
@@ -31,16 +32,19 @@ public record Spell(
 ) {
   void castOnTargets(Targetable caster, List<Targetable> targets) {
     assert spells.length >= 1;
-    for(var descriptor: spells[0].deduplicatedDescriptors()) {
-      if (descriptor instanceof TargetDescriptor cast)
-        targets = cast.modifyTargets(targets);
-      if (descriptor instanceof FocusDescriptor focus)
-        caster = focus.modifyFocus(caster);
-    }
+    for(var spell: spells) {
+        var spellTargets = targets;
+        var spellCaster = caster;
+        for(var descriptor: spell.deduplicatedDescriptors()) {
+            if (descriptor instanceof TargetDescriptor cast)
+                spellTargets = cast.modifyTargets(spellTargets);
+            if (descriptor instanceof FocusDescriptor focus)
+                spellCaster = focus.modifyFocus(spellCaster);
+        }
 
-    for(var target: targets) {
-      for(var spell: spells)
-        spell.action().apply(caster, target, spells[0].deduplicatedDescriptors());
+        for(var target: spellTargets) {
+            spell.action().apply(spellCaster, target, spell.deduplicatedDescriptors());
+        }
     }
   }
 
@@ -49,7 +53,7 @@ public record Spell(
 
     targetFuture.whenComplete((targets, throwable) -> {
       if(throwable != null)
-        throwable.printStackTrace();
+          ScriptorMod.LOGGER.warn(throwable);
       else
         castOnTargets(caster, targets);
     });
@@ -70,7 +74,7 @@ public record Spell(
       }
 
     assert spells.length >= 1;
-    for(var descriptor: spells[0].deduplicatedDescriptors()) {
+    for(var descriptor: Arrays.stream(spells).flatMap((it) -> Arrays.stream(it.deduplicatedDescriptors())).toList()) {
       if (descriptor instanceof CastDescriptor cast)
         if (cast.cannotCast(caster)) {
           if (caster instanceof EntityTargetable entityTargetable && entityTargetable.getTargetEntity() instanceof Player player) {
@@ -86,7 +90,7 @@ public record Spell(
 
     var targetFuture = subject.getTargets(caster, this);
 
-    for(var descriptor: spells[0].deduplicatedDescriptors())
+    for(var descriptor: Arrays.stream(spells).flatMap((it) -> Arrays.stream(it.deduplicatedDescriptors())).toList())
       if(descriptor instanceof AfterCastDescriptor afterCastDescriptor)
         afterCastDescriptor.afterCast(caster);
 
@@ -96,12 +100,12 @@ public record Spell(
         var targets = targetFuture.get();
         castOnTargets(finalCaster, targets);
       } catch (InterruptedException | ExecutionException e) {
-        e.printStackTrace();
+        ScriptorMod.LOGGER.warn(e);
       }
     } else {
       targetFuture.whenComplete((targets, throwable) -> {
         if(throwable != null)
-          throwable.printStackTrace();
+          ScriptorMod.LOGGER.warn(throwable);
         else {
           castOnTargets(finalCaster, targets);
         }

@@ -212,6 +212,7 @@ public class DictionarySavedData extends SavedData {
           if(parsed != null && parsed.equals("other:and")) {
             tokenPosition++;
             spells.add(new PartialSpell(action, descriptors.toArray(Descriptor[]::new)));
+            descriptors = new ArrayList<>();
           } else {
             return null;
           }
