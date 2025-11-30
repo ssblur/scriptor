@@ -56,7 +56,6 @@
 
   "effect.scriptor.hoarse": "嘶哑",
   "effect.scriptor.mute": "失语",
-  "effect.scriptor.mute": "失语",  
   "effect.scriptor.phasing": "Phasing",
   "effect.scriptor.wild_phasing": "Out of Phase",
   "effect.scriptor.silver_tongue": "Silver Tongue",
@@ -84,7 +83,6 @@
   "descriptor.scriptor.massive_strong": "这个法术的威力深不可测。",
   "descriptor.scriptor.fast": "这个法术似乎比一般法术快。",
   "descriptor.scriptor.slow": "这个法术似乎比一般法术慢。",
-  "descriptor.scriptor.cheap": "出于某种原因，这个法术的成本比大多数法术要低。",
   "descriptor.scriptor.chain": "This spell reaches out to nearby targets.",
   "descriptor.scriptor.nether": "目标将会踏入另一个维度。",
 
@@ -240,7 +238,7 @@
   "lore.scriptor.not_community_3": "这似乎并不会工作。",
   "lore.scriptor.no_spell": "里面还未写上法术……",
 
-  "itemGroup.scriptor.scriptor_tab": "字符魔法师"
+  "itemGroup.scriptor.scriptor_tab": "字符魔法师",
   "itemGroup.scriptor.scriptor_spellbooks": "字符魔法师法术书",
 
   "entity.scriptor.colorful_sheep": "羊",
