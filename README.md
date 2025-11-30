@@ -38,7 +38,8 @@ you.
 
 ## Special Thanks
 
-* [Kasualix](https://github.com/Kasualix)
+* [The-Forgiven-Zero](https://github.com/The-Forgiven-Zero),
+  [Kasualix](https://github.com/Kasualix),
   and
   [Rivmun](https://github.com/Rivmun)
   for the Simplified Chinese (zh_CN) translation.
