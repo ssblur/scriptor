@@ -17,7 +17,7 @@ object ScriptorConfig {
   val VOCAL_COOLDOWN_MULTIPLIER = config.registerInt("vocal_cooldown_multiplier", 100)
 
   // Spell settings
-  val CAN_TARGET_PLAYER_INVENTORIES = config.registerBoolean("can_target_player_inventories", true)
+  val CAN_TARGET_PLAYER_INVENTORIES = config.registerBoolean("can_target_player_inventories", false)
 
   // Chat settings
   val PROXIMITY_CHAT = config.registerBoolean("proximity_chat", false)
