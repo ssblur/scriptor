@@ -109,7 +109,7 @@ object ScriptorNetworkC2S {
       var slot = book.active
       slot += sign(payload.amount).toInt() + list.size
       slot %= list.size
-      item.set(ScriptorDataComponents.BOOK_OF_BOOKS, BookOfBooksData(list, slot))
+      item[ScriptorDataComponents.BOOK_OF_BOOKS] = BookOfBooksData(list, slot)
     }
   }
 
