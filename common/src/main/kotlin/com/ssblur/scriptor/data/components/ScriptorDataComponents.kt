@@ -16,6 +16,7 @@ object ScriptorDataComponents {
   val PLAYER_FOCUS = registerString("player_focus")
   val PLAYER_NAME = registerString("player_name")
   val TOME_NAME = registerString("tome_name")
+  val TOME_TO_GIVE = registerString("tome_to_give")
   val BOOK_OF_BOOKS: DataComponentType<BookOfBooksData> = register("book_of_books") { builder ->
     builder.persistent(BookOfBooksData.CODEC).networkSynchronized(BookOfBooksData.STREAM_CODEC)
   }
