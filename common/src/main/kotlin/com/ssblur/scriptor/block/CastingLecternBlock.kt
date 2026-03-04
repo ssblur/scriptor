@@ -7,6 +7,7 @@ import com.ssblur.scriptor.helpers.PlayerItemHelper.addOrDropItem
 import com.ssblur.scriptor.item.books.Spellbook
 import com.ssblur.scriptor.item.casters.CasterCrystal
 import com.ssblur.unfocused.extension.BlockEntityTypeExtension.create
+import com.ssblur.unfocused.extension.BlockStateExtension.matches
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.InteractionHand
@@ -104,7 +105,7 @@ class CastingLecternBlock: HorizontalDirectionalBlock(Properties.ofFullCopy(Bloc
     drops: Boolean
   ) {
     if (!level.isClientSide) {
-      if (!blockState.`is`(blockState2.block)) {
+      if (!(blockState matches blockState2.block)) {
         if (level.getBlockEntity(blockPos) is CastingLecternBlockEntity) {
           val lectern = level.getBlockEntity(blockPos) as CastingLecternBlockEntity
           for (item in lectern.items) {

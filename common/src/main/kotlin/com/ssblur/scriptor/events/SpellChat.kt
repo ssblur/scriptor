@@ -54,6 +54,7 @@ object SpellChat {
   }
 
   fun castFromChat(player: Player, level: ServerLevel, sentence: String): Boolean {
+    if(!ScriptorConfig.CHAT_CAST_ENABLED()) return false
     val spell = computeIfAbsent(level).parse(sentence)
     if (spell != null) {
       if (player.hasEffect(HOARSE.ref())) {

@@ -6,6 +6,7 @@ import com.ssblur.scriptor.data.components.DictionaryData
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.item.ScriptorItems
 import com.ssblur.unfocused.extension.BlockEntityTypeExtension.create
+import com.ssblur.unfocused.extension.ItemStackExtension.matches
 import net.minecraft.core.BlockPos
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
@@ -61,7 +62,7 @@ open class ChalkBlock: Block, EntityBlock {
     if (blockEntity !is ChalkBlockEntity)
       return super.useItemOn(itemStack, blockState, level, blockPos, player, interactionHand, blockHitResult)
 
-    if(itemStack.`is`(ScriptorItems.DICTIONARY.get())) {
+    if(itemStack matches ScriptorItems.DICTIONARY.get()) {
       val data = itemStack[ScriptorDataComponents.DICTIONARY_DATA] ?: DictionaryData(listOf())
       itemStack[ScriptorDataComponents.DICTIONARY_DATA] = data.withWord(blockEntity.word)
       return ItemInteractionResult.SUCCESS

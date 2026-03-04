@@ -7,6 +7,7 @@ import com.ssblur.scriptor.helpers.LimitedBookSerializer
 import com.ssblur.scriptor.helpers.targetable.LecternTargetable
 import com.ssblur.scriptor.item.casters.CasterCrystal
 import com.ssblur.scriptor.network.client.ParticleNetwork
+import com.ssblur.scriptor.word.Spell
 import net.minecraft.core.BlockPos
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.NonNullList
@@ -16,8 +17,6 @@ import net.minecraft.network.protocol.Packet
 import net.minecraft.network.protocol.game.ClientGamePacketListener
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket
 import net.minecraft.server.level.ServerLevel
-import net.minecraft.sounds.SoundEvents
-import net.minecraft.sounds.SoundSource
 import net.minecraft.world.Clearable
 import net.minecraft.world.ContainerHelper
 import net.minecraft.world.item.ItemStack
@@ -25,6 +24,7 @@ import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
 import kotlin.math.max
+import kotlin.math.roundToInt
 
 class CastingLecternBlockEntity(blockPos: BlockPos, blockState: BlockState):
   BlockEntity(ScriptorBlockEntities.CASTING_LECTERN.get(), blockPos, blockState), Clearable {
@@ -86,16 +86,8 @@ class CastingLecternBlockEntity(blockPos: BlockPos, blockState: BlockState):
         if (spell != null) {
           if (spell.cost() > ScriptorConfig.CASTING_LECTERN_MAX_COST()) {
             ParticleNetwork.fizzle(level!!, blockPos)
-            server.playSound(
-              null,
-              this.blockPos,
-              SoundEvents.FIRE_EXTINGUISH,
-              SoundSource.BLOCKS,
-              1.0f,
-              server.getRandom().nextFloat() * 0.4f + 0.8f
-            )
-            cooldown += Math.round(200.0 * (ScriptorConfig.CASTING_LECTERN_COOLDOWN_MULTIPLIER().toDouble() / 100.0))
-              .toInt()
+            Spell.playFizzleSound(server, blockPos)
+            cooldown += (200.0 * (ScriptorConfig.CASTING_LECTERN_COOLDOWN_MULTIPLIER().toDouble() / 100.0)).roundToInt()
             return
           }
           val state = server.getBlockState(blockPos)
@@ -114,9 +106,8 @@ class CastingLecternBlockEntity(blockPos: BlockPos, blockState: BlockState):
             }
           }
           spell.cast(target)
-          cooldown += Math.round(
-            spell.cost() * 10.0 * (ScriptorConfig.CASTING_LECTERN_COOLDOWN_MULTIPLIER().toDouble() / 100.0)
-          ).toInt().coerceAtLeast(10)
+          cooldown += (spell.cost() * 10.0 * (ScriptorConfig.CASTING_LECTERN_COOLDOWN_MULTIPLIER().toDouble() / 100.0))
+            .roundToInt().coerceAtLeast(10)
         }
       }
     }

@@ -69,7 +69,6 @@ object Tomes {
     if (data != null) {
       val known = data.getTier(t)
       val remaining = options.filter { entry -> known.none{ (key, _) -> key == entry.key.toShortLanguageKey() } }
-      println(remaining)
 
       TOME.get().trigger(player as ServerPlayer)
       if(remaining.size <= 1){

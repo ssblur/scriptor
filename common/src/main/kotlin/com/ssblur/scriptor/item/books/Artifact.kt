@@ -6,8 +6,6 @@ import com.ssblur.scriptor.helpers.targetable.SpellbookTargetable
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
-import net.minecraft.sounds.SoundEvents
-import net.minecraft.sounds.SoundSource
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.entity.player.Player
@@ -46,17 +44,9 @@ class Artifact(properties: Properties, val lore: String = "lore.scriptor.artifac
     val text = itemStack.get(ScriptorDataComponents.SPELL)
     if (text == null || level !is ServerLevel) return result
 
-    level.playSound(
-      null,
-      player.blockPosition(),
-      SoundEvents.EVOKER_CAST_SPELL,
-      SoundSource.PLAYERS,
-      0.4f,
-      level.getRandom().nextFloat() * 1.2f + 0.6f
-    )
-
     val spell = computeIfAbsent(level).parse(text)
     if (spell != null) {
+      spell.playSound(level, player.blockPosition())
       spell.cast(
         SpellbookTargetable(
           itemStack,

@@ -8,6 +8,7 @@ import com.ssblur.scriptor.item.ScriptorTags
 import com.ssblur.scriptor.network.server.WritingTableNetwork
 import com.ssblur.scriptor.screen.menu.WritingTableMenu
 import com.ssblur.scriptor.screen.widget.TextField
+import com.ssblur.unfocused.extension.ItemStackExtension.matches
 import net.minecraft.ChatFormatting
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Button
@@ -140,7 +141,7 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
     renderTooltip(guiGraphics, i, j)
 
     if(menu.book != lastBook) {
-      if(menu.book.`is`(ScriptorItems.SCRAP.get())) {
+      if(menu.book matches ScriptorItems.SCRAP.get()) {
         val word = menu.book[DataComponents.ITEM_NAME]!!.string
         if(words.none { it.get(0) == word }) {
           val parts = menu.book[ScriptorDataComponents.SPELL]!!.split(":".toRegex(), limit = 2).toTypedArray()
@@ -202,7 +203,7 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
         guiGraphics.drawString(font, translatable("extra.scriptor.scroll"), x, y, 0x777777)
         break
       }
-      if(menu.dictionary.`is`(ScriptorItems.DICTIONARY.get())) {
+      if(menu.dictionary matches ScriptorItems.DICTIONARY.get()) {
         if(overEntries(i, j) && j - y in 1..font.lineHeight) {
           guiGraphics.drawString(font, entry[0], x, y, 0xffff99)
           val components = mutableListOf<Component>()
@@ -260,9 +261,9 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
     return false
   }
 
-  private fun hasWritableBook() = menu.book.`is`(ScriptorTags.WRITABLE_SPELLBOOKS)
-  private fun hasReadableBook() = menu.book.`is`(ScriptorTags.READABLE_SPELLBOOKS)
-  private fun hasDictionary() = menu.dictionary.`is`(ScriptorItems.DICTIONARY.get())
+  private fun hasWritableBook() = menu.book matches ScriptorTags.WRITABLE_SPELLBOOKS
+  private fun hasReadableBook() = menu.book matches ScriptorTags.READABLE_SPELLBOOKS
+  private fun hasDictionary() = menu.dictionary matches ScriptorItems.DICTIONARY.get()
 
   override fun mouseClicked(d: Double, e: Double, i: Int): Boolean {
     if(i == 0) click = true

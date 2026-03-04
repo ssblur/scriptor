@@ -4,6 +4,7 @@ import com.ssblur.scriptor.block.WritingTableBlock
 import com.ssblur.scriptor.item.ScriptorItems
 import com.ssblur.scriptor.item.ScriptorTags
 import com.ssblur.scriptor.screen.menu.WritingTableMenu
+import com.ssblur.unfocused.extension.ItemStackExtension.matches
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
@@ -136,16 +137,16 @@ class WritingTableBlockEntity(blockPos: BlockPos, blockState: BlockState):
 
   override fun canPlaceItemThroughFace(i: Int, itemStack: ItemStack, direction: Direction?): Boolean {
     if(direction == null || i in getSlotsForFace(direction)) {
-      if(i == BOOK_SLOT && itemStack.`is`(ScriptorTags.WRITABLE_SPELLBOOKS)) return true
-      if(i == DICTIONARY_SLOT && itemStack.`is`(ScriptorItems.DICTIONARY)) return true
+      if(i == BOOK_SLOT && itemStack matches ScriptorTags.WRITABLE_SPELLBOOKS) return true
+      if(i == DICTIONARY_SLOT && itemStack matches ScriptorItems.DICTIONARY) return true
     }
     return false
   }
 
   override fun canTakeItemThroughFace(i: Int, itemStack: ItemStack, direction: Direction): Boolean {
     if(i in getSlotsForFace(direction)) {
-      if(i == BOOK_SLOT && itemStack.`is`(ScriptorTags.WRITABLE_SPELLBOOKS)) return true
-      if(i == DICTIONARY_SLOT && itemStack.`is`(ScriptorItems.DICTIONARY)) return true
+      if(i == BOOK_SLOT && itemStack matches ScriptorTags.WRITABLE_SPELLBOOKS) return true
+      if(i == DICTIONARY_SLOT && itemStack matches ScriptorItems.DICTIONARY) return true
     }
     return false
   }

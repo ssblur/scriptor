@@ -11,8 +11,6 @@ import net.minecraft.core.component.DataComponents
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
-import net.minecraft.sounds.SoundEvents
-import net.minecraft.sounds.SoundSource
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
@@ -47,14 +45,7 @@ object SpellbookHelper {
     val spell = computeIfAbsent(level).parse(decodeText(text))
     if (spell != null) {
       spell.deduplicatedDescriptorsForSubjects()
-      level.playSound(
-        null,
-        player.blockPosition(),
-        SoundEvents.EVOKER_CAST_SPELL,
-        SoundSource.PLAYERS,
-        0.4f,
-        level.getRandom().nextFloat() * 1.2f + 0.6f
-      )
+      spell.playSound(level, player.blockPosition())
       if (spell.cost() > adjustedMaxCost) {
         player.sendSystemMessage(Component.translatable("extra.scriptor.fizzle"))
         ScriptorAdvancements.FIZZLE.get().trigger(player as ServerPlayer)

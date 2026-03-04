@@ -4,10 +4,9 @@ import com.ssblur.scriptor.block.EngravingBlock
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData
 import com.ssblur.scriptor.helpers.targetable.Targetable
 import com.ssblur.scriptor.network.client.ParticleNetwork
+import com.ssblur.scriptor.word.Spell
 import net.minecraft.core.BlockPos
 import net.minecraft.server.level.ServerLevel
-import net.minecraft.sounds.SoundEvents
-import net.minecraft.sounds.SoundSource
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
@@ -20,14 +19,7 @@ class EngravingBlockEntity(blockPos: BlockPos, blockState: BlockState):
     var words = initialWords
     if (cooldown > 0) {
       ParticleNetwork.fizzle(level!!, blockPos)
-      level!!.playSound(
-        null,
-        this.blockPos,
-        SoundEvents.FIRE_EXTINGUISH,
-        SoundSource.BLOCKS,
-        1.0f,
-        level!!.getRandom().nextFloat() * 0.4f + 0.8f
-      )
+      Spell.playFizzleSound(level!!, blockPos)
       return
     }
 
@@ -88,14 +80,7 @@ class EngravingBlockEntity(blockPos: BlockPos, blockState: BlockState):
         spell.cast(target)
       } else if (primary) {
         ParticleNetwork.fizzle(server, visited[0])
-        server.playSound(
-          null,
-          visited[0],
-          SoundEvents.FIRE_EXTINGUISH,
-          SoundSource.BLOCKS,
-          1.0f,
-          server.getRandom().nextFloat() * 0.4f + 0.8f
-        )
+        Spell.playFizzleSound(server, visited[0])
       }
     }
   }

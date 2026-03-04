@@ -7,6 +7,7 @@ import com.mojang.math.Axis
 import com.ssblur.scriptor.ScriptorMod
 import com.ssblur.scriptor.block.ScriptorBlocks
 import com.ssblur.scriptor.blockentity.ChalkBlockEntity
+import com.ssblur.unfocused.extension.BlockStateExtension.matches
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.Font
 import net.minecraft.client.renderer.MultiBufferSource
@@ -45,7 +46,7 @@ class ChalkBlockEntityRenderer(@Suppress("unused_parameter") context: BlockEntit
     matrix.translate(0f, 0.01f, 0f)
 
     val pose = matrix.last().pose()
-    if (level.getBlockState(pos.north()).`is`(ScriptorBlocks.CHALK.get())) {
+    if (level.getBlockState(pos.north()) matches ScriptorBlocks.CHALK.get()) {
       val buffer = buffers.getBuffer(circleLayerN)
       buffer.addVertex(pose, 0f, 0f, 1f).setColor(255, 255, 255, 255).setUv(0f, 1f).setLight(0xF000F0)
       buffer.addVertex(pose, 1f, 0f, 1f).setColor(255, 255, 255, 255).setUv(1f, 1f).setLight(0xF000F0)
@@ -53,7 +54,7 @@ class ChalkBlockEntityRenderer(@Suppress("unused_parameter") context: BlockEntit
       buffer.addVertex(pose, 0f, 0f, 0f).setColor(255, 255, 255, 255).setUv(0f, 0f).setLight(0xF000F0)
     }
 
-    if (level.getBlockState(pos.south()).`is`(ScriptorBlocks.CHALK.get())) {
+    if (level.getBlockState(pos.south()) matches ScriptorBlocks.CHALK.get()) {
       val buffer = buffers.getBuffer(circleLayerS)
       buffer.addVertex(pose, 0f, 0f, 1f).setColor(255, 255, 255, 255).setUv(0f, 1f).setLight(0xF000F0)
       buffer.addVertex(pose, 1f, 0f, 1f).setColor(255, 255, 255, 255).setUv(1f, 1f).setLight(0xF000F0)
@@ -61,7 +62,7 @@ class ChalkBlockEntityRenderer(@Suppress("unused_parameter") context: BlockEntit
       buffer.addVertex(pose, 0f, 0f, 0f).setColor(255, 255, 255, 255).setUv(0f, 0f).setLight(0xF000F0)
     }
 
-    if (level.getBlockState(pos.east()).`is`(ScriptorBlocks.CHALK.get())) {
+    if (level.getBlockState(pos.east()) matches ScriptorBlocks.CHALK.get()) {
       val buffer = buffers.getBuffer(circleLayerE)
       buffer.addVertex(pose, 0f, 0f, 1f).setColor(255, 255, 255, 255).setUv(0f, 1f).setLight(0xF000F0)
       buffer.addVertex(pose, 1f, 0f, 1f).setColor(255, 255, 255, 255).setUv(1f, 1f).setLight(0xF000F0)
@@ -69,7 +70,7 @@ class ChalkBlockEntityRenderer(@Suppress("unused_parameter") context: BlockEntit
       buffer.addVertex(pose, 0f, 0f, 0f).setColor(255, 255, 255, 255).setUv(0f, 0f).setLight(0xF000F0)
     }
 
-    if (level.getBlockState(pos.west()).`is`(ScriptorBlocks.CHALK.get())) {
+    if (level.getBlockState(pos.west()) matches ScriptorBlocks.CHALK.get()) {
       val buffer = buffers.getBuffer(circleLayerW)
       buffer.addVertex(pose, 0f, 0f, 1f).setColor(255, 255, 255, 255).setUv(0f, 1f).setLight(0xF000F0)
       buffer.addVertex(pose, 1f, 0f, 1f).setColor(255, 255, 255, 255).setUv(1f, 1f).setLight(0xF000F0)

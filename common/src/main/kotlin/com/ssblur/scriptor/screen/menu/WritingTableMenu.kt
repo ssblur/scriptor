@@ -5,6 +5,7 @@ import com.ssblur.scriptor.ScriptorMod
 import com.ssblur.scriptor.blockentity.WritingTableBlockEntity
 import com.ssblur.scriptor.item.ScriptorItems
 import com.ssblur.scriptor.item.ScriptorTags
+import com.ssblur.unfocused.extension.ItemStackExtension.matches
 import net.minecraft.core.BlockPos
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.SimpleContainer
@@ -69,18 +70,17 @@ class WritingTableMenu(i: Int, val inventory: Inventory, val table: WritingTable
     val itemStack = ItemStack.EMPTY
     val slot = slots[i]
     if (slot.hasItem()) {
-      println(i)
       val item = slot.item
       if(i > 1) {
         if(
-          item.`is`(ScriptorTags.WRITABLE_SPELLBOOKS) ||
-          item.`is`(ScriptorTags.READABLE_SPELLBOOKS) ||
-          item.`is`(ScriptorItems.SCRAP.get())
+          item matches ScriptorTags.WRITABLE_SPELLBOOKS ||
+          item matches ScriptorTags.READABLE_SPELLBOOKS ||
+          item matches ScriptorItems.SCRAP.get()
           ) {
           if(moveItemStackTo(item, BOOK_SLOT, BOOK_SLOT + 1, false))
             return item.copy()
           return ItemStack.EMPTY
-        } else if(item.`is`(ScriptorItems.DICTIONARY.get())) {
+        } else if(item matches ScriptorItems.DICTIONARY.get()) {
           if(moveItemStackTo(item, DICTIONARY_SLOT, DICTIONARY_SLOT + 1, false))
             return item.copy()
           return ItemStack.EMPTY

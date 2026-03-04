@@ -18,14 +18,21 @@ import com.ssblur.scriptor.word.descriptor.AfterCastDescriptor
 import com.ssblur.scriptor.word.descriptor.CastDescriptor
 import com.ssblur.scriptor.word.descriptor.focus.FocusDescriptor
 import com.ssblur.scriptor.word.descriptor.target.TargetDescriptor
+import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerPlayer
+import net.minecraft.sounds.SoundEvents
+import net.minecraft.sounds.SoundSource
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.level.Level
+import net.minecraft.world.phys.Vec3
+import org.joml.Vector3f
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ExecutionException
 import kotlin.math.pow
+import kotlin.math.roundToInt
 
 /**
  * A record used to represent a complete spell.
@@ -206,6 +213,46 @@ class Spell(val subject: Subject, vararg val spells: PartialSpell) {
     return words
   }
 
+  fun playSound(level: Level, pos: Vec3) {
+    level.playSound(
+      null,
+      BlockPos(pos.x.roundToInt(), pos.y.roundToInt(), pos.z.roundToInt()),
+      SoundEvents.EVOKER_CAST_SPELL,
+      SoundSource.PLAYERS,
+      0.4f,
+      level.getRandom().nextFloat() * 1.2f + 0.6f
+    )
+  }
+
+  fun playSound(level: Level, pos: BlockPos) {
+    playSound(level, Vec3(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble()))
+  }
+
+  fun playSound(level: Level, pos: Vector3f) {
+    playSound(level, Vec3(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble()))
+  }
+
   fun deduplicatedDescriptorsForSubjects(): Array<Descriptor> =
     spells.flatMap { it.descriptors.toList() }.distinct().toTypedArray()
+
+  companion object {
+    fun playFizzleSound(level: Level, pos: Vec3) {
+      level.playSound(
+        null,
+        BlockPos(pos.x.roundToInt(), pos.y.roundToInt(), pos.z.roundToInt()),
+        SoundEvents.FIRE_EXTINGUISH,
+        SoundSource.PLAYERS,
+        0.4f,
+        level.getRandom().nextFloat() * 1.2f + 0.6f
+      )
+    }
+
+    fun playFizzleSound(level: Level, pos: BlockPos) {
+      playFizzleSound(level, Vec3(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble()))
+    }
+
+    fun playFizzleSound(level: Level, pos: Vector3f) {
+      playFizzleSound(level, Vec3(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble()))
+    }
+  }
 }

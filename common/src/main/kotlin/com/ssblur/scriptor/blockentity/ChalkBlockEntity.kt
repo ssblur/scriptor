@@ -4,6 +4,7 @@ import com.ssblur.scriptor.config.ScriptorConfig
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData
 import com.ssblur.scriptor.helpers.targetable.Targetable
 import com.ssblur.scriptor.network.client.ParticleNetwork
+import com.ssblur.scriptor.word.Spell
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
@@ -12,8 +13,6 @@ import net.minecraft.network.protocol.Packet
 import net.minecraft.network.protocol.game.ClientGamePacketListener
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket
 import net.minecraft.server.level.ServerLevel
-import net.minecraft.sounds.SoundEvents
-import net.minecraft.sounds.SoundSource
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
@@ -81,14 +80,7 @@ open class ChalkBlockEntity: BlockEntity {
         spell.cast(target)
       } else if (primary) {
         ParticleNetwork.fizzle(server, visited[0])
-        server.playSound(
-          null,
-          visited[0],
-          SoundEvents.FIRE_EXTINGUISH,
-          SoundSource.BLOCKS,
-          1.0f,
-          server.getRandom().nextFloat() * 0.4f + 0.8f
-        )
+        Spell.playFizzleSound(server, visited[0])
       }
     }
   }

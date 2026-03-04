@@ -3,6 +3,7 @@ package com.ssblur.scriptor.entity
 import com.ssblur.scriptor.color.CustomColors
 import com.ssblur.scriptor.color.interfaces.Colorable
 import com.ssblur.scriptor.mixin.SheepAccessor
+import com.ssblur.unfocused.extension.ItemStackExtension.matches
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.network.syncher.EntityDataSerializers
@@ -97,7 +98,7 @@ class ColorfulSheep(entityType: EntityType<out ColorfulSheep>, level: Level): Sh
     goalSelector.addGoal(2, BreedGoal(this, 1.0))
     goalSelector.addGoal(
       3,
-      TemptGoal(this, 1.1, { itemStack: ItemStack -> itemStack.`is`(ItemTags.SHEEP_FOOD) }, false)
+      TemptGoal(this, 1.1, { itemStack: ItemStack -> itemStack matches ItemTags.SHEEP_FOOD }, false)
     )
     goalSelector.addGoal(4, FollowParentGoal(this, 1.1))
     goalSelector.addGoal(5, eatBlockGoal)

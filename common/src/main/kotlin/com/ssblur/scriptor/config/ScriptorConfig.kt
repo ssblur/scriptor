@@ -23,6 +23,7 @@ object ScriptorConfig {
   val PROXIMITY_CHAT = config.registerBoolean("proximity_chat", false)
   val SHOW_SPELLS_IN_CHAT = config.registerBoolean("show_spells_in_chat", false)
   val CAST_COMMAND_ENABLED = config.registerBoolean("cast_command_enabled", false)
+  val CHAT_CAST_ENABLED = config.registerBoolean("cast_through_chat_enabled", true)
   val PROXIMITY_RANGE = config.registerInt("proximity_chat_range", 64)
 
   // Demonstration / showcase settings

@@ -4,6 +4,8 @@ import com.ssblur.scriptor.api.word.Descriptor
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable
 import com.ssblur.scriptor.helpers.targetable.Targetable
 import com.ssblur.scriptor.network.client.ParticleNetwork
+import com.ssblur.unfocused.extension.BlockStateExtension.matches
+import com.ssblur.unfocused.extension.EntityExtension.matches
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
@@ -23,9 +25,9 @@ class ChainDescriptor: Descriptor(), TargetDescriptor {
       )
       if (entities.size > 1) {
         val filteredEntities = entities.filter { ent ->
-          targetables.none{ (it is EntityTargetable && it.targetEntity.`is`(ent)) }
+          targetables.none{ (it is EntityTargetable && it.targetEntity matches ent) }
         }.filter { ent ->
-          owner !is EntityTargetable || !owner.targetEntity.`is`(ent)
+          owner !is EntityTargetable || !(owner.targetEntity matches ent)
         }
         if(filteredEntities.isNotEmpty()) {
           val target = filteredEntities[0]
@@ -60,7 +62,7 @@ class ChainDescriptor: Descriptor(), TargetDescriptor {
         targetable.targetBlockPos.offset(0, 0, -1),
       )
         .filter { pos -> targetables.none { it.targetBlockPos == pos } }
-        .filter { targetable.level.getBlockState(it).`is`(block) }
+        .filter { targetable.level.getBlockState(it) matches block }
         .firstNotNullOfOrNull { Targetable(targetable.level, it) }
     }
   }
