@@ -15,6 +15,7 @@ object ScriptorConfig {
   val VOCAL_HUNGER_THRESHOLD = config.registerInt("vocal_hunger_threshold", 50)
   val VOCAL_DAMAGE_THRESHOLD = config.registerInt("vocal_damage_threshold", 125)
   val VOCAL_COOLDOWN_MULTIPLIER = config.registerInt("vocal_cooldown_multiplier", 100)
+  val ARTIFACT_COOLDOWN_MULTIPLIER = config.registerInt("artifact_cooldown_multiplier", 200)
 
   // Spell settings
   val CAN_TARGET_PLAYER_INVENTORIES = config.registerBoolean("can_target_player_inventories", false)

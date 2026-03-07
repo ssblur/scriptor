@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.item.books
 
+import com.ssblur.scriptor.config.ScriptorConfig
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData.Companion.computeIfAbsent
 import com.ssblur.scriptor.helpers.targetable.SpellbookTargetable
@@ -13,6 +14,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
+import kotlin.math.roundToInt
 
 class Artifact(properties: Properties, val lore: String = "lore.scriptor.artifact_1"): Item(properties.stacksTo(1)) {
   init {
@@ -56,7 +58,7 @@ class Artifact(properties: Properties, val lore: String = "lore.scriptor.artifac
       )
       if (!player.isCreative) for (artifact in ARTIFACTS) player.cooldowns.addCooldown(
         artifact,
-        Math.round(spell.cost() * 2).toInt()
+        (spell.cost() * (ScriptorConfig.ARTIFACT_COOLDOWN_MULTIPLIER() / 200.0)).roundToInt()
       )
       return InteractionResultHolder.pass(itemStack)
     }
