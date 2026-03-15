@@ -17,15 +17,23 @@ class MixedGroupGenerator(obj: JsonObject?): TokenGenerator() {
     val groups: Array<TokenGroup>,
     val maxConsecutiveGroups: Int,
     val minTokens: Int,
-    val maxTokens: Int
+    val maxTokens: Int,
+    val seed: String?,
   )
 
   var totalWeight: Int = 0
   var parameters: MixedGroupParameters? = null
+  var RANDOM: Random
 
   init {
     parameters = GSON.fromJson(obj, PARAMETERS_TYPE)
     parameters?.let { for ((_, weight) in it.groups) totalWeight += weight }
+
+    RANDOM =
+      if(parameters?.seed != null)
+        Random(parameters!!.seed.hashCode().toLong())
+      else
+        Random()
   }
 
   override fun canBeDefault(): Boolean {
@@ -85,6 +93,5 @@ class MixedGroupGenerator(obj: JsonObject?): TokenGenerator() {
   companion object {
     var PARAMETERS_TYPE: Type = object: TypeToken<MixedGroupParameters?>() {}.type
     var GSON: Gson = GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create()
-    var RANDOM: Random = Random()
   }
 }
