@@ -1,14 +1,17 @@
 package com.ssblur.scriptor.item.books
 
+import com.ssblur.scriptor.ScriptorMod
 import com.ssblur.scriptor.config.ScriptorConfig
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData.Companion.computeIfAbsent
 import com.ssblur.scriptor.helpers.targetable.SpellbookTargetable
+import com.ssblur.scriptor.resources.Artifacts
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
@@ -43,7 +46,7 @@ class Artifact(properties: Properties, val lore: String = "lore.scriptor.artifac
     val result = super.use(level, player, interactionHand)
 
     val itemStack = player.getItemInHand(interactionHand)
-    val text = itemStack.get(ScriptorDataComponents.SPELL)
+    val text = itemStack[ScriptorDataComponents.SPELL]
     if (text == null || level !is ServerLevel) return result
 
     val spell = computeIfAbsent(level).parse(text)
@@ -63,6 +66,17 @@ class Artifact(properties: Properties, val lore: String = "lore.scriptor.artifac
       return InteractionResultHolder.pass(itemStack)
     }
     return InteractionResultHolder.fail(itemStack)
+  }
+
+  override fun inventoryTick(itemStack: ItemStack, level: Level, entity: Entity, i: Int, bl: Boolean) {
+    if(itemStack[ScriptorDataComponents.SPELL] == null && level is ServerLevel) {
+      if(itemStack[ScriptorDataComponents.TOME_TO_GIVE] == null)
+        Artifacts.getRandomArtifact().applyToItem(itemStack, level)
+      else
+        Artifacts.artifacts[ScriptorMod.location(itemStack[ScriptorDataComponents.TOME_TO_GIVE]!!)]
+          ?.applyToItem(itemStack, level) ?: Artifacts.getRandomArtifact().applyToItem(itemStack, level)
+    }
+    super.inventoryTick(itemStack, level, entity, i, bl)
   }
 
   companion object {

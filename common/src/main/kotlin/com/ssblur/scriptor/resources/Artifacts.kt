@@ -1,6 +1,8 @@
 package com.ssblur.scriptor.resources
 
 import com.ssblur.scriptor.ScriptorMod
+import com.ssblur.scriptor.data.components.ScriptorDataComponents
+import com.ssblur.scriptor.data.saved_data.DictionarySavedData.Companion.computeIfAbsent
 import com.ssblur.scriptor.error.WordNotFoundException
 import com.ssblur.scriptor.registry.words.WordRegistry.actionRegistry
 import com.ssblur.scriptor.registry.words.WordRegistry.descriptorRegistry
@@ -8,6 +10,10 @@ import com.ssblur.scriptor.registry.words.WordRegistry.subjectRegistry
 import com.ssblur.scriptor.word.PartialSpell
 import com.ssblur.scriptor.word.Spell
 import com.ssblur.unfocused.data.DataLoaderRegistry.registerSimpleDataLoader
+import net.minecraft.core.component.DataComponents
+import net.minecraft.network.chat.Component
+import net.minecraft.server.level.ServerLevel
+import net.minecraft.world.item.ItemStack
 
 object Artifacts {
   class ArtifactResource {
@@ -28,6 +34,12 @@ object Artifacts {
         subjectRegistry[spell!!.subject] ?: throw WordNotFoundException(spell!!.subject),
         *spells.toTypedArray()
       )
+    }
+
+    fun applyToItem(itemStack: ItemStack, level: ServerLevel): ItemStack {
+      itemStack[ScriptorDataComponents.SPELL] = computeIfAbsent(level).generate(this.getSpell())
+      itemStack[DataComponents.ITEM_NAME] = Component.translatable(name ?: "")
+      return itemStack
     }
   }
 

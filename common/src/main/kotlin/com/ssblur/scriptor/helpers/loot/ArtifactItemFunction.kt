@@ -1,11 +1,7 @@
 package com.ssblur.scriptor.helpers.loot
 
-import com.ssblur.scriptor.data.components.ScriptorDataComponents
-import com.ssblur.scriptor.data.saved_data.DictionarySavedData.Companion.computeIfAbsent
 import com.ssblur.scriptor.item.ScriptorLoot
 import com.ssblur.scriptor.resources.Artifacts
-import net.minecraft.core.component.DataComponents
-import net.minecraft.network.chat.Component
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.storage.loot.LootContext
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction
@@ -17,9 +13,6 @@ class ArtifactItemFunction: LootItemFunction {
   }
 
   override fun apply(itemStack: ItemStack, lootContext: LootContext): ItemStack {
-    val artifact = Artifacts.getRandomArtifact()
-    itemStack[ScriptorDataComponents.SPELL] = computeIfAbsent(lootContext.level).generate(artifact.getSpell())
-    itemStack[DataComponents.ITEM_NAME] = Component.translatable(artifact.name ?: "")
-    return itemStack
+    return Artifacts.getRandomArtifact().applyToItem(itemStack, lootContext.level)
   }
 }
