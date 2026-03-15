@@ -43,8 +43,8 @@ object TokenGeneratorRegistry {
     defaultGenerator = generator
   }
 
-  fun generateWord(word: String, `object`: JsonObject? = generatorBindingConfig[word]): String {
-    return getGenerator(getBinding(word))!!.generateToken(word, `object`)
+  fun generateWord(word: String, json: JsonObject? = generatorBindingConfig[word]): String {
+    return getGenerator(getBinding(word))!!.generateToken(word, json)
   }
 
   val MIXED_GROUP: TokenGeneratorGenerator = registerGeneratorGenerator("mixed_groups") { MixedGroupGenerator(it) }
