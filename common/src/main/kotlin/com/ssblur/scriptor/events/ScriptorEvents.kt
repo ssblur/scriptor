@@ -21,8 +21,8 @@ import net.fabricmc.api.Environment
 import net.minecraft.server.level.ServerLevel
 
 object ScriptorEvents {
+  var invertDoNotPhaseMemory = false
   fun register() {
-    var invertDoNotPhaseMemory = false
     ServerStartEvent.register {
       computeIfAbsent(it.overworld())
       it.addTickable {
@@ -76,9 +76,9 @@ object ScriptorEvents {
 
 
 
-    SpellChat
-    PlayerTick
-    AddLootEvent
+    SpellChat.init()
+    PlayerTick.init()
+    AddLootEvent.init()
 
     try {
       clientRegister()
@@ -88,6 +88,6 @@ object ScriptorEvents {
 
   @Environment(EnvType.CLIENT)
   fun clientRegister() {
-    ScriptorClientEvents
+    ScriptorClientEvents.init()
   }
 }

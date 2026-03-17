@@ -11,7 +11,7 @@ import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 
 object ScriptorClientEvents {
-  init {
+  fun init() {
     MouseScrollEvent.register {
       val player = it.minecraft.player
       if (player != null && player.isShiftKeyDown) {

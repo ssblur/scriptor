@@ -9,7 +9,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 
 object PlayerTick {
-  init {
+  fun init() {
     PlayerTickEvent.Before.register {
       for (item in it.inventory.items) processItem(item, it)
       for (slot in EquipmentSlot.entries) processItem(it.getItemBySlot(slot), it)

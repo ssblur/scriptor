@@ -19,7 +19,7 @@ import java.util.function.Predicate
 import kotlin.math.roundToInt
 
 object SpellChat {
-  init {
+  fun init() {
     PlayerChatEvent.Before.register {
       val player = it.player
       val component = it.message
@@ -69,8 +69,9 @@ object SpellChat {
       var costScale = 1.0f
       for (instance in player.activeEffects)
         if (instance.effect.value() is EmpoweredStatusEffect)
-          for (i in 0..instance.amplifier)
-            costScale *= (instance.effect.value() as EmpoweredStatusEffect).scale
+            (0..instance.amplifier).forEach { _ ->
+              costScale *= (instance.effect.value() as EmpoweredStatusEffect).scale
+            }
       cost = ((cost.toFloat()) * costScale).roundToInt()
 
       if (ScriptorConfig.VOCAL_MAX_COST() in 0..<cost)

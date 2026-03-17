@@ -31,7 +31,7 @@ object AddLootEvent {
 
   var pools: HashMap<Holder<Item>, Array<LootItemRecord>> = HashMap()
 
-  init {
+  fun init() {
     val tier1 = arrayOf(
       LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/village/village_plains_house"), 0.2f),
       LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/village/village_snowy_house"), 0.2f),
