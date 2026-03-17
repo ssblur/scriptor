@@ -96,6 +96,7 @@
   "death.attack.sacrifice.player": "%1$s sacrificed too much...",
   "enchantment.scriptor.charged": "Charged",
   "subject.scriptor.self": "Target: Self",
+  "subject.scriptor.on_hit": "Target: On Attack",
   "subject.scriptor.touch": "Target: Touch",
   "subject.scriptor.projectile": "Target: Projectile",
   "subject.scriptor.rune": "Target: Rune",
