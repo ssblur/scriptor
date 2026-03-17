@@ -12,4 +12,5 @@ object Subjects {
   val RUNE = register("rune", RuneSubject())
   val ENCHANT = register("enchant", ImbueSubject())
   val METEOR = register("meteor", MeteorSubject())
+  val ON_HIT = register("on_hit", HitSubject())
 }

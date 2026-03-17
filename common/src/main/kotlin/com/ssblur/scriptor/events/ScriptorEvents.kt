@@ -6,15 +6,19 @@ import com.ssblur.scriptor.config.ScriptorConfig
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData.Companion.computeIfAbsent
 import com.ssblur.scriptor.data.saved_data.PlayerSpellsSavedData.Companion.computeIfAbsent
+import com.ssblur.scriptor.helpers.targetable.EntityTargetable
+import com.ssblur.scriptor.helpers.targetable.Targetable
 import com.ssblur.scriptor.network.client.ScriptorNetworkS2C
 import com.ssblur.scriptor.network.client.ScriptorNetworkS2C.color
 import com.ssblur.scriptor.network.client.ScriptorNetworkS2C.flag
 import com.ssblur.scriptor.resources.Colors.cache
+import com.ssblur.scriptor.word.subject.HitSubject
 import com.ssblur.unfocused.event.common.EntityDamagedEvent
 import com.ssblur.unfocused.event.common.PlayerJoinedEvent
 import com.ssblur.unfocused.event.common.ServerStartEvent
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
+import net.minecraft.server.level.ServerLevel
 
 object ScriptorEvents {
   fun register() {
@@ -28,6 +32,7 @@ object ScriptorEvents {
         }
       }
     }
+
     PlayerJoinedEvent.register { player ->
       if (COMMUNITY_MODE) COMMUNITY.get().trigger(player)
       flag.invoke(ScriptorNetworkS2C.Flag(ScriptorNetworkS2C.FLAGS.COMMUNITY, COMMUNITY_MODE), listOf(player))
@@ -39,17 +44,38 @@ object ScriptorEvents {
 
 
     EntityDamagedEvent.Before.register { (entity, source, _) ->
-      val weapon = source.weaponItem
-      if (weapon != null) {
-        val data = weapon[ScriptorDataComponents.CHARGES] ?: 0
-        if (data > 0) {
-          entity.health -= 5
+      source.weaponItem?.let { weapon ->
+        weapon[ScriptorDataComponents.CHARGES]?.let { charges ->
+          if(charges > 0) {
+            entity.health -= 5
 
-          if(data == 1) weapon.remove(ScriptorDataComponents.CHARGES)
-          else weapon.set(ScriptorDataComponents.CHARGES, data - 1)
+            if(charges == 1) weapon.remove(ScriptorDataComponents.CHARGES)
+            else weapon.set(ScriptorDataComponents.CHARGES, charges - 1)
+          }
+        }
+
+
+        weapon[ScriptorDataComponents.SPELL]?.let { spell ->
+          entity.level().let {
+            if(it is ServerLevel) {
+              val parsed = computeIfAbsent(it).parse(spell)
+              if(parsed?.subject is HitSubject) {
+                parsed.castOnTargets(
+                  if(source.entity != null)
+                    EntityTargetable(source.entity!!)
+                  else
+                    Targetable(it, source.sourcePosition ?: entity.position()),
+                  listOf(EntityTargetable(entity))
+                )
+              }
+            }
+          }
         }
       }
     }
+
+
+
     SpellChat
     PlayerTick
     AddLootEvent

@@ -1,6 +1,5 @@
 package com.ssblur.scriptor.events
 
-import com.google.common.base.MoreObjects
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.helpers.ParticleQueue
 import com.ssblur.scriptor.item.books.BookOfBooks
@@ -27,14 +26,14 @@ object ScriptorClientEvents {
     }
     ClientLevelTickEvent.Before.register { ParticleQueue.process() }
     ClientLoreEvent.register { (stack, lore, _, _) ->
-      val charges = MoreObjects.firstNonNull(stack[ScriptorDataComponents.CHARGES], 0)
+      val charges = stack[ScriptorDataComponents.CHARGES] ?: 0
       if (charges > 0) {
         if (charges <= 10)
           lore.add(
             Component
               .translatable("enchantment.scriptor.charged")
               .append(" ")
-              .append(Component.translatable("enchantment.level." + charges))
+              .append(Component.translatable("enchantment.level.$charges"))
           )
         else
           lore.add(
@@ -43,6 +42,11 @@ object ScriptorClientEvents {
               .append(" ")
               .append("" + charges)
           )
+      }
+
+      stack[ScriptorDataComponents.SPELL]?.let {
+        lore.add(Component.translatable("lore.scriptor.inscribed"))
+        lore.add(Component.translatable("lore.scriptor.inscribed_2", it))
       }
     }
   }

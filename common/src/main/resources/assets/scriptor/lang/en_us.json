@@ -278,6 +278,8 @@
   "lore.scriptor.scroll": "This Scroll may be written at a Writing Desk",
   "lore.scriptor.spell_scroll": "Can only be used once.",
   "lore.scriptor.bound_tool": "Summoned via magic, cannot be crafted.",
+  "lore.scriptor.inscribed": "Words are inscribed on it...",
+  "lore.scriptor.inscribed_2": "\"%1$s\"",
   "itemGroup.scriptor.scriptor_tab": "Scriptor Magicae",
   "itemGroup.scriptor.scriptor_spellbooks": "Scriptor Magicae Spellbooks",
   "entity.scriptor.colorful_sheep": "Sheep",
