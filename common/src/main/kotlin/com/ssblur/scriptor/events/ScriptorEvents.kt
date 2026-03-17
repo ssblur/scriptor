@@ -12,13 +12,16 @@ import com.ssblur.scriptor.network.client.ScriptorNetworkS2C
 import com.ssblur.scriptor.network.client.ScriptorNetworkS2C.color
 import com.ssblur.scriptor.network.client.ScriptorNetworkS2C.flag
 import com.ssblur.scriptor.resources.Colors.cache
+import com.ssblur.scriptor.resources.MobSpellItems
 import com.ssblur.scriptor.word.subject.HitSubject
 import com.ssblur.unfocused.event.common.EntityDamagedEvent
+import com.ssblur.unfocused.event.common.MobSpawnEvent
 import com.ssblur.unfocused.event.common.PlayerJoinedEvent
 import com.ssblur.unfocused.event.common.ServerStartEvent
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
 import net.minecraft.server.level.ServerLevel
+import net.minecraft.world.entity.Mob
 
 object ScriptorEvents {
   var invertDoNotPhaseMemory = false
@@ -74,7 +77,9 @@ object ScriptorEvents {
       }
     }
 
-
+    MobSpawnEvent.register { (entity, level) ->
+      if(entity is Mob && level is ServerLevel) MobSpellItems.giveItem(entity)
+    }
 
     SpellChat.init()
     PlayerTick.init()

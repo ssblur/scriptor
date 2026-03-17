@@ -1,0 +1,18 @@
+{
+  "disabled": true,
+  "name": "tome.scriptor.big_ups",
+  "spell": {
+    "subject": "on_hit",
+    "spells": [
+      {
+        "action": "inflame",
+        "descriptors": []
+      }
+    ]
+  },
+  "item": "minecraft:stone_sword",
+  "mob": "minecraft:zombie",
+  "chance": 1.0,
+  "slot": "MAINHAND",
+  "rarity": "RARE"
+}

@@ -11,5 +11,6 @@ object ScriptorResources {
     Reagents
     Scraps
     Words
+    MobSpellItems
   }
 }
