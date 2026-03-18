@@ -12,5 +12,6 @@ object ScriptorResources {
     Scraps
     Words
     MobSpellItems
+    VillagerEngravings
   }
 }

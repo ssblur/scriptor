@@ -5,6 +5,7 @@ import com.ssblur.scriptor.block.GenerateBlock
 import com.ssblur.scriptor.block.ScriptorBlocks
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData
 import com.ssblur.scriptor.resources.Engravings
+import com.ssblur.scriptor.resources.VillagerEngravings
 import net.minecraft.core.BlockPos
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.level.Level
@@ -40,6 +41,42 @@ class GenerateBlockEntity(blockPos: BlockPos, blockState: BlockState):
       }
     }
 
+    // originally did some math here but honestly this is easier, faster, and doesn't break down on big numbers
+    val spiral = listOf(
+      BlockPos(0, 0, 0),
+      BlockPos(1, 0, 0),
+      BlockPos(2, 0, 0),
+      BlockPos(2, 0, 1),
+      BlockPos(2, 0, 2),
+      BlockPos(2, 0, 3),
+      BlockPos(1, 0, 3),
+      BlockPos(0, 0, 3),
+      BlockPos(-1, 0, 3),
+      BlockPos(-2, 0, 3),
+      BlockPos(-3, 0, 3),
+      BlockPos(-3, 0, 2),
+      BlockPos(-3, 0, 1),
+      BlockPos(-3, 0, 0),
+      BlockPos(-3, 0, -1),
+      BlockPos(-3, 0, -2),
+      BlockPos(-3, 0, -3),
+    )
+    fun generateVillagerEngraving(level: ServerLevel, pos: BlockPos) {
+      val engraving = VillagerEngravings.getRandomEngraving()
+      val words = DictionarySavedData.computeIfAbsent(level)
+        .generate(engraving.generateSpell())
+        .split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+      var curPos = pos
+      var first = true
+      var i = 0
+      for (word in words) {
+        curPos = if(i < spiral.size) pos.offset(spiral[i]) else curPos.offset(BlockPos(1, 0, 0))
+        i++
+        engrave(level, curPos, word, first)
+        first = false
+      }
+    }
+
     @Suppress("redundantsuppression", "deprecation")
     fun engrave(level: ServerLevel, pos: BlockPos, word: String?, bold: Boolean) {
       if (!level.getBlockState(pos.offset(0, -1, 0)).isSolid) level.setBlockAndUpdate(
@@ -61,6 +98,8 @@ class GenerateBlockEntity(blockPos: BlockPos, blockState: BlockState):
 
       if (state.getValue(GenerateBlock.FEATURE) == GenerateBlock.Feature.ENGRAVING) {
         generateEngraving(level as ServerLevel, pos)
+      } else if (state.getValue(GenerateBlock.FEATURE) == GenerateBlock.Feature.VILLAGER_ENGRAVING) {
+        generateVillagerEngraving(level as ServerLevel, pos)
       }
     }
   }
