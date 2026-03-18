@@ -54,7 +54,8 @@ public class RecipeIntegration {
         new ItemStack(ScriptorItems.INSTANCE.getBOUND_SWORD()),
         new ItemStack(ScriptorItems.INSTANCE.getBOUND_AXE().get()),
         new ItemStack(ScriptorItems.INSTANCE.getBOUND_PICKAXE().get()),
-        new ItemStack(ScriptorItems.INSTANCE.getBOUND_SHOVEL().get())
+        new ItemStack(ScriptorItems.INSTANCE.getBOUND_SHOVEL().get()),
+        new ItemStack(ScriptorItems.INSTANCE.getETHEREAL_FIG().get())
       ),
       Component.translatable("info.scriptor.bound_tool_1"),
       Component.translatable("info.scriptor.bound_tool_2")

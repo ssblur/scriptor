@@ -18,8 +18,6 @@ import com.ssblur.unfocused.event.common.EntityDamagedEvent
 import com.ssblur.unfocused.event.common.MobSpawnEvent
 import com.ssblur.unfocused.event.common.PlayerJoinedEvent
 import com.ssblur.unfocused.event.common.ServerStartEvent
-import net.fabricmc.api.EnvType
-import net.fabricmc.api.Environment
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.Mob
 
@@ -84,15 +82,5 @@ object ScriptorEvents {
     SpellChat.init()
     PlayerTick.init()
     AddLootEvent.init()
-
-    try {
-      clientRegister()
-    } catch (_: NoSuchMethodError) {
-    }
-  }
-
-  @Environment(EnvType.CLIENT)
-  fun clientRegister() {
-    ScriptorClientEvents.init()
   }
 }

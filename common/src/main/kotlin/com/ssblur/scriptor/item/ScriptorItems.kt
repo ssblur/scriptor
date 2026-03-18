@@ -12,6 +12,7 @@ import com.ssblur.scriptor.item.tools.bound.BoundTool
 import com.ssblur.unfocused.helper.ColorHelper
 import com.ssblur.unfocused.tab.CreativeTabs.tab
 import net.minecraft.tags.BlockTags
+import net.minecraft.world.food.FoodProperties
 import net.minecraft.world.item.DyeColor
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.Tiers
@@ -109,6 +110,15 @@ object ScriptorItems {
   val BOUND_PICKAXE = registerItem("bound_pickaxe") {
     BoundTool(Tiers.STONE, BlockTags.MINEABLE_WITH_PICKAXE, Item.Properties().durability(Int.MAX_VALUE))
   }.tab(ScriptorTabs.SCRIPTOR_TAB)
+
+  val ETHEREAL_FIG = registerItem("ethereal_fig") {
+    Item(Item.Properties().food(FoodProperties.Builder()
+      .nutrition(2)
+      .saturationModifier(2.0f)
+      .alwaysEdible()
+      .build()
+    )).tab(ScriptorTabs.SCRIPTOR_TAB)
+  }
 
   fun register() {}
 }

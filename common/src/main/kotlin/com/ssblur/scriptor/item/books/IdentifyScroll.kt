@@ -4,8 +4,6 @@ import com.ssblur.scriptor.helpers.LimitedBookSerializer
 import com.ssblur.scriptor.network.server.ScriptorNetworkC2S
 import com.ssblur.scriptor.network.server.ScriptorNetworkC2S.CreativeIdentify
 import com.ssblur.scriptor.network.server.ScriptorNetworkC2S.Identify
-import net.fabricmc.api.EnvType
-import net.fabricmc.api.Environment
 import net.minecraft.ChatFormatting
 import net.minecraft.core.component.DataComponents
 import net.minecraft.network.chat.Component
@@ -17,13 +15,13 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 
 class IdentifyScroll(properties: Properties): Item(properties) {
-  @Environment(EnvType.CLIENT)
   override fun overrideStackedOnOther(
     itemStack: ItemStack,
     slot: Slot,
     clickAction: ClickAction,
     player: Player
   ): Boolean {
+    if(!player.level().isClientSide) return false
     if (clickAction == ClickAction.SECONDARY && !slot.item.isEmpty && slot.item.item is Spellbook) {
       if (player.cooldowns.isOnCooldown(this)) return true
 

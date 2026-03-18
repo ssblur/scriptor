@@ -35,15 +35,6 @@ object PotionActions {
     )
   )
   val WITHER_POTION = register("wither", WitherAction())
-  val SATURATION_POTION = register(
-    "saturation",
-    PotionAction(
-      MobEffects.SATURATION,
-      4.0,
-      1.0 / 3.0,
-      Word.Cost(10.0, Word.COSTTYPE.ADDITIVE)
-    )
-  )
   val SPEED_POTION = register(
     "speed",
     PotionAction(

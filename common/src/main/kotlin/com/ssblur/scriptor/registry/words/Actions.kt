@@ -5,6 +5,7 @@ import com.ssblur.scriptor.registry.words.WordRegistry.register
 import com.ssblur.scriptor.word.action.*
 import com.ssblur.scriptor.word.action.bound.BoundSwordAction
 import com.ssblur.scriptor.word.action.bound.BoundToolAction
+import com.ssblur.scriptor.word.action.bound.FoodAction
 import com.ssblur.scriptor.word.action.potions.LightAction
 import com.ssblur.scriptor.word.action.teleport.BringAction
 import com.ssblur.scriptor.word.action.teleport.GotoAction
@@ -58,4 +59,5 @@ object Actions {
       listOf(TagKey.create(Registries.BLOCK, ResourceLocation.withDefaultNamespace("mineable/pickaxe")))
     )
   )
+  val SUMMON_FOOD = register("saturation", FoodAction())
 }

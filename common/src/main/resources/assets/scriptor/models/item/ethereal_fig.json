@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "scriptor:item/ethereal_fig",
+    "layer1": "scriptor:item/ethereal_fig_overlay"
+  },
+  "display": {}
+}
