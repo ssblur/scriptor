@@ -62,6 +62,8 @@
   "item.scriptor.unwritten_scroll": "Spell Scroll",
   "item.scriptor.spell_scroll": "Spell Scroll",
   "item.scriptor.flaming_axe": "Brand of Vindication",
+  "item.scriptor.flaming_crossbow": "Brand of Exile",
+  "item.scriptor.swap_bow": "Tattered Hookbow",
   "block.scriptor.casting_lectern": "Casting Lectern",
   "block.scriptor.writing_table": "Writing Desk",
   "block.scriptor.white_magic_block": "Magic Block",

@@ -1,0 +1,21 @@
+{
+  "name": "item.scriptor.flaming_crossbow",
+  "spell": {
+    "subject": "on_hit",
+    "spells": [
+      {
+        "action": "inflame",
+        "descriptors": []
+      },
+      {
+        "action": "harm",
+        "descriptors": []
+      }
+    ]
+  },
+  "item": "minecraft:crossbow",
+  "mob": "minecraft:pillager",
+  "chance": 0.2,
+  "slot": "MAINHAND",
+  "rarity": "RARE"
+}
