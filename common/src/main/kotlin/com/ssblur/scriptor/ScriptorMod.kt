@@ -24,6 +24,7 @@ import com.ssblur.scriptor.resources.ScriptorResources
 import com.ssblur.scriptor.screen.menu.ScriptorMenus
 import com.ssblur.scriptor.screen.screen.ScriptorScreens
 import com.ssblur.scriptor.trade.ScriptorTrades
+import com.ssblur.scriptor.villagers.ScriptorVillagers
 import com.ssblur.unfocused.ModInitializer
 import com.ssblur.unfocused.command.CommandRegistration.registerCommand
 import net.fabricmc.api.EnvType
@@ -90,6 +91,7 @@ object ScriptorMod: ModInitializer("scriptor") {
     ScriptorNetworkS2C.register()
     ScriptorResources.register()
     ScriptorMenus.register()
+    ScriptorVillagers.register()
 
     registerCommands()
   }

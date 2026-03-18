@@ -86,6 +86,8 @@
   "block.scriptor.chalk": "Chalk",
   "block.scriptor.rune": "Rune",
   "entity.scriptor.projectile": "Projectile",
+  "entity.minecraft.villager.nominomist": "Nominomist",
+  "entity.minecraft.villager.scriptor.nominomist": "Nominomist",
   "enchantment.scriptor.charged.desc": "Strengthens your next attack. Reduces by 1 after each hit.",
   "effect.scriptor.hoarse": "Hoarse",
   "effect.scriptor.mute": "Mute",
