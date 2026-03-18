@@ -41,7 +41,7 @@
   "item.scriptor.scrap_tier1": "Ragged Spell Scrap",
   "item.scriptor.scrap_tier2": "Run-Down Spell Scrap",
   "item.scriptor.scrap_tier3": "Intact Spell Scrap",
-  "item.scriptor.identify_scroll": "Identify Scroll",
+  "item.scriptor.identify_scroll": "Identify Scroll (Unobtainable)",
   "item.scriptor.empty_casting_crystal": "Empty Casting Crystal",
   "item.scriptor.casting_crystal": "Casting Crystal",
   "item.scriptor.player_casting_crystal": "Player-Focused Crystal",

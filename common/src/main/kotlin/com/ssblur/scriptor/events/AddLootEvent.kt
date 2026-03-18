@@ -5,7 +5,6 @@ import com.ssblur.scriptor.item.ScriptorItems.ARTIFACT_1
 import com.ssblur.scriptor.item.ScriptorItems.ARTIFACT_2
 import com.ssblur.scriptor.item.ScriptorItems.ARTIFACT_3
 import com.ssblur.scriptor.item.ScriptorItems.ARTIFACT_4
-import com.ssblur.scriptor.item.ScriptorItems.IDENTIFY_SCROLL
 import com.ssblur.scriptor.item.ScriptorItems.SCRAP_TIER1
 import com.ssblur.scriptor.item.ScriptorItems.SCRAP_TIER2
 import com.ssblur.scriptor.item.ScriptorItems.SCRAP_TIER3
@@ -87,28 +86,28 @@ object AddLootEvent {
       LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/end_city_treasure"), 0.9f),
     )
 
-    pools[IDENTIFY_SCROLL] = arrayOf(
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/end_city_treasure"), 0.3f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/bastion_other"), 0.3f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/bastion_bridge"), 0.3f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/woodland_mansion"), 0.3f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/stronghold_library"), 0.3f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/ancient_city"), 0.3f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/ancient_city_ice_box"), 0.3f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/nether_bridge"), 0.3f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/stronghold_crossing"), 0.3f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/shipwreck_supply"), 0.3f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/village/village_plains_house"), 0.2f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/village/village_snowy_house"), 0.2f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/village/village_temple"), 0.2f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/igloo_chest"), 0.3f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/spawn_bonus_chest"), 1f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/shipwreck_treasure"), 0.3f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/abandoned_mineshaft"), 0.3f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/ruined_portal"), 0.3f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/simple_dungeon"), 0.3f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "entities/witch"), 0.05f),
-    )
+//    pools[IDENTIFY_SCROLL] = arrayOf(
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/end_city_treasure"), 0.3f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/bastion_other"), 0.3f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/bastion_bridge"), 0.3f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/woodland_mansion"), 0.3f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/stronghold_library"), 0.3f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/ancient_city"), 0.3f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/ancient_city_ice_box"), 0.3f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/nether_bridge"), 0.3f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/stronghold_crossing"), 0.3f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/shipwreck_supply"), 0.3f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/village/village_plains_house"), 0.2f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/village/village_snowy_house"), 0.2f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/village/village_temple"), 0.2f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/igloo_chest"), 0.3f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/spawn_bonus_chest"), 1f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/shipwreck_treasure"), 0.3f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/abandoned_mineshaft"), 0.3f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/ruined_portal"), 0.3f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/simple_dungeon"), 0.3f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "entities/witch"), 0.05f),
+//    )
 
     val numberOfArtifacts = 4f
     val artifacts = arrayOf(
