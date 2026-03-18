@@ -14,8 +14,8 @@ import com.ssblur.scriptor.item.ScriptorTags
 import com.ssblur.scriptor.registry.words.WordRegistry.actionRegistry
 import com.ssblur.scriptor.registry.words.WordRegistry.descriptorRegistry
 import com.ssblur.scriptor.registry.words.WordRegistry.subjectRegistry
-import com.ssblur.scriptor.resources.Artifacts
 import com.ssblur.scriptor.resources.Engravings
+import com.ssblur.scriptor.resources.MobSpellItems
 import com.ssblur.scriptor.resources.Scraps
 import com.ssblur.scriptor.resources.Tomes
 import net.minecraft.ChatFormatting
@@ -110,10 +110,11 @@ object DebugCommand {
 
     val actionsNotInTomes = actionRegistry.keys.filter { word ->
       Tomes.tomes.values.none{ it.spell?.spells?.any{ it.action == word } ?: false }
-              && Artifacts.artifacts.values.none{ it.spell?.spells?.any{ it.action == word } ?: false }
-              && Engravings.engravings.values.none{ it.spell?.spells?.any{ it.action == word } ?: false }
+//          && Artifacts.artifacts.values.none{ it.spell?.spells?.any{ it.action == word } ?: false }
+          && Engravings.engravings.values.none{ it.spell?.spells?.any{ it.action == word } ?: false }
+          && MobSpellItems.items.values.none{ it.spell?.spells?.any{ it.action == word } ?: false }
     }
-    message.append("The following actions do not appear in any tomes:").append(actionsNotInTomes).append("\n")
+    message.append("The following actions do not appear in any tome, engraving, or item:").append(actionsNotInTomes).append("\n")
     val actionsNotInScraps = actionsNotInTomes.filter { word ->
       Scraps.scraps.values.none { it.keys.contains("action:$word") }
     }
@@ -121,8 +122,9 @@ object DebugCommand {
 
     val subjectsNotInTomes = subjectRegistry.keys.filter { word ->
       Tomes.tomes.values.none{ it.spell?.subject == word }
-              && Artifacts.artifacts.values.none{ it.spell?.subject == word }
-              && Engravings.engravings.values.none{ it.spell?.subject == word }
+//          && Artifacts.artifacts.values.none{ it.spell?.subject == word }
+          && Engravings.engravings.values.none{ it.spell?.subject == word }
+          && MobSpellItems.items.values.none{ it.spell?.subject == word }
     }
     message.append("The following subjects do not appear in any tomes:").append(subjectsNotInTomes).append("\n")
     val subjectsNotInScraps = subjectsNotInTomes.filter { word ->
@@ -132,8 +134,9 @@ object DebugCommand {
 
     val descriptorsNotInTomes = descriptorRegistry.keys.filter { word ->
       Tomes.tomes.values.none { it.spell?.spells?.any{ it.descriptors.contains(word) } ?: false }
-              && Artifacts.artifacts.values.none { it.spell?.spells?.any{ it.descriptors.contains(word) } ?: false }
-              && Engravings.engravings.values.none { it.spell?.spells?.any{ it.descriptors.contains(word) } ?: false }
+//          && Artifacts.artifacts.values.none { it.spell?.spells?.any{ it.descriptors.contains(word) } ?: false }
+          && Engravings.engravings.values.none { it.spell?.spells?.any{ it.descriptors.contains(word) } ?: false }
+          && MobSpellItems.items.values.none{ it.spell?.spells?.any{ it.descriptors.contains(word) } ?: false }
     }
     message.append("The following descriptors do not appear in any tomes:").append(descriptorsNotInTomes).append("\n")
     val descriptorsNotInScraps = descriptorsNotInTomes.filter { word ->
