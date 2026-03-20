@@ -62,4 +62,6 @@ object ColorDescriptors {
     "rainbow",
     ColorDescriptor(-1)
   )
+
+  fun init() {}
 }

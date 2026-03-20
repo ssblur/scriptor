@@ -40,4 +40,6 @@ object Descriptors {
 
   val NETHER = register("nether", NetherDescriptor())
   val COLLIDE_WITH_WATER = register("collide_with_water", CollideWithWaterDescriptor)
+
+  fun init() {}
 }

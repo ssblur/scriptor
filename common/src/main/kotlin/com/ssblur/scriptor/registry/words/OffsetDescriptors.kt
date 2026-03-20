@@ -20,4 +20,6 @@ object OffsetDescriptors {
   val COPY_DOWN = register("copy_down", OffsetDescriptor(1.25).duplicate().down())
 
   val RANDOM_NEARBY = register("random_nearby", RandomNearbyDescriptor())
+
+  fun init() {}
 }

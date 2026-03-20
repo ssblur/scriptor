@@ -39,4 +39,6 @@ object PowerDescriptors {
     "solar_power",
     SolarPowerDescriptor()
   )
+
+  fun init() {}
 }

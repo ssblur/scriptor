@@ -313,7 +313,7 @@ class DictionarySavedData: SavedData {
    * @return A String to describe a spell
    */
   fun generate(spell: Spell): String {
-    assert(spell.spells.size >= 1)
+    assert(spell.spells.isNotEmpty())
     var descriptorBuilder = StringBuilder()
     for (descriptor in spell.spells[0].deduplicatedDescriptors()) {
       descriptorBuilder.append(" ").append(getWord(descriptor))

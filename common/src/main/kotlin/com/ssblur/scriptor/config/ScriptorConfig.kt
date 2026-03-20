@@ -27,6 +27,10 @@ object ScriptorConfig {
   val CHAT_CAST_ENABLED = config.registerBoolean("cast_through_chat_enabled", true)
   val PROXIMITY_RANGE = config.registerInt("proximity_chat_range", 64)
 
+  // Other cast settings
+  val ENTITY_CASTING = config.registerBoolean("entities_verbally_cast", true)
+  val ENTITY_CASTING_PROXIMITY = config.registerInt("entities_verbal_proximity", 16)
+
   // Demonstration / showcase settings
   val INVERT_DO_NOT_PHASE = config.registerBoolean("invert_do_not_phase", false)
 

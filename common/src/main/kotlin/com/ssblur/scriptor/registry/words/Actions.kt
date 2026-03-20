@@ -60,4 +60,6 @@ object Actions {
     )
   )
   val SUMMON_FOOD = register("saturation", FoodAction())
+
+  fun init() {}
 }

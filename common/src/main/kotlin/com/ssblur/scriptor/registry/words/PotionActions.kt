@@ -125,4 +125,24 @@ object PotionActions {
     "wild_phasing",
     WildPhasingAction()
   )
+  val INVISIBILITY_POTION = register(
+    "invisibility",
+    PotionAction(
+      MobEffects.INVISIBILITY,
+      60.0,
+      1.0 / 2.0,
+      Word.Cost(4.0, Word.COSTTYPE.ADDITIVE)
+    )
+  )
+  val BLINDNESS_POTION = register(
+    "blindness",
+    PotionAction(
+      MobEffects.BLINDNESS,
+      30.0,
+      1.0,
+      Word.Cost(7.0, Word.COSTTYPE.ADDITIVE)
+    )
+  )
+
+  fun init() {}
 }

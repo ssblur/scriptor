@@ -46,4 +46,6 @@ object DiscountDescriptors {
     "unreliable",
     UnreliableDescriptor()
   )
+
+  fun init() {}
 }

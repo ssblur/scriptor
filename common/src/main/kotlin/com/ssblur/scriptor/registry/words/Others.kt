@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.registry.words
 
 object Others {
-  init {
+  fun init() {
     WordRegistry.registerOther("and")
     WordRegistry.registerOther("copy_x2")
     WordRegistry.registerOther("copy_x3")
