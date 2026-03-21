@@ -22,10 +22,6 @@ import net.minecraft.world.level.Level
 
 class BookOfBooks(properties: Properties, var capacity: Int): Item(properties),
   ItemWithCustomRenderer {
-  init {
-    SpellbookHelper.SPELLBOOKS += this
-  }
-
   override fun overrideOtherStackedOnMe(
     book: ItemStack,
     itemStack: ItemStack,

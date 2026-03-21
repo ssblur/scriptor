@@ -4,6 +4,7 @@ import com.ssblur.scriptor.advancement.ScriptorAdvancements
 import com.ssblur.scriptor.config.ScriptorConfig
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData.Companion.computeIfAbsent
 import com.ssblur.scriptor.effect.EmpoweredStatusEffect
+import com.ssblur.scriptor.extension.PlayerCastCooldownExtension.castCooldown
 import com.ssblur.scriptor.helpers.LimitedBookSerializer.decodeText
 import com.ssblur.scriptor.helpers.targetable.SpellbookTargetable
 import com.ssblur.scriptor.helpers.targetable.Targetable
@@ -12,13 +13,10 @@ import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.player.Player
-import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import kotlin.math.roundToInt
 
 object SpellbookHelper {
-  var SPELLBOOKS: List<Item> = ArrayList()
-
   fun isInventoryCaster(
     itemStack: ItemStack,
     level: ServerLevel
@@ -36,6 +34,7 @@ object SpellbookHelper {
     cooldownFunc: (Player, Int) -> Unit = ::addCooldown,
     targetOverride: List<Targetable>? = null,
   ): Boolean {
+    if(player.castCooldown > 0) return false
     val adjustedMaxCost = maxCost ?: ScriptorConfig.TOME_MAX_COST()
     val adjustedCostMultiplier = (costMultiplier ?: ScriptorConfig.TOME_COOLDOWN_MULTIPLIER()).toDouble() / 100.0
     val text = itemStack.get(DataComponents.WRITTEN_BOOK_CONTENT)
@@ -77,6 +76,6 @@ object SpellbookHelper {
   }
 
   fun addCooldown(player: Player, time: Int) {
-    for (spellbook in SPELLBOOKS) player.cooldowns.addCooldown(spellbook, time)
+    player.castCooldown = time.toLong()
   }
 }

@@ -54,4 +54,6 @@ object ParticleNetwork {
 
   fun magicTrail(level: Level, color: Int, from: Vec3, to: Vec3) =
     send(Payload(TYPE.MAGIC, color, from, to), level.players())
+
+  fun init() {}
 }

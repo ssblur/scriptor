@@ -8,6 +8,7 @@ import com.ssblur.scriptor.api.word.Subject
 import com.ssblur.scriptor.blockentity.PhasedBlockBlockEntity
 import com.ssblur.scriptor.color.CustomColors.putColor
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
+import com.ssblur.scriptor.extension.PlayerCastCooldownExtension.castCooldown
 import com.ssblur.scriptor.network.server.TraceNetwork.Payload
 import com.ssblur.scriptor.network.server.TraceNetwork.TYPE
 import com.ssblur.scriptor.network.server.TraceNetwork.returnTrace
@@ -51,7 +52,7 @@ object ScriptorNetworkS2C {
       val player = Minecraft.getInstance().player!!
       if (spell.subject is InventorySubject) {
         (spell.subject as InventorySubject).castOnItem(spell, player, player.containerMenu.items[payload.slot])
-        player.cooldowns.addCooldown(player.containerMenu.carried.item, 5)
+        player.castCooldown = 100
       }
     }
 
@@ -157,7 +158,12 @@ object ScriptorNetworkS2C {
     }
   }
 
+  data class Cooldown(val cooldown: Long)
+  val cooldown = NetworkManager.registerS2C(location("client_set_cooldown"), Cooldown::class) { payload ->
+    Minecraft.getInstance().player?.castCooldown = payload.cooldown
+  }
+
   fun register() {
-    ParticleNetwork
+    ParticleNetwork.init()
   }
 }

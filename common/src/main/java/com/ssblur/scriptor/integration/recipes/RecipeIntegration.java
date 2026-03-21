@@ -1,7 +1,6 @@
 package com.ssblur.scriptor.integration.recipes;
 
 import com.ssblur.scriptor.ScriptorMod;
-import com.ssblur.scriptor.helpers.SpellbookHelper;
 import com.ssblur.scriptor.item.ScriptorItems;
 import com.ssblur.scriptor.item.ScriptorTags;
 import com.ssblur.scriptor.recipe.SpellbookCloningRecipe;
@@ -34,7 +33,9 @@ public class RecipeIntegration {
   public static void registerItemInfo(InformationRegistrar informationRegistrar) {
     informationRegistrar.register(
       ScriptorMod.INSTANCE.location("spellbook_info"),
-      SpellbookHelper.INSTANCE.getSPELLBOOKS().stream().map(ItemStack::new).toList(),
+      BuiltInRegistries.ITEM.getTag(ScriptorTags.INSTANCE.getSPELLBOOKS()).get().stream().map(item ->
+                new ItemStack(item.value())
+      ).toList(),
       Component.translatable("info.scriptor.spellbook_1"),
       Component.translatable("info.scriptor.spellbook_2"),
       Component.translatable("info.scriptor.spellbook_3")
@@ -74,7 +75,9 @@ public class RecipeIntegration {
           holder.id()
         );
         case SpellbookCloningRecipe ignored ->
-          SpellbookHelper.INSTANCE.getSPELLBOOKS().forEach(spellbook -> shapelessRecipeRegistrar.register(
+            BuiltInRegistries.ITEM.getTag(ScriptorTags.INSTANCE.getSPELLBOOKS()).get().stream().map(item ->
+                    new ItemStack(item.value())
+            ).toList().forEach(spellbook -> shapelessRecipeRegistrar.register(
             List.of(
               Ingredient.of(spellbook),
               Ingredient.of(new ItemStack(Items.PAPER)),
@@ -82,8 +85,11 @@ public class RecipeIntegration {
               Ingredient.of(new ItemStack(Items.PAPER)),
               Ingredient.of(new ItemStack(ScriptorItems.INSTANCE.getSPELLBOOK_BINDER()))
             ),
-            new ItemStack(spellbook),
-            holder.id().withPath(holder.id().getPath() + BuiltInRegistries.ITEM.getResourceKey(spellbook).get().location().toLanguageKey())
+            spellbook,
+            holder.id().withPath(
+                    holder.id().getPath()
+                            + BuiltInRegistries.ITEM.getResourceKey(spellbook.getItem()).get().location().toLanguageKey()
+            )
           ));
         case SpellbookRecipe recipe -> shapelessRecipeRegistrar.register(
           List.of(

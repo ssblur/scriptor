@@ -4,8 +4,8 @@ import com.ssblur.scriptor.ScriptorDamage.overload
 import com.ssblur.scriptor.config.ScriptorConfig
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData.Companion.computeIfAbsent
 import com.ssblur.scriptor.effect.EmpoweredStatusEffect
-import com.ssblur.scriptor.effect.ScriptorEffects.HOARSE
 import com.ssblur.scriptor.effect.ScriptorEffects.MUTE
+import com.ssblur.scriptor.extension.PlayerCastCooldownExtension.castCooldown
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable
 import com.ssblur.unfocused.event.common.PlayerChatEvent
 import net.minecraft.ChatFormatting
@@ -57,7 +57,7 @@ object SpellChat {
     if(!ScriptorConfig.CHAT_CAST_ENABLED()) return false
     val spell = computeIfAbsent(level).parse(sentence)
     if (spell != null) {
-      if (player.hasEffect(HOARSE.ref())) {
+      if (player.castCooldown > 0) {
         player.sendSystemMessage(Component.translatable("extra.scriptor.hoarse"))
         return true
       } else if (player.hasEffect(MUTE.ref())) {
@@ -79,7 +79,7 @@ object SpellChat {
 
       val adjustedCost = (cost * (ScriptorConfig.VOCAL_COOLDOWN_MULTIPLIER() / 100.0)).roundToInt()
       if (!player.isCreative) {
-        player.addEffect(MobEffectInstance(HOARSE.ref(), adjustedCost))
+        player.castCooldown = (adjustedCost * 20).toLong()
         if (adjustedCost > ScriptorConfig.VOCAL_HUNGER_THRESHOLD())
           player.addEffect(
             MobEffectInstance(

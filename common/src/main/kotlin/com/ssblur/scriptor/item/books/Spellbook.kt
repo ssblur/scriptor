@@ -43,7 +43,6 @@ open class Spellbook(properties: Properties):
   ItemWithCustomRenderer {
   init {
     tab(ScriptorTabs.SCRIPTOR_SPELLBOOKS_TAB)
-    SpellbookHelper.SPELLBOOKS += this
   }
 
   override fun use(
