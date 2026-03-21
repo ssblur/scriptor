@@ -2,7 +2,7 @@ package com.ssblur.scriptor.item.books
 
 import com.ssblur.scriptor.config.ScriptorConfig
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
-import com.ssblur.scriptor.extension.PlayerCastCooldownExtension.castCooldown
+import com.ssblur.scriptor.extension.EntityCastCooldownExtension.castCooldown
 import com.ssblur.scriptor.helpers.SpellbookHelper
 import com.ssblur.scriptor.item.ScriptorTabs
 import com.ssblur.scriptor.network.server.ScriptorNetworkC2S

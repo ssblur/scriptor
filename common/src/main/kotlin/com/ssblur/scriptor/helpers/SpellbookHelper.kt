@@ -4,7 +4,7 @@ import com.ssblur.scriptor.advancement.ScriptorAdvancements
 import com.ssblur.scriptor.config.ScriptorConfig
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData.Companion.computeIfAbsent
 import com.ssblur.scriptor.effect.EmpoweredStatusEffect
-import com.ssblur.scriptor.extension.PlayerCastCooldownExtension.castCooldown
+import com.ssblur.scriptor.extension.EntityCastCooldownExtension.castCooldown
 import com.ssblur.scriptor.helpers.LimitedBookSerializer.decodeText
 import com.ssblur.scriptor.helpers.targetable.SpellbookTargetable
 import com.ssblur.scriptor.helpers.targetable.Targetable

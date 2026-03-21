@@ -5,7 +5,7 @@ import com.ssblur.scriptor.config.ScriptorConfig
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData.Companion.computeIfAbsent
 import com.ssblur.scriptor.effect.EmpoweredStatusEffect
 import com.ssblur.scriptor.effect.ScriptorEffects.MUTE
-import com.ssblur.scriptor.extension.PlayerCastCooldownExtension.castCooldown
+import com.ssblur.scriptor.extension.EntityCastCooldownExtension.castCooldown
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable
 import com.ssblur.unfocused.event.common.PlayerChatEvent
 import net.minecraft.ChatFormatting

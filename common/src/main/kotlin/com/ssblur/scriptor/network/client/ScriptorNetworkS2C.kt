@@ -8,7 +8,7 @@ import com.ssblur.scriptor.api.word.Subject
 import com.ssblur.scriptor.blockentity.PhasedBlockBlockEntity
 import com.ssblur.scriptor.color.CustomColors.putColor
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
-import com.ssblur.scriptor.extension.PlayerCastCooldownExtension.castCooldown
+import com.ssblur.scriptor.extension.EntityCastCooldownExtension.castCooldown
 import com.ssblur.scriptor.network.server.TraceNetwork.Payload
 import com.ssblur.scriptor.network.server.TraceNetwork.TYPE
 import com.ssblur.scriptor.network.server.TraceNetwork.returnTrace
@@ -109,7 +109,7 @@ object ScriptorNetworkS2C {
   val trace = NetworkManager.registerS2C(location("client_get_touch_data"), Trace::class) { payload ->
     if(!payload.collideWithWater) {
       val hit = Minecraft.getInstance().hitResult
-      when (Objects.requireNonNull<HitResult?>(hit).type) {
+      when (Objects.requireNonNull<HitResult>(hit).type) {
         HitResult.Type.BLOCK ->
           returnTrace(Payload(payload.uuid, TYPE.BLOCK, hit as BlockHitResult, 0, null))
 
