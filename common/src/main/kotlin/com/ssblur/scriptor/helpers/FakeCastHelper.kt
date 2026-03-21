@@ -54,5 +54,5 @@ object FakeCastHelper {
     }
   }
 
-  fun LivingEntity.cast(spell: Spell) = castAs(this, spell)
+  fun LivingEntity.fakeCast(spell: Spell) = castAs(this, spell)
 }
