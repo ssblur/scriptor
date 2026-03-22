@@ -25,7 +25,7 @@ object ScriptorItems {
     if (it.dyeColor != DyeColor.PURPLE)
       registerItem("spellbook_${it.nameAllLowerCase}") { Spellbook(Item.Properties()) }
   }
-  val OBFUCATED_SPELLBOOKS = ColorHelper.forEachColor {
+  val OBFUSCATED_SPELLBOOKS = ColorHelper.forEachColor {
     if (it.dyeColor != DyeColor.PURPLE)
       registerItem("obfuscated_spellbook_${it.nameAllLowerCase}") { Spellbook(Item.Properties()) }
   }
