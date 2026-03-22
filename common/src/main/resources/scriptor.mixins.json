@@ -11,6 +11,7 @@
     "EvokerWololoSpellGoalMixin",
     "IllusionerBlindnessSpellGoalMixin",
     "IllusionerMirrorSpellGoalMixin",
+    "ItemStackMixin",
     "MinecraftClientTickAccessor",
     "ScriptorAnimalMixin",
     "ScriptorGiveCommandMixin",

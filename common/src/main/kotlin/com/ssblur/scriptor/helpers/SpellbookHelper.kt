@@ -2,6 +2,7 @@ package com.ssblur.scriptor.helpers
 
 import com.ssblur.scriptor.advancement.ScriptorAdvancements
 import com.ssblur.scriptor.config.ScriptorConfig
+import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData.Companion.computeIfAbsent
 import com.ssblur.scriptor.effect.EmpoweredStatusEffect
 import com.ssblur.scriptor.extension.EntityCastCooldownExtension.castCooldown
@@ -37,11 +38,14 @@ object SpellbookHelper {
     if(player.castCooldown > 0) return false
     val adjustedMaxCost = maxCost ?: ScriptorConfig.TOME_MAX_COST()
     val adjustedCostMultiplier = (costMultiplier ?: ScriptorConfig.TOME_COOLDOWN_MULTIPLIER()).toDouble() / 100.0
-    val text = itemStack.get(DataComponents.WRITTEN_BOOK_CONTENT)
     val level = player.level()
-    if (text == null || level !is ServerLevel) return false
+    if (level !is ServerLevel) return false
+    val spell = computeIfAbsent(level).parse(
+      itemStack[DataComponents.WRITTEN_BOOK_CONTENT]?.let {
+        decodeText(it)
+      } ?: itemStack[ScriptorDataComponents.SPELL]
+    )
 
-    val spell = computeIfAbsent(level).parse(decodeText(text))
     if (spell != null) {
       spell.deduplicatedDescriptorsForSubjects()
       spell.playSound(level, player.blockPosition())
@@ -64,7 +68,9 @@ object SpellbookHelper {
         var costScale = 1.0
         for (instance in player.activeEffects)
           if (instance.effect.value() is EmpoweredStatusEffect)
-            for (i in 0..instance.amplifier) costScale *= (instance.effect.value() as EmpoweredStatusEffect).scale.toDouble()
+            (0..instance.amplifier).forEach{ _ ->
+              costScale *= (instance.effect.value() as EmpoweredStatusEffect).scale.toDouble()
+            }
         val adjustedCost =
           costScale * spell.cost() * adjustedCostMultiplier
         cooldownFunc(player, (adjustedCost * 7).roundToInt())
