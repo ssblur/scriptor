@@ -9,6 +9,7 @@
     "CropBlockMixin",
     "DimensionDataStorageAccessor",
     "EvokerWololoSpellGoalMixin",
+    "GuiMixin",
     "IllusionerBlindnessSpellGoalMixin",
     "IllusionerMirrorSpellGoalMixin",
     "ItemStackMixin",

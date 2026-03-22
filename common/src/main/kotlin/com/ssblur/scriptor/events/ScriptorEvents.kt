@@ -6,20 +6,23 @@ import com.ssblur.scriptor.config.ScriptorConfig
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData.Companion.computeIfAbsent
 import com.ssblur.scriptor.data.saved_data.PlayerSpellsSavedData.Companion.computeIfAbsent
+import com.ssblur.scriptor.extension.EntityCastCooldownExtension.castCooldown
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable
 import com.ssblur.scriptor.helpers.targetable.Targetable
 import com.ssblur.scriptor.network.client.ScriptorNetworkS2C
 import com.ssblur.scriptor.network.client.ScriptorNetworkS2C.color
 import com.ssblur.scriptor.network.client.ScriptorNetworkS2C.flag
+import com.ssblur.scriptor.registry.words.Subjects
 import com.ssblur.scriptor.resources.Colors.cache
 import com.ssblur.scriptor.resources.MobSpellItems
-import com.ssblur.scriptor.word.subject.HitSubject
 import com.ssblur.unfocused.event.common.EntityDamagedEvent
 import com.ssblur.unfocused.event.common.MobSpawnEvent
 import com.ssblur.unfocused.event.common.PlayerJoinedEvent
 import com.ssblur.unfocused.event.common.ServerStartEvent
 import net.minecraft.server.level.ServerLevel
+import net.minecraft.world.entity.EquipmentSlot
 import net.minecraft.world.entity.Mob
+import kotlin.math.roundToLong
 
 object ScriptorEvents {
   var invertDoNotPhaseMemory = false
@@ -55,17 +58,39 @@ object ScriptorEvents {
           }
         }
 
+        EquipmentSlot.entries.forEach { slot ->
+          entity.getItemBySlot(slot)[ScriptorDataComponents.SPELL]?.let { spell ->
+            entity.level().let {
+              if(it is ServerLevel) {
+                val parsed = computeIfAbsent(it).parse(spell)
+                if(parsed?.subject == Subjects.ON_DAMAGED && entity.castCooldown <= 0) {
+                  entity.castCooldown = (parsed.cost() * 20.0 * 4.0).roundToLong()
+                  parsed.castOnTargets(
+                    EntityTargetable(entity),
+                    listOf(
+                      if(source.entity != null)
+                        EntityTargetable(source.entity!!)
+                      else
+                        Targetable(it, source.sourcePosition ?: entity.position())
+                    )
+                  )
+                }
+              }
+            }
+
+          }
+        }
+
+
 
         weapon[ScriptorDataComponents.SPELL]?.let { spell ->
           entity.level().let {
             if(it is ServerLevel) {
               val parsed = computeIfAbsent(it).parse(spell)
-              if(parsed?.subject is HitSubject) {
+              if(parsed?.subject == Subjects.ON_HIT && (source.entity?.castCooldown ?: 1) <= 0) {
+                source.entity!!.castCooldown = (parsed.cost() * 20.0 * 4.0).roundToLong()
                 parsed.castOnTargets(
-                  if(source.entity != null)
-                    EntityTargetable(source.entity!!)
-                  else
-                    Targetable(it, source.sourcePosition ?: entity.position()),
+                    EntityTargetable(source.entity!!),
                   listOf(EntityTargetable(entity))
                 )
               }
