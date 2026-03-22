@@ -13,6 +13,7 @@ import java.util.*
 object EntityCastCooldownExtension {
   private val CACHE: WeakHashMap<Entity, Long> = WeakHashMap()
   private var LOCAL_COUNT = 0L
+  const val COOLDOWN_MULT = 0.2
   val MANA_MODE: Boolean
     get() = Unfocused.isModLoaded("scriptor_mana")
 
@@ -35,12 +36,13 @@ object EntityCastCooldownExtension {
         return // TODO Modify when mana mode is added
       }
 
+      val cooldown = (value * COOLDOWN_MULT).toLong()
       val level = this.level()
       if(level is ServerLevel) {
         if(this is ServerPlayer)
           ScriptorNetworkS2C.cooldown(ScriptorNetworkS2C.Cooldown(value), listOf(this))
-        CACHE[this] = value + level.server.tickCount
+        CACHE[this] = cooldown + level.server.tickCount
       } else if(this == Minecraft.getInstance().player)
-        LOCAL_COUNT = value + (Minecraft.getInstance() as MinecraftClientTickAccessor).clientTickCount
+        LOCAL_COUNT = cooldown + (Minecraft.getInstance() as MinecraftClientTickAccessor).clientTickCount
     }
 }

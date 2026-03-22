@@ -40,7 +40,7 @@ class SpellScroll(properties: Properties) : WrittenBookItem(properties) {
             maxCost = ScriptorConfig.SCROLL_MAX_COST(),
             costMultiplier = ScriptorConfig.SCROLL_COOLDOWN_MULTIPLIER(),
             cooldownFunc = { ply, time ->
-                ply.castCooldown = (time * 15).toLong()
+                ply.castCooldown = time * 5L
             }
         )
         if(result) {

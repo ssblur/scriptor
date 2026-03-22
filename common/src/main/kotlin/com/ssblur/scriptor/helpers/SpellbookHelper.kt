@@ -76,6 +76,6 @@ object SpellbookHelper {
   }
 
   fun addCooldown(player: Player, time: Int) {
-    player.castCooldown = time.toLong() * 20L
+    player.castCooldown = time.toLong() * 7L
   }
 }

@@ -49,5 +49,7 @@ object ScriptorClientEvents {
         lore.add(Component.translatable("lore.scriptor.inscribed_2", it))
       }
     }
+
+    ScriptorCooldownHud.init()
   }
 }

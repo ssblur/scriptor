@@ -79,7 +79,7 @@ object SpellChat {
 
       val adjustedCost = (cost * (ScriptorConfig.VOCAL_COOLDOWN_MULTIPLIER() / 100.0)).roundToInt()
       if (!player.isCreative) {
-        player.castCooldown = (adjustedCost * 20).toLong()
+        player.castCooldown = adjustedCost * 10L
         if (adjustedCost > ScriptorConfig.VOCAL_HUNGER_THRESHOLD())
           player.addEffect(
             MobEffectInstance(
