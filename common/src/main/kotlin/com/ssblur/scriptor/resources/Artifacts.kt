@@ -37,7 +37,7 @@ object Artifacts {
     }
 
     fun applyToItem(itemStack: ItemStack, level: ServerLevel): ItemStack {
-      itemStack[ScriptorDataComponents.SPELL] = computeIfAbsent(level).generate(this.getSpell())
+      itemStack[ScriptorDataComponents.SPELL] = computeIfAbsent(level).generate(this.getSpell()).string
       itemStack[DataComponents.ITEM_NAME] = Component.translatable(name ?: "")
       return itemStack
     }

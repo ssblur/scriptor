@@ -14,6 +14,7 @@ import net.minecraft.core.component.DataComponents
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import kotlin.math.roundToInt
@@ -25,7 +26,7 @@ object SpellbookHelper {
   ): Boolean {
     val text = itemStack.get(DataComponents.WRITTEN_BOOK_CONTENT) ?: return false
     val spell = computeIfAbsent(level).parse(decodeText(text))
-    return (spell != null && (spell.subject.canBeCastOnInventory()))
+    return (spell != null && (spell.subject?.canBeCastOnInventory() == true))
   }
 
   fun castFromItem(
@@ -82,7 +83,7 @@ object SpellbookHelper {
     return false
   }
 
-  fun addCooldown(player: Player, time: Int) {
-    player.castCooldown = time.toLong() * 7L
+  fun addCooldown(entity: Entity, time: Int) {
+    if(entity !is Player || !entity.isCreative) entity.castCooldown = time.toLong() * 7L
   }
 }

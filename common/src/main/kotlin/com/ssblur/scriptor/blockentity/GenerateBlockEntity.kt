@@ -21,7 +21,7 @@ class GenerateBlockEntity(blockPos: BlockPos, blockState: BlockState):
 
       val engraving = Engravings.getRandomEngraving()
       val words = DictionarySavedData.computeIfAbsent(level)
-        .generate(engraving.generateSpell())
+        .generate(engraving.generateSpell()).string
         .split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
       val x = if (random.nextBoolean()) 1 else -1
       val z = if (random.nextBoolean()) 1 else -1
@@ -64,7 +64,7 @@ class GenerateBlockEntity(blockPos: BlockPos, blockState: BlockState):
     fun generateVillagerEngraving(level: ServerLevel, pos: BlockPos) {
       val engraving = VillagerEngravings.getRandomEngraving()
       val words = DictionarySavedData.computeIfAbsent(level)
-        .generate(engraving.generateSpell())
+        .generate(engraving.generateSpell()).string
         .split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
       var curPos = pos
       var first = true

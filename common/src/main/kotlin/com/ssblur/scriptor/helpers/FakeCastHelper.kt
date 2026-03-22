@@ -18,11 +18,18 @@ object FakeCastHelper {
   val EVOKER_WOLOLO: Spell by lazy {
     Spell(Subjects.TOUCH, PartialSpell(Actions.COLOR, ColorDescriptors.RED))
   }
+  val EVOKER_FANGS: Spell by lazy {
+    Spell(Subjects.HITSCAN, PartialSpell(null))
+  }
+  val EVOKER_SUMMON: Spell by lazy {
+    Spell(Subjects.SELF, PartialSpell(null))
+  }
 
   val DISAPPEAR: Spell by lazy {
     Spell(
       Subjects.SELF,
-      PartialSpell(PotionActions.INVISIBILITY_POTION, Descriptors.LONG)
+      PartialSpell(PotionActions.INVISIBILITY_POTION, Descriptors.LONG),
+        PartialSpell(null)
     )
   }
 
@@ -49,7 +56,9 @@ object FakeCastHelper {
         it.sendSystemMessage(
           Component.literal("<")
             .append(entity.name.copy().withStyle(ChatFormatting.LIGHT_PURPLE))
-            .append("> $sentence"))
+            .append("> ")
+            .append(sentence)
+        )
       }
     }
   }

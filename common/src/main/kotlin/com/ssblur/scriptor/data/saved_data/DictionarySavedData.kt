@@ -18,9 +18,11 @@ import com.ssblur.scriptor.registry.words.WordRegistry.descriptorRegistry
 import com.ssblur.scriptor.registry.words.WordRegistry.subjectRegistry
 import com.ssblur.scriptor.word.PartialSpell
 import com.ssblur.scriptor.word.Spell
+import net.minecraft.ChatFormatting
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.NbtOps
+import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.util.datafix.DataFixTypes
 import net.minecraft.world.level.Level
@@ -312,38 +314,51 @@ class DictionarySavedData: SavedData {
    * @param spell The Spell to generate text for.
    * @return A String to describe a spell
    */
-  fun generate(spell: Spell): String {
+  fun generate(spell: Spell): Component {
     assert(spell.spells.isNotEmpty())
-    var descriptorBuilder = StringBuilder()
+    var descriptorBuilder = Component.empty()
     for (descriptor in spell.spells[0].deduplicatedDescriptors()) {
-      descriptorBuilder.append(" ").append(getWord(descriptor))
+      descriptorBuilder.append(" ")
+        .append(getWord(descriptor)?.let { Component.literal(it) } ?: getFakeWord())
     }
 
-    val builder = StringBuilder()
+    val builder = Component.empty()
     for (w in spellStructure) {
-      if (w == WORD.ACTION) builder.append(" ").append(
-        getWord(
-          spell.spells[0].action
+      when (w) {
+        WORD.ACTION -> builder.append(" ").append(
+          getWord(spell.spells[0].action)?.let { Component.literal(it) } ?: getFakeWord()
         )
-      )
-      else if (w == WORD.SUBJECT) builder.append(" ").append(getWord(spell.subject))
-      else if (w == WORD.DESCRIPTOR) builder.append(descriptorBuilder)
+        WORD.SUBJECT -> builder.append(" ").append(
+          getWord(spell.subject)?.let { Component.literal(it) } ?: getFakeWord()
+        )
+        WORD.DESCRIPTOR -> builder.append(descriptorBuilder)
+        else -> {}
+      }
     }
 
     for (partialSpell in Arrays.stream(spell.spells).skip(1).toList()) {
-      builder.append(" ").append(getWord("other:and"))
-      descriptorBuilder = StringBuilder()
+      builder.append(" ").append(getWord("other:and")?.let { Component.literal(it) } ?: getFakeWord())
+      descriptorBuilder = Component.empty()
       for (descriptor in partialSpell.deduplicatedDescriptors()) {
-        descriptorBuilder.append(" ").append(getWord(descriptor))
+        descriptorBuilder.append(" ").append(getWord(descriptor)?.let { Component.literal(it) } ?: getFakeWord())
       }
 
       for (w in spellStructure) {
-        if (w == WORD.ACTION) builder.append(" ").append(getWord(partialSpell.action))
+        if (w == WORD.ACTION) builder.append(" ").append(
+          getWord(partialSpell.action)?.let { Component.literal(it) } ?: getFakeWord()
+        )
         else if (w == WORD.DESCRIPTOR) builder.append(descriptorBuilder)
       }
     }
 
-    return builder.toString().trim()
+    return builder
+  }
+
+  fun getFakeWord(): Component {
+    val random = Random()
+    return Component.literal(
+      (0..random.nextInt(8)).map { ('a'..'z').random() }.joinToString("")
+    ).withStyle(ChatFormatting.OBFUSCATED)
   }
 
   override fun save(tag: CompoundTag, provider: HolderLookup.Provider): CompoundTag {

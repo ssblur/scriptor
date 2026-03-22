@@ -54,7 +54,7 @@ class RuneBlockEntity(blockPos: BlockPos, blockState: BlockState):
     super.saveAdditional(tag, provider)
 
     if (level is ServerLevel && spell != null)
-      tag.putString("spell", DictionarySavedData.computeIfAbsent(level as ServerLevel).generate(spell!!))
+      tag.putString("spell", DictionarySavedData.computeIfAbsent(level as ServerLevel).generate(spell!!).string)
     if (owner != null) tag.putString("owner", owner!!.stringUUID)
     else if (ownerUUID != null) tag.putString("owner", ownerUUID.toString())
     tag.putInt("scriptor:color", runeColor)

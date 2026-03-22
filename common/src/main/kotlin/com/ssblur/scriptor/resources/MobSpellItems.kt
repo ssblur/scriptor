@@ -66,7 +66,7 @@ object MobSpellItems {
         item[DataComponents.ITEM_NAME] = Component.translatable(it.name)
         item[DataComponents.ENCHANTMENT_GLINT_OVERRIDE] = true
         item[DataComponents.RARITY] = it.rarity ?: Rarity.COMMON
-        item[ScriptorDataComponents.SPELL] = computeIfAbsent(mob.level() as ServerLevel).generate(it.getSpell())
+        item[ScriptorDataComponents.SPELL] = computeIfAbsent(mob.level() as ServerLevel).generate(it.getSpell()).string
         mob.setItemSlot(it.slot, item)
       }
     }

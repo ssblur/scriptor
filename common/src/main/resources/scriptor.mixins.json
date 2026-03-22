@@ -8,6 +8,8 @@
     "BlockPlaceContextAccessor",
     "CropBlockMixin",
     "DimensionDataStorageAccessor",
+    "EvokerAttackSpellGoalMixin",
+    "EvokerSummonSpellGoalMixin",
     "EvokerWololoSpellGoalMixin",
     "GuiMixin",
     "IllusionerBlindnessSpellGoalMixin",

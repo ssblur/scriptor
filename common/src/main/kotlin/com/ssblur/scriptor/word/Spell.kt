@@ -39,7 +39,7 @@ import kotlin.math.roundToInt
  * @param subject The target of a spell
  * @param spells Groups of descriptors and actions
  */
-class Spell(val subject: Subject, vararg val spells: PartialSpell) {
+class Spell(val subject: Subject?, vararg val spells: PartialSpell) {
   fun castOnTargets(originalCaster: Targetable, originalTargets: List<Targetable>, castHooks: Boolean = false) {
     var caster = originalCaster
     val entity: Entity? = if (caster is EntityTargetable) caster.targetEntity else null
@@ -87,7 +87,7 @@ class Spell(val subject: Subject, vararg val spells: PartialSpell) {
           }
         }
 
-        spell.action.apply(caster, target, spell.deduplicatedDescriptors())
+        spell.action?.apply(caster, target, spell.deduplicatedDescriptors().filterNotNull().toTypedArray())
       }
     }
 
@@ -133,7 +133,7 @@ class Spell(val subject: Subject, vararg val spells: PartialSpell) {
         }
       if (descriptor is FocusDescriptor) caster = descriptor.modifyFocus(caster)
     }
-    val targetFuture = subject.getTargets(caster, this)
+    val targetFuture = subject?.getTargets(caster, this) ?: CompletableFuture()
     for (descriptor in spells[0].deduplicatedDescriptors())
       if (descriptor is AfterCastDescriptor) descriptor.afterCast(caster)
 
@@ -233,7 +233,7 @@ class Spell(val subject: Subject, vararg val spells: PartialSpell) {
   }
 
   fun deduplicatedDescriptorsForSubjects(): Array<Descriptor> =
-    spells.flatMap { it.descriptors.toList() }.distinct().toTypedArray()
+    spells.flatMap { it.descriptors.toList() }.filterNotNull().distinct().toTypedArray()
 
   companion object {
     fun playFizzleSound(level: Level, pos: Vec3) {

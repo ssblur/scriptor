@@ -56,7 +56,7 @@ class AncientSpellbook(properties: Properties, var tier: Int): Item(properties) 
       if (resource.getSpell().spells.size > 1) ScriptorAdvancements.COMPLEX_SPELL.get().trigger(player as ServerPlayer)
 
       val spell = resource.getSpell()
-      val sentence = computeIfAbsent(server).generate(spell)
+      val sentence = computeIfAbsent(server).generate(spell).string
 
       val spellbook =
         LimitedBookSerializer.createSpellbook(resource.author, resource.name, sentence, resource.item)
