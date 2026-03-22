@@ -13,5 +13,11 @@ object ScriptorScreens {
         WritingTableScreen(container, inventory ?: Minecraft.getInstance().player!!.inventory, component ?: Component.empty())
       }
     }
+
+    ScriptorMenus.DICTIONARY_MENU.then {
+      ScriptorMod.registerScreen(it) { container, inventory, component ->
+        DictionaryScreen(container, inventory ?: Minecraft.getInstance().player!!.inventory, component ?: Component.empty())
+      }
+    }
   }
 }

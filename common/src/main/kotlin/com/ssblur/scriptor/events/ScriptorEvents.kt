@@ -81,8 +81,6 @@ object ScriptorEvents {
           }
         }
 
-
-
         weapon[ScriptorDataComponents.SPELL]?.let { spell ->
           entity.level().let {
             if(it is ServerLevel) {

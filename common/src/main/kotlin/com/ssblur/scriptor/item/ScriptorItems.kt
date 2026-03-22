@@ -58,12 +58,7 @@ object ScriptorItems {
   val ENGRAVING_TOOL = registerItem("engraving_tool") { EngravingTool(Item.Properties()) }
     .tab(ScriptorTabs.SCRIPTOR_TAB)
   val DICTIONARY = registerItem("dictionary") {
-    Ingredient(
-      Item.Properties().stacksTo(1),
-      "lore.scriptor.dictionary",
-      "lore.scriptor.dictionary_2",
-      "lore.scriptor.dictionary_3"
-    )
+    Dictionary(Item.Properties().stacksTo(1),)
   }.tab(ScriptorTabs.SCRIPTOR_TAB)
 
   val TOME_TIER1 = registerItem("tome_tier1") { AncientSpellbook(Item.Properties(), 1) }

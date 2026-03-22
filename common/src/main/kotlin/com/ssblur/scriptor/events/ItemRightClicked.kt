@@ -11,13 +11,12 @@ import net.minecraft.world.item.ItemStack
 object ItemRightClicked {
   fun itemRightClicked(entity: Player, item: ItemStack): Boolean {
     if(item[ScriptorDataComponents.SPELL] != null && !(item matches ScriptorTags.IGNORE_SPELL_COMPONENT)) {
-      SpellbookHelper.castFromItem(
+      return SpellbookHelper.castFromItem(
         item,
         entity,
         maxCost = ScriptorConfig.ITEM_MAX_COST(),
         costMultiplier = ScriptorConfig.ITEM_COOLDOWN_MULTIPLIER().toDouble().div(100.0).toInt()
       )
-      return true
     }
     return false
   }

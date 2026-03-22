@@ -9,6 +9,7 @@ import com.ssblur.scriptor.extension.EntityCastCooldownExtension.castCooldown
 import com.ssblur.scriptor.helpers.LimitedBookSerializer.decodeText
 import com.ssblur.scriptor.helpers.targetable.SpellbookTargetable
 import com.ssblur.scriptor.helpers.targetable.Targetable
+import com.ssblur.scriptor.word.subject.HitSubject
 import net.minecraft.core.component.DataComponents
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
@@ -46,7 +47,7 @@ object SpellbookHelper {
       } ?: itemStack[ScriptorDataComponents.SPELL]
     )
 
-    if (spell != null) {
+    if (spell != null && spell.subject !is HitSubject) {
       spell.deduplicatedDescriptorsForSubjects()
       spell.playSound(level, player.blockPosition())
       if (spell.cost() > adjustedMaxCost) {
@@ -78,7 +79,7 @@ object SpellbookHelper {
       }
       return false
     }
-    return true
+    return false
   }
 
   fun addCooldown(player: Player, time: Int) {
