@@ -1,0 +1,12 @@
+{
+  "pool": "minecraft:village/savanna/houses",
+  "elements": [
+    {
+      "element": {
+        "location": "scriptor:village/savanna/houses/savanna_nominomist_1",
+        "projection": "RIGID"
+      },
+      "weight": 4
+    }
+  ]
+}

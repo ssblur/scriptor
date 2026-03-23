@@ -1,0 +1,12 @@
+{
+  "pool": "minecraft:village/snowy/houses",
+  "elements": [
+    {
+      "element": {
+        "location": "scriptor:village/snowy/houses/snowy_nominomist_1",
+        "projection": "RIGID"
+      },
+      "weight": 2
+    }
+  ]
+}

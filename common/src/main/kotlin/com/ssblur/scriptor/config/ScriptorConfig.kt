@@ -35,6 +35,7 @@ object ScriptorConfig {
 
   // Demonstration / showcase settings
   val INVERT_DO_NOT_PHASE = config.registerBoolean("invert_do_not_phase", false)
+  val DO_NOT_GENERATE = config.registerBoolean("demo_do_not_generate", false)
 
   fun register() {}
 }

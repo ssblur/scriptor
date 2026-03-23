@@ -1,0 +1,12 @@
+{
+  "pool": "minecraft:village/taiga/houses",
+  "elements": [
+    {
+      "element": {
+        "location": "scriptor:village/taiga/houses/taiga_nominomist_1",
+        "projection": "RIGID"
+      },
+      "weight": 4
+    }
+  ]
+}

@@ -18,6 +18,7 @@ import com.ssblur.scriptor.resources.Engravings
 import com.ssblur.scriptor.resources.MobSpellItems
 import com.ssblur.scriptor.resources.Scraps
 import com.ssblur.scriptor.resources.Tomes
+import com.ssblur.unfocused.mixin.StructureTemplatePoolAccessor
 import net.minecraft.ChatFormatting
 import net.minecraft.client.resources.language.I18n
 import net.minecraft.commands.CommandBuildContext
@@ -25,6 +26,7 @@ import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 
@@ -61,6 +63,13 @@ object DebugCommand {
         Commands.literal("give_dictionary")
           .requires { s: CommandSourceStack -> s.hasPermission(4) }
           .executes { executeDictionary(it) }
+      )
+    )
+    dispatcher.register(
+      Commands.literal("scriptor_debug").then(
+        Commands.literal("template_test")
+          .requires { s: CommandSourceStack -> s.hasPermission(4) }
+          .executes { executeTemplateTest(it) }
       )
     )
   }
@@ -200,6 +209,15 @@ object DebugCommand {
     item[ScriptorDataComponents.DICTIONARY_DATA] = DictionaryData(list)
     command.source.player?.addItem(item)
 
+    return Command.SINGLE_SUCCESS
+  }
+
+  private fun executeTemplateTest(command: CommandContext<CommandSourceStack>): Int {
+    command.source.player?.let {
+      val poolRegistry = command.source.server.registryAccess().registry(Registries.TEMPLATE_POOL).orElseThrow()
+      val pool = poolRegistry.get(ResourceLocation.parse("minecraft:village/plains/houses"))!! as StructureTemplatePoolAccessor
+      it.sendSystemMessage(Component.literal(pool.templates.toString()))
+    }
     return Command.SINGLE_SUCCESS
   }
 }

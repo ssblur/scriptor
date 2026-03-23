@@ -3,6 +3,7 @@ package com.ssblur.scriptor.blockentity
 import com.ssblur.scriptor.block.EngravingBlock
 import com.ssblur.scriptor.block.GenerateBlock
 import com.ssblur.scriptor.block.ScriptorBlocks
+import com.ssblur.scriptor.config.ScriptorConfig
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData
 import com.ssblur.scriptor.resources.Engravings
 import com.ssblur.scriptor.resources.VillagerEngravings
@@ -94,7 +95,7 @@ class GenerateBlockEntity(blockPos: BlockPos, blockState: BlockState):
 
     @Suppress("unused_parameter")
     fun <T: BlockEntity?> tick(level: Level, pos: BlockPos, state: BlockState, entity: T) {
-      if (level.isClientSide) return
+      if (level.isClientSide || ScriptorConfig.DO_NOT_GENERATE()) return
 
       if (state.getValue(GenerateBlock.FEATURE) == GenerateBlock.Feature.ENGRAVING) {
         generateEngraving(level as ServerLevel, pos)

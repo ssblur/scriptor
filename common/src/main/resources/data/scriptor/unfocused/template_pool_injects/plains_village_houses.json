@@ -1,0 +1,12 @@
+{
+  "pool": "minecraft:village/plains/houses",
+  "elements": [
+    {
+      "element": {
+        "location": "scriptor:village/plains/houses/plains_nominomist_1",
+        "projection": "RIGID"
+      },
+      "weight": 3
+    }
+  ]
+}
