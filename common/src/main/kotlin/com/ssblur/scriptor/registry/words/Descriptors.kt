@@ -5,6 +5,7 @@ import com.ssblur.scriptor.word.descriptor.SpeedDurationDescriptor
 import com.ssblur.scriptor.word.descriptor.duration.SimpleDurationDescriptor
 import com.ssblur.scriptor.word.descriptor.target.ChainDescriptor
 import com.ssblur.scriptor.word.descriptor.target.CollideWithWaterDescriptor
+import com.ssblur.scriptor.word.descriptor.target.NearbyItemDescriptor
 import com.ssblur.scriptor.word.descriptor.target.NetherDescriptor
 
 @Suppress("unused")
@@ -40,6 +41,8 @@ object Descriptors {
 
   val NETHER = register("nether", NetherDescriptor())
   val COLLIDE_WITH_WATER = register("collide_with_water", CollideWithWaterDescriptor)
+
+  val NEARBY_ITEM = register("nearby_item", NearbyItemDescriptor)
 
   fun init() {}
 }
