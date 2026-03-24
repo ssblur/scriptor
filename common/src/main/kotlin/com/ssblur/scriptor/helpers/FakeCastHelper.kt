@@ -59,6 +59,10 @@ object FakeCastHelper {
             .append("> ")
             .append(sentence)
         )
+        if(spell.subject != null
+          && spell.spells.all { s -> s.action != null && s.descriptors.count { d -> d == null } == 0 }) {
+          ScriptionaryHelper.recordSpell(it, spell)
+        }
       }
     }
   }
