@@ -5,6 +5,7 @@ import com.ssblur.scriptor.block.GenerateBlock
 import com.ssblur.scriptor.block.ScriptorBlocks
 import com.ssblur.scriptor.config.ScriptorConfig
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData
+import com.ssblur.scriptor.helpers.ShapeHelper
 import com.ssblur.scriptor.resources.Engravings
 import com.ssblur.scriptor.resources.VillagerEngravings
 import net.minecraft.core.BlockPos
@@ -18,62 +19,33 @@ class GenerateBlockEntity(blockPos: BlockPos, blockState: BlockState):
   BlockEntity(ScriptorBlockEntities.GENERATE.get(), blockPos, blockState) {
   companion object {
     fun generateEngraving(level: ServerLevel, pos: BlockPos) {
-      val random = level.random
-
       val engraving = Engravings.getRandomEngraving()
       val words = DictionarySavedData.computeIfAbsent(level)
         .generate(engraving.generateSpell()).string
-        .split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-      val x = if (random.nextBoolean()) 1 else -1
-      val z = if (random.nextBoolean()) 1 else -1
-      var curPos = pos
+        .split(" ".toRegex()).filter { !it.isEmpty() }.toTypedArray()
+      level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState())
+      val spiral = ShapeHelper.invertedSpiral().iterator()
       var first = true
-      var axis: Boolean
-
       for (word in words) {
-        engrave(level, curPos, word, first)
+        val n = spiral.next().let { pos.offset(it.x, 0, it.y) }
+        println(n)
+        engrave(level, n, word, first)
         first = false
-        axis = random.nextBoolean()
-        curPos = curPos.offset(
-          if (axis) x else 0,
-          0,
-          if (!axis) z else 0
-        )
       }
     }
 
-    // originally did some math here but honestly this is easier, faster, and doesn't break down on big numbers
-    val spiral = listOf(
-      BlockPos(0, 0, 0),
-      BlockPos(1, 0, 0),
-      BlockPos(2, 0, 0),
-      BlockPos(2, 0, 1),
-      BlockPos(2, 0, 2),
-      BlockPos(2, 0, 3),
-      BlockPos(1, 0, 3),
-      BlockPos(0, 0, 3),
-      BlockPos(-1, 0, 3),
-      BlockPos(-2, 0, 3),
-      BlockPos(-3, 0, 3),
-      BlockPos(-3, 0, 2),
-      BlockPos(-3, 0, 1),
-      BlockPos(-3, 0, 0),
-      BlockPos(-3, 0, -1),
-      BlockPos(-3, 0, -2),
-      BlockPos(-3, 0, -3),
-    )
     fun generateVillagerEngraving(level: ServerLevel, pos: BlockPos) {
       val engraving = VillagerEngravings.getRandomEngraving()
       val words = DictionarySavedData.computeIfAbsent(level)
         .generate(engraving.generateSpell()).string
-        .split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-      var curPos = pos
+        .split(" ".toRegex()).filter { !it.isEmpty() }.toTypedArray()
+      level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState())
+      val spiral = ShapeHelper.spiral().iterator()
       var first = true
-      var i = 0
       for (word in words) {
-        curPos = if(i < spiral.size) pos.offset(spiral[i]) else curPos.offset(BlockPos(1, 0, 0))
-        i++
-        engrave(level, curPos, word, first)
+        val n = spiral.next().let { pos.offset(it.x, 0, it.y) }
+        println(n)
+        engrave(level, n, word, first)
         first = false
       }
     }
