@@ -45,7 +45,7 @@ class CommandAction @JvmOverloads constructor(
 
   override fun cost() = Cost.add(cost)
 
-  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>) {
+  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>, spellData: MutableList<String>) {
     // @caster is a fake selector that's replaced at runtime.
     // It will target the entity or block position that cast this spell.
     // @target is a fake selector that is also replaced at runtime.

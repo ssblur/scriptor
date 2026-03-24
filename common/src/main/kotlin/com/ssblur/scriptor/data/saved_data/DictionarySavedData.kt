@@ -199,8 +199,17 @@ class DictionarySavedData: SavedData {
       val descriptors: MutableList<Descriptor> = ArrayList()
 
       var parsed: String?
+
+      var consumeNext = false
+      val spellData = mutableListOf<String>()
       while (tokenPosition < tokens.size) {
         if (position % spellStructure.size == 0 && position > 0) {
+          if(consumeNext) {
+            spellData.add(tokens[tokenPosition])
+            tokenPosition++
+            consumeNext = false
+            continue
+          }
           parsed = parseWord(tokens[tokenPosition])
           if (parsed != null && parsed == "other:and") {
             tokenPosition++
@@ -219,6 +228,8 @@ class DictionarySavedData: SavedData {
           mult *= wordData.substring(12).toInt()
           tokenPosition++
           continue
+        } else if(wordData == "action:write") {
+          consumeNext = true
         }
 
         var skipIncrement = false
@@ -276,7 +287,7 @@ class DictionarySavedData: SavedData {
 
       if (action != null && subject != null) {
         spells.add(PartialSpell(action, *descriptors.toTypedArray()))
-        return Spell(subject, *spells.toTypedArray())
+        return Spell(subject, *spells.toTypedArray(), spellData = spellData)
       }
     } catch (e: Exception) {
       LOGGER.warn("==========================================================")

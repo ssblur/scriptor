@@ -31,6 +31,7 @@ object Actions {
   val HARM = register("harm", HarmAction())
   val COLOR = register("color", ColorAction())
   val TIME = register("time", AdvanceTimeAction())
+  val WRITE = register("write", WriteAction())
   val CLEAR_WEATHER = register(
     "clear_weather",
     ClearWeatherAction()

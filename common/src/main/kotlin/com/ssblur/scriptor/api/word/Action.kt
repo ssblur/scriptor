@@ -9,6 +9,7 @@ abstract class Action: Word() {
    * @param caster The Entity which cast this spell
    * @param targetable A Targetable which describes the target of this spell (position, entity, item, etc.)
    * @param descriptors A list of all Descriptors which this spell contains
+   * @param spellData A list of data collected for this spell, in parse order
    */
-  abstract fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>)
+  abstract fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>, spellData: MutableList<String>)
 }

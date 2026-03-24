@@ -17,7 +17,7 @@ import net.minecraft.world.item.crafting.SingleRecipeInput
 import net.minecraft.world.level.block.BaseFireBlock
 
 class InflameAction: Action() {
-  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>) {
+  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>, spellData: MutableList<String>) {
     var seconds = 2.0
     for (d in descriptors) {
       if (d is DurationDescriptor) seconds += d.durationModifier()

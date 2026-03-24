@@ -14,7 +14,7 @@ import net.minecraft.world.item.ItemStack
 import kotlin.math.max
 
 class HarmAction: Action() {
-  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>) {
+  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>, spellData: MutableList<String>) {
     var strength = 1.0
     for (d in descriptors) {
       if (d is StrengthDescriptor) strength += d.strengthModifier()

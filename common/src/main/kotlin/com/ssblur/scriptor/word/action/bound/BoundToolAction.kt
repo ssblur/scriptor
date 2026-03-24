@@ -21,7 +21,7 @@ import java.util.function.Supplier
 import kotlin.math.floor
 
 class BoundToolAction(var item: Supplier<Item>, var tags: List<TagKey<Block>>): Action() {
-  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>) {
+  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>, spellData: MutableList<String>) {
     var strength = 6f
     var duration = 4.0
     for (d in descriptors) {
