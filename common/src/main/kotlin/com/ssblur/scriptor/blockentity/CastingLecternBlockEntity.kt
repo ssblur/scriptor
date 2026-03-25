@@ -96,13 +96,13 @@ class CastingLecternBlockEntity(blockPos: BlockPos, blockState: BlockState):
           val target = LecternTargetable(getLevel()!!, pos).setFacing(direction)
           if (focus.item is CasterCrystal) {
             val crystal = focus.item as CasterCrystal
-            val foci = crystal.getTargetables(focus, server)
+            val foci = crystal.getTargetables(focus, server, target)
             if (!foci.isNullOrEmpty()) {
               focusTarget++
               focusTarget %= foci.size
               val focus = foci[focusTarget]
-              if (focus != null && focus.targetPos.distanceTo(target.targetPos) <= 16 && focus.level === level) target.finalTargetable =
-                focus
+              if (focus != null && focus.targetPos.distanceTo(target.targetPos) <= 16 && focus.level === level)
+                target.finalTargetable = focus
             }
           }
           spell.cast(target)

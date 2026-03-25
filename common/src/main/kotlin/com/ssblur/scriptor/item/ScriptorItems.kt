@@ -3,6 +3,8 @@ package com.ssblur.scriptor.item
 import com.ssblur.scriptor.ScriptorMod.registerItem
 import com.ssblur.scriptor.item.books.*
 import com.ssblur.scriptor.item.casters.CoordinateCasterCrystal
+import com.ssblur.scriptor.item.casters.NearbyAnimalsCastingCrystal
+import com.ssblur.scriptor.item.casters.NearbyMobsCastingCrystal
 import com.ssblur.scriptor.item.casters.PlayerCasterCrystal
 import com.ssblur.scriptor.item.tools.Chalk
 import com.ssblur.scriptor.item.tools.EngravingTool
@@ -84,13 +86,25 @@ object ScriptorItems {
   }.tab(ScriptorTabs.SCRIPTOR_TAB)
   val PLAYER_TAG = registerItem("player_tag") {
     Ingredient(Item.Properties(), "lore.scriptor.ingredient", "lore.scriptor.ingredient_tag")
-  }
+  }.tab(ScriptorTabs.SCRIPTOR_TAB)
+  val ANIMAL_TAG = registerItem("animal_tag") {
+    Ingredient(Item.Properties(), "lore.scriptor.ingredient", "lore.scriptor.ingredient_tag")
+  }.tab(ScriptorTabs.SCRIPTOR_TAB)
+  val MOB_TAG = registerItem("mob_tag") {
+    Ingredient(Item.Properties(), "lore.scriptor.ingredient", "lore.scriptor.ingredient_tag")
+  }.tab(ScriptorTabs.SCRIPTOR_TAB)
 
   val PLAYER_CASTING_CRYSTAL = registerItem("player_casting_crystal") {
     PlayerCasterCrystal(Item.Properties())
   }.tab(ScriptorTabs.SCRIPTOR_TAB)
   val COORDINATE_CASTING_CRYSTAL = registerItem("coordinate_casting_crystal") {
     CoordinateCasterCrystal(Item.Properties())
+  }.tab(ScriptorTabs.SCRIPTOR_TAB)
+  val ANIMAL_CASTING_CRYSTAL = registerItem("animal_casting_crystal") {
+    NearbyAnimalsCastingCrystal(Item.Properties())
+  }.tab(ScriptorTabs.SCRIPTOR_TAB)
+  val MOB_CASTING_CRYSTAL = registerItem("mob_casting_crystal") {
+    NearbyMobsCastingCrystal(Item.Properties())
   }.tab(ScriptorTabs.SCRIPTOR_TAB)
 
   val BOUND_SWORD = registerItem("bound_sword") {

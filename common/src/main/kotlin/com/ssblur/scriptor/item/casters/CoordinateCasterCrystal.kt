@@ -44,7 +44,7 @@ class CoordinateCasterCrystal(properties: Properties): CasterCrystal(properties)
     }
   }
 
-  override fun getTargetables(itemStack: ItemStack?, level: Level?): List<Targetable?> {
+  override fun getTargetables(itemStack: ItemStack?, level: Level?, caster: Targetable): List<Targetable?> {
     val list = ArrayList<Targetable?>()
     val coordinates = itemStack!!.get(ScriptorDataComponents.COORDINATES)
     if (coordinates != null) for (pos in coordinates) {

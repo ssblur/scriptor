@@ -14,15 +14,13 @@ import net.minecraft.world.level.Level
 import java.util.*
 
 class PlayerCasterCrystal(properties: Properties): CasterCrystal(properties) {
-  override fun getTargetables(itemStack: ItemStack?, level: Level?): List<Targetable?>? {
+  override fun getTargetables(itemStack: ItemStack?, level: Level?, caster: Targetable): List<Targetable> {
     val uuid = itemStack!!.get(ScriptorDataComponents.PLAYER_FOCUS)
     if (uuid != null) {
       val player = level!!.getPlayerByUUID(UUID.fromString(uuid))
-      if (player != null) return java.util.List.of<Targetable?>(
-        EntityTargetable(player)
-      )
+      if (player != null) return listOf(EntityTargetable(player))
     }
-    return listOf<Targetable>()
+    return listOf()
   }
 
   override fun appendHoverText(

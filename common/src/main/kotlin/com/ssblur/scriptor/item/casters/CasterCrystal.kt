@@ -6,5 +6,5 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 
 abstract class CasterCrystal(properties: Properties): Item(properties) {
-  abstract fun getTargetables(itemStack: ItemStack?, level: Level?): List<Targetable?>?
+  abstract fun getTargetables(itemStack: ItemStack?, level: Level?, caster: Targetable): List<Targetable?>?
 }
