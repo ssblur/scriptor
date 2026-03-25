@@ -66,11 +66,15 @@
   "item.scriptor.ethereal_fig": "Ethereal Fig",
   "item.scriptor.unwritten_scroll": "Spell Scroll",
   "item.scriptor.spell_scroll": "Spell Scroll",
+  "item.scriptor.note_tier1": "Ragged Notes",
+  "item.scriptor.note_tier2": "Pile of Papers",
+
   "item.scriptor.flaming_axe": "Brand of Vindication",
   "item.scriptor.flaming_crossbow": "Brand of Exile",
   "item.scriptor.fang_crossbow": "Fang of Exile",
   "item.scriptor.swap_bow": "Tattered Hookbow",
   "item.scriptor.wither_sword": "Withered Shank",
+
   "block.scriptor.casting_lectern": "Casting Lectern",
   "block.scriptor.writing_table": "Writing Desk",
   "block.scriptor.white_magic_block": "Magic Block",
@@ -92,20 +96,25 @@
   "block.scriptor.light": "Magic Light",
   "block.scriptor.chalk": "Chalk",
   "block.scriptor.rune": "Rune",
+
   "entity.scriptor.projectile": "Projectile",
   "entity.minecraft.villager.nominomist": "Nominomist",
   "entity.minecraft.villager.scriptor.nominomist": "Nominomist",
-  "enchantment.scriptor.charged.desc": "Strengthens your next attack. Reduces by 1 after each hit.",
+
   "effect.scriptor.hoarse": "Hoarse",
   "effect.scriptor.mute": "Mute",
   "effect.scriptor.phasing": "Phasing",
   "effect.scriptor.wild_phasing": "Out of Phase",
   "effect.scriptor.silver_tongue": "Silver Tongue",
+
   "death.attack.overload": "%1$s was overwhelmed by magical forces.",
   "death.attack.overload.player": "%1$s was overwhelmed by magical forces.",
   "death.attack.sacrifice": "%1$s sacrificed too much.",
   "death.attack.sacrifice.player": "%1$s sacrificed too much...",
+
   "enchantment.scriptor.charged": "Charged",
+  "enchantment.scriptor.charged.desc": "Strengthens your next attack. Reduces by 1 after each hit.",
+
   "subject.scriptor.self": "Target: Self",
   "subject.scriptor.on_hit": "Target: Attacked Entity",
   "subject.scriptor.touch": "Target: Touch",
@@ -115,6 +124,7 @@
   "subject.scriptor.hitscan": "Target: Line",
   "subject.scriptor.on_damaged": "Target: Damage Source",
   "subject.scriptor.meteor": "Target: Meteor",
+
   "descriptor.scriptor.long": "Descriptor: Long",
   "descriptor.scriptor.longer": "Descriptor: Longer",
   "descriptor.scriptor.very_long": "Descriptor: Longest",
@@ -195,6 +205,7 @@
   "descriptor.scriptor.collide_with_water": "Descriptor: Collides with Fluids",
   "descriptor.scriptor.unreliable": "Descriptor: Unreliable",
   "descriptor.scriptor.nearby_item": "Descriptor: Nearby Item",
+
   "action.scriptor.inflame": "Action: Fire",
   "action.scriptor.light": "Action: Light",
   "action.scriptor.heal": "Action: Heal",
@@ -238,6 +249,7 @@
   "action.scriptor.write": "Action: Write Next Word",
   "action.scriptor.fangs": "Action: Evoker's Fangs",
   "action.scriptor.action.scriptor.command_test": "No test [English]",
+
   "extra.scriptor.fizzle": "The tome starts to warm in your hand, then fizzles. It appears it costs too much to be cast this way.",
   "extra.scriptor.tome_use": "You dust off the tome...",
   "extra.scriptor.tome_description": "Right click to uncover a spell.",
@@ -247,6 +259,10 @@
   "extra.scriptor.scrap_description": "Right click to uncover a spell component.",
   "extra.scriptor.scrap_tier": "Tier %1$s",
   "extra.scriptor.scrap_get": "You were able to restore the page.",
+  "extra.scriptor.note_use": "You sort through the pile of old papers...",
+  "extra.scriptor.note_get": "You were able to compile enough to recover an entry for the Nominomist's Guide.",
+  "extra.scriptor.note_description": "Right click to uncover notes for the Nominomist's Guide.",
+  "extra.scriptor.note_tier": "Tier %1$s",
   "extra.scriptor.hoarse": "The residue of your last spell still burns in your throat. You must recover before speaking more spells.",
   "extra.scriptor.mute": "Magic wells up in your chest, but you have been muted...",
   "extra.scriptor.enchant_wrong": "Energy wells up and immediately dissipates. Maybe I should use this spell elsewhere...",
@@ -271,6 +287,7 @@
   "extra.scriptor.record_scriptionary": "You write down your observations in the Scriptionary.",
   "extra.scriptor.record_no_scriptionary": "You try to remember your observations. You should craft a Scriptionary to write them down.",
   "extra.scriptor.empty": "No observations have been written down.",
+
   "lore.scriptor.ingredient": "Crafting Ingredient",
   "lore.scriptor.dictionary": "Used to record discovered words",
   "lore.scriptor.dictionary_2": "(Use to open)",
@@ -311,9 +328,12 @@
   "lore.scriptor.bound_tool": "Summoned via magic, cannot be crafted.",
   "lore.scriptor.inscribed": "Words are inscribed on it...",
   "lore.scriptor.inscribed_2": "\"%1$s\"",
+
   "itemGroup.scriptor.scriptor_tab": "Scriptor Magicae",
   "itemGroup.scriptor.scriptor_spellbooks": "Scriptor Magicae Spellbooks",
+
   "entity.scriptor.colorful_sheep": "Sheep",
+
   "advancement.scriptor.tier_1": "Collector of Tricks",
   "advancement.scriptor.tier_2": "Arcane Archiver",
   "advancement.scriptor.tier_3": "Occult Librarian",
@@ -325,8 +345,7 @@
   "advancement.scriptor.community": "Part of the Community",
   "advancement.scriptor.community_desc": "Play Scriptor Magicae with Community Mode enabled!",
   "advancement.scriptor.tome": "Apprentice Arcanist",
-  "patchouli.scriptor.name": "Simple Scriptomagy",
-  "patchouli.scriptor.landing_text": "Learn the world's lingua magica!",
+
   "command.scriptor.dump_action": "The word for action %1$s is %2$s",
   "command.scriptor.dump_descriptor": "The word for descriptor %1$s is %2$s",
   "command.scriptor.dump_subject": "The word for subject %1$s is %2$s",
@@ -344,6 +363,7 @@
   "command.scriptor.unheard": "Nobody else heard that.",
   "command.scriptor.no_spell": "No spell provided to cast!",
   "command.scriptor.cast_not_enabled": "The cast command has been disabled. An operator can enable it with the \"scriptor:cast_command_enabled\" gamerule",
+
   "gamerule.scriptor:tome_max_cost": "[Scriptor] Tome Max Spell Cost",
   "gamerule.scriptor:vocal_max_cost": "[Scriptor] Vocal Max Spell Cost",
   "gamerule.scriptor:chalk_max_cost": "[Scriptor] Chalk Max Spell Cost",
@@ -354,6 +374,7 @@
   "gamerule.scriptor:tome_cooldown_multiplier": "[Scriptor] Tome Cooldown Multiplier",
   "gamerule.scriptor:casting_lectern_cooldown_multiplier": "[Scriptor] Casting Lectern Cooldown Multiplier",
   "gamerule.scriptor:cast_command_enabled": "[Scriptor] Cast Command Enabled",
+
   "tome.scriptor.big_ups": "Big Ups",
   "tome.scriptor.breathless": "Breathless",
   "tome.scriptor.bring_bolt": "Scorpion's Chain",
@@ -413,10 +434,12 @@
   "tome.scriptor.power_inversion": "Power Inversion",
   "tome.scriptor.bleach": "Javelize",
   "tome.scriptor.blink": "Blink",
+
   "tag.item.scriptor.readable_spellbooks": "Spellbooks (Readable)",
   "tag.item.scriptor.writable_spellbooks": "Spellbooks (Writable)",
   "tag.item.scriptor.spellbooks": "Spellbooks (Loot)",
   "tag.item.scriptor.ignore_spell_component": "Ignore Scriptor Spell Component",
+
   "info.scriptor.spellbook_1": "Spellbooks can be crafted or obtained from Tomes.",
   "info.scriptor.spellbook_2": "You can write one with a Spellbook and Quill or by converting a Written Book.",
   "info.scriptor.spellbook_3": "Spellbooks must be written with a valid spell to be used.",
@@ -425,8 +448,10 @@
   "info.scriptor.book_of_books_3": "To remove a book from a Book of Books, right click on the Book of Books with your mouse cursor.",
   "info.scriptor.bound_tool_1": "This tool can only be summoned using magic.",
   "info.scriptor.bound_tool_2": "After a brief period, it will unravel and vanish.",
+
   "entry.scriptor.casting/artifacts": "Artifacts",
   "entry.scriptor.casting/engravings": "Chalk and Engravings",
   "entry.scriptor.casting/tome_casting": "Casting from Tomes",
-  "entry.scriptor.casting/verbal_casting": "Verbal Casting"
+  "entry.scriptor.casting/verbal_casting": "Verbal Casting",
+  "entry.scriptor.dictionary": "Scriptionary"
 }

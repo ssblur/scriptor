@@ -5,6 +5,8 @@ import com.ssblur.scriptor.item.ScriptorItems.ARTIFACT_1
 import com.ssblur.scriptor.item.ScriptorItems.ARTIFACT_2
 import com.ssblur.scriptor.item.ScriptorItems.ARTIFACT_3
 import com.ssblur.scriptor.item.ScriptorItems.ARTIFACT_4
+import com.ssblur.scriptor.item.ScriptorItems.NOTE_TIER1
+import com.ssblur.scriptor.item.ScriptorItems.NOTE_TIER2
 import com.ssblur.scriptor.item.ScriptorItems.SCRAP_TIER1
 import com.ssblur.scriptor.item.ScriptorItems.SCRAP_TIER2
 import com.ssblur.scriptor.item.ScriptorItems.SCRAP_TIER3
@@ -45,6 +47,7 @@ object AddLootEvent {
     )
     pools[TOME_TIER1] = tier1
     pools[SCRAP_TIER1] = tier1
+    pools[NOTE_TIER1] = tier1
 
     val tier2 = arrayOf(
       LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/woodland_mansion"), 0.3f),
@@ -63,6 +66,7 @@ object AddLootEvent {
     )
     pools[TOME_TIER2] = tier2
     pools[SCRAP_TIER2] = tier2
+    pools[NOTE_TIER2] = tier2
 
     val tier3 = arrayOf(
       LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/stronghold_library"), 1f),

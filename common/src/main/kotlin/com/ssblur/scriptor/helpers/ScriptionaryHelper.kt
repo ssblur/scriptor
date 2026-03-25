@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.helpers
 
+import com.ssblur.scriptor.ScriptorMod
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData
 import com.ssblur.scriptor.data.saved_data.PlayerScriptionarySavedData
 import com.ssblur.scriptor.item.ScriptorItems
@@ -11,6 +12,7 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.player.Player
 
+@Suppress("unused")
 object ScriptionaryHelper {
   val PLAYER_NOTES = mutableListOf<String>()
   val PLAYER_OBSERVATIONS = mutableListOf<Pair<String, String>>()
@@ -20,7 +22,7 @@ object ScriptionaryHelper {
    * @param player The player to award this to
    * @param note The location of the markdown file (minus locale dir) of the note to award.
    */
-  fun awardNote(player: Player, note: ResourceLocation) {
+  fun awardPlayerNote(player: Player, note: ResourceLocation) {
     if(player.level().isClientSide) return
     val location = note.toString()
     if(PlayerScriptionarySavedData.computeIfAbsent(player)?.unlocks?.any { it == location } == true)
@@ -40,6 +42,8 @@ object ScriptionaryHelper {
       listOf(player)
     )
   }
+
+  fun awardPlayerNote(player: Player, note: String) = awardPlayerNote(player, ScriptorMod.location(note))
 
   /**
    * Used to record a spell or word when a player discovers it in world.
@@ -77,4 +81,24 @@ object ScriptionaryHelper {
       component
     )
   }
+
+  /**
+   * Gets the notes already unlocked by a player
+   * @param player The player to get notes for
+   */
+  fun getPlayerNotes(player: Player): List<String> {
+    if(player.level().isClientSide) return PLAYER_NOTES
+    return PlayerScriptionarySavedData.computeIfAbsent(player)?.unlocks ?: listOf()
+  }
+
+  /**
+   * Alias for getNotes()
+   */
+  val Player.notes: List<ResourceLocation>
+    get() = getPlayerNotes(this).map { ScriptorMod.location(it) }
+
+  /**
+   * Alias for awardNote
+   */
+  fun Player.awardNote(note: ResourceLocation) = awardPlayerNote(this, note)
 }
