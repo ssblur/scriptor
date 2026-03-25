@@ -424,5 +424,9 @@
   "info.scriptor.book_of_books_2": "To insert a book into a Book of Books, hold it in your mouse cursor and right click on the Book of Books.",
   "info.scriptor.book_of_books_3": "To remove a book from a Book of Books, right click on the Book of Books with your mouse cursor.",
   "info.scriptor.bound_tool_1": "This tool can only be summoned using magic.",
-  "info.scriptor.bound_tool_2": "After a brief period, it will unravel and vanish."
+  "info.scriptor.bound_tool_2": "After a brief period, it will unravel and vanish.",
+  "entry.scriptor.casting/artifacts": "Artifacts",
+  "entry.scriptor.casting/engravings": "Chalk and Engravings",
+  "entry.scriptor.casting/tome_casting": "Casting from Tomes",
+  "entry.scriptor.casting/verbal_casting": "Verbal Casting"
 }
