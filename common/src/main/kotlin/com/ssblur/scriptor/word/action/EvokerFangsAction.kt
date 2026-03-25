@@ -34,7 +34,6 @@ class EvokerFangsAction: Action() {
       if(caster.targetPos.distanceTo(pos) < 0.5) break
       summonFangs(level, pos, entity, fangs - i + 2)
     }
-    /** @see net.minecraft.world.entity.monster.Evoker.EvokerAttackSpellGoal.performSpellCasting for vanilla implementation */
   }
 
   override fun cost(): Cost = Cost.add(1.6)
