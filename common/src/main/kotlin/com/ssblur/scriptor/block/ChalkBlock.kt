@@ -1,9 +1,11 @@
 package com.ssblur.scriptor.block
 
+import com.ssblur.scriptor.ScriptorMod
 import com.ssblur.scriptor.blockentity.ChalkBlockEntity
 import com.ssblur.scriptor.blockentity.ScriptorBlockEntities
 import com.ssblur.scriptor.data.components.DictionaryData
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
+import com.ssblur.scriptor.helpers.ScriptionaryHelper
 import com.ssblur.scriptor.item.ScriptorItems
 import com.ssblur.unfocused.extension.BlockEntityTypeExtension.create
 import com.ssblur.unfocused.extension.ItemStackExtension.matches
@@ -78,6 +80,7 @@ open class ChalkBlock: Block, EntityBlock {
     blockHitResult: BlockHitResult
   ): InteractionResult {
     val blockEntity = level.getBlockEntity(blockPos)
+    ScriptionaryHelper.awardNote(player, ScriptorMod.location("casting/engravings"))
     if (blockEntity is ChalkBlockEntity) {
       blockEntity.cast()
       return InteractionResult.SUCCESS

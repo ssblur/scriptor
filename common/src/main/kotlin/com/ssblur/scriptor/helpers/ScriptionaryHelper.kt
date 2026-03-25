@@ -2,8 +2,11 @@ package com.ssblur.scriptor.helpers
 
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData
 import com.ssblur.scriptor.data.saved_data.PlayerScriptionarySavedData
+import com.ssblur.scriptor.item.ScriptorItems
 import com.ssblur.scriptor.network.client.ScriptorNetworkS2C
 import com.ssblur.scriptor.word.Spell
+import com.ssblur.unfocused.extension.ItemStackExtension.matches
+import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.player.Player
@@ -14,12 +17,28 @@ object ScriptionaryHelper {
 
   /**
    * Awards a specific note, with an accompanying message depending on if they have a Scriptionary.
-   * TODO
    * @param player The player to award this to
    * @param note The location of the markdown file (minus locale dir) of the note to award.
    */
   fun awardNote(player: Player, note: ResourceLocation) {
-    // TODO
+    if(player.level().isClientSide) return
+    val location = note.toString()
+    if(PlayerScriptionarySavedData.computeIfAbsent(player)?.unlocks?.any { it == location } == true)
+      return
+
+    if(player.inventory.contains { it matches ScriptorItems.DICTIONARY.get() })
+      player.sendSystemMessage(Component.translatable("extra.scriptor.record_scriptionary"))
+    else
+      player.sendSystemMessage(Component.translatable("extra.scriptor.record_no_scriptionary"))
+
+    PlayerScriptionarySavedData.computeIfAbsent(player)?.let {
+      it.unlocks.add(location)
+      it.setDirty()
+    }
+    ScriptorNetworkS2C.scriptionaryData(
+      ScriptorNetworkS2C.ScriptionaryData(1, location, null),
+      listOf(player)
+    )
   }
 
   /**

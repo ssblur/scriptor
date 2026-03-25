@@ -1,8 +1,10 @@
 package com.ssblur.scriptor.screen.screen
 
+import com.ssblur.scriptor.ScriptorMod
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.helpers.ScriptionaryHelper
 import com.ssblur.scriptor.screen.menu.DictionaryMenu
+import com.ssblur.unfocused.helper.LocalizedMarkdownReader
 import com.ssblur.unfocused.screen.UnfocusedScreen
 import com.ssblur.unfocused.screen.renderable.BlackBox
 import com.ssblur.unfocused.screen.renderable.SinglePageBackground
@@ -12,6 +14,7 @@ import com.ssblur.unfocused.screen.widget.PlainTextWidget
 import com.ssblur.unfocused.screen.widget.TextEntryWidget
 import net.minecraft.ChatFormatting
 import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.resources.language.I18n
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
 
@@ -117,7 +120,7 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
       }
       SUBSCREENS.OBSERVED_SPELLS -> {
         val contents = add(PlainTextWidget(
-          observationsMarkdown(),
+          observationsComponent(),
           x + 20,
           y + 20,
           225,
@@ -134,8 +137,16 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
         )
       }
       SUBSCREENS.GUIDE -> {
-        add(PlainTextWidget(Component.translatable("extra.scriptor.wip"), x + 20, y + 20, 225, 12))
-
+        val contents = add(MarkdownWidget(
+          x + 20,
+          y + 20,
+          225,
+          142,
+          entriesMarkdown(),
+          false,
+          commandsAllowed = false
+        ))
+        contents.setColor(0, 0, 0)
         add(
           ButtonWidget(x + 20, y + 170, 225, 24, Component.translatable("extra.scriptor.back")) {
             subscreen = SUBSCREENS.MAIN
@@ -160,7 +171,7 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
       "**${it[0]}**: ${it[1]}"
     }.trimEnd()
 
-  fun observationsMarkdown(): Component = ScriptionaryHelper.PLAYER_OBSERVATIONS.map {
+  fun observationsComponent(): Component = ScriptionaryHelper.PLAYER_OBSERVATIONS.map {
     Component.literal("<").append(it.second).append("> ").append(it.first).append("\n\n")
   }.let {
     val component = Component.empty()
@@ -170,5 +181,21 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
         .withStyle(ChatFormatting.GRAY)
         .withStyle(ChatFormatting.ITALIC)
     else component
+  }
+
+  fun entriesMarkdown(): String =
+    LocalizedMarkdownReader.read(ScriptorMod.location("dictionary")) +
+    (ScriptionaryHelper.PLAYER_NOTES + DEFAULT_ENTRIES).joinToString("\n\n") {
+      val location = ScriptorMod.location(it)
+      val entry = I18n.get(location.toLanguageKey("entry")) ?: it
+      "[$entry](${location})"
+    }
+
+  companion object {
+    val DEFAULT_ENTRIES: List<String> = listOf(
+      "scriptor:casting/verbal_casting",
+      "scriptor:casting/tome_casting",
+      "scriptor:casting/artifacts",
+    )
   }
 }
