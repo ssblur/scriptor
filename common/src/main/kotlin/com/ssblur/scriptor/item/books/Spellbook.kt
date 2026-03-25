@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.math.Axis
 import com.ssblur.scriptor.ScriptorMod.LOGGER
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
+import com.ssblur.scriptor.extension.EntityCastCooldownExtension.castCooldown
 import com.ssblur.scriptor.helpers.ComponentHelper
 import com.ssblur.scriptor.helpers.LimitedBookSerializer
 import com.ssblur.scriptor.helpers.SpellbookHelper
@@ -50,12 +51,18 @@ open class Spellbook(properties: Properties):
     player: Player,
     interactionHand: InteractionHand
   ): InteractionResultHolder<ItemStack> {
-    if (level.isClientSide) return InteractionResultHolder.success(player.getItemInHand(interactionHand))
+    if (level.isClientSide) {
+      return if (player.castCooldown <= 0)
+        InteractionResultHolder.success(player.getItemInHand(interactionHand))
+      else
+        InteractionResultHolder.fail(player.getItemInHand(interactionHand))
+    }
 
     val item = player.getItemInHand(interactionHand)
-    SpellbookHelper.castFromItem(item, player)
-
-    return InteractionResultHolder.fail(player.getItemInHand(interactionHand))
+    return if(SpellbookHelper.castFromItem(item, player))
+        InteractionResultHolder.success(player.getItemInHand(interactionHand))
+      else
+        InteractionResultHolder.fail(player.getItemInHand(interactionHand))
   }
 
   override fun getName(itemStack: ItemStack): Component {

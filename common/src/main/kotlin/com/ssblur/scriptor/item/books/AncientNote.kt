@@ -33,7 +33,10 @@ class AncientNote(properties: Properties, var tier: Int): Item(properties) {
 
     if (!level.isClientSide) {
       player.sendSystemMessage(Component.translatable("extra.scriptor.note_use"))
-      if(!player.isCreative) player.cooldowns.addCooldown(this, 20)
+      if(!player.isCreative) {
+        player.cooldowns.addCooldown(this, 20)
+        player.getItemInHand(interactionHand).shrink(1)
+      }
 
       player.awardNote(Notes.getRandomNote(tier, player))
 
