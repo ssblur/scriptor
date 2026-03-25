@@ -19,7 +19,7 @@ object FakeCastHelper {
     Spell(Subjects.TOUCH, PartialSpell(Actions.COLOR, ColorDescriptors.RED))
   }
   val EVOKER_FANGS: Spell by lazy {
-    Spell(Subjects.HITSCAN, PartialSpell(null))
+    Spell(Subjects.HITSCAN, PartialSpell(Actions.EVOKER_FANGS, PowerDescriptors.STRONG))
   }
   val EVOKER_SUMMON: Spell by lazy {
     Spell(Subjects.SELF, PartialSpell(null))

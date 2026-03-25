@@ -37,6 +37,7 @@ object Actions {
     ClearWeatherAction()
   )
   val RAIN = register("rain", RainAction())
+  val EVOKER_FANGS = register("fangs", EvokerFangsAction())
 
   val BOUND_SWORD = register("bound_sword", BoundSwordAction())
   val BOUND_AXE = register(
