@@ -22,6 +22,7 @@ class Dictionary(properties: Properties) : Item(properties) {
     super.appendHoverText(itemStack, level, list, tooltipFlag)
 
     list.add(Component.translatable("lore.scriptor.dictionary").withStyle(ChatFormatting.GRAY))
+    list.add(Component.translatable("lore.scriptor.dictionary_2").withStyle(ChatFormatting.GRAY))
   }
 
   override fun use(

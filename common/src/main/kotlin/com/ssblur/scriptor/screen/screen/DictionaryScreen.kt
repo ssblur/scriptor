@@ -5,8 +5,11 @@ import com.ssblur.scriptor.screen.menu.DictionaryMenu
 import com.ssblur.unfocused.screen.UnfocusedScreen
 import com.ssblur.unfocused.screen.renderable.BlackBox
 import com.ssblur.unfocused.screen.renderable.SinglePageBackground
+import com.ssblur.unfocused.screen.widget.ButtonWidget
 import com.ssblur.unfocused.screen.widget.MarkdownWidget
+import com.ssblur.unfocused.screen.widget.PlainTextWidget
 import com.ssblur.unfocused.screen.widget.TextEntryWidget
+import net.minecraft.ChatFormatting
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
@@ -17,6 +20,7 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
     MAIN,
     ENTRIES,
     OBSERVED_SPELLS,
+    GUIDE,
   }
   var subscreen = SUBSCREENS.MAIN
   var searchTerm = ""
@@ -29,24 +33,71 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
 
     when(subscreen) {
       SUBSCREENS.MAIN -> {
-        subscreen = SUBSCREENS.ENTRIES
+        var wy = y + 20
+        add(PlainTextWidget(
+          Component.translatable("extra.scriptor.scriptionary_title").withStyle(ChatFormatting.BOLD),
+          x + 20,
+          wy,
+          225,
+          12
+        ))
+
+        wy += 12
+        add(PlainTextWidget(
+          Component.translatable("extra.scriptor.scriptionary_version").withStyle(ChatFormatting.ITALIC),
+          x + 20,
+          wy,
+          225,
+          12
+        ))
+
+        wy += 12
+        add(PlainTextWidget(
+          Component.translatable("extra.scriptor.scriptionary_blurb").withStyle(ChatFormatting.ITALIC),
+          x + 20,
+          wy,
+          225,
+          48
+        ))
+
+        wy += 64
+        add(
+          ButtonWidget(x + 20, wy, 225, 24, Component.translatable("extra.scriptor.entries")) {
+            subscreen = SUBSCREENS.ENTRIES
+            rebuildWidgets()
+          }
+        )
+
+        wy += 28
+        add(
+          ButtonWidget(x + 20, wy, 225, 24, Component.translatable("extra.scriptor.guide")) {
+            subscreen = SUBSCREENS.GUIDE
+            rebuildWidgets()
+          }
+        )
+
+        wy += 28
+        add(
+          ButtonWidget(x + 20, wy, 225, 24, Component.translatable("extra.scriptor.observed_spells")) {
+            subscreen = SUBSCREENS.OBSERVED_SPELLS
+            rebuildWidgets()
+          }
+        )
       }
       SUBSCREENS.ENTRIES -> {
-        add(BlackBox(x + 20, y + 20, 225, 12)) // TODO replace with actual search box bg
+        add(BlackBox(x + 20, y + 20, 225, 12))
         val contents = add(MarkdownWidget(
           x + 20,
           y + 34,
           225,
-          152,
+          128,
           entryMarkdown(),
           false,
           commandsAllowed = false
         ))
         contents.setColor(0, 0, 0)
 
-        val entry = addRenderableWidget(
-          TextEntryWidget(x + 22, y + 22, 221, 12, true)
-        )
+        val entry = add(TextEntryWidget(x + 22, y + 22, 221, 12, true))
         entry.color = 0xffffffffu
         entry.cursorColor = 0xffddddddu
         entry.text = searchTerm
@@ -55,9 +106,33 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
           contents.markdownText = entryMarkdown()
           contents.scroll = 0.0
         }
+
+        add(
+          ButtonWidget(x + 20, y + 170, 225, 24, Component.translatable("extra.scriptor.back")) {
+            subscreen = SUBSCREENS.MAIN
+            rebuildWidgets()
+          }
+        )
       }
       SUBSCREENS.OBSERVED_SPELLS -> {
+        add(PlainTextWidget(Component.translatable("extra.scriptor.wip"), x + 20, y + 20, 225, 12))
 
+        add(
+          ButtonWidget(x + 20, y + 170, 225, 24, Component.translatable("extra.scriptor.back")) {
+            subscreen = SUBSCREENS.MAIN
+            rebuildWidgets()
+          }
+        )
+      }
+      SUBSCREENS.GUIDE -> {
+        add(PlainTextWidget(Component.translatable("extra.scriptor.wip"), x + 20, y + 20, 225, 12))
+
+        add(
+          ButtonWidget(x + 20, y + 170, 225, 24, Component.translatable("extra.scriptor.back")) {
+            subscreen = SUBSCREENS.MAIN
+            rebuildWidgets()
+          }
+        )
       }
     }
   }
