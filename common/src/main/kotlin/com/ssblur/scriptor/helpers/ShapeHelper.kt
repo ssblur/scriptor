@@ -29,10 +29,5 @@ object ShapeHelper {
     }
   }
 
-  fun invertedSpiral() = sequence {
-    val spiral = spiral().iterator()
-    while(true) {
-      yield(spiral.next().let { Vector2i(-it.x, -it.y) })
-    }
-  }
+  fun invertedSpiral() = sequence { spiral().forEach { yield(Vector2i(-it.x, -it.y)) } }
 }

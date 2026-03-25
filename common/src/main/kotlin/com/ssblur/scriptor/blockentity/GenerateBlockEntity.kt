@@ -28,7 +28,6 @@ class GenerateBlockEntity(blockPos: BlockPos, blockState: BlockState):
       var first = true
       for (word in words) {
         val n = spiral.next().let { pos.offset(it.x, 0, it.y) }
-        println(n)
         engrave(level, n, word, first)
         first = false
       }
