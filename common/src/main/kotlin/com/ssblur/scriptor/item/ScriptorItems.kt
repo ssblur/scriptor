@@ -72,6 +72,9 @@ object ScriptorItems {
   val SCRAP_TIER2 = registerItem("scrap_tier2") { AncientScrap(Item.Properties(), 2) }
   val SCRAP_TIER3 = registerItem("scrap_tier3") { AncientScrap(Item.Properties(), 3) }
 
+  val NOTE_TIER1 = registerItem("note_tier1") { AncientNote(Item.Properties(), 1) }
+  val NOTE_TIER2 = registerItem("note_tier2") { AncientNote(Item.Properties(), 2) }
+
   val IDENTIFY_SCROLL =
     registerItem("identify_scroll") { IdentifyScroll(Item.Properties()) }.tab(ScriptorTabs.SCRIPTOR_TAB)
 
