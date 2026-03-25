@@ -5,6 +5,7 @@ import com.ssblur.scriptor.advancement.ScriptorAdvancements.COMMUNITY
 import com.ssblur.scriptor.config.ScriptorConfig
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData.Companion.computeIfAbsent
+import com.ssblur.scriptor.data.saved_data.PlayerScriptionarySavedData
 import com.ssblur.scriptor.data.saved_data.PlayerSpellsSavedData.Companion.computeIfAbsent
 import com.ssblur.scriptor.extension.EntityCastCooldownExtension.castCooldown
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable
@@ -44,6 +45,22 @@ object ScriptorEvents {
       computeIfAbsent(player)
       for (item in cache)
         color(ScriptorNetworkS2C.Color(item.b!!, item.a!!, item.c[0], item.c[1], item.c[2]), listOf(player))
+
+      PlayerScriptionarySavedData.computeIfAbsent(player)?.let {
+        it.unlocks.forEach {
+          ScriptorNetworkS2C.scriptionaryData(
+            ScriptorNetworkS2C.ScriptionaryData(1, it, null),
+            listOf(player)
+          )
+        }
+
+        it.observations.forEach {
+          ScriptorNetworkS2C.scriptionaryData(
+            ScriptorNetworkS2C.ScriptionaryData(3, it.first, it.second),
+            listOf(player)
+          )
+        }
+      }
     }
 
 

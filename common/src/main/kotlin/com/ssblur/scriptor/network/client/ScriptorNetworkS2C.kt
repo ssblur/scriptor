@@ -9,6 +9,7 @@ import com.ssblur.scriptor.blockentity.PhasedBlockBlockEntity
 import com.ssblur.scriptor.color.CustomColors.putColor
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.extension.EntityCastCooldownExtension.castCooldown
+import com.ssblur.scriptor.helpers.ScriptionaryHelper
 import com.ssblur.scriptor.network.server.TraceNetwork.Payload
 import com.ssblur.scriptor.network.server.TraceNetwork.TYPE
 import com.ssblur.scriptor.network.server.TraceNetwork.returnTrace
@@ -57,7 +58,6 @@ object ScriptorNetworkS2C {
     }
 
   data class ExtendedTrace(val uuid: UUID, val collideWithWater: Boolean, val scale: Double = 20.0)
-
   fun extendedTraceCallback(payload: ExtendedTrace) {
     val player: Player = Minecraft.getInstance().player!!
     val level = player.level()
@@ -101,11 +101,9 @@ object ScriptorNetworkS2C {
     else
       returnTrace(Payload(payload.uuid, TYPE.MISS, blockHitResult, 0, null))
   }
-
   val extendedTrace = NetworkManager.registerS2C(location("client_get_hitscan_data"), ExtendedTrace::class, ::extendedTraceCallback)
 
   data class Trace(val uuid: UUID, val collideWithWater: Boolean)
-
   val trace = NetworkManager.registerS2C(location("client_get_touch_data"), Trace::class) { payload ->
     if(!payload.collideWithWater) {
       val hit = Minecraft.getInstance().hitResult
@@ -134,7 +132,6 @@ object ScriptorNetworkS2C {
   }
 
   data class Identify(val components: List<String>, val slot: Int)
-
   val identify = NetworkManager.registerS2C(location("client_cursor_return_scrollc"), Identify::class) { payload ->
     Minecraft.getInstance().player!!.containerMenu.getSlot(payload.slot).item.set(
       ScriptorDataComponents.IDENTIFIED,
@@ -161,6 +158,26 @@ object ScriptorNetworkS2C {
   data class Cooldown(val cooldown: Long)
   val cooldown = NetworkManager.registerS2C(location("client_set_cooldown"), Cooldown::class) { payload ->
     Minecraft.getInstance().player?.castCooldown = payload.cooldown
+  }
+
+  data class ScriptionaryData(val type: Int, val string: String, val component: String?)
+  val scriptionaryData = NetworkManager.registerS2C(
+    location("client_sync_scriptionary"),
+    ScriptionaryData::class
+  ) { (type, string, component) ->
+    when(type) {
+      0 -> {
+        ScriptionaryHelper.PLAYER_NOTES.clear()
+        ScriptionaryHelper.PLAYER_OBSERVATIONS.clear()
+      }
+      1 -> {
+        ScriptionaryHelper.PLAYER_NOTES.add(string)
+      }
+      2 -> {
+        ScriptionaryHelper.PLAYER_OBSERVATIONS.add(Pair(string, component!!))
+      }
+      else -> {}
+    }
   }
 
   fun register() {

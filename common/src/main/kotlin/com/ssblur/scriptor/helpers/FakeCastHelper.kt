@@ -53,15 +53,15 @@ object FakeCastHelper {
         entity,
         AABB.ofSize(entity.position(), range, range, range)
       ).forEach {
+        val name = entity.name.copy().withStyle(ChatFormatting.LIGHT_PURPLE)
         it.sendSystemMessage(
           Component.literal("<")
-            .append(entity.name.copy().withStyle(ChatFormatting.LIGHT_PURPLE))
+            .append(name)
             .append("> ")
             .append(sentence)
         )
-        if(spell.subject != null
-          && spell.spells.all { s -> s.action != null && s.descriptors.count { d -> d == null } == 0 }) {
-          ScriptionaryHelper.recordSpell(it, spell)
+        if(spell.words().all { w -> w != null }) {
+          ScriptionaryHelper.recordSpell(it, spell, name.string)
         }
       }
     }

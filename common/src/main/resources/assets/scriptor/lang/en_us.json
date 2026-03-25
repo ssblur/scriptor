@@ -270,6 +270,7 @@
   "extra.scriptor.scriptionary_blurb": "A Nominomist's best friend.\n\n(Place in a Writing Table to edit entries.)",
   "extra.scriptor.record_scriptionary": "You write down your observations in the Scriptionary.",
   "extra.scriptor.record_no_scriptionary": "You try to remember your observations. You should craft a Scriptionary to write them down.",
+  "extra.scriptor.empty": "No observations have been written down.",
   "lore.scriptor.ingredient": "Crafting Ingredient",
   "lore.scriptor.dictionary": "Used to record discovered words",
   "lore.scriptor.dictionary_2": "(Use to open)",

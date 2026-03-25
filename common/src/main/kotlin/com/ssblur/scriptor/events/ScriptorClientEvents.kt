@@ -2,8 +2,10 @@ package com.ssblur.scriptor.events
 
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.helpers.ParticleQueue
+import com.ssblur.scriptor.helpers.ScriptionaryHelper
 import com.ssblur.scriptor.item.books.BookOfBooks
 import com.ssblur.scriptor.network.server.ScriptorNetworkC2S
+import com.ssblur.unfocused.event.client.ClientDisconnectEvent
 import com.ssblur.unfocused.event.client.ClientLevelTickEvent
 import com.ssblur.unfocused.event.client.ClientLoreEvent
 import com.ssblur.unfocused.event.client.MouseScrollEvent
@@ -48,6 +50,11 @@ object ScriptorClientEvents {
         lore.add(Component.translatable("lore.scriptor.inscribed"))
         lore.add(Component.translatable("lore.scriptor.inscribed_2", it))
       }
+    }
+
+    ClientDisconnectEvent.register {
+      ScriptionaryHelper.PLAYER_NOTES.clear()
+      ScriptionaryHelper.PLAYER_OBSERVATIONS.clear()
     }
 
     ScriptorCooldownHud.init()

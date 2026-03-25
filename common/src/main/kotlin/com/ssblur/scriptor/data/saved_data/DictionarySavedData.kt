@@ -18,6 +18,7 @@ import com.ssblur.scriptor.registry.words.WordRegistry.descriptorRegistry
 import com.ssblur.scriptor.registry.words.WordRegistry.subjectRegistry
 import com.ssblur.scriptor.word.PartialSpell
 import com.ssblur.scriptor.word.Spell
+import com.ssblur.scriptor.word.action.WriteAction
 import net.minecraft.ChatFormatting
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
@@ -117,7 +118,7 @@ class DictionarySavedData: SavedData {
 
   constructor() {
     val basicStructure = arrayOf(WORD.SUBJECT, WORD.ACTION, WORD.DESCRIPTOR)
-    val structure = Arrays.asList(*basicStructure)
+    val structure = listOf(*basicStructure)
     if (!COMMUNITY_MODE) Collections.shuffle(structure)
 
     spellStructure = ArrayList()
@@ -327,6 +328,7 @@ class DictionarySavedData: SavedData {
    */
   fun generate(spell: Spell): Component {
     assert(spell.spells.isNotEmpty())
+    val spellData = spell.spellData.toMutableList()
     var descriptorBuilder = Component.empty()
     for (descriptor in spell.spells[0].deduplicatedDescriptors()) {
       descriptorBuilder.append(" ")
@@ -336,9 +338,14 @@ class DictionarySavedData: SavedData {
     val builder = Component.empty()
     for (w in spellStructure) {
       when (w) {
-        WORD.ACTION -> builder.append(" ").append(
-          getWord(spell.spells[0].action)?.let { Component.literal(it) } ?: getFakeWord()
-        )
+        WORD.ACTION -> {
+          builder.append(" ").append(
+            getWord(spell.spells[0].action)?.let { Component.literal(it) } ?: getFakeWord()
+          )
+          if(spell.spells[0].action is WriteAction) {
+            builder.append(" ").append(spellData.removeFirst())
+          }
+        }
         WORD.SUBJECT -> builder.append(" ").append(
           getWord(spell.subject)?.let { Component.literal(it) } ?: getFakeWord()
         )
@@ -355,9 +362,14 @@ class DictionarySavedData: SavedData {
       }
 
       for (w in spellStructure) {
-        if (w == WORD.ACTION) builder.append(" ").append(
-          getWord(partialSpell.action)?.let { Component.literal(it) } ?: getFakeWord()
-        )
+        if (w == WORD.ACTION) {
+          builder.append(" ").append(
+            getWord(partialSpell.action)?.let { Component.literal(it) } ?: getFakeWord()
+          )
+          if(partialSpell.action is WriteAction) {
+            builder.append(" ").append(spellData.removeFirst())
+          }
+        }
         else if (w == WORD.DESCRIPTOR) builder.append(descriptorBuilder)
       }
     }

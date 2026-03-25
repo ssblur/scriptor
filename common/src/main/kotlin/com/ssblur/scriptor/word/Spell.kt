@@ -200,7 +200,7 @@ class Spell(val subject: Subject?, vararg val spells: PartialSpell, val spellDat
     return sum * scalar + discount
   }
 
-  private fun words(): Array<Word?> {
+  fun words(): Array<Word?> {
     var length = 1
     var index = 1
     for (spell in spells) length += spell.deduplicatedDescriptors().size + 1

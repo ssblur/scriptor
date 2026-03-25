@@ -1,6 +1,7 @@
 package com.ssblur.scriptor.screen.screen
 
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
+import com.ssblur.scriptor.helpers.ScriptionaryHelper
 import com.ssblur.scriptor.screen.menu.DictionaryMenu
 import com.ssblur.unfocused.screen.UnfocusedScreen
 import com.ssblur.unfocused.screen.renderable.BlackBox
@@ -115,7 +116,15 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
         )
       }
       SUBSCREENS.OBSERVED_SPELLS -> {
-        add(PlainTextWidget(Component.translatable("extra.scriptor.wip"), x + 20, y + 20, 225, 12))
+        val contents = add(PlainTextWidget(
+          observationsMarkdown(),
+          x + 20,
+          y + 20,
+          225,
+          138,
+          true,
+        ))
+        contents.color = 0xff000000u
 
         add(
           ButtonWidget(x + 20, y + 170, 225, 24, Component.translatable("extra.scriptor.back")) {
@@ -150,4 +159,16 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
     }.joinToString(separator = "\n\n") {
       "**${it[0]}**: ${it[1]}"
     }.trimEnd()
+
+  fun observationsMarkdown(): Component = ScriptionaryHelper.PLAYER_OBSERVATIONS.map {
+    Component.literal("<").append(it.second).append("> ").append(it.first).append("\n\n")
+  }.let {
+    val component = Component.empty()
+    it.forEach { c -> component.append(c) }
+    if(component.string.trim().isEmpty())
+      Component.translatable("extra.scriptor.empty")
+        .withStyle(ChatFormatting.GRAY)
+        .withStyle(ChatFormatting.ITALIC)
+    else component
+  }
 }
