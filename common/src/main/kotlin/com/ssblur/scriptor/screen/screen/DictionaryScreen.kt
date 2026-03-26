@@ -31,16 +31,18 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
   var bookMemory = abstractContainerMenu.dictionary.hashCode()
 
   override fun init() {
-    val x = (this.width - 265) / 2
-    val y = (this.height - 220) / 2
-    add(SinglePageBackground(x, y, 265, 220))
+    imageWidth = 265
+    imageHeight = 220
+    leftPos = (this.width - 265) / 2
+    topPos = (this.height - 220) / 2
+    add(SinglePageBackground(leftPos, topPos, imageWidth, imageHeight))
 
     when(subscreen) {
       SUBSCREENS.MAIN -> {
-        var wy = y + 20
+        var wy = topPos + 20
         add(PlainTextWidget(
           Component.translatable("extra.scriptor.scriptionary_title").withStyle(ChatFormatting.BOLD),
-          x + 20,
+          leftPos + 20,
           wy,
           225,
           12
@@ -49,7 +51,7 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
         wy += 12
         add(PlainTextWidget(
           Component.translatable("extra.scriptor.scriptionary_version").withStyle(ChatFormatting.ITALIC),
-          x + 20,
+          leftPos + 20,
           wy,
           225,
           12
@@ -58,7 +60,7 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
         wy += 12
         add(PlainTextWidget(
           Component.translatable("extra.scriptor.scriptionary_blurb").withStyle(ChatFormatting.ITALIC),
-          x + 20,
+          leftPos + 20,
           wy,
           225,
           48
@@ -66,7 +68,7 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
 
         wy += 64
         add(
-          ButtonWidget(x + 20, wy, 225, 24, Component.translatable("extra.scriptor.entries")) {
+          ButtonWidget(leftPos + 20, wy, 225, 24, Component.translatable("extra.scriptor.entries")) {
             subscreen = SUBSCREENS.ENTRIES
             rebuildWidgets()
           }
@@ -74,7 +76,7 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
 
         wy += 28
         add(
-          ButtonWidget(x + 20, wy, 225, 24, Component.translatable("extra.scriptor.guide")) {
+          ButtonWidget(leftPos + 20, wy, 225, 24, Component.translatable("extra.scriptor.guide")) {
             subscreen = SUBSCREENS.GUIDE
             rebuildWidgets()
           }
@@ -82,17 +84,17 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
 
         wy += 28
         add(
-          ButtonWidget(x + 20, wy, 225, 24, Component.translatable("extra.scriptor.observed_spells")) {
+          ButtonWidget(leftPos + 20, wy, 225, 24, Component.translatable("extra.scriptor.observed_spells")) {
             subscreen = SUBSCREENS.OBSERVED_SPELLS
             rebuildWidgets()
           }
         )
       }
       SUBSCREENS.ENTRIES -> {
-        add(BlackBox(x + 20, y + 20, 225, 12))
+        add(BlackBox(leftPos + 20, topPos + 20, 225, 12))
         val contents = add(MarkdownWidget(
-          x + 20,
-          y + 34,
+          leftPos + 20,
+          topPos + 34,
           225,
           128,
           entryMarkdown(),
@@ -101,7 +103,7 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
         ))
         contents.setColor(0, 0, 0)
 
-        val entry = add(TextEntryWidget(x + 22, y + 22, 221, 12, true))
+        val entry = add(TextEntryWidget(leftPos + 22, topPos + 22, 221, 12, true))
         entry.color = 0xffffffffu
         entry.cursorColor = 0xffddddddu
         entry.text = searchTerm
@@ -112,7 +114,7 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
         }
 
         add(
-          ButtonWidget(x + 20, y + 170, 225, 24, Component.translatable("extra.scriptor.back")) {
+          ButtonWidget(leftPos + 20, topPos + 170, 225, 24, Component.translatable("extra.scriptor.back")) {
             subscreen = SUBSCREENS.MAIN
             rebuildWidgets()
           }
@@ -121,8 +123,8 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
       SUBSCREENS.OBSERVED_SPELLS -> {
         val contents = add(PlainTextWidget(
           observationsComponent(),
-          x + 20,
-          y + 20,
+          leftPos + 20,
+          topPos + 20,
           225,
           138,
           true,
@@ -130,7 +132,7 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
         contents.color = 0xff000000u
 
         add(
-          ButtonWidget(x + 20, y + 170, 225, 24, Component.translatable("extra.scriptor.back")) {
+          ButtonWidget(leftPos + 20, topPos + 170, 225, 24, Component.translatable("extra.scriptor.back")) {
             subscreen = SUBSCREENS.MAIN
             rebuildWidgets()
           }
@@ -138,8 +140,8 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
       }
       SUBSCREENS.GUIDE -> {
         val contents = add(MarkdownWidget(
-          x + 20,
-          y + 20,
+          leftPos + 20,
+          topPos + 20,
           225,
           142,
           entriesMarkdown(),
@@ -148,7 +150,7 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
         ))
         contents.setColor(0, 0, 0)
         add(
-          ButtonWidget(x + 20, y + 170, 225, 24, Component.translatable("extra.scriptor.back")) {
+          ButtonWidget(leftPos + 20, topPos + 170, 225, 24, Component.translatable("extra.scriptor.back")) {
             subscreen = SUBSCREENS.MAIN
             rebuildWidgets()
           }

@@ -1,7 +1,6 @@
 package com.ssblur.scriptor.integration.emi;
 
 import com.ssblur.scriptor.integration.recipes.RecipeIntegration;
-import com.ssblur.scriptor.screen.screen.DictionaryScreen;
 import dev.emi.emi.api.EmiEntrypoint;
 import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
@@ -9,7 +8,6 @@ import dev.emi.emi.api.recipe.EmiCraftingRecipe;
 import dev.emi.emi.api.recipe.EmiInfoRecipe;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
-import dev.emi.emi.api.widget.Bounds;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
 
@@ -33,11 +31,5 @@ public class ScriptorEMIIntegration implements EmiPlugin {
         id
       )
     )));
-
-    registry.addExclusionArea(DictionaryScreen.class, (screen, consumer) -> {
-        var x = (screen.width - 265) / 2;
-        var y = (screen.height - 220) / 2;
-        consumer.accept(new Bounds(x, y, 265, 220));
-    });
   }
 }

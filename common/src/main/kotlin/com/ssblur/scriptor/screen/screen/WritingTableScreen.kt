@@ -245,12 +245,14 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
         textField.editable = false
         return true
       }
-    if(hasWritableBook())
-      lastBook[DataComponents.WRITABLE_BOOK_CONTENT]?.let { text ->
-        textField.text = LimitedBookSerializer.decodeText(text)
-        textField.editable = true
-        return true
+    if(hasWritableBook()) {
+      when(val text = lastBook[DataComponents.WRITABLE_BOOK_CONTENT]) {
+        null -> textField.text = ""
+        else -> textField.text = LimitedBookSerializer.decodeText(text)
       }
+      textField.editable = true
+      return true
+    }
     textField.text = ""
     textField.editable = false
     return false
