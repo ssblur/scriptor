@@ -106,6 +106,8 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
         val entry = add(TextEntryWidget(leftPos + 22, topPos + 22, 221, 12, true))
         entry.color = 0xffffffffu
         entry.cursorColor = 0xffddddddu
+        entry.placeholderColor = 0xffaaaaaau
+        entry.placeholder = "Search..."
         entry.text = searchTerm
         entry.onTextUpdate = { element, text ->
           searchTerm = text

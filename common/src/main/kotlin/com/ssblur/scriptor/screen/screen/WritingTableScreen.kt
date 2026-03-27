@@ -46,6 +46,8 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
     add(TextEntryWidget(leftPos + 178, topPos + 11, 72, 12, true)).let {
       it.canScroll = false
       it.color = 0xffffffffu
+      it.placeholder = "Search..."
+      it.placeholderColor = 0xffaaaaaau
       it.cursorColor = 0xffddddddu
       it.onTextUpdate = { _, text ->
         searchText = text
