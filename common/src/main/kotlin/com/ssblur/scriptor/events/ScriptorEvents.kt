@@ -8,6 +8,7 @@ import com.ssblur.scriptor.data.saved_data.DictionarySavedData.Companion.compute
 import com.ssblur.scriptor.data.saved_data.PlayerScriptionarySavedData
 import com.ssblur.scriptor.data.saved_data.PlayerSpellsSavedData.Companion.computeIfAbsent
 import com.ssblur.scriptor.extension.EntityCastCooldownExtension.castCooldown
+import com.ssblur.scriptor.helpers.LimitedBookSerializer
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable
 import com.ssblur.scriptor.helpers.targetable.Targetable
 import com.ssblur.scriptor.network.client.ScriptorNetworkS2C
@@ -20,6 +21,7 @@ import com.ssblur.unfocused.event.common.EntityDamagedEvent
 import com.ssblur.unfocused.event.common.MobSpawnEvent
 import com.ssblur.unfocused.event.common.PlayerJoinedEvent
 import com.ssblur.unfocused.event.common.ServerStartEvent
+import net.minecraft.core.component.DataComponents
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.EquipmentSlot
 import net.minecraft.world.entity.Mob
@@ -76,22 +78,23 @@ object ScriptorEvents {
         }
 
         EquipmentSlot.entries.forEach { slot ->
-          entity.getItemBySlot(slot)[ScriptorDataComponents.SPELL]?.let { spell ->
-            entity.level().let {
-              if(it is ServerLevel) {
-                val parsed = computeIfAbsent(it).parse(spell)
-                if(parsed?.subject == Subjects.ON_DAMAGED && entity.castCooldown <= 0) {
-                  entity.castCooldown = (parsed.cost() * 20.0 * 4.0).roundToLong()
-                  parsed.castOnTargets(
-                    EntityTargetable(entity),
-                    listOf(
-                      if(source.entity != null)
-                        EntityTargetable(source.entity!!)
-                      else
-                        Targetable(it, source.sourcePosition ?: entity.position())
-                    )
+          val item = entity.getItemBySlot(slot)
+          val spell = item[ScriptorDataComponents.SPELL]
+            ?: item[DataComponents.WRITTEN_BOOK_CONTENT]?.let { LimitedBookSerializer.decodeText(it) }
+          entity.level().let {
+            if(it is ServerLevel) {
+              val parsed = computeIfAbsent(it).parse(spell)
+              if(parsed?.subject == Subjects.ON_DAMAGED && entity.castCooldown <= 0) {
+                entity.castCooldown = (parsed.cost() * 20.0 * 4.0).roundToLong()
+                parsed.castOnTargets(
+                  EntityTargetable(entity),
+                  listOf(
+                    if(source.entity != null)
+                      EntityTargetable(source.entity!!)
+                    else
+                      Targetable(it, source.sourcePosition ?: entity.position())
                   )
-                }
+                )
               }
             }
 
