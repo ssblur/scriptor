@@ -15,7 +15,7 @@ object ItemRightClicked {
         item,
         entity,
         maxCost = ScriptorConfig.ITEM_MAX_COST(),
-        costMultiplier = ScriptorConfig.ITEM_COOLDOWN_MULTIPLIER().toDouble().div(100.0).toInt()
+        costMultiplier = ScriptorConfig.ITEM_COOLDOWN_MULTIPLIER()
       )
     }
     return false
