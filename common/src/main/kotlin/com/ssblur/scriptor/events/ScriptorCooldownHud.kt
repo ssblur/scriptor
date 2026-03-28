@@ -16,7 +16,7 @@ object ScriptorCooldownHud {
   val BACKGROUND = ScriptorMod.location("hud/cooldown_bar_background")
   val FOREGROUND = ScriptorMod.location("hud/cooldown_bar_progress")
   const val EMPTY_TICKS = 30.0
-  const val FADEOUT_START = 10.0
+  const val FADEOUT_START = 0.0
 
   fun render(guiGraphics: GuiGraphics, delta: DeltaTracker) {
     val player = Minecraft.getInstance().player ?: return
@@ -33,7 +33,8 @@ object ScriptorCooldownHud {
     if(!Minecraft.getInstance().isPaused) fadeout -= delta.gameTimeDeltaTicks
 
     val barPortion = if(fullBar > 0.0) player.castCooldown / fullBar else 0.0
-    val barTransparency = (fadeout / FADEOUT_START).coerceIn(0.0..1.0)
+    val barTransparency = 1.0f
+//    val barTransparency = (fadeout / FADEOUT_START).coerceIn(0.0..1.0)
     val y = guiGraphics.guiHeight() - 29
     val w = 182
     val x = (guiGraphics.guiWidth() - w) / 2
