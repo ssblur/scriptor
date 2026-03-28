@@ -36,6 +36,9 @@
     "scriptor:artifact_1",
     "scriptor:artifact_2",
     "scriptor:artifact_3",
-    "scriptor:artifact_4"
+    "scriptor:artifact_4",
+    "scriptor:scrap_tier1",
+    "scriptor:scrap_tier2",
+    "scriptor:scrap_tier3"
   ]
 }
