@@ -51,6 +51,7 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
       it.cursorColor = 0xffddddddu
       it.onTextUpdate = { _, text ->
         searchText = text
+        entriesOffset = 0
       }
     }
 
