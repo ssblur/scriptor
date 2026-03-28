@@ -3,12 +3,15 @@ package com.ssblur.scriptor.events
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.helpers.ParticleQueue
 import com.ssblur.scriptor.helpers.ScriptionaryHelper
+import com.ssblur.scriptor.item.ScriptorTags
 import com.ssblur.scriptor.item.books.BookOfBooks
 import com.ssblur.scriptor.network.server.ScriptorNetworkC2S
 import com.ssblur.unfocused.event.client.ClientDisconnectEvent
 import com.ssblur.unfocused.event.client.ClientLevelTickEvent
 import com.ssblur.unfocused.event.client.ClientLoreEvent
 import com.ssblur.unfocused.event.client.MouseScrollEvent
+import com.ssblur.unfocused.extension.ItemStackExtension.matches
+import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 
@@ -32,6 +35,7 @@ object ScriptorClientEvents {
       if (charges > 0) {
         if (charges <= 10)
           lore.add(
+            1,
             Component
               .translatable("enchantment.scriptor.charged")
               .append(" ")
@@ -39,6 +43,7 @@ object ScriptorClientEvents {
           )
         else
           lore.add(
+            1,
             Component
               .translatable("enchantment.scriptor.charged")
               .append(" ")
@@ -47,8 +52,12 @@ object ScriptorClientEvents {
       }
 
       stack[ScriptorDataComponents.SPELL]?.let {
-        lore.add(Component.translatable("lore.scriptor.inscribed"))
-        lore.add(Component.translatable("lore.scriptor.inscribed_2", it))
+        if(stack matches ScriptorTags.IGNORE_SPELL_COMPONENT) return@let
+
+        lore.add(1, Component.translatable("lore.scriptor.inscribed")
+          .withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY))
+        lore.add(2, Component.translatable("lore.scriptor.inscribed_2", it)
+          .withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY))
       }
     }
 
