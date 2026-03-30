@@ -3,7 +3,7 @@
   "placement": [
     {
       "type": "minecraft:rarity_filter",
-      "chance": 64
+      "chance": 1
     },
     {
       "type": "minecraft:heightmap",
@@ -11,7 +11,7 @@
     },
     {
       "type": "minecraft:random_offset",
-      "y_spread": -8,
+      "y_spread": 16,
       "xz_spread": 0
     }
   ]
