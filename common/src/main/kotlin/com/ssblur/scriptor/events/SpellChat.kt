@@ -25,8 +25,15 @@ object SpellChat {
       val component = it.message
       val sentence = component.string
       val level = player.level()
-      if (level is ServerLevel)
+      if (level is ServerLevel) {
         if (castFromChat(player, level, sentence)) return@register it.cancel()
+
+        player.sendSystemMessage(Component.literal("Sorry, that wasn't a spell. Check your ")
+          .append(Component.literal("spell").withStyle(ChatFormatting.LIGHT_PURPLE))
+          .append("ing.")
+        )
+        return@register it.cancel()
+      }
 
       if (level is ServerLevel && ScriptorConfig.PROXIMITY_CHAT()) {
         val distance = ScriptorConfig.PROXIMITY_RANGE()
