@@ -1,0 +1,26 @@
+{
+  "no_ammo_click": {
+    "subtitle": "subtitles.item.no_ammo_click.play",
+    "sounds": [
+      "scriptor:no_ammo_click"
+    ]
+  },
+  "gun_cap_pop": {
+    "subtitle": "subtitles.item.gun_cap_pop.play",
+    "sounds": [
+      "scriptor:gun_cap_pop"
+    ]
+  },
+  "gun_blast": {
+    "subtitle": "subtitles.item.gun_blast.play",
+    "sounds": [
+      "scriptor:gun_blast"
+    ]
+  },
+  "gun_reload": {
+    "subtitle": "subtitles.item.gun_reload.play",
+    "sounds": [
+      "scriptor:gun_reload"
+    ]
+  }
+}

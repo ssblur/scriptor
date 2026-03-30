@@ -8,6 +8,7 @@ import com.ssblur.scriptor.api.word.Subject
 import com.ssblur.scriptor.blockentity.PhasedBlockBlockEntity
 import com.ssblur.scriptor.color.CustomColors.putColor
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
+import com.ssblur.scriptor.network.server.ScriptorNetworkC2S
 import com.ssblur.scriptor.network.server.TraceNetwork.Payload
 import com.ssblur.scriptor.network.server.TraceNetwork.TYPE
 import com.ssblur.scriptor.network.server.TraceNetwork.returnTrace
@@ -19,6 +20,7 @@ import com.ssblur.scriptor.word.Spell
 import com.ssblur.scriptor.word.subject.InventorySubject
 import com.ssblur.unfocused.network.NetworkManager
 import net.minecraft.client.Minecraft
+import net.minecraft.world.InteractionHand
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.projectile.ProjectileUtil
@@ -155,6 +157,29 @@ object ScriptorNetworkS2C {
       FLAGS.COMMUNITY -> COMMUNITY_MODE = payload.value
       FLAGS.INVERT_DO_NOT_PHASE -> PhasedBlockBlockEntity.INVERT_DO_NOT_PHASE = payload.value
     }
+  }
+
+  val GUN_RANGE = 20.0
+  data class RequestGunTrace(val hand: InteractionHand?)
+  val requestGunTrace = NetworkManager.registerS2C(
+    location("client_gun_trace"),
+    RequestGunTrace::class
+  ) { (hand) ->
+    val player = Minecraft.getInstance().player
+    val level = player!!.level()
+    val pos = player.eyePosition
+    val angle = player.lookAngle.normalize().multiply(GUN_RANGE, GUN_RANGE, GUN_RANGE)
+    val dest = angle.add(pos)
+
+    val hitResult = ProjectileUtil.getEntityHitResult(
+      level,
+      player,
+      pos,
+      dest,
+      AABB.ofSize(pos.subtract(0.1, 0.1, 0.1), 0.2, 0.2, 0.2).expandTowards(angle).inflate(1.0)
+    ) { _ -> true }
+
+    ScriptorNetworkC2S.gunTrace(ScriptorNetworkC2S.GunTrace(hitResult?.entity?.id, hand))
   }
 
   fun register() {

@@ -28,6 +28,7 @@ import com.ssblur.unfocused.ModInitializer
 import com.ssblur.unfocused.command.CommandRegistration.registerCommand
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
+import net.minecraft.sounds.SoundEvent
 import org.apache.logging.log4j.LogManager
 
 @Suppress("unused")
@@ -37,6 +38,19 @@ object ScriptorMod: ModInitializer("scriptor") {
 
   // Please don't mess with this, I'm not adding anticheat but it's no fun );
   var COMMUNITY_MODE = false
+
+  val NO_AMMO_CLICK = registerSound("no_ammo_click") {
+    SoundEvent.createVariableRangeEvent(location("no_ammo_click"))
+  }
+  val GUN_CAP_POP = registerSound("gun_cap_pop") {
+    SoundEvent.createVariableRangeEvent(location("gun_cap_pop"))
+  }
+  val GUN_BLAST = registerSound("gun_blast") {
+    SoundEvent.createVariableRangeEvent(location("gun_blast"))
+  }
+  val GUN_RELOAD = registerSound("gun_reload") {
+    SoundEvent.createVariableRangeEvent(location("gun_reload"))
+  }
 
   fun registerCommands() {
     registerCommand { dispatcher, registry, selection ->
