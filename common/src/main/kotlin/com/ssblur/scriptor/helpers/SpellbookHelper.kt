@@ -88,7 +88,8 @@ object SpellbookHelper {
     return true
   }
 
-  fun addCooldown(player: Player, time: Int) {
+  fun addCooldown(player: Player, t: Int) {
+    val time = t / 20
     for (spellbook in SPELLBOOKS) player.cooldowns.addCooldown(spellbook, time)
     mana[player] = (mana[player] ?: player.random.nextInt(0, Int.MAX_VALUE).toLong()) - time.toLong()
     player.sendSystemMessage(Component.literal("That spell cost ")
