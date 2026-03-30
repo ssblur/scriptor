@@ -1,5 +1,6 @@
 {
   "item.scriptor.spellbook_binder": "Spellbook Binder",
+  "item.scriptor.boundium_chunk": "Chunk of Boundium",
   "item.scriptor.leather_binder": "Mundane Leather Binder",
   "item.scriptor.dictionary": "Scriptionary",
   "item.scriptor.spellbook": "Spellbook",
@@ -63,6 +64,7 @@
   "item.scriptor.spell_scroll": "Spell Scroll",
   "block.scriptor.casting_lectern": "Casting Lectern",
   "block.scriptor.writing_table": "Writing Desk",
+  "block.scriptor.boundium_ore": "Boundium Ore",
   "block.scriptor.white_magic_block": "Magic Block",
   "block.scriptor.light_gray_magic_block": "Magic Block",
   "block.scriptor.gray_magic_block": "Magic Block",

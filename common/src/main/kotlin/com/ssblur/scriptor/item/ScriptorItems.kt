@@ -113,6 +113,9 @@ object ScriptorItems {
   val BOUND_PICKAXE = registerItem("bound_pickaxe") {
     BoundTool(Tiers.STONE, BlockTags.MINEABLE_WITH_PICKAXE, Item.Properties().durability(Int.MAX_VALUE))
   }.tab(ScriptorTabs.SCRIPTOR_TAB)
+  val CHUNK = registerItem("boundium_chunk") {
+    Ingredient(Item.Properties(), "lore.scriptor.ingredient")
+  }
 
   fun register() {}
 }

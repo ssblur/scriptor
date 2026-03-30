@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour
 object ScriptorBlocks {
   val DO_NOT_PHASE: TagKey<Block> = ScriptorMod.registerBlockTag("do_not_phase")
 
+  val ORE = ScriptorMod.registerBlockWithItem("boundium_ore") { Block(BlockBehaviour.Properties.of()) }
   val RUNE = ScriptorMod.registerBlock("rune") { RuneBlock() }
   val LIGHT = ScriptorMod.registerBlock("light") { LightBlock() }
   val CHALK = ScriptorMod.registerBlock("chalk") { ChalkBlock() }

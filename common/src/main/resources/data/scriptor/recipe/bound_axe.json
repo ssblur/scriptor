@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "aa",
+    "sa",
+    "s "
+  ],
+  "key": {
+    "a": {
+      "item": "scriptor:boundium_chunk"
+    },
+    "s": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "id": "scriptor:bound_axe",
+    "count": 1
+  }
+}
