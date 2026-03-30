@@ -9,51 +9,23 @@
       {
         "weight": 1,
         "tokens": [
-          "b",
-          "c",
-          "d",
-          "e",
-          "f",
-          "g",
-          "h",
-          "j",
-          "k",
-          "l",
-          "m",
-          "n",
-          "p",
-          "r",
-          "s",
-          "t",
-          "v",
-          "w",
-          "x",
-          "z",
-          "st",
-          "th",
-          "ld",
-          "qu",
-          "pr",
-          "lk",
-          "mm",
-          "pp",
-          "ck",
-          "rd",
-          "pt"
+          "they",
+          "she",
+          "he",
+          "xe",
+          "fae",
+          "I"
         ]
       },
       {
         "weight": 1,
         "tokens": [
-          "a",
-          "e",
-          "i",
-          "o",
-          "u",
-          "ou",
-          "ao",
-          "io",
-          "ee"
+          "them",
+          "her",
+          "him",
+          "xir",
+          "faer",
+          "me"
         ]
       }
     ]
