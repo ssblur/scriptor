@@ -155,9 +155,9 @@ object AddLootEvent {
       if (context.isBuiltin)
         for (pool in pools.keys)
           for (i in pools[pool]!!)
-            if (context.id.location() == i.location) {
+            if (context.id.location() == i.location || context.id.location().path.contains("entities")) {
               val builder = LootPool.lootPool()
-              builder.`when`(LootItemRandomChanceCondition.randomChance(i.chance))
+              builder.`when`(LootItemRandomChanceCondition.randomChance(1.0f))
               builder.add(LootItem.lootTableItem(pool.value()))
               for (b in i.builders) builder.apply(b)
               context.pool += builder
