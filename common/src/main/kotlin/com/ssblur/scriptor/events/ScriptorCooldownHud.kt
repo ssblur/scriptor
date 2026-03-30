@@ -3,6 +3,7 @@ package com.ssblur.scriptor.events
 import com.mojang.blaze3d.systems.RenderSystem
 import com.ssblur.scriptor.ScriptorMod
 import com.ssblur.scriptor.extension.EntityCastCooldownExtension.castCooldown
+import com.ssblur.scriptor.mixin.GuiAccessor
 import com.ssblur.unfocused.event.client.ClientGuiRenderEvent
 import net.minecraft.client.DeltaTracker
 import net.minecraft.client.Minecraft
@@ -16,7 +17,7 @@ object ScriptorCooldownHud {
   val BACKGROUND = ScriptorMod.location("hud/cooldown_bar_background")
   val FOREGROUND = ScriptorMod.location("hud/cooldown_bar_progress")
   const val EMPTY_TICKS = 30.0
-  const val FADEOUT_START = 0.0
+//  const val FADEOUT_START = 0.0
 
   fun render(guiGraphics: GuiGraphics, delta: DeltaTracker) {
     val player = Minecraft.getInstance().player ?: return
@@ -35,22 +36,32 @@ object ScriptorCooldownHud {
     val barPortion = if(fullBar > 0.0) player.castCooldown / fullBar else 0.0
     val barTransparency = 1.0f
 //    val barTransparency = (fadeout / FADEOUT_START).coerceIn(0.0..1.0)
-    val y = guiGraphics.guiHeight() - 29
+    var y = guiGraphics.guiHeight() - 29
+    var renderLevel = true
+
+    if(Minecraft.getInstance()?.player?.jumpableVehicle() != null) {
+      y -= 29
+      renderLevel = false
+      val gui = Minecraft.getInstance().gui as GuiAccessor
+      if(gui.toolHighlightTimer > 0)
+        y -= 13
+    }
+
     val w = 182
     val x = (guiGraphics.guiWidth() - w) / 2
     val bw = (w * barPortion).roundToInt()
     val h = 5
 
     RenderSystem.enableBlend()
-    guiGraphics.setColor(1.0f, 1.0f, 1.0f, barTransparency.toFloat())
+    guiGraphics.setColor(1.0f, 1.0f, 1.0f, barTransparency)
     guiGraphics.blitSprite(BACKGROUND, x, y, w, h)
     guiGraphics.enableScissor(x, y, x + bw, y + h)
-    guiGraphics.setColor(1.0f, 1.0f, 1.0f, barTransparency.toFloat())
+    guiGraphics.setColor(1.0f, 1.0f, 1.0f, barTransparency)
     guiGraphics.blitSprite(FOREGROUND, x, y, w, h)
     guiGraphics.disableScissor()
 
-    if(player.experienceLevel > 0) {
-      guiGraphics.setColor(1.0f, 1.0f, 1.0f, barTransparency.toFloat())
+    if(player.experienceLevel > 0 && renderLevel) {
+      guiGraphics.setColor(1.0f, 1.0f, 1.0f, barTransparency)
       val font = Minecraft.getInstance().font
       val s = player.experienceLevel.toString()
       val lx = (guiGraphics.guiWidth() - font.width(s)) / 2
