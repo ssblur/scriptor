@@ -48,11 +48,18 @@ class AncientSpellbook(properties: Properties, var tier: Int): Item(properties) 
       if (resource.getSpell().spells.size > 1) ScriptorAdvancements.COMPLEX_SPELL.get().trigger(player as ServerPlayer)
 
       val spell = resource.getSpell()
-      val sentence = computeIfAbsent(server).generate(spell)
+      val text = computeIfAbsent(server).generate(spell)
+      val tokens = computeIfAbsent(server).parseComponents(text)!!
 
       val spellbook =
-        LimitedBookSerializer.createSpellbook(resource.author, resource.name, sentence, resource.item)
+        LimitedBookSerializer.createSpellbook(resource.author, resource.name, text, resource.item)
       spellbook[ScriptorDataComponents.INVENTORY_CAST] = SpellbookHelper.isInventoryCaster(spellbook, level)
+
+      var identified = mutableListOf<String>()
+      for (token in tokens) if (!identified.contains(token)) identified += token!!
+
+      spellbook.set(ScriptorDataComponents.IDENTIFIED, identified)
+
       if (!player.addItem(spellbook)) {
         val entity = ItemEntity(
           level,
