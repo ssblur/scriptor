@@ -7,6 +7,7 @@ import com.ssblur.scriptor.effect.EmpoweredStatusEffect
 import com.ssblur.scriptor.helpers.LimitedBookSerializer.decodeText
 import com.ssblur.scriptor.helpers.targetable.SpellbookTargetable
 import com.ssblur.scriptor.helpers.targetable.Targetable
+import net.minecraft.ChatFormatting
 import net.minecraft.core.component.DataComponents
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
@@ -16,10 +17,12 @@ import net.minecraft.sounds.SoundSource
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
+import java.util.*
 import kotlin.math.roundToInt
 
 object SpellbookHelper {
   var SPELLBOOKS: List<Item> = ArrayList()
+  var mana: WeakHashMap<Player, Long> = WeakHashMap()
 
   fun isInventoryCaster(
     itemStack: ItemStack,
@@ -87,5 +90,12 @@ object SpellbookHelper {
 
   fun addCooldown(player: Player, time: Int) {
     for (spellbook in SPELLBOOKS) player.cooldowns.addCooldown(spellbook, time)
+    mana[player] = (mana[player] ?: player.random.nextInt(0, Int.MAX_VALUE).toLong()) - time.toLong()
+    player.sendSystemMessage(Component.literal("That spell cost ")
+      .append(Component.literal("$time").withStyle(ChatFormatting.LIGHT_PURPLE))
+      .append(" mana, you have ")
+      .append(Component.literal(mana[player].toString()).withStyle(ChatFormatting.LIGHT_PURPLE))
+      .append(" left.")
+    )
   }
 }
