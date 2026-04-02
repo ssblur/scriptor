@@ -11,6 +11,7 @@
     "EvokerAttackSpellGoalMixin",
     "EvokerSummonSpellGoalMixin",
     "EvokerWololoSpellGoalMixin",
+    "GrindstoneMenuMixin",
     "GuiAccessor",
     "GuiMixin",
     "IllusionerBlindnessSpellGoalMixin",
