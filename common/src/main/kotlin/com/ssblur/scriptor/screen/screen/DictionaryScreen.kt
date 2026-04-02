@@ -17,6 +17,7 @@ import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.resources.language.I18n
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
+import java.io.FileNotFoundException
 
 class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Inventory, component: Component) :
   UnfocusedScreen<DictionaryMenu>(abstractContainerMenu, inventory, component) {
@@ -26,6 +27,7 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
     OBSERVED_SPELLS,
     GUIDE,
   }
+
   var subscreen = SUBSCREENS.MAIN
   var searchTerm = ""
   var bookMemory = abstractContainerMenu.dictionary.hashCode()
@@ -37,34 +39,40 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
     topPos = (this.height - 220) / 2
     add(SinglePageBackground(leftPos, topPos, imageWidth, imageHeight))
 
-    when(subscreen) {
+    when (subscreen) {
       SUBSCREENS.MAIN -> {
         var wy = topPos + 20
-        add(PlainTextWidget(
-          Component.translatable("extra.scriptor.scriptionary_title").withStyle(ChatFormatting.BOLD),
-          leftPos + 20,
-          wy,
-          225,
-          12
-        ))
+        add(
+          PlainTextWidget(
+            Component.translatable("extra.scriptor.scriptionary_title").withStyle(ChatFormatting.BOLD),
+            leftPos + 20,
+            wy,
+            225,
+            12
+          )
+        )
 
         wy += 12
-        add(PlainTextWidget(
-          Component.translatable("extra.scriptor.scriptionary_version").withStyle(ChatFormatting.ITALIC),
-          leftPos + 20,
-          wy,
-          225,
-          12
-        ))
+        add(
+          PlainTextWidget(
+            Component.translatable("extra.scriptor.scriptionary_version").withStyle(ChatFormatting.ITALIC),
+            leftPos + 20,
+            wy,
+            225,
+            12
+          )
+        )
 
         wy += 12
-        add(PlainTextWidget(
-          Component.translatable("extra.scriptor.scriptionary_blurb").withStyle(ChatFormatting.ITALIC),
-          leftPos + 20,
-          wy,
-          225,
-          48
-        ))
+        add(
+          PlainTextWidget(
+            Component.translatable("extra.scriptor.scriptionary_blurb").withStyle(ChatFormatting.ITALIC),
+            leftPos + 20,
+            wy,
+            225,
+            48
+          )
+        )
 
         wy += 64
         add(
@@ -90,17 +98,20 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
           }
         )
       }
+
       SUBSCREENS.ENTRIES -> {
         add(BlackBox(leftPos + 20, topPos + 20, 225, 12))
-        val contents = add(MarkdownWidget(
-          leftPos + 20,
-          topPos + 34,
-          225,
-          128,
-          entryMarkdown(),
-          false,
-          commandsAllowed = false
-        ))
+        val contents = add(
+          MarkdownWidget(
+            leftPos + 20,
+            topPos + 34,
+            225,
+            128,
+            entryMarkdown(),
+            false,
+            commandsAllowed = false
+          )
+        )
         contents.setColor(0, 0, 0)
 
         val entry = add(TextEntryWidget(leftPos + 22, topPos + 22, 221, 12, true))
@@ -122,15 +133,18 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
           }
         )
       }
+
       SUBSCREENS.OBSERVED_SPELLS -> {
-        val contents = add(PlainTextWidget(
-          observationsComponent(),
-          leftPos + 20,
-          topPos + 20,
-          225,
-          138,
-          true,
-        ))
+        val contents = add(
+          PlainTextWidget(
+            observationsComponent(),
+            leftPos + 20,
+            topPos + 20,
+            225,
+            138,
+            true,
+          )
+        )
         contents.color = 0xff000000u
 
         add(
@@ -140,16 +154,19 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
           }
         )
       }
+
       SUBSCREENS.GUIDE -> {
-        val contents = add(MarkdownWidget(
-          leftPos + 20,
-          topPos + 20,
-          225,
-          142,
-          entriesMarkdown(),
-          false,
-          commandsAllowed = false
-        ))
+        val contents = add(
+          MarkdownWidget(
+            leftPos + 20,
+            topPos + 20,
+            225,
+            142,
+            entriesMarkdown(),
+            false,
+            commandsAllowed = false
+          )
+        )
         contents.setColor(0, 0, 0)
         add(
           ButtonWidget(leftPos + 20, topPos + 170, 225, 24, Component.translatable("extra.scriptor.back")) {
@@ -162,18 +179,22 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
   }
 
   override fun render(guiGraphics: GuiGraphics, i: Int, j: Int, f: Float) {
-    if(menu.dictionary.hashCode() != bookMemory) {
+    if (menu.dictionary.hashCode() != bookMemory) {
       bookMemory = menu.dictionary.hashCode()
       rebuildWidgets()
     }
     super.render(guiGraphics, i, j, f)
   }
 
-  fun entryMarkdown() = (menu.dictionary[ScriptorDataComponents.DICTIONARY_DATA]?.values ?: listOf()).filter {
-      it.any { w -> w.lowercase().contains(searchTerm.lowercase()) }
-    }.joinToString(separator = "\n\n") {
-      "**${it[0]}**: ${it[1]}"
-    }.trimEnd()
+  fun entryMarkdown() = try {
+      (menu.dictionary[ScriptorDataComponents.DICTIONARY_DATA]?.values ?: listOf()).filter {
+        it.any { w -> w.lowercase().contains(searchTerm.lowercase()) }
+      }.joinToString(separator = "\n\n") {
+        "**${it[0]}**: ${it[1]}"
+      }.trimEnd()
+    } catch (e: FileNotFoundException) {
+      "Unable to load dictionary entry. Are you using a resource pack that overwrites scriptor files?"
+    }
 
   fun observationsComponent(): Component = ScriptionaryHelper.PLAYER_OBSERVATIONS.map {
     Component.literal("<").append(it.second).append("> ").append(it.first).append("\n\n")
