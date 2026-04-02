@@ -5,6 +5,7 @@ import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.helpers.ScriptionaryHelper
 import com.ssblur.scriptor.screen.menu.DictionaryMenu
 import com.ssblur.unfocused.helper.LocalizedMarkdownReader
+import com.ssblur.unfocused.screen.UnfocusedBookScreen
 import com.ssblur.unfocused.screen.UnfocusedScreen
 import com.ssblur.unfocused.screen.renderable.BlackBox
 import com.ssblur.unfocused.screen.renderable.SinglePageBackground
@@ -13,6 +14,7 @@ import com.ssblur.unfocused.screen.widget.MarkdownWidget
 import com.ssblur.unfocused.screen.widget.PlainTextWidget
 import com.ssblur.unfocused.screen.widget.TextEntryWidget
 import net.minecraft.ChatFormatting
+import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.resources.language.I18n
 import net.minecraft.network.chat.Component
@@ -33,6 +35,10 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
   var bookMemory = abstractContainerMenu.dictionary.hashCode()
 
   override fun init() {
+    UnfocusedBookScreen.backAction = {
+      Minecraft.getInstance().screen = this@DictionaryScreen
+    }
+
     imageWidth = 265
     imageHeight = 220
     leftPos = (this.width - 265) / 2
@@ -120,7 +126,7 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
         entry.placeholderColor = 0xffaaaaaau
         entry.placeholder = "Search..."
         entry.text = searchTerm
-        entry.onTextUpdate = { element, text ->
+        entry.onTextUpdate = { _, text ->
           searchTerm = text
           contents.markdownText = entryMarkdown()
           contents.scroll = 0.0
@@ -192,7 +198,7 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
       }.joinToString(separator = "\n\n") {
         "**${it[0]}**: ${it[1]}"
       }.trimEnd()
-    } catch (e: FileNotFoundException) {
+    } catch (_: FileNotFoundException) {
       "Unable to load dictionary entry. Are you using a resource pack that overwrites scriptor files?"
     }
 
