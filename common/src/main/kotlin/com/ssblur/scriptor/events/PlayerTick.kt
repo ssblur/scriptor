@@ -1,7 +1,12 @@
 package com.ssblur.scriptor.events
 
+import com.ssblur.scriptor.ScriptorMod
+import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.data.components.ScriptorDataComponents.EXPIRES
+import com.ssblur.scriptor.helpers.ScriptionaryHelper.awardNote
+import com.ssblur.scriptor.item.ScriptorTags
 import com.ssblur.unfocused.event.common.PlayerTickEvent
+import com.ssblur.unfocused.extension.ItemStackExtension.matches
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.world.entity.EquipmentSlot
@@ -22,6 +27,13 @@ object PlayerTick {
       if (item.has(EXPIRES) && item.get(EXPIRES)!! <= level.gameTime) {
         item.count = 0
         level.playSound(null, entity.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS)
+      }
+      if (
+        level.gameTime % 20 == 6L
+        && item.has(ScriptorDataComponents.SPELL)
+        && !(item matches ScriptorTags.IGNORE_SPELL_COMPONENT)
+      ) {
+        entity.awardNote(ScriptorMod.location("casting/item_inscription"))
       }
     }
   }

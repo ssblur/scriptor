@@ -458,5 +458,7 @@
   "entry.scriptor.casting/engravings": "Chalk and Engravings",
   "entry.scriptor.casting/tome_casting": "Casting from Tomes",
   "entry.scriptor.casting/verbal_casting": "Verbal Casting",
+  "entry.scriptor.casting/item_inscription": "Inscribing Items",
+  "entry.scriptor.casting/writing_tomes": "Writing Tomes",
   "entry.scriptor.dictionary": "Scriptionary"
 }

@@ -77,6 +77,7 @@ object ScriptionaryHelper {
    */
   fun recordSpell(player: Player, spell: Spell, component: String? = null) {
     if(player.level().isClientSide) return
+    player.awardNote(ScriptorMod.location("oddities/entity_casting"))
     recordSpell(
       player,
       DictionarySavedData.computeIfAbsent(player.level() as ServerLevel).generate(spell).string.trim(),

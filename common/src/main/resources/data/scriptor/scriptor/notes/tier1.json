@@ -1,6 +1,8 @@
 {
   "tier": 1,
   "keys": [
-    "scriptor:dictionary"
+    "scriptor:casting/item_inscription",
+    "scriptor:casting/engravings",
+    "scriptor:oddities/entity_casting"
   ]
 }

@@ -226,7 +226,7 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
     val DEFAULT_ENTRIES: List<String> = listOf(
       "scriptor:casting/verbal_casting",
       "scriptor:casting/tome_casting",
-      "scriptor:casting/artifacts",
+      "scriptor:casting/writing_tomes",
     )
   }
 }
