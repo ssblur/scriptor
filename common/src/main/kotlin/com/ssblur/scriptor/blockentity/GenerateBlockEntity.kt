@@ -14,6 +14,8 @@ import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
+import kotlin.math.max
+import kotlin.math.min
 
 class GenerateBlockEntity(blockPos: BlockPos, blockState: BlockState):
   BlockEntity(ScriptorBlockEntities.GENERATE.get(), blockPos, blockState) {
@@ -23,10 +25,50 @@ class GenerateBlockEntity(blockPos: BlockPos, blockState: BlockState):
       val words = DictionarySavedData.computeIfAbsent(level)
         .generate(engraving.generateSpell()).string
         .split(" ".toRegex()).filter { !it.isEmpty() }.toTypedArray()
+      level.removeBlockEntity(pos)
       level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState())
-      val spiral = ShapeHelper.invertedSpiral().iterator()
+
+      var nx = 0
+      var nz = 0
+      var px = 0
+      var pz = 0
+
+      var spiral = ShapeHelper.invertedSpiral().iterator()
+      words.forEach { _ ->
+        spiral.next().let {
+          pos.offset(it.x, 0, it.y)
+          nx = min(nx, it.x)
+          nz = min(nz, it.y)
+          px = max(px, it.x)
+          pz = max(pz, it.y)
+        }
+      }
+
+      nx -= 1
+      nz -= 1
+      px += 1
+      pz += 1
+      for(x in nx..px)
+        for(z in nz..pz)
+          level.setBlockAndUpdate(pos.offset(x, -1, z), stoneBricks(level))
+
+      for(z in nz..pz) {
+        if(level.random.nextInt(2) == 0)
+          level.setBlockAndUpdate(pos.offset(nx, 0, z), stoneBrickWall(level))
+        if(level.random.nextInt(2) == 0)
+          level.setBlockAndUpdate(pos.offset(px, 0, z), stoneBrickWall(level))
+      }
+
+      for(x in nx..px) {
+        if(level.random.nextInt(2) == 0)
+          level.setBlockAndUpdate(pos.offset(x, 0, nz), stoneBrickWall(level))
+        if(level.random.nextInt(2) == 0)
+          level.setBlockAndUpdate(pos.offset(x, 0, pz), stoneBrickWall(level))
+      }
+
+      spiral = ShapeHelper.invertedSpiral().iterator()
       var first = true
-      for (word in words) {
+      for(word in words) {
         val n = spiral.next().let { pos.offset(it.x, 0, it.y) }
         engrave(level, n, word, first)
         first = false
@@ -63,6 +105,19 @@ class GenerateBlockEntity(blockPos: BlockPos, blockState: BlockState):
       entity.word = word!!
       level.setBlockEntity(entity)
     }
+
+    fun stoneBricks(level: Level) =
+      when(level.random.nextInt(4)) {
+        0 -> Blocks.CRACKED_STONE_BRICKS
+        1 -> Blocks.MOSSY_STONE_BRICKS
+        else -> Blocks.STONE_BRICKS
+      }.defaultBlockState()
+
+    fun stoneBrickWall(level: Level) =
+      when(level.random.nextInt(4)) {
+        0 -> Blocks.MOSSY_STONE_BRICK_WALL
+        else -> Blocks.STONE_BRICK_WALL
+      }.defaultBlockState()
 
     @Suppress("unused_parameter")
     fun <T: BlockEntity?> tick(level: Level, pos: BlockPos, state: BlockState, entity: T) {
