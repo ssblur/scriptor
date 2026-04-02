@@ -291,6 +291,7 @@
   "lore.scriptor.ingredient": "Crafting Ingredient",
   "lore.scriptor.dictionary": "Used to record discovered words",
   "lore.scriptor.dictionary_2": "(Use to open)",
+  "lore.scriptor.dictionary_3": "Contains %1$s entries",
   "lore.scriptor.ingredient_tag": "Combine with a casting crystal",
   "lore.scriptor.needs_charge": "Must be charged before use",
   "lore.scriptor.player_crystal_1": "Right click to attune this to yourself",

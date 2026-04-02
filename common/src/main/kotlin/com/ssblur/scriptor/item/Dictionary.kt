@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.item
 
+import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.screen.menu.DictionaryMenu
 import com.ssblur.unfocused.menu.SimpleMenuProvider
 import net.minecraft.ChatFormatting
@@ -22,6 +23,10 @@ class Dictionary(properties: Properties) : Item(properties) {
     super.appendHoverText(itemStack, level, list, tooltipFlag)
 
     list.add(Component.translatable("lore.scriptor.dictionary").withStyle(ChatFormatting.GRAY))
+    list.add(Component.translatable(
+      "lore.scriptor.dictionary_3",
+      itemStack[ScriptorDataComponents.DICTIONARY_DATA]?.values?.size ?: 0
+    ).withStyle(ChatFormatting.GRAY))
     list.add(Component.translatable("lore.scriptor.dictionary_2").withStyle(ChatFormatting.GRAY))
   }
 
