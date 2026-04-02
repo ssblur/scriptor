@@ -263,6 +263,7 @@
   "extra.scriptor.scrap_description": "Right click to uncover a spell component.",
   "extra.scriptor.scrap_tier": "Tier %1$s",
   "extra.scriptor.scrap_get": "You were able to restore the page.",
+  "extra.scriptor.scrap_stuff": "You stuff the restored page into your Scriptionary.",
   "extra.scriptor.note_use": "You sort through the pile of old papers...",
   "extra.scriptor.note_get": "You were able to compile enough to recover an entry for the Nominomist's Guide.",
   "extra.scriptor.note_description": "Right click to uncover notes for the Nominomist's Guide.",

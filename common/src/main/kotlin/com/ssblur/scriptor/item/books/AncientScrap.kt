@@ -1,11 +1,16 @@
 package com.ssblur.scriptor.item.books
 
+import com.ssblur.scriptor.data.components.DictionaryData
+import com.ssblur.scriptor.data.components.ScriptorDataComponents
+import com.ssblur.scriptor.helpers.PlayerItemHelper.addOrDropItem
+import com.ssblur.scriptor.item.ScriptorItems
 import com.ssblur.scriptor.resources.Scraps
+import com.ssblur.unfocused.extension.ItemStackExtension.matches
 import net.minecraft.ChatFormatting
+import net.minecraft.core.component.DataComponents
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
-import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
@@ -38,19 +43,29 @@ class AncientScrap(properties: Properties, var tier: Int): Item(properties) {
       // Generate and distribute scrap
       val scrap = Scraps.getRandomScrapItem(tier, player)
 
-
-      if (!player.addItem(scrap)) {
-        val entity = ItemEntity(
-          level,
-          player.x,
-          player.y + 1,
-          player.z + 1,
-          scrap
-        )
-        level.addFreshEntity(entity)
-      }
       player.sendSystemMessage(Component.translatable("extra.scriptor.scrap_get"))
+
       if(!player.isCreative) player.getItemInHand(interactionHand).shrink(1)
+
+      if(player.inventory.contains { it matches ScriptorItems.DICTIONARY.get() }) {
+        val item = player.inventory.items.firstOrNull{
+          it matches ScriptorItems.DICTIONARY.get()
+              && ( it[ScriptorDataComponents.DICTIONARY_DATA]?.values?.any { entry ->
+                entry[0] == scrap[DataComponents.ITEM_NAME]?.string
+              }) != true
+        }
+
+        item?.let {
+          item[ScriptorDataComponents.DICTIONARY_DATA] = item[ScriptorDataComponents.DICTIONARY_DATA]
+            ?.withWord(scrap[DataComponents.ITEM_NAME]!!.string, scrap[ScriptorDataComponents.SPELL])
+            ?: DictionaryData(listOf(listOf(scrap[DataComponents.ITEM_NAME]!!.string, scrap[ScriptorDataComponents.SPELL]!!)))
+          player.sendSystemMessage(Component.translatable("extra.scriptor.scrap_stuff"))
+          return InteractionResultHolder.consume(player.getItemInHand(interactionHand))
+        }
+      }
+
+      player.addOrDropItem(scrap)
+
       return InteractionResultHolder.consume(player.getItemInHand(interactionHand))
     }
 
