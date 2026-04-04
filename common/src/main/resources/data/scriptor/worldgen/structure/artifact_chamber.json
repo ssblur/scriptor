@@ -9,7 +9,7 @@
   },
   "start_jigsaw_name": "scriptor:artifact_chamber",
   "start_pool": "scriptor:artifact_chamber/holding_cell",
-  "step": "underground_decoration",
-  "terrain_adaptation": "beard_box",
+  "step": "underground_structures",
+  "terrain_adaptation": "none",
   "use_expansion_hack": false
 }
