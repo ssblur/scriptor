@@ -6,13 +6,17 @@ import com.ssblur.scriptor.block.ScriptorBlocks
 import com.ssblur.scriptor.config.ScriptorConfig
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData
 import com.ssblur.scriptor.helpers.ShapeHelper
+import com.ssblur.scriptor.item.books.Artifact
+import com.ssblur.scriptor.resources.Artifacts
 import com.ssblur.scriptor.resources.Engravings
 import com.ssblur.scriptor.resources.VillagerEngravings
 import net.minecraft.core.BlockPos
 import net.minecraft.server.level.ServerLevel
+import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.entity.BlockEntity
+import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import kotlin.math.max
 import kotlin.math.min
@@ -91,6 +95,16 @@ class GenerateBlockEntity(blockPos: BlockPos, blockState: BlockState):
       }
     }
 
+    fun generateArtifact(level: ServerLevel, pos: BlockPos) {
+      level.setBlockAndUpdate(pos, Blocks.CHEST.defaultBlockState())
+      BlockEntityType.CHEST.create(pos, Blocks.CHEST.defaultBlockState())?.let {
+        val item = ItemStack(Artifact.ARTIFACTS.random())
+        Artifacts.getRandomArtifact().applyToItem(item, level)
+        it.setItem(0, item)
+        level.setBlockEntity(it)
+      }
+    }
+
     @Suppress("redundantsuppression", "deprecation")
     fun engrave(level: ServerLevel, pos: BlockPos, word: String?, bold: Boolean) {
       if (!level.getBlockState(pos.offset(0, -1, 0)).isSolid) level.setBlockAndUpdate(
@@ -123,10 +137,11 @@ class GenerateBlockEntity(blockPos: BlockPos, blockState: BlockState):
     fun <T: BlockEntity?> tick(level: Level, pos: BlockPos, state: BlockState, entity: T) {
       if (level.isClientSide || ScriptorConfig.DO_NOT_GENERATE()) return
 
-      if (state.getValue(GenerateBlock.FEATURE) == GenerateBlock.Feature.ENGRAVING) {
-        generateEngraving(level as ServerLevel, pos)
-      } else if (state.getValue(GenerateBlock.FEATURE) == GenerateBlock.Feature.VILLAGER_ENGRAVING) {
-        generateVillagerEngraving(level as ServerLevel, pos)
+      when(state.getValue(GenerateBlock.FEATURE)) {
+        GenerateBlock.Feature.NONE -> {}
+        GenerateBlock.Feature.ENGRAVING -> generateEngraving(level as ServerLevel, pos)
+        GenerateBlock.Feature.VILLAGER_ENGRAVING -> generateVillagerEngraving(level as ServerLevel, pos)
+        GenerateBlock.Feature.ARTIFACT -> generateArtifact(level as ServerLevel, pos)
       }
     }
   }

@@ -1,0 +1,56 @@
+{
+  "elements": [
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "scriptor:artifact_chamber/hallway_1",
+        "processors": "minecraft:mossify_70_percent",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "scriptor:artifact_chamber/hallway_2",
+        "processors": "minecraft:mossify_70_percent",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "scriptor:artifact_chamber/stairs_1",
+        "processors": "minecraft:mossify_70_percent",
+        "projection": "rigid"
+      },
+      "weight": 5
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "scriptor:artifact_chamber/hub_1",
+        "processors": "minecraft:mossify_70_percent",
+        "projection": "rigid"
+      },
+      "weight": 3
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "scriptor:artifact_chamber/treasure_room_1",
+        "processors": "minecraft:mossify_10_percent",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:empty_pool_element"
+      },
+      "weight": 4
+    }
+  ],
+  "fallback": "minecraft:empty"
+  }

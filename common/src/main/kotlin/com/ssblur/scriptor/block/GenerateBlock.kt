@@ -19,7 +19,8 @@ class GenerateBlock: Block(Properties.of()), EntityBlock {
   enum class Feature(var feature: String): StringRepresentable {
     NONE("none"),
     ENGRAVING("engraving"),
-    VILLAGER_ENGRAVING("villager_engraving");
+    VILLAGER_ENGRAVING("villager_engraving"),
+    ARTIFACT("artifact");
 
     override fun getSerializedName(): String {
       return this.feature
