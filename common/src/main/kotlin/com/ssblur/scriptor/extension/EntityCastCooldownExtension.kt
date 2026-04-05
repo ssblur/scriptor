@@ -23,7 +23,7 @@ object EntityCastCooldownExtension {
   var Entity.castCooldown: Long
     get() {
       if(MANA_MODE && this is Player)
-        return if((MANA[this] ?: DEFAULT_MANA) > 0) 0 else 1
+        return if(this.mana > 0) 0 else 1
 
       val level = this.level()
       if(level is ServerLevel)
@@ -35,7 +35,7 @@ object EntityCastCooldownExtension {
     }
     set(value) {
       if(MANA_MODE && this is Player) {
-        MANA[this] = (MANA[this] ?: DEFAULT_MANA) - value.toDouble()
+        MANA[this] = this.mana - value.toDouble()
       }
 
       val cooldown = (value * COOLDOWN_MULT).toLong()
@@ -50,7 +50,13 @@ object EntityCastCooldownExtension {
 
   fun Entity.canCast(spell: Spell, mult: Double = 1.0): Boolean {
     if(MANA_MODE && this is Player)
-      return (MANA[this] ?: DEFAULT_MANA) >= (spell.cost() * mult)
+      return this.mana >= (spell.cost() * mult)
     return this.castCooldown <= 0
   }
+
+  val Player.mana: Double
+    get() = MANA[this] ?: this.maxMana
+
+  val Entity.maxMana: Double
+    get() = DEFAULT_MANA
 }

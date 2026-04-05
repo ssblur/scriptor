@@ -3,6 +3,8 @@ package com.ssblur.scriptor.events
 import com.mojang.blaze3d.systems.RenderSystem
 import com.ssblur.scriptor.ScriptorMod
 import com.ssblur.scriptor.extension.EntityCastCooldownExtension.castCooldown
+import com.ssblur.scriptor.extension.EntityCastCooldownExtension.mana
+import com.ssblur.scriptor.extension.EntityCastCooldownExtension.maxMana
 import com.ssblur.scriptor.mixin.GuiAccessor
 import com.ssblur.unfocused.event.client.ClientGuiRenderEvent
 import net.minecraft.client.DeltaTracker
@@ -21,29 +23,36 @@ object ScriptorCooldownHud {
 
   fun render(guiGraphics: GuiGraphics, delta: DeltaTracker) {
     val player = Minecraft.getInstance().player ?: return
-    if(player.castCooldown > 0) {
-      fadeout = EMPTY_TICKS
-      fullBar = max(player.castCooldown.toDouble(), fullBar)
-    } else {
-      fullBar = 0.0
-    }
 
-    if(fadeout <= 0) {
-      return
-    }
-    if(!Minecraft.getInstance().isPaused) fadeout -= delta.gameTimeDeltaTicks
-
-    val barPortion = if(fullBar > 0.0) player.castCooldown / fullBar else 0.0
+    val barPortion: Double
     val barTransparency = 1.0f
-//    val barTransparency = (fadeout / FADEOUT_START).coerceIn(0.0..1.0)
+    if(ScriptorMod.MANA_MODE) {
+      if(player.mana < player.maxMana) fadeout = EMPTY_TICKS
+      barPortion = player.mana / player.maxMana
+    } else {
+      if (player.castCooldown > 0) {
+        fadeout = EMPTY_TICKS
+        fullBar = max(player.castCooldown.toDouble(), fullBar)
+      } else {
+        fullBar = 0.0
+      }
+
+      if (fadeout <= 0) {
+        return
+      }
+      if (!Minecraft.getInstance().isPaused) fadeout -= delta.gameTimeDeltaTicks
+
+      barPortion = if (fullBar > 0.0) player.castCooldown / fullBar else 0.0
+    }
+
     var y = guiGraphics.guiHeight() - 29
     var renderLevel = true
 
-    if(Minecraft.getInstance()?.player?.jumpableVehicle() != null) {
+    if (Minecraft.getInstance()?.player?.jumpableVehicle() != null) {
       y -= 29
       renderLevel = false
       val gui = Minecraft.getInstance().gui as GuiAccessor
-      if(gui.toolHighlightTimer > 0)
+      if (gui.toolHighlightTimer > 0)
         y -= 13
     }
 
