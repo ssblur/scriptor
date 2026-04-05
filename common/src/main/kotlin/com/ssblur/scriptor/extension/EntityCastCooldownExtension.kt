@@ -54,8 +54,9 @@ object EntityCastCooldownExtension {
     return this.castCooldown <= 0
   }
 
-  val Player.mana: Double
+  var Player.mana: Double
     get() = MANA[this] ?: this.maxMana
+    set(value) { MANA[this] = value }
 
   val Entity.maxMana: Double
     get() = DEFAULT_MANA

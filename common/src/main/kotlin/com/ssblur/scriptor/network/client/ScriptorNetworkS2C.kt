@@ -9,6 +9,7 @@ import com.ssblur.scriptor.blockentity.PhasedBlockBlockEntity
 import com.ssblur.scriptor.color.CustomColors.putColor
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.extension.EntityCastCooldownExtension.castCooldown
+import com.ssblur.scriptor.extension.EntityCastCooldownExtension.mana
 import com.ssblur.scriptor.helpers.ScriptionaryHelper
 import com.ssblur.scriptor.network.server.TraceNetwork.Payload
 import com.ssblur.scriptor.network.server.TraceNetwork.TYPE
@@ -158,6 +159,11 @@ object ScriptorNetworkS2C {
   data class Cooldown(val cooldown: Long)
   val cooldown = NetworkManager.registerS2C(location("client_set_cooldown"), Cooldown::class) { payload ->
     Minecraft.getInstance().player?.castCooldown = payload.cooldown
+  }
+
+  data class Mana(val mana: Double)
+  val mana = NetworkManager.registerS2C(location("client_set_mana"), Mana::class) { payload ->
+    Minecraft.getInstance().player?.mana = payload.mana
   }
 
   data class ScriptionaryData(val type: Int, val string: String, val component: String?)
