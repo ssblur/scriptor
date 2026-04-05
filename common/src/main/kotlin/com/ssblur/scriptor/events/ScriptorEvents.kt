@@ -81,6 +81,7 @@ object ScriptorEvents {
           val item = entity.getItemBySlot(slot)
           val spell = item[ScriptorDataComponents.SPELL]
             ?: item[DataComponents.WRITTEN_BOOK_CONTENT]?.let { LimitedBookSerializer.decodeText(it) }
+            ?: return@forEach
           entity.level().let {
             if(it is ServerLevel) {
               val parsed = computeIfAbsent(it).parse(spell)
