@@ -32,7 +32,7 @@ class ScriptorProjectileRenderer(context: EntityRendererProvider.Context):
 
     val level = Minecraft.getInstance().level!!
     val (r, g, b) = CustomColors.getColor(entity.color, level.gameTime.toFloat()).splitIntoRGB()
-    val d = entity.deltaMovement.scale(tickDelta.toDouble())
+    val d = entity.deltaMovement.scale(tickDelta.toDouble() / 4.0)
 
     level.addParticle(
       MagicParticleData.magic(r, g, b),

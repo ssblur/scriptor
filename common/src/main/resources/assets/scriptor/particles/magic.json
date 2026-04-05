@@ -1,5 +1,7 @@
 {
   "textures": [
-    "scriptor:magic"
+    "scriptor:magic",
+    "scriptor:magic_2",
+    "scriptor:magic_3"
   ]
 }

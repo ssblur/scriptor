@@ -9,7 +9,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 
-class MagicParticleData protected constructor(val r: Int, val g: Int, val b: Int): ParticleOptions {
+class MagicParticleData(val r: Int, val g: Int, val b: Int): ParticleOptions {
   override fun getType(): ParticleType<MagicParticleData> {
     return ScriptorParticles.MAGIC.get()
   }
