@@ -11,6 +11,7 @@ import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.player.Player
 import java.util.*
+import kotlin.math.min
 
 object EntityCastCooldownExtension {
   private val CACHE: WeakHashMap<Entity, Long> = WeakHashMap()
@@ -18,7 +19,7 @@ object EntityCastCooldownExtension {
   const val COOLDOWN_MULT = 0.2
 
   private val MANA: WeakHashMap<Player, Double> = WeakHashMap()
-  const val DEFAULT_MANA = 50.0
+  const val DEFAULT_MANA = 5000.0
 
   var Entity.castCooldown: Long
     get() {
@@ -49,14 +50,19 @@ object EntityCastCooldownExtension {
     }
 
   fun Entity.canCast(spell: Spell, mult: Double = 1.0): Boolean {
-    if(MANA_MODE && this is Player)
+    if(MANA_MODE && this is Player) {
       return this.mana >= (spell.cost() * mult)
+    }
     return this.castCooldown <= 0
   }
 
   var Player.mana: Double
     get() = MANA[this] ?: this.maxMana
-    set(value) { MANA[this] = value }
+    set(value) {
+      MANA[this] = min(value, this.maxMana)
+      if(!this.level().isClientSide && value != MANA[this])
+        ScriptorNetworkS2C.mana(ScriptorNetworkS2C.Mana(value), listOf(this))
+    }
 
   val Entity.maxMana: Double
     get() = DEFAULT_MANA

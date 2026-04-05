@@ -37,12 +37,11 @@ object ScriptorCooldownHud {
         fullBar = 0.0
       }
 
-      if (fadeout <= 0) {
-        return
-      }
-      if (!Minecraft.getInstance().isPaused) fadeout -= delta.gameTimeDeltaTicks
-
       barPortion = if (fullBar > 0.0) player.castCooldown / fullBar else 0.0
+    }
+    if (!Minecraft.getInstance().isPaused) fadeout -= delta.gameTimeDeltaTicks
+    if (fadeout <= 0) {
+      return
     }
 
     var y = guiGraphics.guiHeight() - 29

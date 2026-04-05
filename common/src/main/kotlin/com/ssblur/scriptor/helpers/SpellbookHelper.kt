@@ -49,14 +49,14 @@ object SpellbookHelper {
     )
 
     if (spell != null && spell.subject !is HitSubject) {
-      if(!player.canCast(spell, adjustedCostMultiplier)) return false
+      if(!player.canCast(spell, adjustedCostMultiplier * 49)) return false
       spell.deduplicatedDescriptorsForSubjects()
       spell.playSound(level, player.blockPosition())
       if (spell.cost() > adjustedMaxCost) {
         player.sendSystemMessage(Component.translatable("extra.scriptor.fizzle"))
         ScriptorAdvancements.FIZZLE.get().trigger(player as ServerPlayer)
         if (!player.isCreative)
-          cooldownFunc(player, (350.0 * adjustedCostMultiplier).roundToInt())
+          cooldownFunc(player, (350 * adjustedCostMultiplier).roundToInt())
         return true
       }
 

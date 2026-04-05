@@ -3,6 +3,7 @@ package com.ssblur.scriptor.events
 import com.ssblur.scriptor.ScriptorMod
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.data.components.ScriptorDataComponents.EXPIRES
+import com.ssblur.scriptor.extension.EntityCastCooldownExtension.mana
 import com.ssblur.scriptor.helpers.ScriptionaryHelper.awardNote
 import com.ssblur.scriptor.item.ScriptorTags
 import com.ssblur.unfocused.event.common.PlayerTickEvent
@@ -18,6 +19,8 @@ object PlayerTick {
     PlayerTickEvent.Before.register {
       for (item in it.inventory.items) processItem(item, it)
       for (slot in EquipmentSlot.entries) processItem(it.getItemBySlot(slot), it)
+
+      if((it.level().gameTime % 40) == 4L) it.mana += 475
     }
   }
 
