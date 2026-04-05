@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable",
+  "render_type": "translucent",
+  "textures": {
+    "front": "scriptor:block/redirect_crystal_front",
+    "side": "scriptor:block/redirect_crystal_side",
+    "top": "scriptor:block/redirect_crystal_side"
+  }
+}

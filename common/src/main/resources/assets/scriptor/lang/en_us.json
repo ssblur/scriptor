@@ -100,6 +100,7 @@
   "block.scriptor.light": "Magic Light",
   "block.scriptor.chalk": "Chalk",
   "block.scriptor.rune": "Rune",
+  "block.scriptor.redirect_crystal": "Crystal of Redirection",
 
   "entity.scriptor.projectile": "Projectile",
   "entity.minecraft.villager.nominomist": "Nominomist",

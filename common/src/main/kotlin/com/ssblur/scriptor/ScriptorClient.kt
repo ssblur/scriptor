@@ -71,6 +71,7 @@ object ScriptorClient {
 
     ScriptorBlocks.MAGIC_BLOCKS.forEach { block -> block.then { it.renderType(RenderType.translucent()) } }
     ScriptorBlocks.HIGHLIGHT_MODEL.then { it.renderType(RenderType.translucent()) }
+    ScriptorBlocks.REDIRECT_CRYSTAL.first.then { it.renderType(RenderType.translucent()) }
 
     ScriptorMod.registerBlockEntityRenderer(RUNE) { RuneBlockEntityRenderer(it) }
     ScriptorMod.registerBlockEntityRenderer(CHALK) { ChalkBlockEntityRenderer(it) }

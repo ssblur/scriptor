@@ -19,6 +19,7 @@ object ScriptorBlocks {
   val WRITING_TABLE = ScriptorMod.registerBlockWithItem("writing_table") { WritingTableBlock() }
   val PHASED_BLOCK = ScriptorMod.registerBlock("phased_block") { PhasedBlock() }
   val GENERATE = ScriptorMod.registerBlock("generate") { GenerateBlock() }
+  val REDIRECT_CRYSTAL = ScriptorMod.registerBlockWithItem("redirect_crystal") { RedirectCrystalBlock() }
   val HIGHLIGHT_MODEL = ScriptorMod.registerBlock("highlight_model") { HighlightBlock(BlockBehaviour.Properties.of()) }
 
   val MAGIC_BLOCKS = ColorHelper.forEachColor {

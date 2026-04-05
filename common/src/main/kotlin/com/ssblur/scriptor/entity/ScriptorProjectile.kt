@@ -1,7 +1,9 @@
 package com.ssblur.scriptor.entity
 
+import com.ssblur.scriptor.block.ScriptorBlocks
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable
 import com.ssblur.scriptor.helpers.targetable.Targetable
+import com.ssblur.unfocused.extension.BlockStateExtension.matches
 import net.minecraft.core.BlockPos
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.syncher.EntityDataAccessor
@@ -13,9 +15,11 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.projectile.ProjectileUtil
 import net.minecraft.world.level.ClipContext
 import net.minecraft.world.level.Level
+import net.minecraft.world.level.block.DirectionalBlock
 import net.minecraft.world.phys.HitResult
 import net.minecraft.world.phys.Vec3
 import java.util.concurrent.CompletableFuture
+import kotlin.jvm.optionals.getOrNull
 
 class ScriptorProjectile(entityType: EntityType<ScriptorProjectile?>, level: Level): Entity(entityType, level) {
   var completable: CompletableFuture<List<Targetable>>? = null
@@ -72,7 +76,7 @@ class ScriptorProjectile(entityType: EntityType<ScriptorProjectile?>, level: Lev
     setPos(position().add(deltaMovement))
     if (level.isClientSide) return
 
-    if (this.origin != null) if (position().distanceTo(this.origin!!) <= 1) return
+    if (this.origin != null) if (position().distanceTo(this.origin!!) <= 0.1) return
 
     val duration = entityData.get(DURATION)
     if (tickCount > duration || completable == null || completable!!.isDone) {
@@ -91,7 +95,26 @@ class ScriptorProjectile(entityType: EntityType<ScriptorProjectile?>, level: Lev
           this
         )
       )
-    if (blockHitResult.type != HitResult.Type.MISS) dest = blockHitResult.location
+
+    if (blockHitResult.type != HitResult.Type.MISS) {
+      dest = blockHitResult.location
+      val blockPos = blockHitResult.blockPos
+      if(origin == blockPos.center) return
+      val state = level.getBlockState(blockPos)
+      if(state matches ScriptorBlocks.REDIRECT_CRYSTAL.first.get()) {
+//        if(blockPos.center.distanceTo(position()) > 0.2) return
+//        val vel = (deltaMovement.x + deltaMovement.y + deltaMovement.z).absoluteValue
+        val vel = 1.0
+        state.getOptionalValue(DirectionalBlock.FACING).getOrNull()?.let {
+          val normal = it.normal
+          val center = blockPos.center.add(normal.x / 2.0, normal.y / 2.0, normal.z / 2.0)
+          setPos(center)
+          deltaMovement = Vec3(normal.x * vel, normal.y * vel, normal.z * vel)
+        }
+        return
+      }
+    }
+
     val entityHitResult = ProjectileUtil.getEntityHitResult(
       level(),
       this,
