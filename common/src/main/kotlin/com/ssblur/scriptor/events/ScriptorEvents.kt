@@ -7,6 +7,7 @@ import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData.Companion.computeIfAbsent
 import com.ssblur.scriptor.data.saved_data.PlayerScriptionarySavedData
 import com.ssblur.scriptor.data.saved_data.PlayerSpellsSavedData.Companion.computeIfAbsent
+import com.ssblur.scriptor.extension.EntityCastCooldownExtension.canCast
 import com.ssblur.scriptor.extension.EntityCastCooldownExtension.castCooldown
 import com.ssblur.scriptor.helpers.LimitedBookSerializer
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable
@@ -85,7 +86,7 @@ object ScriptorEvents {
           entity.level().let {
             if(it is ServerLevel) {
               val parsed = computeIfAbsent(it).parse(spell)
-              if(parsed?.subject == Subjects.ON_DAMAGED && entity.castCooldown <= 0) {
+              if(parsed?.subject == Subjects.ON_DAMAGED && entity.canCast(parsed, 4.0)) {
                 entity.castCooldown = (parsed.cost() * 20.0 * 4.0).roundToLong()
                 parsed.castOnTargets(
                   EntityTargetable(entity),
@@ -106,7 +107,7 @@ object ScriptorEvents {
           entity.level().let {
             if(it is ServerLevel) {
               val parsed = computeIfAbsent(it).parse(spell)
-              if(parsed?.subject == Subjects.ON_HIT && (source.entity?.castCooldown ?: 1) <= 0) {
+              if(parsed?.subject == Subjects.ON_HIT && source.entity?.canCast(parsed) == true) {
                 source.entity!!.castCooldown = (parsed.cost() * 20.0 * 4.0).roundToLong()
                 parsed.castOnTargets(
                     EntityTargetable(source.entity!!),

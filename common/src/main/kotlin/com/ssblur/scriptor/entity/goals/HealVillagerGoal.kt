@@ -2,6 +2,7 @@ package com.ssblur.scriptor.entity.goals
 
 import com.google.common.collect.ImmutableList
 import com.mojang.datafixers.util.Pair
+import com.ssblur.scriptor.extension.EntityCastCooldownExtension.canCast
 import com.ssblur.scriptor.extension.EntityCastCooldownExtension.castCooldown
 import com.ssblur.scriptor.helpers.FakeCastHelper
 import com.ssblur.scriptor.network.client.ParticleNetwork
@@ -29,7 +30,7 @@ class HealVillagerGoal():
 
   override fun checkExtraStartConditions(serverLevel: ServerLevel, livingEntity: Villager): Boolean {
     return livingEntity.villagerData.profession == ScriptorVillagers.NOMINOMIST.get()
-        && livingEntity.castCooldown <= 0
+        && livingEntity.canCast(FakeCastHelper.NOMINOMIST_HEAL)
         && nearbyInjuredVillagers(livingEntity).any()
   }
 

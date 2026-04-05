@@ -5,6 +5,7 @@ import com.ssblur.scriptor.config.ScriptorConfig
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData.Companion.computeIfAbsent
 import com.ssblur.scriptor.effect.EmpoweredStatusEffect
 import com.ssblur.scriptor.effect.ScriptorEffects.MUTE
+import com.ssblur.scriptor.extension.EntityCastCooldownExtension.canCast
 import com.ssblur.scriptor.extension.EntityCastCooldownExtension.castCooldown
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable
 import com.ssblur.unfocused.event.common.PlayerChatEvent
@@ -57,7 +58,7 @@ object SpellChat {
     if(!ScriptorConfig.CHAT_CAST_ENABLED()) return false
     val spell = computeIfAbsent(level).parse(sentence)
     if (spell != null) {
-      if (player.castCooldown > 0) {
+      if (!player.canCast(spell)) {
         player.sendSystemMessage(Component.translatable("extra.scriptor.hoarse"))
         return true
       } else if (player.hasEffect(MUTE.ref())) {

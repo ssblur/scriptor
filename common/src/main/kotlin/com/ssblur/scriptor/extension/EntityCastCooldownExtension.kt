@@ -3,6 +3,7 @@ package com.ssblur.scriptor.extension
 import com.ssblur.scriptor.ScriptorMod.MANA_MODE
 import com.ssblur.scriptor.mixin.MinecraftClientTickAccessor
 import com.ssblur.scriptor.network.client.ScriptorNetworkS2C
+import com.ssblur.scriptor.word.Spell
 import net.minecraft.client.Minecraft
 import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.server.level.ServerLevel
@@ -17,7 +18,7 @@ object EntityCastCooldownExtension {
   const val COOLDOWN_MULT = 0.2
 
   private val MANA: WeakHashMap<Player, Double> = WeakHashMap()
-  const val DEFAULT_MANA = 200.0
+  const val DEFAULT_MANA = 50.0
 
   var Entity.castCooldown: Long
     get() {
@@ -46,4 +47,10 @@ object EntityCastCooldownExtension {
       } else if(this == Minecraft.getInstance().player)
         LOCAL_COUNT = cooldown + (Minecraft.getInstance() as MinecraftClientTickAccessor).clientTickCount
     }
+
+  fun Entity.canCast(spell: Spell, mult: Double = 1.0): Boolean {
+    if(MANA_MODE && this is Player)
+      return (MANA[this] ?: DEFAULT_MANA) >= (spell.cost() * mult)
+    return this.castCooldown <= 0
+  }
 }

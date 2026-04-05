@@ -5,6 +5,7 @@ import com.ssblur.scriptor.config.ScriptorConfig
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData.Companion.computeIfAbsent
 import com.ssblur.scriptor.effect.EmpoweredStatusEffect
+import com.ssblur.scriptor.extension.EntityCastCooldownExtension.canCast
 import com.ssblur.scriptor.extension.EntityCastCooldownExtension.castCooldown
 import com.ssblur.scriptor.helpers.LimitedBookSerializer.decodeText
 import com.ssblur.scriptor.helpers.targetable.SpellbookTargetable
@@ -37,7 +38,6 @@ object SpellbookHelper {
     cooldownFunc: (Player, Int) -> Unit = ::addCooldown,
     targetOverride: List<Targetable>? = null,
   ): Boolean {
-    if(player.castCooldown > 0) return false
     val adjustedMaxCost = maxCost ?: ScriptorConfig.TOME_MAX_COST()
     val adjustedCostMultiplier = (costMultiplier ?: ScriptorConfig.TOME_COOLDOWN_MULTIPLIER()).toDouble() / 100.0
     val level = player.level()
@@ -49,6 +49,7 @@ object SpellbookHelper {
     )
 
     if (spell != null && spell.subject !is HitSubject) {
+      if(!player.canCast(spell, adjustedCostMultiplier)) return false
       spell.deduplicatedDescriptorsForSubjects()
       spell.playSound(level, player.blockPosition())
       if (spell.cost() > adjustedMaxCost) {
