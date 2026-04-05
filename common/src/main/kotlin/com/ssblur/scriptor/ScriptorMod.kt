@@ -25,6 +25,7 @@ import com.ssblur.scriptor.screen.menu.ScriptorMenus
 import com.ssblur.scriptor.trade.ScriptorTrades
 import com.ssblur.scriptor.villagers.ScriptorVillagers
 import com.ssblur.unfocused.ModInitializer
+import com.ssblur.unfocused.Unfocused
 import com.ssblur.unfocused.command.CommandRegistration.registerCommand
 import org.apache.logging.log4j.LogManager
 
@@ -32,6 +33,8 @@ import org.apache.logging.log4j.LogManager
 object ScriptorMod: ModInitializer("scriptor") {
   const val MOD_ID = "scriptor"
   val LOGGER = LogManager.getLogger(MOD_ID)!!
+  val MANA_MODE: Boolean
+    get() = Unfocused.isModLoaded("scriptor_mana")
 
   // Please don't mess with this, I'm not adding anticheat but it's no fun );
   var COMMUNITY_MODE = false
