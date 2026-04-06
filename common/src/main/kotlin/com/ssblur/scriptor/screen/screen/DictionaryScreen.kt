@@ -31,6 +31,7 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
   }
 
   var subscreen = SUBSCREENS.MAIN
+//  var guideCategory: String? = null
   var searchTerm = ""
   var bookMemory = abstractContainerMenu.dictionary.hashCode()
 
@@ -162,18 +163,7 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
       }
 
       SUBSCREENS.GUIDE -> {
-        val contents = add(
-          MarkdownWidget(
-            leftPos + 20,
-            topPos + 20,
-            225,
-            142,
-            entriesMarkdown(),
-            false,
-            commandsAllowed = false
-          )
-        )
-        contents.setColor(0, 0, 0)
+        addEntriesWidget()
         add(
           ButtonWidget(leftPos + 20, topPos + 170, 225, 24, Component.translatable("extra.scriptor.back")) {
             subscreen = SUBSCREENS.MAIN
@@ -214,13 +204,84 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
     else component
   }
 
-  fun entriesMarkdown(): String =
-    LocalizedMarkdownReader.read(ScriptorMod.location("dictionary")) +
-    (ScriptionaryHelper.PLAYER_NOTES + DEFAULT_ENTRIES).joinToString("\n\n") {
-      val location = ScriptorMod.location(it)
-      val entry = I18n.get(location.toLanguageKey("entry")) ?: it
-      "[$entry](${location})"
+  fun addEntriesWidget() {
+    val categories = mutableMapOf<String, MutableList<String>>()
+    (ScriptionaryHelper.PLAYER_NOTES + DEFAULT_ENTRIES).distinct().forEach {
+      val cat = if(it.contains("/")) it.split("/")[0] else ""
+      categories[cat] = categories[cat] ?: mutableListOf()
+      categories[cat]!!.add(it)
     }
+
+    var categoriesMarkdown = ""
+    categories.forEach { (name, list) ->
+      val location = ScriptorMod.location(name)
+      val entry = I18n.get(location.toLanguageKey("entry")) ?: name
+      categoriesMarkdown += "### $entry\n"
+      list.forEach {
+        val location = ScriptorMod.location(it)
+        val entry = I18n.get(location.toLanguageKey("entry")) ?: it
+        categoriesMarkdown += " - [$entry](${location})\n"
+      }
+      categoriesMarkdown += "\n"
+    }
+
+    add(MarkdownWidget(
+      leftPos + 20,
+      topPos + 20,
+      225,
+      142,
+      LocalizedMarkdownReader.read(ScriptorMod.location("dictionary")) + categoriesMarkdown,
+      false,
+      commandsAllowed = true
+    )).setColor(0, 0, 0)
+  }
+
+//  fun addEntriesWidget() {
+//    if(guideCategory != null) {
+//      add(MarkdownWidget(
+//        leftPos + 20,
+//        topPos + 20,
+//        225,
+//        142,
+//        "# " + I18n.get(ScriptorMod.location(guideCategory!!).toLanguageKey("entry")) +
+//          "\n\n" +
+//          (ScriptionaryHelper.PLAYER_NOTES + DEFAULT_ENTRIES).filter {
+//            it.startsWith(guideCategory ?: "")
+//          }.joinToString("\n\n") {
+//            val location = ScriptorMod.location(it)
+//            val entry = I18n.get(location.toLanguageKey("entry")) ?: it
+//            "[$entry](${location})"
+//          }
+//      )).setColor(0, 0, 0)
+//    }
+//
+//
+//    val entries = mutableListOf<String>()
+//    (ScriptionaryHelper.PLAYER_NOTES + DEFAULT_ENTRIES).forEach {
+//      if(it.contains("/")) {
+//        val location = ScriptorMod.location(it.split("/")[0])
+//        val entry = I18n.get(location.toLanguageKey("entry")) ?: it
+////        val cmd = "[$entry](cmd://scriptor page $location)" // TODO
+//        val cmd = "[$entry](cmd://execute as @e[limit=1] run say Unimplemented, but you would've gone to the index for $location)"
+//        if(cmd !in entries) entries.add(cmd)
+//      } else {
+//        val location = ScriptorMod.location(it)
+//        val entry = I18n.get(location.toLanguageKey("entry")) ?: it
+//        entries.add("[$entry](${location})")
+//      }
+//    }
+//
+//    add(MarkdownWidget(
+//      leftPos + 20,
+//      topPos + 20,
+//      225,
+//      142,
+//      LocalizedMarkdownReader.read(ScriptorMod.location("dictionary")) +
+//          entries.joinToString("\n\n"),
+//      false,
+//      commandsAllowed = true
+//    )).setColor(0, 0, 0)
+//  }
 
   companion object {
     val DEFAULT_ENTRIES: List<String> = listOf(

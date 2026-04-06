@@ -8,5 +8,4 @@ I'm certain, however, that there's more to be known, so I've included blank page
 of this book to be filled out at a later date.
 Please do not hesitate to include your own notes using these pages.
 
-Table of Contents:
-
+## Table of Contents

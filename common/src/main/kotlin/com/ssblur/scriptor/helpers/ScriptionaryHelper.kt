@@ -104,4 +104,5 @@ object ScriptionaryHelper {
    * @see awardPlayerNote
    */
   fun Player.awardNote(note: ResourceLocation) = awardPlayerNote(this, note)
+  fun Player.hasNote(note: ResourceLocation) = this.notes.contains(note)
 }

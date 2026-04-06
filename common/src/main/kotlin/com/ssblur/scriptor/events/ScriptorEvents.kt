@@ -1,7 +1,9 @@
 package com.ssblur.scriptor.events
 
+import com.ssblur.scriptor.ScriptorMod
 import com.ssblur.scriptor.ScriptorMod.COMMUNITY_MODE
 import com.ssblur.scriptor.advancement.ScriptorAdvancements.COMMUNITY
+import com.ssblur.scriptor.block.ScriptorBlocks
 import com.ssblur.scriptor.config.ScriptorConfig
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData.Companion.computeIfAbsent
@@ -10,18 +12,19 @@ import com.ssblur.scriptor.data.saved_data.PlayerSpellsSavedData.Companion.compu
 import com.ssblur.scriptor.extension.EntityCastCooldownExtension.canCast
 import com.ssblur.scriptor.extension.EntityCastCooldownExtension.castCooldown
 import com.ssblur.scriptor.helpers.LimitedBookSerializer
+import com.ssblur.scriptor.helpers.ScriptionaryHelper.awardNote
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable
 import com.ssblur.scriptor.helpers.targetable.Targetable
+import com.ssblur.scriptor.item.ScriptorItems
+import com.ssblur.scriptor.item.ScriptorTags
 import com.ssblur.scriptor.network.client.ScriptorNetworkS2C
 import com.ssblur.scriptor.network.client.ScriptorNetworkS2C.color
 import com.ssblur.scriptor.network.client.ScriptorNetworkS2C.flag
 import com.ssblur.scriptor.registry.words.Subjects
 import com.ssblur.scriptor.resources.Colors.cache
 import com.ssblur.scriptor.resources.MobSpellItems
-import com.ssblur.unfocused.event.common.EntityDamagedEvent
-import com.ssblur.unfocused.event.common.MobSpawnEvent
-import com.ssblur.unfocused.event.common.PlayerJoinedEvent
-import com.ssblur.unfocused.event.common.ServerStartEvent
+import com.ssblur.unfocused.event.common.*
+import com.ssblur.unfocused.extension.ItemStackExtension.matches
 import net.minecraft.core.component.DataComponents
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.EquipmentSlot
@@ -65,7 +68,6 @@ object ScriptorEvents {
         }
       }
     }
-
 
     EntityDamagedEvent.Before.register { (entity, source, _) ->
       source.weaponItem?.let { weapon ->
@@ -122,6 +124,16 @@ object ScriptorEvents {
 
     MobSpawnEvent.register { (entity, level) ->
       if(entity is Mob && level is ServerLevel) MobSpellItems.giveItem(entity)
+    }
+
+    PlayerCraftEvent.register { (player, item, _) ->
+      if(item matches ScriptorBlocks.CASTING_LECTERN.second.get())
+        player.awardNote(ScriptorMod.location("casting/lecterns/lecterns"))
+      if(item matches ScriptorItems.UNWRITTEN_SCROLL.get())
+        player.awardNote(ScriptorMod.location("casting/scrolls"))
+
+      if(item matches ScriptorTags.WRITABLE_SPELLBOOKS || item matches ScriptorBlocks.WRITING_TABLE.second.get())
+        player.awardNote(ScriptorMod.location("tools/writing_desk"))
     }
 
     SpellChat.init()
