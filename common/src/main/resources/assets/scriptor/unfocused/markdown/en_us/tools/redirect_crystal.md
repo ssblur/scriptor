@@ -10,4 +10,4 @@ They are fairly simple, actually!
 When a projectile from a spell hits one of these, it'll be pointed in the direction of the focused face
 of the block.
 
-![The focused face](scriptor:textures/block/redirect_crystal_front)
+![The focused face](scriptor:textures/block/redirect_crystal_front.png)
