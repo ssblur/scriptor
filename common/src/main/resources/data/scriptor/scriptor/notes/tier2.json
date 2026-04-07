@@ -1,6 +1,9 @@
 {
   "tier": 2,
   "keys": [
-    "scriptor:casting/artifacts"
+    "scriptor:casting/artifacts",
+    "scriptor:tools/redirect_crystal",
+    "scriptor:tools/book_of_books",
+    "scriptor:tools/writing_desk"
   ]
 }

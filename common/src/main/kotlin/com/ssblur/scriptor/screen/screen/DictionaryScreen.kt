@@ -212,7 +212,7 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
       categories[cat]!!.add(it)
     }
 
-    var categoriesMarkdown = ""
+    var categoriesMarkdown = "\n"
     categories.forEach { (name, list) ->
       val location = ScriptorMod.location(name)
       val entry = I18n.get(location.toLanguageKey("entry")) ?: name

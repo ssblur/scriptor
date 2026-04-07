@@ -3,6 +3,9 @@
   "keys": [
     "scriptor:casting/item_inscription",
     "scriptor:casting/engravings",
-    "scriptor:oddities/entity_casting"
+    "scriptor:casting/scrolls",
+    "scriptor:casting/verbal_casting",
+    "scriptor:oddities/entity_casting",
+    "scriptor:oddities/obfuscation"
   ]
 }
