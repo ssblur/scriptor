@@ -32,10 +32,19 @@ class WritingTableMenu(i: Int, val inventory: Inventory, val table: WritingTable
       override fun getNoItemIcon(): Pair<ResourceLocation, ResourceLocation> {
         return Pair(InventoryMenu.BLOCK_ATLAS, ScriptorMod.location("item/empty_dictionary_slot"))
       }
+
+      override fun mayPlace(itemStack: ItemStack): Boolean {
+        return itemStack matches ScriptorItems.DICTIONARY.get()
+      }
     })
+
     this.addSlot(object: Slot(container, BOOK_SLOT, 180, 129){
       override fun getNoItemIcon(): Pair<ResourceLocation, ResourceLocation> {
         return Pair(InventoryMenu.BLOCK_ATLAS, ScriptorMod.location("item/empty_book_slot"))
+      }
+
+      override fun mayPlace(itemStack: ItemStack): Boolean {
+        return itemStack matches ScriptorTags.SPELLBOOKS || itemStack matches ScriptorItems.SCRAP.get()
       }
     })
 
