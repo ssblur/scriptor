@@ -98,12 +98,13 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
         )
 
         wy += 28
-        add(
-          ButtonWidget(leftPos + 20, wy, 225, 24, Component.translatable("extra.scriptor.observed_spells")) {
-            subscreen = SUBSCREENS.OBSERVED_SPELLS
-            rebuildWidgets()
-          }
-        )
+        if(ScriptionaryHelper.PLAYER_OBSERVATIONS.any())
+          add(
+            ButtonWidget(leftPos + 20, wy, 225, 24, Component.translatable("extra.scriptor.observed_spells")) {
+              subscreen = SUBSCREENS.OBSERVED_SPELLS
+              rebuildWidgets()
+            }
+          )
       }
 
       SUBSCREENS.ENTRIES -> {
