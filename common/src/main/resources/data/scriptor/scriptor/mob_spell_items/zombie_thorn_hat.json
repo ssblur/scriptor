@@ -1,0 +1,17 @@
+{
+  "name": "item.scriptor.thorn_hat",
+  "spell": {
+    "subject": "on_damaged",
+    "spells": [
+      {
+        "action": "harm",
+        "descriptors": []
+      }
+    ]
+  },
+  "item": "minecraft:iron_helmet",
+  "mob": "minecraft:zombie",
+  "chance": 0.05,
+  "slot": "HEAD",
+  "rarity": "UNCOMMON"
+}

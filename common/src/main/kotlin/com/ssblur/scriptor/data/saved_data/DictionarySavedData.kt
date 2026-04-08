@@ -320,57 +320,60 @@ class DictionarySavedData: SavedData {
     return null
   }
 
+  private fun generateDescriptorString(descriptors: Array<Descriptor?>): Component {
+    var component = Component.empty()
+    var sp = ""
+    for (descriptor in descriptors) {
+      component = component.append(sp)
+        .append(getWord(descriptor)?.let { Component.literal(it) } ?: getFakeWord())
+      sp = " "
+    }
+    return component
+  }
 
   /**
-   * A helper for generating a String to describe a spell.
+   * A helper for generating a Component to describe a spell.
    * @param spell The Spell to generate text for.
-   * @return A String to describe a spell
+   * @return A Component containing a spell
    */
   fun generate(spell: Spell): Component {
     assert(spell.spells.isNotEmpty())
     val spellData = spell.spellData.toMutableList()
-    var descriptorBuilder = Component.empty()
-    for (descriptor in spell.spells[0].deduplicatedDescriptors()) {
-      descriptorBuilder.append(" ")
-        .append(getWord(descriptor)?.let { Component.literal(it) } ?: getFakeWord())
-    }
 
     val builder = Component.empty()
+    var sp = ""
     for (w in spellStructure) {
       when (w) {
         WORD.ACTION -> {
-          builder.append(" ").append(
+          builder.append(sp).append(
             getWord(spell.spells[0].action)?.let { Component.literal(it) } ?: getFakeWord()
           )
           if(spell.spells[0].action is WriteAction) {
-            builder.append(" ").append(spellData.removeFirst())
+            builder.append(sp).append(spellData.removeFirst())
           }
         }
-        WORD.SUBJECT -> builder.append(" ").append(
+        WORD.SUBJECT -> builder.append(sp).append(
           getWord(spell.subject)?.let { Component.literal(it) } ?: getFakeWord()
         )
-        WORD.DESCRIPTOR -> builder.append(descriptorBuilder)
+        WORD.DESCRIPTOR -> builder.append(sp)
+          .append(generateDescriptorString(spell.spells.first().deduplicatedDescriptors()))
         else -> {}
       }
+      if(builder.string.isNotEmpty()) sp = " "
     }
 
     for (partialSpell in Arrays.stream(spell.spells).skip(1).toList()) {
-      builder.append(" ").append(getWord("other:and")?.let { Component.literal(it) } ?: getFakeWord())
-      descriptorBuilder = Component.empty()
-      for (descriptor in partialSpell.deduplicatedDescriptors()) {
-        descriptorBuilder.append(" ").append(getWord(descriptor)?.let { Component.literal(it) } ?: getFakeWord())
-      }
-
       for (w in spellStructure) {
         if (w == WORD.ACTION) {
-          builder.append(" ").append(
+          builder.append(sp).append(
             getWord(partialSpell.action)?.let { Component.literal(it) } ?: getFakeWord()
           )
           if(partialSpell.action is WriteAction) {
-            builder.append(" ").append(spellData.removeFirst())
+            builder.append(sp).append(spellData.removeFirst())
           }
         }
-        else if (w == WORD.DESCRIPTOR) builder.append(descriptorBuilder)
+        else if (w == WORD.DESCRIPTOR)
+          builder.append(generateDescriptorString(partialSpell.deduplicatedDescriptors()))
       }
     }
 
