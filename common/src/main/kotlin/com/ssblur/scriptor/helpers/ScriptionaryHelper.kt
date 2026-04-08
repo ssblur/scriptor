@@ -9,6 +9,7 @@ import com.ssblur.scriptor.item.ScriptorItems
 import com.ssblur.scriptor.network.client.ScriptorNetworkS2C
 import com.ssblur.scriptor.word.Spell
 import com.ssblur.unfocused.extension.ItemStackExtension.matches
+import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
@@ -27,13 +28,18 @@ object ScriptionaryHelper {
   fun awardPlayerNote(player: Player, note: ResourceLocation) {
     if(player.level().isClientSide) return
     val location = note.toString()
-    if(PlayerScriptionarySavedData.computeIfAbsent(player)?.unlocks?.any { it == location } == true)
-      return
+    if(player.hasNote(note)) return
 
     if(player.inventory.contains { it matches ScriptorItems.DICTIONARY.get() })
-      player.sendSystemMessage(Component.translatable("extra.scriptor.record_scriptionary"))
+      player.sendSystemMessage(Component.translatable("extra.scriptor.record_scriptionary")
+        .withStyle(ChatFormatting.GRAY)
+        .withStyle(ChatFormatting.ITALIC)
+      )
     else
-      player.sendSystemMessage(Component.translatable("extra.scriptor.record_no_scriptionary"))
+      player.sendSystemMessage(Component.translatable("extra.scriptor.record_no_scriptionary")
+        .withStyle(ChatFormatting.GRAY)
+        .withStyle(ChatFormatting.ITALIC)
+      )
 
     PlayerScriptionarySavedData.computeIfAbsent(player)?.let {
       it.unlocks.add(location)
