@@ -18,7 +18,6 @@ import com.ssblur.scriptor.registry.words.WordRegistry.descriptorRegistry
 import com.ssblur.scriptor.registry.words.WordRegistry.subjectRegistry
 import com.ssblur.scriptor.word.PartialSpell
 import com.ssblur.scriptor.word.Spell
-import com.ssblur.scriptor.word.action.WriteAction
 import net.minecraft.ChatFormatting
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
@@ -204,13 +203,13 @@ class DictionarySavedData: SavedData {
       var consumeNext = false
       val spellData = mutableListOf<String>()
       while (tokenPosition < tokens.size) {
+        if(consumeNext) {
+          spellData.add(tokens[tokenPosition])
+          tokenPosition++
+          consumeNext = false
+          continue
+        }
         if (position % spellStructure.size == 0 && position > 0) {
-          if(consumeNext) {
-            spellData.add(tokens[tokenPosition])
-            tokenPosition++
-            consumeNext = false
-            continue
-          }
           parsed = parseWord(tokens[tokenPosition])
           if (parsed != null && parsed == "other:and") {
             tokenPosition++
@@ -229,9 +228,10 @@ class DictionarySavedData: SavedData {
           mult *= wordData.substring(12).toInt()
           tokenPosition++
           continue
-        } else if(wordData == "action:write") {
-          consumeNext = true
         }
+//        else if(wordData == "action:write") {
+//          consumeNext = true
+//        }
 
         var skipIncrement = false
         when (word) {
@@ -242,6 +242,7 @@ class DictionarySavedData: SavedData {
               return null
             }
             action = actionRegistry[wordData.substring(7)]
+            if(action?.consumesNextWord() == true) consumeNext = true
           }
 
           WORD.DESCRIPTOR -> {
@@ -256,6 +257,7 @@ class DictionarySavedData: SavedData {
                 skipIncrement = true
               } else {
                 descriptors.add(descriptor)
+                if(descriptor.consumesNextWord()) consumeNext = true
 
                 if(mult == 1) tokenPosition++
                 skipIncrement = true
@@ -270,6 +272,7 @@ class DictionarySavedData: SavedData {
               return null
             }
             subject = subjectRegistry[wordData.substring(8)]
+            if(subject?.consumesNextWord() == true) consumeNext = true
           }
 
           null -> {}
@@ -320,13 +323,16 @@ class DictionarySavedData: SavedData {
     return null
   }
 
-  private fun generateDescriptorString(descriptors: Array<Descriptor?>): Component {
+  private fun generateDescriptorString(descriptors: Array<Descriptor?>, spellData: MutableList<String>): Component {
     var component = Component.empty()
     var sp = ""
     for (descriptor in descriptors) {
       component = component.append(sp)
         .append(getWord(descriptor)?.let { Component.literal(it) } ?: getFakeWord())
       sp = " "
+      if(descriptor?.consumesNextWord() == true) {
+        component.append(sp).append(spellData.removeFirst())
+      }
     }
     return component
   }
@@ -348,15 +354,20 @@ class DictionarySavedData: SavedData {
           builder.append(sp).append(
             getWord(spell.spells[0].action)?.let { Component.literal(it) } ?: getFakeWord()
           )
-          if(spell.spells[0].action is WriteAction) {
+          if(spell.spells[0].action?.consumesNextWord() == true) {
             builder.append(sp).append(spellData.removeFirst())
           }
         }
-        WORD.SUBJECT -> builder.append(sp).append(
-          getWord(spell.subject)?.let { Component.literal(it) } ?: getFakeWord()
-        )
+        WORD.SUBJECT -> {
+          builder.append(sp).append(
+            getWord(spell.subject)?.let { Component.literal(it) } ?: getFakeWord()
+          )
+          if(spell.subject?.consumesNextWord() == true) {
+            builder.append(sp).append(spellData.removeFirst())
+          }
+        }
         WORD.DESCRIPTOR -> builder.append(sp)
-          .append(generateDescriptorString(spell.spells.first().deduplicatedDescriptors()))
+          .append(generateDescriptorString(spell.spells.first().deduplicatedDescriptors(), spellData))
         else -> {}
       }
       if(builder.string.isNotEmpty()) sp = " "
@@ -368,12 +379,12 @@ class DictionarySavedData: SavedData {
           builder.append(sp).append(
             getWord(partialSpell.action)?.let { Component.literal(it) } ?: getFakeWord()
           )
-          if(partialSpell.action is WriteAction) {
+          if(partialSpell.action?.consumesNextWord() == true) {
             builder.append(sp).append(spellData.removeFirst())
           }
         }
         else if (w == WORD.DESCRIPTOR)
-          builder.append(generateDescriptorString(partialSpell.deduplicatedDescriptors()))
+          builder.append(generateDescriptorString(partialSpell.deduplicatedDescriptors(), spellData))
       }
     }
 

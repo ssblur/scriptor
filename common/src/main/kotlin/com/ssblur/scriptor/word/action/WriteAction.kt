@@ -23,4 +23,6 @@ class WriteAction: Action() {
     entity.facing = targetable.facing
     level.setBlockEntity(entity)
   }
+
+  override fun consumesNextWord(): Boolean = true
 }

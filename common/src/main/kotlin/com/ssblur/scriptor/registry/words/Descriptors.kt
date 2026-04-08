@@ -3,10 +3,7 @@ package com.ssblur.scriptor.registry.words
 import com.ssblur.scriptor.registry.words.WordRegistry.register
 import com.ssblur.scriptor.word.descriptor.SpeedDurationDescriptor
 import com.ssblur.scriptor.word.descriptor.duration.SimpleDurationDescriptor
-import com.ssblur.scriptor.word.descriptor.target.ChainDescriptor
-import com.ssblur.scriptor.word.descriptor.target.CollideWithWaterDescriptor
-import com.ssblur.scriptor.word.descriptor.target.NearbyItemDescriptor
-import com.ssblur.scriptor.word.descriptor.target.NetherDescriptor
+import com.ssblur.scriptor.word.descriptor.target.*
 
 @Suppress("unused")
 object Descriptors {
@@ -43,6 +40,7 @@ object Descriptors {
   val COLLIDE_WITH_WATER = register("collide_with_water", CollideWithWaterDescriptor)
 
   val NEARBY_ITEM = register("nearby_item", NearbyItemDescriptor)
+  val RECENTER = register("recenter", CasterDescriptor)
 
   fun init() {}
 }

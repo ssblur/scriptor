@@ -37,4 +37,10 @@ abstract class Word {
    * descriptor.
    */
   abstract fun cost(): Cost
+
+  /**
+   * @return Whether this word will consume a word from the spell's spellData.
+   * Used for words which target other words, such as the "write" action.
+   */
+  open fun consumesNextWord(): Boolean = false
 }
