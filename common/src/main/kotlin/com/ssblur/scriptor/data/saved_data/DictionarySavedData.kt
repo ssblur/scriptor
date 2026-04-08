@@ -229,9 +229,6 @@ class DictionarySavedData: SavedData {
           tokenPosition++
           continue
         }
-//        else if(wordData == "action:write") {
-//          consumeNext = true
-//        }
 
         var skipIncrement = false
         when (word) {
