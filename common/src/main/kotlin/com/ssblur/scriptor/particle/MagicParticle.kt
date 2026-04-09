@@ -58,7 +58,7 @@ class MagicParticle(
   }
 
   override fun getRenderType(): ParticleRenderType {
-    return ParticleRenderType.PARTICLE_SHEET_LIT
+    return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT
   }
 
   class Provider(val spriteSet: SpriteSet): ParticleProvider.Sprite<MagicParticleData> {

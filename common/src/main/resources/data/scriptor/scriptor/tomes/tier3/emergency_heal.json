@@ -1,0 +1,22 @@
+{
+  "name": "tome.scriptor.emergency_heal",
+  "author": "Cleric",
+  "item": "scriptor:spellbook_green",
+  "tier": 3,
+  "spell": {
+    "subject": "self",
+    "spells": [
+      {
+        "action": "heal",
+        "descriptors": [
+          "critical",
+          "stacking_strong",
+          "stacking_strong",
+          "stacking_strong",
+          "stacking_strong",
+          "stacking_strong"
+        ]
+      }
+    ]
+  }
+}

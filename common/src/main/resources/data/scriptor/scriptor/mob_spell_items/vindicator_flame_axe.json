@@ -1,0 +1,21 @@
+{
+  "name": "item.scriptor.flaming_axe",
+  "spell": {
+    "subject": "on_hit",
+    "spells": [
+      {
+        "action": "inflame",
+        "descriptors": []
+      },
+      {
+        "action": "harm",
+        "descriptors": []
+      }
+    ]
+  },
+  "item": "minecraft:stone_axe",
+  "mob": "minecraft:vindicator",
+  "chance": 0.2,
+  "slot": "MAINHAND",
+  "rarity": "RARE"
+}

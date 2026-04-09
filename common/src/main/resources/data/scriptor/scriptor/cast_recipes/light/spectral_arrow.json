@@ -1,0 +1,10 @@
+{
+  "action": "light",
+  "base": {
+    "item": "minecraft:arrow"
+  },
+  "result": {
+    "id": "minecraft:spectral_arrow",
+    "count": 1
+  }
+}

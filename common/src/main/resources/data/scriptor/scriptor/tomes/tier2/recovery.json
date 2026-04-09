@@ -1,0 +1,17 @@
+{
+  "name": "tome.scriptor.recovery",
+  "author": "Cleric",
+  "item": "scriptor:spellbook_green",
+  "tier": 2,
+  "spell": {
+    "subject": "self",
+    "spells": [
+      {
+        "action": "regeneration",
+        "descriptors": [
+          "long"
+        ]
+      }
+    ]
+  }
+}

@@ -36,6 +36,17 @@ For information on usage and such, check out the docs on
 or explore the world in game to learn more about how magic works for
 you.
 
+## Localization
+
+Localizing this mod, in addition to the usual mod locale file in 
+[common/src/resources/assets/scriptor/lang/en_us](common/src/resources/assets/scriptor/lang/en_us),
+requires localizing all pages in 
+[common/src/resources/assets/scriptor/unfocused/markdown/en_us](common/src/resources/assets/scriptor/unfocused/markdown/en_us).
+
+Generally, if possible, localizations should work from en_us.
+
+Huge huge HUGE thanks to anyone willing to do so, I will always welcome PRs with translations and corrections!
+
 ## Special Thanks
 
 * [The-Forgiven-Zero](https://github.com/The-Forgiven-Zero),

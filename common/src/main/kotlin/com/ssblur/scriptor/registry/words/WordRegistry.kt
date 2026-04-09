@@ -7,11 +7,12 @@ import com.ssblur.scriptor.api.word.Subject
 import com.ssblur.scriptor.api.word.Word
 import com.ssblur.unfocused.config.Config
 
-@Suppress("unused")
+@Suppress("unused", "*")
 object WordRegistry {
   val actionRegistry: HashBiMap<String, Action> = HashBiMap.create()
   val descriptorRegistry: HashBiMap<String, Descriptor> = HashBiMap.create()
   val subjectRegistry: HashBiMap<String, Subject> = HashBiMap.create()
+  val otherRegistry: ArrayList<String> = arrayListOf()
 
   val actionCost: HashMap<String, Word.Cost> = HashMap()
   val descriptorCost: HashMap<String, Word.Cost> = HashMap()
@@ -35,32 +36,48 @@ object WordRegistry {
    * @param key The key at which to register this word
    * @param action The word to register
    */
-  fun register(key: String, action: Action) = actionRegistry.put(key, action)
+  fun register(key: String, action: Action): Action {
+    actionRegistry[key] = action
+    return actionRegistry[key]!!
+  }
 
   /**
    * Register a new Descriptor.
    * @param key The key at which to register this word
    * @param descriptor The word to register
    */
-  fun register(key: String, descriptor: Descriptor) = descriptorRegistry.put(key, descriptor)
+  fun register(key: String, descriptor: Descriptor): Descriptor {
+    descriptorRegistry[key] = descriptor
+    return descriptorRegistry[key]!!
+  }
 
   /**
    * Register a new Subject.
    * @param key The key at which to register this word
    * @param subject The word to register
    */
-  fun register(key: String, subject: Subject) = subjectRegistry.put(key, subject)
+  fun register(key: String, subject: Subject): Subject {
+    subjectRegistry[key] = subject
+    return subjectRegistry[key]!!
+  }
+
+  /**
+   * Register a new special token.
+   * @param key The token to register
+   */
+  fun registerOther(key: String) = otherRegistry.add(key)
 
   init {
-    Actions
-    PotionActions
-    ColorDescriptors
-    Descriptors
-    OffsetDescriptors
-    InventoryDescriptors
-    DiscountDescriptors
-    PowerDescriptors
-    Subjects
+    Actions.init()
+    PotionActions.init()
+    ColorDescriptors.init()
+    Descriptors.init()
+    OffsetDescriptors.init()
+    InventoryDescriptors.init()
+    DiscountDescriptors.init()
+    PowerDescriptors.init()
+    Subjects.init()
+    Others.init()
 
     val config = Config("scriptor_cost", "=", "## Allows configuring costs for all default words in Scriptor\n\n")
     actionRegistry.forEach { (key, value) ->

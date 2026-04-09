@@ -12,9 +12,10 @@ import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LightningBolt
 import kotlin.math.floor
+import kotlin.math.max
 
 class SmiteAction: Action() {
-  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>) {
+  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>, spellData: MutableList<String>) {
     var strength = 1.0
     for (d in descriptors) {
       if (d is StrengthDescriptor) strength += d.strengthModifier()
@@ -22,7 +23,7 @@ class SmiteAction: Action() {
 
     val itemTarget = ItemTargetableHelper.getTargetItemStack(targetable)
     if (!itemTarget.isEmpty) {
-      itemTarget.set(ScriptorDataComponents.CHARGES, floor(strength).toInt())
+      itemTarget[ScriptorDataComponents.CHARGES] = max(1, floor(strength).toInt())
       return
     }
 

@@ -1,20 +1,23 @@
 package com.ssblur.scriptor.item.books
 
+import com.ssblur.scriptor.ScriptorMod
+import com.ssblur.scriptor.config.ScriptorConfig
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData.Companion.computeIfAbsent
 import com.ssblur.scriptor.helpers.targetable.SpellbookTargetable
+import com.ssblur.scriptor.resources.Artifacts
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
-import net.minecraft.sounds.SoundEvents
-import net.minecraft.sounds.SoundSource
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
+import kotlin.math.roundToInt
 
 class Artifact(properties: Properties, val lore: String = "lore.scriptor.artifact_1"): Item(properties.stacksTo(1)) {
   init {
@@ -43,20 +46,12 @@ class Artifact(properties: Properties, val lore: String = "lore.scriptor.artifac
     val result = super.use(level, player, interactionHand)
 
     val itemStack = player.getItemInHand(interactionHand)
-    val text = itemStack.get(ScriptorDataComponents.SPELL)
+    val text = itemStack[ScriptorDataComponents.SPELL]
     if (text == null || level !is ServerLevel) return result
-
-    level.playSound(
-      null,
-      player.blockPosition(),
-      SoundEvents.EVOKER_CAST_SPELL,
-      SoundSource.PLAYERS,
-      0.4f,
-      level.getRandom().nextFloat() * 1.2f + 0.6f
-    )
 
     val spell = computeIfAbsent(level).parse(text)
     if (spell != null) {
+      spell.playSound(level, player.blockPosition())
       spell.cast(
         SpellbookTargetable(
           itemStack,
@@ -66,11 +61,22 @@ class Artifact(properties: Properties, val lore: String = "lore.scriptor.artifac
       )
       if (!player.isCreative) for (artifact in ARTIFACTS) player.cooldowns.addCooldown(
         artifact,
-        Math.round(spell.cost() * 2).toInt()
+        (spell.cost() * (ScriptorConfig.ARTIFACT_COOLDOWN_MULTIPLIER() / 200.0)).roundToInt()
       )
       return InteractionResultHolder.pass(itemStack)
     }
     return InteractionResultHolder.fail(itemStack)
+  }
+
+  override fun inventoryTick(itemStack: ItemStack, level: Level, entity: Entity, i: Int, bl: Boolean) {
+    if(itemStack[ScriptorDataComponents.SPELL] == null && level is ServerLevel) {
+      if(itemStack[ScriptorDataComponents.TOME_TO_GIVE] == null)
+        Artifacts.getRandomArtifact().applyToItem(itemStack, level)
+      else
+        Artifacts.artifacts[ScriptorMod.location(itemStack[ScriptorDataComponents.TOME_TO_GIVE]!!)]
+          ?.applyToItem(itemStack, level) ?: Artifacts.getRandomArtifact().applyToItem(itemStack, level)
+    }
+    super.inventoryTick(itemStack, level, entity, i, bl)
   }
 
   companion object {

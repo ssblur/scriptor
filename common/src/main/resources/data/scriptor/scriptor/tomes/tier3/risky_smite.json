@@ -1,0 +1,19 @@
+{
+  "name": "tome.scriptor.risky_smite",
+  "author": "H., Djenn",
+  "item": "scriptor:spellbook_yellow",
+  "tier": 3,
+  "spell": {
+    "subject": "projectile",
+    "spells": [
+      {
+        "action": "hitscan",
+        "descriptors": [
+          "smite",
+          "unreliable",
+          "overwhelming"
+        ]
+      }
+    ]
+  }
+}

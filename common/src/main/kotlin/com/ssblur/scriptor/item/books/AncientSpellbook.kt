@@ -8,6 +8,7 @@ import com.ssblur.scriptor.helpers.SpellbookHelper
 import com.ssblur.scriptor.resources.Tomes
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.InteractionHand
@@ -44,11 +45,18 @@ class AncientSpellbook(properties: Properties, var tier: Int): Item(properties) 
       player.sendSystemMessage(Component.translatable("extra.scriptor.tome_use"))
       if(!player.isCreative) player.cooldowns.addCooldown(this, 20)
 
-      val resource = Tomes.getRandomTome(tier, player)
+      val item = player.getItemInHand(interactionHand)
+      val tomeToGive = item[ScriptorDataComponents.TOME_TO_GIVE]
+      val resource: Tomes.TomeResource
+      if(tomeToGive == null) {
+        resource = Tomes.getRandomTome(tier, player)
+      } else {
+        resource = Tomes.tomes[ResourceLocation.parse(tomeToGive)] ?: return result
+      }
       if (resource.getSpell().spells.size > 1) ScriptorAdvancements.COMPLEX_SPELL.get().trigger(player as ServerPlayer)
 
       val spell = resource.getSpell()
-      val sentence = computeIfAbsent(server).generate(spell)
+      val sentence = computeIfAbsent(server).generate(spell).string
 
       val spellbook =
         LimitedBookSerializer.createSpellbook(resource.author, resource.name, sentence, resource.item)

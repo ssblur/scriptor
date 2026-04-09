@@ -1,0 +1,15 @@
+{
+  "name": "tome.scriptor.portable_smelter",
+  "author": "MCB Commission",
+  "tier": 3,
+  "item": "scriptor:spellbook_brown",
+  "spell": {
+    "subject": "enchant",
+    "spells": [
+      {
+        "action": "inflame",
+        "descriptors": []
+      }
+    ]
+  }
+}

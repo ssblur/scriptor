@@ -5,6 +5,7 @@ import com.ssblur.scriptor.registry.words.WordRegistry.register
 import com.ssblur.scriptor.word.action.*
 import com.ssblur.scriptor.word.action.bound.BoundSwordAction
 import com.ssblur.scriptor.word.action.bound.BoundToolAction
+import com.ssblur.scriptor.word.action.bound.FoodAction
 import com.ssblur.scriptor.word.action.potions.LightAction
 import com.ssblur.scriptor.word.action.teleport.BringAction
 import com.ssblur.scriptor.word.action.teleport.GotoAction
@@ -30,11 +31,13 @@ object Actions {
   val HARM = register("harm", HarmAction())
   val COLOR = register("color", ColorAction())
   val TIME = register("time", AdvanceTimeAction())
+  val WRITE = register("write", WriteAction())
   val CLEAR_WEATHER = register(
     "clear_weather",
     ClearWeatherAction()
   )
   val RAIN = register("rain", RainAction())
+  val EVOKER_FANGS = register("fangs", EvokerFangsAction())
 
   val BOUND_SWORD = register("bound_sword", BoundSwordAction())
   val BOUND_AXE = register(
@@ -58,4 +61,7 @@ object Actions {
       listOf(TagKey.create(Registries.BLOCK, ResourceLocation.withDefaultNamespace("mineable/pickaxe")))
     )
   )
+  val SUMMON_FOOD = register("saturation", FoodAction())
+
+  fun init() {}
 }

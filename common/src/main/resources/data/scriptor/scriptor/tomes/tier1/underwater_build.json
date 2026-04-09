@@ -1,0 +1,18 @@
+{
+  "name": "tome.scriptor.underwater_build",
+  "author": "Stone, R.",
+  "tier": 4,
+  "item": "scriptor:spellbook_blue",
+  "spell": {
+    "subject": "self",
+    "spells": [
+      {
+        "action": "water_breathing",
+        "descriptors": [
+          "reagent.scriptor.redstone",
+          "longer"
+        ]
+      }
+    ]
+  }
+}

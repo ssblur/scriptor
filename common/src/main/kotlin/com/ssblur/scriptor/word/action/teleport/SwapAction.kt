@@ -18,7 +18,7 @@ import net.minecraft.world.level.ChunkPos
 import net.minecraft.world.level.Level
 
 open class SwapAction: Action() {
-  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>) {
+  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>, spellData: MutableList<String>) {
     if (targetable.level.isClientSide) return
 
     teleport(caster, targetable)

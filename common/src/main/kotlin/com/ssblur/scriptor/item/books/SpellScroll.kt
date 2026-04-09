@@ -2,6 +2,7 @@ package com.ssblur.scriptor.item.books
 
 import com.ssblur.scriptor.config.ScriptorConfig
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
+import com.ssblur.scriptor.extension.EntityCastCooldownExtension.castCooldown
 import com.ssblur.scriptor.helpers.SpellbookHelper
 import com.ssblur.scriptor.item.ScriptorTabs
 import com.ssblur.scriptor.network.server.ScriptorNetworkC2S
@@ -39,7 +40,7 @@ class SpellScroll(properties: Properties) : WrittenBookItem(properties) {
             maxCost = ScriptorConfig.SCROLL_MAX_COST(),
             costMultiplier = ScriptorConfig.SCROLL_COOLDOWN_MULTIPLIER(),
             cooldownFunc = { ply, time ->
-                ply.cooldowns.addCooldown(this, time)
+                ply.castCooldown = time * 5L
             }
         )
         if(result) {

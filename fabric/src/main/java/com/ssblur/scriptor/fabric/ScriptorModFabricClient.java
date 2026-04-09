@@ -1,11 +1,11 @@
 package com.ssblur.scriptor.fabric;
 
-import com.ssblur.scriptor.ScriptorMod;
+import com.ssblur.scriptor.ScriptorClient;
 import net.fabricmc.api.ClientModInitializer;
 
 public class ScriptorModFabricClient implements ClientModInitializer {
   @Override
   public void onInitializeClient() {
-    ScriptorMod.INSTANCE.clientInit();
+      ScriptorClient.INSTANCE.clientInit();
   }
 }

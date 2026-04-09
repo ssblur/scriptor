@@ -1,0 +1,15 @@
+{
+  "name": "tome.scriptor.sink_stone",
+  "author": "V., Eve",
+  "item": "scriptor:spellbook_red",
+  "tier": 3,
+  "spell": {
+    "subject": "touch",
+    "spells": [
+      {
+        "action": "wild_phasing",
+        "descriptors": []
+      }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "item.scriptor.swap_bow",
+  "spell": {
+    "subject": "on_hit",
+    "spells": [
+      {
+        "action": "swap",
+        "descriptors": []
+      }
+    ]
+  },
+  "item": "minecraft:bow",
+  "mob": "minecraft:skeleton",
+  "chance": 0.02,
+  "slot": "MAINHAND",
+  "rarity": "UNCOMMON"
+}

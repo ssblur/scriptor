@@ -3,6 +3,8 @@ package com.ssblur.scriptor.item
 import com.ssblur.scriptor.ScriptorMod.registerItem
 import com.ssblur.scriptor.item.books.*
 import com.ssblur.scriptor.item.casters.CoordinateCasterCrystal
+import com.ssblur.scriptor.item.casters.NearbyAnimalsCastingCrystal
+import com.ssblur.scriptor.item.casters.NearbyMobsCastingCrystal
 import com.ssblur.scriptor.item.casters.PlayerCasterCrystal
 import com.ssblur.scriptor.item.tools.Chalk
 import com.ssblur.scriptor.item.tools.EngravingTool
@@ -12,6 +14,7 @@ import com.ssblur.scriptor.item.tools.bound.BoundTool
 import com.ssblur.unfocused.helper.ColorHelper
 import com.ssblur.unfocused.tab.CreativeTabs.tab
 import net.minecraft.tags.BlockTags
+import net.minecraft.world.food.FoodProperties
 import net.minecraft.world.item.DyeColor
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.Tiers
@@ -24,7 +27,7 @@ object ScriptorItems {
     if (it.dyeColor != DyeColor.PURPLE)
       registerItem("spellbook_${it.nameAllLowerCase}") { Spellbook(Item.Properties()) }
   }
-  val OBFUCATED_SPELLBOOKS = ColorHelper.forEachColor {
+  val OBFUSCATED_SPELLBOOKS = ColorHelper.forEachColor {
     if (it.dyeColor != DyeColor.PURPLE)
       registerItem("obfuscated_spellbook_${it.nameAllLowerCase}") { Spellbook(Item.Properties()) }
   }
@@ -57,12 +60,7 @@ object ScriptorItems {
   val ENGRAVING_TOOL = registerItem("engraving_tool") { EngravingTool(Item.Properties()) }
     .tab(ScriptorTabs.SCRIPTOR_TAB)
   val DICTIONARY = registerItem("dictionary") {
-    Ingredient(
-      Item.Properties().stacksTo(1),
-      "lore.scriptor.dictionary",
-      "lore.scriptor.dictionary_2",
-      "lore.scriptor.dictionary_3"
-    )
+    Dictionary(Item.Properties().stacksTo(1),)
   }.tab(ScriptorTabs.SCRIPTOR_TAB)
 
   val TOME_TIER1 = registerItem("tome_tier1") { AncientSpellbook(Item.Properties(), 1) }
@@ -73,6 +71,9 @@ object ScriptorItems {
   val SCRAP_TIER1 = registerItem("scrap_tier1") { AncientScrap(Item.Properties(), 1) }
   val SCRAP_TIER2 = registerItem("scrap_tier2") { AncientScrap(Item.Properties(), 2) }
   val SCRAP_TIER3 = registerItem("scrap_tier3") { AncientScrap(Item.Properties(), 3) }
+
+  val NOTE_TIER1 = registerItem("note_tier1") { AncientNote(Item.Properties(), 1) }
+  val NOTE_TIER2 = registerItem("note_tier2") { AncientNote(Item.Properties(), 2) }
 
   val IDENTIFY_SCROLL =
     registerItem("identify_scroll") { IdentifyScroll(Item.Properties()) }.tab(ScriptorTabs.SCRIPTOR_TAB)
@@ -88,13 +89,25 @@ object ScriptorItems {
   }.tab(ScriptorTabs.SCRIPTOR_TAB)
   val PLAYER_TAG = registerItem("player_tag") {
     Ingredient(Item.Properties(), "lore.scriptor.ingredient", "lore.scriptor.ingredient_tag")
-  }
+  }.tab(ScriptorTabs.SCRIPTOR_TAB)
+  val ANIMAL_TAG = registerItem("animal_tag") {
+    Ingredient(Item.Properties(), "lore.scriptor.ingredient", "lore.scriptor.ingredient_tag")
+  }.tab(ScriptorTabs.SCRIPTOR_TAB)
+  val MOB_TAG = registerItem("mob_tag") {
+    Ingredient(Item.Properties(), "lore.scriptor.ingredient", "lore.scriptor.ingredient_tag")
+  }.tab(ScriptorTabs.SCRIPTOR_TAB)
 
   val PLAYER_CASTING_CRYSTAL = registerItem("player_casting_crystal") {
     PlayerCasterCrystal(Item.Properties())
   }.tab(ScriptorTabs.SCRIPTOR_TAB)
   val COORDINATE_CASTING_CRYSTAL = registerItem("coordinate_casting_crystal") {
     CoordinateCasterCrystal(Item.Properties())
+  }.tab(ScriptorTabs.SCRIPTOR_TAB)
+  val ANIMAL_CASTING_CRYSTAL = registerItem("animal_casting_crystal") {
+    NearbyAnimalsCastingCrystal(Item.Properties())
+  }.tab(ScriptorTabs.SCRIPTOR_TAB)
+  val MOB_CASTING_CRYSTAL = registerItem("mob_casting_crystal") {
+    NearbyMobsCastingCrystal(Item.Properties())
   }.tab(ScriptorTabs.SCRIPTOR_TAB)
 
   val BOUND_SWORD = registerItem("bound_sword") {
@@ -109,6 +122,15 @@ object ScriptorItems {
   val BOUND_PICKAXE = registerItem("bound_pickaxe") {
     BoundTool(Tiers.STONE, BlockTags.MINEABLE_WITH_PICKAXE, Item.Properties().durability(Int.MAX_VALUE))
   }.tab(ScriptorTabs.SCRIPTOR_TAB)
+
+  val ETHEREAL_FIG = registerItem("ethereal_fig") {
+    Item(Item.Properties().food(FoodProperties.Builder()
+      .nutrition(2)
+      .saturationModifier(2.0f)
+      .alwaysEdible()
+      .build()
+    )).tab(ScriptorTabs.SCRIPTOR_TAB)
+  }
 
   fun register() {}
 }

@@ -15,7 +15,7 @@ class OffsetDescriptor(val cost: Double): Descriptor(), TargetDescriptor {
     return output
   }
 
-  override fun cost() = Cost(1.25, COSTTYPE.MULTIPLICATIVE)
+  override fun cost() = Cost(cost, COSTTYPE.MULTIPLICATIVE)
   override fun replacesSubjectCost() = false
   override fun allowsDuplicates() = true
 

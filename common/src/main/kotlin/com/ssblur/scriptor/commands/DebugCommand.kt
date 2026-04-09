@@ -14,10 +14,11 @@ import com.ssblur.scriptor.item.ScriptorTags
 import com.ssblur.scriptor.registry.words.WordRegistry.actionRegistry
 import com.ssblur.scriptor.registry.words.WordRegistry.descriptorRegistry
 import com.ssblur.scriptor.registry.words.WordRegistry.subjectRegistry
-import com.ssblur.scriptor.resources.Artifacts
 import com.ssblur.scriptor.resources.Engravings
+import com.ssblur.scriptor.resources.MobSpellItems
 import com.ssblur.scriptor.resources.Scraps
 import com.ssblur.scriptor.resources.Tomes
+import com.ssblur.unfocused.mixin.StructureTemplatePoolAccessor
 import net.minecraft.ChatFormatting
 import net.minecraft.client.resources.language.I18n
 import net.minecraft.commands.CommandBuildContext
@@ -25,6 +26,7 @@ import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 
@@ -61,6 +63,13 @@ object DebugCommand {
         Commands.literal("give_dictionary")
           .requires { s: CommandSourceStack -> s.hasPermission(4) }
           .executes { executeDictionary(it) }
+      )
+    )
+    dispatcher.register(
+      Commands.literal("scriptor_debug").then(
+        Commands.literal("template_test")
+          .requires { s: CommandSourceStack -> s.hasPermission(4) }
+          .executes { executeTemplateTest(it) }
       )
     )
   }
@@ -110,10 +119,11 @@ object DebugCommand {
 
     val actionsNotInTomes = actionRegistry.keys.filter { word ->
       Tomes.tomes.values.none{ it.spell?.spells?.any{ it.action == word } ?: false }
-              && Artifacts.artifacts.values.none{ it.spell?.spells?.any{ it.action == word } ?: false }
-              && Engravings.engravings.values.none{ it.spell?.spells?.any{ it.action == word } ?: false }
+//          && Artifacts.artifacts.values.none{ it.spell?.spells?.any{ it.action == word } ?: false }
+          && Engravings.engravings.values.none{ it.spell?.spells?.any{ it.action == word } ?: false }
+          && MobSpellItems.items.values.none{ it.spell?.spells?.any{ it.action == word } ?: false }
     }
-    message.append("The following actions do not appear in any tomes:").append(actionsNotInTomes).append("\n")
+    message.append("The following actions do not appear in any tome, engraving, or item:").append(actionsNotInTomes).append("\n")
     val actionsNotInScraps = actionsNotInTomes.filter { word ->
       Scraps.scraps.values.none { it.keys.contains("action:$word") }
     }
@@ -121,8 +131,9 @@ object DebugCommand {
 
     val subjectsNotInTomes = subjectRegistry.keys.filter { word ->
       Tomes.tomes.values.none{ it.spell?.subject == word }
-              && Artifacts.artifacts.values.none{ it.spell?.subject == word }
-              && Engravings.engravings.values.none{ it.spell?.subject == word }
+//          && Artifacts.artifacts.values.none{ it.spell?.subject == word }
+          && Engravings.engravings.values.none{ it.spell?.subject == word }
+          && MobSpellItems.items.values.none{ it.spell?.subject == word }
     }
     message.append("The following subjects do not appear in any tomes:").append(subjectsNotInTomes).append("\n")
     val subjectsNotInScraps = subjectsNotInTomes.filter { word ->
@@ -132,8 +143,9 @@ object DebugCommand {
 
     val descriptorsNotInTomes = descriptorRegistry.keys.filter { word ->
       Tomes.tomes.values.none { it.spell?.spells?.any{ it.descriptors.contains(word) } ?: false }
-              && Artifacts.artifacts.values.none { it.spell?.spells?.any{ it.descriptors.contains(word) } ?: false }
-              && Engravings.engravings.values.none { it.spell?.spells?.any{ it.descriptors.contains(word) } ?: false }
+//          && Artifacts.artifacts.values.none { it.spell?.spells?.any{ it.descriptors.contains(word) } ?: false }
+          && Engravings.engravings.values.none { it.spell?.spells?.any{ it.descriptors.contains(word) } ?: false }
+          && MobSpellItems.items.values.none{ it.spell?.spells?.any{ it.descriptors.contains(word) } ?: false }
     }
     message.append("The following descriptors do not appear in any tomes:").append(descriptorsNotInTomes).append("\n")
     val descriptorsNotInScraps = descriptorsNotInTomes.filter { word ->
@@ -197,6 +209,15 @@ object DebugCommand {
     item[ScriptorDataComponents.DICTIONARY_DATA] = DictionaryData(list)
     command.source.player?.addItem(item)
 
+    return Command.SINGLE_SUCCESS
+  }
+
+  private fun executeTemplateTest(command: CommandContext<CommandSourceStack>): Int {
+    command.source.player?.let {
+      val poolRegistry = command.source.server.registryAccess().registry(Registries.TEMPLATE_POOL).orElseThrow()
+      val pool = poolRegistry.get(ResourceLocation.parse("minecraft:village/plains/houses"))!! as StructureTemplatePoolAccessor
+      it.sendSystemMessage(Component.literal(pool.templates.toString()))
+    }
     return Command.SINGLE_SUCCESS
   }
 }

@@ -2,10 +2,6 @@ package com.ssblur.scriptor.blockentity
 
 import com.ssblur.scriptor.ScriptorMod
 import com.ssblur.scriptor.block.ScriptorBlocks
-import com.ssblur.scriptor.blockentity.renderers.*
-import com.ssblur.unfocused.rendering.BlockEntityRendering.registerBlockEntityRenderer
-import net.fabricmc.api.EnvType
-import net.fabricmc.api.Environment
 import net.minecraft.core.BlockPos
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
@@ -67,14 +63,4 @@ object ScriptorBlockEntities {
   }
 
   fun register() {}
-
-  @Environment(EnvType.CLIENT)
-  fun registerRenderers() {
-    ScriptorMod.registerBlockEntityRenderer(RUNE) { RuneBlockEntityRenderer(it) }
-    ScriptorMod.registerBlockEntityRenderer(CHALK) { ChalkBlockEntityRenderer(it) }
-    ScriptorMod.registerBlockEntityRenderer(ENGRAVING) { EngravingBlockEntityRenderer(it) }
-    ScriptorMod.registerBlockEntityRenderer(CASTING_LECTERN) { CastingLecternBlockEntityRenderer(it) }
-    ScriptorMod.registerBlockEntityRenderer(LIGHT) { LightBlockEntityRenderer(it) }
-    ScriptorMod.registerBlockEntityRenderer(PHASED_BLOCK) { PhasedBlockBlockEntityRenderer(it) }
-  }
 }

@@ -8,11 +8,7 @@ import com.ssblur.scriptor.advancement.ScriptorAdvancements.TOME_2
 import com.ssblur.scriptor.advancement.ScriptorAdvancements.TOME_3
 import com.ssblur.scriptor.advancement.ScriptorAdvancements.TOME_4
 import com.ssblur.scriptor.data.saved_data.PlayerSpellsSavedData.Companion.computeIfAbsent
-import com.ssblur.scriptor.error.WordNotFoundException
-import com.ssblur.scriptor.registry.words.WordRegistry.actionRegistry
-import com.ssblur.scriptor.registry.words.WordRegistry.descriptorRegistry
-import com.ssblur.scriptor.registry.words.WordRegistry.subjectRegistry
-import com.ssblur.scriptor.word.PartialSpell
+import com.ssblur.scriptor.resources.shared.SpellResource
 import com.ssblur.scriptor.word.Spell
 import com.ssblur.unfocused.data.DataLoaderRegistry.registerSimpleDataLoader
 import net.minecraft.resources.ResourceLocation
@@ -24,27 +20,13 @@ import kotlin.random.Random
 
 object Tomes {
   class TomeResource {
-    class PartialSpellResource(var action: String, var descriptors: List<String>)
-    class SpellResource(var subject: String, var spells: List<PartialSpellResource>)
-
     var name: String = "items.scriptor.spellbook"
     var author: String? = null
     var spell: SpellResource? = null
     var item: String? = null
     var tier: Int = 0
 
-    fun getSpell(): Spell {
-      val spells = mutableListOf<PartialSpell>()
-      for (spell in spell!!.spells) {
-        val action = actionRegistry[spell.action] ?: throw WordNotFoundException(spell.action)
-        val descriptors = spell.descriptors.map { descriptorRegistry[it] ?: throw WordNotFoundException(it) }
-        spells += PartialSpell(action, *descriptors.toTypedArray())
-      }
-      return Spell(
-        subjectRegistry[spell!!.subject] ?: throw WordNotFoundException(spell!!.subject),
-        *spells.toTypedArray()
-      )
-    }
+    fun getSpell(): Spell = spell!!.getSpell()
   }
 
   val tomes = ScriptorMod.registerSimpleDataLoader("scriptor/tomes", TomeResource::class)
@@ -69,7 +51,6 @@ object Tomes {
     if (data != null) {
       val known = data.getTier(t)
       val remaining = options.filter { entry -> known.none{ (key, _) -> key == entry.key.toShortLanguageKey() } }
-      println(remaining)
 
       TOME.get().trigger(player as ServerPlayer)
       if(remaining.size <= 1){

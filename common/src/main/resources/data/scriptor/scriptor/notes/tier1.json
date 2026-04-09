@@ -1,0 +1,11 @@
+{
+  "tier": 1,
+  "keys": [
+    "scriptor:casting/item_inscription",
+    "scriptor:casting/engravings",
+    "scriptor:casting/scrolls",
+    "scriptor:casting/verbal_casting",
+    "scriptor:oddities/entity_casting",
+    "scriptor:oddities/obfuscation"
+  ]
+}

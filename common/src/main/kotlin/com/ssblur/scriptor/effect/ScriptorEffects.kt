@@ -9,7 +9,6 @@ import net.minecraft.world.effect.MobEffectCategory
 
 @Suppress("unused")
 object ScriptorEffects {
-  val HOARSE: RegistrySupplier<MobEffect> = registerEffect("hoarse") { Effect(MobEffectCategory.HARMFUL, 0xcc00cc) {} }
   val MUTE: RegistrySupplier<MobEffect> = registerEffect("mute") { Effect(MobEffectCategory.HARMFUL, 0xcc00cc) {} }
   val PHASING: RegistrySupplier<MobEffect> = registerEffect("phasing") { PhasingStatusEffect() }
   val WILD_PHASING: RegistrySupplier<MobEffect> = registerEffect("wild_phasing") { WildPhasingStatusEffect() }

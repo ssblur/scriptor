@@ -8,6 +8,7 @@ import com.mojang.brigadier.suggestion.SuggestionProvider
 import com.mojang.brigadier.suggestion.SuggestionsBuilder
 import com.ssblur.scriptor.ScriptorMod.COMMUNITY_MODE
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData
+import com.ssblur.scriptor.registry.words.WordRegistry
 import com.ssblur.scriptor.registry.words.WordRegistry.actionRegistry
 import com.ssblur.scriptor.registry.words.WordRegistry.descriptorRegistry
 import com.ssblur.scriptor.registry.words.WordRegistry.subjectRegistry
@@ -22,21 +23,16 @@ import net.minecraft.world.entity.player.Player
 
 @Suppress("unused")
 object DumpWordCommand {
-  private val otherWords = arrayOf(
-    "and"
-  )
-
   @Suppress("unused_parameter")
   fun register(
     dispatcher: CommandDispatcher<CommandSourceStack>,
     registry: CommandBuildContext?,
     selection: Commands.CommandSelection?
   ) {
-    var command = Commands.literal("dump_word").requires { s: CommandSourceStack -> s.hasPermission(4) }
-      .executes { execute(it) }
+    var command = Commands.literal("scriptor")
 
     command = command.then(Commands
-      .literal("action")
+      .literal("get_action")
       .then(
         Commands.argument("word", StringArgumentType.string())
           .suggests((SuggestionProvider { context: CommandContext<CommandSourceStack?>?, builder: SuggestionsBuilder ->
@@ -67,7 +63,7 @@ object DumpWordCommand {
     )
 
     command = command.then(Commands
-      .literal("descriptor")
+      .literal("get_descriptor")
       .then(
         Commands.argument("word", StringArgumentType.string())
           .suggests { _: CommandContext<CommandSourceStack?>?, builder: SuggestionsBuilder ->
@@ -94,7 +90,7 @@ object DumpWordCommand {
     )
 
     command = command.then(Commands
-      .literal("subject")
+      .literal("get_subject")
       .then(
         Commands.argument("word", StringArgumentType.string())
           .suggests { _: CommandContext<CommandSourceStack?>?, builder: SuggestionsBuilder ->
@@ -122,11 +118,11 @@ object DumpWordCommand {
     )
 
     command = command.then(Commands
-      .literal("other")
+      .literal("get_other")
       .then(
         Commands.argument("word", StringArgumentType.string())
           .suggests { _, builder ->
-            SharedSuggestionProvider.suggest(otherWords, builder)
+            SharedSuggestionProvider.suggest(WordRegistry.otherRegistry, builder)
           }.executes(getWord("other"))
       ).requires { it.hasPermission(4) }
       .executes { context: CommandContext<CommandSourceStack> ->

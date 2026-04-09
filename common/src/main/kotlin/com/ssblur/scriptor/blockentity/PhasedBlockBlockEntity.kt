@@ -3,6 +3,7 @@ package com.ssblur.scriptor.blockentity
 import com.ssblur.scriptor.block.PhasedBlock
 import com.ssblur.scriptor.block.ScriptorBlocks
 import com.ssblur.scriptor.config.ScriptorConfig
+import com.ssblur.unfocused.extension.BlockStateExtension.matches
 import net.minecraft.core.BlockPos
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
@@ -141,7 +142,7 @@ class PhasedBlockBlockEntity(blockPos: BlockPos, blockState: BlockState):
     }
 
     fun phasable(state: BlockState, level: Level, pos: BlockPos): Boolean {
-      return state.`is`(ScriptorBlocks.DO_NOT_PHASE)
+      return state matches ScriptorBlocks.DO_NOT_PHASE
     }
   }
 }

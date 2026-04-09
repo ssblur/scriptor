@@ -1,5 +1,6 @@
 package com.ssblur.scriptor.neoforge;
 
+import com.ssblur.scriptor.ScriptorClient;
 import com.ssblur.scriptor.ScriptorMod;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -11,7 +12,7 @@ public final class ScriptorModNeoForge {
   public ScriptorModNeoForge(@SuppressWarnings("unused") IEventBus bus) {
     ScriptorMod.INSTANCE.init();
     if (FMLEnvironment.dist == Dist.CLIENT) {
-      ScriptorMod.INSTANCE.clientInit();
+        ScriptorClient.INSTANCE.clientInit();
     }
   }
 }

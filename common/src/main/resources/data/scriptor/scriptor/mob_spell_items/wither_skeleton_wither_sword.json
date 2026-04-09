@@ -1,0 +1,17 @@
+{
+  "name": "item.scriptor.wither_sword",
+  "spell": {
+    "subject": "on_hit",
+    "spells": [
+      {
+        "action": "wither",
+        "descriptors": []
+      }
+    ]
+  },
+  "item": "minecraft:crossbow",
+  "mob": "minecraft:pillager",
+  "chance": 0.3,
+  "slot": "MAINHAND",
+  "rarity": "COMMON"
+}

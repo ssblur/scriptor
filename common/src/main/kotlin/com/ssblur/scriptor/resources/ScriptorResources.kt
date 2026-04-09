@@ -1,6 +1,7 @@
 package com.ssblur.scriptor.resources
 
 object ScriptorResources {
+  @Suppress("unused_expression")
   fun register() {
     Tomes
     Artifacts
@@ -11,5 +12,8 @@ object ScriptorResources {
     Reagents
     Scraps
     Words
+    MobSpellItems
+    VillagerEngravings
+    Notes
   }
 }

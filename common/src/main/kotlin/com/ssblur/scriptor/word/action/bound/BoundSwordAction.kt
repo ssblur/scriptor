@@ -20,7 +20,7 @@ import net.minecraft.world.item.component.ItemAttributeModifiers
 import kotlin.math.floor
 
 class BoundSwordAction: Action() {
-  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>) {
+  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>, spellData: MutableList<String>) {
     var strength = 5.0
     var duration = 4.0
     for (d in descriptors) {

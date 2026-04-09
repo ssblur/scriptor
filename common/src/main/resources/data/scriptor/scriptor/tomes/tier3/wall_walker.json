@@ -1,6 +1,7 @@
 {
   "name": "tome.scriptor.wall_walker",
-  "author": "Oats Holland",
+  "author": "H., Uncine",
+  "item": "scriptor:spellbook_black",
   "tier": 3,
   "spell": {
     "subject": "touch",

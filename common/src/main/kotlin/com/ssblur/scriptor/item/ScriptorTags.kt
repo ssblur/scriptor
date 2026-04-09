@@ -8,4 +8,5 @@ object ScriptorTags {
   val READABLE_SPELLBOOKS: TagKey<Item> = ScriptorMod.registerItemTag("readable_spellbooks")
   val WRITABLE_SPELLBOOKS: TagKey<Item> = ScriptorMod.registerItemTag("writable_spellbooks")
   val SPELLBOOKS: TagKey<Item> = ScriptorMod.registerItemTag("spellbooks")
+  val IGNORE_SPELL_COMPONENT: TagKey<Item> = ScriptorMod.registerItemTag("ignore_spell_component")
 }

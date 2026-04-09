@@ -15,7 +15,7 @@ import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.LivingEntity
 
 class LightAction: Action() {
-  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>) {
+  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>, spellData: MutableList<String>) {
     var seconds = 6
     for (d in descriptors) {
       if (d is DurationDescriptor) seconds = (seconds + 3 * d.durationModifier()).toInt()

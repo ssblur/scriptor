@@ -1,0 +1,15 @@
+{
+  "name": "tome.scriptor.goto",
+  "author": "N., Ann",
+  "tier": 1,
+  "item": "scriptor:spellbook_black",
+  "spell": {
+    "subject": "projectile",
+    "spells": [
+      {
+        "action": "goto",
+        "descriptors": ["black"]
+      }
+    ]
+  }
+}

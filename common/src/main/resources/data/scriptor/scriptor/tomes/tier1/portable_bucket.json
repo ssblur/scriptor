@@ -1,0 +1,15 @@
+{
+  "name": "tome.scriptor.portable_bucket",
+  "author": "Steve?",
+  "tier": 1,
+  "item": "scriptor:spellbook_blue",
+  "spell": {
+    "subject": "touch",
+    "spells": [
+      {
+        "action": "conjure_water",
+        "descriptors": []
+      }
+    ]
+  }
+}

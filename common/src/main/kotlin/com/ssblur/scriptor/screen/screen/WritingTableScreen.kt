@@ -8,10 +8,12 @@ import com.ssblur.scriptor.item.ScriptorTags
 import com.ssblur.scriptor.network.server.WritingTableNetwork
 import com.ssblur.scriptor.screen.menu.WritingTableMenu
 import com.ssblur.scriptor.screen.widget.TextField
+import com.ssblur.unfocused.extension.ItemStackExtension.matches
+import com.ssblur.unfocused.screen.UnfocusedScreen
+import com.ssblur.unfocused.screen.widget.ButtonWidget
+import com.ssblur.unfocused.screen.widget.TextEntryWidget
 import net.minecraft.ChatFormatting
 import net.minecraft.client.gui.GuiGraphics
-import net.minecraft.client.gui.components.Button
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
 import net.minecraft.client.resources.language.I18n
 import net.minecraft.core.component.DataComponents
 import net.minecraft.network.chat.Component
@@ -22,43 +24,36 @@ import net.minecraft.world.item.ItemStack
 import kotlin.math.sign
 
 class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, component: Component):
-  AbstractContainerScreen<WritingTableMenu>(
+  UnfocusedScreen<WritingTableMenu>(
     menu,
     inventory,
     component
   ) {
-    val textField: TextField
-    val searchField: TextField
-    val dictionaryWordField: TextField
-    val dictionaryDefinitionField: TextField
-    var dictionarySaveButton: Button
-    var dictionaryDeleteButton: Button
-    var signButton: Button
-    var finishSigningButton: Button
-    var signingNameField: TextField
-    init {
-      imageWidth = 256
-      imageHeight = 182
-      textField = addRenderableWidget(TextField(leftPos + 15, topPos + 8, 140, 86, true))
-      searchField = addRenderableWidget(
-        TextField(leftPos + 178, topPos + 11, 72, 12, true, multiline = false, color = 0xffffff)
-      )
-      dictionaryWordField = TextField(leftPos, topPos, 90, 14, true, multiline = false)
-      dictionaryDefinitionField = TextField(leftPos, topPos, 141, 26, true)
-      dictionarySaveButton = Button.Builder(translatable("extra.scriptor.save")) {}.build()
-      dictionaryDeleteButton = Button.Builder(translatable("extra.scriptor.delete")) {}.build()
-      signButton = Button.Builder(translatable("extra.scriptor.sign")) {}.build()
-      finishSigningButton = Button.Builder(translatable("extra.scriptor.sign")) {}.build()
-      signingNameField = TextField(leftPos, topPos, 136, 14, true, multiline = false)
-    }
+  val textField: TextField
+  var searchText = ""
+  var signingText = ""
+  var dictionaryName = ""
+  var dictionaryDefinition = ""
+  init {
+    imageWidth = 256
+    imageHeight = 182
+    textField = addRenderableWidget(TextField(leftPos + 15, topPos + 8, 140, 86, true))
+  }
 
   override fun init() {
     super.init()
 
-    addRenderableWidget(searchField)
-    searchField.x = leftPos + 178
-    searchField.y = topPos + 11
-    searchField.font = font
+    add(TextEntryWidget(leftPos + 178, topPos + 11, 72, 12, true)).let {
+      it.canScroll = false
+      it.color = 0xffffffffu
+      it.placeholder = "Search..."
+      it.placeholderColor = 0xffaaaaaau
+      it.cursorColor = 0xffddddddu
+      it.onTextUpdate = { _, text ->
+        searchText = text
+        entriesOffset = 0
+      }
+    }
 
     if(editMode) {
       addRenderableWidget(textField)
@@ -66,54 +61,57 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
       textField.y = topPos + 8
       textField.font = font
     } else if(dictionaryMode) {
-      addRenderableWidget(dictionaryWordField)
-      dictionaryWordField.x = leftPos + 17
-      dictionaryWordField.y = topPos + 20
-      dictionaryWordField.font = font
-
-      addRenderableWidget(dictionaryDefinitionField)
-      dictionaryDefinitionField.x = leftPos + 16
-      dictionaryDefinitionField.y = topPos + 41
-      dictionaryDefinitionField.font = font
-
-      dictionarySaveButton = addRenderableWidget(
-        Button.Builder(translatable("extra.scriptor.save")) { switchToEditMode() }
-          .size(50, 17)
-          .pos(leftPos + 110, topPos + 17)
-          .build()
-      )
-
-      dictionaryDeleteButton = addRenderableWidget(
-        Button.Builder(translatable("extra.scriptor.delete")) { switchToEditModeAndDelete() }
-          .size(70, 17)
-          .pos(leftPos + 88, topPos + 76)
-          .build()
-      )
-    } else if(signMode) {
-      finishSigningButton = addRenderableWidget(
-        Button.Builder(translatable("extra.scriptor.sign")) {
-          switchToEditMode()
-          signBook()
+      add(TextEntryWidget(leftPos + 17, topPos + 20, 90, 14, true)).let {
+        it.canScroll = false
+        it.color = 0xffffffffu
+        it.cursorColor = 0xffddddddu
+        it.text = dictionaryName
+        it.onTextUpdate = { _, text ->
+          dictionaryName = text
         }
-          .size(141, 19)
-          .pos(leftPos + 17, topPos + 52)
-          .build()
-      )
+      }
 
-      addRenderableWidget(signingNameField)
-      signingNameField.x = leftPos + 21
-      signingNameField.y = topPos + 33
-      signingNameField.font = font
+      add(TextEntryWidget(leftPos + 16, topPos + 41, 141, 26, true)).let {
+        it.canScroll = true
+        it.color = 0xff000000u
+        it.cursorColor = 0xff444444u
+        it.text = dictionaryDefinition
+        it.onTextUpdate = { _, text ->
+          dictionaryDefinition = text
+        }
+      }
+
+      add(ButtonWidget(leftPos + 110, topPos + 17, 50, 17, translatable("extra.scriptor.save")){
+        switchToEditMode()
+      })
+
+      add(ButtonWidget(leftPos + 88, topPos + 76, 70, 17, translatable("extra.scriptor.delete")){
+        switchToEditModeAndDelete()
+      })
+    } else if(signMode) {
+      add(ButtonWidget(leftPos + 17, topPos + 52, 141, 19, translatable("extra.scriptor.sign")){
+        switchToEditMode()
+        signBook()
+      })
+
+      add(TextEntryWidget(leftPos + 21, topPos + 33, 120, 12, true)).let {
+        it.canScroll = false
+        it.color = 0xffffffffu
+        it.cursorColor = 0xffddddddu
+        it.onTextUpdate = { _, text ->
+          signingText = text
+        }
+      }
     }
     if(hasWritableBook())
       if(signMode)
-        signButton = addRenderableWidget(Button.Builder(translatable("extra.scriptor.back")) {
+        add(ButtonWidget(leftPos + 200, topPos + 128, 48, 18, translatable("extra.scriptor.back")){
           switchToEditMode()
-        }.pos(leftPos + 200, topPos + 128).size(48, 18).build())
+        })
       else
-        signButton = addRenderableWidget(Button.Builder(translatable("extra.scriptor.sign")) {
+        add(ButtonWidget(leftPos + 200, topPos + 128, 48, 18, translatable("extra.scriptor.sign")){
           switchToSignMode()
-        }.pos(leftPos + 200, topPos + 128).size(48, 18).build())
+        })
   }
 
   companion object {
@@ -140,9 +138,9 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
     renderTooltip(guiGraphics, i, j)
 
     if(menu.book != lastBook) {
-      if(menu.book.`is`(ScriptorItems.SCRAP.get())) {
+      if(menu.book matches ScriptorItems.SCRAP.get()) {
         val word = menu.book[DataComponents.ITEM_NAME]!!.string
-        if(words.none { it.get(0) == word }) {
+        if(words.none { it[0] == word }) {
           val parts = menu.book[ScriptorDataComponents.SPELL]!!.split(":".toRegex(), limit = 2).toTypedArray()
           val entry = parts[0] + ".scriptor." + parts[1]
           switchToDictionaryMode(word, I18n.get(entry))
@@ -189,20 +187,21 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
         } else components.add(translatable("lore.scriptor.no_dictionary"))
         guiGraphics.renderTooltip(font, components, lastBook.tooltipImage, i, j + (if(textField.editable) -20 else 0))
       }
+
     }
 
     var y = topPos + 28
     val x = leftPos + 177
     val h = topPos + 96
     for(entry in words.slice(entriesOffset..<words.size)) {
-      val search = searchField.text.lowercase()
+      val search = searchText.trim()
       if(!entry[0].lowercase().contains(search) && !entry[1].lowercase().contains(search)) continue
 
       if(y + (2*font.lineHeight) > h) {
         guiGraphics.drawString(font, translatable("extra.scriptor.scroll"), x, y, 0x777777)
         break
       }
-      if(menu.dictionary.`is`(ScriptorItems.DICTIONARY.get())) {
+      if(menu.dictionary matches ScriptorItems.DICTIONARY.get()) {
         if(overEntries(i, j) && j - y in 1..font.lineHeight) {
           guiGraphics.drawString(font, entry[0], x, y, 0xffff99)
           val components = mutableListOf<Component>()
@@ -249,20 +248,22 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
         textField.editable = false
         return true
       }
-    if(hasWritableBook())
-      lastBook[DataComponents.WRITABLE_BOOK_CONTENT]?.let { text ->
-        textField.text = LimitedBookSerializer.decodeText(text)
-        textField.editable = true
-        return true
+    if(hasWritableBook()) {
+      when(val text = lastBook[DataComponents.WRITABLE_BOOK_CONTENT]) {
+        null -> textField.text = ""
+        else -> textField.text = LimitedBookSerializer.decodeText(text)
       }
+      textField.editable = true
+      return true
+    }
     textField.text = ""
     textField.editable = false
     return false
   }
 
-  private fun hasWritableBook() = menu.book.`is`(ScriptorTags.WRITABLE_SPELLBOOKS)
-  private fun hasReadableBook() = menu.book.`is`(ScriptorTags.READABLE_SPELLBOOKS)
-  private fun hasDictionary() = menu.dictionary.`is`(ScriptorItems.DICTIONARY.get())
+  private fun hasWritableBook() = menu.book matches ScriptorTags.WRITABLE_SPELLBOOKS
+  private fun hasReadableBook() = menu.book matches ScriptorTags.READABLE_SPELLBOOKS
+  private fun hasDictionary() = menu.dictionary matches ScriptorItems.DICTIONARY.get()
 
   override fun mouseClicked(d: Double, e: Double, i: Int): Boolean {
     if(i == 0) click = true
@@ -274,9 +275,6 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
   override fun mouseScrolled(d: Double, e: Double, f: Double, g: Double): Boolean {
     if(overText(d, e))
       textField.mouseScrolled(d, e, f, g)
-
-    if(overSearch(d, e))
-      searchField.mouseScrolled(d, e, f, g)
 
     if(overEntries(d, e)) {
       entriesOffset -= g.sign.toInt()
@@ -300,10 +298,6 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
     return x.toInt() in textField.x..(textField.x + textField.w) && y.toInt() in textField.y..(textField.y + textField.h)
   }
 
-  fun overSearch(x: Number, y: Number): Boolean {
-    return x.toInt() in searchField.x..(searchField.x + searchField.w) && y.toInt() in searchField.y..(searchField.y + searchField.h)
-  }
-
   override fun renderBg(guiGraphics: GuiGraphics, f: Float, i: Int, j: Int) {
     val k = this.leftPos
     val l = this.topPos
@@ -325,15 +319,15 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
   private fun switchToDictionaryMode(word: String, definition: String) {
     switchMode()
     dictionaryMode = true
-    dictionaryWordField.text = word
-    dictionaryDefinitionField.text = definition
+    dictionaryName = word
+    dictionaryDefinition = definition
     rebuildWidgets()
   }
 
   private fun switchMode() {
     if(dictionaryMode) {
       dictionaryMode = false
-      WritingTableNetwork.writeDictionaryEntry(WritingTableNetwork.DictionaryMessage(dictionaryWordField.text, dictionaryDefinitionField.text))
+      WritingTableNetwork.writeDictionaryEntry(WritingTableNetwork.DictionaryMessage(dictionaryName.trim(), dictionaryDefinition))
     }
     if(editMode) {
       editMode = false
@@ -352,19 +346,18 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
 
   private fun switchToEditModeAndDelete() {
     dictionaryMode = false
-    WritingTableNetwork.deleteDictionaryEntry(WritingTableNetwork.DictionaryDeleteMessage(dictionaryWordField.text.trim()))
-    words = words.filter { it[0] != dictionaryWordField.text.trim() }.toMutableList()
+    WritingTableNetwork.deleteDictionaryEntry(WritingTableNetwork.DictionaryDeleteMessage(dictionaryName.trim()))
+    words = words.filter { it[0] != dictionaryName.trim() }.toMutableList()
     switchToEditMode()
   }
 
   private fun switchToSignMode() {
     switchMode()
-    signingNameField.text = ""
     signMode = true
     rebuildWidgets()
   }
 
   private fun signBook() {
-    WritingTableNetwork.signBook(WritingTableNetwork.SignBookMessage(if(signingNameField.text.isEmpty()) "Spell" else signingNameField.text))
+    WritingTableNetwork.signBook(WritingTableNetwork.SignBookMessage(signingText.ifEmpty { "Spell" }.trim()))
   }
 }

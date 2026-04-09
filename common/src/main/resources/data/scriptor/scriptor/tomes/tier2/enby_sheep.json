@@ -1,0 +1,17 @@
+{
+  "name": "tome.scriptor.enby_sheep",
+  "author": "H., Juni",
+  "item": "scriptor:spellbook_yellow",
+  "tier": 2,
+  "spell": {
+    "subject": "touch",
+    "spells": [
+      {
+        "action": "color",
+        "descriptors": [
+          "color.scriptor.enby"
+        ]
+      }
+    ]
+  }
+}

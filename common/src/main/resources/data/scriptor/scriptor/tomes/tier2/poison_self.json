@@ -1,0 +1,17 @@
+{
+  "name": "tome.scriptor.poison_self",
+  "author": "V., Eve",
+  "item": "scriptor:spellbook_red",
+  "tier": 2,
+  "spell": {
+    "subject": "self",
+    "spells": [
+      {
+        "action": "poison",
+        "descriptors": [
+          "longer"
+        ]
+      }
+    ]
+  }
+}

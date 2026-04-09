@@ -5,7 +5,8 @@ import com.ssblur.scriptor.item.ScriptorItems.ARTIFACT_1
 import com.ssblur.scriptor.item.ScriptorItems.ARTIFACT_2
 import com.ssblur.scriptor.item.ScriptorItems.ARTIFACT_3
 import com.ssblur.scriptor.item.ScriptorItems.ARTIFACT_4
-import com.ssblur.scriptor.item.ScriptorItems.IDENTIFY_SCROLL
+import com.ssblur.scriptor.item.ScriptorItems.NOTE_TIER1
+import com.ssblur.scriptor.item.ScriptorItems.NOTE_TIER2
 import com.ssblur.scriptor.item.ScriptorItems.SCRAP_TIER1
 import com.ssblur.scriptor.item.ScriptorItems.SCRAP_TIER2
 import com.ssblur.scriptor.item.ScriptorItems.SCRAP_TIER3
@@ -31,7 +32,7 @@ object AddLootEvent {
 
   var pools: HashMap<Holder<Item>, Array<LootItemRecord>> = HashMap()
 
-  init {
+  fun init() {
     val tier1 = arrayOf(
       LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/village/village_plains_house"), 0.2f),
       LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/village/village_snowy_house"), 0.2f),
@@ -42,9 +43,11 @@ object AddLootEvent {
       LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/abandoned_mineshaft"), 0.6f),
       LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/ruined_portal"), 0.3f),
       LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/simple_dungeon"), 0.6f),
+      LootItemRecord(ResourceLocation.tryBuild("minecraft", "entities/evoker"), 0.4f),
     )
     pools[TOME_TIER1] = tier1
     pools[SCRAP_TIER1] = tier1
+    pools[NOTE_TIER1] = tier1
 
     val tier2 = arrayOf(
       LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/woodland_mansion"), 0.3f),
@@ -59,9 +62,11 @@ object AddLootEvent {
       LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/shipwreck_treasure"), 0.8f),
       LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/ancient_city"), 0.8f),
       LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/ancient_city_ice_box"), 0.6f),
+      LootItemRecord(ResourceLocation.tryBuild("minecraft", "entities/evoker"), 0.2f),
     )
     pools[TOME_TIER2] = tier2
     pools[SCRAP_TIER2] = tier2
+    pools[NOTE_TIER2] = tier2
 
     val tier3 = arrayOf(
       LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/stronghold_library"), 1f),
@@ -85,66 +90,66 @@ object AddLootEvent {
       LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/end_city_treasure"), 0.9f),
     )
 
-    pools[IDENTIFY_SCROLL] = arrayOf(
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/end_city_treasure"), 0.3f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/bastion_other"), 0.3f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/bastion_bridge"), 0.3f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/woodland_mansion"), 0.3f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/stronghold_library"), 0.3f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/ancient_city"), 0.3f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/ancient_city_ice_box"), 0.3f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/nether_bridge"), 0.3f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/stronghold_crossing"), 0.3f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/shipwreck_supply"), 0.3f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/village/village_plains_house"), 0.2f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/village/village_snowy_house"), 0.2f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/village/village_temple"), 0.2f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/igloo_chest"), 0.3f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/spawn_bonus_chest"), 1f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/shipwreck_treasure"), 0.3f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/abandoned_mineshaft"), 0.3f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/ruined_portal"), 0.3f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/simple_dungeon"), 0.3f),
-      LootItemRecord(ResourceLocation.tryBuild("minecraft", "entities/witch"), 0.05f),
-    )
+//    pools[IDENTIFY_SCROLL] = arrayOf(
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/end_city_treasure"), 0.3f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/bastion_other"), 0.3f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/bastion_bridge"), 0.3f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/woodland_mansion"), 0.3f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/stronghold_library"), 0.3f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/ancient_city"), 0.3f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/ancient_city_ice_box"), 0.3f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/nether_bridge"), 0.3f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/stronghold_crossing"), 0.3f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/shipwreck_supply"), 0.3f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/village/village_plains_house"), 0.2f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/village/village_snowy_house"), 0.2f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/village/village_temple"), 0.2f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/igloo_chest"), 0.3f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/spawn_bonus_chest"), 1f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/shipwreck_treasure"), 0.3f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/abandoned_mineshaft"), 0.3f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/ruined_portal"), 0.3f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "chests/simple_dungeon"), 0.3f),
+//      LootItemRecord(ResourceLocation.tryBuild("minecraft", "entities/witch"), 0.05f),
+//    )
 
     val numberOfArtifacts = 4f
     val artifacts = arrayOf(
       LootItemRecord(
         ResourceLocation.tryBuild("minecraft", "chests/end_city_treasure"), 0.05f / numberOfArtifacts,
-        LootItemFunction.Builder { ArtifactItemFunction() }
+        { ArtifactItemFunction() }
       ),
       LootItemRecord(
         ResourceLocation.tryBuild("minecraft", "chests/stronghold_library"), 0.05f / numberOfArtifacts,
-        LootItemFunction.Builder { ArtifactItemFunction() }
+        { ArtifactItemFunction() }
       ),
       LootItemRecord(
         ResourceLocation.tryBuild("minecraft", "chests/bastion_other"), 0.05f / numberOfArtifacts,
-        LootItemFunction.Builder { ArtifactItemFunction() }),
+        { ArtifactItemFunction() }),
       LootItemRecord(
         ResourceLocation.tryBuild("minecraft", "chests/bastion_bridge"), 0.05f / numberOfArtifacts,
-        LootItemFunction.Builder { ArtifactItemFunction() }),
+        { ArtifactItemFunction() }),
       LootItemRecord(
         ResourceLocation.tryBuild("minecraft", "chests/woodland_mansion"), 0.1f / numberOfArtifacts,
-        LootItemFunction.Builder { ArtifactItemFunction() }),
+        { ArtifactItemFunction() }),
       LootItemRecord(
         ResourceLocation.tryBuild("minecraft", "chests/ancient_city"), 0.1f / numberOfArtifacts,
-        LootItemFunction.Builder { ArtifactItemFunction() }),
+        { ArtifactItemFunction() }),
       LootItemRecord(
         ResourceLocation.tryBuild("minecraft", "chests/ancient_city_ice_box"), 0.1f / numberOfArtifacts,
-        LootItemFunction.Builder { ArtifactItemFunction() }),
+        { ArtifactItemFunction() }),
       LootItemRecord(
         ResourceLocation.tryBuild("minecraft", "chests/nether_bridge"), 0.05f / numberOfArtifacts,
-        LootItemFunction.Builder { ArtifactItemFunction() }),
+        { ArtifactItemFunction() }),
       LootItemRecord(
         ResourceLocation.tryBuild("minecraft", "chests/ocean_ruin_warm"), 0.1f / numberOfArtifacts,
-        LootItemFunction.Builder { ArtifactItemFunction() }),
+        { ArtifactItemFunction() }),
       LootItemRecord(
         ResourceLocation.tryBuild("minecraft", "chests/ocean_ruin_cold"), 0.1f / numberOfArtifacts,
-        LootItemFunction.Builder { ArtifactItemFunction() }),
+        { ArtifactItemFunction() }),
       LootItemRecord(
         ResourceLocation.tryBuild("minecraft", "chests/desert_pyramid"), 0.1f / numberOfArtifacts,
-        LootItemFunction.Builder { ArtifactItemFunction() }),
+        { ArtifactItemFunction() }),
     )
     pools[ARTIFACT_1] = artifacts
     pools[ARTIFACT_2] = artifacts

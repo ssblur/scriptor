@@ -1,0 +1,17 @@
+{
+  "name": "tome.scriptor.advance_time",
+  "author": "Djenn, H.",
+  "tier": 4,
+  "item": "scriptor:spellbook_red",
+  "spell": {
+    "subject": "self",
+    "spells": [
+      {
+        "action": "time",
+        "descriptors": [
+          "reagent.scriptor.gold"
+        ]
+      }
+    ]
+  }
+}

@@ -1,8 +1,8 @@
 {
   "name": "tome.scriptor.portable_sponge",
-  "author": "Core, E.",
+  "author": "MCB Commission",
   "tier": 3,
-  "item": "scriptor:spellbook_light_gray",
+  "item": "scriptor:spellbook_brown",
   "spell": {
     "subject": "touch",
     "spells": [
@@ -10,12 +10,12 @@
         "action": "dry",
         "descriptors": [
           "collide_with_water",
-          "move_left",
+          "move_right",
           "move_up",
           "copy_down",
           "copy_down",
-          "copy_right",
-          "copy_right"
+          "copy_left",
+          "copy_left"
         ]
       }
     ]

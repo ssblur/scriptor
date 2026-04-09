@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WAW",
+    "W#W",
+    "WWW"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:glass"
+    },
+    "W": {
+      "tag": "minecraft:planks"
+    },
+    "A": {
+      "item": "minecraft:amethyst_shard"
+    }
+  },
+  "result": {
+    "id": "scriptor:redirect_crystal",
+    "count": 8
+  }
+}

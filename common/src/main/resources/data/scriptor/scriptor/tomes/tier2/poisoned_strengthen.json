@@ -1,0 +1,22 @@
+{
+  "name": "tome.scriptor.poisoned_strengthen",
+  "author": "V., Eve",
+  "item": "scriptor:spellbook_red",
+  "tier": 2,
+  "spell": {
+    "subject": "self",
+    "spells": [
+      {
+        "action": "strength",
+        "descriptors": [
+          "long",
+          "stacking_strong",
+          "stacking_strong",
+          "stacking_strong",
+          "stacking_strong",
+          "poisoned"
+        ]
+      }
+    ]
+  }
+}

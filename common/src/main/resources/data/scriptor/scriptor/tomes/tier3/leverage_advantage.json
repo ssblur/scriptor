@@ -1,0 +1,21 @@
+{
+  "name": "tome.scriptor.leverage_advantage",
+  "author": "H., Uncine",
+  "tier": 3,
+  "spell": {
+    "subject": "projectile",
+    "spells": [
+      {
+        "action": "slow",
+        "descriptors": [
+          "fast",
+          "healthy"
+        ]
+      },
+      {
+        "action": "harm",
+        "descriptors": []
+      }
+    ]
+  }
+}

@@ -4,8 +4,9 @@ import com.ssblur.scriptor.ScriptorDamage.overload
 import com.ssblur.scriptor.config.ScriptorConfig
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData.Companion.computeIfAbsent
 import com.ssblur.scriptor.effect.EmpoweredStatusEffect
-import com.ssblur.scriptor.effect.ScriptorEffects.HOARSE
 import com.ssblur.scriptor.effect.ScriptorEffects.MUTE
+import com.ssblur.scriptor.extension.EntityCastCooldownExtension.canCast
+import com.ssblur.scriptor.extension.EntityCastCooldownExtension.castCooldown
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable
 import com.ssblur.unfocused.event.common.PlayerChatEvent
 import net.minecraft.ChatFormatting
@@ -19,7 +20,7 @@ import java.util.function.Predicate
 import kotlin.math.roundToInt
 
 object SpellChat {
-  init {
+  fun init() {
     PlayerChatEvent.Before.register {
       val player = it.player
       val component = it.message
@@ -54,9 +55,10 @@ object SpellChat {
   }
 
   fun castFromChat(player: Player, level: ServerLevel, sentence: String): Boolean {
+    if(!ScriptorConfig.CHAT_CAST_ENABLED()) return false
     val spell = computeIfAbsent(level).parse(sentence)
     if (spell != null) {
-      if (player.hasEffect(HOARSE.ref())) {
+      if (!player.canCast(spell)) {
         player.sendSystemMessage(Component.translatable("extra.scriptor.hoarse"))
         return true
       } else if (player.hasEffect(MUTE.ref())) {
@@ -68,8 +70,9 @@ object SpellChat {
       var costScale = 1.0f
       for (instance in player.activeEffects)
         if (instance.effect.value() is EmpoweredStatusEffect)
-          for (i in 0..instance.amplifier)
-            costScale *= (instance.effect.value() as EmpoweredStatusEffect).scale
+            (0..instance.amplifier).forEach { _ ->
+              costScale *= (instance.effect.value() as EmpoweredStatusEffect).scale
+            }
       cost = ((cost.toFloat()) * costScale).roundToInt()
 
       if (ScriptorConfig.VOCAL_MAX_COST() in 0..<cost)
@@ -77,7 +80,7 @@ object SpellChat {
 
       val adjustedCost = (cost * (ScriptorConfig.VOCAL_COOLDOWN_MULTIPLIER() / 100.0)).roundToInt()
       if (!player.isCreative) {
-        player.addEffect(MobEffectInstance(HOARSE.ref(), adjustedCost))
+        player.castCooldown = adjustedCost * 10L
         if (adjustedCost > ScriptorConfig.VOCAL_HUNGER_THRESHOLD())
           player.addEffect(
             MobEffectInstance(

@@ -46,4 +46,6 @@ object InventoryDescriptors {
       "caster_first_matching",
       CasterIgnoreTargetedSlotDescriptor()
     )
+
+  fun init() {}
 }

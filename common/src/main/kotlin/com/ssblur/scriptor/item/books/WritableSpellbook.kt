@@ -1,7 +1,5 @@
 package com.ssblur.scriptor.item.books
 
-import net.fabricmc.api.EnvType
-import net.fabricmc.api.Environment
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.screens.inventory.BookEditScreen
 import net.minecraft.world.InteractionHand
@@ -22,7 +20,6 @@ class WritableSpellbook(properties: Properties): WritableBookItem(properties) {
     return InteractionResultHolder.sidedSuccess(itemStack, level.isClientSide())
   }
 
-  @Environment(EnvType.CLIENT)
   fun openScreen(player: Player, itemStack: ItemStack, interactionHand: InteractionHand) {
     Minecraft.getInstance().setScreen(BookEditScreen(player, itemStack, interactionHand))
   }

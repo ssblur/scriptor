@@ -22,7 +22,6 @@ data class DictionaryData(val values: List<List<String>>) {
   }
 
   fun withWord(word: String, definition: String? = null, overwrite: Boolean = false): DictionaryData {
-    println(word)
     return if(overwrite || values.none { it.first() == word })
       DictionaryData(values + listOf(listOf(word, definition ?: I18n.get("extra.scriptor.no_entry"))))
     else

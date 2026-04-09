@@ -1,0 +1,19 @@
+{
+  "name": "tome.scriptor.conjure_rain",
+  "author": "Stone, R.",
+  "tier": 4,
+  "item": "scriptor:spellbook_blue",
+  "spell": {
+    "subject": "self",
+    "spells": [
+      {
+        "action": "rain",
+        "descriptors": [
+          "reagent.scriptor.redstone",
+          "clear_skies",
+          "strong"
+        ]
+      }
+    ]
+  }
+}

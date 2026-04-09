@@ -1,7 +1,7 @@
 {
   "name": "tome.scriptor.bound_sword",
-  "author": "Pers",
-  "item": "scriptor:spellbook_magenta",
+  "author": "V., Eve",
+  "item": "scriptor:spellbook_red",
   "tier": 2,
   "spell": {
     "subject": "self",
@@ -9,8 +9,9 @@
       {
         "action": "bound_sword",
         "descriptors": [
-          "strong",
-          "magenta"
+          "stacking_strong",
+          "stacking_strong",
+          "stacking_long"
         ]
       }
     ]

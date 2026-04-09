@@ -15,18 +15,27 @@ object ScriptorConfig {
   val VOCAL_HUNGER_THRESHOLD = config.registerInt("vocal_hunger_threshold", 50)
   val VOCAL_DAMAGE_THRESHOLD = config.registerInt("vocal_damage_threshold", 125)
   val VOCAL_COOLDOWN_MULTIPLIER = config.registerInt("vocal_cooldown_multiplier", 100)
+  val ITEM_MAX_COST = config.registerInt("other_item_max_cost", 30)
+  val ITEM_COOLDOWN_MULTIPLIER = config.registerInt("other_item_cooldown_multiplier", 120)
+  val ARTIFACT_COOLDOWN_MULTIPLIER = config.registerInt("artifact_cooldown_multiplier", 200)
 
   // Spell settings
-  val CAN_TARGET_PLAYER_INVENTORIES = config.registerBoolean("can_target_player_inventories", true)
+  val CAN_TARGET_PLAYER_INVENTORIES = config.registerBoolean("can_target_player_inventories", false)
 
   // Chat settings
   val PROXIMITY_CHAT = config.registerBoolean("proximity_chat", false)
   val SHOW_SPELLS_IN_CHAT = config.registerBoolean("show_spells_in_chat", false)
   val CAST_COMMAND_ENABLED = config.registerBoolean("cast_command_enabled", false)
+  val CHAT_CAST_ENABLED = config.registerBoolean("cast_through_chat_enabled", true)
   val PROXIMITY_RANGE = config.registerInt("proximity_chat_range", 64)
+
+  // Other cast settings
+  val ENTITY_CASTING = config.registerBoolean("entities_verbally_cast", true)
+  val ENTITY_CASTING_PROXIMITY = config.registerInt("entities_verbal_proximity", 16)
 
   // Demonstration / showcase settings
   val INVERT_DO_NOT_PHASE = config.registerBoolean("invert_do_not_phase", false)
+  val DO_NOT_GENERATE = config.registerBoolean("demo_do_not_generate", false)
 
   fun register() {}
 }

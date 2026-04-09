@@ -7,30 +7,42 @@ import com.ssblur.scriptor.api.word.Subject
 import com.ssblur.scriptor.api.word.Word
 import com.ssblur.scriptor.api.word.Word.COSTTYPE
 import com.ssblur.scriptor.effect.ScriptorEffects.MUTE
+import com.ssblur.scriptor.helpers.ItemTargetableHelper
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable
+import com.ssblur.scriptor.helpers.targetable.ItemTargetable
 import com.ssblur.scriptor.helpers.targetable.Targetable
 import com.ssblur.scriptor.network.client.ParticleNetwork
+import com.ssblur.scriptor.registry.words.WordRegistry
+import com.ssblur.scriptor.resources.CastRecipes
 import com.ssblur.scriptor.word.descriptor.AfterCastDescriptor
 import com.ssblur.scriptor.word.descriptor.CastDescriptor
 import com.ssblur.scriptor.word.descriptor.focus.FocusDescriptor
 import com.ssblur.scriptor.word.descriptor.target.TargetDescriptor
+import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerPlayer
+import net.minecraft.sounds.SoundEvents
+import net.minecraft.sounds.SoundSource
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.level.Level
+import net.minecraft.world.phys.Vec3
+import org.joml.Vector3f
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ExecutionException
 import kotlin.math.pow
+import kotlin.math.roundToInt
 
 /**
  * A record used to represent a complete spell.
  * @param subject The target of a spell
  * @param spells Groups of descriptors and actions
  */
-class Spell(val subject: Subject, vararg val spells: PartialSpell) {
+class Spell(val subject: Subject?, vararg val spells: PartialSpell, val spellData: List<String> = mutableListOf()) {
   fun castOnTargets(originalCaster: Targetable, originalTargets: List<Targetable>, castHooks: Boolean = false) {
     var caster = originalCaster
+    val castData = spellData.toMutableList()
     val entity: Entity? = if (caster is EntityTargetable) caster.targetEntity else null
 
     if(castHooks) {
@@ -57,8 +69,32 @@ class Spell(val subject: Subject, vararg val spells: PartialSpell) {
         if (descriptor is TargetDescriptor) targets = descriptor.modifyTargets(targets, caster)
         if (descriptor is FocusDescriptor) caster = descriptor.modifyFocus(caster)
       }
-      for (target in targets)
-        spell.action.apply(caster, target, spell.deduplicatedDescriptors())
+
+      val recipes = CastRecipes.recipes.values
+      for (target in targets) {
+        if(
+          target is ItemTargetable &&
+          recipes.any { it.action == WordRegistry.getKey(spell.action) }
+        ) {
+          val matches = recipes
+            .filter { it.action == WordRegistry.getKey(spell.action) }
+            .filter { it.base.test(target.targetItem) }
+
+          if(matches.isNotEmpty()) {
+            val result = matches.first().result
+            target.targetItem.shrink(1)
+            ItemTargetableHelper.depositItemStack(originalCaster, result)
+            continue
+          }
+        }
+
+        spell.action?.apply(
+          caster,
+          target,
+          spell.deduplicatedDescriptors().filterNotNull().toTypedArray(),
+          castData
+        )
+      }
     }
 
 
@@ -103,7 +139,7 @@ class Spell(val subject: Subject, vararg val spells: PartialSpell) {
         }
       if (descriptor is FocusDescriptor) caster = descriptor.modifyFocus(caster)
     }
-    val targetFuture = subject.getTargets(caster, this)
+    val targetFuture = subject?.getTargets(caster, this) ?: CompletableFuture()
     for (descriptor in spells[0].deduplicatedDescriptors())
       if (descriptor is AfterCastDescriptor) descriptor.afterCast(caster)
 
@@ -164,7 +200,7 @@ class Spell(val subject: Subject, vararg val spells: PartialSpell) {
     return sum * scalar + discount
   }
 
-  private fun words(): Array<Word?> {
+  fun words(): Array<Word?> {
     var length = 1
     var index = 1
     for (spell in spells) length += spell.deduplicatedDescriptors().size + 1
@@ -183,6 +219,46 @@ class Spell(val subject: Subject, vararg val spells: PartialSpell) {
     return words
   }
 
+  fun playSound(level: Level, pos: Vec3) {
+    level.playSound(
+      null,
+      BlockPos(pos.x.roundToInt(), pos.y.roundToInt(), pos.z.roundToInt()),
+      SoundEvents.EVOKER_CAST_SPELL,
+      SoundSource.PLAYERS,
+      0.4f,
+      level.getRandom().nextFloat() * 1.2f + 0.6f
+    )
+  }
+
+  fun playSound(level: Level, pos: BlockPos) {
+    playSound(level, Vec3(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble()))
+  }
+
+  fun playSound(level: Level, pos: Vector3f) {
+    playSound(level, Vec3(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble()))
+  }
+
   fun deduplicatedDescriptorsForSubjects(): Array<Descriptor> =
-    spells.flatMap { it.descriptors.toList() }.distinct().toTypedArray()
+    spells.flatMap { it.descriptors.toList() }.filterNotNull().distinct().toTypedArray()
+
+  companion object {
+    fun playFizzleSound(level: Level, pos: Vec3) {
+      level.playSound(
+        null,
+        BlockPos(pos.x.roundToInt(), pos.y.roundToInt(), pos.z.roundToInt()),
+        SoundEvents.FIRE_EXTINGUISH,
+        SoundSource.PLAYERS,
+        0.4f,
+        level.getRandom().nextFloat() * 1.2f + 0.6f
+      )
+    }
+
+    fun playFizzleSound(level: Level, pos: BlockPos) {
+      playFizzleSound(level, Vec3(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble()))
+    }
+
+    fun playFizzleSound(level: Level, pos: Vector3f) {
+      playFizzleSound(level, Vec3(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble()))
+    }
+  }
 }

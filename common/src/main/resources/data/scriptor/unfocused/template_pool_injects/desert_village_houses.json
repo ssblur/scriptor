@@ -1,0 +1,12 @@
+{
+  "pool": "minecraft:village/desert/houses",
+  "elements": [
+    {
+      "element": {
+        "location": "scriptor:village/desert/houses/desert_nominomist_1",
+        "projection": "RIGID"
+      },
+      "weight": 5
+    }
+  ]
+}

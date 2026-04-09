@@ -8,6 +8,7 @@ import com.ssblur.scriptor.ScriptorMod
 import com.ssblur.scriptor.block.EngravingBlock
 import com.ssblur.scriptor.block.ScriptorBlocks
 import com.ssblur.scriptor.blockentity.EngravingBlockEntity
+import com.ssblur.unfocused.extension.BlockStateExtension.matches
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.Font
 import net.minecraft.client.renderer.MultiBufferSource
@@ -46,7 +47,7 @@ class EngravingBlockEntityRenderer(@Suppress("unused_parameter") context: BlockE
     matrix.translate(0f, 0.01f, 0f)
 
     val pose = matrix.last().pose()
-    if (level.getBlockState(pos.north()).`is`(ScriptorBlocks.ENGRAVING.get())) {
+    if (level.getBlockState(pos.north()) matches ScriptorBlocks.ENGRAVING.get()) {
       val buffer = buffers.getBuffer(circleLayerN)
       buffer.addVertex(pose, 0f, 0f, 1f).setColor(255, 255, 255, 255).setUv(0f, 1f).setLight(0xF000F0)
       buffer.addVertex(pose, 1f, 0f, 1f).setColor(255, 255, 255, 255).setUv(1f, 1f).setLight(0xF000F0)
@@ -54,7 +55,7 @@ class EngravingBlockEntityRenderer(@Suppress("unused_parameter") context: BlockE
       buffer.addVertex(pose, 0f, 0f, 0f).setColor(255, 255, 255, 255).setUv(0f, 0f).setLight(0xF000F0)
     }
 
-    if (level.getBlockState(pos.south()).`is`(ScriptorBlocks.ENGRAVING.get())) {
+    if (level.getBlockState(pos.south()) matches ScriptorBlocks.ENGRAVING.get()) {
       val buffer = buffers.getBuffer(circleLayerS)
       buffer.addVertex(pose, 0f, 0f, 1f).setColor(255, 255, 255, 255).setUv(0f, 1f).setLight(0xF000F0)
       buffer.addVertex(pose, 1f, 0f, 1f).setColor(255, 255, 255, 255).setUv(1f, 1f).setLight(0xF000F0)
@@ -62,7 +63,7 @@ class EngravingBlockEntityRenderer(@Suppress("unused_parameter") context: BlockE
       buffer.addVertex(pose, 0f, 0f, 0f).setColor(255, 255, 255, 255).setUv(0f, 0f).setLight(0xF000F0)
     }
 
-    if (level.getBlockState(pos.east()).`is`(ScriptorBlocks.ENGRAVING.get())) {
+    if (level.getBlockState(pos.east()) matches ScriptorBlocks.ENGRAVING.get()) {
       val buffer = buffers.getBuffer(circleLayerE)
       buffer.addVertex(pose, 0f, 0f, 1f).setColor(255, 255, 255, 255).setUv(0f, 1f).setLight(0xF000F0)
       buffer.addVertex(pose, 1f, 0f, 1f).setColor(255, 255, 255, 255).setUv(1f, 1f).setLight(0xF000F0)
@@ -70,7 +71,7 @@ class EngravingBlockEntityRenderer(@Suppress("unused_parameter") context: BlockE
       buffer.addVertex(pose, 0f, 0f, 0f).setColor(255, 255, 255, 255).setUv(0f, 0f).setLight(0xF000F0)
     }
 
-    if (level.getBlockState(pos.west()).`is`(ScriptorBlocks.ENGRAVING.get())) {
+    if (level.getBlockState(pos.west()) matches ScriptorBlocks.ENGRAVING.get()) {
       val buffer = buffers.getBuffer(circleLayerW)
       buffer.addVertex(pose, 0f, 0f, 1f).setColor(255, 255, 255, 255).setUv(0f, 1f).setLight(0xF000F0)
       buffer.addVertex(pose, 1f, 0f, 1f).setColor(255, 255, 255, 255).setUv(1f, 1f).setLight(0xF000F0)
@@ -90,8 +91,9 @@ class EngravingBlockEntityRenderer(@Suppress("unused_parameter") context: BlockE
     val width = font.width(text)
     matrix.translate(-width * 0.5f, -6f, 0f)
 
-    var color = 0x404040
-    if (blockEntity.blockState.getValue(EngravingBlock.HIGHLIGHT) && blockEntity.cooldown <= 0) color = 0xFFB600
+    var color = 0xff707070u.toInt()
+    if (blockEntity.blockState.getValue(EngravingBlock.HIGHLIGHT)) color = 0xffffB600u.toInt()
+    if (blockEntity.blockState.getValue(EngravingBlock.SPENT)) color = 0xff303030u.toInt()
     font.drawInBatch(
       text,
       0f,

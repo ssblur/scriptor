@@ -1,0 +1,17 @@
+{
+  "name": "item.scriptor.fang_crossbow",
+  "spell": {
+    "subject": "on_hit",
+    "spells": [
+      {
+        "action": "fangs",
+        "descriptors": [ "strong" ]
+      }
+    ]
+  },
+  "item": "minecraft:crossbow",
+  "mob": "minecraft:pillager",
+  "chance": 0.05,
+  "slot": "MAINHAND",
+  "rarity": "RARE"
+}

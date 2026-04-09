@@ -20,7 +20,9 @@ object DumpDictionaryCommand {
     selection: Commands.CommandSelection?
   ) {
     dispatcher.register(
-      Commands.literal("dump_dictionary").requires { it.hasPermission(4) }.executes { execute(it) }
+      Commands.literal("scriptor").then(
+        Commands.literal("structure").requires { it.hasPermission(4) }.executes { execute(it) }
+      )
     )
   }
 

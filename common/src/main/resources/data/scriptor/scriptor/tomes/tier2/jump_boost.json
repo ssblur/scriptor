@@ -1,0 +1,15 @@
+{
+  "name": "tome.scriptor.jump_boost",
+  "author": "Alex.",
+  "item": "scriptor:spellbook",
+  "tier": 2,
+  "spell": {
+    "subject": "self",
+    "spells": [
+      {
+        "action": "jump_boost",
+        "descriptors": []
+      }
+    ]
+  }
+}

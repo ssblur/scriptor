@@ -1,0 +1,15 @@
+{
+  "action": "poison",
+  "base": {
+    "item": "minecraft:arrow"
+  },
+  "result": {
+    "id": "minecraft:tipped_arrow",
+    "count": 1,
+    "components": {
+      "minecraft:potion_contents": {
+        "potion": "minecraft:poison"
+      }
+    }
+  }
+}

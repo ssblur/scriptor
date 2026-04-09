@@ -27,12 +27,12 @@ dependencies {
 }
 
 publishing {
-  publications {
-    mavenCommon(MavenPublication) {
-      artifactId = rootProject.archives_base_name
-      from components.java
-    }
-  }
+//  publications {
+//    mavenCommon(MavenPublication) {
+//      artifactId = rootProject.archives_base_name
+//      from components.java
+//    }
+//  }
 
   // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
   repositories {
@@ -46,4 +46,6 @@ repositories {
 
 kotlin {
   jvmToolchain(21)
+}
+compileKotlin {
 }

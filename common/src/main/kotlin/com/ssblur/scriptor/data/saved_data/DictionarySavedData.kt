@@ -18,9 +18,11 @@ import com.ssblur.scriptor.registry.words.WordRegistry.descriptorRegistry
 import com.ssblur.scriptor.registry.words.WordRegistry.subjectRegistry
 import com.ssblur.scriptor.word.PartialSpell
 import com.ssblur.scriptor.word.Spell
+import net.minecraft.ChatFormatting
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.NbtOps
+import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.util.datafix.DataFixTypes
 import net.minecraft.world.level.Level
@@ -74,11 +76,13 @@ class DictionarySavedData: SavedData {
     val registry = TokenGeneratorRegistry
     var token: String
 
-    if (!containsKey("other:and")) {
-      do {
-        token = registry.generateWord("other:and")
-      } while (containsWord(token))
-      words["other:and"] = token
+    for(word in WordRegistry.otherRegistry) {
+      if (!containsKey("other:$word")) {
+        do {
+          token = registry.generateWord("other:$word")
+        } while (containsWord(token))
+        words["other:$word"] = token
+      }
     }
 
     for (word in actionRegistry.keys) {
@@ -113,7 +117,7 @@ class DictionarySavedData: SavedData {
 
   constructor() {
     val basicStructure = arrayOf(WORD.SUBJECT, WORD.ACTION, WORD.DESCRIPTOR)
-    val structure = Arrays.asList(*basicStructure)
+    val structure = listOf(*basicStructure)
     if (!COMMUNITY_MODE) Collections.shuffle(structure)
 
     spellStructure = ArrayList()
@@ -184,6 +188,7 @@ class DictionarySavedData: SavedData {
     }
     var position = 0
     var tokenPosition = 0
+    var mult = 1
     try {
       val tokens = text.split("[\\n\\r\\s]+".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
 
@@ -194,7 +199,16 @@ class DictionarySavedData: SavedData {
       val descriptors: MutableList<Descriptor> = ArrayList()
 
       var parsed: String?
+
+      var consumeNext = false
+      val spellData = mutableListOf<String>()
       while (tokenPosition < tokens.size) {
+        if(consumeNext) {
+          spellData.add(tokens[tokenPosition])
+          tokenPosition++
+          consumeNext = false
+          continue
+        }
         if (position % spellStructure.size == 0 && position > 0) {
           parsed = parseWord(tokens[tokenPosition])
           if (parsed != null && parsed == "other:and") {
@@ -209,6 +223,14 @@ class DictionarySavedData: SavedData {
         if (position >= spellStructure.size && spellStructure[position % spellStructure.size] == WORD.SUBJECT) position++
         val word = spellStructure[position % spellStructure.size]
         val wordData = parseWord(tokens[tokenPosition])
+
+        if(wordData?.startsWith("other:copy_x") == true) {
+          mult *= wordData.substring(12).toInt()
+          tokenPosition++
+          continue
+        }
+
+        var skipIncrement = false
         when (word) {
           WORD.ACTION -> {
             if (wordData == null) {
@@ -217,23 +239,27 @@ class DictionarySavedData: SavedData {
               return null
             }
             action = actionRegistry[wordData.substring(7)]
+            if(action?.consumesNextWord() == true) consumeNext = true
           }
 
           WORD.DESCRIPTOR -> {
             // Descriptors aren't required. If there are none, roll forward as necessary and continue.
             if (wordData == null || wordData.length < 12) {
               position++
-              continue
-            }
-            val descriptor = descriptorRegistry[wordData.substring(11)]
-            if (descriptor == null) {
-              position++
-              continue
-            }
-            descriptors.add(descriptor)
+              skipIncrement = true
+            } else {
+              val descriptor = descriptorRegistry[wordData.substring(11)]
+              if (descriptor == null) {
+                position++
+                skipIncrement = true
+              } else {
+                descriptors.add(descriptor)
+                if(descriptor.consumesNextWord()) consumeNext = true
 
-            tokenPosition++
-            continue
+                if(mult == 1) tokenPosition++
+                skipIncrement = true
+              }
+            }
           }
 
           WORD.SUBJECT -> {
@@ -243,17 +269,26 @@ class DictionarySavedData: SavedData {
               return null
             }
             subject = subjectRegistry[wordData.substring(8)]
+            if(subject?.consumesNextWord() == true) consumeNext = true
           }
 
           null -> {}
         }
-        position++
-        tokenPosition++
+
+        if(mult > 1) {
+          skipIncrement = true
+          mult--
+        }
+
+        if(!skipIncrement) {
+          position++
+          tokenPosition++
+        }
       }
 
       if (action != null && subject != null) {
         spells.add(PartialSpell(action, *descriptors.toTypedArray()))
-        return Spell(subject, *spells.toTypedArray())
+        return Spell(subject, *spells.toTypedArray(), spellData = spellData)
       }
     } catch (e: Exception) {
       LOGGER.warn("==========================================================")
@@ -285,44 +320,79 @@ class DictionarySavedData: SavedData {
     return null
   }
 
+  private fun generateDescriptorString(descriptors: Array<Descriptor?>, spellData: MutableList<String>): Component {
+    var component = Component.empty()
+    var sp = ""
+    for (descriptor in descriptors) {
+      component = component.append(sp)
+        .append(getWord(descriptor)?.let { Component.literal(it) } ?: getFakeWord())
+      sp = " "
+      if(descriptor?.consumesNextWord() == true) {
+        component.append(sp).append(spellData.removeFirst())
+      }
+    }
+    return component
+  }
 
   /**
-   * A helper for generating a String to describe a spell.
+   * A helper for generating a Component to describe a spell.
    * @param spell The Spell to generate text for.
-   * @return A String to describe a spell
+   * @return A Component containing a spell
    */
-  fun generate(spell: Spell): String {
-    assert(spell.spells.size >= 1)
-    var descriptorBuilder = StringBuilder()
-    for (descriptor in spell.spells[0].deduplicatedDescriptors()) {
-      descriptorBuilder.append(" ").append(getWord(descriptor))
-    }
+  fun generate(spell: Spell): Component {
+    assert(spell.spells.isNotEmpty())
+    val spellData = spell.spellData.toMutableList()
 
-    val builder = StringBuilder()
+    val builder = Component.empty()
+    var sp = ""
     for (w in spellStructure) {
-      if (w == WORD.ACTION) builder.append(" ").append(
-        getWord(
-          spell.spells[0].action
-        )
-      )
-      else if (w == WORD.SUBJECT) builder.append(" ").append(getWord(spell.subject))
-      else if (w == WORD.DESCRIPTOR) builder.append(descriptorBuilder)
+      when (w) {
+        WORD.ACTION -> {
+          builder.append(sp).append(
+            getWord(spell.spells[0].action)?.let { Component.literal(it) } ?: getFakeWord()
+          )
+          if(spell.spells[0].action?.consumesNextWord() == true) {
+            builder.append(sp).append(spellData.removeFirst())
+          }
+        }
+        WORD.SUBJECT -> {
+          builder.append(sp).append(
+            getWord(spell.subject)?.let { Component.literal(it) } ?: getFakeWord()
+          )
+          if(spell.subject?.consumesNextWord() == true) {
+            builder.append(sp).append(spellData.removeFirst())
+          }
+        }
+        WORD.DESCRIPTOR -> builder.append(sp)
+          .append(generateDescriptorString(spell.spells.first().deduplicatedDescriptors(), spellData))
+        else -> {}
+      }
+      if(builder.string.isNotEmpty()) sp = " "
     }
 
-    for (partialSpell in Arrays.stream<PartialSpell>(spell.spells).skip(1).toList()) {
-      builder.append(" ").append(getWord("other:and"))
-      descriptorBuilder = StringBuilder()
-      for (descriptor in partialSpell.deduplicatedDescriptors()) {
-        descriptorBuilder.append(" ").append(getWord(descriptor))
-      }
-
+    for (partialSpell in Arrays.stream(spell.spells).skip(1).toList()) {
       for (w in spellStructure) {
-        if (w == WORD.ACTION) builder.append(" ").append(getWord(partialSpell.action))
-        else if (w == WORD.DESCRIPTOR) builder.append(descriptorBuilder)
+        if (w == WORD.ACTION) {
+          builder.append(sp).append(
+            getWord(partialSpell.action)?.let { Component.literal(it) } ?: getFakeWord()
+          )
+          if(partialSpell.action?.consumesNextWord() == true) {
+            builder.append(sp).append(spellData.removeFirst())
+          }
+        }
+        else if (w == WORD.DESCRIPTOR)
+          builder.append(generateDescriptorString(partialSpell.deduplicatedDescriptors(), spellData))
       }
     }
 
-    return builder.toString().trim()
+    return builder
+  }
+
+  fun getFakeWord(): Component {
+    val random = Random()
+    return Component.literal(
+      (0..random.nextInt(8)).map { ('a'..'z').random() }.joinToString("")
+    ).withStyle(ChatFormatting.OBFUSCATED)
   }
 
   override fun save(tag: CompoundTag, provider: HolderLookup.Provider): CompoundTag {

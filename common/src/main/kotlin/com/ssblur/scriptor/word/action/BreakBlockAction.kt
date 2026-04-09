@@ -10,9 +10,10 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import java.util.stream.Collectors
+import kotlin.math.roundToInt
 
 class BreakBlockAction: Action() {
-  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>) {
+  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>, spellData: MutableList<String>) {
     if (targetable.level.isClientSide) return
     var strength = 1.0
     for (d in descriptors) {
@@ -24,7 +25,7 @@ class BreakBlockAction: Action() {
       false
     ) { !it.isEmpty && it.isDamageableItem }
     if (!itemTarget.isEmpty) if (itemTarget.isDamageableItem) {
-      itemTarget.damageValue = itemTarget.damageValue + Math.round(strength).toInt()
+      itemTarget.damageValue += strength.roundToInt()
       return
     }
 

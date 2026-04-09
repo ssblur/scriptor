@@ -15,10 +15,12 @@ import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.EnumProperty
 
-class GenerateBlock: Block(Properties.of().air()), EntityBlock {
+class GenerateBlock: Block(Properties.of()), EntityBlock {
   enum class Feature(var feature: String): StringRepresentable {
     NONE("none"),
-    ENGRAVING("engraving");
+    ENGRAVING("engraving"),
+    VILLAGER_ENGRAVING("villager_engraving"),
+    ARTIFACT("artifact");
 
     override fun getSerializedName(): String {
       return this.feature

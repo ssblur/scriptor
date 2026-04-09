@@ -5,15 +5,13 @@ import com.ssblur.scriptor.error.WordNotFoundException
 import com.ssblur.scriptor.registry.words.WordRegistry.actionRegistry
 import com.ssblur.scriptor.registry.words.WordRegistry.descriptorRegistry
 import com.ssblur.scriptor.registry.words.WordRegistry.subjectRegistry
+import com.ssblur.scriptor.resources.shared.SpellResource
 import com.ssblur.scriptor.word.PartialSpell
 import com.ssblur.scriptor.word.Spell
 import com.ssblur.unfocused.data.DataLoaderRegistry.registerSimpleDataLoader
 
 object Engravings {
   class EngravingResource {
-    class PartialSpellResource(var action: String, var descriptors: List<String>)
-    class SpellResource(var subject: String, var spells: List<PartialSpellResource>)
-
     var spell: SpellResource? = null
 
     fun generateSpell(): Spell {

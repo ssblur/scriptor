@@ -1,5 +1,5 @@
 plugins {
-  id "com.github.johnrengelman.shadow"
+  id "com.gradleup.shadow"
 }
 
 architectury {
@@ -55,8 +55,8 @@ processResources {
 
   filesMatching('META-INF/neoforge.mods.toml') {
     expand(
-            version: project.version,
-            unfocused_version: rootProject.unfocused_version
+      version: project.version,
+      unfocused_version: rootProject.unfocused_version
     )
   }
 }
@@ -67,7 +67,7 @@ shadowJar {
 }
 
 remapJar {
-  input.set shadowJar.archiveFile
+  inputFile.set shadowJar.archiveFile
 }
 
 loom {

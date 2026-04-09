@@ -1,17 +1,16 @@
 {
   "name": "tome.scriptor.bound_shovel",
-  "author": "Mulligan",
-  "item": "scriptor:spellbook_white",
+  "author": "Alex.",
+  "item": "scriptor:spellbook_yellow",
   "tier": 2,
   "spell": {
     "subject": "self",
     "spells": [
       {
-        "action": "bound_shovel",
+        "action": "bound_axe",
         "descriptors": [
-          "black",
-          "long",
-          "strong"
+          "strong",
+          "blue"
         ]
       }
     ]

@@ -1,0 +1,23 @@
+{
+  "name": "tome.scriptor.break_vein",
+  "author": "Alex.",
+  "item": "scriptor:spellbook_yellow",
+  "tier": 2,
+  "spell": {
+    "subject": "touch",
+    "spells": [
+      {
+        "action": "break",
+        "descriptors": [
+          "strong",
+          "chain",
+          "chain",
+          "chain",
+          "chain",
+          "chain",
+          "chain"
+        ]
+      }
+    ]
+  }
+}

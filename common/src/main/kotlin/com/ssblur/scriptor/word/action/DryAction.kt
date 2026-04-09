@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.BucketPickup
 import net.minecraft.world.level.block.LiquidBlock
 
 class DryAction: Action() {
-  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>) {
+  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>, spellData: MutableList<String>) {
     if (targetable.level.isClientSide) return
 
     val itemTarget = ItemTargetableHelper.getTargetItemStack(

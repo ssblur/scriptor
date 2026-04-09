@@ -1,5 +1,7 @@
+import java.time.Instant
+
 buildscript {
-  ext.kotlin_version = "2.0.0"
+  ext.kotlin_version = "2.3.20"
   repositories {
     mavenCentral()
   }
@@ -14,9 +16,9 @@ buildscript {
 
 plugins {
   id "architectury-plugin" version "3.4-SNAPSHOT"
-  id "dev.architectury.loom" version "1.7-SNAPSHOT" apply false
+  id "dev.architectury.loom" version "1.13-SNAPSHOT" apply false
   id "com.palantir.git-version" version "0.15.0"
-  id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
+  id 'com.gradleup.shadow' version '8.3.6' apply false
 }
 apply plugin: 'kotlin'
 
@@ -26,9 +28,23 @@ architectury {
 
 subprojects {
   apply plugin: "dev.architectury.loom"
+  apply plugin: 'maven-publish'
 
   loom {
     silentMojangMappingsLicense()
+  }
+
+  try {
+    def matcher = gitVersion() =~ /^v(\d+\.\d+\.\d+(-\d+\.\d+\.\d+)?-?)?.*/
+    matcher.find()
+    version = matcher.group(1)
+    if (version.endsWith("-")) {
+      def instant = String.valueOf(System.getenv("VERSION_TIMESTAMP") ?: Instant.now().toEpochMilli())
+      version += "SNAPSHOT-" + instant
+    }
+  } catch(Exception e) {
+    e.printStackTrace()
+    version = "1"
   }
 
   dependencies {
@@ -37,6 +53,29 @@ subprojects {
     mappings loom.officialMojangMappings()
     // The following line declares the yarn mappings you may select this one as well.
     // mappings "net.fabricmc:yarn:1.19.2+build.3:v2"
+  }
+
+  // Configure Maven publishing.
+  publishing {
+    publications {
+      mavenJava(MavenPublication) {
+        artifactId = base.archivesName.get()
+        from components.java
+      }
+    }
+
+    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+    repositories {
+      maven {
+        name = "ssblur-maven"
+        url = version.contains("SNAPSHOT") ? uri("https://mvn.blur.lol/snapshots") : uri("https://mvn.blur.lol/releases")
+
+        credentials {
+          username = System.getenv("SSBLURMVNUSERNAME")
+          password = System.getenv("SSBLURMVNPASSWORD")
+        }
+      }
+    }
   }
 }
 
@@ -53,14 +92,6 @@ allprojects {
   }
 
   archivesBaseName = rootProject.archives_base_name
-  try {
-    def matcher = gitVersion() =~ /^v(\d+\.\d+\.\d+-?)+.*/
-    matcher.find()
-    version = matcher.group(1)
-    if (version.endsWith("-")) version += "SNAPSHOT"
-  } catch(Exception ignored) {
-    version = "1"
-  }
 
   group = rootProject.maven_group
 

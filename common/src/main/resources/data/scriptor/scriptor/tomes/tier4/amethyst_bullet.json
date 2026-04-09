@@ -1,0 +1,18 @@
+{
+  "name": "tome.scriptor.amethyst_bullet",
+  "author": "V., Eve",
+  "tier": 4,
+  "item": "scriptor:spellbook_red",
+  "spell": {
+    "subject": "hitscan",
+    "spells": [
+      {
+        "action": "harm",
+        "descriptors": [
+          "reagent.scriptor.amethyst",
+          "massive_strong"
+        ]
+      }
+    ]
+  }
+}
