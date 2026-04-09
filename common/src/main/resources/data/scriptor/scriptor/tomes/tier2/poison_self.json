@@ -1,5 +1,5 @@
 {
-  "name": "tome.scriptor.bound_sword",
+  "name": "tome.scriptor.poison_self",
   "author": "V., Eve",
   "item": "scriptor:spellbook_red",
   "tier": 2,
@@ -7,11 +7,9 @@
     "subject": "self",
     "spells": [
       {
-        "action": "bound_sword",
+        "action": "poison",
         "descriptors": [
-          "stacking_strong",
-          "stacking_strong",
-          "stacking_long"
+          "longer"
         ]
       }
     ]

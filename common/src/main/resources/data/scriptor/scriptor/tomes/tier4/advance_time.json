@@ -1,15 +1,15 @@
 {
-  "name": "tome.scriptor.cheap_trick",
+  "name": "tome.scriptor.advance_time",
   "author": "Djenn, H.",
   "tier": 4,
   "item": "scriptor:spellbook_red",
   "spell": {
-    "subject": "touch",
+    "subject": "self",
     "spells": [
       {
-        "action": "inflame",
+        "action": "time",
         "descriptors": [
-          "cheap"
+          "reagent.scriptor.gold"
         ]
       }
     ]

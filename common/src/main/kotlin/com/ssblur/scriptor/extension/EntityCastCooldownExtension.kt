@@ -4,6 +4,7 @@ import com.ssblur.scriptor.ScriptorMod.MANA_MODE
 import com.ssblur.scriptor.mixin.MinecraftClientTickAccessor
 import com.ssblur.scriptor.network.client.ScriptorNetworkS2C
 import com.ssblur.scriptor.word.Spell
+import com.ssblur.scriptor.word.subject.InventorySubject
 import net.minecraft.client.Minecraft
 import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.server.level.ServerLevel
@@ -51,6 +52,7 @@ object EntityCastCooldownExtension {
 
   fun Entity.canCast(spell: Spell, mult: Double = 1.0): Boolean {
     if(MANA_MODE && this is Player) {
+      if(spell.subject is InventorySubject) return true
       return this.mana >= (spell.cost() * mult)
     }
     return this.castCooldown <= 0

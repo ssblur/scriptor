@@ -1,0 +1,14 @@
+{
+  "name": "tome.scriptor.set_mine",
+  "author": "H., Uncine",
+  "tier": 3,
+  "spell": {
+    "subject": "rune",
+    "spells": [
+      {
+        "action": "explosion",
+        "descriptors": []
+      }
+    ]
+  }
+}

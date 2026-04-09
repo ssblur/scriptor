@@ -1,0 +1,15 @@
+{
+  "name": "tome.scriptor.bring",
+  "author": "Alex.",
+  "tier": 1,
+  "item": "scriptor:spellbook",
+  "spell": {
+    "subject": "projectile",
+    "spells": [
+      {
+        "action": "bring",
+        "descriptors": []
+      }
+    ]
+  }
+}

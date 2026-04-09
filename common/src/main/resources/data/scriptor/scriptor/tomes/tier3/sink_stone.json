@@ -1,13 +1,13 @@
 {
-  "name": "tome.scriptor.charge_weapon",
+  "name": "tome.scriptor.sink_stone",
   "author": "V., Eve",
   "item": "scriptor:spellbook_red",
   "tier": 3,
   "spell": {
-    "subject": "enchant",
+    "subject": "touch",
     "spells": [
       {
-        "action": "smite",
+        "action": "wild_phasing",
         "descriptors": []
       }
     ]

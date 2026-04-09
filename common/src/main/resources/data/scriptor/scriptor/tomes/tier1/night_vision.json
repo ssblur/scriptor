@@ -1,0 +1,15 @@
+{
+  "name": "tome.scriptor.night_vision",
+  "author": "Alex.",
+  "tier": 1,
+  "item": "scriptor:spellbook",
+  "spell": {
+    "subject": "self",
+    "spells": [
+      {
+        "action": "night_vision",
+        "descriptors": []
+      }
+    ]
+  }
+}

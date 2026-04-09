@@ -1,0 +1,20 @@
+{
+  "name": "tome.scriptor.fetch_item",
+  "author": "Alex.",
+  "tier": 1,
+  "item": "scriptor:spellbook",
+  "spell": {
+    "subject": "projectile",
+    "spells": [
+      {
+        "action": "bring",
+        "descriptors": [
+          "nearby_item",
+          "fast",
+          "caster_inventory",
+          "caster_first_matching"
+        ]
+      }
+    ]
+  }
+}

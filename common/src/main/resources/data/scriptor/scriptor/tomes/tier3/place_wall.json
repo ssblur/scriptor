@@ -1,0 +1,21 @@
+{
+  "name": "tome.scriptor.place_wall",
+  "author": "Stone, R.",
+  "tier": 3,
+  "item": "scriptor:spellbook_blue",
+  "spell": {
+    "subject": "self",
+    "spells": [
+      {
+        "action": "place",
+        "descriptors": [
+          "copy_backwards",
+          "copy_backwards",
+          "copy_right",
+          "copy_left",
+          "reagent.scriptor.redstone"
+        ]
+      }
+    ]
+  }
+}

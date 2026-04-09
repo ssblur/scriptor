@@ -1,15 +1,16 @@
 {
-  "name": "tome.scriptor.cheap_trick",
-  "author": "Djenn, H.",
+  "name": "tome.scriptor.harm_other",
+  "author": "V., Eve",
   "tier": 4,
   "item": "scriptor:spellbook_red",
   "spell": {
     "subject": "touch",
     "spells": [
       {
-        "action": "inflame",
+        "action": "harm",
         "descriptors": [
-          "cheap"
+          "overwhelming",
+          "powerful"
         ]
       }
     ]

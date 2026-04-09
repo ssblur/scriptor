@@ -1,7 +1,7 @@
 {
-  "name": "tome.scriptor.trans_sheep",
+  "name": "tome.scriptor.enby_sheep",
   "author": "H., Juni",
-  "item": "scriptor:spellbook_light_blue",
+  "item": "scriptor:spellbook_yellow",
   "tier": 2,
   "spell": {
     "subject": "touch",
@@ -9,7 +9,7 @@
       {
         "action": "color",
         "descriptors": [
-          "color.scriptor.trans"
+          "color.scriptor.enby"
         ]
       }
     ]

@@ -1,13 +1,13 @@
 {
-  "name": "tome.scriptor.touch_break",
+  "name": "tome.scriptor.portable_bucket",
   "author": "Steve?",
   "tier": 1,
-  "item": "scriptor:spellbook_brown",
+  "item": "scriptor:spellbook_blue",
   "spell": {
     "subject": "touch",
     "spells": [
       {
-        "action": "break",
+        "action": "conjure_water",
         "descriptors": []
       }
     ]

@@ -1,0 +1,21 @@
+{
+  "name": "tome.scriptor.heal_at_risk",
+  "author": "Cleric",
+  "item": "scriptor:spellbook_green",
+  "tier": 3,
+  "spell": {
+    "subject": "touch",
+    "spells": [
+      {
+        "action": "heal",
+        "descriptors": [
+          "blood_power",
+          "blood_power",
+          "blood_power",
+          "blood_power",
+          "blood_cost"
+        ]
+      }
+    ]
+  }
+}

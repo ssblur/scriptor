@@ -6,6 +6,7 @@
     "descriptor:first_empty",
     "descriptor:on_fire",
     "action:bound_axe",
-    "action:bound_pickaxe"
+    "action:bound_pickaxe",
+    "action:write"
   ]
 }

@@ -1,0 +1,15 @@
+{
+  "name": "tome.scriptor.touch_light",
+  "author": "Alex.",
+  "tier": 1,
+  "item": "scriptor:spellbook",
+  "spell": {
+    "subject": "touch",
+    "spells": [
+      {
+        "action": "light",
+        "descriptors": ["orange"]
+      }
+    ]
+  }
+}

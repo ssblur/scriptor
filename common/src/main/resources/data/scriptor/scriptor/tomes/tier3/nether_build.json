@@ -1,0 +1,15 @@
+{
+  "name": "tome.scriptor.nether_build",
+  "author": "Stone, R.",
+  "item": "scriptor:spellbook_blue",
+  "tier": 3,
+  "spell": {
+    "subject": "self",
+    "spells": [
+      {
+        "action": "fire_resistance",
+        "descriptors": []
+      }
+    ]
+  }
+}

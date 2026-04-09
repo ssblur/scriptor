@@ -15,6 +15,7 @@
     "descriptor:rainbow",
     "action:bound_shovel",
     "action:bound_pickaxe",
+    "action:write",
     "descriptor:move_up",
     "descriptor:copy_down",
     "descriptor:copy_left",

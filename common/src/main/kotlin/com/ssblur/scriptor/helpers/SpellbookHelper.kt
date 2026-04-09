@@ -38,7 +38,6 @@ object SpellbookHelper {
     cooldownFunc: (Player, Int) -> Unit = ::addCooldown,
     targetOverride: List<Targetable>? = null,
   ): Boolean {
-    val adjustedMaxCost = maxCost ?: ScriptorConfig.TOME_MAX_COST()
     val adjustedCostMultiplier = (costMultiplier ?: ScriptorConfig.TOME_COOLDOWN_MULTIPLIER()).toDouble() / 100.0
     val level = player.level()
     if (level !is ServerLevel) return false
@@ -49,10 +48,9 @@ object SpellbookHelper {
     )
 
     if (spell != null && spell.subject !is HitSubject) {
-      if(!player.canCast(spell, adjustedCostMultiplier * 49)) return false
       spell.deduplicatedDescriptorsForSubjects()
       spell.playSound(level, player.blockPosition())
-      if (spell.cost() > adjustedMaxCost) {
+      if (!player.canCast(spell, adjustedCostMultiplier * 49)) {
         player.sendSystemMessage(Component.translatable("extra.scriptor.fizzle"))
         ScriptorAdvancements.FIZZLE.get().trigger(player as ServerPlayer)
         if (!player.isCreative)

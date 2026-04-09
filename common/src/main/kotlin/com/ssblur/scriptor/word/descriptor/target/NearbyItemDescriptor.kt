@@ -1,7 +1,7 @@
 package com.ssblur.scriptor.word.descriptor.target
 
 import com.ssblur.scriptor.api.word.Descriptor
-import com.ssblur.scriptor.helpers.targetable.EntityTargetable
+import com.ssblur.scriptor.helpers.targetable.ItemEntityTargetable
 import com.ssblur.scriptor.helpers.targetable.Targetable
 import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.phys.AABB
@@ -11,10 +11,10 @@ object NearbyItemDescriptor: Descriptor(), TargetDescriptor {
     return originalTargetables.flatMap {
       it.level.getEntitiesOfClass(
         ItemEntity::class.java,
-        AABB.ofSize(it.targetBlockPos.center, 0.7, 0.7, 0.7),
+        AABB.ofSize(it.targetPos, 1.5, 2.0, 1.5),
       ) ?: listOf()
     }.filterNotNull().map {
-      EntityTargetable(it)
+      ItemEntityTargetable(it)
     }
   }
 
