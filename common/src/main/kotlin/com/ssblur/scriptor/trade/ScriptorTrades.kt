@@ -7,6 +7,7 @@ import com.ssblur.scriptor.item.ScriptorItems.TOME_TIER3
 import com.ssblur.scriptor.item.ScriptorItems.TOME_TIER4
 import com.ssblur.scriptor.villagers.ScriptorVillagers
 import com.ssblur.unfocused.entity.Trades.registerVillagerTrade
+import net.minecraft.world.entity.npc.Villager
 import net.minecraft.world.entity.npc.VillagerTrades
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
@@ -49,26 +50,32 @@ object ScriptorTrades {
   var TIER1_BOOK_TRADE: VillagerTrades.ItemListing = VillagerTrades.ItemListing { _, _ ->
     MerchantOffer(ItemCost(Items.EMERALD, 3), ItemStack(TOME_TIER1.get(), 1), 2, 15, 0.05f)
   }
-  var BUY_MATERIALS_TRADE: VillagerTrades.ItemListing = VillagerTrades.ItemListing { _, randomSource ->
+  var BUY_MATERIALS_TRADE: VillagerTrades.ItemListing = VillagerTrades.ItemListing { villager, randomSource ->
     val materials = listOf(
       ItemStack(Items.GLOW_INK_SAC, 1),
       ItemStack(Items.INK_SAC, 2),
       ItemStack(Items.PURPLE_WOOL, 3),
       ItemStack(Items.GOLD_NUGGET, 4)
-    )
+    ).filter {
+      it.item !in (villager as Villager).offers.map { o -> o.result.item }
+          && it.item !in villager.offers.map { o -> o.itemCostA.item.value() }
+    }
     val material = materials[randomSource.nextInt(materials.size)]
     val emeralds = 2 + randomSource.nextInt(2)
     var mats = emeralds / 2 + randomSource.nextInt(1)
     material.count *= mats
     MerchantOffer(ItemCost(material.item, material.count), ItemStack(Items.EMERALD, emeralds), 8, 64, 0.05f)
   }
-  var SELL_MATERIALS_TRADE: VillagerTrades.ItemListing = VillagerTrades.ItemListing { _, randomSource ->
+  var SELL_MATERIALS_TRADE: VillagerTrades.ItemListing = VillagerTrades.ItemListing { villager, randomSource ->
     val materials = listOf(
       ItemStack(Items.GLOW_INK_SAC, 1),
       ItemStack(Items.INK_SAC, 2),
       ItemStack(Items.PURPLE_WOOL, 3),
       ItemStack(Items.GOLD_NUGGET, 4)
-    )
+    ).filter {
+      it.item !in (villager as Villager).offers.map { o -> o.result.item }
+          && it.item !in villager.offers.map { o -> o.itemCostA.item.value() }
+    }
     val material = materials[randomSource.nextInt(materials.size)]
     val emeralds = 2 + randomSource.nextInt(2)
     var mats = emeralds / 2 + randomSource.nextInt(1)
