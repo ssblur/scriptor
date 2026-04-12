@@ -44,7 +44,9 @@ class WritingTableMenu(i: Int, val inventory: Inventory, val table: WritingTable
       }
 
       override fun mayPlace(itemStack: ItemStack): Boolean {
-        return itemStack matches ScriptorTags.SPELLBOOKS || itemStack matches ScriptorItems.SCRAP.get()
+        return itemStack matches ScriptorTags.WRITABLE_SPELLBOOKS
+            || itemStack matches ScriptorTags.SPELLBOOKS
+            || itemStack matches ScriptorItems.SCRAP.get()
       }
     })
 
