@@ -3,7 +3,7 @@
 After writing a few tomes, I tired of trying to remember and write words one by one.
 I already have a Scriptionary, why not use it?
 
-<item href="scriptor:writing_desk"></item>
+<item href="scriptor:writing_table"></item>
 The Writing Desk is a handy tool which lets you read and write Spellbooks with (relative) ease!
 
 While a Scriptionary is in the top slot, placing a written Book or Spellbook in the other slot gives you
