@@ -2,7 +2,6 @@ package com.ssblur.scriptor.data.components
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
-import net.minecraft.client.resources.language.I18n
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
@@ -23,7 +22,7 @@ data class DictionaryData(val values: List<List<String>>) {
 
   fun withWord(word: String, definition: String? = null, overwrite: Boolean = false): DictionaryData {
     return if(overwrite || values.none { it.first() == word })
-      DictionaryData(values + listOf(listOf(word, definition ?: I18n.get("extra.scriptor.no_entry"))))
+      DictionaryData(values + listOf(listOf(word, definition ?: "extra.scriptor.no_entry")))
     else
       this
   }
