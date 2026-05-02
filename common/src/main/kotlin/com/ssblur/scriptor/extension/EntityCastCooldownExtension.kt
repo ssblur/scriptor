@@ -12,7 +12,6 @@ import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.player.Player
 import java.util.*
-import kotlin.math.min
 
 object EntityCastCooldownExtension {
   private val CACHE: WeakHashMap<Entity, Long> = WeakHashMap()
@@ -61,8 +60,8 @@ object EntityCastCooldownExtension {
   var Player.mana: Double
     get() = MANA[this] ?: this.maxMana
     set(value) {
-      MANA[this] = min(value, this.maxMana)
-      if(!this.level().isClientSide && value != MANA[this])
+      MANA[this] = value.coerceIn(0.0, maxMana)
+      if(!this.level().isClientSide)
         ScriptorNetworkS2C.mana(ScriptorNetworkS2C.Mana(value), listOf(this))
     }
 
