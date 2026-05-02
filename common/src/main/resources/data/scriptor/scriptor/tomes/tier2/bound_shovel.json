@@ -7,7 +7,7 @@
     "subject": "self",
     "spells": [
       {
-        "action": "bound_axe",
+        "action": "bound_shovel",
         "descriptors": [
           "strong",
           "blue"
