@@ -2,6 +2,7 @@ package com.ssblur.scriptor.helpers
 
 import com.ssblur.scriptor.advancement.ScriptorAdvancements
 import com.ssblur.scriptor.config.ScriptorConfig
+import com.ssblur.scriptor.data.components.ReagentData
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData.Companion.computeIfAbsent
 import com.ssblur.scriptor.effect.EmpoweredStatusEffect
@@ -10,9 +11,12 @@ import com.ssblur.scriptor.extension.EntityCastCooldownExtension.castCooldown
 import com.ssblur.scriptor.helpers.LimitedBookSerializer.decodeText
 import com.ssblur.scriptor.helpers.targetable.SpellbookTargetable
 import com.ssblur.scriptor.helpers.targetable.Targetable
+import com.ssblur.scriptor.word.descriptor.discount.ReagentDescriptor
 import com.ssblur.scriptor.word.subject.HitSubject
 import net.minecraft.core.component.DataComponents
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.Entity
@@ -28,6 +32,25 @@ object SpellbookHelper {
     val text = itemStack.get(DataComponents.WRITTEN_BOOK_CONTENT) ?: return false
     val spell = computeIfAbsent(level).parse(decodeText(text))
     return (spell != null && (spell.subject?.canBeCastOnInventory() == true))
+  }
+
+  fun getReagentData(
+    itemStack: ItemStack,
+    level: ServerLevel
+  ): ReagentData {
+    val text = itemStack.get(DataComponents.WRITTEN_BOOK_CONTENT) ?: return ReagentData.NONE
+    val spell = computeIfAbsent(level).parse(decodeText(text)) ?: return ReagentData.NONE
+    val map = mutableMapOf<ResourceLocation, Int>()
+    spell.spells.forEach {
+      it.descriptors.forEach { descriptor ->
+        if(descriptor is ReagentDescriptor) {
+          val key = BuiltInRegistries.ITEM.getKey(descriptor.item)
+          map[key] = map[key] ?: 0
+          map[key] = map[key]!! + 1
+        }
+      }
+    }
+    return ReagentData(map)
   }
 
   fun castFromItem(

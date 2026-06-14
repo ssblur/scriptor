@@ -21,6 +21,7 @@ import net.minecraft.client.player.AbstractClientPlayer
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.resources.language.I18n
 import net.minecraft.core.component.DataComponents
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.FormattedText
 import net.minecraft.server.level.ServerLevel
@@ -104,6 +105,23 @@ open class Spellbook(properties: Properties):
       )
     )
 
+    if (itemStack.get(ScriptorDataComponents.INVENTORY_CAST) == true) {
+      list.add(Component.translatable("lore.scriptor.imbue").withStyle(ChatFormatting.GRAY))
+    }
+
+    if ((itemStack[ScriptorDataComponents.REAGENTS]?.items?.size ?: 0) > 0) {
+      list.add(Component.translatable("lore.scriptor.reagent_1").withStyle(ChatFormatting.GRAY))
+
+      itemStack[ScriptorDataComponents.REAGENTS]?.items?.forEach {
+        val item = BuiltInRegistries.ITEM.get(it.key)
+        val reagentStack = ItemStack(item, it.value)
+        list.add(
+          Component.translatable("lore.scriptor.reagent_2", it.value, reagentStack.displayName)
+            .withStyle(ChatFormatting.GRAY)
+        )
+      }
+    }
+
     val identified = itemStack.get(ScriptorDataComponents.IDENTIFIED)
     if (identified != null) {
       if (Screen.hasShiftDown()) for (key in identified) {
@@ -119,6 +137,9 @@ open class Spellbook(properties: Properties):
   override fun inventoryTick(itemStack: ItemStack, level: Level, entity: Entity, i: Int, bl: Boolean) {
     if(!level.isClientSide && itemStack[ScriptorDataComponents.INVENTORY_CAST] == null)
       itemStack[ScriptorDataComponents.INVENTORY_CAST] = SpellbookHelper.isInventoryCaster(itemStack, level as ServerLevel)
+    if(!level.isClientSide && itemStack[ScriptorDataComponents.REAGENTS] == null) {
+      itemStack[ScriptorDataComponents.REAGENTS] = SpellbookHelper.getReagentData(itemStack, level as ServerLevel)
+    }
     super.inventoryTick(itemStack, level, entity, i, bl)
   }
 
