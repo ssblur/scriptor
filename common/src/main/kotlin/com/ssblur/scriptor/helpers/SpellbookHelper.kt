@@ -2,6 +2,7 @@ package com.ssblur.scriptor.helpers
 
 import com.ssblur.scriptor.advancement.ScriptorAdvancements
 import com.ssblur.scriptor.config.ScriptorConfig
+import com.ssblur.scriptor.data.components.ConditionData
 import com.ssblur.scriptor.data.components.ReagentData
 import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.data.saved_data.DictionarySavedData.Companion.computeIfAbsent
@@ -11,6 +12,7 @@ import com.ssblur.scriptor.extension.EntityCastCooldownExtension.castCooldown
 import com.ssblur.scriptor.helpers.LimitedBookSerializer.decodeText
 import com.ssblur.scriptor.helpers.targetable.SpellbookTargetable
 import com.ssblur.scriptor.helpers.targetable.Targetable
+import com.ssblur.scriptor.word.ConditionalWord
 import com.ssblur.scriptor.word.descriptor.discount.ReagentDescriptor
 import com.ssblur.scriptor.word.subject.HitSubject
 import net.minecraft.core.component.DataComponents
@@ -51,6 +53,43 @@ object SpellbookHelper {
       }
     }
     return ReagentData(map)
+  }
+
+  fun getConditionData(
+    itemStack: ItemStack,
+    level: ServerLevel
+  ): ConditionData {
+    val text = itemStack.get(DataComponents.WRITTEN_BOOK_CONTENT) ?: return ConditionData.NONE
+    val data = computeIfAbsent(level)
+    val spell = data.parse(decodeText(text)) ?: return ConditionData.NONE
+    val list = mutableListOf<String>()
+
+    spell.subject.let { subject ->
+      if(subject is ConditionalWord) {
+        data.getKey(subject)?.replace(":", ".")?.let { condition ->
+          list.add(condition)
+        }
+      }
+    }
+
+    spell.spells.forEach {
+      it.descriptors.forEach { descriptor ->
+        if(descriptor is ConditionalWord) {
+          data.getKey(descriptor)?.replace(":", ".")?.let { condition ->
+            list.add(condition)
+          }
+        }
+      }
+
+      it.action.let { action ->
+        if(action is ConditionalWord) {
+          data.getKey(action)?.replace(":", ".")?.let { condition ->
+            list.add(condition)
+          }
+        }
+      }
+    }
+    return ConditionData(list)
   }
 
   fun castFromItem(

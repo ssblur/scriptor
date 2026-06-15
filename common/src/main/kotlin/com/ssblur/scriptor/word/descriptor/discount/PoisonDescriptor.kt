@@ -3,11 +3,12 @@ package com.ssblur.scriptor.word.descriptor.discount
 import com.ssblur.scriptor.api.word.Descriptor
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable
 import com.ssblur.scriptor.helpers.targetable.Targetable
+import com.ssblur.scriptor.word.ConditionalWord
 import com.ssblur.scriptor.word.descriptor.CastDescriptor
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.LivingEntity
 
-class PoisonDescriptor: Descriptor(), CastDescriptor {
+class PoisonDescriptor: Descriptor(), CastDescriptor, ConditionalWord {
   override fun cost() = Cost(0.7, COSTTYPE.MULTIPLICATIVE)
 
   override fun cannotCast(caster: Targetable?): Boolean {

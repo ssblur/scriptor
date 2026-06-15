@@ -20,6 +20,9 @@ object ScriptorDataComponents {
   val REAGENTS: DataComponentType<ReagentData> = register("reagents") { builder ->
     builder.persistent(ReagentData.CODEC).networkSynchronized(ReagentData.STREAM_CODEC)
   }
+  val CONDITIONS: DataComponentType<ConditionData> = register("conditions") { builder ->
+    builder.persistent(ConditionData.CODEC).networkSynchronized(ConditionData.STREAM_CODEC)
+  }
   val BOOK_OF_BOOKS: DataComponentType<BookOfBooksData> = register("book_of_books") { builder ->
     builder.persistent(BookOfBooksData.CODEC).networkSynchronized(BookOfBooksData.STREAM_CODEC)
   }

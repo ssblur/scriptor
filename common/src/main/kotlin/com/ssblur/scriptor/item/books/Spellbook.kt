@@ -105,11 +105,21 @@ open class Spellbook(properties: Properties):
       )
     )
 
+    var emptyLineAdded = false
+
     if (itemStack.get(ScriptorDataComponents.INVENTORY_CAST) == true) {
+      emptyLineAdded = true
+      list.add(Component.literal(""))
+
       list.add(Component.translatable("lore.scriptor.imbue").withStyle(ChatFormatting.GRAY))
     }
 
     if ((itemStack[ScriptorDataComponents.REAGENTS]?.items?.size ?: 0) > 0) {
+      if(!emptyLineAdded) {
+        emptyLineAdded = true
+        list.add(Component.literal(""))
+      }
+
       list.add(Component.translatable("lore.scriptor.reagent_1").withStyle(ChatFormatting.GRAY))
 
       itemStack[ScriptorDataComponents.REAGENTS]?.items?.forEach {
@@ -120,6 +130,14 @@ open class Spellbook(properties: Properties):
             .withStyle(ChatFormatting.GRAY)
         )
       }
+    }
+
+    itemStack[ScriptorDataComponents.CONDITIONS]?.conditions?.forEach {
+      if(!emptyLineAdded) {
+        emptyLineAdded = true
+        list.add(Component.literal(""))
+      }
+      list.add(Component.translatable("lore.scriptor.condition.$it").withStyle(ChatFormatting.GRAY))
     }
 
     val identified = itemStack.get(ScriptorDataComponents.IDENTIFIED)
@@ -139,6 +157,9 @@ open class Spellbook(properties: Properties):
       itemStack[ScriptorDataComponents.INVENTORY_CAST] = SpellbookHelper.isInventoryCaster(itemStack, level as ServerLevel)
     if(!level.isClientSide && itemStack[ScriptorDataComponents.REAGENTS] == null) {
       itemStack[ScriptorDataComponents.REAGENTS] = SpellbookHelper.getReagentData(itemStack, level as ServerLevel)
+    }
+    if(!level.isClientSide && itemStack[ScriptorDataComponents.CONDITIONS] == null) {
+      itemStack[ScriptorDataComponents.CONDITIONS] = SpellbookHelper.getConditionData(itemStack, level as ServerLevel)
     }
     super.inventoryTick(itemStack, level, entity, i, bl)
   }

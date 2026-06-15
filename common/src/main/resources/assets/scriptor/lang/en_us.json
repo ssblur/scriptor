@@ -341,6 +341,16 @@
   "lore.scriptor.reagent_2": "%2$s x%1$s",
   "lore.scriptor.imbue": "Cast through the inventory",
 
+  "lore.scriptor.condition.descriptor.healthy": "Can only be cast near full health",
+  "lore.scriptor.condition.descriptor.poisoned": "Can only be cast while poisoned",
+  "lore.scriptor.condition.descriptor.critical": "Can only be cast while near death",
+  "lore.scriptor.condition.descriptor.night": "Can only be cast at night",
+  "lore.scriptor.condition.descriptor.rain": "Can only be cast in the rain",
+  "lore.scriptor.condition.descriptor.weakened": "Can only be cast while afflicted by Weakness",
+  "lore.scriptor.condition.descriptor.on_fire": "Can only be cast while on fire",
+  "lore.scriptor.condition.descriptor.clear_skies": "Can only be cast under clear skies",
+  "lore.scriptor.condition.descriptor.unreliable": "May fail randomly",
+
   "itemGroup.scriptor.scriptor_tab": "Scriptor Magicae",
   "itemGroup.scriptor.scriptor_spellbooks": "Scriptor Magicae Spellbooks",
 
