@@ -75,11 +75,17 @@ class DictionarySavedData: SavedData {
   fun generateMissingWords() {
     val registry = TokenGeneratorRegistry
     var token: String
+    var lastToken: String?
 
     for(word in WordRegistry.otherRegistry) {
       if (!containsKey("other:$word")) {
+        lastToken = null
         do {
           token = registry.generateWord("other:$word")
+          var nextChar = (words.values.count { it == token } + 'a'.code).toChar()
+          if(nextChar > 'Z') nextChar = 'Z'
+          if(token == lastToken) token += nextChar
+          lastToken = token
         } while (containsWord(token))
         words["other:$word"] = token
       }
@@ -87,9 +93,13 @@ class DictionarySavedData: SavedData {
 
     for (word in actionRegistry.keys) {
       if (containsKey("action:$word")) continue
-
+      lastToken = null
       do {
         token = registry.generateWord("action:$word")
+        var nextChar = (words.values.count { it == token } + 'a'.code).toChar()
+        if(nextChar > 'Z') nextChar = 'Z'
+        if(token == lastToken) token += nextChar
+        lastToken = token
       } while (containsWord(token))
 
       words["action:$word"] = token
@@ -97,18 +107,26 @@ class DictionarySavedData: SavedData {
 
     for (word in descriptorRegistry.keys) {
       if (containsKey("descriptor:$word")) continue
-
+      lastToken = null
       do {
         token = registry.generateWord("descriptor:$word")
+        var nextChar = (words.values.count { it == token } + 'a'.code).toChar()
+        if(nextChar > 'Z') nextChar = 'Z'
+        if(token == lastToken) token += nextChar
+        lastToken = token
       } while (containsWord(token))
 
       words["descriptor:$word"] = token
     }
     for (word in subjectRegistry.keys) {
       if (containsKey("subject:$word")) continue
-
+      lastToken = null
       do {
         token = registry.generateWord("subject:$word")
+        var nextChar = (words.values.count { it == token } + 'a'.code).toChar()
+        if(nextChar > 'Z') nextChar = 'Z'
+        if(token == lastToken) token += nextChar
+        lastToken = token
       } while (containsWord(token))
 
       words["subject:$word"] = token

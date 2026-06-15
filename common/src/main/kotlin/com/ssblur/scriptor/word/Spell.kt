@@ -7,13 +7,9 @@ import com.ssblur.scriptor.api.word.Subject
 import com.ssblur.scriptor.api.word.Word
 import com.ssblur.scriptor.api.word.Word.COSTTYPE
 import com.ssblur.scriptor.effect.ScriptorEffects.MUTE
-import com.ssblur.scriptor.helpers.ItemTargetableHelper
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable
-import com.ssblur.scriptor.helpers.targetable.ItemTargetable
 import com.ssblur.scriptor.helpers.targetable.Targetable
 import com.ssblur.scriptor.network.client.ParticleNetwork
-import com.ssblur.scriptor.registry.words.WordRegistry
-import com.ssblur.scriptor.resources.CastRecipes
 import com.ssblur.scriptor.word.descriptor.AfterCastDescriptor
 import com.ssblur.scriptor.word.descriptor.CastDescriptor
 import com.ssblur.scriptor.word.descriptor.focus.FocusDescriptor
@@ -42,7 +38,7 @@ import kotlin.math.roundToInt
 class Spell(val subject: Subject?, vararg val spells: PartialSpell, val spellData: List<String> = mutableListOf()) {
   fun castOnTargets(originalCaster: Targetable, originalTargets: List<Targetable>, castHooks: Boolean = false) {
     var caster = originalCaster
-    val castData = spellData.toMutableList()
+//    val castData = spellData.toMutableList()
     val entity: Entity? = if (caster is EntityTargetable) caster.targetEntity else null
 
     if(castHooks) {
@@ -70,31 +66,31 @@ class Spell(val subject: Subject?, vararg val spells: PartialSpell, val spellDat
         if (descriptor is FocusDescriptor) caster = descriptor.modifyFocus(caster)
       }
 
-      val recipes = CastRecipes.recipes.values
-      for (target in targets) {
-        if(
-          target is ItemTargetable &&
-          recipes.any { it.action == WordRegistry.getKey(spell.action) }
-        ) {
-          val matches = recipes
-            .filter { it.action == WordRegistry.getKey(spell.action) }
-            .filter { it.base.test(target.targetItem) }
-
-          if(matches.isNotEmpty()) {
-            val result = matches.first().result
-            target.targetItem.shrink(1)
-            ItemTargetableHelper.depositItemStack(originalCaster, result)
-            continue
-          }
-        }
-
-        spell.action?.apply(
-          caster,
-          target,
-          spell.deduplicatedDescriptors().filterNotNull().toTypedArray(),
-          castData
-        )
-      }
+//      val recipes = CastRecipes.recipes.values
+//      for (target in targets) {
+//        if(
+//          target is ItemTargetable &&
+//          recipes.any { it.action == WordRegistry.getKey(spell.action) }
+//        ) {
+//          val matches = recipes
+//            .filter { it.action == WordRegistry.getKey(spell.action) }
+//            .filter { it.base.test(target.targetItem) }
+//
+//          if(matches.isNotEmpty()) {
+//            val result = matches.first().result
+//            target.targetItem.shrink(1)
+//            ItemTargetableHelper.depositItemStack(originalCaster, result)
+//            continue
+//          }
+//        }
+//
+//        spell.action?.apply(
+//          caster,
+//          target,
+//          spell.deduplicatedDescriptors().filterNotNull().toTypedArray(),
+//          castData
+//        )
+//      }
     }
 
 
