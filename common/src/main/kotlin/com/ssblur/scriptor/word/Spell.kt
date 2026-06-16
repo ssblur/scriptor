@@ -38,7 +38,7 @@ import kotlin.math.roundToInt
 class Spell(val subject: Subject?, vararg val spells: PartialSpell, val spellData: List<String> = mutableListOf()) {
   fun castOnTargets(originalCaster: Targetable, originalTargets: List<Targetable>, castHooks: Boolean = false) {
     var caster = originalCaster
-//    val castData = spellData.toMutableList()
+    val castData = spellData.toMutableList()
     val entity: Entity? = if (caster is EntityTargetable) caster.targetEntity else null
 
     if(castHooks) {
@@ -67,7 +67,7 @@ class Spell(val subject: Subject?, vararg val spells: PartialSpell, val spellDat
       }
 
 //      val recipes = CastRecipes.recipes.values
-//      for (target in targets) {
+      for (target in targets) {
 //        if(
 //          target is ItemTargetable &&
 //          recipes.any { it.action == WordRegistry.getKey(spell.action) }
@@ -83,14 +83,14 @@ class Spell(val subject: Subject?, vararg val spells: PartialSpell, val spellDat
 //            continue
 //          }
 //        }
-//
-//        spell.action?.apply(
-//          caster,
-//          target,
-//          spell.deduplicatedDescriptors().filterNotNull().toTypedArray(),
-//          castData
-//        )
-//      }
+
+        spell.action?.apply(
+          caster,
+          target,
+          spell.deduplicatedDescriptors().filterNotNull().toTypedArray(),
+          castData
+        )
+      }
     }
 
 

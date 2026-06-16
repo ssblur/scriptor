@@ -13,6 +13,7 @@ import com.ssblur.scriptor.helpers.LimitedBookSerializer.decodeText
 import com.ssblur.scriptor.helpers.targetable.SpellbookTargetable
 import com.ssblur.scriptor.helpers.targetable.Targetable
 import com.ssblur.scriptor.word.ConditionalWord
+import com.ssblur.scriptor.word.Spell
 import com.ssblur.scriptor.word.descriptor.discount.ReagentDescriptor
 import com.ssblur.scriptor.word.subject.HitSubject
 import net.minecraft.core.component.DataComponents
@@ -137,10 +138,10 @@ object SpellbookHelper {
         val adjustedCost =
           costScale * spell.cost() * adjustedCostMultiplier
         cooldownFunc(player, (adjustedCost * 7).roundToInt())
-        return true
       }
-      return false
+      return true
     }
+    Spell.playFizzleSound(level, player.position())
     return false
   }
 
