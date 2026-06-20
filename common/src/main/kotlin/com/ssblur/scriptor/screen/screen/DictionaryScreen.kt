@@ -184,7 +184,13 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
   }
 
   fun entryMarkdown() = try {
-      (menu.dictionary[ScriptorDataComponents.DICTIONARY_DATA]?.values ?: listOf()).filter {
+      (menu.dictionary[ScriptorDataComponents.DICTIONARY_DATA]?.values ?: listOf()).map { (word, entry) ->
+        if(I18n.exists(entry))
+          listOf(word, I18n.get(entry))
+        else if(I18n.exists(entry.replace(":", ".scriptor.")))
+          listOf(word, I18n.get(entry.replace(":", ".scriptor.")))
+        else listOf(word, entry)
+      }.filter {
         it.any { w -> w.lowercase().contains(searchTerm.lowercase()) }
       }.joinToString(separator = "\n\n") {
         "**${it[0]}**: ${it[1]}"

@@ -158,7 +158,13 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
     if(menu.dictionary != lastDict) {
       lastDict = menu.dictionary
       entriesOffset = 0
-      words = lastDict[ScriptorDataComponents.DICTIONARY_DATA]?.values?.toMutableList() ?: mutableListOf()
+      words = lastDict[ScriptorDataComponents.DICTIONARY_DATA]?.values?.map { (word, entry) ->
+        if(I18n.exists(entry))
+          listOf(word, I18n.get(entry))
+        else if(I18n.exists(entry.replace(":", ".scriptor.")))
+          listOf(word, I18n.get(entry.replace(":", ".scriptor.")))
+        else listOf(word, entry)
+      }?.toMutableList() ?: mutableListOf()
     }
 
     if(overText(i, j)) {
