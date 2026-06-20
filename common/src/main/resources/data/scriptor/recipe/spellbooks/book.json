@@ -1,7 +1,7 @@
 {
   "type": "scriptor:spellbook",
   "base": {
-    "item": "scriptor:spellbook"
+    "tag": "scriptor:readable_spellbooks"
   },
   "addition": {
     "item": "scriptor:leather_binder"
