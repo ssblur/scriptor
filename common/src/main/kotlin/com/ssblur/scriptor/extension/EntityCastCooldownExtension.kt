@@ -1,6 +1,7 @@
 package com.ssblur.scriptor.extension
 
 import com.ssblur.scriptor.ScriptorMod.MANA_MODE
+import com.ssblur.scriptor.effect.ScriptorEffects
 import com.ssblur.scriptor.mixin.MinecraftClientTickAccessor
 import com.ssblur.scriptor.network.client.ScriptorNetworkS2C
 import com.ssblur.scriptor.word.Spell
@@ -10,6 +11,7 @@ import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.Entity
+import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import java.util.*
 
@@ -35,15 +37,20 @@ object EntityCastCooldownExtension {
       return 0
     }
     set(value) {
+      var cost = value.toDouble()
+
+      if(this is LivingEntity && this.hasEffect(ScriptorEffects.SILVER_TONGUE.ref()))
+        cost /= this.getEffect(ScriptorEffects.SILVER_TONGUE.ref())!!.amplifier + 2
+
       if(MANA_MODE && this is Player) {
-        MANA[this] = this.mana - value.toDouble()
+        MANA[this] = this.mana - cost
       }
 
-      val cooldown = (value * COOLDOWN_MULT).toLong()
+      val cooldown = (cost * COOLDOWN_MULT).toLong()
       val level = this.level()
       if(level is ServerLevel) {
         if(this is ServerPlayer)
-          ScriptorNetworkS2C.cooldown(ScriptorNetworkS2C.Cooldown(value), listOf(this))
+          ScriptorNetworkS2C.cooldown(ScriptorNetworkS2C.Cooldown(cost.toLong()), listOf(this))
         CACHE[this] = cooldown + level.server.tickCount
       } else if(this == Minecraft.getInstance().player)
         LOCAL_COUNT = cooldown + (Minecraft.getInstance() as MinecraftClientTickAccessor).clientTickCount

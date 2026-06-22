@@ -116,8 +116,8 @@ object SpellbookHelper {
       if (!player.canCast(spell, adjustedCostMultiplier * 49)) {
         player.sendSystemMessage(Component.translatable("extra.scriptor.fizzle"))
         ScriptorAdvancements.FIZZLE.get().trigger(player as ServerPlayer)
-        if (!player.isCreative)
-          cooldownFunc(player, (350 * adjustedCostMultiplier).roundToInt())
+        if (!player.isCreative && player.castCooldown <= 0)
+          cooldownFunc(player, 40)
         return true
       }
 
