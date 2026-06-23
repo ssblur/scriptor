@@ -83,7 +83,6 @@ class Spell(val subject: Subject?, vararg val spells: PartialSpell, val spellDat
 //            continue
 //          }
 //        }
-
         spell.action?.apply(
           caster,
           target,
@@ -123,7 +122,7 @@ class Spell(val subject: Subject?, vararg val spells: PartialSpell, val spellDat
     }
 
     assert(spells.isNotEmpty())
-    for (descriptor in spells[0].deduplicatedDescriptors()) {
+    for (descriptor in spells.flatMap { it.deduplicatedDescriptors().toList() }) {
       if (descriptor is CastDescriptor)
         if (descriptor.cannotCast(caster)) {
           if (entity is Player) {
@@ -136,7 +135,7 @@ class Spell(val subject: Subject?, vararg val spells: PartialSpell, val spellDat
       if (descriptor is FocusDescriptor) caster = descriptor.modifyFocus(caster)
     }
     val targetFuture = subject?.getTargets(caster, this) ?: CompletableFuture()
-    for (descriptor in spells[0].deduplicatedDescriptors())
+    for (descriptor in spells.flatMap { it.deduplicatedDescriptors().toList() })
       if (descriptor is AfterCastDescriptor) descriptor.afterCast(caster)
 
     if (targetFuture.isDone) {

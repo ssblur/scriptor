@@ -52,7 +52,7 @@ class ChainDescriptor: Descriptor(), TargetDescriptor {
 
   companion object {
     fun chooseAdjacent(targetable: Targetable, targetables: List<Targetable>): Targetable? {
-      val block = targetable.level.getBlockState(targetable.targetBlockPos).block
+      val block = targetable.level.getBlockState(targetable.offsetBlockPos).block
       return listOf(
         targetable.targetBlockPos.offset(1, 0, 0),
         targetable.targetBlockPos.offset(-1, 0, 0),
