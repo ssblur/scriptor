@@ -7,7 +7,7 @@ import com.ssblur.scriptor.item.ScriptorItems.TOME_TIER3
 import com.ssblur.scriptor.item.ScriptorItems.TOME_TIER4
 import com.ssblur.scriptor.villagers.ScriptorVillagers
 import com.ssblur.unfocused.entity.Trades.registerVillagerTrade
-import net.minecraft.world.entity.npc.Villager
+import net.minecraft.world.entity.npc.AbstractVillager
 import net.minecraft.world.entity.npc.VillagerTrades
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
@@ -57,7 +57,7 @@ object ScriptorTrades {
       ItemStack(Items.PURPLE_WOOL, 3),
       ItemStack(Items.GOLD_NUGGET, 4)
     ).filter {
-      it.item !in (villager as Villager).offers.map { o -> o.result.item }
+      it.item !in (villager as AbstractVillager).offers.map { o -> o.result.item }
           && it.item !in villager.offers.map { o -> o.itemCostA.item.value() }
     }
     val material = materials[randomSource.nextInt(materials.size)]
@@ -73,7 +73,7 @@ object ScriptorTrades {
       ItemStack(Items.PURPLE_WOOL, 3),
       ItemStack(Items.GOLD_NUGGET, 4)
     ).filter {
-      it.item !in (villager as Villager).offers.map { o -> o.result.item }
+      it.item !in (villager as AbstractVillager).offers.map { o -> o.result.item }
           && it.item !in villager.offers.map { o -> o.itemCostA.item.value() }
     }
     val material = materials[randomSource.nextInt(materials.size)]
