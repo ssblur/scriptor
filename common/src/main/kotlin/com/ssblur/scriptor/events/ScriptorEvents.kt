@@ -37,9 +37,14 @@ object ScriptorEvents {
     ServerStartEvent.register {
       computeIfAbsent(it.overworld())
       it.addTickable {
-        if(ScriptorConfig.INVERT_DO_NOT_PHASE() != invertDoNotPhaseMemory) {
+        if (ScriptorConfig.INVERT_DO_NOT_PHASE() != invertDoNotPhaseMemory) {
           invertDoNotPhaseMemory = ScriptorConfig.INVERT_DO_NOT_PHASE()
-          flag.invoke(ScriptorNetworkS2C.Flag(ScriptorNetworkS2C.FLAGS.INVERT_DO_NOT_PHASE, ScriptorConfig.INVERT_DO_NOT_PHASE()), it.playerList.players)
+          flag.invoke(
+            ScriptorNetworkS2C.Flag(
+              ScriptorNetworkS2C.FLAGS.INVERT_DO_NOT_PHASE,
+              ScriptorConfig.INVERT_DO_NOT_PHASE()
+            ), it.playerList.players
+          )
         }
       }
     }
@@ -47,7 +52,12 @@ object ScriptorEvents {
     PlayerJoinedEvent.register { player ->
       if (COMMUNITY_MODE) COMMUNITY.get().trigger(player)
       flag.invoke(ScriptorNetworkS2C.Flag(ScriptorNetworkS2C.FLAGS.COMMUNITY, COMMUNITY_MODE), listOf(player))
-      flag.invoke(ScriptorNetworkS2C.Flag(ScriptorNetworkS2C.FLAGS.INVERT_DO_NOT_PHASE, ScriptorConfig.INVERT_DO_NOT_PHASE()), listOf(player))
+      flag.invoke(
+        ScriptorNetworkS2C.Flag(
+          ScriptorNetworkS2C.FLAGS.INVERT_DO_NOT_PHASE,
+          ScriptorConfig.INVERT_DO_NOT_PHASE()
+        ), listOf(player)
+      )
       computeIfAbsent(player)
       for (item in cache)
         color(ScriptorNetworkS2C.Color(item.b!!, item.a!!, item.c[0], item.c[1], item.c[2]), listOf(player))
@@ -72,10 +82,10 @@ object ScriptorEvents {
     EntityDamagedEvent.Before.register { (entity, source, _) ->
       source.weaponItem?.let { weapon ->
         weapon[ScriptorDataComponents.CHARGES]?.let { charges ->
-          if(charges > 0) {
+          if (charges > 0) {
             entity.health -= 5
 
-            if(charges == 1) weapon.remove(ScriptorDataComponents.CHARGES)
+            if (charges == 1) weapon.remove(ScriptorDataComponents.CHARGES)
             else weapon.set(ScriptorDataComponents.CHARGES, charges - 1)
           }
         }
@@ -86,14 +96,14 @@ object ScriptorEvents {
             ?: item[DataComponents.WRITTEN_BOOK_CONTENT]?.let { LimitedBookSerializer.decodeText(it) }
             ?: return@forEach
           entity.level().let {
-            if(it is ServerLevel) {
+            if (it is ServerLevel) {
               val parsed = computeIfAbsent(it).parse(spell)
-              if(parsed?.subject == Subjects.ON_DAMAGED && entity.canCast(parsed, 4.0)) {
+              if (parsed?.subject == Subjects.ON_DAMAGED && entity.canCast(parsed, 4.0)) {
                 entity.castCooldown = (parsed.cost() * 20.0 * 4.0).roundToLong()
                 parsed.castOnTargets(
                   EntityTargetable(entity),
                   listOf(
-                    if(source.entity != null)
+                    if (source.entity != null)
                       EntityTargetable(source.entity!!)
                     else
                       Targetable(it, source.sourcePosition ?: entity.position())
@@ -107,12 +117,12 @@ object ScriptorEvents {
 
         weapon[ScriptorDataComponents.SPELL]?.let { spell ->
           entity.level().let {
-            if(it is ServerLevel) {
+            if (it is ServerLevel) {
               val parsed = computeIfAbsent(it).parse(spell)
-              if(parsed?.subject == Subjects.ON_HIT && source.entity?.canCast(parsed) == true) {
+              if (parsed?.subject == Subjects.ON_HIT && source.entity?.canCast(parsed) == true) {
                 source.entity!!.castCooldown = (parsed.cost() * 20.0 * 4.0).roundToLong()
                 parsed.castOnTargets(
-                    EntityTargetable(source.entity!!),
+                  EntityTargetable(source.entity!!),
                   listOf(EntityTargetable(entity))
                 )
               }
@@ -123,16 +133,16 @@ object ScriptorEvents {
     }
 
     MobSpawnEvent.register { (entity, level) ->
-      if(entity is Mob && level is ServerLevel) MobSpellItems.giveItem(entity)
+      if (entity is Mob && level is ServerLevel) MobSpellItems.giveItem(entity)
     }
 
     PlayerCraftEvent.register { (player, item, _) ->
-      if(item matches ScriptorBlocks.CASTING_LECTERN.second.get())
+      if (item matches ScriptorBlocks.CASTING_LECTERN.second.get())
         player.awardNote(ScriptorMod.location("casting/lecterns/lecterns"))
-      if(item matches ScriptorItems.UNWRITTEN_SCROLL.get())
+      if (item matches ScriptorItems.UNWRITTEN_SCROLL.get())
         player.awardNote(ScriptorMod.location("casting/scrolls"))
 
-      if(item matches ScriptorTags.WRITABLE_SPELLBOOKS || item matches ScriptorBlocks.WRITING_TABLE.second.get())
+      if (item matches ScriptorTags.WRITABLE_SPELLBOOKS || item matches ScriptorBlocks.WRITING_TABLE.second.get())
         player.awardNote(ScriptorMod.location("tools/writing_desk"))
     }
 

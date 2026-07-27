@@ -3,7 +3,7 @@ package com.ssblur.scriptor.word.descriptor.target
 import com.ssblur.scriptor.api.word.Descriptor
 import com.ssblur.scriptor.helpers.targetable.Targetable
 
-class RandomNearbyDescriptor(): Descriptor(), TargetDescriptor {
+class RandomNearbyDescriptor() : Descriptor(), TargetDescriptor {
   override fun modifyTargets(originalTargetables: List<Targetable>, owner: Targetable): List<Targetable> {
     val targets = originalTargetables.toMutableList()
     val first = originalTargetables.first()

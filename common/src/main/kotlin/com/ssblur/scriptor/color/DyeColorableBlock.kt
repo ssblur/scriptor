@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.Block
 import java.util.*
 import kotlin.math.abs
 
-class DyeColorableBlock: ColorableBlock {
+class DyeColorableBlock : ColorableBlock {
   var blocks: BiMap<DyeColor, Block> = HashBiMap.create()
   var random: Random = Random()
 

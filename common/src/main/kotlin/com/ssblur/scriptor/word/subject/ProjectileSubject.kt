@@ -12,7 +12,7 @@ import com.ssblur.scriptor.word.descriptor.target.CollideWithWaterDescriptor
 import net.minecraft.world.phys.Vec3
 import java.util.concurrent.CompletableFuture
 
-class ProjectileSubject: Subject() {
+class ProjectileSubject : Subject() {
   override fun cost() = Cost(3.0, COSTTYPE.ADDITIVE)
 
   override fun getTargets(caster: Targetable, spell: Spell): CompletableFuture<List<Targetable>> {

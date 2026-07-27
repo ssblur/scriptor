@@ -52,12 +52,16 @@ object ScriptorClientEvents {
       }
 
       stack[ScriptorDataComponents.SPELL]?.let {
-        if(stack matches ScriptorTags.IGNORE_SPELL_COMPONENT) return@let
+        if (stack matches ScriptorTags.IGNORE_SPELL_COMPONENT) return@let
 
-        lore.add(1, Component.translatable("lore.scriptor.inscribed")
-          .withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY))
-        lore.add(2, Component.translatable("lore.scriptor.inscribed_2", it)
-          .withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY))
+        lore.add(
+          1, Component.translatable("lore.scriptor.inscribed")
+            .withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY)
+        )
+        lore.add(
+          2, Component.translatable("lore.scriptor.inscribed_2", it)
+            .withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY)
+        )
       }
     }
 

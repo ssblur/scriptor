@@ -24,9 +24,9 @@ data class BookOfBooksData(val items: List<ItemStack>, val active: Int) {
   }
 
   override fun equals(other: Any?): Boolean {
-    if(other !is BookOfBooksData) return false
-    if(other.items.zip(items).any{ it.first != it.second }) return false
-    if(other.active != active) return false
+    if (other !is BookOfBooksData) return false
+    if (other.items.zip(items).any { it.first != it.second }) return false
+    if (other.active != active) return false
     return true
   }
 

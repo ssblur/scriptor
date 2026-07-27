@@ -8,7 +8,7 @@ import com.ssblur.scriptor.word.descriptor.CastDescriptor
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.entity.LivingEntity
 
-class OverwhelmingStrengthDescriptor: Descriptor(), CastDescriptor, StrengthDescriptor {
+class OverwhelmingStrengthDescriptor : Descriptor(), CastDescriptor, StrengthDescriptor {
   override fun cost() = Cost(0.0, COSTTYPE.ADDITIVE)
   override fun strengthModifier() = 20.0
 

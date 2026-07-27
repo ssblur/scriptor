@@ -40,7 +40,7 @@ import net.minecraft.world.item.WrittenBookItem
 import net.minecraft.world.level.Level
 
 @Suppress("unstable")
-open class Spellbook(properties: Properties):
+open class Spellbook(properties: Properties) :
   WrittenBookItem(properties),
   ItemWithCustomRenderer {
   init {
@@ -60,10 +60,10 @@ open class Spellbook(properties: Properties):
     }
 
     val item = player.getItemInHand(interactionHand)
-    return if(SpellbookHelper.castFromItem(item, player))
-        InteractionResultHolder.success(player.getItemInHand(interactionHand))
-      else
-        InteractionResultHolder.fail(player.getItemInHand(interactionHand))
+    return if (SpellbookHelper.castFromItem(item, player))
+      InteractionResultHolder.success(player.getItemInHand(interactionHand))
+    else
+      InteractionResultHolder.fail(player.getItemInHand(interactionHand))
   }
 
   override fun getName(itemStack: ItemStack): Component {
@@ -115,7 +115,7 @@ open class Spellbook(properties: Properties):
     }
 
     if ((itemStack[ScriptorDataComponents.REAGENTS]?.items?.size ?: 0) > 0) {
-      if(!emptyLineAdded) {
+      if (!emptyLineAdded) {
         emptyLineAdded = true
         list.add(Component.literal(""))
       }
@@ -133,7 +133,7 @@ open class Spellbook(properties: Properties):
     }
 
     itemStack[ScriptorDataComponents.CONDITIONS]?.conditions?.forEach {
-      if(!emptyLineAdded) {
+      if (!emptyLineAdded) {
         emptyLineAdded = true
         list.add(Component.literal(""))
       }
@@ -153,12 +153,13 @@ open class Spellbook(properties: Properties):
   }
 
   override fun inventoryTick(itemStack: ItemStack, level: Level, entity: Entity, i: Int, bl: Boolean) {
-    if(!level.isClientSide && itemStack[ScriptorDataComponents.INVENTORY_CAST] == null)
-      itemStack[ScriptorDataComponents.INVENTORY_CAST] = SpellbookHelper.isInventoryCaster(itemStack, level as ServerLevel)
-    if(!level.isClientSide && itemStack[ScriptorDataComponents.REAGENTS] == null) {
+    if (!level.isClientSide && itemStack[ScriptorDataComponents.INVENTORY_CAST] == null)
+      itemStack[ScriptorDataComponents.INVENTORY_CAST] =
+        SpellbookHelper.isInventoryCaster(itemStack, level as ServerLevel)
+    if (!level.isClientSide && itemStack[ScriptorDataComponents.REAGENTS] == null) {
       itemStack[ScriptorDataComponents.REAGENTS] = SpellbookHelper.getReagentData(itemStack, level as ServerLevel)
     }
-    if(!level.isClientSide && itemStack[ScriptorDataComponents.CONDITIONS] == null) {
+    if (!level.isClientSide && itemStack[ScriptorDataComponents.CONDITIONS] == null) {
       itemStack[ScriptorDataComponents.CONDITIONS] = SpellbookHelper.getConditionData(itemStack, level as ServerLevel)
     }
     super.inventoryTick(itemStack, level, entity, i, bl)

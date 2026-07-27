@@ -6,7 +6,7 @@ import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.Vec3
 
-class NetherDescriptor: Descriptor(), TargetDescriptor {
+class NetherDescriptor : Descriptor(), TargetDescriptor {
   override fun modifyTargets(originalTargetables: List<Targetable>, owner: Targetable): List<Targetable> {
     val list: MutableList<Targetable> = ArrayList()
 

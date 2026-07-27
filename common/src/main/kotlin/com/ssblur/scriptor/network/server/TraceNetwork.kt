@@ -44,7 +44,7 @@ object TraceNetwork {
 
   fun validateAndRun(uuid: UUID, player: Player, targetable: Targetable) {
     val queueItem = queue[uuid]
-    if (queueItem!!.player === player) queueItem!!.callback.run(targetable)
+    if (queueItem!!.player === player) queueItem.callback.run(targetable)
   }
 
   fun validateAndDrop(uuid: UUID, player: Player) {
@@ -84,4 +84,6 @@ object TraceNetwork {
         else -> player.serverLevel().runOnce { validateAndDrop(payload.uuid, player) }
       }
     }
+
+  fun init() {}
 }

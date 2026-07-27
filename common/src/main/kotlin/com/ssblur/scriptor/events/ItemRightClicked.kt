@@ -10,7 +10,7 @@ import net.minecraft.world.item.ItemStack
 
 object ItemRightClicked {
   fun itemRightClicked(entity: Player, item: ItemStack): Boolean {
-    if(item[ScriptorDataComponents.SPELL] != null && !(item matches ScriptorTags.IGNORE_SPELL_COMPONENT)) {
+    if (item[ScriptorDataComponents.SPELL] != null && !(item matches ScriptorTags.IGNORE_SPELL_COMPONENT)) {
       return SpellbookHelper.castFromItem(
         item,
         entity,

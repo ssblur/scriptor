@@ -14,8 +14,13 @@ import com.ssblur.scriptor.registry.colorable.ColorableBlockRegistry.has
 import com.ssblur.scriptor.registry.colorable.ColorableItemRegistry
 import net.minecraft.world.item.ItemStack
 
-class ColorAction: Action() {
-  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>, spellData: MutableList<String>) {
+class ColorAction : Action() {
+  override fun apply(
+    caster: Targetable,
+    targetable: Targetable,
+    descriptors: Array<Descriptor>,
+    spellData: MutableList<String>
+  ) {
     val color = getColor(descriptors)
     if (targetable is EntityTargetable) {
       if (targetable.targetEntity is Colorable) {

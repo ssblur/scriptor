@@ -8,13 +8,11 @@ import com.google.gson.JsonObject
 import java.lang.reflect.Type
 import java.util.*
 
-class MixedGroupGenerator(obj: JsonObject?): TokenGenerator() {
-  @JvmRecord
-  data class TokenGroup(val tokens: Array<String>, val weight: Int)
+class MixedGroupGenerator(obj: JsonObject?) : TokenGenerator() {
+  data class TokenGroup(val tokens: List<String>, val weight: Int)
 
-  @JvmRecord
   data class MixedGroupParameters(
-    val groups: Array<TokenGroup>,
+    val groups: List<TokenGroup>,
     val maxConsecutiveGroups: Int,
     val minTokens: Int,
     val maxTokens: Int,
@@ -30,7 +28,7 @@ class MixedGroupGenerator(obj: JsonObject?): TokenGenerator() {
     parameters?.let { for ((_, weight) in it.groups) totalWeight += weight }
 
     RANDOM =
-      if(parameters?.seed != null)
+      if (parameters?.seed != null)
         Random(parameters!!.seed.hashCode().toLong())
       else
         Random()
@@ -58,7 +56,7 @@ class MixedGroupGenerator(obj: JsonObject?): TokenGenerator() {
     var lastGroup: TokenGroup? = null
     var consecutiveGroups = 0
 
-    for (i in 0 until tokens) {
+    (0 until tokens).forEach { _ ->
       var tokenGroup: TokenGroup? = null
       do {
         var random = RANDOM.nextInt(totalWeight)
@@ -91,7 +89,7 @@ class MixedGroupGenerator(obj: JsonObject?): TokenGenerator() {
   }
 
   companion object {
-    var PARAMETERS_TYPE: Type = object: TypeToken<MixedGroupParameters?>() {}.type
+    var PARAMETERS_TYPE: Type = object : TypeToken<MixedGroupParameters?>() {}.type
     var GSON: Gson = GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create()
   }
 }

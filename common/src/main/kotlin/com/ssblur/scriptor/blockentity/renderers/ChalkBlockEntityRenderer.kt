@@ -19,7 +19,7 @@ import net.minecraft.core.Direction
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 
-class ChalkBlockEntityRenderer(@Suppress("unused_parameter") context: BlockEntityRendererProvider.Context?):
+class ChalkBlockEntityRenderer(@Suppress("unused_parameter") context: BlockEntityRendererProvider.Context?) :
   BlockEntityRenderer<ChalkBlockEntity> {
   override fun render(
     blockEntity: ChalkBlockEntity,

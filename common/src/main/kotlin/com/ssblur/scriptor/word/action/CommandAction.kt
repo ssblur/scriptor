@@ -26,7 +26,7 @@ class CommandAction @JvmOverloads constructor(
   blockTargetCommand: Array<String?> = arrayOfNulls(0),
   entityTargetCommand: Array<String?> = arrayOfNulls(0),
   itemTargetCommand: Array<String?> = arrayOfNulls(0)
-): Action() {
+) : Action() {
   var entityTargetCommand: MutableList<String> = entityTargetCommand.filterNotNull().toMutableList()
   var blockTargetCommand: MutableList<String> = blockTargetCommand.filterNotNull().toMutableList()
   var itemTargetCommand: MutableList<String> = itemTargetCommand.filterNotNull().toMutableList()
@@ -45,7 +45,12 @@ class CommandAction @JvmOverloads constructor(
 
   override fun cost() = Cost.add(cost)
 
-  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>, spellData: MutableList<String>) {
+  override fun apply(
+    caster: Targetable,
+    targetable: Targetable,
+    descriptors: Array<Descriptor>,
+    spellData: MutableList<String>
+  ) {
     // @caster is a fake selector that's replaced at runtime.
     // It will target the entity or block position that cast this spell.
     // @target is a fake selector that is also replaced at runtime.

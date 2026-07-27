@@ -8,7 +8,7 @@ import com.ssblur.scriptor.helpers.targetable.Targetable
 import com.ssblur.scriptor.word.descriptor.target.TargetDescriptor
 import net.minecraft.world.Container
 
-class InventoryDescriptor: Descriptor(), TargetDescriptor {
+class InventoryDescriptor : Descriptor(), TargetDescriptor {
   @Override
   override fun modifyTargets(originalTargetables: List<Targetable>, owner: Targetable): List<Targetable> {
     val ownerEntity = if (owner is EntityTargetable) owner.targetEntity else null

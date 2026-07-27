@@ -29,7 +29,7 @@ object FakeCastHelper {
     Spell(
       Subjects.SELF,
       PartialSpell(PotionActions.INVISIBILITY_POTION, Descriptors.LONG),
-        PartialSpell(null)
+      PartialSpell(null)
     )
   }
 
@@ -43,10 +43,10 @@ object FakeCastHelper {
 
   fun castAs(entity: LivingEntity, spell: Spell) {
     val level = entity.level()
-    if(level is ServerLevel) {
+    if (level is ServerLevel) {
       val sentence = DictionarySavedData.computeIfAbsent(level).generate(spell)
       val enabled = ScriptorConfig.ENTITY_CASTING()
-      if(!enabled) return
+      if (!enabled) return
       val range = ScriptorConfig.ENTITY_CASTING_PROXIMITY().toDouble()
       level.getNearbyPlayers(
         TargetingConditions.forNonCombat(),
@@ -60,12 +60,13 @@ object FakeCastHelper {
             .append("> ")
             .append(sentence)
         )
-        if(spell.words().all { w -> w != null }) {
+        if (spell.words().all { w -> w != null }) {
           ScriptionaryHelper.recordSpell(it, spell, name.string)
         }
       }
     }
   }
 
+  @Suppress("unused")
   fun LivingEntity.fakeCast(spell: Spell) = castAs(this, spell)
 }

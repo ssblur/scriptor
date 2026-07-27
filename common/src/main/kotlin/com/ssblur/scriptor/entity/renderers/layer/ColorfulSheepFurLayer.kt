@@ -17,7 +17,7 @@ import net.minecraft.resources.ResourceLocation
 class ColorfulSheepFurLayer(
   renderLayerParent: RenderLayerParent<ColorfulSheep, SheepModel<ColorfulSheep>?>,
   entityModelSet: EntityModelSet
-): RenderLayer<ColorfulSheep, SheepModel<ColorfulSheep>?>(renderLayerParent) {
+) : RenderLayer<ColorfulSheep, SheepModel<ColorfulSheep>?>(renderLayerParent) {
   private val model = SheepFurModel<ColorfulSheep>(entityModelSet.bakeLayer(ModelLayers.SHEEP_FUR))
 
   override fun render(
@@ -50,7 +50,7 @@ class ColorfulSheepFurLayer(
     } else {
       val color = sheep.colorArray
       coloredCutoutModelCopyLayerRender(
-        parentModel,
+        @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS") parentModel,
         model,
         SHEEP_FUR_LOCATION,
         poseStack,

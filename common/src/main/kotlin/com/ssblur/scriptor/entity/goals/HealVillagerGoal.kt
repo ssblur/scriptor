@@ -20,7 +20,7 @@ import net.minecraft.world.entity.npc.Villager
 import net.minecraft.world.entity.npc.VillagerProfession
 import net.minecraft.world.phys.AABB
 
-class HealVillagerGoal():
+class HealVillagerGoal() :
   Behavior<Villager>(mapOf(WALK_TARGET to REGISTERED, LOOK_TARGET to REGISTERED, INTERACTION_TARGET to REGISTERED)) {
   var target: Villager? = null
 
@@ -56,7 +56,7 @@ class HealVillagerGoal():
     (target ?: return).let {
       villager.navigation.moveTo(it, 0.6)
       BehaviorUtils.lookAtEntity(villager, it)
-      if(villager.distanceTo(it) < 2) {
+      if (villager.distanceTo(it) < 2) {
         val spell = FakeCastHelper.NOMINOMIST_HEAL
         villager.castCooldown = (spell.cost() * 30).toLong()
         FakeCastHelper.castAs(villager, spell)
@@ -82,10 +82,13 @@ class HealVillagerGoal():
     fun nearbyInjuredVillagers(villager: Villager) =
       nearbyVillagers(villager).filter { it.health < it.maxHealth }
 
-    fun injectBehavior(profession: VillagerProfession, list: ImmutableList<Pair<Int?, out BehaviorControl<in Villager?>?>?>?):
+    fun injectBehavior(
+      profession: VillagerProfession,
+      list: ImmutableList<Pair<Int?, out BehaviorControl<in Villager?>?>?>?
+    ):
         ImmutableList<Pair<Int?, out BehaviorControl<in Villager?>?>?>? {
-      if(list != null && profession == ScriptorVillagers.NOMINOMIST.get()) {
-        return ImmutableList.copyOf(list + listOf(Pair.of(8, HealVillagerGoal())))
+      if (profession == ScriptorVillagers.NOMINOMIST.get()) {
+        return ImmutableList.copyOf((list ?: listOf()) + listOf(Pair.of(8, HealVillagerGoal())))
       }
       return list
     }

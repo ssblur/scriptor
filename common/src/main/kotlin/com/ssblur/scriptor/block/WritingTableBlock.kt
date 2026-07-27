@@ -24,7 +24,7 @@ import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 
-class WritingTableBlock: BaseEntityBlock(Properties.ofFullCopy(Blocks.ACACIA_PLANKS).noOcclusion()) {
+class WritingTableBlock : BaseEntityBlock(Properties.ofFullCopy(Blocks.ACACIA_PLANKS).noOcclusion()) {
   init {
     this.registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(BOOK, false))
   }
@@ -54,7 +54,8 @@ class WritingTableBlock: BaseEntityBlock(Properties.ofFullCopy(Blocks.ACACIA_PLA
     return InteractionResult.SUCCESS
   }
 
-  override fun <T: BlockEntity> getTicker(
+  @Suppress("unused")
+  override fun <T : BlockEntity> getTicker(
     level: Level,
     blockState: BlockState,
     blockEntityType: BlockEntityType<T>
@@ -70,7 +71,7 @@ class WritingTableBlock: BaseEntityBlock(Properties.ofFullCopy(Blocks.ACACIA_PLA
     blockGetter: BlockGetter,
     blockPos: BlockPos,
     collisionContext: CollisionContext
-  ) = Shapes.box(2.0/16.0, 0.0, 2.0/16.0, 14.0/16.0, 14.0/16.0, 14.0/16.0)
+  ) = Shapes.box(2.0 / 16.0, 0.0, 2.0 / 16.0, 14.0 / 16.0, 14.0 / 16.0, 14.0 / 16.0)
 
   override fun codec(): MapCodec<out BaseEntityBlock> = MapCodec.unit(this)
 

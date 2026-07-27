@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 
-class RuneBlock: Block(
+class RuneBlock : Block(
   Properties.of()
     .instabreak()
     .noLootTable()
@@ -33,7 +33,8 @@ class RuneBlock: Block(
   override fun newBlockEntity(blockPos: BlockPos, blockState: BlockState) =
     ScriptorBlockEntities.RUNE.create(blockPos, blockState)
 
-  override fun <T: BlockEntity?> getTicker(
+  @Suppress("unused")
+  override fun <T : BlockEntity?> getTicker(
     level: Level,
     blockState: BlockState,
     blockEntityType: BlockEntityType<T>

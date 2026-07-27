@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BooleanProperty
 
-class EngravingBlock: ChalkBlock(
+class EngravingBlock : ChalkBlock(
   Properties.of()
     .destroyTime(5f)
     .noLootTable()
@@ -22,16 +22,18 @@ class EngravingBlock: ChalkBlock(
     .noCollission()
 ) {
   init {
-    this.registerDefaultState(stateDefinition.any()
-      .setValue(HIGHLIGHT, false)
-      .setValue(SPENT, false)
+    this.registerDefaultState(
+      stateDefinition.any()
+        .setValue(HIGHLIGHT, false)
+        .setValue(SPENT, false)
     )
   }
 
   override fun newBlockEntity(blockPos: BlockPos, blockState: BlockState): BlockEntity =
     ScriptorBlockEntities.ENGRAVING.create(blockPos, blockState)!!
 
-  override fun <T: BlockEntity?> getTicker(
+  @Suppress("unused")
+  override fun <T : BlockEntity?> getTicker(
     level: Level,
     blockState: BlockState,
     blockEntityType: BlockEntityType<T>

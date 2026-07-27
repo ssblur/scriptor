@@ -46,7 +46,7 @@ object SpellbookHelper {
     val map = mutableMapOf<ResourceLocation, Int>()
     spell.spells.forEach {
       it.descriptors.forEach { descriptor ->
-        if(descriptor is ReagentDescriptor) {
+        if (descriptor is ReagentDescriptor) {
           val key = BuiltInRegistries.ITEM.getKey(descriptor.item)
           map[key] = map[key] ?: 0
           map[key] = map[key]!! + 1
@@ -66,7 +66,7 @@ object SpellbookHelper {
     val list = mutableListOf<String>()
 
     spell.subject.let { subject ->
-      if(subject is ConditionalWord) {
+      if (subject is ConditionalWord) {
         data.getKey(subject)?.replace(":", ".")?.let { condition ->
           list.add(condition)
         }
@@ -75,7 +75,7 @@ object SpellbookHelper {
 
     spell.spells.forEach {
       it.descriptors.forEach { descriptor ->
-        if(descriptor is ConditionalWord) {
+        if (descriptor is ConditionalWord) {
           data.getKey(descriptor)?.replace(":", ".")?.let { condition ->
             list.add(condition)
           }
@@ -83,7 +83,7 @@ object SpellbookHelper {
       }
 
       it.action.let { action ->
-        if(action is ConditionalWord) {
+        if (action is ConditionalWord) {
           data.getKey(action)?.replace(":", ".")?.let { condition ->
             list.add(condition)
           }
@@ -96,7 +96,7 @@ object SpellbookHelper {
   fun castFromItem(
     itemStack: ItemStack,
     player: Player,
-    maxCost: Int? = null,
+    @Suppress("unused") maxCost: Int? = null, // suppressed for now, may remove / reimplement later
     costMultiplier: Int? = null,
     cooldownFunc: (Player, Int) -> Unit = ::addCooldown,
     targetOverride: List<Targetable>? = null,
@@ -123,7 +123,7 @@ object SpellbookHelper {
 
       val subject = SpellbookTargetable(itemStack, player, player.inventory.selected)
         .withTargetItem(false)
-      if(targetOverride == null)
+      if (targetOverride == null)
         spell.cast(subject)
       else
         spell.castOnTargets(subject, targetOverride, castHooks = true)
@@ -132,7 +132,7 @@ object SpellbookHelper {
         var costScale = 1.0
         for (instance in player.activeEffects)
           if (instance.effect.value() is EmpoweredStatusEffect)
-            (0..instance.amplifier).forEach{ _ ->
+            (0..instance.amplifier).forEach { _ ->
               costScale *= (instance.effect.value() as EmpoweredStatusEffect).scale.toDouble()
             }
         val adjustedCost =
@@ -146,6 +146,6 @@ object SpellbookHelper {
   }
 
   fun addCooldown(entity: Entity, time: Int) {
-    if(entity !is Player || !entity.isCreative) entity.castCooldown = time.toLong() * 7L
+    if (entity !is Player || !entity.isCreative) entity.castCooldown = time.toLong() * 7L
   }
 }

@@ -50,17 +50,17 @@ object Tomes {
     val data = computeIfAbsent(player)
     if (data != null) {
       val known = data.getTier(t)
-      val remaining = options.filter { entry -> known.none{ (key, _) -> key == entry.key.toShortLanguageKey() } }
+      val remaining = options.filter { entry -> known.none { (key, _) -> key == entry.key.toShortLanguageKey() } }
 
       TOME.get().trigger(player as ServerPlayer)
-      if(remaining.size <= 1){
+      if (remaining.size <= 1) {
         if (t == 1) TOME_1.get().trigger(player)
         if (t == 2) TOME_2.get().trigger(player)
         if (t == 3) TOME_3.get().trigger(player)
         if (t == 4) TOME_4.get().trigger(player)
       }
 
-      if(remaining.isEmpty()) {
+      if (remaining.isEmpty()) {
         return options[random.nextInt(options.size)].value
       }
       val option = remaining.random()

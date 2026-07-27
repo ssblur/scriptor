@@ -13,11 +13,15 @@ import java.io.IOException
 import java.nio.file.Files
 import java.util.*
 
-class PlayerScriptionarySavedData: SavedData {
-  data class Data(var unlocks: MutableList<String> = mutableListOf(), var observations: MutableList<Pair<String, String>> = mutableListOf())
+class PlayerScriptionarySavedData : SavedData {
+  data class Data(
+    var unlocks: MutableList<String> = mutableListOf(),
+    var observations: MutableList<Pair<String, String>> = mutableListOf()
+  )
+
   var data = Data()
   val unlocks: MutableList<String>
-      get() = data.unlocks
+    get() = data.unlocks
   val observations: MutableList<Pair<String, String>>
     get() = data.observations
 
@@ -37,11 +41,14 @@ class PlayerScriptionarySavedData: SavedData {
   companion object {
     val CODEC = KClassCodec.codec(Data::class)
 
-    fun load(tag: CompoundTag, @Suppress("unused_parameter") provider: HolderLookup.Provider?): PlayerScriptionarySavedData? {
+    fun load(
+      tag: CompoundTag,
+      @Suppress("unused_parameter") provider: HolderLookup.Provider?
+    ): PlayerScriptionarySavedData? {
       return tag["scriptor:dictionary_records"]?.let {
         CODEC.decode(NbtOps.INSTANCE, it).mapOrElse({
           PlayerScriptionarySavedData(it.first)
-        }, {null})
+        }, { null })
       }
     }
 

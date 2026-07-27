@@ -14,8 +14,13 @@ import net.minecraft.world.entity.LightningBolt
 import kotlin.math.floor
 import kotlin.math.max
 
-class SmiteAction: Action() {
-  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>, spellData: MutableList<String>) {
+class SmiteAction : Action() {
+  override fun apply(
+    caster: Targetable,
+    targetable: Targetable,
+    descriptors: Array<Descriptor>,
+    spellData: MutableList<String>
+  ) {
     var strength = 1.0
     for (d in descriptors) {
       if (d is StrengthDescriptor) strength += d.strengthModifier()

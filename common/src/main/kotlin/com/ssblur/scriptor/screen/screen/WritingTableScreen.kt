@@ -23,7 +23,7 @@ import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.item.ItemStack
 import kotlin.math.sign
 
-class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, component: Component):
+class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, component: Component) :
   UnfocusedScreen<WritingTableMenu>(
     menu,
     inventory,
@@ -34,6 +34,7 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
   var signingText = ""
   var dictionaryName = ""
   var dictionaryDefinition = ""
+
   init {
     imageWidth = 256
     imageHeight = 182
@@ -55,12 +56,12 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
       }
     }
 
-    if(editMode) {
+    if (editMode) {
       addRenderableWidget(textField)
       textField.x = leftPos + 15
       textField.y = topPos + 8
       textField.font = font
-    } else if(dictionaryMode) {
+    } else if (dictionaryMode) {
       add(TextEntryWidget(leftPos + 17, topPos + 20, 90, 14, true)).let {
         it.canScroll = false
         it.color = 0xffffffffu
@@ -81,15 +82,15 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
         }
       }
 
-      add(ButtonWidget(leftPos + 110, topPos + 17, 50, 17, translatable("extra.scriptor.save")){
+      add(ButtonWidget(leftPos + 110, topPos + 17, 50, 17, translatable("extra.scriptor.save")) {
         switchToEditMode()
       })
 
-      add(ButtonWidget(leftPos + 88, topPos + 76, 70, 17, translatable("extra.scriptor.delete")){
+      add(ButtonWidget(leftPos + 88, topPos + 76, 70, 17, translatable("extra.scriptor.delete")) {
         switchToEditModeAndDelete()
       })
-    } else if(signMode) {
-      add(ButtonWidget(leftPos + 17, topPos + 52, 141, 19, translatable("extra.scriptor.sign")){
+    } else if (signMode) {
+      add(ButtonWidget(leftPos + 17, topPos + 52, 141, 19, translatable("extra.scriptor.sign")) {
         switchToEditMode()
         signBook()
       })
@@ -103,13 +104,13 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
         }
       }
     }
-    if(hasWritableBook())
-      if(signMode)
-        add(ButtonWidget(leftPos + 200, topPos + 128, 48, 18, translatable("extra.scriptor.back")){
+    if (hasWritableBook())
+      if (signMode)
+        add(ButtonWidget(leftPos + 200, topPos + 128, 48, 18, translatable("extra.scriptor.back")) {
           switchToEditMode()
         })
       else
-        add(ButtonWidget(leftPos + 200, topPos + 128, 48, 18, translatable("extra.scriptor.sign")){
+        add(ButtonWidget(leftPos + 200, topPos + 128, 48, 18, translatable("extra.scriptor.sign")) {
           switchToSignMode()
         })
   }
@@ -137,10 +138,10 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
     super.render(guiGraphics, i, j, f)
     renderTooltip(guiGraphics, i, j)
 
-    if(menu.book != lastBook) {
-      if(menu.book matches ScriptorItems.SCRAP.get()) {
+    if (menu.book != lastBook) {
+      if (menu.book matches ScriptorItems.SCRAP.get()) {
         val word = menu.book[DataComponents.ITEM_NAME]!!.string
-        if(words.none { it[0] == word }) {
+        if (words.none { it[0] == word }) {
           val parts = menu.book[ScriptorDataComponents.SPELL]!!.split(":".toRegex(), limit = 2).toTypedArray()
           val entry = parts[0] + ".scriptor." + parts[1]
           switchToDictionaryMode(word, I18n.get(entry))
@@ -151,23 +152,23 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
         lastBook = menu.book
         load()
       }
-    } else if(textField.text.length != textLength && !overText(i, j)) {
+    } else if (textField.text.length != textLength && !overText(i, j)) {
       save()
     }
 
-    if(menu.dictionary != lastDict) {
+    if (menu.dictionary != lastDict) {
       lastDict = menu.dictionary
       entriesOffset = 0
       words = lastDict[ScriptorDataComponents.DICTIONARY_DATA]?.values?.map { (word, entry) ->
-        if(I18n.exists(entry))
+        if (I18n.exists(entry))
           listOf(word, I18n.get(entry))
-        else if(I18n.exists(entry.replace(":", ".scriptor.")))
+        else if (I18n.exists(entry.replace(":", ".scriptor.")))
           listOf(word, I18n.get(entry.replace(":", ".scriptor.")))
         else listOf(word, entry)
       }?.toMutableList() ?: mutableListOf()
     }
 
-    if(overText(i, j)) {
+    if (overText(i, j)) {
       val cursorPos = textField.getIndexAtPosition(font, i.toDouble() - textField.x, j.toDouble() - textField.y).i
       val text = textField.text
       if (cursorPos < text.length && cursorPos > 0 && text[cursorPos] != ' ') {
@@ -177,21 +178,26 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
         components.add(literal(word))
 
         val definition = words.firstOrNull { it.first() == word }?.get(1)
-        if(hasDictionary()) {
+        if (hasDictionary()) {
           components.add(
-            definition?.let { literal(it) } ?:
-            translatable("lore.scriptor.no_definition").withStyle(ChatFormatting.GRAY)
+            definition?.let { literal(it) }
+              ?: translatable("lore.scriptor.no_definition").withStyle(ChatFormatting.GRAY)
           )
-          if(definition == null && !textField.editable) {
+          if (definition == null && !textField.editable) {
             components.add(translatable("lore.scriptor.click_to_add").withStyle(ChatFormatting.AQUA))
             if (click) {
               switchToDictionaryMode(word, I18n.get("lore.scriptor.default_definition"))
-              WritingTableNetwork.writeDictionaryEntry(WritingTableNetwork.DictionaryMessage(word, I18n.get("lore.scriptor.default_definition")))
+              WritingTableNetwork.writeDictionaryEntry(
+                WritingTableNetwork.DictionaryMessage(
+                  word,
+                  I18n.get("lore.scriptor.default_definition")
+                )
+              )
               words.add(listOf(word, I18n.get("lore.scriptor.default_definition")))
             }
           }
         } else components.add(translatable("lore.scriptor.no_dictionary"))
-        guiGraphics.renderTooltip(font, components, lastBook.tooltipImage, i, j + (if(textField.editable) -20 else 0))
+        guiGraphics.renderTooltip(font, components, lastBook.tooltipImage, i, j + (if (textField.editable) -20 else 0))
       }
 
     }
@@ -199,38 +205,46 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
     var y = topPos + 28
     val x = leftPos + 177
     val h = topPos + 96
-    for(entry in words.slice(entriesOffset..<words.size)) {
+    for (entry in words.slice(entriesOffset..<words.size)) {
       val search = searchText.trim()
-      if(!entry[0].lowercase().contains(search) && !entry[1].lowercase().contains(search)) continue
+      if (!entry[0].lowercase().contains(search) && !entry[1].lowercase().contains(search)) continue
 
-      if(y + (2*font.lineHeight) > h) {
+      if (y + (2 * font.lineHeight) > h) {
         guiGraphics.drawString(font, translatable("extra.scriptor.scroll"), x, y, 0x777777)
         break
       }
-      if(menu.dictionary matches ScriptorItems.DICTIONARY.get()) {
-        if(overEntries(i, j) && j - y in 1..font.lineHeight) {
+      if (menu.dictionary matches ScriptorItems.DICTIONARY.get()) {
+        if (overEntries(i, j) && j - y in 1..font.lineHeight) {
           guiGraphics.drawString(font, entry[0], x, y, 0xffff99)
           val components = mutableListOf<Component>()
           components.add(literal(entry[0]))
           components.add(literal(entry[1]))
-          if(hasWritableBook() && editMode) {
+          if (hasWritableBook() && editMode) {
             components.add(translatable("lore.scriptor.click_to_insert").withStyle(ChatFormatting.GRAY))
-            if(click) {
-              if(textField.cursor.i == 0)
+            if (click) {
+              if (textField.cursor.i == 0)
                 textField.text = entry[0] + " " + textField.text.trimStart()
-              else if(textField.cursor.i >= textField.text.length - 1)
+              else if (textField.cursor.i >= textField.text.length - 1)
                 textField.text = textField.text.trimEnd() + " " + entry[0]
               else {
                 val c = textField.cursor.i
-                textField.text = textField.text.substring(0, c).trimEnd() + " " + entry[0] + " " + textField.text.substring(c).trimStart()
+                textField.text =
+                  textField.text.substring(0, c).trimEnd() + " " + entry[0] + " " + textField.text.substring(c)
+                    .trimStart()
               }
               textField.moveCursorToIndex(textField.cursor.i + 1 + entry[0].length)
               save()
             }
           }
           components.add(translatable("lore.scriptor.right_click_to_edit").withStyle(ChatFormatting.GRAY))
-          if(rightClick) switchToDictionaryMode(entry[0], entry[1])
-          guiGraphics.renderTooltip(font, components, lastDict.tooltipImage, i, j + (if(textField.editable) -20 else 0))
+          if (rightClick) switchToDictionaryMode(entry[0], entry[1])
+          guiGraphics.renderTooltip(
+            font,
+            components,
+            lastDict.tooltipImage,
+            i,
+            j + (if (textField.editable) -20 else 0)
+          )
         } else {
           guiGraphics.drawString(font, entry[0], x, y, 0xeeeeee)
         }
@@ -248,14 +262,14 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
   }
 
   private fun load(): Boolean {
-    if(hasReadableBook())
+    if (hasReadableBook())
       lastBook[DataComponents.WRITTEN_BOOK_CONTENT]?.let { text ->
         textField.text = LimitedBookSerializer.decodeText(text)
         textField.editable = false
         return true
       }
-    if(hasWritableBook()) {
-      when(val text = lastBook[DataComponents.WRITABLE_BOOK_CONTENT]) {
+    if (hasWritableBook()) {
+      when (val text = lastBook[DataComponents.WRITABLE_BOOK_CONTENT]) {
         null -> textField.text = ""
         else -> textField.text = LimitedBookSerializer.decodeText(text)
       }
@@ -272,19 +286,19 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
   private fun hasDictionary() = menu.dictionary matches ScriptorItems.DICTIONARY.get()
 
   override fun mouseClicked(d: Double, e: Double, i: Int): Boolean {
-    if(i == 0) click = true
-    if(i == 1) rightClick = true
-    if(!overText(d, e) && focused == textField) focused = null
+    if (i == 0) click = true
+    if (i == 1) rightClick = true
+    if (!overText(d, e) && focused == textField) focused = null
     return super.mouseClicked(d, e, i)
   }
 
   override fun mouseScrolled(d: Double, e: Double, f: Double, g: Double): Boolean {
-    if(overText(d, e))
+    if (overText(d, e))
       textField.mouseScrolled(d, e, f, g)
 
-    if(overEntries(d, e)) {
+    if (overEntries(d, e)) {
       entriesOffset -= g.sign.toInt()
-      if(words.size >= 2)
+      if (words.size >= 2)
         entriesOffset = entriesOffset.coerceIn(0, words.size - 1)
       else
         entriesOffset = 0
@@ -300,25 +314,25 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
   }
 
   fun overText(x: Number, y: Number): Boolean {
-    if(!editMode) return false
+    if (!editMode) return false
     return x.toInt() in textField.x..(textField.x + textField.w) && y.toInt() in textField.y..(textField.y + textField.h)
   }
 
   override fun renderBg(guiGraphics: GuiGraphics, f: Float, i: Int, j: Int) {
     val k = this.leftPos
     val l = this.topPos
-    if(dictionaryMode)
+    if (dictionaryMode)
       guiGraphics.blit(DICTIONARY_MODE_TEXTURE, k, l, 0, 0, this.imageWidth, this.imageHeight)
-    else if(editMode)
+    else if (editMode)
       guiGraphics.blit(TEXTURE, k, l, 0, 0, this.imageWidth, this.imageHeight)
-    else if(signMode)
+    else if (signMode)
       guiGraphics.blit(SIGN_MODE_TEXTURE, k, l, 0, 0, this.imageWidth, this.imageHeight)
   }
 
   override fun renderLabels(guiGraphics: GuiGraphics, i: Int, j: Int) {}
 
   override fun onClose() {
-    if(hasWritableBook()) WritingTableNetwork.write(textField.text, menu.pos, container = true)
+    if (hasWritableBook()) WritingTableNetwork.write(textField.text, menu.pos, container = true)
     super.onClose()
   }
 
@@ -331,15 +345,20 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
   }
 
   private fun switchMode() {
-    if(dictionaryMode) {
+    if (dictionaryMode) {
       dictionaryMode = false
-      WritingTableNetwork.writeDictionaryEntry(WritingTableNetwork.DictionaryMessage(dictionaryName.trim(), dictionaryDefinition))
+      WritingTableNetwork.writeDictionaryEntry(
+        WritingTableNetwork.DictionaryMessage(
+          dictionaryName.trim(),
+          dictionaryDefinition
+        )
+      )
     }
-    if(editMode) {
+    if (editMode) {
       editMode = false
       save()
     }
-    if(signMode) {
+    if (signMode) {
       signMode = false
     }
   }

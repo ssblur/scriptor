@@ -7,7 +7,7 @@ import com.ssblur.scriptor.word.ConditionalWord
 import com.ssblur.scriptor.word.descriptor.CastDescriptor
 import net.minecraft.world.entity.LivingEntity
 
-class OnFireDescriptor: Descriptor(), CastDescriptor, ConditionalWord {
+class OnFireDescriptor : Descriptor(), CastDescriptor, ConditionalWord {
   override fun cost() = Cost(0.7, COSTTYPE.MULTIPLICATIVE)
 
   override fun cannotCast(caster: Targetable?): Boolean {

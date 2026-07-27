@@ -20,7 +20,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 
-class AncientSpellbook(properties: Properties, var tier: Int): Item(properties) {
+class AncientSpellbook(properties: Properties, var tier: Int) : Item(properties) {
   override fun appendHoverText(
     itemStack: ItemStack,
     level: TooltipContext,
@@ -43,12 +43,12 @@ class AncientSpellbook(properties: Properties, var tier: Int): Item(properties) 
       val server = level as ServerLevel
 
       player.sendSystemMessage(Component.translatable("extra.scriptor.tome_use"))
-      if(!player.isCreative) player.cooldowns.addCooldown(this, 20)
+      if (!player.isCreative) player.cooldowns.addCooldown(this, 20)
 
       val item = player.getItemInHand(interactionHand)
       val tomeToGive = item[ScriptorDataComponents.TOME_TO_GIVE]
       val resource: Tomes.TomeResource
-      if(tomeToGive == null) {
+      if (tomeToGive == null) {
         resource = Tomes.getRandomTome(tier, player)
       } else {
         resource = Tomes.tomes[ResourceLocation.parse(tomeToGive)] ?: return result
@@ -77,7 +77,7 @@ class AncientSpellbook(properties: Properties, var tier: Int): Item(properties) 
           Component.translatable(resource.name)
         )
       )
-      if(!player.isCreative) player.getItemInHand(interactionHand).shrink(1)
+      if (!player.isCreative) player.getItemInHand(interactionHand).shrink(1)
       return InteractionResultHolder.consume(player.getItemInHand(interactionHand))
     }
 

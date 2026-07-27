@@ -19,7 +19,7 @@ import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 import kotlin.math.roundToInt
 
-class Artifact(properties: Properties, val lore: String = "lore.scriptor.artifact_1"): Item(properties.stacksTo(1)) {
+class Artifact(properties: Properties, val lore: String = "lore.scriptor.artifact_1") : Item(properties.stacksTo(1)) {
   init {
     ARTIFACTS.add(this)
   }
@@ -69,8 +69,8 @@ class Artifact(properties: Properties, val lore: String = "lore.scriptor.artifac
   }
 
   override fun inventoryTick(itemStack: ItemStack, level: Level, entity: Entity, i: Int, bl: Boolean) {
-    if(itemStack[ScriptorDataComponents.SPELL] == null && level is ServerLevel) {
-      if(itemStack[ScriptorDataComponents.TOME_TO_GIVE] == null)
+    if (itemStack[ScriptorDataComponents.SPELL] == null && level is ServerLevel) {
+      if (itemStack[ScriptorDataComponents.TOME_TO_GIVE] == null)
         Artifacts.getRandomArtifact().applyToItem(itemStack, level)
       else
         Artifacts.artifacts[ScriptorMod.location(itemStack[ScriptorDataComponents.TOME_TO_GIVE]!!)]

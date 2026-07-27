@@ -16,7 +16,7 @@ import net.minecraft.resources.ResourceLocation
 import kotlin.math.cos
 import kotlin.math.sin
 
-class RuneBlockEntityRenderer(@Suppress("unused_parameter") context: BlockEntityRendererProvider.Context?):
+class RuneBlockEntityRenderer(@Suppress("unused_parameter") context: BlockEntityRendererProvider.Context?) :
   BlockEntityRenderer<RuneBlockEntity> {
   override fun render(
     rune: RuneBlockEntity,

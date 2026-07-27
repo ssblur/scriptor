@@ -30,7 +30,7 @@ import com.ssblur.unfocused.command.CommandRegistration.registerCommand
 import org.apache.logging.log4j.LogManager
 
 @Suppress("unused")
-object ScriptorMod: ModInitializer("scriptor") {
+object ScriptorMod : ModInitializer("scriptor") {
   const val MOD_ID = "scriptor"
   val LOGGER = LogManager.getLogger(MOD_ID)!!
   val MANA_MODE: Boolean

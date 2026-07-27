@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 
-class AncientNote(properties: Properties, var tier: Int): Item(properties) {
+class AncientNote(properties: Properties, var tier: Int) : Item(properties) {
   override fun appendHoverText(
     itemStack: ItemStack,
     level: TooltipContext,
@@ -33,7 +33,7 @@ class AncientNote(properties: Properties, var tier: Int): Item(properties) {
 
     if (!level.isClientSide) {
       player.sendSystemMessage(Component.translatable("extra.scriptor.note_use"))
-      if(!player.isCreative) {
+      if (!player.isCreative) {
         player.cooldowns.addCooldown(this, 20)
         player.getItemInHand(interactionHand).shrink(1)
       }

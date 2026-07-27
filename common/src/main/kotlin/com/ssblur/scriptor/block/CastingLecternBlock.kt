@@ -29,7 +29,8 @@ import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.VoxelShape
 
-class CastingLecternBlock: HorizontalDirectionalBlock(Properties.ofFullCopy(Blocks.SPRUCE_PLANKS).noOcclusion()), EntityBlock {
+class CastingLecternBlock : HorizontalDirectionalBlock(Properties.ofFullCopy(Blocks.SPRUCE_PLANKS).noOcclusion()),
+  EntityBlock {
   public override fun useItemOn(
     itemStack: ItemStack,
     blockState: BlockState,
@@ -73,7 +74,8 @@ class CastingLecternBlock: HorizontalDirectionalBlock(Properties.ofFullCopy(Bloc
     return ScriptorBlockEntities.CASTING_LECTERN.create(blockPos, blockState)!!
   }
 
-  override fun <T: BlockEntity> getTicker(
+  @Suppress("unused")
+  override fun <T : BlockEntity> getTicker(
     level: Level,
     blockState: BlockState,
     blockEntityType: BlockEntityType<T>

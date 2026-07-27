@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider
 import net.minecraft.client.renderer.entity.MobRenderer
 import net.minecraft.resources.ResourceLocation
 
-class ColorfulSheepRenderer(context: EntityRendererProvider.Context):
+class ColorfulSheepRenderer(context: EntityRendererProvider.Context) :
   MobRenderer<ColorfulSheep, SheepModel<ColorfulSheep>?>(
     context, SheepModel(
       context.bakeLayer(

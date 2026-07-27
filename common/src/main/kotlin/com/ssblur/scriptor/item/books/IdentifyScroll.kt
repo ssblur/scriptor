@@ -14,14 +14,14 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 
-class IdentifyScroll(properties: Properties): Item(properties) {
+class IdentifyScroll(properties: Properties) : Item(properties) {
   override fun overrideStackedOnOther(
     itemStack: ItemStack,
     slot: Slot,
     clickAction: ClickAction,
     player: Player
   ): Boolean {
-    if(!player.level().isClientSide) return false
+    if (!player.level().isClientSide) return false
     if (clickAction == ClickAction.SECONDARY && !slot.item.isEmpty && slot.item.item is Spellbook) {
       if (player.cooldowns.isOnCooldown(this)) return true
 

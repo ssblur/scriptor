@@ -7,7 +7,7 @@ import com.ssblur.scriptor.helpers.targetable.Targetable
 import com.ssblur.scriptor.word.descriptor.CastDescriptor
 import net.minecraft.world.entity.LivingEntity
 
-class BloodPowerDescriptor: Descriptor(), CastDescriptor, StrengthDescriptor {
+class BloodPowerDescriptor : Descriptor(), CastDescriptor, StrengthDescriptor {
   override fun cannotCast(caster: Targetable?): Boolean {
     if (caster is EntityTargetable && caster.targetEntity is LivingEntity) {
       val living = caster.targetEntity as LivingEntity

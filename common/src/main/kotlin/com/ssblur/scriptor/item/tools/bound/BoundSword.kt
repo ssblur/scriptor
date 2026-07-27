@@ -8,7 +8,7 @@ import net.minecraft.world.item.SwordItem
 import net.minecraft.world.item.Tier
 import net.minecraft.world.item.TooltipFlag
 
-class BoundSword(tier: Tier, properties: Properties): SwordItem(tier, properties) {
+class BoundSword(tier: Tier, properties: Properties) : SwordItem(tier, properties) {
   override fun appendHoverText(
     itemStack: ItemStack,
     tooltipContext: TooltipContext,
@@ -16,7 +16,7 @@ class BoundSword(tier: Tier, properties: Properties): SwordItem(tier, properties
     tooltipFlag: TooltipFlag
   ) {
     super.appendHoverText(itemStack, tooltipContext, list, tooltipFlag)
-    if(!itemStack.has(ScriptorDataComponents.EXPIRES))
+    if (!itemStack.has(ScriptorDataComponents.EXPIRES))
       list.add(Component.translatable("lore.scriptor.bound_tool").withStyle(ChatFormatting.GRAY))
   }
 }

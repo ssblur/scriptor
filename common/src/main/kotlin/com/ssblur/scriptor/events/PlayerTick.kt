@@ -26,14 +26,15 @@ object PlayerTick {
       processInventoryItem(items[(it.level().gameTime % items.size).toInt()], it)
       for (slot in EquipmentSlot.entries) processEquipment(it.getItemBySlot(slot), it)
 
-      if((it.level().gameTime % 40) == 4L) it.mana += 475
-      if((it.level().gameTime % 40) == 7L)
-        if(it.level().getNearbyEntities(
+      if ((it.level().gameTime % 40) == 4L) it.mana += 475
+      if ((it.level().gameTime % 40) == 7L)
+        if (it.level().getNearbyEntities(
             Villager::class.java,
             TargetingConditions.forNonCombat(),
-          it,
+            it,
             AABB.ofSize(it.position(), 4.0, 4.0, 4.0)
-        ).any())
+          ).any()
+        )
           it.awardNote(ScriptorMod.location("oddities/nominomist"))
     }
   }
@@ -49,13 +50,14 @@ object PlayerTick {
   }
 
   fun processInventoryItem(item: ItemStack, entity: Player) {
-    if(item.count <= 0) return
+    if (item.count <= 0) return
     if (item.has(ScriptorDataComponents.SPELL)
-      && !(item matches ScriptorTags.IGNORE_SPELL_COMPONENT))
+      && !(item matches ScriptorTags.IGNORE_SPELL_COMPONENT)
+    )
       entity.awardNote(ScriptorMod.location("casting/item_inscription"))
-    else if(item matches Items.GLOW_INK_SAC && entity.hasNote(ScriptorMod.location("tools/book_of_books")))
+    else if (item matches Items.GLOW_INK_SAC && entity.hasNote(ScriptorMod.location("tools/book_of_books")))
       entity.awardNote(ScriptorMod.location("oddities/obfuscation"))
-    else if(item matches ScriptorTags.SPELLBOOKS)
+    else if (item matches ScriptorTags.SPELLBOOKS)
       entity.awardNote(ScriptorMod.location("tools/book_of_books"))
   }
 }

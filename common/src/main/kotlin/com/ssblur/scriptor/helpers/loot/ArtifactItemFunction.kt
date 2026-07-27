@@ -7,7 +7,7 @@ import net.minecraft.world.level.storage.loot.LootContext
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType
 
-class ArtifactItemFunction: LootItemFunction {
+class ArtifactItemFunction : LootItemFunction {
   override fun getType(): LootItemFunctionType<*> {
     return ScriptorLoot.ARTIFACT.get()
   }

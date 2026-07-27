@@ -2,7 +2,7 @@ package com.ssblur.scriptor.helpers.generators
 
 import com.google.gson.JsonObject
 
-class DebugGenerator(@Suppress("unused_parameter") obj: JsonObject?): TokenGenerator() {
+class DebugGenerator(@Suppress("unused_parameter") obj: JsonObject?) : TokenGenerator() {
   override fun canBeDefault(): Boolean {
     return true
   }

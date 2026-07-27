@@ -3,7 +3,7 @@ package com.ssblur.scriptor.word.descriptor.target
 import com.ssblur.scriptor.api.word.Descriptor
 import com.ssblur.scriptor.helpers.targetable.Targetable
 
-object CasterDescriptor: Descriptor(), TargetDescriptor {
+object CasterDescriptor : Descriptor(), TargetDescriptor {
   override fun modifyTargets(originalTargetables: List<Targetable>, owner: Targetable): List<Targetable> {
     return listOf(owner)
   }

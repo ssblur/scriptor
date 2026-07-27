@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
 import kotlin.math.max
 
-class EngravingBlockEntity(blockPos: BlockPos, blockState: BlockState):
+class EngravingBlockEntity(blockPos: BlockPos, blockState: BlockState) :
   ChalkBlockEntity(ScriptorBlockEntities.ENGRAVING.get(), blockPos, blockState) {
   var cooldown: Int = 0
   override fun cast(visited: MutableList<BlockPos>, initialWords: String, primary: Boolean) {
@@ -86,11 +86,11 @@ class EngravingBlockEntity(blockPos: BlockPos, blockState: BlockState):
   }
 
   companion object {
-    fun <T: BlockEntity?> tick(level: Level, entity: T) {
+    fun <T : BlockEntity?> tick(level: Level, entity: T) {
       if (level.isClientSide) return
       if (entity is EngravingBlockEntity) {
         entity.cooldown = max(0.0, (entity.cooldown - 1).toDouble()).toInt()
-        if((entity.cooldown <= 0) == entity.blockState.getValue(EngravingBlock.SPENT)) {
+        if ((entity.cooldown <= 0) == entity.blockState.getValue(EngravingBlock.SPENT)) {
           level.setBlockAndUpdate(
             entity.blockPos,
             entity.blockState.setValue(EngravingBlock.SPENT, false)

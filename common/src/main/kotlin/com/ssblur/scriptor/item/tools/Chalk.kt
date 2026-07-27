@@ -15,7 +15,7 @@ import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.BlockHitResult
 
-open class Chalk(properties: Properties): Item(properties) {
+open class Chalk(properties: Properties) : Item(properties) {
   override fun appendHoverText(
     itemStack: ItemStack,
     level: TooltipContext,

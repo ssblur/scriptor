@@ -7,7 +7,7 @@ import com.ssblur.scriptor.helpers.targetable.Targetable
 import com.ssblur.scriptor.word.descriptor.CastDescriptor
 import net.minecraft.world.entity.LivingEntity
 
-class BloodCostDescriptor: Descriptor(), CastDescriptor {
+class BloodCostDescriptor : Descriptor(), CastDescriptor {
   override fun cost() = Cost(-2.0, COSTTYPE.ADDITIVE_POST)
 
   override fun cannotCast(caster: Targetable?): Boolean {

@@ -5,7 +5,7 @@ import net.minecraft.world.item.ItemStack
 
 object GrindstoneRecipeHandler {
   fun handle(input: ItemStack): ItemStack? {
-    if(input[ScriptorDataComponents.SPELL] != null) {
+    if (input[ScriptorDataComponents.SPELL] != null) {
       val copy = input.copy()
       copy[ScriptorDataComponents.SPELL] = null
       return copy

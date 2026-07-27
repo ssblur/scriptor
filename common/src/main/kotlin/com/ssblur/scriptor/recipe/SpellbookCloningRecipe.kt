@@ -13,7 +13,7 @@ import net.minecraft.world.item.crafting.CraftingInput
 import net.minecraft.world.item.crafting.CustomRecipe
 import net.minecraft.world.level.Level
 
-class SpellbookCloningRecipe(category: CraftingBookCategory): CustomRecipe(category) {
+class SpellbookCloningRecipe(category: CraftingBookCategory) : CustomRecipe(category) {
   override fun matches(container: CraftingInput, level: Level): Boolean {
     var paperCount = 0
     var binderCount = 0

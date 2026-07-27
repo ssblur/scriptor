@@ -40,9 +40,10 @@ object MobSpellItems {
         && mob.type == BuiltInRegistries.ENTITY_TYPE.get(it.mob!!)
         && random.nextDouble() < it.chance
   }.randomOrNull()
+
   fun giveItem(mob: Mob) {
     getRandom(mob)?.let {
-      if(mob.level() is ServerLevel) {
+      if (mob.level() is ServerLevel) {
         mob.setGuaranteedDrop(it.slot)
         val item = ItemStack(BuiltInRegistries.ITEM.get(it.item))
         item[DataComponents.ITEM_NAME] = Component.translatable(it.name)

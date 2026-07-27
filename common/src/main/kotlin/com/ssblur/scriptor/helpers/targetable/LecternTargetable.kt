@@ -8,21 +8,21 @@ import net.minecraft.world.phys.Vec3
 import org.joml.Vector3f
 
 @Suppress("unused")
-class LecternTargetable: Targetable, InventoryTargetable {
+class LecternTargetable : Targetable, InventoryTargetable {
   override var targetedSlot: Int
 
-  constructor(level: Level, pos: Vec3): super(level, pos) {
+  constructor(level: Level, pos: Vec3) : super(level, pos) {
     targetedSlot = 0
   }
 
-  constructor(level: Level, pos: Vector3f): super(
+  constructor(level: Level, pos: Vector3f) : super(
     level,
     Vec3(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble())
   ) {
     targetedSlot = 0
   }
 
-  constructor(level: Level, pos: BlockPos): super(level, pos) {
+  constructor(level: Level, pos: BlockPos) : super(level, pos) {
     targetedSlot = 0
   }
 

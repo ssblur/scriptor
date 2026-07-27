@@ -21,7 +21,8 @@ import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
 
-class PhasedBlock: Block(
+@Suppress("unused")
+class PhasedBlock : Block(
   Properties.of()
     .noOcclusion()
     .noCollission()
@@ -54,7 +55,7 @@ class PhasedBlock: Block(
   override fun newBlockEntity(blockPos: BlockPos, blockState: BlockState): BlockEntity =
     ScriptorBlockEntities.PHASED_BLOCK.get().create(blockPos, blockState)!!
 
-  override fun <T: BlockEntity?> getTicker(
+  override fun <T : BlockEntity?> getTicker(
     level: Level,
     blockState: BlockState,
     blockEntityType: BlockEntityType<T>
@@ -66,7 +67,7 @@ class PhasedBlock: Block(
     Shapes.block()
 
   override fun getFluidState(blockState: BlockState): FluidState {
-    if(blockState.getValue(WATERLOGGED))
+    if (blockState.getValue(WATERLOGGED))
       return Fluids.WATER.defaultFluidState()
     return Fluids.EMPTY.defaultFluidState()
   }

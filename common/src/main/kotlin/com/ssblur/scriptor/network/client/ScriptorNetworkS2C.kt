@@ -59,6 +59,7 @@ object ScriptorNetworkS2C {
     }
 
   data class ExtendedTrace(val uuid: UUID, val collideWithWater: Boolean, val scale: Double = 20.0)
+
   fun extendedTraceCallback(payload: ExtendedTrace) {
     val player: Player = Minecraft.getInstance().player!!
     val level = player.level()
@@ -66,13 +67,15 @@ object ScriptorNetworkS2C {
     val angle = player.lookAngle.normalize().multiply(payload.scale, payload.scale, payload.scale)
     val dest = angle.add(position)
     val blockHitResult =
-      level.clip(ClipContext(
-        position,
-        dest,
-        ClipContext.Block.COLLIDER,
-        if(payload.collideWithWater) ClipContext.Fluid.ANY else ClipContext.Fluid.NONE,
-        player
-      ))
+      level.clip(
+        ClipContext(
+          position,
+          dest,
+          ClipContext.Block.COLLIDER,
+          if (payload.collideWithWater) ClipContext.Fluid.ANY else ClipContext.Fluid.NONE,
+          player
+        )
+      )
 
     val entityHitResult = ProjectileUtil.getEntityHitResult(
       level,
@@ -102,11 +105,14 @@ object ScriptorNetworkS2C {
     else
       returnTrace(Payload(payload.uuid, TYPE.MISS, blockHitResult, 0, null))
   }
-  val extendedTrace = NetworkManager.registerS2C(location("client_get_hitscan_data"), ExtendedTrace::class, ::extendedTraceCallback)
+
+  val extendedTrace =
+    NetworkManager.registerS2C(location("client_get_hitscan_data"), ExtendedTrace::class, ::extendedTraceCallback)
 
   data class Trace(val uuid: UUID, val collideWithWater: Boolean)
+
   val trace = NetworkManager.registerS2C(location("client_get_touch_data"), Trace::class) { payload ->
-    if(!payload.collideWithWater) {
+    if (!payload.collideWithWater) {
       val hit = Minecraft.getInstance().hitResult
       when (Objects.requireNonNull<HitResult>(hit).type) {
         HitResult.Type.BLOCK ->
@@ -121,7 +127,7 @@ object ScriptorNetworkS2C {
       }
     } else {
       val player = Minecraft.getInstance().player
-      if(player != null)
+      if (player != null)
         extendedTraceCallback(
           ExtendedTrace(
             payload.uuid,
@@ -133,6 +139,7 @@ object ScriptorNetworkS2C {
   }
 
   data class Identify(val components: List<String>, val slot: Int)
+
   val identify = NetworkManager.registerS2C(location("client_cursor_return_scrollc"), Identify::class) { payload ->
     Minecraft.getInstance().player!!.containerMenu.getSlot(payload.slot).item.set(
       ScriptorDataComponents.IDENTIFIED,
@@ -157,31 +164,37 @@ object ScriptorNetworkS2C {
   }
 
   data class Cooldown(val cooldown: Long)
+
   val cooldown = NetworkManager.registerS2C(location("client_set_cooldown"), Cooldown::class) { payload ->
     Minecraft.getInstance().player?.castCooldown = payload.cooldown
   }
 
   data class Mana(val mana: Double)
+
   val mana = NetworkManager.registerS2C(location("client_set_mana"), Mana::class) { payload ->
     Minecraft.getInstance().player?.mana = payload.mana
   }
 
   data class ScriptionaryData(val type: Int, val string: String, val component: String?)
+
   val scriptionaryData = NetworkManager.registerS2C(
     location("client_sync_scriptionary"),
     ScriptionaryData::class
   ) { (type, string, component) ->
-    when(type) {
+    when (type) {
       0 -> {
         ScriptionaryHelper.PLAYER_NOTES.clear()
         ScriptionaryHelper.PLAYER_OBSERVATIONS.clear()
       }
+
       1 -> {
         ScriptionaryHelper.PLAYER_NOTES.add(string)
       }
+
       2 -> {
         ScriptionaryHelper.PLAYER_OBSERVATIONS.add(Pair(string, component!!))
       }
+
       else -> {}
     }
   }

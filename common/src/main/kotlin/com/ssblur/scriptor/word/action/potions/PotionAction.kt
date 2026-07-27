@@ -18,8 +18,13 @@ open class PotionAction(
   var durationScale: Double,
   var strengthScale: Double,
   var cost: Cost
-): Action() {
-  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>, spellData: MutableList<String>) {
+) : Action() {
+  override fun apply(
+    caster: Targetable,
+    targetable: Targetable,
+    descriptors: Array<Descriptor>,
+    spellData: MutableList<String>
+  ) {
     var strength = 0.0
     var duration = 2.0
     for (d in descriptors) {

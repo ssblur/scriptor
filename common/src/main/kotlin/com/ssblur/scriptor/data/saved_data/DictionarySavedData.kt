@@ -29,7 +29,7 @@ import net.minecraft.world.level.Level
 import net.minecraft.world.level.saveddata.SavedData
 import java.util.*
 
-class DictionarySavedData: SavedData {
+class DictionarySavedData : SavedData {
   var spellStructure: MutableList<WORD?>
   var words: BiMap<String?, String>
 
@@ -77,14 +77,14 @@ class DictionarySavedData: SavedData {
     var token: String
     var lastToken: String?
 
-    for(word in WordRegistry.otherRegistry) {
+    for (word in WordRegistry.otherRegistry) {
       if (!containsKey("other:$word")) {
         lastToken = null
         do {
           token = registry.generateWord("other:$word")
           var nextChar = (words.values.count { it == token } + 'a'.code).toChar()
-          if(nextChar > 'Z') nextChar = 'Z'
-          if(token == lastToken) token += nextChar
+          if (nextChar > 'Z') nextChar = 'Z'
+          if (token == lastToken) token += nextChar
           lastToken = token
         } while (containsWord(token))
         words["other:$word"] = token
@@ -97,8 +97,8 @@ class DictionarySavedData: SavedData {
       do {
         token = registry.generateWord("action:$word")
         var nextChar = (words.values.count { it == token } + 'a'.code).toChar()
-        if(nextChar > 'Z') nextChar = 'Z'
-        if(token == lastToken) token += nextChar
+        if (nextChar > 'Z') nextChar = 'Z'
+        if (token == lastToken) token += nextChar
         lastToken = token
       } while (containsWord(token))
 
@@ -111,8 +111,8 @@ class DictionarySavedData: SavedData {
       do {
         token = registry.generateWord("descriptor:$word")
         var nextChar = (words.values.count { it == token } + 'a'.code).toChar()
-        if(nextChar > 'Z') nextChar = 'Z'
-        if(token == lastToken) token += nextChar
+        if (nextChar > 'Z') nextChar = 'Z'
+        if (token == lastToken) token += nextChar
         lastToken = token
       } while (containsWord(token))
 
@@ -124,8 +124,8 @@ class DictionarySavedData: SavedData {
       do {
         token = registry.generateWord("subject:$word")
         var nextChar = (words.values.count { it == token } + 'a'.code).toChar()
-        if(nextChar > 'Z') nextChar = 'Z'
-        if(token == lastToken) token += nextChar
+        if (nextChar > 'Z') nextChar = 'Z'
+        if (token == lastToken) token += nextChar
         lastToken = token
       } while (containsWord(token))
 
@@ -221,7 +221,7 @@ class DictionarySavedData: SavedData {
       var consumeNext = false
       val spellData = mutableListOf<String>()
       while (tokenPosition < tokens.size) {
-        if(consumeNext) {
+        if (consumeNext) {
           spellData.add(tokens[tokenPosition])
           tokenPosition++
           consumeNext = false
@@ -242,7 +242,7 @@ class DictionarySavedData: SavedData {
         val word = spellStructure[position % spellStructure.size]
         val wordData = parseWord(tokens[tokenPosition])
 
-        if(wordData?.startsWith("other:copy_x") == true) {
+        if (wordData?.startsWith("other:copy_x") == true) {
           mult *= wordData.substring(12).toInt()
           tokenPosition++
           continue
@@ -257,7 +257,7 @@ class DictionarySavedData: SavedData {
               return null
             }
             action = actionRegistry[wordData.substring(7)]
-            if(action?.consumesNextWord() == true) consumeNext = true
+            if (action?.consumesNextWord() == true) consumeNext = true
           }
 
           WORD.DESCRIPTOR -> {
@@ -272,9 +272,9 @@ class DictionarySavedData: SavedData {
                 skipIncrement = true
               } else {
                 descriptors.add(descriptor)
-                if(descriptor.consumesNextWord()) consumeNext = true
+                if (descriptor.consumesNextWord()) consumeNext = true
 
-                if(mult == 1) tokenPosition++
+                if (mult == 1) tokenPosition++
                 skipIncrement = true
               }
             }
@@ -287,18 +287,18 @@ class DictionarySavedData: SavedData {
               return null
             }
             subject = subjectRegistry[wordData.substring(8)]
-            if(subject?.consumesNextWord() == true) consumeNext = true
+            if (subject?.consumesNextWord() == true) consumeNext = true
           }
 
           null -> {}
         }
 
-        if(mult > 1) {
+        if (mult > 1) {
           skipIncrement = true
           mult--
         }
 
-        if(!skipIncrement) {
+        if (!skipIncrement) {
           position++
           tokenPosition++
         }
@@ -345,7 +345,7 @@ class DictionarySavedData: SavedData {
       component = component.append(sp)
         .append(getWord(descriptor)?.let { Component.literal(it) } ?: getFakeWord())
       sp = " "
-      if(descriptor?.consumesNextWord() == true) {
+      if (descriptor?.consumesNextWord() == true) {
         component.append(sp).append(spellData.removeFirst())
       }
     }
@@ -369,23 +369,26 @@ class DictionarySavedData: SavedData {
           builder.append(sp).append(
             getWord(spell.spells[0].action)?.let { Component.literal(it) } ?: getFakeWord()
           )
-          if(spell.spells[0].action?.consumesNextWord() == true) {
+          if (spell.spells[0].action?.consumesNextWord() == true) {
             builder.append(sp).append(spellData.removeFirst())
           }
         }
+
         WORD.SUBJECT -> {
           builder.append(sp).append(
             getWord(spell.subject)?.let { Component.literal(it) } ?: getFakeWord()
           )
-          if(spell.subject?.consumesNextWord() == true) {
+          if (spell.subject?.consumesNextWord() == true) {
             builder.append(sp).append(spellData.removeFirst())
           }
         }
+
         WORD.DESCRIPTOR -> builder.append(sp)
           .append(generateDescriptorString(spell.spells.first().deduplicatedDescriptors(), spellData))
+
         else -> {}
       }
-      if(builder.string.isNotEmpty()) sp = " "
+      if (builder.string.isNotEmpty()) sp = " "
     }
 
     for (partialSpell in Arrays.stream(spell.spells).skip(1).toList()) {
@@ -394,11 +397,10 @@ class DictionarySavedData: SavedData {
           builder.append(sp).append(
             getWord(partialSpell.action)?.let { Component.literal(it) } ?: getFakeWord()
           )
-          if(partialSpell.action?.consumesNextWord() == true) {
+          if (partialSpell.action?.consumesNextWord() == true) {
             builder.append(sp).append(spellData.removeFirst())
           }
-        }
-        else if (w == WORD.DESCRIPTOR)
+        } else if (w == WORD.DESCRIPTOR)
           builder.append(generateDescriptorString(partialSpell.deduplicatedDescriptors(), spellData))
       }
     }

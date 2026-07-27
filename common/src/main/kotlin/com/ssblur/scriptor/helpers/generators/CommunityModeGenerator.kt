@@ -3,7 +3,7 @@ package com.ssblur.scriptor.helpers.generators
 import com.google.gson.JsonObject
 import java.util.*
 
-class CommunityModeGenerator(@Suppress("unused_parameter") obj: JsonObject?): TokenGenerator() {
+class CommunityModeGenerator(@Suppress("unused_parameter") obj: JsonObject?) : TokenGenerator() {
   override fun generateToken(key: String, parameters: JsonObject?): String {
     val random = Random((key.hashCode() + 0x055b10b0).toLong())
     val builder = StringBuilder()

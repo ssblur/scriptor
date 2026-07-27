@@ -5,10 +5,15 @@ import com.ssblur.scriptor.api.word.Descriptor
 import com.ssblur.scriptor.helpers.targetable.Targetable
 import net.minecraft.world.level.block.Blocks
 
-class PlaceWaterAction: Action() {
+class PlaceWaterAction : Action() {
   override fun cost() = Cost(1.5, COSTTYPE.ADDITIVE)
 
-  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>, spellData: MutableList<String>) {
+  override fun apply(
+    caster: Targetable,
+    targetable: Targetable,
+    descriptors: Array<Descriptor>,
+    spellData: MutableList<String>
+  ) {
     val pos = targetable.targetBlockPos
     val level = targetable.level
 

@@ -20,7 +20,7 @@ import net.minecraft.world.phys.AABB
 import java.util.*
 import java.util.concurrent.CompletableFuture
 
-class RuneBlockEntity(blockPos: BlockPos, blockState: BlockState):
+class RuneBlockEntity(blockPos: BlockPos, blockState: BlockState) :
   BlockEntity(ScriptorBlockEntities.RUNE.get(), blockPos, blockState), Colorable {
   var owner: Entity? = null
   var ownerUUID: UUID? = null
@@ -128,7 +128,7 @@ class RuneBlockEntity(blockPos: BlockPos, blockState: BlockState):
   }
 
   companion object {
-    fun <T: BlockEntity?> tick(level: Level, entity: T) {
+    fun <T : BlockEntity?> tick(level: Level, entity: T) {
       if (level.isClientSide) return
       if (entity is RuneBlockEntity) entity.tick()
     }

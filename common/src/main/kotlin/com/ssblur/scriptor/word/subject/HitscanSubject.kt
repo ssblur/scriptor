@@ -15,7 +15,7 @@ import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
 import java.util.concurrent.CompletableFuture
 
-class HitscanSubject: Subject() {
+class HitscanSubject : Subject() {
   override fun getTargets(caster: Targetable, spell: Spell): CompletableFuture<List<Targetable>> {
     val result = CompletableFuture<List<Targetable>>()
     if (caster is EntityTargetable && caster.targetEntity is Player) {

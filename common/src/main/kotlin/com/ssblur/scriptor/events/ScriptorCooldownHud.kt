@@ -26,8 +26,8 @@ object ScriptorCooldownHud {
 
     val barPortion: Double
     val barTransparency = 1.0f
-    if(ScriptorMod.MANA_MODE) {
-      if(player.mana < player.maxMana) fadeout = EMPTY_TICKS
+    if (ScriptorMod.MANA_MODE) {
+      if (player.mana < player.maxMana) fadeout = EMPTY_TICKS
       barPortion = player.mana / player.maxMana
     } else {
       if (player.castCooldown > 0) {
@@ -68,7 +68,7 @@ object ScriptorCooldownHud {
     guiGraphics.blitSprite(FOREGROUND, x, y, w, h)
     guiGraphics.disableScissor()
 
-    if(player.experienceLevel > 0 && renderLevel) {
+    if (player.experienceLevel > 0 && renderLevel) {
       guiGraphics.setColor(1.0f, 1.0f, 1.0f, barTransparency)
       val font = Minecraft.getInstance().font
       val s = player.experienceLevel.toString()
@@ -86,13 +86,13 @@ object ScriptorCooldownHud {
 
   fun shouldNotRenderXpBar(): Boolean {
     Minecraft.getInstance().player?.let {
-      if(it.castCooldown > 0 || fadeout > 0) return true
+      if (it.castCooldown > 0 || fadeout > 0) return true
     }
     return false
   }
 
   fun init() {
-    ClientGuiRenderEvent.register{ (guiGraphics, delta) ->
+    ClientGuiRenderEvent.register { (guiGraphics, delta) ->
       render(guiGraphics, delta)
     }
   }

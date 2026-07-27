@@ -17,7 +17,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 
-class AncientScrap(properties: Properties, var tier: Int): Item(properties) {
+class AncientScrap(properties: Properties, var tier: Int) : Item(properties) {
   override fun appendHoverText(
     itemStack: ItemStack,
     level: TooltipContext,
@@ -38,27 +38,34 @@ class AncientScrap(properties: Properties, var tier: Int): Item(properties) {
 
     if (!level.isClientSide) {
       player.sendSystemMessage(Component.translatable("extra.scriptor.scrap_use"))
-      if(!player.isCreative) player.cooldowns.addCooldown(this, 20)
+      if (!player.isCreative) player.cooldowns.addCooldown(this, 20)
 
       // Generate and distribute scrap
       val scrap = Scraps.getRandomScrapItem(tier, player)
 
       player.sendSystemMessage(Component.translatable("extra.scriptor.scrap_get"))
 
-      if(!player.isCreative) player.getItemInHand(interactionHand).shrink(1)
+      if (!player.isCreative) player.getItemInHand(interactionHand).shrink(1)
 
-      if(player.inventory.contains { it matches ScriptorItems.DICTIONARY.get() }) {
-        val item = player.inventory.items.firstOrNull{
+      if (player.inventory.contains { it matches ScriptorItems.DICTIONARY.get() }) {
+        val item = player.inventory.items.firstOrNull {
           it matches ScriptorItems.DICTIONARY.get()
-              && ( it[ScriptorDataComponents.DICTIONARY_DATA]?.values?.any { entry ->
-                entry[0] == scrap[DataComponents.ITEM_NAME]?.string
-              }) != true
+              && (it[ScriptorDataComponents.DICTIONARY_DATA]?.values?.any { entry ->
+            entry[0] == scrap[DataComponents.ITEM_NAME]?.string
+          }) != true
         }
 
         item?.let {
           item[ScriptorDataComponents.DICTIONARY_DATA] = item[ScriptorDataComponents.DICTIONARY_DATA]
             ?.withWord(scrap[DataComponents.ITEM_NAME]!!.string, scrap[ScriptorDataComponents.SPELL])
-            ?: DictionaryData(listOf(listOf(scrap[DataComponents.ITEM_NAME]!!.string, scrap[ScriptorDataComponents.SPELL]!!)))
+            ?: DictionaryData(
+              listOf(
+                listOf(
+                  scrap[DataComponents.ITEM_NAME]!!.string,
+                  scrap[ScriptorDataComponents.SPELL]!!
+                )
+              )
+            )
           player.sendSystemMessage(Component.translatable("extra.scriptor.scrap_stuff"))
           return InteractionResultHolder.consume(player.getItemInHand(interactionHand))
         }

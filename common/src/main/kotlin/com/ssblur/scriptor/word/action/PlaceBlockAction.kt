@@ -13,10 +13,15 @@ import net.minecraft.world.InteractionResult
 import net.minecraft.world.item.BlockItem
 import net.minecraft.world.phys.BlockHitResult
 
-class PlaceBlockAction: Action() {
+class PlaceBlockAction : Action() {
   override fun cost() = Cost(1.5, COSTTYPE.ADDITIVE)
 
-  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>, spellData: MutableList<String>) {
+  override fun apply(
+    caster: Targetable,
+    targetable: Targetable,
+    descriptors: Array<Descriptor>,
+    spellData: MutableList<String>
+  ) {
     val color = getColor(descriptors)
     val pos = targetable.targetBlockPos
     val level = targetable.level

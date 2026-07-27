@@ -6,7 +6,7 @@ import com.ssblur.scriptor.helpers.targetable.Targetable
 import com.ssblur.scriptor.word.descriptor.target.TargetDescriptor
 import net.minecraft.world.item.ItemStack
 
-class FirstEmptySlotDescriptor: Descriptor(), TargetDescriptor {
+class FirstEmptySlotDescriptor : Descriptor(), TargetDescriptor {
   override fun modifyTargets(originalTargetables: List<Targetable>, owner: Targetable): List<Targetable> {
     originalTargetables.forEach {
       if (it is InventoryTargetable)

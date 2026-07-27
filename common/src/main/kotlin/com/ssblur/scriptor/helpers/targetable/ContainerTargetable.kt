@@ -7,7 +7,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity
 
-class ContainerTargetable(level: Level, pos: BlockPos, var slot: Int): Targetable(level, pos), InventoryTargetable {
+class ContainerTargetable(level: Level, pos: BlockPos, var slot: Int) : Targetable(level, pos), InventoryTargetable {
   override val container: Container?
     get() {
       val blockEntity = level.getBlockEntity(targetBlockPos)

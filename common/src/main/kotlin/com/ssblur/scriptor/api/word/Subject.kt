@@ -4,7 +4,7 @@ import com.ssblur.scriptor.helpers.targetable.Targetable
 import com.ssblur.scriptor.word.Spell
 import java.util.concurrent.CompletableFuture
 
-abstract class Subject: Word() {
+abstract class Subject : Word() {
   /**
    * Called to get targets for this Subject.
    * Actions will not be applied until resolved.

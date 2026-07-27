@@ -16,7 +16,7 @@ import net.minecraft.world.item.trading.ItemCost
 import net.minecraft.world.item.trading.MerchantOffer
 
 object ScriptorTrades {
-//  var SCROLL_TRADE: VillagerTrades.ItemListing = VillagerTrades.ItemListing { entity, randomSource ->
+  //  var SCROLL_TRADE: VillagerTrades.ItemListing = VillagerTrades.ItemListing { entity, randomSource ->
 //    val count = randomSource.nextInt(3) + 1
 //    MerchantOffer(
 //      ItemCost(Items.EMERALD, (3 + randomSource.nextInt(2)) * count),

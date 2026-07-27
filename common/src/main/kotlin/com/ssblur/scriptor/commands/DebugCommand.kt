@@ -75,9 +75,11 @@ object DebugCommand {
   }
 
   private fun executeNoLocale(command: CommandContext<CommandSourceStack>): Int {
-    if(COMMUNITY_MODE) {
-      command.source.sendSystemMessage(Component.translatable("command.scriptor.community_mode").withStyle(ChatFormatting.RED))
-      return Command.SINGLE_SUCCESS
+    if (COMMUNITY_MODE) {
+      command.source.sendSystemMessage(
+        Component.translatable("command.scriptor.community_mode").withStyle(ChatFormatting.RED)
+      )
+      return 0
     }
 
     val message = StringBuilder()
@@ -98,8 +100,8 @@ object DebugCommand {
       }
     }
 
-    val tomesNoLocale = Tomes.tomes.values.filter{ !I18n.exists(it.name) }.map { it.name }
-    if(tomesNoLocale.isNotEmpty()) message.append("The following tomes have no localized name: $tomesNoLocale\n")
+    val tomesNoLocale = Tomes.tomes.values.filter { !I18n.exists(it.name) }.map { it.name }
+    if (tomesNoLocale.isNotEmpty()) message.append("The following tomes have no localized name: $tomesNoLocale\n")
 
     if (command.source.entity is Player) {
       (command.source.entity as Player).sendSystemMessage(Component.literal(message.toString()))
@@ -110,30 +112,33 @@ object DebugCommand {
   }
 
   private fun executeMissing(command: CommandContext<CommandSourceStack>): Int {
-    if(COMMUNITY_MODE) {
-      command.source.sendSystemMessage(Component.translatable("command.scriptor.community_mode").withStyle(ChatFormatting.RED))
-      return Command.SINGLE_SUCCESS
+    if (COMMUNITY_MODE) {
+      command.source.sendSystemMessage(
+        Component.translatable("command.scriptor.community_mode").withStyle(ChatFormatting.RED)
+      )
+      return 0
     }
 
     val message = StringBuilder()
 
     val actionsNotInTomes = actionRegistry.keys.filter { word ->
-      Tomes.tomes.values.none{ it.spell?.spells?.any{ it.action == word } ?: false }
+      Tomes.tomes.values.none { it.spell?.spells?.any { it.action == word } ?: false }
 //          && Artifacts.artifacts.values.none{ it.spell?.spells?.any{ it.action == word } ?: false }
-          && Engravings.engravings.values.none{ it.spell?.spells?.any{ it.action == word } ?: false }
-          && MobSpellItems.items.values.none{ it.spell?.spells?.any{ it.action == word } ?: false }
+          && Engravings.engravings.values.none { it.spell?.spells?.any { it.action == word } ?: false }
+          && MobSpellItems.items.values.none { it.spell?.spells?.any { it.action == word } ?: false }
     }
-    message.append("The following actions do not appear in any tome, engraving, or item:").append(actionsNotInTomes).append("\n")
+    message.append("The following actions do not appear in any tome, engraving, or item:").append(actionsNotInTomes)
+      .append("\n")
     val actionsNotInScraps = actionsNotInTomes.filter { word ->
       Scraps.scraps.values.none { it.keys.contains("action:$word") }
     }
     message.append("Of these, the following don't appear in scraps:").append(actionsNotInScraps).append("\n")
 
     val subjectsNotInTomes = subjectRegistry.keys.filter { word ->
-      Tomes.tomes.values.none{ it.spell?.subject == word }
+      Tomes.tomes.values.none { it.spell?.subject == word }
 //          && Artifacts.artifacts.values.none{ it.spell?.subject == word }
-          && Engravings.engravings.values.none{ it.spell?.subject == word }
-          && MobSpellItems.items.values.none{ it.spell?.subject == word }
+          && Engravings.engravings.values.none { it.spell?.subject == word }
+          && MobSpellItems.items.values.none { it.spell?.subject == word }
     }
     message.append("The following subjects do not appear in any tomes:").append(subjectsNotInTomes).append("\n")
     val subjectsNotInScraps = subjectsNotInTomes.filter { word ->
@@ -142,10 +147,10 @@ object DebugCommand {
     message.append("Of these, the following don't appear in scraps:").append(subjectsNotInScraps).append("\n")
 
     val descriptorsNotInTomes = descriptorRegistry.keys.filter { word ->
-      Tomes.tomes.values.none { it.spell?.spells?.any{ it.descriptors.contains(word) } ?: false }
+      Tomes.tomes.values.none { it.spell?.spells?.any { it.descriptors.contains(word) } ?: false }
 //          && Artifacts.artifacts.values.none { it.spell?.spells?.any{ it.descriptors.contains(word) } ?: false }
-          && Engravings.engravings.values.none { it.spell?.spells?.any{ it.descriptors.contains(word) } ?: false }
-          && MobSpellItems.items.values.none{ it.spell?.spells?.any{ it.descriptors.contains(word) } ?: false }
+          && Engravings.engravings.values.none { it.spell?.spells?.any { it.descriptors.contains(word) } ?: false }
+          && MobSpellItems.items.values.none { it.spell?.spells?.any { it.descriptors.contains(word) } ?: false }
     }
     message.append("The following descriptors do not appear in any tomes:").append(descriptorsNotInTomes).append("\n")
     val descriptorsNotInScraps = descriptorsNotInTomes.filter { word ->
@@ -163,9 +168,11 @@ object DebugCommand {
   }
 
   private fun executeDump(command: CommandContext<CommandSourceStack>): Int {
-    if(COMMUNITY_MODE) {
-      command.source.sendSystemMessage(Component.translatable("command.scriptor.community_mode").withStyle(ChatFormatting.RED))
-      return Command.SINGLE_SUCCESS
+    if (COMMUNITY_MODE) {
+      command.source.sendSystemMessage(
+        Component.translatable("command.scriptor.community_mode").withStyle(ChatFormatting.RED)
+      )
+      return 0
     }
 
     val message = StringBuilder("Item list dumped as JSON")
@@ -178,7 +185,7 @@ object DebugCommand {
     keys = command.source.level.registryAccess().registry(Registries.ITEM).get()
       .getTag(ScriptorTags.SPELLBOOKS).get().map {
         it.unwrapKey().get().location().toString()
-    }
+      }
     LOGGER.info(gson.toJson(keys))
     if (command.source.entity is Player) {
       (command.source.entity as Player).sendSystemMessage(Component.literal(message.toString()))
@@ -189,9 +196,11 @@ object DebugCommand {
   }
 
   private fun executeDictionary(command: CommandContext<CommandSourceStack>): Int {
-    if(COMMUNITY_MODE) {
-      command.source.sendSystemMessage(Component.translatable("command.scriptor.community_mode").withStyle(ChatFormatting.RED))
-      return Command.SINGLE_SUCCESS
+    if (COMMUNITY_MODE) {
+      command.source.sendSystemMessage(
+        Component.translatable("command.scriptor.community_mode").withStyle(ChatFormatting.RED)
+      )
+      return 0
     }
 
     val item = ItemStack(ScriptorItems.DICTIONARY.get())
@@ -215,7 +224,8 @@ object DebugCommand {
   private fun executeTemplateTest(command: CommandContext<CommandSourceStack>): Int {
     command.source.player?.let {
       val poolRegistry = command.source.server.registryAccess().registry(Registries.TEMPLATE_POOL).orElseThrow()
-      val pool = poolRegistry.get(ResourceLocation.parse("minecraft:village/plains/houses"))!! as StructureTemplatePoolAccessor
+      val pool =
+        poolRegistry.get(ResourceLocation.parse("minecraft:village/plains/houses"))!! as StructureTemplatePoolAccessor
       it.sendSystemMessage(Component.literal(pool.templates.toString()))
     }
     return Command.SINGLE_SUCCESS

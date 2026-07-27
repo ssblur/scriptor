@@ -14,7 +14,7 @@ import net.minecraft.resources.ResourceLocation
 import javax.annotation.ParametersAreNonnullByDefault
 
 @ParametersAreNonnullByDefault
-class ScriptorProjectileRenderer(context: EntityRendererProvider.Context):
+class ScriptorProjectileRenderer(context: EntityRendererProvider.Context) :
   EntityRenderer<ScriptorProjectile>(context) {
   override fun getTextureLocation(entity: ScriptorProjectile): ResourceLocation {
     return ScriptorMod.location("textures/item/tome.png")

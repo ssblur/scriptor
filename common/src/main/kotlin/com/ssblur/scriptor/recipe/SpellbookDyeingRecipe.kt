@@ -11,7 +11,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.*
 import net.minecraft.world.level.Level
 
-class SpellbookDyeingRecipe(var addition: Ingredient, var result: ItemStack): CustomRecipe(CraftingBookCategory.MISC) {
+class SpellbookDyeingRecipe(var addition: Ingredient, var result: ItemStack) : CustomRecipe(CraftingBookCategory.MISC) {
   override fun matches(container: CraftingInput, level: Level): Boolean {
     return (container.items().stream().anyMatch { itemStack: ItemStack ->
       itemStack.item is Spellbook
@@ -44,7 +44,7 @@ class SpellbookDyeingRecipe(var addition: Ingredient, var result: ItemStack): Cu
     return ScriptorRecipes.SPELLBOOK_DYEING.get()
   }
 
-  class Serializer: RecipeSerializer<SpellbookDyeingRecipe> {
+  class Serializer : RecipeSerializer<SpellbookDyeingRecipe> {
     override fun codec(): MapCodec<SpellbookDyeingRecipe> {
       return CODEC
     }

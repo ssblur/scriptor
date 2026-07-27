@@ -56,7 +56,7 @@ object ScriptorItems {
   }.tab(ScriptorTabs.SCRIPTOR_TAB)
   val SCRAP = registerItem("scrap") { Scrap(Item.Properties()) }
   val CHALK = registerItem("chalk") { Chalk(Item.Properties()) }
-      .tab(ScriptorTabs.SCRIPTOR_TAB)
+    .tab(ScriptorTabs.SCRIPTOR_TAB)
   val ENGRAVING_TOOL = registerItem("engraving_tool") { EngravingTool(Item.Properties()) }
     .tab(ScriptorTabs.SCRIPTOR_TAB)
   val DICTIONARY = registerItem("dictionary") {
@@ -124,12 +124,15 @@ object ScriptorItems {
   }.tab(ScriptorTabs.SCRIPTOR_TAB)
 
   val ETHEREAL_FIG = registerItem("ethereal_fig") {
-    Item(Item.Properties().food(FoodProperties.Builder()
-      .nutrition(2)
-      .saturationModifier(2.0f)
-      .alwaysEdible()
-      .build()
-    )).tab(ScriptorTabs.SCRIPTOR_TAB)
+    Item(
+      Item.Properties().food(
+        FoodProperties.Builder()
+          .nutrition(2)
+          .saturationModifier(2.0f)
+          .alwaysEdible()
+          .build()
+      )
+    ).tab(ScriptorTabs.SCRIPTOR_TAB)
   }
 
   fun register() {}

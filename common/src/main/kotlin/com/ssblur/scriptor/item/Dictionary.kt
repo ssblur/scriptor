@@ -23,10 +23,12 @@ class Dictionary(properties: Properties) : Item(properties) {
     super.appendHoverText(itemStack, level, list, tooltipFlag)
 
     list.add(Component.translatable("lore.scriptor.dictionary").withStyle(ChatFormatting.GRAY))
-    list.add(Component.translatable(
-      "lore.scriptor.dictionary_3",
-      itemStack[ScriptorDataComponents.DICTIONARY_DATA]?.values?.size ?: 0
-    ).withStyle(ChatFormatting.GRAY))
+    list.add(
+      Component.translatable(
+        "lore.scriptor.dictionary_3",
+        itemStack[ScriptorDataComponents.DICTIONARY_DATA]?.values?.size ?: 0
+      ).withStyle(ChatFormatting.GRAY)
+    )
     list.add(Component.translatable("lore.scriptor.dictionary_2").withStyle(ChatFormatting.GRAY))
   }
 
@@ -35,7 +37,7 @@ class Dictionary(properties: Properties) : Item(properties) {
     player: Player,
     interactionHand: InteractionHand
   ): InteractionResultHolder<ItemStack?>? {
-    if(!level.isClientSide)
+    if (!level.isClientSide)
       player.openMenu(SimpleMenuProvider { i, inventory, _ ->
         val menu = DictionaryMenu(i, inventory)
         menu.dictionary = player.getItemInHand(interactionHand)

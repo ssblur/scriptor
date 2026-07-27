@@ -67,18 +67,22 @@ object ParticleNetwork {
   }
 
   fun fizzle(level: Level, pos: BlockPos) =
-    send(Payload(
-      TYPE.FIZZLE,
-      0,
-      Vec3(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble())),
+    send(
+      Payload(
+        TYPE.FIZZLE,
+        0,
+        Vec3(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble())
+      ),
       nearbyPlayers(level, Vec3(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble()))
     )
 
   fun wither(level: Level, pos: BlockPos) =
-    send(Payload(
-      TYPE.WITHER,
-      0,
-      Vec3(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble())),
+    send(
+      Payload(
+        TYPE.WITHER,
+        0,
+        Vec3(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble())
+      ),
       nearbyPlayers(level, Vec3(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble()))
     )
 

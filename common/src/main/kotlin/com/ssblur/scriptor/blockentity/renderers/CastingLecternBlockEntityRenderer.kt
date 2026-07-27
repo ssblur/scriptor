@@ -12,7 +12,7 @@ import net.minecraft.core.Direction
 import net.minecraft.world.item.ItemDisplayContext
 import kotlin.math.sin
 
-class CastingLecternBlockEntityRenderer(context: BlockEntityRendererProvider.Context):
+class CastingLecternBlockEntityRenderer(context: BlockEntityRendererProvider.Context) :
   BlockEntityRenderer<CastingLecternBlockEntity> {
   var itemRenderer: ItemRenderer = context.itemRenderer
   override fun render(

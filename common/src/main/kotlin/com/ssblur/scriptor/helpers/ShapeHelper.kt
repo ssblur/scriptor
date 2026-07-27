@@ -9,17 +9,17 @@ object ShapeHelper {
     var yAxis = false
     var invert = false
     var last = Vector2i(0, 1)
-    while(true) {
+    while (true) {
       yield(last)
-      if(yAxis) {
-        last = last.add(0, if(invert) 1 else -1)
+      if (yAxis) {
+        last = last.add(0, if (invert) 1 else -1)
       } else {
-        last = last.add(if(invert) 1 else -1, 0)
+        last = last.add(if (invert) 1 else -1, 0)
       }
 
-      if(i >= cap) {
+      if (i >= cap) {
         i = 0
-        if(yAxis) {
+        if (yAxis) {
           invert = !invert
           cap += 2
         }

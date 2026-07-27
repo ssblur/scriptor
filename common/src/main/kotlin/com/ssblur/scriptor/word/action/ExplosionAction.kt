@@ -11,8 +11,8 @@ import net.minecraft.world.level.Explosion
 import net.minecraft.world.level.ExplosionDamageCalculator
 import net.minecraft.world.level.Level
 
-class ExplosionAction: Action() {
-  internal class ExplosionActionDamageCalculator(val caster: Targetable): ExplosionDamageCalculator() {
+class ExplosionAction : Action() {
+  internal class ExplosionActionDamageCalculator(val caster: Targetable) : ExplosionDamageCalculator() {
     override fun getEntityDamageAmount(explosion: Explosion, entity: Entity): Float {
       if (caster is EntityTargetable && caster.targetEntity === entity) return super.getEntityDamageAmount(
         explosion,
@@ -22,7 +22,12 @@ class ExplosionAction: Action() {
     }
   }
 
-  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>, spellData: MutableList<String>) {
+  override fun apply(
+    caster: Targetable,
+    targetable: Targetable,
+    descriptors: Array<Descriptor>,
+    spellData: MutableList<String>
+  ) {
     if (targetable.level.isClientSide) return
     var strength = 2.0
     for (d in descriptors) {

@@ -12,7 +12,7 @@ data class DictionaryData(val values: List<List<String>>) {
     val CODEC: Codec<DictionaryData> =
       RecordCodecBuilder.create { instance: RecordCodecBuilder.Instance<DictionaryData> ->
         instance.group(
-          Codec.STRING.listOf().listOf().fieldOf("values").forGetter{ it.values }
+          Codec.STRING.listOf().listOf().fieldOf("values").forGetter { it.values }
         ).apply(instance) { values -> DictionaryData(values) }
       }
     val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, DictionaryData> = StreamCodec.composite(
@@ -21,14 +21,14 @@ data class DictionaryData(val values: List<List<String>>) {
   }
 
   fun withWord(word: String, definition: String? = null, overwrite: Boolean = false): DictionaryData {
-    return if(overwrite || values.none { it.first() == word })
+    return if (overwrite || values.none { it.first() == word })
       DictionaryData(values + listOf(listOf(word, definition ?: "extra.scriptor.no_entry")))
     else
       this
   }
 
   override fun equals(other: Any?): Boolean {
-    if(other !is DictionaryData) return false
+    if (other !is DictionaryData) return false
     return values == other.values
   }
 

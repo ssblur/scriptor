@@ -6,7 +6,7 @@ import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.SoundType
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument
 
-class MagicBlock(val color: DyeColor): Block(
+class MagicBlock(val color: DyeColor) : Block(
   Properties.of().instrument(NoteBlockInstrument.HAT)
     .strength(0.3f)
     .sound(SoundType.GLASS)

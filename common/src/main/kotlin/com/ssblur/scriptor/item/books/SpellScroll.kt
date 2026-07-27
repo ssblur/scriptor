@@ -22,71 +22,71 @@ import net.minecraft.world.item.WrittenBookItem
 import net.minecraft.world.level.Level
 
 class SpellScroll(properties: Properties) : WrittenBookItem(properties) {
-    init {
-        tab(ScriptorTabs.SCRIPTOR_SPELLBOOKS_TAB)
+  init {
+    tab(ScriptorTabs.SCRIPTOR_SPELLBOOKS_TAB)
+  }
+
+  override fun use(
+    level: Level,
+    player: Player,
+    interactionHand: InteractionHand
+  ): InteractionResultHolder<ItemStack> {
+    if (level.isClientSide) return InteractionResultHolder.success(player.getItemInHand(interactionHand))
+
+    val item = player.getItemInHand(interactionHand)
+    val result = SpellbookHelper.castFromItem(
+      item,
+      player,
+      maxCost = ScriptorConfig.SCROLL_MAX_COST(),
+      costMultiplier = ScriptorConfig.SCROLL_COOLDOWN_MULTIPLIER(),
+      cooldownFunc = { ply, time ->
+        ply.castCooldown = time * 5L
+      }
+    )
+    if (result) {
+      player.getItemInHand(interactionHand).shrink(1)
+      return InteractionResultHolder.consume(player.getItemInHand(interactionHand))
     }
+    return InteractionResultHolder.fail(player.getItemInHand(interactionHand))
+  }
 
-    override fun use(
-        level: Level,
-        player: Player,
-        interactionHand: InteractionHand
-    ): InteractionResultHolder<ItemStack> {
-        if (level.isClientSide) return InteractionResultHolder.success(player.getItemInHand(interactionHand))
-
-        val item = player.getItemInHand(interactionHand)
-        val result = SpellbookHelper.castFromItem(
-            item,
-            player,
-            maxCost = ScriptorConfig.SCROLL_MAX_COST(),
-            costMultiplier = ScriptorConfig.SCROLL_COOLDOWN_MULTIPLIER(),
-            cooldownFunc = { ply, time ->
-                ply.castCooldown = time * 5L
-            }
-        )
-        if(result) {
-            player.getItemInHand(interactionHand).shrink(1)
-            return InteractionResultHolder.consume(player.getItemInHand(interactionHand))
-        }
-        return InteractionResultHolder.fail(player.getItemInHand(interactionHand))
+  override fun getName(itemStack: ItemStack): Component {
+    val title = itemStack.get(ScriptorDataComponents.TOME_NAME)
+    if (title != null) {
+      return Component.translatable(title)
     }
+    return super.getName(itemStack)
+  }
 
-    override fun getName(itemStack: ItemStack): Component {
-        val title = itemStack.get(ScriptorDataComponents.TOME_NAME)
-        if (title != null) {
-            return Component.translatable(title)
-        }
-        return super.getName(itemStack)
+  override fun overrideStackedOnOther(
+    itemStack: ItemStack,
+    slot: Slot,
+    clickAction: ClickAction,
+    player: Player
+  ): Boolean {
+    if (clickAction == ClickAction.SECONDARY && !slot.item.isEmpty && slot.item.item !is BookOfBooks) {
+      if (player.cooldowns.isOnCooldown(this)) return true
+      val level = player.level()
+      if (!level.isClientSide) return true
+      if (player.isCreative) return false
+      else ScriptorNetworkC2S.useBook(UseBook(slot.index))
+      return true
     }
+    return false
+  }
 
-    override fun overrideStackedOnOther(
-        itemStack: ItemStack,
-        slot: Slot,
-        clickAction: ClickAction,
-        player: Player
-    ): Boolean {
-        if (clickAction == ClickAction.SECONDARY && !slot.item.isEmpty && slot.item.item !is BookOfBooks) {
-            if (player.cooldowns.isOnCooldown(this)) return true
-            val level = player.level()
-            if (!level.isClientSide) return true
-            if (player.isCreative) return false
-            else ScriptorNetworkC2S.useBook(UseBook(slot.index))
-            return true
-        }
-        return false
-    }
+  override fun appendHoverText(
+    itemStack: ItemStack,
+    level: TooltipContext,
+    list: MutableList<Component>,
+    tooltipFlag: TooltipFlag
+  ) {
+    super.appendHoverText(itemStack, level, list, tooltipFlag)
 
-    override fun appendHoverText(
-        itemStack: ItemStack,
-        level: TooltipContext,
-        list: MutableList<Component>,
-        tooltipFlag: TooltipFlag
-    ) {
-        super.appendHoverText(itemStack, level, list, tooltipFlag)
+    if (itemStack.get(DataComponents.WRITTEN_BOOK_CONTENT) == null) list.add(
+      Component.translatable("lore.scriptor.no_spell").withStyle(ChatFormatting.GRAY)
+    )
 
-        if (itemStack.get(DataComponents.WRITTEN_BOOK_CONTENT) == null) list.add(
-            Component.translatable("lore.scriptor.no_spell").withStyle(ChatFormatting.GRAY)
-        )
-
-        Component.translatable("lore.scriptor.spell_scroll").withStyle(ChatFormatting.WHITE)
-    }
+    Component.translatable("lore.scriptor.spell_scroll").withStyle(ChatFormatting.WHITE)
+  }
 }

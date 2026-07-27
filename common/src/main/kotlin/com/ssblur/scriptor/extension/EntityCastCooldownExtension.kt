@@ -25,40 +25,40 @@ object EntityCastCooldownExtension {
 
   var Entity.castCooldown: Long
     get() {
-      if(MANA_MODE && this is Player)
-        return if(this.mana > 0) 0 else 1
+      if (MANA_MODE && this is Player)
+        return if (this.mana > 0) 0 else 1
 
       val level = this.level()
-      if(level is ServerLevel)
+      if (level is ServerLevel)
         return CACHE[this]?.let { it - level.server.tickCount.toLong() } ?: 0L
-      else if(level is ClientLevel)
-        if(this == Minecraft.getInstance().player)
+      else if (level is ClientLevel)
+        if (this == Minecraft.getInstance().player)
           return LOCAL_COUNT - (Minecraft.getInstance() as MinecraftClientTickAccessor).clientTickCount
       return 0
     }
     set(value) {
       var cost = value.toDouble()
 
-      if(this is LivingEntity && this.hasEffect(ScriptorEffects.SILVER_TONGUE.ref()))
+      if (this is LivingEntity && this.hasEffect(ScriptorEffects.SILVER_TONGUE.ref()))
         cost /= this.getEffect(ScriptorEffects.SILVER_TONGUE.ref())!!.amplifier + 2
 
-      if(MANA_MODE && this is Player) {
+      if (MANA_MODE && this is Player) {
         MANA[this] = this.mana - cost
       }
 
       val cooldown = (cost * COOLDOWN_MULT).toLong()
       val level = this.level()
-      if(level is ServerLevel) {
-        if(this is ServerPlayer)
+      if (level is ServerLevel) {
+        if (this is ServerPlayer)
           ScriptorNetworkS2C.cooldown(ScriptorNetworkS2C.Cooldown(cost.toLong()), listOf(this))
         CACHE[this] = cooldown + level.server.tickCount
-      } else if(this == Minecraft.getInstance().player)
+      } else if (this == Minecraft.getInstance().player)
         LOCAL_COUNT = cooldown + (Minecraft.getInstance() as MinecraftClientTickAccessor).clientTickCount
     }
 
   fun Entity.canCast(spell: Spell, mult: Double = 1.0): Boolean {
-    if(MANA_MODE && this is Player) {
-      if(spell.subject is InventorySubject) return true
+    if (MANA_MODE && this is Player) {
+      if (spell.subject is InventorySubject) return true
       return this.mana >= (spell.cost() * mult)
     }
     return this.castCooldown <= 0
@@ -68,10 +68,11 @@ object EntityCastCooldownExtension {
     get() = MANA[this] ?: this.maxMana
     set(value) {
       MANA[this] = value.coerceIn(0.0, maxMana)
-      if(!this.level().isClientSide)
+      if (!this.level().isClientSide)
         ScriptorNetworkS2C.mana(ScriptorNetworkS2C.Mana(value), listOf(this))
     }
 
+  @Suppress("UnusedReceiverParameter")
   val Entity.maxMana: Double
     get() = DEFAULT_MANA
 }

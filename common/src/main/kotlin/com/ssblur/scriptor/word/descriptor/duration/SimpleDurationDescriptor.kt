@@ -2,7 +2,7 @@ package com.ssblur.scriptor.word.descriptor.duration
 
 import com.ssblur.scriptor.api.word.Descriptor
 
-open class SimpleDurationDescriptor(cost: Int, var duration: Double): Descriptor(), DurationDescriptor {
+open class SimpleDurationDescriptor(cost: Int, var duration: Double) : Descriptor(), DurationDescriptor {
   var cost: Cost = Cost(cost.toDouble(), COSTTYPE.ADDITIVE)
   var duplicates: Boolean = false
 

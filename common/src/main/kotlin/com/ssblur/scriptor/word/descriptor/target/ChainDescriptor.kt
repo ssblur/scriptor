@@ -10,7 +10,7 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
 
-class ChainDescriptor: Descriptor(), TargetDescriptor {
+class ChainDescriptor : Descriptor(), TargetDescriptor {
   override fun modifyTargets(originalTargetables: List<Targetable>, owner: Targetable): List<Targetable> {
     val targetables = originalTargetables.toMutableList()
     if (targetables.isEmpty()) return targetables
@@ -25,14 +25,19 @@ class ChainDescriptor: Descriptor(), TargetDescriptor {
       )
       if (entities.size > 1) {
         val filteredEntities = entities.filter { ent ->
-          targetables.none{ (it is EntityTargetable && it.targetEntity matches ent) }
+          targetables.none { (it is EntityTargetable && it.targetEntity matches ent) }
         }.filter { ent ->
           owner !is EntityTargetable || !(owner.targetEntity matches ent)
         }
-        if(filteredEntities.isNotEmpty()) {
+        if (filteredEntities.isNotEmpty()) {
           val target = filteredEntities[0]
           targetables.add(EntityTargetable(target))
-          ParticleNetwork.magicTrail(target.level(), 0xffffff, target.eyePosition, entityTargetable.targetEntity.eyePosition)
+          ParticleNetwork.magicTrail(
+            target.level(),
+            0xffffff,
+            target.eyePosition,
+            entityTargetable.targetEntity.eyePosition
+          )
         }
       }
       return targetables
@@ -41,7 +46,7 @@ class ChainDescriptor: Descriptor(), TargetDescriptor {
     val firstValidTarget = originalTargetables.firstNotNullOfOrNull {
       chooseAdjacent(it, originalTargetables)
     }
-    if(firstValidTarget != null)
+    if (firstValidTarget != null)
       return originalTargetables + listOf(firstValidTarget)
     return originalTargetables
   }

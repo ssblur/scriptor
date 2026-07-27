@@ -8,7 +8,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 
-class Scrap(properties: Properties): Item(properties) {
+class Scrap(properties: Properties) : Item(properties) {
   override fun appendHoverText(
     itemStack: ItemStack,
     level: TooltipContext,

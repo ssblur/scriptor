@@ -10,7 +10,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import java.util.concurrent.CompletableFuture
 
-class ImbueSubject: Subject(), InventorySubject {
+class ImbueSubject : Subject(), InventorySubject {
   override fun getTargets(caster: Targetable, spell: Spell): CompletableFuture<List<Targetable>> {
     if (caster is EntityTargetable && caster.targetEntity is Player) {
       (caster.targetEntity as Player).sendSystemMessage(Component.translatable("extra.scriptor.enchant_wrong"))
@@ -24,5 +24,6 @@ class ImbueSubject: Subject(), InventorySubject {
   override fun castOnItem(spell: Spell, player: Player, slot: ItemStack) {
     spell.cast(EntityTargetable(player), ItemTargetable(slot, player))
   }
+
   override fun canBeCastOnInventory() = true
 }

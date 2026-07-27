@@ -5,7 +5,7 @@ import com.ssblur.scriptor.helpers.targetable.Targetable
 import com.ssblur.scriptor.word.Spell
 import java.util.concurrent.CompletableFuture
 
-class HitSubject: Subject() {
+class HitSubject : Subject() {
   override fun cost() = Cost(1.3, COSTTYPE.ADDITIVE)
 
   override fun getTargets(caster: Targetable, spell: Spell): CompletableFuture<List<Targetable>> {

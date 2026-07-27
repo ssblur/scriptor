@@ -12,7 +12,7 @@ import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
 
-class LightBlock: Block(
+class LightBlock : Block(
   Properties.of()
     .instabreak()
     .noLootTable()

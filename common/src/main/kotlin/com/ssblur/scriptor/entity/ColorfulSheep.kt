@@ -28,7 +28,7 @@ import net.minecraft.world.phys.Vec3
 import java.awt.Color
 import java.util.*
 
-class ColorfulSheep(entityType: EntityType<out ColorfulSheep>, level: Level): Sheep(entityType, level),
+class ColorfulSheep(entityType: EntityType<out ColorfulSheep>, level: Level) : Sheep(entityType, level),
   Colorable {
   override fun defineSynchedData(builder: SynchedEntityData.Builder) {
     super.defineSynchedData(builder)
@@ -58,7 +58,7 @@ class ColorfulSheep(entityType: EntityType<out ColorfulSheep>, level: Level): Sh
     this.isSheared = true
     val i = 1 + random.nextInt(3)
 
-    for (j in 0 until i) {
+    (0 until i).forEach {
       val itemEntity = WOOL[color]?.let { this.spawnAtLocation(it, 1) }
       if (itemEntity != null) itemEntity.deltaMovement = Vec3(
         ((random.nextFloat() - random.nextFloat()) * 0.05f).toDouble(),

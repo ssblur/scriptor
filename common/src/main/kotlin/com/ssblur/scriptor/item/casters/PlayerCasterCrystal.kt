@@ -13,7 +13,7 @@ import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 import java.util.*
 
-class PlayerCasterCrystal(properties: Properties): CasterCrystal(properties) {
+class PlayerCasterCrystal(properties: Properties) : CasterCrystal(properties) {
   override fun getTargetables(itemStack: ItemStack?, level: Level?, caster: Targetable): List<Targetable> {
     val uuid = itemStack!!.get(ScriptorDataComponents.PLAYER_FOCUS)
     if (uuid != null) {

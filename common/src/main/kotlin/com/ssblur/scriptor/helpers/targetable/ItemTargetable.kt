@@ -3,7 +3,7 @@ package com.ssblur.scriptor.helpers.targetable
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 
-open class ItemTargetable(var targetItem: ItemStack, entity: Player?): EntityTargetable(
+open class ItemTargetable(var targetItem: ItemStack, entity: Player?) : EntityTargetable(
   entity!!
 ) {
   var targetItemByDefault: Boolean = true

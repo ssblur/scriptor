@@ -10,7 +10,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.BlockHitResult
 
-class EngravingTool(properties: Properties): Chalk(properties) {
+class EngravingTool(properties: Properties) : Chalk(properties) {
   override fun use(
     level: Level,
     player: Player,

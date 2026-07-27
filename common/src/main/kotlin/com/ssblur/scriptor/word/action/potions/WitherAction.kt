@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.CropBlock
 import java.util.*
 import kotlin.math.max
 
-class WitherAction: PotionAction(MobEffects.WITHER, 30.0, 1.0 / 3.0, Cost(12.0, COSTTYPE.ADDITIVE)) {
+class WitherAction : PotionAction(MobEffects.WITHER, 30.0, 1.0 / 3.0, Cost(12.0, COSTTYPE.ADDITIVE)) {
   override fun applyToPosition(
     caster: Targetable?,
     targetable: Targetable?,

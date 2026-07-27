@@ -6,10 +6,15 @@ import com.ssblur.scriptor.block.ScriptorBlocks
 import com.ssblur.scriptor.blockentity.ScriptorBlockEntities
 import com.ssblur.scriptor.helpers.targetable.Targetable
 
-class WriteAction: Action() {
+class WriteAction : Action() {
   override fun cost() = Cost(0.2, COSTTYPE.ADDITIVE)
 
-  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>, spellData: MutableList<String>) {
+  override fun apply(
+    caster: Targetable,
+    targetable: Targetable,
+    descriptors: Array<Descriptor>,
+    spellData: MutableList<String>
+  ) {
     val pos = targetable.targetBlockPos
     val level = targetable.level
 

@@ -30,9 +30,11 @@ object CastCommand {
   }
 
   private fun execute(command: CommandContext<CommandSourceStack>): Int {
-    if(!ScriptorConfig.CAST_COMMAND_ENABLED()) {
-      command.source.sendSystemMessage(Component.translatable("command.scriptor.cast_not_enabled").withStyle(ChatFormatting.RED))
-      return Command.SINGLE_SUCCESS
+    if (!ScriptorConfig.CAST_COMMAND_ENABLED()) {
+      command.source.sendSystemMessage(
+        Component.translatable("command.scriptor.cast_not_enabled").withStyle(ChatFormatting.RED)
+      )
+      return 0
     }
 
     if (command.source.entity is Player) {

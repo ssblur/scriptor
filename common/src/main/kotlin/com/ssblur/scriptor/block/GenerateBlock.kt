@@ -15,8 +15,8 @@ import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.EnumProperty
 
-class GenerateBlock: Block(Properties.of()), EntityBlock {
-  enum class Feature(var feature: String): StringRepresentable {
+class GenerateBlock : Block(Properties.of()), EntityBlock {
+  enum class Feature(var feature: String) : StringRepresentable {
     NONE("none"),
     ENGRAVING("engraving"),
     VILLAGER_ENGRAVING("villager_engraving"),
@@ -34,7 +34,7 @@ class GenerateBlock: Block(Properties.of()), EntityBlock {
   override fun newBlockEntity(blockPos: BlockPos, blockState: BlockState): BlockEntity =
     ScriptorBlockEntities.GENERATE.create(blockPos, blockState)!!
 
-  override fun <T: BlockEntity?> getTicker(
+  override fun <T : BlockEntity?> getTicker(
     level: Level,
     blockState: BlockState,
     blockEntityType: BlockEntityType<T>

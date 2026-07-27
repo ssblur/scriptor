@@ -8,7 +8,7 @@ import com.ssblur.scriptor.registry.TokenGeneratorRegistry
 import com.ssblur.scriptor.registry.TokenGeneratorRegistry.getGenerator
 import java.lang.reflect.Type
 
-class StaticTokenGenerator(obj: JsonObject?): TokenGenerator() {
+class StaticTokenGenerator(obj: JsonObject?) : TokenGenerator() {
   enum class CollisionStrategy {
     FAIL,
     FALLBACK,
@@ -71,7 +71,7 @@ class StaticTokenGenerator(obj: JsonObject?): TokenGenerator() {
   }
 
   companion object {
-    var PARAMETERS_TYPE: Type = object: TypeToken<StaticTokenParameters?>() {}.type
+    var PARAMETERS_TYPE: Type = object : TypeToken<StaticTokenParameters?>() {}.type
     var GSON: Gson = Gson()
   }
 }

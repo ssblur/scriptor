@@ -123,25 +123,17 @@ object ScriptorNetworkC2S {
 
     if (carried.isEmpty) return@registerC2S
 
-    if(level is ServerLevel)
+    if (level is ServerLevel)
       SpellbookHelper.castFromItem(
         carried,
         player,
         maxCost = (ScriptorConfig.TOME_MAX_COST.invoke() * 20),
         targetOverride = listOf(ItemTargetable(item, player)),
       )
-//    val text = carried.get(DataComponents.WRITTEN_BOOK_CONTENT)
-//    if (text != null && level is ServerLevel) {
-//      val spell = computeIfAbsent(level).parse(decodeText(text)) ?: return@registerC2S
-//      if (spell.subject is InventorySubject) {
-//        (spell.subject as InventorySubject).castOnItem(spell, player, item)
-//        player.cooldowns.addCooldown(carried.item, (spell.cost() * 7).roundToInt())
-//      }
-//    }
   }
 
   fun register() {
-    TraceNetwork
-    WritingTableNetwork
+    TraceNetwork.init()
+    WritingTableNetwork.init()
   }
 }

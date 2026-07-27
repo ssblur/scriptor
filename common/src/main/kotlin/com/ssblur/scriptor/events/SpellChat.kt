@@ -55,7 +55,7 @@ object SpellChat {
   }
 
   fun castFromChat(player: Player, level: ServerLevel, sentence: String): Boolean {
-    if(!ScriptorConfig.CHAT_CAST_ENABLED()) return false
+    if (!ScriptorConfig.CHAT_CAST_ENABLED()) return false
     val spell = computeIfAbsent(level).parse(sentence)
     if (spell != null) {
       if (!player.canCast(spell)) {
@@ -70,9 +70,9 @@ object SpellChat {
       var costScale = 1.0f
       for (instance in player.activeEffects)
         if (instance.effect.value() is EmpoweredStatusEffect)
-            (0..instance.amplifier).forEach { _ ->
-              costScale *= (instance.effect.value() as EmpoweredStatusEffect).scale
-            }
+          (0..instance.amplifier).forEach { _ ->
+            costScale *= (instance.effect.value() as EmpoweredStatusEffect).scale
+          }
       cost = ((cost.toFloat()) * costScale).roundToInt()
 
       if (ScriptorConfig.VOCAL_MAX_COST() in 0..<cost)

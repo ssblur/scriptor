@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.network.chat.FormattedText
 import net.minecraft.world.item.ItemStack
 
-class ObfuscatedSpellbook(properties: Properties): Spellbook(properties) {
+class ObfuscatedSpellbook(properties: Properties) : Spellbook(properties) {
   override fun drawPage(
     itemStack: ItemStack,
     page: Int,

@@ -9,7 +9,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.WritableBookItem
 import net.minecraft.world.level.Level
 
-class WritableSpellbook(properties: Properties): WritableBookItem(properties) {
+class WritableSpellbook(properties: Properties) : WritableBookItem(properties) {
   override fun use(
     level: Level,
     player: Player,

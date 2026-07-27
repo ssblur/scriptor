@@ -12,7 +12,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import java.util.concurrent.CompletableFuture
 
-class RuneSubject: Subject(), InventorySubject {
+class RuneSubject : Subject(), InventorySubject {
   override fun getTargets(caster: Targetable, spell: Spell): CompletableFuture<List<Targetable>> {
     val result = CompletableFuture<List<Targetable>>()
     if (caster is EntityTargetable && caster.targetEntity is Player) {

@@ -10,7 +10,7 @@ import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.AABB
 
-class NearbyAnimalsCastingCrystal(properties: Properties): CasterCrystal(properties) {
+class NearbyAnimalsCastingCrystal(properties: Properties) : CasterCrystal(properties) {
   override fun getTargetables(itemStack: ItemStack?, level: Level?, caster: Targetable): List<Targetable?> {
     return level
       ?.getEntitiesOfClass(Animal::class.java, AABB.ofSize(caster.targetPos, 8.0, 8.0, 8.0))

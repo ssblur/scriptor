@@ -6,7 +6,7 @@ import net.minecraft.world.item.Items
 
 object DyeColorableItems {
   val DYE = DyeColorableItem()
-  
+
   init {
     DYE.add(Items.BLACK_DYE, DyeColor.BLACK)
     DYE.add(Items.WHITE_DYE, DyeColor.WHITE)

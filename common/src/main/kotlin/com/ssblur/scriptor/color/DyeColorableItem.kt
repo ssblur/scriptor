@@ -9,7 +9,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import java.util.*
 
-class DyeColorableItem: ColorableItem {
+class DyeColorableItem : ColorableItem {
   var items: BiMap<DyeColor, Item> = HashBiMap.create()
   var random: Random = Random()
 

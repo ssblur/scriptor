@@ -18,11 +18,11 @@ import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 
-open class ChalkBlockEntity: BlockEntity {
+open class ChalkBlockEntity : BlockEntity {
   var word: String
   var facing: Direction
 
-  constructor(blockPos: BlockPos, blockState: BlockState): super(
+  constructor(blockPos: BlockPos, blockState: BlockState) : super(
     ScriptorBlockEntities.CHALK.get(),
     blockPos,
     blockState
@@ -31,7 +31,7 @@ open class ChalkBlockEntity: BlockEntity {
     facing = Direction.EAST
   }
 
-  constructor(blockEntityType: BlockEntityType<*>, blockPos: BlockPos, blockState: BlockState): super(
+  constructor(blockEntityType: BlockEntityType<*>, blockPos: BlockPos, blockState: BlockState) : super(
     blockEntityType,
     blockPos,
     blockState

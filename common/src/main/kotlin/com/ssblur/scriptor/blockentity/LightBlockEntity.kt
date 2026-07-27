@@ -10,7 +10,7 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
 
-class LightBlockEntity(blockPos: BlockPos, blockState: BlockState):
+class LightBlockEntity(blockPos: BlockPos, blockState: BlockState) :
   BlockEntity(ScriptorBlockEntities.LIGHT.get(), blockPos, blockState), Colorable {
   var colorInternal: Int = 0
   fun getColor(): Int {

@@ -11,15 +11,16 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import kotlin.math.min
 
-class ReagentDescriptor(var item: Item, var cost: Double, var strength: Double): Descriptor(), CastDescriptor, AfterCastDescriptor, StrengthDescriptor {
+class ReagentDescriptor(var item: Item, var cost: Double, var strength: Double) : Descriptor(), CastDescriptor,
+  AfterCastDescriptor, StrengthDescriptor {
   override fun cost() = Cost.add(-cost)
 
   override fun cannotCast(caster: Targetable?): Boolean {
     val c = runningTotals.getOrDefault(item, 0) + 1
     runningTotals[item] = c
     val container = if (caster is InventoryTargetable && caster.container != null) caster.container
-      else if (caster is EntityTargetable && caster.targetEntity is Player) (caster.targetEntity as Player).inventory
-      else null
+    else if (caster is EntityTargetable && caster.targetEntity is Player) (caster.targetEntity as Player).inventory
+    else null
 
     if (container != null && container.countItem(item) >= c) return false
 

@@ -6,8 +6,13 @@ import com.ssblur.scriptor.helpers.targetable.Targetable
 import com.ssblur.scriptor.word.descriptor.power.StrengthDescriptor
 import net.minecraft.server.level.ServerLevel
 
-class ClearWeatherAction: Action() {
-  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>, spellData: MutableList<String>) {
+class ClearWeatherAction : Action() {
+  override fun apply(
+    caster: Targetable,
+    targetable: Targetable,
+    descriptors: Array<Descriptor>,
+    spellData: MutableList<String>
+  ) {
     if (targetable.level.isClientSide) return
     var strength = 2.0
     for (d in descriptors) {

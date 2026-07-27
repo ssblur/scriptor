@@ -10,7 +10,7 @@ import net.minecraft.world.item.Tier
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.block.Block
 
-class BoundTool(tier: Tier, tagKey: TagKey<Block>, properties: Properties):
+class BoundTool(tier: Tier, tagKey: TagKey<Block>, properties: Properties) :
   DiggerItem(tier, tagKey, properties) {
   override fun appendHoverText(
     itemStack: ItemStack,
@@ -19,7 +19,7 @@ class BoundTool(tier: Tier, tagKey: TagKey<Block>, properties: Properties):
     tooltipFlag: TooltipFlag
   ) {
     super.appendHoverText(itemStack, tooltipContext, list, tooltipFlag)
-    if(!itemStack.has(ScriptorDataComponents.EXPIRES))
+    if (!itemStack.has(ScriptorDataComponents.EXPIRES))
       list.add(Component.translatable("lore.scriptor.bound_tool").withStyle(ChatFormatting.GRAY))
   }
 }

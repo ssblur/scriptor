@@ -8,7 +8,7 @@ import com.ssblur.scriptor.word.descriptor.CastDescriptor
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.LivingEntity
 
-class WeakDescriptor: Descriptor(), CastDescriptor, ConditionalWord {
+class WeakDescriptor : Descriptor(), CastDescriptor, ConditionalWord {
   override fun cost() = Cost(0.9, COSTTYPE.MULTIPLICATIVE)
 
   override fun cannotCast(caster: Targetable?): Boolean {

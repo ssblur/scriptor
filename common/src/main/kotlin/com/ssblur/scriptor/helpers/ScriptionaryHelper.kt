@@ -26,19 +26,21 @@ object ScriptionaryHelper {
    * @param note The location of the markdown file (minus locale dir) of the note to award.
    */
   fun awardPlayerNote(player: Player, note: ResourceLocation) {
-    if(player.level().isClientSide) return
+    if (player.level().isClientSide) return
     val location = note.toString()
-    if(player.hasNote(note)) return
+    if (player.hasNote(note)) return
 
-    if(player.inventory.contains { it matches ScriptorItems.DICTIONARY.get() })
-      player.sendSystemMessage(Component.translatable("extra.scriptor.record_scriptionary")
-        .withStyle(ChatFormatting.GRAY)
-        .withStyle(ChatFormatting.ITALIC)
+    if (player.inventory.contains { it matches ScriptorItems.DICTIONARY.get() })
+      player.sendSystemMessage(
+        Component.translatable("extra.scriptor.record_scriptionary")
+          .withStyle(ChatFormatting.GRAY)
+          .withStyle(ChatFormatting.ITALIC)
       )
     else
-      player.sendSystemMessage(Component.translatable("extra.scriptor.record_no_scriptionary")
-        .withStyle(ChatFormatting.GRAY)
-        .withStyle(ChatFormatting.ITALIC)
+      player.sendSystemMessage(
+        Component.translatable("extra.scriptor.record_no_scriptionary")
+          .withStyle(ChatFormatting.GRAY)
+          .withStyle(ChatFormatting.ITALIC)
       )
 
     PlayerScriptionarySavedData.computeIfAbsent(player)?.let {
@@ -60,10 +62,10 @@ object ScriptionaryHelper {
    * @param spell The spell as spoken
    */
   fun recordSpell(player: Player, spell: String, component: String? = null) {
-    if(player.level().isClientSide) return
-    if(PlayerScriptionarySavedData.computeIfAbsent(player)?.observations?.any {
-      it.first.trim() == spell.trim()
-    } == true)
+    if (player.level().isClientSide) return
+    if (PlayerScriptionarySavedData.computeIfAbsent(player)?.observations?.any {
+        it.first.trim() == spell.trim()
+      } == true)
       return
     PlayerScriptionarySavedData.computeIfAbsent(player)?.let {
       it.observations.add(Pair(spell, component ?: ""))
@@ -82,7 +84,7 @@ object ScriptionaryHelper {
    * @param spell The spell object
    */
   fun recordSpell(player: Player, spell: Spell, component: String? = null) {
-    if(player.level().isClientSide) return
+    if (player.level().isClientSide) return
     player.awardNote(ScriptorMod.location("oddities/entity_casting"))
     recordSpell(
       player,
@@ -96,7 +98,7 @@ object ScriptionaryHelper {
    * @param player The player to get notes for
    */
   fun getPlayerNotes(player: Player): List<String> {
-    if(player.level().isClientSide) return PLAYER_NOTES
+    if (player.level().isClientSide) return PLAYER_NOTES
     return PlayerScriptionarySavedData.computeIfAbsent(player)?.unlocks ?: listOf()
   }
 

@@ -16,8 +16,13 @@ import net.minecraft.world.item.component.DyedItemColor
 import kotlin.math.floor
 import kotlin.math.roundToInt
 
-class FoodAction(): Action() {
-  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>, spellData: MutableList<String>) {
+class FoodAction() : Action() {
+  override fun apply(
+    caster: Targetable,
+    targetable: Targetable,
+    descriptors: Array<Descriptor>,
+    spellData: MutableList<String>
+  ) {
     var strength = 3
     var saturation = 2.0f
     for (d in descriptors) {

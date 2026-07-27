@@ -9,6 +9,7 @@ import com.ssblur.scriptor.word.Spell
 
 class SpellResource(var subject: String, var spells: List<PartialSpellResource>, var spellData: List<String>?) {
   class PartialSpellResource(var action: String, var descriptors: List<String>)
+
   fun getSpell(): Spell {
     val spells = mutableListOf<PartialSpell>()
     for (spell in this.spells) {

@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider
 import org.joml.Random
 
-class LightBlockEntityRenderer(@Suppress("unused_parameter") context: BlockEntityRendererProvider.Context?):
+class LightBlockEntityRenderer(@Suppress("unused_parameter") context: BlockEntityRendererProvider.Context?) :
   BlockEntityRenderer<LightBlockEntity> {
   override fun render(
     light: LightBlockEntity,

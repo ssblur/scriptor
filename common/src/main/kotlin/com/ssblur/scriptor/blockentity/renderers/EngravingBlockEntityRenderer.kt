@@ -20,7 +20,7 @@ import net.minecraft.core.Direction
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 
-class EngravingBlockEntityRenderer(@Suppress("unused_parameter") context: BlockEntityRendererProvider.Context?):
+class EngravingBlockEntityRenderer(@Suppress("unused_parameter") context: BlockEntityRendererProvider.Context?) :
   BlockEntityRenderer<EngravingBlockEntity> {
   override fun render(
     blockEntity: EngravingBlockEntity,

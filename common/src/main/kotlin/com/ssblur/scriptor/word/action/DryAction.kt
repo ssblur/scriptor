@@ -14,8 +14,13 @@ import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.BucketPickup
 import net.minecraft.world.level.block.LiquidBlock
 
-class DryAction: Action() {
-  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>, spellData: MutableList<String>) {
+class DryAction : Action() {
+  override fun apply(
+    caster: Targetable,
+    targetable: Targetable,
+    descriptors: Array<Descriptor>,
+    spellData: MutableList<String>
+  ) {
     if (targetable.level.isClientSide) return
 
     val itemTarget = ItemTargetableHelper.getTargetItemStack(
@@ -23,7 +28,7 @@ class DryAction: Action() {
       false
     ) { !it.isEmpty && it.isDamageableItem }
     if (!itemTarget.isEmpty) {
-      if(itemTarget.item is BucketItem) {
+      if (itemTarget.item is BucketItem) {
         itemTarget.shrink(1)
         ItemTargetableHelper.depositItemStack(caster, ItemStack(Items.BUCKET))
       }
@@ -35,9 +40,9 @@ class DryAction: Action() {
     val level = targetable.level as ServerLevel
 
     val block = state.block
-    if(block is LiquidBlock) {
+    if (block is LiquidBlock) {
       level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState())
-    } else if(block is BucketPickup) {
+    } else if (block is BucketPickup) {
       if (caster is EntityTargetable && caster.targetEntity is Player) {
         block.pickupBlock(caster.targetEntity as Player, level, pos, state)
       } else {

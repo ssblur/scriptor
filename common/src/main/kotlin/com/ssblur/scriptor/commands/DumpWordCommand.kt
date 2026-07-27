@@ -31,7 +31,8 @@ object DumpWordCommand {
   ) {
     var command = Commands.literal("scriptor")
 
-    command = command.then(Commands
+    command = command.then(
+      Commands
       .literal("get_action")
       .then(
         Commands.argument("word", StringArgumentType.string())
@@ -62,7 +63,8 @@ object DumpWordCommand {
       }))
     )
 
-    command = command.then(Commands
+    command = command.then(
+      Commands
       .literal("get_descriptor")
       .then(
         Commands.argument("word", StringArgumentType.string())
@@ -89,7 +91,8 @@ object DumpWordCommand {
       }
     )
 
-    command = command.then(Commands
+    command = command.then(
+      Commands
       .literal("get_subject")
       .then(
         Commands.argument("word", StringArgumentType.string())
@@ -117,7 +120,8 @@ object DumpWordCommand {
       }
     )
 
-    command = command.then(Commands
+    command = command.then(
+      Commands
       .literal("get_other")
       .then(
         Commands.argument("word", StringArgumentType.string())

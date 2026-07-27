@@ -17,7 +17,7 @@ class MagicParticle(
   yd: Double,
   zd: Double,
   spriteSet: SpriteSet
-): TextureSheetParticle(level, d, e, f, 0.0, 0.0, 0.0) {
+) : TextureSheetParticle(level, d, e, f, 0.0, 0.0, 0.0) {
   init {
     this.xd = xd + (Math.random() / 20 - 0.025f)
     this.yd = yd + (Math.random() / 20 - 0.025f)
@@ -61,7 +61,7 @@ class MagicParticle(
     return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT
   }
 
-  class Provider(val spriteSet: SpriteSet): ParticleProvider.Sprite<MagicParticleData> {
+  class Provider(val spriteSet: SpriteSet) : ParticleProvider.Sprite<MagicParticleData> {
     override fun createParticle(
       data: MagicParticleData,
       level: ClientLevel,

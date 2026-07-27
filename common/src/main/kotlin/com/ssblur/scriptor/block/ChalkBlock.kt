@@ -27,8 +27,8 @@ import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
 
-open class ChalkBlock: Block, EntityBlock {
-  constructor(): super(
+open class ChalkBlock : Block, EntityBlock {
+  constructor() : super(
     Properties.of()
       .instabreak()
       .noLootTable()
@@ -36,7 +36,7 @@ open class ChalkBlock: Block, EntityBlock {
       .noCollission()
   )
 
-  constructor(properties: Properties): super(properties)
+  constructor(properties: Properties) : super(properties)
 
   public override fun getShape(
     blockState: BlockState,
@@ -64,7 +64,7 @@ open class ChalkBlock: Block, EntityBlock {
     if (blockEntity !is ChalkBlockEntity)
       return super.useItemOn(itemStack, blockState, level, blockPos, player, interactionHand, blockHitResult)
 
-    if(itemStack matches ScriptorItems.DICTIONARY.get()) {
+    if (itemStack matches ScriptorItems.DICTIONARY.get()) {
       val data = itemStack[ScriptorDataComponents.DICTIONARY_DATA] ?: DictionaryData(listOf())
       itemStack[ScriptorDataComponents.DICTIONARY_DATA] = data.withWord(blockEntity.word)
       return ItemInteractionResult.SUCCESS

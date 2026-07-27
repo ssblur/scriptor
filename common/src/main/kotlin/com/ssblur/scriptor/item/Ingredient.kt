@@ -6,7 +6,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 
-class Ingredient(properties: Properties, vararg val description: String): Item(properties) {
+class Ingredient(properties: Properties, vararg val description: String) : Item(properties) {
   override fun appendHoverText(
     itemStack: ItemStack,
     level: TooltipContext,

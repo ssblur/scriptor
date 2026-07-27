@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.DirectionalBlock
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 
-class RedirectCrystalBlock: DirectionalBlock(Properties.ofFullCopy(Blocks.AMETHYST_BLOCK).noOcclusion()) {
+class RedirectCrystalBlock : DirectionalBlock(Properties.ofFullCopy(Blocks.AMETHYST_BLOCK).noOcclusion()) {
   override fun codec(): MapCodec<out DirectionalBlock?> = MapCodec.unit(this)
   override fun getStateForPlacement(blockPlaceContext: BlockPlaceContext): BlockState =
     defaultBlockState().setValue(FACING, blockPlaceContext.clickedFace)

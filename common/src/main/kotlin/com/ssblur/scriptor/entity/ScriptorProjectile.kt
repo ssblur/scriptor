@@ -21,7 +21,7 @@ import net.minecraft.world.phys.Vec3
 import java.util.concurrent.CompletableFuture
 import kotlin.jvm.optionals.getOrNull
 
-class ScriptorProjectile(entityType: EntityType<ScriptorProjectile?>, level: Level): Entity(entityType, level) {
+class ScriptorProjectile(entityType: EntityType<ScriptorProjectile?>, level: Level) : Entity(entityType, level) {
   var completable: CompletableFuture<List<Targetable>>? = null
   var origin: Vec3? = null
   var collidesWithWater: Boolean = false
@@ -91,7 +91,7 @@ class ScriptorProjectile(entityType: EntityType<ScriptorProjectile?>, level: Lev
           position(),
           dest,
           ClipContext.Block.COLLIDER,
-          if(collidesWithWater) ClipContext.Fluid.ANY else ClipContext.Fluid.NONE,
+          if (collidesWithWater) ClipContext.Fluid.ANY else ClipContext.Fluid.NONE,
           this
         )
       )
@@ -99,9 +99,9 @@ class ScriptorProjectile(entityType: EntityType<ScriptorProjectile?>, level: Lev
     if (blockHitResult.type != HitResult.Type.MISS) {
       dest = blockHitResult.location
       val blockPos = blockHitResult.blockPos
-      if(origin == blockPos.center) return
+      if (origin == blockPos.center) return
       val state = level.getBlockState(blockPos)
-      if(state matches ScriptorBlocks.REDIRECT_CRYSTAL.first.get()) {
+      if (state matches ScriptorBlocks.REDIRECT_CRYSTAL.first.get()) {
 //        if(blockPos.center.distanceTo(position()) > 0.2) return
 //        val vel = (deltaMovement.x + deltaMovement.y + deltaMovement.z).absoluteValue
         val vel = 1.0

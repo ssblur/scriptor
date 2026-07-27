@@ -21,7 +21,7 @@ import net.minecraft.world.level.block.state.BlockState
 import kotlin.math.max
 import kotlin.math.min
 
-class GenerateBlockEntity(blockPos: BlockPos, blockState: BlockState):
+class GenerateBlockEntity(blockPos: BlockPos, blockState: BlockState) :
   BlockEntity(ScriptorBlockEntities.GENERATE.get(), blockPos, blockState) {
   companion object {
     fun generateEngraving(level: ServerLevel, pos: BlockPos) {
@@ -52,27 +52,27 @@ class GenerateBlockEntity(blockPos: BlockPos, blockState: BlockState):
       nz -= 1
       px += 1
       pz += 1
-      for(x in nx..px)
-        for(z in nz..pz)
+      for (x in nx..px)
+        for (z in nz..pz)
           level.setBlockAndUpdate(pos.offset(x, -1, z), stoneBricks(level))
 
-      for(z in nz..pz) {
-        if(level.random.nextInt(2) == 0)
+      for (z in nz..pz) {
+        if (level.random.nextInt(2) == 0)
           level.setBlockAndUpdate(pos.offset(nx, 0, z), stoneBrickWall(level))
-        if(level.random.nextInt(2) == 0)
+        if (level.random.nextInt(2) == 0)
           level.setBlockAndUpdate(pos.offset(px, 0, z), stoneBrickWall(level))
       }
 
-      for(x in nx..px) {
-        if(level.random.nextInt(2) == 0)
+      for (x in nx..px) {
+        if (level.random.nextInt(2) == 0)
           level.setBlockAndUpdate(pos.offset(x, 0, nz), stoneBrickWall(level))
-        if(level.random.nextInt(2) == 0)
+        if (level.random.nextInt(2) == 0)
           level.setBlockAndUpdate(pos.offset(x, 0, pz), stoneBrickWall(level))
       }
 
       spiral = ShapeHelper.invertedSpiral().iterator()
       var first = true
-      for(word in words) {
+      for (word in words) {
         val n = spiral.next().let { pos.offset(it.x, 0, it.y) }
         engrave(level, n, word, first)
         first = false
@@ -120,23 +120,23 @@ class GenerateBlockEntity(blockPos: BlockPos, blockState: BlockState):
     }
 
     fun stoneBricks(level: Level) =
-      when(level.random.nextInt(4)) {
+      when (level.random.nextInt(4)) {
         0 -> Blocks.CRACKED_STONE_BRICKS
         1 -> Blocks.MOSSY_STONE_BRICKS
         else -> Blocks.STONE_BRICKS
       }.defaultBlockState()
 
     fun stoneBrickWall(level: Level) =
-      when(level.random.nextInt(4)) {
+      when (level.random.nextInt(4)) {
         0 -> Blocks.MOSSY_STONE_BRICK_WALL
         else -> Blocks.STONE_BRICK_WALL
       }.defaultBlockState()
 
     @Suppress("unused_parameter")
-    fun <T: BlockEntity?> tick(level: Level, pos: BlockPos, state: BlockState, entity: T) {
+    fun <T : BlockEntity?> tick(level: Level, pos: BlockPos, state: BlockState, entity: T) {
       if (level.isClientSide || ScriptorConfig.DO_NOT_GENERATE()) return
 
-      when(state.getValue(GenerateBlock.FEATURE)) {
+      when (state.getValue(GenerateBlock.FEATURE)) {
         GenerateBlock.Feature.NONE -> {}
         GenerateBlock.Feature.ENGRAVING -> generateEngraving(level as ServerLevel, pos)
         GenerateBlock.Feature.VILLAGER_ENGRAVING -> generateVillagerEngraving(level as ServerLevel, pos)

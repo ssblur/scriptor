@@ -25,8 +25,8 @@ import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.DirectionalBlock
 import org.apache.commons.lang3.tuple.Pair
 
-class CoordinateCasterCrystal(properties: Properties): CasterCrystal(properties), ItemWithCustomRenderer {
-  class BlockPosDirection(var blockPos: BlockPos, var direction: Direction): Pair<BlockPos, Direction>() {
+class CoordinateCasterCrystal(properties: Properties) : CasterCrystal(properties), ItemWithCustomRenderer {
+  class BlockPosDirection(var blockPos: BlockPos, var direction: Direction) : Pair<BlockPos, Direction>() {
     override fun getLeft(): BlockPos {
       return blockPos
     }
@@ -152,7 +152,7 @@ class CoordinateCasterCrystal(properties: Properties): CasterCrystal(properties)
     matrix: PoseStack?,
     buffer: MultiBufferSource
   ) {
-    if(matrix == null) return
+    if (matrix == null) return
     val minecraft = Minecraft.getInstance()
     val dispatcher = minecraft.blockRenderer
     val gameRenderer = minecraft.gameRenderer

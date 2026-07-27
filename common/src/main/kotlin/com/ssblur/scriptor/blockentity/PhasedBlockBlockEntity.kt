@@ -19,7 +19,7 @@ import net.minecraft.world.level.material.Fluids
 import kotlin.math.max
 import kotlin.math.min
 
-class PhasedBlockBlockEntity(blockPos: BlockPos, blockState: BlockState):
+class PhasedBlockBlockEntity(blockPos: BlockPos, blockState: BlockState) :
   BlockEntity(ScriptorBlockEntities.PHASED_BLOCK.get(), blockPos, blockState) {
   var data: CompoundTag? = null
   var phasedBlockState: BlockState? = null
@@ -76,7 +76,8 @@ class PhasedBlockBlockEntity(blockPos: BlockPos, blockState: BlockState):
     try {
       val state = BlockState.CODEC.encodeStart(NbtOps.INSTANCE, phasedBlockState)
       state.result().ifPresent { result: Tag -> tag.put("blockState", result) }
-    } catch (_: NullPointerException) {}
+    } catch (_: NullPointerException) {
+    }
   }
 
   val anim: Float
@@ -95,7 +96,7 @@ class PhasedBlockBlockEntity(blockPos: BlockPos, blockState: BlockState):
     const val ANIM_DURATION = 5L
     const val ANIM_FLOOR = 0.2f
     const val ANIM_DIFF = 1f - ANIM_FLOOR
-    fun <T: BlockEntity?> tick(entity: T) {
+    fun <T : BlockEntity?> tick(entity: T) {
       if (entity is PhasedBlockBlockEntity) entity.tick()
     }
 
@@ -109,17 +110,17 @@ class PhasedBlockBlockEntity(blockPos: BlockPos, blockState: BlockState):
       }
 
       val state = level.getBlockState(pos)
-      if(invalidForPhasing(state, level, pos)) return
+      if (invalidForPhasing(state, level, pos)) return
 
       if (level.isClientSide && (phasable(state, level, pos) != INVERT_DO_NOT_PHASE)) return
       if (!level.isClientSide && (phasable(state, level, pos) != ScriptorConfig.INVERT_DO_NOT_PHASE())) return
 
       var data: CompoundTag? = null
-      if(entity != null) data = entity.saveWithFullMetadata(level.registryAccess())
+      if (entity != null) data = entity.saveWithFullMetadata(level.registryAccess())
       level.removeBlockEntity(pos)
 
       var newState = ScriptorBlocks.PHASED_BLOCK.get().defaultBlockState()
-      if(level.getFluidState(pos).`is`(Fluids.EMPTY)) newState = newState.setValue(PhasedBlock.WATERLOGGED, false)
+      if (level.getFluidState(pos).`is`(Fluids.EMPTY)) newState = newState.setValue(PhasedBlock.WATERLOGGED, false)
       else newState = newState.setValue(PhasedBlock.WATERLOGGED, true)
       level.setBlockAndUpdate(pos, newState)
 
@@ -135,12 +136,13 @@ class PhasedBlockBlockEntity(blockPos: BlockPos, blockState: BlockState):
 
     fun invalidForPhasing(state: BlockState, level: Level, pos: BlockPos): Boolean {
       @Suppress("DEPRECATION")
-      if(state.liquid() || state.isAir) return true
-      if(state.getCollisionShape(level, pos).isEmpty) return true
-      if(state.getDestroySpeed(level, pos) < 0f) return true
+      if (state.liquid() || state.isAir) return true
+      if (state.getCollisionShape(level, pos).isEmpty) return true
+      if (state.getDestroySpeed(level, pos) < 0f) return true
       return false
     }
 
+    @Suppress("unused")
     fun phasable(state: BlockState, level: Level, pos: BlockPos): Boolean {
       return state matches ScriptorBlocks.DO_NOT_PHASE
     }

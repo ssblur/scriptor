@@ -14,7 +14,7 @@ import java.io.IOException
 import java.nio.file.Files
 import java.util.*
 
-class PlayerSpellsSavedData: SavedData {
+class PlayerSpellsSavedData : SavedData {
   var spells: HashMap<Int, HashMap<String, Boolean>> = HashMap()
   var scraps: HashMap<Int, HashMap<String, Boolean>> = HashMap()
 

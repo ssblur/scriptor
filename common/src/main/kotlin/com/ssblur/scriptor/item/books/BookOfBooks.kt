@@ -20,7 +20,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 
-class BookOfBooks(properties: Properties, var capacity: Int): Item(properties),
+class BookOfBooks(properties: Properties, var capacity: Int) : Item(properties),
   ItemWithCustomRenderer {
   override fun overrideOtherStackedOnMe(
     book: ItemStack,

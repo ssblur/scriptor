@@ -40,5 +40,6 @@ interface ItemWithCustomRenderer {
     itemStack: ItemStack,
     matrix: PoseStack?,
     buffer: MultiBufferSource
-  ) {}
+  ) {
+  }
 }

@@ -31,7 +31,8 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
   }
 
   var subscreen = SUBSCREENS.MAIN
-//  var guideCategory: String? = null
+
+  //  var guideCategory: String? = null
   var searchTerm = ""
   var bookMemory = abstractContainerMenu.dictionary.hashCode()
 
@@ -98,7 +99,7 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
         )
 
         wy += 28
-        if(ScriptionaryHelper.PLAYER_OBSERVATIONS.any())
+        if (ScriptionaryHelper.PLAYER_OBSERVATIONS.any())
           add(
             ButtonWidget(leftPos + 20, wy, 225, 24, Component.translatable("extra.scriptor.observed_spells")) {
               subscreen = SUBSCREENS.OBSERVED_SPELLS
@@ -184,27 +185,27 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
   }
 
   fun entryMarkdown() = try {
-      (menu.dictionary[ScriptorDataComponents.DICTIONARY_DATA]?.values ?: listOf()).map { (word, entry) ->
-        if(I18n.exists(entry))
-          listOf(word, I18n.get(entry))
-        else if(I18n.exists(entry.replace(":", ".scriptor.")))
-          listOf(word, I18n.get(entry.replace(":", ".scriptor.")))
-        else listOf(word, entry)
-      }.filter {
-        it.any { w -> w.lowercase().contains(searchTerm.lowercase()) }
-      }.joinToString(separator = "\n\n") {
-        "**${it[0]}**: ${it[1]}"
-      }.trimEnd()
-    } catch (_: FileNotFoundException) {
-      "Unable to load dictionary entry. Are you using a resource pack that overwrites scriptor files?"
-    }
+    (menu.dictionary[ScriptorDataComponents.DICTIONARY_DATA]?.values ?: listOf()).map { (word, entry) ->
+      if (I18n.exists(entry))
+        listOf(word, I18n.get(entry))
+      else if (I18n.exists(entry.replace(":", ".scriptor.")))
+        listOf(word, I18n.get(entry.replace(":", ".scriptor.")))
+      else listOf(word, entry)
+    }.filter {
+      it.any { w -> w.lowercase().contains(searchTerm.lowercase()) }
+    }.joinToString(separator = "\n\n") {
+      "**${it[0]}**: ${it[1]}"
+    }.trimEnd()
+  } catch (_: FileNotFoundException) {
+    "Unable to load dictionary entry. Are you using a resource pack that overwrites scriptor files?"
+  }
 
   fun observationsComponent(): Component = ScriptionaryHelper.PLAYER_OBSERVATIONS.map {
     Component.literal("<").append(it.second).append("> ").append(it.first).append("\n\n")
   }.let {
     val component = Component.empty()
     it.forEach { c -> component.append(c) }
-    if(component.string.trim().isEmpty())
+    if (component.string.trim().isEmpty())
       Component.translatable("extra.scriptor.empty")
         .withStyle(ChatFormatting.GRAY)
         .withStyle(ChatFormatting.ITALIC)
@@ -214,7 +215,7 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
   fun addEntriesWidget() {
     val categories = mutableMapOf<String, MutableList<String>>()
     (ScriptionaryHelper.PLAYER_NOTES + DEFAULT_ENTRIES).distinct().forEach {
-      val cat = if(it.contains("/")) it.split("/")[0] else ""
+      val cat = if (it.contains("/")) it.split("/")[0] else ""
       categories[cat] = categories[cat] ?: mutableListOf()
       categories[cat]!!.add(it)
     }
@@ -232,15 +233,17 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
       categoriesMarkdown += "\n"
     }
 
-    add(MarkdownWidget(
-      leftPos + 20,
-      topPos + 20,
-      225,
-      142,
-      LocalizedMarkdownReader.read(ScriptorMod.location("dictionary")) + categoriesMarkdown,
-      false,
-      commandsAllowed = true
-    )).setColor(0, 0, 0)
+    add(
+      MarkdownWidget(
+        leftPos + 20,
+        topPos + 20,
+        225,
+        142,
+        LocalizedMarkdownReader.read(ScriptorMod.location("dictionary")) + categoriesMarkdown,
+        false,
+        commandsAllowed = true
+      )
+    ).setColor(0, 0, 0)
   }
 
 //  fun addEntriesWidget() {

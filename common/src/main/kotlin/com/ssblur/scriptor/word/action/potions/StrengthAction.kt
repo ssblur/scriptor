@@ -6,7 +6,7 @@ import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.item.BoneMealItem
 import net.minecraft.world.item.ItemStack
 
-class StrengthAction: PotionAction(MobEffects.DAMAGE_BOOST, 40.0, 1.0 / 3.0, Cost(9.0, COSTTYPE.ADDITIVE)) {
+class StrengthAction : PotionAction(MobEffects.DAMAGE_BOOST, 40.0, 1.0 / 3.0, Cost(9.0, COSTTYPE.ADDITIVE)) {
   override fun applyToPosition(
     caster: Targetable?,
     targetable: Targetable?,

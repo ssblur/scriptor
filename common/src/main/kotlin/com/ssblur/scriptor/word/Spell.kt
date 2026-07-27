@@ -41,7 +41,7 @@ class Spell(val subject: Subject?, vararg val spells: PartialSpell, val spellDat
     val castData = spellData.toMutableList()
     val entity: Entity? = if (caster is EntityTargetable) caster.targetEntity else null
 
-    if(castHooks) {
+    if (castHooks) {
       for (descriptor in spells[0].deduplicatedDescriptors()) {
         if (descriptor is CastDescriptor)
           if (descriptor.cannotCast(caster)) {
@@ -93,7 +93,7 @@ class Spell(val subject: Subject?, vararg val spells: PartialSpell, val spellDat
     }
 
 
-    if(castHooks) {
+    if (castHooks) {
       for (descriptor in spells[0].deduplicatedDescriptors())
         if (descriptor is AfterCastDescriptor) descriptor.afterCast(caster)
     }
@@ -229,6 +229,7 @@ class Spell(val subject: Subject?, vararg val spells: PartialSpell, val spellDat
     playSound(level, Vec3(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble()))
   }
 
+  @Suppress("unused")
   fun playSound(level: Level, pos: Vector3f) {
     playSound(level, Vec3(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble()))
   }
@@ -252,6 +253,7 @@ class Spell(val subject: Subject?, vararg val spells: PartialSpell, val spellDat
       playFizzleSound(level, Vec3(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble()))
     }
 
+    @Suppress("unused")
     fun playFizzleSound(level: Level, pos: Vector3f) {
       playFizzleSound(level, Vec3(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble()))
     }

@@ -11,7 +11,7 @@ import net.minecraft.core.Direction
 import net.minecraft.util.Mth
 import net.minecraft.util.RandomSource
 
-class PhasedBlockBlockEntityRenderer(var context: BlockEntityRendererProvider.Context):
+class PhasedBlockBlockEntityRenderer(var context: BlockEntityRendererProvider.Context) :
   BlockEntityRenderer<PhasedBlockBlockEntity> {
   override fun render(
     blockEntity: PhasedBlockBlockEntity,

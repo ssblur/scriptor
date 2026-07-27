@@ -8,7 +8,7 @@ import net.minecraft.network.codec.StreamCodec
 
 object ScriptorParticles {
   val MAGIC = ScriptorMod.registerParticleType("magic") {
-    object: ParticleType<MagicParticleData>(true) {
+    object : ParticleType<MagicParticleData>(true) {
       override fun codec(): MapCodec<MagicParticleData> {
         return MagicParticleData.CODEC
       }

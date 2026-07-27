@@ -28,8 +28,9 @@ import net.minecraft.world.level.block.entity.BaseContainerBlockEntity
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
 
-class WritingTableBlockEntity(blockPos: BlockPos, blockState: BlockState):
-  BaseContainerBlockEntity(ScriptorBlockEntities.WRITING_TABLE.get(), blockPos, blockState), WorldlyContainer, StackedContentsCompatible {
+class WritingTableBlockEntity(blockPos: BlockPos, blockState: BlockState) :
+  BaseContainerBlockEntity(ScriptorBlockEntities.WRITING_TABLE.get(), blockPos, blockState), WorldlyContainer,
+  StackedContentsCompatible {
   var tableItems: NonNullList<ItemStack>
 
   init {
@@ -76,7 +77,7 @@ class WritingTableBlockEntity(blockPos: BlockPos, blockState: BlockState):
 
   fun tick() {
     if (level == null || level!!.isClientSide) return
-    if(blockState.getValue(WritingTableBlock.BOOK) == dictionary.isEmpty)
+    if (blockState.getValue(WritingTableBlock.BOOK) == dictionary.isEmpty)
       level?.setBlockAndUpdate(blockPos, blockState.setValue(WritingTableBlock.BOOK, !dictionary.isEmpty))
   }
 
@@ -128,7 +129,7 @@ class WritingTableBlockEntity(blockPos: BlockPos, blockState: BlockState):
   }
 
   override fun getSlotsForFace(direction: Direction): IntArray {
-    return when(direction) {
+    return when (direction) {
       Direction.DOWN -> intArrayOf(BOOK_SLOT)
       Direction.UP -> intArrayOf(DICTIONARY_SLOT)
       else -> intArrayOf()
@@ -136,17 +137,17 @@ class WritingTableBlockEntity(blockPos: BlockPos, blockState: BlockState):
   }
 
   override fun canPlaceItemThroughFace(i: Int, itemStack: ItemStack, direction: Direction?): Boolean {
-    if(direction == null || i in getSlotsForFace(direction)) {
-      if(i == BOOK_SLOT && itemStack matches ScriptorTags.WRITABLE_SPELLBOOKS) return true
-      if(i == DICTIONARY_SLOT && itemStack matches ScriptorItems.DICTIONARY) return true
+    if (direction == null || i in getSlotsForFace(direction)) {
+      if (i == BOOK_SLOT && itemStack matches ScriptorTags.WRITABLE_SPELLBOOKS) return true
+      if (i == DICTIONARY_SLOT && itemStack matches ScriptorItems.DICTIONARY) return true
     }
     return false
   }
 
   override fun canTakeItemThroughFace(i: Int, itemStack: ItemStack, direction: Direction): Boolean {
-    if(i in getSlotsForFace(direction)) {
-      if(i == BOOK_SLOT && itemStack matches ScriptorTags.WRITABLE_SPELLBOOKS) return true
-      if(i == DICTIONARY_SLOT && itemStack matches ScriptorItems.DICTIONARY) return true
+    if (i in getSlotsForFace(direction)) {
+      if (i == BOOK_SLOT && itemStack matches ScriptorTags.WRITABLE_SPELLBOOKS) return true
+      if (i == DICTIONARY_SLOT && itemStack matches ScriptorItems.DICTIONARY) return true
     }
     return false
   }

@@ -8,10 +8,10 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import kotlin.math.ceil
 
-open class PhasingStatusEffect: MobEffect {
-  constructor(): super(MobEffectCategory.NEUTRAL, 0x2d0096)
+open class PhasingStatusEffect : MobEffect {
+  constructor() : super(MobEffectCategory.NEUTRAL, 0x2d0096)
 
-  constructor(mobEffectCategory: MobEffectCategory, i: Int): super(mobEffectCategory, i)
+  constructor(mobEffectCategory: MobEffectCategory, i: Int) : super(mobEffectCategory, i)
 
   override fun applyEffectTick(entity: LivingEntity, amplifier: Int): Boolean {
     if (entity is Player) phase(entity, 0)

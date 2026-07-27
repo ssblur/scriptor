@@ -12,8 +12,13 @@ import net.minecraft.world.item.Items
 import java.util.stream.Collectors
 import kotlin.math.roundToInt
 
-class BreakBlockAction: Action() {
-  override fun apply(caster: Targetable, targetable: Targetable, descriptors: Array<Descriptor>, spellData: MutableList<String>) {
+class BreakBlockAction : Action() {
+  override fun apply(
+    caster: Targetable,
+    targetable: Targetable,
+    descriptors: Array<Descriptor>,
+    spellData: MutableList<String>
+  ) {
     if (targetable.level.isClientSide) return
     var strength = 1.0
     for (d in descriptors) {

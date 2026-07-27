@@ -6,7 +6,7 @@ import com.ssblur.scriptor.helpers.targetable.Targetable
 import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.phys.AABB
 
-object NearbyItemDescriptor: Descriptor(), TargetDescriptor {
+object NearbyItemDescriptor : Descriptor(), TargetDescriptor {
   override fun modifyTargets(originalTargetables: List<Targetable>, owner: Targetable): List<Targetable> {
     return originalTargetables.flatMap {
       it.level.getEntitiesOfClass(

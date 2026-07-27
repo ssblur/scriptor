@@ -26,7 +26,7 @@ import net.minecraft.world.level.block.state.BlockState
 import kotlin.math.max
 import kotlin.math.roundToInt
 
-class CastingLecternBlockEntity(blockPos: BlockPos, blockState: BlockState):
+class CastingLecternBlockEntity(blockPos: BlockPos, blockState: BlockState) :
   BlockEntity(ScriptorBlockEntities.CASTING_LECTERN.get(), blockPos, blockState), Clearable {
   var items: NonNullList<ItemStack>
   var focusTarget: Int = 0

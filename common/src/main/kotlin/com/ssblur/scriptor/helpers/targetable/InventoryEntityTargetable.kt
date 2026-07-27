@@ -6,7 +6,7 @@ import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.animal.horse.AbstractHorse
 import net.minecraft.world.entity.player.Player
 
-class InventoryEntityTargetable @JvmOverloads constructor(entity: Entity?, var slot: Int, var isSelf: Boolean = false):
+class InventoryEntityTargetable @JvmOverloads constructor(entity: Entity?, var slot: Int, var isSelf: Boolean = false) :
   EntityTargetable(entity!!), InventoryTargetable {
   override val container: Container?
     get() {

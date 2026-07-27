@@ -14,7 +14,8 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.*
 import net.minecraft.world.item.ItemStack
 
-class WritingTableMenu(i: Int, val inventory: Inventory, val table: WritingTableBlockEntity? = null): AbstractContainerMenu(ScriptorMenus.WRITING_TABLE.get(), i) {
+class WritingTableMenu(i: Int, val inventory: Inventory, val table: WritingTableBlockEntity? = null) :
+  AbstractContainerMenu(ScriptorMenus.WRITING_TABLE.get(), i) {
   val containerData: ContainerData
   val dictionary: ItemStack
     get() = getSlot(DICTIONARY_SLOT).item
@@ -22,13 +23,13 @@ class WritingTableMenu(i: Int, val inventory: Inventory, val table: WritingTable
     get() = getSlot(BOOK_SLOT).item
   val pos: BlockPos
     get() {
-      if(table != null) return table.blockPos
+      if (table != null) return table.blockPos
       return BlockPos(containerData.get(X_SLOT), containerData.get(Y_SLOT), containerData.get(Z_SLOT))
     }
 
   init {
     val container = table ?: SimpleContainer(2)
-    this.addSlot(object: Slot(container, DICTIONARY_SLOT, 180, 105){
+    this.addSlot(object : Slot(container, DICTIONARY_SLOT, 180, 105) {
       override fun getNoItemIcon(): Pair<ResourceLocation, ResourceLocation> {
         return Pair(InventoryMenu.BLOCK_ATLAS, ScriptorMod.location("item/empty_dictionary_slot"))
       }
@@ -38,7 +39,7 @@ class WritingTableMenu(i: Int, val inventory: Inventory, val table: WritingTable
       }
     })
 
-    this.addSlot(object: Slot(container, BOOK_SLOT, 180, 129){
+    this.addSlot(object : Slot(container, BOOK_SLOT, 180, 129) {
       override fun getNoItemIcon(): Pair<ResourceLocation, ResourceLocation> {
         return Pair(InventoryMenu.BLOCK_ATLAS, ScriptorMod.location("item/empty_book_slot"))
       }
@@ -82,22 +83,22 @@ class WritingTableMenu(i: Int, val inventory: Inventory, val table: WritingTable
     val slot = slots[i]
     if (slot.hasItem()) {
       val item = slot.item
-      if(i > 1) {
-        if(
+      if (i > 1) {
+        if (
           item matches ScriptorTags.WRITABLE_SPELLBOOKS ||
           item matches ScriptorTags.READABLE_SPELLBOOKS ||
           item matches ScriptorItems.SCRAP.get()
-          ) {
-          if(moveItemStackTo(item, BOOK_SLOT, BOOK_SLOT + 1, false))
+        ) {
+          if (moveItemStackTo(item, BOOK_SLOT, BOOK_SLOT + 1, false))
             return item.copy()
           return ItemStack.EMPTY
-        } else if(item matches ScriptorItems.DICTIONARY.get()) {
-          if(moveItemStackTo(item, DICTIONARY_SLOT, DICTIONARY_SLOT + 1, false))
+        } else if (item matches ScriptorItems.DICTIONARY.get()) {
+          if (moveItemStackTo(item, DICTIONARY_SLOT, DICTIONARY_SLOT + 1, false))
             return item.copy()
           return ItemStack.EMPTY
         }
       } else {
-        if(moveItemStackTo(item, 2, 38, true))
+        if (moveItemStackTo(item, 2, 38, true))
           return item.copy()
         return ItemStack.EMPTY
       }
