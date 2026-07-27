@@ -257,5 +257,16 @@ class Spell(val subject: Subject?, vararg val spells: PartialSpell, val spellDat
     fun playFizzleSound(level: Level, pos: Vector3f) {
       playFizzleSound(level, Vec3(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble()))
     }
+
+    fun fizzle(level: Level, pos: BlockPos) {
+      ParticleNetwork.fizzle(level, pos)
+      playFizzleSound(level, Vec3(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble()))
+    }
+
+    @Suppress("unused")
+    fun fizzle(level: Level, pos: Vector3f) {
+      ParticleNetwork.fizzle(level, BlockPos(pos.x.roundToInt(), pos.y.roundToInt(), pos.z.roundToInt()))
+      playFizzleSound(level, Vec3(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble()))
+    }
   }
 }

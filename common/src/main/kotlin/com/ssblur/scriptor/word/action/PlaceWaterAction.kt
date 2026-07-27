@@ -3,6 +3,7 @@ package com.ssblur.scriptor.word.action
 import com.ssblur.scriptor.api.word.Action
 import com.ssblur.scriptor.api.word.Descriptor
 import com.ssblur.scriptor.helpers.targetable.Targetable
+import com.ssblur.scriptor.word.Spell
 import net.minecraft.world.level.block.Blocks
 
 class PlaceWaterAction : Action() {
@@ -18,6 +19,12 @@ class PlaceWaterAction : Action() {
     val level = targetable.level
 
     if (!level.getBlockState(pos).canBeReplaced()) return
+
+    if(level.dimensionType().ultraWarm) { // Nether / Nether-likes
+      Spell.fizzle(level, pos)
+      return
+    }
+
     level.setBlockAndUpdate(pos, Blocks.WATER.defaultBlockState())
   }
 }
