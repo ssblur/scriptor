@@ -133,6 +133,7 @@
   "subject.scriptor.meteor": "Target: Meteor",
 
   "descriptor.scriptor.long": "Descriptor: Long",
+  "descriptor.scriptor.recenter": "Descriptor: Retarget Caster",
   "descriptor.scriptor.longer": "Descriptor: Longer",
   "descriptor.scriptor.very_long": "Descriptor: Longest",
   "descriptor.scriptor.stacking_long": "Descriptor: Long (Stackable)",
