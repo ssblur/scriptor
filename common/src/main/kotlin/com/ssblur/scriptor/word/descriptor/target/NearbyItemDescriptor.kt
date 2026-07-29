@@ -11,8 +11,8 @@ object NearbyItemDescriptor : Descriptor(), TargetDescriptor {
     return originalTargetables.flatMap {
       it.level.getEntitiesOfClass(
         ItemEntity::class.java,
-        AABB.ofSize(it.targetPos, 1.5, 2.0, 1.5),
-      ) ?: listOf()
+        AABB.ofSize(it.offsetBlockPos.center, 2.0, 2.0, 2.0),
+      )
     }.filterNotNull().map {
       ItemEntityTargetable(it)
     }

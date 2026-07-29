@@ -2,19 +2,19 @@ package com.ssblur.scriptor.word.action
 
 import com.ssblur.scriptor.api.word.Action
 import com.ssblur.scriptor.api.word.Descriptor
+import com.ssblur.scriptor.helpers.DescriptorHelper.duration
+import com.ssblur.scriptor.helpers.DescriptorHelper.strength
 import com.ssblur.scriptor.helpers.ItemTargetableHelper
 import com.ssblur.scriptor.helpers.targetable.EntityTargetable
-import com.ssblur.scriptor.helpers.targetable.ItemTargetable
 import com.ssblur.scriptor.helpers.targetable.Targetable
-import com.ssblur.scriptor.word.descriptor.duration.DurationDescriptor
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
-import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.crafting.RecipeManager
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.item.crafting.SingleRecipeInput
 import net.minecraft.world.level.block.BaseFireBlock
+import kotlin.math.roundToInt
 
 class InflameAction : Action() {
   override fun apply(
@@ -23,49 +23,30 @@ class InflameAction : Action() {
     descriptors: Array<Descriptor>,
     spellData: MutableList<String>
   ) {
-    var seconds = 2.0
-    for (d in descriptors) {
-      if (d is DurationDescriptor) seconds += d.durationModifier()
-    }
+    val seconds = 2.0 + descriptors.duration()
+    val strength = 1.0 + descriptors.strength()
 
-    if (targetable is ItemTargetable && targetable.shouldTargetItem()) {
-      val check = RecipeManager.createCheck(RecipeType.SMELTING)
-      val recipe = check.getRecipeFor(SingleRecipeInput(targetable.targetItem), targetable.level)
-      if (recipe.isPresent && !recipe.get().value().ingredients.isEmpty() && recipe.get()
-          .value().ingredients[0].items.isNotEmpty()
-      ) {
-        val count = recipe.get().value().ingredients[0].items[0].count
-        targetable.targetItem.shrink(count)
-
-        val pos = targetable.targetPos
-        val entity = ItemEntity(
-          targetable.level,
-          pos.x(),
-          pos.y() + 1,
-          pos.z(),
-          recipe.get().value().getResultItem(targetable.level.registryAccess())
-        )
-        caster.level.addFreshEntity(entity)
-      }
-      return
-    }
-
-    val itemTarget = ItemTargetableHelper.getTargetItemStack(targetable)
-    if (!itemTarget.isEmpty) {
-      val check = RecipeManager.createCheck(RecipeType.SMELTING)
-      val recipe = check.getRecipeFor(SingleRecipeInput(itemTarget), targetable.level)
-      if (recipe.isPresent && recipe.get().value().ingredients.size > 0 && recipe.get()
-          .value().ingredients[0].items.isNotEmpty()
-      ) {
-        val count = recipe.get().value().ingredients[0].items[0].count
-        itemTarget.shrink(count)
-        ItemTargetableHelper.depositItemStack(
-          targetable,
-          recipe.get().value().getResultItem(targetable.level.registryAccess())
-        )
-        return
+    var exit = false
+    (1..strength.roundToInt().coerceAtLeast(1)).forEach { _ ->
+      val itemTarget = ItemTargetableHelper.getTargetItemStack(targetable)
+      if (!itemTarget.isEmpty) {
+        exit = true
+        val check = RecipeManager.createCheck(RecipeType.SMELTING)
+        val recipe = check.getRecipeFor(SingleRecipeInput(itemTarget.copy()), targetable.level)
+        if (
+          recipe.isPresent && recipe.get().value().ingredients.isNotEmpty() &&
+          recipe.get().value().ingredients[0].items.isNotEmpty()
+        ) {
+          val count = recipe.get().value().ingredients[0].items[0].count
+          itemTarget.shrink(count)
+          ItemTargetableHelper.depositItemStack(
+            targetable,
+            recipe.get().value().getResultItem(targetable.level.registryAccess()).copy()
+          )
+        }
       }
     }
+    if(exit) return
 
     if (targetable is EntityTargetable) {
       targetable.targetEntity.remainingFireTicks = Math.round(seconds * 20).toInt()
