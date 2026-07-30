@@ -4,8 +4,8 @@ pluginManagement {
     maven { url "https://maven.architectury.dev/" }
     maven { url "https://files.minecraftforge.net/maven/" }
     mavenLocal()
-    maven { url "https://mvn.blur.lol/snapshots" }
-    maven { url "https://mvn.blur.lol/releases" }
+    maven { url "https://mvn.blur.gay/snapshots" }
+    maven { url "https://mvn.blur.gay/releases" }
     gradlePluginPortal()
     mavenCentral()
   }
