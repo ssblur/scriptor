@@ -14,7 +14,7 @@ public class PlayerMixin {
     @Inject(method = "updateSwimming", at = @At("TAIL"))
     private void scriptor$updateSwimming(CallbackInfo ci) {
         var self = (Entity) (Object) this;
-        if(self.level().getBlockStates(self.getBoundingBox()).anyMatch(state ->
+        if(self.level().getBlockStates(self.getBoundingBox()).limit(4).anyMatch(state ->
                 state.is(ScriptorBlocks.INSTANCE.getPHASED_BLOCK().get())
         )) self.setSwimming(self.isSprinting() && !self.isPassenger());
     }
@@ -23,8 +23,8 @@ public class PlayerMixin {
     private void scriptor$travel(Vec3 vec3, CallbackInfo ci) {
         var self = (Player) (Object) this;
         var jumping = (LivingEntityAccessor) self;
-        if(self.level().getBlockStates(self.getBoundingBox()).noneMatch(state ->
-                state.is(ScriptorBlocks.INSTANCE.getPHASED_BLOCK().get())
+        if(self.level().getBlockStates(self.getBoundingBox()).limit(4).noneMatch(state ->
+            state.is(ScriptorBlocks.INSTANCE.getPHASED_BLOCK().get())
         )) return;
 
         if (jumping.isJumping()) {

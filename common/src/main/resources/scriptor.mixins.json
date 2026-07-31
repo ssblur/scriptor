@@ -8,6 +8,7 @@
     "BlockPlaceContextAccessor",
     "CropBlockMixin",
     "DimensionDataStorageAccessor",
+    "EntityAccessor",
     "EntityMixin",
     "EvokerAttackSpellGoalMixin",
     "EvokerSummonSpellGoalMixin",

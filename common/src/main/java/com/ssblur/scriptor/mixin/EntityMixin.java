@@ -5,16 +5,17 @@ import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Entity.class)
 public class EntityMixin {
-    @Inject(method = "isInWater", cancellable = true, at = @At("RETURN"))
-    private void scriptor$isInWater(CallbackInfoReturnable<Boolean> cir) {
-        if(cir.getReturnValue() == true) return;
+    @Inject(method = "updateInWaterStateAndDoWaterCurrentPushing", at = @At("RETURN"))
+    private void scriptor$updateInWaterStateAndDoWaterCurrentPushing(CallbackInfo ci) {
         var self = (Entity) (Object) this;
+        var accessor = (EntityAccessor) self;
+        if(accessor.getWasTouchingWater()) return;
         if(self.level().getBlockStates(self.getBoundingBox()).anyMatch(state ->
             state.is(ScriptorBlocks.INSTANCE.getPHASED_BLOCK().get())
-        )) cir.setReturnValue(true);
+        )) accessor.setWasTouchingWater(true);
     }
 }
