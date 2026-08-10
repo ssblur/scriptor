@@ -4,12 +4,11 @@
   "item": "scriptor:spellbook_yellow",
   "tier": 3,
   "spell": {
-    "subject": "projectile",
+    "subject": "hitscan",
     "spells": [
       {
-        "action": "hitscan",
+        "action": "smite",
         "descriptors": [
-          "smite",
           "unreliable",
           "overwhelming"
         ]
