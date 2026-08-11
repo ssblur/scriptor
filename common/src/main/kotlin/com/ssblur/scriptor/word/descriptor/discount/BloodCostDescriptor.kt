@@ -13,9 +13,7 @@ class BloodCostDescriptor : Descriptor(), CastDescriptor {
   override fun cannotCast(caster: Targetable?): Boolean {
     if (caster is EntityTargetable && caster.targetEntity is LivingEntity) {
       val living = caster.targetEntity as LivingEntity
-      living.invulnerableTime = 0
       living.hurt(sacrifice(living), 1.0f)
-      living.invulnerableTime = 0
       return !living.isAlive()
     }
     return true
