@@ -256,6 +256,7 @@ class TextField(
   override fun charTyped(c: Char, i: Int): Boolean {
     if (editable && isFocused) {
       if (cursor.i > text.length) moveCursorToIndex(text.length)
+      if (cursor.i < 0) moveCursorToIndex(0)
       text = text.substring(0, cursor.i) + c + text.substring(cursor.i, text.length)
       moveCursorToIndex(cursor.i + 1)
       if (cursor.y > scrollOffset + 7) scrollOffset = cursor.y - 7
