@@ -243,7 +243,10 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
         false,
         commandsAllowed = true
       )
-    ).setColor(0, 0, 0)
+    ).let {
+      it.setColor(0, 0, 0)
+//      it.pageButtons = true
+    }
   }
 
 //  fun addEntriesWidget() {
