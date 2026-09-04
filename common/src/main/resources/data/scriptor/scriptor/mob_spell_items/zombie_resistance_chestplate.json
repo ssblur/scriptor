@@ -11,7 +11,7 @@
       }
     ]
   },
-  "item": "minecraft:iron_helmet",
+  "item": "minecraft:iron_chestplate",
   "mob": "minecraft:zombie",
   "chance": 0.05,
   "slot": "CHEST",
