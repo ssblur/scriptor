@@ -18,11 +18,7 @@ object ScriptorDamage {
   fun sacrifice(entity: Entity): DamageSource {
     val level = entity.level()
     return level.registryAccess().registry(Registries.DAMAGE_TYPE).map { damageTypes: Registry<DamageType> ->
-      DamageSource(
-        damageTypes.getHolderOrThrow(
-          SACRIFICE
-        ), entity
-      )
+      DamageSource(damageTypes.getHolderOrThrow(SACRIFICE), entity.position())
     }.orElseThrow()
   }
 
