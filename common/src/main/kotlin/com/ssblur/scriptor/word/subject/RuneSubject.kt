@@ -63,5 +63,5 @@ class RuneSubject : Subject(), InventorySubject {
     // add a one-time cast
   }
 
-  override fun canBeCastOnInventory() = true
+  override fun canBeCastOnInventory() = false
 }
