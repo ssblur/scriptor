@@ -392,6 +392,7 @@ class DictionarySavedData : SavedData {
     }
 
     for (partialSpell in Arrays.stream(spell.spells).skip(1).toList()) {
+      builder.append(sp).append(getWord("other:and")!!)
       for (w in spellStructure) {
         if (w == WORD.ACTION) {
           builder.append(sp).append(
