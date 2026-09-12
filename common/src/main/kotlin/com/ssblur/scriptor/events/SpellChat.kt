@@ -63,10 +63,10 @@ object SpellChat {
     val spell = computeIfAbsent(level).parse(sentence)
     if (spell != null) {
       if (!entity.canCast(spell)) {
-        player?.sendSystemMessage(Component.translatable("extra.scriptor.hoarse"))
+        player?.displayClientMessage(Component.translatable("extra.scriptor.hoarse"), true)
         return true
       } else if (living?.hasEffect(MUTE.ref()) == true) {
-        player?.sendSystemMessage(Component.translatable("extra.scriptor.mute"))
+        player?.displayClientMessage(Component.translatable("extra.scriptor.mute"), true)
         return true
       }
 
@@ -80,7 +80,7 @@ object SpellChat {
       cost = ((cost.toFloat()) * costScale).roundToInt()
 
       if (ScriptorConfig.VOCAL_MAX_COST() in 0..<cost)
-        player?.sendSystemMessage(Component.translatable("extra.scriptor.mute"))
+        player?.displayClientMessage(Component.translatable("extra.scriptor.mute"), true)
 
       val adjustedCost = (cost * (ScriptorConfig.VOCAL_COOLDOWN_MULTIPLIER() / 100.0)).roundToInt()
       if (player?.isCreative != true) {

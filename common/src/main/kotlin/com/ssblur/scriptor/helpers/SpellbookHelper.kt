@@ -114,7 +114,7 @@ object SpellbookHelper {
       spell.deduplicatedDescriptorsForSubjects()
       spell.playSound(level, player.blockPosition())
       if (!player.canCast(spell, adjustedCostMultiplier * 49)) {
-        player.sendSystemMessage(Component.translatable("extra.scriptor.fizzle"))
+        player.displayClientMessage(Component.translatable("extra.scriptor.fizzle"), true)
         ScriptorAdvancements.FIZZLE.get().trigger(player as ServerPlayer)
         if (!player.isCreative && player.castCooldown <= 0)
           cooldownFunc(player, 40)
