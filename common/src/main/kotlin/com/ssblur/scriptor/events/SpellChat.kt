@@ -15,6 +15,8 @@ import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
+import net.minecraft.world.entity.Entity
+import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import java.util.function.Predicate
 import kotlin.math.roundToInt
@@ -54,21 +56,23 @@ object SpellChat {
     }
   }
 
-  fun castFromChat(player: Player, level: ServerLevel, sentence: String): Boolean {
+  fun castFromChat(entity: Entity, level: ServerLevel, sentence: String): Boolean {
     if (!ScriptorConfig.CHAT_CAST_ENABLED()) return false
+    val player = entity as? Player
+    val living = entity as? LivingEntity
     val spell = computeIfAbsent(level).parse(sentence)
     if (spell != null) {
-      if (!player.canCast(spell)) {
-        player.sendSystemMessage(Component.translatable("extra.scriptor.hoarse"))
+      if (!entity.canCast(spell)) {
+        player?.sendSystemMessage(Component.translatable("extra.scriptor.hoarse"))
         return true
-      } else if (player.hasEffect(MUTE.ref())) {
-        player.sendSystemMessage(Component.translatable("extra.scriptor.mute"))
+      } else if (living?.hasEffect(MUTE.ref()) == true) {
+        player?.sendSystemMessage(Component.translatable("extra.scriptor.mute"))
         return true
       }
 
       var cost = (spell.cost() * 30).roundToInt()
       var costScale = 1.0f
-      for (instance in player.activeEffects)
+      for (instance in living?.activeEffects ?: listOf())
         if (instance.effect.value() is EmpoweredStatusEffect)
           (0..instance.amplifier).forEach { _ ->
             costScale *= (instance.effect.value() as EmpoweredStatusEffect).scale
@@ -76,22 +80,22 @@ object SpellChat {
       cost = ((cost.toFloat()) * costScale).roundToInt()
 
       if (ScriptorConfig.VOCAL_MAX_COST() in 0..<cost)
-        player.sendSystemMessage(Component.translatable("extra.scriptor.mute"))
+        player?.sendSystemMessage(Component.translatable("extra.scriptor.mute"))
 
       val adjustedCost = (cost * (ScriptorConfig.VOCAL_COOLDOWN_MULTIPLIER() / 100.0)).roundToInt()
-      if (!player.isCreative) {
-        player.castCooldown = adjustedCost * 10L
+      if (player?.isCreative != true) {
+        entity.castCooldown = adjustedCost * 10L
         if (adjustedCost > ScriptorConfig.VOCAL_HUNGER_THRESHOLD())
-          player.addEffect(
+          living?.addEffect(
             MobEffectInstance(
               MobEffects.HUNGER,
               2 * (adjustedCost - ScriptorConfig.VOCAL_HUNGER_THRESHOLD())
             )
           )
         if (adjustedCost > ScriptorConfig.VOCAL_DAMAGE_THRESHOLD())
-          player.hurt(overload(player)!!, (adjustedCost - ScriptorConfig.VOCAL_DAMAGE_THRESHOLD() * 0.75f) / 100f)
+          living?.hurt(overload(living)!!, (adjustedCost - ScriptorConfig.VOCAL_DAMAGE_THRESHOLD() * 0.75f) / 100f)
       }
-      if (player.health > 0) spell.cast(EntityTargetable(player))
+      if ((living?.health ?: 0f) > 0) spell.cast(EntityTargetable(entity))
       if (!ScriptorConfig.SHOW_SPELLS_IN_CHAT()) return true
     }
     return false

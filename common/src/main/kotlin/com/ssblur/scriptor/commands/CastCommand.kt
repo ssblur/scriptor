@@ -12,7 +12,7 @@ import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
-import net.minecraft.world.entity.player.Player
+import net.minecraft.world.entity.Entity
 
 @Suppress("unused_parameter")
 object CastCommand {
@@ -36,9 +36,9 @@ object CastCommand {
       return 0
     }
 
-    if (command.source.entity is Player) {
-      val player = command.source.entity as Player
-      SpellChat.castFromChat(player, player.level() as ServerLevel, command.getArgument("spell", String::class.java))
+    if (command.source.entity is Entity) {
+      val entity = command.source.entity as Entity
+      SpellChat.castFromChat(entity, entity.level() as ServerLevel, command.getArgument("spell", String::class.java))
     }
     return Command.SINGLE_SUCCESS
   }
