@@ -15,7 +15,9 @@ import com.ssblur.unfocused.screen.widget.PlainTextWidget
 import com.ssblur.unfocused.screen.widget.TextEntryWidget
 import net.minecraft.ChatFormatting
 import net.minecraft.client.Minecraft
+import net.minecraft.client.gui.ComponentPath
 import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.components.events.GuiEventListener
 import net.minecraft.client.resources.language.I18n
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
@@ -35,6 +37,7 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
   //  var guideCategory: String? = null
   var searchTerm = ""
   var bookMemory = abstractContainerMenu.dictionary.hashCode()
+  var focusNextFrame: GuiEventListener? = null
 
   override fun init() {
     UnfocusedBookScreen.backAction = {
@@ -123,6 +126,10 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
         )
         contents.setColor(0, 0, 0)
 
+        searchTerm = ""
+        contents.markdownText = entryMarkdown()
+        contents.scroll = 0.0
+
         val entry = add(TextEntryWidget(leftPos + 22, topPos + 22, 221, 12, true))
         entry.color = 0xffffffffu
         entry.cursorColor = 0xffddddddu
@@ -134,6 +141,9 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
           contents.markdownText = entryMarkdown()
           contents.scroll = 0.0
         }
+        entry.cursorIndex = 0
+        focusNextFrame = entry
+
 
         add(
           ButtonWidget(leftPos + 20, topPos + 170, 225, 24, Component.translatable("extra.scriptor.back")) {
@@ -141,6 +151,8 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
             rebuildWidgets()
           }
         )
+
+
       }
 
       SUBSCREENS.OBSERVED_SPELLS -> {
@@ -177,6 +189,12 @@ class DictionaryScreen(abstractContainerMenu: DictionaryMenu, inventory: Invento
   }
 
   override fun render(guiGraphics: GuiGraphics, i: Int, j: Int, f: Float) {
+    focusNextFrame?.let {
+      ComponentPath.path(this, ComponentPath.leaf(it))?.let {
+        changeFocus(it)
+      }
+      focusNextFrame = null
+    }
     if (menu.dictionary.hashCode() != bookMemory) {
       bookMemory = menu.dictionary.hashCode()
       rebuildWidgets()
