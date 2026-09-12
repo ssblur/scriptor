@@ -36,18 +36,12 @@ class BoundToolAction(var item: Supplier<Item>, var tags: List<TagKey<Block>>) :
 
     val itemStack = ItemStack(item.get())
 
-    itemStack.set(DataComponents.DYED_COLOR, DyedItemColor(getColor(descriptors), false))
-    itemStack.set(
-      ScriptorDataComponents.EXPIRES, caster.level.gameTime + floor(duration * 80)
-        .toLong()
-    )
+    itemStack[DataComponents.DYED_COLOR] = DyedItemColor(getColor(descriptors), false)
+    itemStack[ScriptorDataComponents.EXPIRES] = caster.level.gameTime + floor(duration * 80).toLong()
     val finalStrength = (strength * 0.666f).toInt()
     val finalToolLevel = finalStrength / 2
-    itemStack.set(ScriptorDataComponents.TOOL_MINING_LEVEL, finalToolLevel)
-    itemStack.update(
-      DataComponents.TOOL,
-      Tool(listOf<Tool.Rule>(), 1f, 1)
-    ) { tool: Tool ->
+    itemStack[ScriptorDataComponents.TOOL_MINING_LEVEL] = finalToolLevel
+    itemStack[DataComponents.TOOL] = Tool(listOf<Tool.Rule>(), 1f, 1).let {
       val rules: MutableList<Tool.Rule> = ArrayList()
       if (finalToolLevel < 1) rules.add(Tool.Rule.deniesDrops(NEEDS_STONE_TOOL))
       if (finalToolLevel < 2) rules.add(Tool.Rule.deniesDrops(NEEDS_IRON_TOOL))
@@ -58,7 +52,7 @@ class BoundToolAction(var item: Supplier<Item>, var tags: List<TagKey<Block>>) :
         tags.stream().map { Tool.Rule.minesAndDrops(it, finalStrength.toFloat()) }
           .toList()
       )
-      Tool(rules, 1f, tool.damagePerBlock())
+      Tool(rules, 1f, it.damagePerBlock())
     }
 
     ItemTargetableHelper.depositItemStack(targetable, itemStack)
