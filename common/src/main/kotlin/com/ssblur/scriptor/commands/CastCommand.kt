@@ -23,7 +23,6 @@ object CastCommand {
   ) {
     dispatcher.register(
       Commands.literal("cast")
-        .requires { s: CommandSourceStack -> s.hasPermission(2) }
         .then(Commands.argument("spell", StringArgumentType.greedyString()).executes { execute(it) })
         .executes { noSpell(it) }
     )
