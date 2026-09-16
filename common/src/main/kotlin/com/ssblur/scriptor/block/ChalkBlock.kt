@@ -10,6 +10,7 @@ import com.ssblur.scriptor.item.ScriptorItems
 import com.ssblur.unfocused.extension.BlockEntityTypeExtension.create
 import com.ssblur.unfocused.extension.ItemStackExtension.matches
 import net.minecraft.core.BlockPos
+import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.ItemInteractionResult
@@ -67,6 +68,8 @@ open class ChalkBlock : Block, EntityBlock {
     if (itemStack matches ScriptorItems.DICTIONARY.get()) {
       val data = itemStack[ScriptorDataComponents.DICTIONARY_DATA] ?: DictionaryData(listOf())
       itemStack[ScriptorDataComponents.DICTIONARY_DATA] = data.withWord(blockEntity.word)
+      if(!level.isClientSide && data.values.size != itemStack[ScriptorDataComponents.DICTIONARY_DATA]?.values?.size)
+        player.sendSystemMessage(Component.translatable("extra.scriptor.chalk_rubbing"))
       return ItemInteractionResult.SUCCESS
     }
     return super.useItemOn(itemStack, blockState, level, blockPos, player, interactionHand, blockHitResult)
