@@ -11,7 +11,7 @@
   },
   "item": "minecraft:iron_helmet",
   "mob": "minecraft:zombie",
-  "chance": 0.05,
+  "chance": 0.005,
   "slot": "HEAD",
   "rarity": "UNCOMMON"
 }

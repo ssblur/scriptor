@@ -11,7 +11,7 @@
   },
   "item": "minecraft:stone_sword",
   "mob": "minecraft:pillager",
-  "chance": 0.3,
+  "chance": 0.1,
   "slot": "MAINHAND",
   "rarity": "COMMON"
 }
