@@ -46,7 +46,7 @@ class DictionarySavedData : SavedData {
       WORD.valueOf(
         name!!
       )
-    }.toList()
+    }.toList().toMutableList()
     this.words = HashBiMap.create()
     for (pair in words) this.words[pair.first] = pair.second
 
@@ -136,7 +136,7 @@ class DictionarySavedData : SavedData {
   constructor() {
     val basicStructure = arrayOf(WORD.SUBJECT, WORD.ACTION, WORD.DESCRIPTOR)
     val structure = listOf(*basicStructure)
-    if (!COMMUNITY_MODE) Collections.shuffle(structure)
+    if (!COMMUNITY_MODE) structure.shuffled()
 
     spellStructure = ArrayList()
     spellStructure.addAll(structure)
@@ -346,7 +346,7 @@ class DictionarySavedData : SavedData {
         .append(getWord(descriptor)?.let { Component.literal(it) } ?: getFakeWord())
       sp = " "
       if (descriptor?.consumesNextWord() == true) {
-        component.append(sp).append(spellData.removeFirst())
+        component.append(spellData.removeFirst())
       }
     }
     return component
@@ -399,7 +399,7 @@ class DictionarySavedData : SavedData {
             getWord(partialSpell.action)?.let { Component.literal(it) } ?: getFakeWord()
           )
           if (partialSpell.action?.consumesNextWord() == true) {
-            builder.append(sp).append(spellData.removeFirst())
+            builder.append(sp).append(spellData.removeFirst()).append(sp)
           }
         } else if (w == WORD.DESCRIPTOR)
           builder.append(generateDescriptorString(partialSpell.deduplicatedDescriptors(), spellData))

@@ -1,0 +1,33 @@
+{
+  "name": "tome.scriptor.graffiti",
+  "author": "H., Juni",
+  "item": "scriptor:spellbook_light_blue",
+  "tier": 2,
+  "spell": {
+    "subject": "touch",
+    "spells": [
+      {
+        "action": "write",
+        "descriptors": []
+      },
+      {
+        "action": "write",
+        "descriptors": [
+          "move_right"
+        ]
+      },
+      {
+        "action": "write",
+        "descriptors": [
+          "move_right",
+          "move_right"
+        ]
+      }
+    ],
+    "spell_data": [
+      "Juni",
+      "was",
+      "here"
+    ]
+  }
+}
