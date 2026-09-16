@@ -100,6 +100,7 @@ object SpellbookHelper {
     costMultiplier: Int? = null,
     cooldownFunc: (Player, Int) -> Unit = ::addCooldown,
     targetOverride: List<Targetable>? = null,
+    succeedOnFizzle: Boolean = true
   ): Boolean {
     val adjustedCostMultiplier = (costMultiplier ?: ScriptorConfig.TOME_COOLDOWN_MULTIPLIER()).toDouble() / 100.0
     val level = player.level()
@@ -118,7 +119,7 @@ object SpellbookHelper {
         ScriptorAdvancements.FIZZLE.get().trigger(player as ServerPlayer)
         if (!player.isCreative && player.castCooldown <= 0)
           cooldownFunc(player, 40)
-        return true
+        return succeedOnFizzle
       }
 
       val subject = SpellbookTargetable(itemStack, player, player.inventory.selected)

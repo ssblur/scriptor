@@ -41,7 +41,8 @@ class SpellScroll(properties: Properties) : WrittenBookItem(properties) {
       costMultiplier = ScriptorConfig.SCROLL_COOLDOWN_MULTIPLIER(),
       cooldownFunc = { ply, time ->
         ply.castCooldown = time * 5L
-      }
+      },
+      succeedOnFizzle = false
     )
     if (result) {
       player.getItemInHand(interactionHand).shrink(1)
