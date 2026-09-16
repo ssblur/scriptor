@@ -50,6 +50,7 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
       it.placeholder = "Search..."
       it.placeholderColor = 0xffaaaaaau
       it.cursorColor = 0xffddddddu
+      it.text = searchText
       it.onTextUpdate = { _, text ->
         searchText = text
         entriesOffset = 0
