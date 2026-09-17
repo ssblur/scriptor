@@ -40,6 +40,7 @@
     "scriptor:scrap_tier1",
     "scriptor:scrap_tier2",
     "scriptor:scrap_tier3",
-    "scriptor:scrap"
+    "scriptor:scrap",
+    "minecraft:shield"
   ]
 }
