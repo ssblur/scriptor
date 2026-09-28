@@ -3,6 +3,7 @@ package com.ssblur.scriptor.screen.menu
 import com.mojang.datafixers.util.Pair
 import com.ssblur.scriptor.ScriptorMod
 import com.ssblur.scriptor.blockentity.WritingTableBlockEntity
+import com.ssblur.scriptor.data.components.ScriptorDataComponents
 import com.ssblur.scriptor.item.ScriptorItems
 import com.ssblur.scriptor.item.ScriptorTags
 import com.ssblur.unfocused.extension.ItemStackExtension.matches
@@ -48,6 +49,7 @@ class WritingTableMenu(i: Int, val inventory: Inventory, val table: WritingTable
         return itemStack matches ScriptorTags.WRITABLE_SPELLBOOKS
             || itemStack matches ScriptorTags.SPELLBOOKS
             || itemStack matches ScriptorItems.SCRAP.get()
+            || itemStack[ScriptorDataComponents.SPELL] != null
       }
     })
 
@@ -84,19 +86,9 @@ class WritingTableMenu(i: Int, val inventory: Inventory, val table: WritingTable
     if (slot.hasItem()) {
       val item = slot.item
       if (i > 1) {
-        if (
-          item matches ScriptorTags.WRITABLE_SPELLBOOKS ||
-          item matches ScriptorTags.READABLE_SPELLBOOKS ||
-          item matches ScriptorItems.SCRAP.get()
-        ) {
-          if (moveItemStackTo(item, BOOK_SLOT, BOOK_SLOT + 1, false))
-            return item.copy()
-          return ItemStack.EMPTY
-        } else if (item matches ScriptorItems.DICTIONARY.get()) {
-          if (moveItemStackTo(item, DICTIONARY_SLOT, DICTIONARY_SLOT + 1, false))
-            return item.copy()
-          return ItemStack.EMPTY
-        }
+        if (moveItemStackTo(item, DICTIONARY_SLOT, BOOK_SLOT + 1, false))
+          return item.copy()
+        return ItemStack.EMPTY
       } else {
         if (moveItemStackTo(item, 2, 38, true))
           return item.copy()

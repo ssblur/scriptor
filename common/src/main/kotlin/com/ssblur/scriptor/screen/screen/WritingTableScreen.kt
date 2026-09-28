@@ -263,12 +263,18 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
   }
 
   private fun load(): Boolean {
-    if (hasReadableBook())
+    if (hasReadableBook()) {
       lastBook[DataComponents.WRITTEN_BOOK_CONTENT]?.let { text ->
         textField.text = LimitedBookSerializer.decodeText(text)
         textField.editable = false
         return true
       }
+      lastBook[ScriptorDataComponents.SPELL]?.let { text ->
+        textField.text = text
+        textField.editable = false
+        return true
+      }
+    }
     if (hasWritableBook()) {
       when (val text = lastBook[DataComponents.WRITABLE_BOOK_CONTENT]) {
         null -> textField.text = ""
@@ -284,6 +290,7 @@ class WritingTableScreen(menu: WritingTableMenu, val inventory: Inventory, compo
 
   private fun hasWritableBook() = menu.book matches ScriptorTags.WRITABLE_SPELLBOOKS
   private fun hasReadableBook() = menu.book matches ScriptorTags.READABLE_SPELLBOOKS
+      || menu.book[ScriptorDataComponents.SPELL] != null
   private fun hasDictionary() = menu.dictionary matches ScriptorItems.DICTIONARY.get()
 
   override fun mouseClicked(d: Double, e: Double, i: Int): Boolean {
