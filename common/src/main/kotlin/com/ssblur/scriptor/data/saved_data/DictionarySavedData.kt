@@ -135,8 +135,8 @@ class DictionarySavedData : SavedData {
 
   constructor() {
     val basicStructure = arrayOf(WORD.SUBJECT, WORD.ACTION, WORD.DESCRIPTOR)
-    val structure = listOf(*basicStructure)
-    if (!COMMUNITY_MODE) structure.shuffled()
+    var structure = listOf(*basicStructure)
+    if (!COMMUNITY_MODE) structure = structure.shuffled()
 
     spellStructure = ArrayList()
     spellStructure.addAll(structure)
